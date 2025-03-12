@@ -1,5 +1,5 @@
-# Note For Reviewers
-If you are interested in reviewing OntoGSN, please consult the OntoGSN Design Document.docx for further instructions. Thank you!
+# Note For Potential Reviewers
+If you are interested in reviewing the OntoGSN before we publish on it (ETA: November 2025), please reach out to me directly. Thank you!
 
 # Introduction
 OntoGSN is an ontology for managing GSN assurance cases dynamically, using the advantages of the semantic technology stack. 
@@ -31,3 +31,6 @@ Note: Depending on the chosen editor, you can edit the ontology manually in the 
 4. Create queries to "hook" the elements to runtime processes and data (i.e., actual evidence).
 5. Define rules for evaluating evidence (e.g., exceptions, errors, failure).
 6. Set up a script or a scheduled job to run the queries and the reasoner in sequence.
+
+# Acknowledgements
+Many thanks 
