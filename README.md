@@ -1,5 +1,5 @@
 ## Note For Potential Reviewers
-If you are interested in reviewing the OntoGSN before we publish on it (ETA: November 2025), please reach out to me directly. Thank you!
+If you are interested in reviewing the OntoGSN before we submit a paper on it (ETA: mid-May 2025), please provide your comments in the OntoGSN Design Document (PDF) and reach out to me directly at momcilovic [at] fortiss [dot] org. Thank you!
 
 # Introduction
 OntoGSN is an ontology for managing GSN assurance cases dynamically, using the advantages of the semantic technology stack. 
