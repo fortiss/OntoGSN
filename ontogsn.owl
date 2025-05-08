@@ -187,6 +187,7 @@
 
     <owl:AnnotationProperty rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#coreOrExtension">
         <rdfs:label xml:lang="en">core or extension</rdfs:label>
+        <skos:definition xml:lang="en">Indicator of the sourcing section in the GSN Community Standard v3.</skos:definition>
     </owl:AnnotationProperty>
     
 
@@ -312,9 +313,8 @@
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Context"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
                     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#RelationshipWithConfidence"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Solution"/>
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
@@ -348,15 +348,7 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
-        <rdfs:range>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Relationship"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:range>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
         <coreOrExtension xml:lang="en">Dialectic Extension</coreOrExtension>
         <renderedAs>dashed line with an open arrowhead</renderedAs>
         <rdfs:label xml:lang="en">challenges</rdfs:label>
@@ -396,16 +388,25 @@
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#contains -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#contains">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Module"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#AssuranceCase"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Module"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
         <rdfs:range>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
                     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Artefact"/>
                     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Module"/>
                 </owl:unionOf>
             </owl:Class>
         </rdfs:range>
-        <coreOrExtension xml:lang="en">Modular Extension</coreOrExtension>
+        <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <rdfs:label xml:lang="en">contains</rdfs:label>
     </owl:ObjectProperty>
     
@@ -449,14 +450,24 @@
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
                     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
         <rdfs:range rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Pattern"/>
         <coreOrExtension xml:lang="en">Argument Pattern Extension</coreOrExtension>
         <rdfs:label xml:lang="en">instantiation of</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#refersTo -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#refersTo">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Artefact"/>
+        <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
+        <rdfs:label xml:lang="en">refers to</rdfs:label>
     </owl:ObjectProperty>
     
 
@@ -679,8 +690,7 @@
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
                     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Relationship"/>
                 </owl:unionOf>
             </owl:Class>
@@ -712,9 +722,8 @@
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
                     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#AssuranceCase"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
                     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Relationship"/>
                 </owl:unionOf>
             </owl:Class>
@@ -759,6 +768,17 @@
         <coreOrExtension xml:lang="en">Argument Pattern Extension</coreOrExtension>
         <renderedAs>solid ball</renderedAs>
         <rdfs:label xml:lang="en">multiple</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#offDiagram -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#offDiagram">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
+        <rdfs:label xml:lang="en">off-diagram</rdfs:label>
     </owl:DatatypeProperty>
     
 
@@ -852,12 +872,7 @@
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
                     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Assumption"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Context"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Goal"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Justification"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Solution"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Strategy"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
@@ -909,14 +924,7 @@
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#true -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#true">
-        <rdfs:domain>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:domain>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <rdfs:label xml:lang="en">true</rdfs:label>
@@ -947,14 +955,7 @@
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#uninstantiated -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#uninstantiated">
-        <rdfs:domain>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:domain>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
         <coreOrExtension xml:lang="en">Argument Pattern Extension</coreOrExtension>
         <renderedAs>hollow triangle</renderedAs>
@@ -966,14 +967,7 @@
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#valid -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#valid">
-        <rdfs:domain>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:domain>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <rdfs:label xml:lang="en">valid</rdfs:label>
@@ -1022,18 +1016,11 @@
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument">
-        <rdfs:subClassOf rdf:nodeID="genid100"/>
+        <rdfs:subClassOf rdf:nodeID="genid83"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#contains"/>
-                <owl:allValuesFrom>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-                        </owl:unionOf>
-                    </owl:Class>
-                </owl:allValuesFrom>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -1049,18 +1036,25 @@
                 <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <owl:disjointWith rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <rdfs:label xml:lang="en">Argument</rdfs:label>
         <skos:definition xml:lang="en">A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information.</skos:definition>
         <skos:definition xml:lang="en">A connected series of claims intended to establish an overall claim.</skos:definition>
     </owl:Class>
-    <owl:Class rdf:nodeID="genid100">
+    <owl:Class rdf:nodeID="genid83">
         <owl:unionOf rdf:parseType="Collection">
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#contains"/>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Goal"/>
-            </owl:Restriction>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#contains"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#contains"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Goal"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#statement"/>
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
@@ -1070,32 +1064,29 @@
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid100"/>
+        <owl:annotatedTarget rdf:nodeID="genid83"/>
         <coreOrExtension>Confidence Argument Extension</coreOrExtension>
         <skos:definition xml:lang="en">The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module.</skos:definition>
     </owl:Axiom>
     
 
 
+    <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Artefact -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Artefact">
+        <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
+        <rdfs:label xml:lang="en">Artefact</rdfs:label>
+        <skos:altLabel xml:lang="en">Evidence</skos:altLabel>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference">
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://schema.org/identifier"/>
-                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://schema.org/identifier"/>
-                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
-                <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <rdfs:label xml:lang="en">Artefact Reference</rdfs:label>
-        <skos:altLabel xml:lang="en">Evidence</skos:altLabel>
     </owl:Class>
     
 
@@ -1103,21 +1094,21 @@
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Assumption -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Assumption">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-        <rdfs:subClassOf rdf:nodeID="genid114"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
+        <rdfs:subClassOf rdf:nodeID="genid96"/>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">oval</renderedAs>
         <rdfs:label xml:lang="en">Assumption</rdfs:label>
         <skos:definition xml:lang="en">An assumption, rendered as an oval with the letter &apos;A&apos; at the top- or bottom-right, presents an intentionally unsubstantiated statement.</skos:definition>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid114">
+    <owl:Restriction rdf:nodeID="genid96">
         <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Assumption"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid114"/>
+        <owl:annotatedTarget rdf:nodeID="genid96"/>
         <skos:definition xml:lang="en">GSN assumptions provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase.</skos:definition>
     </owl:Axiom>
     
@@ -1126,6 +1117,31 @@
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#AssuranceCase -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#AssuranceCase">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#contains"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#contains"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Artefact"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#contains"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Artefact"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <rdfs:label xml:lang="en">Assurance Case</rdfs:label>
         <skos:definition xml:lang="en">A reasoned and compelling argument, supported by a body of evidence, that a system, service or organisation will operate as intended for a defined application in a defined environment.</skos:definition>
@@ -1150,48 +1166,24 @@
     
 
 
-    <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim">
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://schema.org/identifier"/>
-                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://schema.org/identifier"/>
-                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
-                <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
-        <rdfs:label xml:lang="en">Claim</rdfs:label>
-        <skos:definition xml:lang="en">A proposition being asserted by the author that is a true or false statement.</skos:definition>
-    </owl:Class>
-    
-
-
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Context -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Context">
         <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-        <rdfs:subClassOf rdf:nodeID="genid119"/>
+        <rdfs:subClassOf rdf:nodeID="genid105"/>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">rounded rectangle</renderedAs>
         <rdfs:label xml:lang="en">Context</rdfs:label>
         <skos:definition xml:lang="en">A context, rendered as shown left, presents a contextual artefact. This can be a reference to contextual information, or a statement.</skos:definition>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid119">
+    <owl:Restriction rdf:nodeID="genid105">
         <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Context"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid119"/>
+        <owl:annotatedTarget rdf:nodeID="genid105"/>
         <skos:definition xml:lang="en">Two kinds of GSN context statement exist. Where a context statement draws attention to explanatory contextual information (such as the definition of some term), this information shall be stated briefly using complete sentences of a noun-phrase + verb-phrase structure. Where a context statement is a reference to an artefact of some kind, which informs the reasoning step, the context statement shall be expressed as a noun phrase.</skos:definition>
     </owl:Axiom>
     
@@ -1208,7 +1200,6 @@
                 </owl:unionOf>
             </owl:Class>
         </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
         <coreOrExtension xml:lang="en">Dialectic Extension</coreOrExtension>
         <rdfs:label xml:lang="en">Defeater</rdfs:label>
         <skos:altLabel xml:lang="en">Dialectic Element</skos:altLabel>
@@ -1219,10 +1210,32 @@
     
 
 
+    <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://schema.org/identifier"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://schema.org/identifier"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
+        <rdfs:label xml:lang="en">GSN Element</rdfs:label>
+    </owl:Class>
+    
+
+
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Goal -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Goal">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#inContextOf"/>
@@ -1235,8 +1248,7 @@
                 <owl:allValuesFrom>
                     <owl:Class>
                         <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
                             <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Relationship"/>
                         </owl:unionOf>
                     </owl:Class>
@@ -1273,20 +1285,22 @@
                 </owl:allValuesFrom>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf rdf:nodeID="genid142"/>
+        <rdfs:subClassOf rdf:nodeID="genid129"/>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">rectangle</renderedAs>
         <rdfs:label xml:lang="en">Goal</rdfs:label>
+        <skos:altLabel xml:lang="en">Claim</skos:altLabel>
+        <skos:definition xml:lang="en">(Claim is) A proposition being asserted by the author that is a true or false statement.</skos:definition>
         <skos:definition xml:lang="en">A goal, rendered as a rectangle, presents a claim forming part of the argument.</skos:definition>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid142">
+    <owl:Restriction rdf:nodeID="genid129">
         <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Goal"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid142"/>
+        <owl:annotatedTarget rdf:nodeID="genid129"/>
         <skos:definition xml:lang="en">GSN goals document the claims made in the argument (i.e. premises and conclusions). Each goal shall contain a single goal statement, expressed as a proposition in the form of a noun phrase + verb-phrase sentence.</skos:definition>
     </owl:Axiom>
     
@@ -1306,21 +1320,21 @@
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Justification -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Justification">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-        <rdfs:subClassOf rdf:nodeID="genid144"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
+        <rdfs:subClassOf rdf:nodeID="genid131"/>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">oval</renderedAs>
         <rdfs:label xml:lang="en">Justification</rdfs:label>
         <skos:definition xml:lang="en">A justification, rendered as an oval with the letter &apos;J&apos; at the top- or bottom-right, presents a statement of rationale.</skos:definition>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid144">
+    <owl:Restriction rdf:nodeID="genid131">
         <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Justification"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid144"/>
+        <owl:annotatedTarget rdf:nodeID="genid131"/>
         <skos:definition xml:lang="en">GSN justifications provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase.</skos:definition>
     </owl:Axiom>
     
@@ -1329,6 +1343,7 @@
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Module -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Module">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#contains"/>
@@ -1361,19 +1376,6 @@
                 <owl:onClass rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://schema.org/identifier"/>
-                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://schema.org/identifier"/>
-                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:qualifiedCardinality>
-                <owl:onDataRange rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <coreOrExtension xml:lang="en">Modular Extension</coreOrExtension>
         <renderedAs>a rectangle with a second smaller rectangle adjoining at the top left</renderedAs>
         <rdfs:label xml:lang="en">Module</rdfs:label>
@@ -1404,14 +1406,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#object"/>
-                <owl:allValuesFrom>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-                        </owl:unionOf>
-                    </owl:Class>
-                </owl:allValuesFrom>
+                <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -1484,19 +1479,6 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject"/>
-                <owl:allValuesFrom>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Goal"/>
-                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Strategy"/>
-                        </owl:unionOf>
-                    </owl:Class>
-                </owl:allValuesFrom>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://schema.org/identifier"/>
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
             </owl:Restriction>
@@ -1525,28 +1507,27 @@
                 <owl:allValuesFrom>
                     <owl:Class>
                         <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
                             <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Relationship"/>
                         </owl:unionOf>
                     </owl:Class>
                 </owl:allValuesFrom>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf rdf:nodeID="genid191"/>
+        <rdfs:subClassOf rdf:nodeID="genid168"/>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">circle</renderedAs>
         <rdfs:label xml:lang="en">Solution</rdfs:label>
         <skos:definition xml:lang="en">A solution, rendered as a circle, presents a reference to an evidence item.</skos:definition>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid191">
+    <owl:Restriction rdf:nodeID="genid168">
         <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Solution"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid191"/>
+        <owl:annotatedTarget rdf:nodeID="genid168"/>
         <skos:definition xml:lang="en">GSN solutions make no claim, but are simply references to evidence items that provide support for a particular claim. They shall therefore be stated as noun-phrases.</skos:definition>
     </owl:Axiom>
     
@@ -1555,7 +1536,7 @@
     <!-- http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Strategy -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Strategy">
-        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#GSNElement"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#inContextOf"/>
@@ -1577,20 +1558,20 @@
                 <owl:allValuesFrom rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Goal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf rdf:nodeID="genid200"/>
+        <rdfs:subClassOf rdf:nodeID="genid177"/>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">parallelogram</renderedAs>
         <rdfs:label xml:lang="en">Strategy</rdfs:label>
         <skos:definition xml:lang="en">A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s).</skos:definition>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid200">
+    <owl:Restriction rdf:nodeID="genid177">
         <owl:onProperty rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Strategy"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid200"/>
+        <owl:annotatedTarget rdf:nodeID="genid177"/>
         <skos:definition xml:lang="en">GSN strategy statements describe the reasoning that connects parent goals and their supporting goals, but the core claims and the structure connecting those claims remain unchanged. Strategy statements contain a brief description of the argument approach.</skos:definition>
     </owl:Axiom>
     
@@ -1654,19 +1635,6 @@
             </owl:Restriction>
         </owl:equivalentClass>
     </owl:Class>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Argument"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#ArtefactReference"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Catalogue"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#InstantiationDataReference"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Module"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Pattern"/>
-            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#View"/>
-            <rdf:Description rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement"/>
-        </owl:members>
-    </rdf:Description>
     
 
 
@@ -1687,7 +1655,13 @@
     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
     </rdf:Description>
-    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#C">
+    <rdf:Description rdf:about="urn:swrl:var#A">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl:var#B">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl:var#C">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
     </rdf:Description>
     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#G1">
@@ -1700,6 +1674,9 @@
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
     </rdf:Description>
     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#C2">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#C">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
     </rdf:Description>
     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#X">
@@ -1764,130 +1741,6 @@
     </rdf:Description>
     <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#R3">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
-    </rdf:Description>
-    <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
-        <rdfs:comment></rdfs:comment>
-        <rdfs:label>S41</rdfs:label>
-        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="http://schema.org/identifier"/>
-                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
-                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#N"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="http://schema.org/identifier"/>
-                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B"/>
-                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#M"/>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
-                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#notEqual"/>
-                                        <swrl:arguments rdf:parseType="Collection">
-                                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
-                                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B"/>
-                                        </swrl:arguments>
-                                    </rdf:Description>
-                                </rdf:first>
-                                <rdf:rest>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                        <rdf:first>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
-                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#equal"/>
-                                                <swrl:arguments rdf:parseType="Collection">
-                                                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#N"/>
-                                                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#M"/>
-                                                </swrl:arguments>
-                                            </rdf:Description>
-                                        </rdf:first>
-                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                    </rdf:Description>
-                                </rdf:rest>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:body>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#valid"/>
-                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
-                        <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#valid"/>
-                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B"/>
-                                <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:head>
-    </rdf:Description>
-    <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
-        <rdfs:comment></rdfs:comment>
-        <rdfs:label>S47</rdfs:label>
-        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#defeated"/>
-                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#E"/>
-                        <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl:argument2>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-            </rdf:Description>
-        </swrl:body>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#valid"/>
-                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#E"/>
-                        <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-            </rdf:Description>
-        </swrl:head>
     </rdf:Description>
     <rdf:Description>
         <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
@@ -1959,77 +1812,6 @@
                         <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
                     </rdf:Description>
                 </rdf:rest>
-            </rdf:Description>
-        </swrl:head>
-    </rdf:Description>
-    <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
-        <rdfs:comment></rdfs:comment>
-        <rdfs:label>S17</rdfs:label>
-        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Assumption"/>
-                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                        <rdf:first>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#inContextOf"/>
-                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B"/>
-                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
-                            </rdf:Description>
-                        </rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                <rdf:first>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#supportedBy"/>
-                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B"/>
-                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#C"/>
-                                    </rdf:Description>
-                                </rdf:first>
-                                <rdf:rest>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                                        <rdf:first>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#C"/>
-                                            </rdf:Description>
-                                        </rdf:first>
-                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                    </rdf:Description>
-                                </rdf:rest>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </rdf:rest>
-            </rdf:Description>
-        </swrl:body>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#inContextOf"/>
-                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#C"/>
-                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
             </rdf:Description>
         </swrl:head>
     </rdf:Description>
@@ -2154,7 +1936,7 @@
     <rdf:Description>
         <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
         <rdfs:comment></rdfs:comment>
-        <rdfs:label>S15</rdfs:label>
+        <rdfs:label>S17</rdfs:label>
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
         <swrl:body>
             <rdf:Description>
@@ -2162,8 +1944,8 @@
                 <rdf:first>
                     <rdf:Description>
                         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Context"/>
-                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Assumption"/>
+                        <swrl:argument1 rdf:resource="urn:swrl:var#A"/>
                     </rdf:Description>
                 </rdf:first>
                 <rdf:rest>
@@ -2173,8 +1955,8 @@
                             <rdf:Description>
                                 <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
                                 <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#inContextOf"/>
-                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B"/>
-                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
+                                <swrl:argument1 rdf:resource="urn:swrl:var#B"/>
+                                <swrl:argument2 rdf:resource="urn:swrl:var#A"/>
                             </rdf:Description>
                         </rdf:first>
                         <rdf:rest>
@@ -2184,8 +1966,8 @@
                                     <rdf:Description>
                                         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
                                         <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#supportedBy"/>
-                                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B"/>
-                                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#C"/>
+                                        <swrl:argument1 rdf:resource="urn:swrl:var#B"/>
+                                        <swrl:argument2 rdf:resource="urn:swrl:var#C"/>
                                     </rdf:Description>
                                 </rdf:first>
                                 <rdf:rest>
@@ -2194,8 +1976,8 @@
                                         <rdf:first>
                                             <rdf:Description>
                                                 <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
-                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Claim"/>
-                                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#C"/>
+                                                <swrl:classPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#Goal"/>
+                                                <swrl:argument1 rdf:resource="urn:swrl:var#C"/>
                                             </rdf:Description>
                                         </rdf:first>
                                         <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
@@ -2214,8 +1996,8 @@
                     <rdf:Description>
                         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
                         <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#inContextOf"/>
-                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#C"/>
-                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
+                        <swrl:argument1 rdf:resource="urn:swrl:var#C"/>
+                        <swrl:argument2 rdf:resource="urn:swrl:var#A"/>
                     </rdf:Description>
                 </rdf:first>
                 <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
@@ -6822,6 +6604,130 @@
                         </rdf:rest>
                     </rdf:Description>
                 </rdf:rest>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment></rdfs:comment>
+        <rdfs:label>S41</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://schema.org/identifier"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
+                        <swrl:argument2 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#N"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://schema.org/identifier"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B"/>
+                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#M"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                        <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#notEqual"/>
+                                        <swrl:arguments rdf:parseType="Collection">
+                                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
+                                            <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B"/>
+                                        </swrl:arguments>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#BuiltinAtom"/>
+                                                <swrl:builtin rdf:resource="http://www.w3.org/2003/11/swrlb#equal"/>
+                                                <swrl:arguments rdf:parseType="Collection">
+                                                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#N"/>
+                                                    <rdf:Description rdf:about="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#M"/>
+                                                </swrl:arguments>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#valid"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#A"/>
+                        <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#valid"/>
+                                <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#B"/>
+                                <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:comment></rdfs:comment>
+        <rdfs:label>S47</rdfs:label>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#defeated"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#E"/>
+                        <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl:argument2>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#valid"/>
+                        <swrl:argument1 rdf:resource="http://www.semanticweb.org/momcilovic/ontologies/2024/1/gsn#E"/>
+                        <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
             </rdf:Description>
         </swrl:head>
     </rdf:Description>
