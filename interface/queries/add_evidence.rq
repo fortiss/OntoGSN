@@ -1,0 +1,17 @@
+PREFIX gsn: <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX dc:  <http://purl.org/dc/elements/1.1/>
+PREFIX case: <https://w3id.org/ontogsn/my_assurance_case#>
+
+INSERT DATA {
+  case:EvidencePlaceholder a gsn:Solution ;
+        gsn:refersTo case:DataFilePlaceholder ;
+        rdfs:label "Data file DataFilePlaceholder" ;
+        gsn:statement "Data file DataFilePlaceholder".
+
+  case:DataFilePlaceholder a gsn:Artefact ;
+        rdfs:label "DataFilePlaceholder" ;
+        dc:identifier "DataFilepathPlaceholder" .
+
+  case:GoalPlaceholder gsn:supportedBy case:DataFilePlaceholder .
+}
