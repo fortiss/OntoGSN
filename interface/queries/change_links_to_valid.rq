@@ -1,0 +1,27 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+INSERT {
+  ?elem gsn:valid true .
+}
+WHERE {
+  # find the Artefact “BenchmarkDataset”
+  ?artifact a gsn:Artefact ;
+            gsn:statement ?stmt .
+  FILTER(CONTAINS(LCASE(?stmt), "benchmarkdataset")) .
+
+  {
+    # mark each Solution that refers to it
+    ?sol  a gsn:Solution ;
+          gsn:refersTo  ?artifact .
+    BIND(?sol AS ?elem)
+  }
+  UNION
+  {
+    # then mark each Goal that those Solutions support
+    ?sol   a gsn:Solution ;
+           gsn:refersTo    ?artifact ;
+           gsn:supportedBy ?elem .
+    ?elem a gsn:Goal .
+  }
+}

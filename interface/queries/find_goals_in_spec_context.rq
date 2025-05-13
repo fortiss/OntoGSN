@@ -1,0 +1,11 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?goal WHERE {
+  ?context a gsn:Context ;
+           gsn:refersTo ?model .
+  ?model  a gsn:Model ;
+           (rdfs:label|gsn:statement) ?lbl .
+  FILTER(CONTAINS(LCASE(?lbl), "gpt"))
+  ?goal   gsn:inContext ?context .
+}

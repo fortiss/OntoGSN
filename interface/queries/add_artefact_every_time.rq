@@ -1,0 +1,22 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+INSERT {
+  ?goal gsn:refersTo ?newArtefact .
+  ?newArtefact a            gsn:Artefact ;
+               gsn:statement ?fileName ;
+               gsn:createdAt  NOW() .
+}
+WHERE {
+  ?goal a gsn:Goal ;
+        gsn:statement ?stmt .
+  FILTER(CONTAINS(LCASE(?stmt), "perturbation robustness"))
+  FILTER NOT EXISTS { ?goal gsn:contains ?child . }
+  BIND(
+    CONCAT("perturbation_evidence_", 
+           REPLACE(STR(NOW()), "[:\\-T\\.Z]", "_"), 
+           ".pdf") 
+    AS ?fileName
+  )
+  BIND(IRI(CONCAT(STR(?goal), "/artefact/", ENCODE_FOR_URI(?fileName))) AS ?newArtefact)
+}

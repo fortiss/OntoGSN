@@ -1,0 +1,20 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?goal WHERE {
+  ?arg   a             gsn:Argument ;
+         gsn:statement ?argStmt .
+  FILTER(CONTAINS(LCASE(?argStmt), "robustness"))
+  
+  ?arg gsn:contains+ ?goal .
+  ?goal a gsn:Goal .
+  
+  # bottom‐level: no further sub‐Goals
+  FILTER NOT EXISTS { ?goal gsn:contains ?child . }
+  
+  FILTER NOT EXISTS {
+    ?sol a            gsn:Solution ;
+         gsn:supportedBy ?goal .
+  }
+}

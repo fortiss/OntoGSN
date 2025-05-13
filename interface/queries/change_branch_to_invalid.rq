@@ -1,0 +1,31 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+INSERT {
+  ?elem gsn:valid false .
+}
+WHERE {
+  # find the root Goal “Attack Resistance”
+  ?root a gsn:Goal ;
+        gsn:statement ?stmt .
+  FILTER(CONTAINS(LCASE(?stmt), "attack resistance")) .
+
+  # any sub‐goal or sub‐strategy
+  {
+    ?root gsn:contains+ ?elem .
+  }
+  UNION
+  # any Solution supporting the root or its sub‐goals
+  {
+    ?elem a gsn:Solution ;
+          gsn:supportedBy+ ?root .
+  }
+  UNION
+  # any Artefact referenced by those Solutions
+  {
+    ?sol a gsn:Solution ;
+         gsn:supportedBy+ ?root ;
+         gsn:refersTo ?elem .
+    ?elem a gsn:Artefact .
+  }
+}

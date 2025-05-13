@@ -1,0 +1,14 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?elem WHERE {
+  # any element whose statement mentions “Jailbreak”
+  ?elem gsn:statement ?stmt .
+  FILTER(CONTAINS(LCASE(?stmt), "jailbreak")) .
+
+  # but no Defeater currently challenges it
+  FILTER NOT EXISTS {
+    ?d a           gsn:Defeater ;
+       gsn:challenges ?elem .
+  }
+}
