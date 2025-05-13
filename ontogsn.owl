@@ -2,7 +2,6 @@
 <rdf:RDF xmlns="https://w3id.org/ontogsn/ontology#"
      xml:base="https://w3id.org/ontogsn/ontology"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
-     xmlns:gsn="https://w3id.org/ontogsn/ontology#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
@@ -14,22 +13,23 @@
      xmlns:swrla="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"
      xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
      xmlns:terms="http://purl.org/dc/terms/"
-     xmlns:schema="http://schema.org/">
+     xmlns:schema="http://schema.org/"
+     xmlns:ontology="https://w3id.org/ontogsn/ontology#">
     <owl:Ontology rdf:about="https://w3id.org/ontogsn/ontology">
         <dc:creator xml:lang="en">Standard: The Assurance Case Working Group (ACWG)</dc:creator>
         <dc:creator xml:lang="en">Tomas Bueno Momčilović</dc:creator>
         <dc:identifier>SCSC-141C</dc:identifier>
-        <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-12-04T00:00:00Z</dc:modified>
+        <dc:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTimeStamp">2024-12-05T00:00:00Z</dc:modified>
         <dc:publisher xml:lang="en">https://www.fortiss.org/</dc:publisher>
         <dc:source xml:lang="en">The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C</dc:source>
         <dc:title xml:lang="en">OntoGSN</dc:title>
         <terms:abstract xml:lang="en">OntoGSN is an ontology for creating assurance cases in the Goal Structuring Notation (GSN). The goal of the ontology is to help users in linking the elements of their cases - claims and evidence - with the internationalized resource identifiers (IRIs) of represented concepts, events and data, and in evaluating the validity of their argument.</terms:abstract>
         <terms:created xml:lang="en">20th February 2025</terms:created>
         <vann:preferredNamespacePrefix>gsn</vann:preferredNamespacePrefix>
-        <schema:citation>Bueno Momcilovic, T. (2025 February). OntoGSN: Ontology for Goal Structuring Notation.</schema:citation>
+        <schema:citation>Bueno Momcilovic, T., Kessler, I., Gallina, B., &amp; Balta, D. (2025). OntoGSN: An Ontology for Dynamic Management of Assurance Cases.</schema:citation>
         <schema:disclaimer xml:lang="en">[Disclaimer from the GSN Community Standard v3.0]: While the authors and the publishers have used reasonable endeavours to ensure that the information and guidance given in this work is correct, all parties must rely on their own skill and judgement when making use of this work and obtain professional or specialist advice before taking, or refraining from, any action on the basis of the content of this work. Neither the authors nor the publishers make any representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to such information and guidance for any purpose, and they will not be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever (including as a result of negligence) arising out of, or in connection with, the use of this work. The views and opinions expressed in this publication are those of the authors and do not necessarily reflect those of their employers, the SCSC1 or other organisations.</schema:disclaimer>
         <schema:license rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://creativecommons.org/licenses/by/4.0/deed.en</schema:license>
-        <schema:url rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://scsc.uk/gsn</schema:url>
+        <schema:url rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/ontogsn/</schema:url>
         <schema:version rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</schema:version>
         <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.0</owl:versionInfo>
         <skos:definition xml:lang="en">GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence.</skos:definition>
