@@ -8,8 +8,7 @@ These advantages include: 1)	storing and querying graph data in a structure made
 
 OntoGSN was created using Stanford Protégé (v5.6.3) ontology editor, and following the Web Ontology Language (OWL 2)  standard. Every element of the ontology is sourced directly from the Goal Structuring Notation Community Standard v3.
 
-# Acknowledgements
-Many thanks to Ingmar Kessler, Yannick Landeck, … for reviewing this work. Thanks to Damir Safin for tool suggestions. Thanks to Will Franks and Adelard (NCC Group) for providing the ASCE academic license.
+See our website for more information: https://fortiss.github.io/OntoGSN/
 
 # Dependencies
 Existing objects and properties are imported from the following foundational ontologies: Resource Description Framework Schema (RDFS), XML Schema Definition Language (XSD), Dublin-Core (DC), Schema.org, and Simple Knowledge Organization System (SKOS). Reasoning is based on the Semantic Web Rule Language (SWRL)  rules and OWL axioms, which can be executed with supported rule engines (e.g., Pellet or Drools).
