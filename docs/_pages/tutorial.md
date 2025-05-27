@@ -30,7 +30,3 @@ Note: Depending on the chosen editor, you can edit the ontology manually in the 
 4. Create queries to "hook" the elements to runtime processes and data (i.e., actual evidence).
 5. Define custom rules for evaluating evidence (e.g., exceptions, errors, failure).
 6. Set up a script or a scheduled job to run the queries and the reasoner in sequence.
-
-## Complex: 
-1. Implement the steps in the Simple and Advanced use cases.
-2. 
