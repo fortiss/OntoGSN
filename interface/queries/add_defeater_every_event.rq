@@ -1,0 +1,13 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+INSERT {
+  _:d a             gsn:Defeater ;
+     gsn:statement "Defeater due to adversarialSample creation" ;
+     gsn:challenges :AttackResistanceGoal .
+}
+WHERE {
+  ?artifact a gsn:Artefact ;
+            gsn:statement ?stmt .
+  FILTER(CONTAINS(LCASE(?stmt), "adversarialsample"))
+}

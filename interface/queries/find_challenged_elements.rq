@@ -1,0 +1,13 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?element WHERE {
+    ?defeater a gsn:Defeater ;
+              gsn:statement ?stmt ;
+        gsn:challenges  ?element .
+  FILTER(CONTAINS(LCASE(?stmt), "jailbreak"))
+  
+  ?element a ?type .
+  FILTER(?type IN (gsn:Goal, gsn:Strategy))
+}

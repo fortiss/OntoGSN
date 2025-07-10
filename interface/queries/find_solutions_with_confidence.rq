@@ -1,0 +1,11 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?sol WHERE {
+  ?sol a gsn:Solution ;
+       gsn:attachedTo ?ca .
+  ?ca  a gsn:ConfidenceArgument ;
+       gsn:refersTo     ?goal .
+  ?goal gsn:statement ?stmt .
+  FILTER(CONTAINS(LCASE(?stmt), "perplexity")) .
+}

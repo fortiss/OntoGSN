@@ -1,0 +1,9 @@
+PREFIX gsn: <https://w3id.org/ontogsn/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX case: <https://w3id.org/ontogsn/my_assurance_case#>
+
+SELECT DISTINCT ?solution
+WHERE {
+  case:G1 gsn:supportedBy+ ?solution .
+  ?solution  rdf:type gsn:Solution .
+}

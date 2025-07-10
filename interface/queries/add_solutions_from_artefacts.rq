@@ -1,0 +1,20 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+INSERT {
+  ?sol a            gsn:Solution ;
+       gsn:statement ?statement ;
+       gsn:refersTo  ?artifact .
+}
+WHERE {
+  VALUES ?artifact {  # ← replace with your artifact IRIs
+    :FGSM
+    :PGD
+    :DeepFool
+  }
+  BIND(
+    CONCAT("Test against ", REPLACE(STR(?artifact), "^.*[#/]", "")) 
+    AS ?statement
+  )
+  BIND(IRI(CONCAT(STR(?artifact), "/solution")) AS ?sol)
+}

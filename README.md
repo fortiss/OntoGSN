@@ -1,3 +1,5 @@
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
 ## Note For Potential Reviewers
 If you are interested in reviewing the OntoGSN before we submit a paper on it (ETA: mid-May 2025), please provide your comments in the OntoGSN Design Document (PDF) and reach out to me directly at momcilovic [at] fortiss [dot] org. Thank you!
 

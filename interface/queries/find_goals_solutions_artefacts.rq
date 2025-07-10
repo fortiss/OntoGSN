@@ -1,0 +1,30 @@
+PREFIX gsn:  <https://w3id.org/ontogsn/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?elem WHERE {
+  # root Goal
+  ?root a gsn:Goal ;
+        gsn:statement ?stmt .
+  FILTER(CONTAINS(LCASE(?stmt), "attack resistance")) .
+
+  {
+    # bottom‐level Goals (no further subgoals)
+    ?root gsn:contains* ?elem .
+    ?elem a gsn:Goal .
+    FILTER NOT EXISTS { ?elem gsn:contains ?child . }
+  }
+  UNION
+  {
+    # all Solutions under that branch
+    ?elem a gsn:Solution ;
+          gsn:supportedBy+ ?root .
+  }
+  UNION
+  {
+    # all Artefacts under that branch
+    ?elem a gsn:Artefact .
+    ?sol  a gsn:Solution ;
+          gsn:supportedBy+ ?root ;
+          gsn:refersTo ?elem .
+  }
+}

@@ -1,0 +1,165 @@
+@prefix : <https://w3id.org/ontogsn/my_assurance_case#> .
+@prefix gsn: <https://w3id.org/ontogsn/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix case: <https://w3id.org/ontogsn/my_assurance_case#> .
+@prefix schema: <http://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://w3id.org/ontogsn/my_assurance_case#> .
+
+<https://w3id.org/ontogsn/my_assurance_case> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://w3id.org/ontogsn/ontology#contains
+gsn:contains rdf:type owl:ObjectProperty .
+
+
+###  https://w3id.org/ontogsn/ontology#supportedBy
+gsn:supportedBy rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://w3id.org/ontogsn/ontology#AssuranceCase
+gsn:AssuranceCase rdf:type owl:Class .
+
+
+###  https://w3id.org/ontogsn/ontology#Goal
+gsn:Goal rdf:type owl:Class .
+
+
+###  https://w3id.org/ontogsn/ontology#Solution
+gsn:Solution rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+### Assurance Case AC1
+case:AC1 rdf:type owl:NamedIndividual , gsn:AssuranceCase ;
+    gsn:contains       case:G1 ;
+    rdfs:label         "Adversarial Robustness Assurance Case" ;
+    schema:identifier  "AC1" ;
+    schema:description "An assurance case demonstrating that our GPT-4-based LLM is robust against adversarial input perturbations." ;
+    gsn:published      "2025-05-11"^^xsd:date ;
+    gsn:statement     "Demonstrate GPT-4 LLM robustness against adversarial input perturbations." .
+
+### Goals
+case:G1 rdf:type owl:NamedIndividual , gsn:Goal ;
+    gsn:supportedBy    case:G1_1 , case:G1_2 ;
+    rdfs:label         "Goal G1: LLM maintains performance under adversarial attacks" ;
+    schema:identifier  "G1" ;
+    schema:description "Ensure that the language model's core metrics do not degrade when faced with crafted adversarial examples." ;
+    gsn:top            "true"^^xsd:boolean ;
+    gsn:statement     "LLM maintains performance under adversarial attacks." .
+
+case:G1_1 rdf:type owl:NamedIndividual , gsn:Goal ;
+    gsn:supportedBy    case:G1_1_1 ;
+    rdfs:label         "Goal G1_1: Robustness to gradient-based attacks" ;
+    schema:identifier  "G1_1" ;
+    schema:description "Demonstrate resilience of the LLM against gradient-based adversarial methods (e.g., FGSM, PGD)." ;
+    gsn:statement     "Robustness to gradient-based attacks." .
+
+case:G1_1_1 rdf:type owl:NamedIndividual , gsn:Goal ;
+    gsn:supportedBy    case:G1_1_1_1 , case:G1_1_1_2 ;
+    rdfs:label         "Goal G1_1_1: Robustness under FGSM" ;
+    schema:identifier  "G1_1_1" ;
+    schema:description "Ensure the LLM’s accuracy drop under Fast Gradient Sign Method attacks remains within acceptable bounds." ;
+    gsn:statement     "Robustness under FGSM attacks." .
+
+case:G1_1_1_1 rdf:type owl:NamedIndividual , gsn:Goal ;
+    gsn:supportedBy    case:Sn1_1_1_1_1 , case:Sn1_1_1_1_2 ;
+    rdfs:label         "Goal G1_1_1_1: FGSM robustness on classification tasks" ;
+    schema:identifier  "G1_1_1_1" ;
+    schema:description "Measure the impact of FGSM attacks on the LLM’s fine-tuned classification benchmarks." ;
+    gsn:statement     "FGSM robustness on classification tasks." .
+
+case:G1_1_1_2 rdf:type owl:NamedIndividual , gsn:Goal ;
+    gsn:supportedBy    case:Sn1_1_1_2 ;
+    rdfs:label         "Goal G1_1_1_2: FGSM robustness on generation tasks" ;
+    schema:identifier  "G1_1_1_2" ;
+    schema:description "Measure the impact of FGSM attacks on the LLM’s text-generation capabilities." ;
+    gsn:statement     "FGSM robustness on generation tasks." .
+
+case:G1_2 rdf:type owl:NamedIndividual , gsn:Goal ;
+    gsn:supportedBy    case:G1_2_1 ;
+    rdfs:label         "Goal G1_2: Robustness to text-based attacks" ;
+    schema:identifier  "G1_2" ;
+    schema:description "Demonstrate resilience of the LLM against text-perturbation attacks (e.g., TextFooler)." ;
+    gsn:statement     "Robustness to text-based attacks." .
+
+case:G1_2_1 rdf:type owl:NamedIndividual , gsn:Goal ;
+    gsn:supportedBy    case:G1_2_1_1 , case:G1_2_1_2 ;
+    rdfs:label         "Goal G1_2_1: Robustness under TextFooler" ;
+    schema:identifier  "G1_2_1" ;
+    schema:description "Ensure the LLM maintains semantic fidelity under TextFooler-crafted inputs." ;
+    gsn:statement     "Robustness under TextFooler attacks." .
+
+case:G1_2_1_1 rdf:type owl:NamedIndividual , gsn:Goal ;
+    gsn:supportedBy    case:Sn1_2_1_1 ;
+    rdfs:label         "Goal G1_2_1_1: TextFooler on classification tasks" ;
+    schema:identifier  "G1_2_1_1" ;
+    schema:description "Measure classification accuracy when inputs are perturbed by TextFooler." ;
+    gsn:statement     "TextFooler on classification tasks." .
+
+case:G1_2_1_2 rdf:type owl:NamedIndividual , gsn:Goal ;
+    gsn:supportedBy    case:G1_2_1_2_1 , case:Sn1_2_1_2 ;
+    rdfs:label         "Goal G1_2_1_2: TextFooler on generation tasks" ;
+    schema:identifier  "G1_2_1_2" ;
+    schema:description "Measure generation-quality metrics when inputs are perturbed by TextFooler." ;
+    gsn:statement     "TextFooler on generation tasks." .
+
+case:G1_2_1_2_1 rdf:type owl:NamedIndividual , gsn:Goal ;
+    gsn:supportedBy    case:Sn1_2_1_2_1 ;
+    rdfs:label         "Goal G1_2_1_2_1: Multilingual TextFooler robustness" ;
+    schema:identifier  "G1_2_1_2_1" ;
+    schema:description "Evaluate the LLM’s robustness to TextFooler attacks across different languages." ;
+    gsn:statement     "Multilingual TextFooler robustness." .
+
+### Solutions
+case:Sn1_1_1_1_1 rdf:type owl:NamedIndividual , gsn:Solution ;
+    rdfs:label         "Solution Sn1_1_1_1_1: FGSM classification benchmark results" ;
+    schema:identifier  "Sn1_1_1_1_1" ;
+    schema:description "Experimental results showing ≤2% accuracy drop on classification under FGSM." ;
+    gsn:statement     "FGSM classification benchmark results." .
+
+case:Sn1_1_1_1_2 rdf:type owl:NamedIndividual , gsn:Solution ;
+    rdfs:label         "Solution Sn1_1_1_1_2: FGSM classification error-rate chart" ;
+    schema:identifier  "Sn1_1_1_1_2" ;
+    schema:description "Plots of classification error-rate vs. perturbation strength for FGSM." ;
+    gsn:statement     "FGSM classification error-rate chart." .
+
+case:Sn1_1_1_2 rdf:type owl:NamedIndividual , gsn:Solution ;
+    rdfs:label         "Solution Sn1_1_1_2: FGSM generation-quality metrics" ;
+    schema:identifier  "Sn1_1_1_2" ;
+    schema:description "BLEU and ROUGE scores under FGSM-perturbed generation tasks." ;
+    gsn:statement     "FGSM generation-quality metrics." .
+
+case:Sn1_2_1_1 rdf:type owl:NamedIndividual , gsn:Solution ;
+    rdfs:label         "Solution Sn1_2_1_1: TextFooler classification results" ;
+    schema:identifier  "Sn1_2_1_1" ;
+    schema:description "Accuracy measurements for classification when inputs are adversarially perturbed by TextFooler." ;
+    gsn:statement     "TextFooler classification results." .
+
+case:Sn1_2_1_2 rdf:type owl:NamedIndividual , gsn:Solution ;
+    rdfs:label         "Solution Sn1_2_1_2: TextFooler generation-quality metrics" ;
+    schema:identifier  "Sn1_2_1_2" ;
+    schema:description "Generation-quality comparisons (e.g., BLEU/ROUGE) under TextFooler attacks." ;
+    gsn:statement     "TextFooler generation-quality metrics." .
+
+case:Sn1_2_1_2_1 rdf:type owl:NamedIndividual , gsn:Solution ;
+    rdfs:label         "Solution Sn1_2_1_2_1: Multilingual TextFooler results" ;
+    schema:identifier  "Sn1_2_1_2_1" ;
+    schema:description "Cross-language robustness scores for TextFooler perturbations." ;
+    gsn:statement     "Multilingual TextFooler results." .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
