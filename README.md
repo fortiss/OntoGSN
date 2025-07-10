@@ -1,4 +1,8 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![Format: RDF/XML](https://img.shields.io/badge/Format-RDF%2FXML-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontogsn.owl)
+[![Format: TTL](https://img.shields.io/badge/Format-Turtle-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.ttl)
+[![Format: JSON-LD](https://img.shields.io/badge/Format-JSON--LD-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.jsonld)
+[![Format: OWL/XML](https://img.shields.io/badge/Format-OWX-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.owx)
 
 ## Note For Potential Reviewers
 If you are interested in reviewing the OntoGSN before we submit a paper on it (ETA: mid-May 2025), please provide your comments in the OntoGSN Design Document (PDF) and reach out to me directly at momcilovic [at] fortiss [dot] org. Thank you!
