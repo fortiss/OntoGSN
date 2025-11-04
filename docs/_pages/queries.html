@@ -1,0 +1,31 @@
+<script type="module">
+import init, { Store } from "https://cdn.jsdelivr.net/npm/oxigraph@0.4.0/oxigraph_wasm.js";
+
+await init();
+const store = new Store();
+
+// 1) Fetch both TTLs in parallel
+const [ttlOnto, ttlExample] = await Promise.all([
+  fetch("../_data/ontogsn_lite.ttl").then(r => r.text()),
+  fetch("../_data/example_ac.ttl").then(r => r.text()),
+]);
+
+// 2) Load both into the SAME default graph
+//    (Use absolute base IRIs if your files have relative IRIs)
+store.load(ttlOnto,   "text/turtle", "https://w3id.org/OntoGSN/ontology#");
+store.load(ttlExample,"text/turtle", "https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#");
+
+// 3) Query across the union (default) graph
+const q = `
+  PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+  PREFIX case: <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#>
+  SELECT ?s ?p ?o
+  WHERE { ?s ?p ?o }
+  LIMIT 20
+`;
+
+const res = store.query(q);
+const rows = [];
+for (const b of res) rows.push(Object.fromEntries([...b].map(([k, v]) => [k, v.value])));
+console.log(rows);
+</script>

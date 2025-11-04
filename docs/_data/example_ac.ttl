@@ -1,0 +1,114 @@
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix schema: <https://schema.org/> .
+@prefix dc:     <http://purl.org/dc/terms/> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix case:   <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#> .
+
+case:AC_ACT-FASTRobustLLM
+    a gsn:AssuranceCase ;
+    schema:identifier "AC-2025-ACT-FAST-RobustLLM" ;
+    schema:name "ACT-FAST LLM Adversarial Robustness Assurance Case" ;
+    gsn:statement "Assurance case for adversarial robustness of the ACT-FAST customer-service LLM in production." ;
+    dc:creator "ACT-FAST Assurance Team" ;
+    schema:dateCreated "2025-10-15"^^xsd:date ;
+    schema:dateModified "2025-11-04"^^xsd:date ;
+    gsn:contains case:ARG_Robustness , case:EVID_RedTeam , case:EVID_Benchmark , case:EVID_PIResults .
+
+case:ARG_Robustness
+    a gsn:Argument ;
+    schema:identifier "ARG-R" ;
+    gsn:statement "Argument that the ACT-FAST LLM is robust against jailbreak, prompt-injection, and data-exfiltration attacks." ;
+    gsn:contains case:G1 , case:S1 ,
+                 case:G1_1 , case:G1_2 , case:G1_3 ,
+                 case:C_Scope , case:C_ThreatModel ,
+                 case:A_RepBenchmark , case:J_UseIndustrySets .
+
+case:G1
+    a gsn:Goal ;
+    schema:identifier "G1" ;
+    gsn:statement "The ACT-FAST LLM service is adversarially robust for its stated use in EU production." ;
+    gsn:valid true ;
+    gsn:supportedBy case:S1 ;
+    gsn:inContextOf case:C_Scope , case:C_ThreatModel , case:J_UseIndustrySets , case:A_RepBenchmark .
+
+case:S1
+    a gsn:Strategy ;
+    schema:identifier "S1" ;
+    gsn:statement "Argue by threat category with controls + evidence for jailbreak, prompt-injection, and data-exfiltration." ;
+    gsn:supportedBy case:G1_1 , case:G1_2 , case:G1_3 .
+
+case:G1_1
+    a gsn:Goal ;
+    schema:identifier "G1.1" ;
+    gsn:statement "The LLM resists jailbreak attacks within the documented prompt-safety envelope." ;
+    gsn:valid true ;
+    # backed by solution evidence
+    gsn:supportedBy case:EVID_RedTeam , case:EVID_Benchmark ;
+    gsn:inContextOf case:C_ThreatModel .
+
+case:G1_2
+    a gsn:Goal ;
+    schema:identifier "G1.2" ;
+    gsn:statement "The LLM and tool-use pipeline mitigate prompt-injection attacks originating from external content." ;
+    gsn:valid true ;
+    gsn:supportedBy case:EVID_PIResults ;
+    gsn:inContextOf case:C_ThreatModel .
+
+case:G1_3
+    a gsn:Goal ;
+    schema:identifier "G1.3" ;
+    gsn:statement "The LLM prevents sensitive data exfiltration under realistic attacker prompts and contexts." ;
+    # leave this in doubt to illustrate reasoning/flags; a missing or weak evidence set
+    gsn:valid false ;
+    gsn:inContextOf case:C_Scope , case:C_ThreatModel .
+
+case:C_Scope
+    a gsn:Context ;
+    schema:identifier "C1" ;
+    gsn:statement "System scope: ACT-FAST Chatbot v1.2, EU region prod; guardrails and logging enabled; no code-execution tools exposed." .
+
+case:C_ThreatModel
+    a gsn:Context ;
+    schema:identifier "C2" ;
+    gsn:statement "Threat model v2025-09: jailbreak, prompt-injection via URLs/HTML/email, data-exfiltration prompts; low-to-moderate capability attacker." .
+
+case:A_RepBenchmark
+    a gsn:Assumption ;
+    schema:identifier "A1" ;
+    gsn:statement "Selected robustness benchmarks are representative of expected user and attacker behaviors in production." ;
+    gsn:true true .  # truthfulness flag for assumptions in core
+
+case:J_UseIndustrySets
+    a gsn:Justification ;
+    schema:identifier "J1" ;
+    gsn:statement "Use of well-known community red-teaming sets and curated internal datasets is acceptable for initial claims." .
+
+case:EVID_RedTeam
+    a gsn:Solution ;
+    schema:identifier "S-E1" ;
+    gsn:statement "Independent red-team campaign on ACT-FAST LLM (Oct–Nov 2025) with findings and mitigations." ;
+    schema:url <https://example.org/ACT-FAST/assurance/redteam-2025-11.pdf> ;
+    dc:creator "External Security Partner A" ;
+    schema:datePublished "2025-11-01"^^xsd:date .
+
+case:EVID_Benchmark
+    a gsn:Solution ;
+    schema:identifier "S-E2" ;
+    gsn:statement "Automated jailbreak benchmark (200 prompts, pass rate ≥ 97% with refusal consistency checks)." ;
+    schema:url <https://example.org/ACT-FAST/assurance/jailbreak-benchmark-2025-10.json> ;
+    schema:datePublished "2025-10-28"^^xsd:date .
+
+case:EVID_PIResults
+    a gsn:Solution ;
+    schema:identifier "S-E3" ;
+    gsn:statement "PI test suite on web-scraped content: model isolates instructions, blocks tool calls, and sanitizes returns." ;
+    schema:url <https://example.org/ACT-FAST/assurance/pi-suite-2025-10.csv> ;
+    schema:datePublished "2025-10-30"^^xsd:date .
+
+case:ARG_Robustness
+    gsn:contains case:C_Scope , case:C_ThreatModel ,
+                 case:A_RepBenchmark , case:J_UseIndustrySets ,
+                 case:EVID_RedTeam , case:EVID_Benchmark , case:EVID_PIResults .
+
+case:G1_1 gsn:inContextOf case:J_UseIndustrySets .
+case:G1_2 gsn:inContextOf case:A_RepBenchmark .
