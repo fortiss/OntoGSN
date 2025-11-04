@@ -1,31 +1,65 @@
-<script type="module">
-import init, { Store } from "https://cdn.jsdelivr.net/npm/oxigraph@0.4.0/oxigraph_wasm.js";
+---
+layout: null
+permalink: /queries/
+---
 
-await init();
-const store = new Store();
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>SPARQL queries (Oxigraph)</title>
+</head>
+<body>
+  <h1>SPARQL demo (Oxigraph)</h1>
+  <pre id="out">Loading…</pre>
 
-// 1) Fetch both TTLs in parallel
-const [ttlOnto, ttlExample] = await Promise.all([
-  fetch("../_data/ontogsn_lite.ttl").then(r => r.text()),
-  fetch("../_data/example_ac.ttl").then(r => r.text()),
-]);
+  <script type="module">
+    import init, { Store } from "https://cdn.jsdelivr.net/npm/oxigraph@0.4.0/oxigraph_wasm.js";
 
-// 2) Load both into the SAME default graph
-//    (Use absolute base IRIs if your files have relative IRIs)
-store.load(ttlOnto,   "text/turtle", "https://w3id.org/OntoGSN/ontology#");
-store.load(ttlExample,"text/turtle", "https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#");
+    const out = document.getElementById('out');
 
-// 3) Query across the union (default) graph
-const q = `
-  PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
-  PREFIX case: <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#>
-  SELECT ?s ?p ?o
-  WHERE { ?s ?p ?o }
-  LIMIT 20
-`;
+    function show(obj) {
+      out.textContent = typeof obj === 'string' ? obj : JSON.stringify(obj, null, 2);
+    }
 
-const res = store.query(q);
-const rows = [];
-for (const b of res) rows.push(Object.fromEntries([...b].map(([k, v]) => [k, v.value])));
-console.log(rows);
-</script>
+    try {
+      await init();
+      const store = new Store();
+
+      // IMPORTANT: put these files somewhere public, e.g. /assets/ontologies/
+      const [ttlOnto, ttlExample] = await Promise.all([
+        fetch("/assets/data/ontogsn_lite.ttl").then(r => {
+          if (!r.ok) throw new Error("Failed to fetch ontogsn_lite.ttl: " + r.status);
+          return r.text();
+        }),
+        fetch("/assets/data/example_ac.ttl").then(r => {
+          if (!r.ok) throw new Error("Failed to fetch example_ac.ttl: " + r.status);
+          return r.text();
+        }),
+      ]);
+
+      // Load into the default graph
+      store.load(ttlOnto,    "text/turtle", "https://w3id.org/OntoGSN/ontology#");
+      store.load(ttlExample, "text/turtle", "https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#");
+
+      const q = `
+        PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
+        PREFIX case: <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#>
+        SELECT ?s ?p ?o
+        WHERE { ?s ?p ?o }
+        LIMIT 20
+      `;
+
+      const res = store.query(q);
+      const rows = [];
+      for (const b of res) {
+        rows.push(Object.fromEntries([...b].map(([k, v]) => [k, v.value])));
+      }
+      show(rows);
+    } catch (e) {
+      show("Error: " + e.message);
+      console.error(e);
+    }
+  </script>
+</body>
+</html>
