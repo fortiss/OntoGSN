@@ -6,77 +6,89 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="https://w3id.org/OntoGSN/ontology">
+    <Prefix name="" IRI="https://w3id.org/OntoGSN/ontology#"/>
+    <Prefix name="cc" IRI="http://creativecommons.org/ns#"/>
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
+    <Prefix name="gsn" IRI="https://w3id.org/OntoGSN/ontology#"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="skos" IRI="http://www.w3.org/2004/02/skos/core#"/>
+    <Prefix name="swrl" IRI="http://www.w3.org/2003/11/swrl#"/>
+    <Prefix name="vann" IRI="http://purl.org/vocab/vann/"/>
+    <Prefix name="swrla" IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#"/>
+    <Prefix name="swrlb" IRI="http://www.w3.org/2003/11/swrlb#"/>
+    <Prefix name="terms" IRI="http://purl.org/dc/terms/"/>
+    <Prefix name="schema" IRI="http://schema.org/"/>
+    <Prefix name="ontology" IRI="https://w3id.org/OntoGSN/ontology#"/>
     <Annotation>
-        <AnnotationProperty IRI="http://creativecommons.org/ns#license"/>
+        <AnnotationProperty abbreviatedIRI="cc:license"/>
         <Literal>https://creativecommons.org/licenses/by/4.0/</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/contributor"/>
+        <AnnotationProperty abbreviatedIRI="dc:contributor"/>
         <Literal xml:lang="en">Barbara Gallina, Dian Balta, Ingmar Kessler</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/creator"/>
+        <AnnotationProperty abbreviatedIRI="dc:creator"/>
         <Literal xml:lang="en">Standard: The Assurance Case Working Group (ACWG)</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/creator"/>
+        <AnnotationProperty abbreviatedIRI="dc:creator"/>
         <Literal xml:lang="en">Tomas Bueno Momčilović</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/description"/>
+        <AnnotationProperty abbreviatedIRI="dc:description"/>
         <Literal xml:lang="en">OntoGSN is an ontology for managing assurance cases in the Goal Structuring Notation (GSN). The goal of the ontology is to help users in linking the elements of their cases - claims and evidence - with the internationalized resource identifiers (IRIs) of represented concepts, events and data, and in evaluating the validity of their argument.</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/identifier"/>
+        <AnnotationProperty abbreviatedIRI="dc:identifier"/>
         <Literal>SCSC-141C</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/issued"/>
+        <AnnotationProperty abbreviatedIRI="dc:issued"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#date">2025-02-24</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/modified"/>
+        <AnnotationProperty abbreviatedIRI="dc:modified"/>
         <Literal>2025-06-19T00:00:00Z</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/publisher"/>
+        <AnnotationProperty abbreviatedIRI="dc:publisher"/>
         <Literal xml:lang="en">https://www.fortiss.org/</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <AnnotationProperty abbreviatedIRI="dc:source"/>
         <Literal xml:lang="en">The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/title"/>
+        <AnnotationProperty abbreviatedIRI="dc:title"/>
         <Literal xml:lang="en">OntoGSN</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/terms/bibliographicCitation"/>
+        <AnnotationProperty abbreviatedIRI="terms:bibliographicCitation"/>
         <Literal>Bueno Momcilovic, T., Kessler, I., Gallina, B., &amp; Balta, D. (2025). OntoGSN: An Ontology for Dynamic Management of Assurance Cases.</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
+        <AnnotationProperty abbreviatedIRI="terms:created"/>
         <Literal xml:lang="en">20th February 2025</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://purl.org/vocab/vann/preferredNamespacePrefix"/>
+        <AnnotationProperty abbreviatedIRI="vann:preferredNamespacePrefix"/>
         <Literal>gsn</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://schema.org/disclaimer"/>
+        <AnnotationProperty abbreviatedIRI="schema:disclaimer"/>
         <Literal xml:lang="en">[Disclaimer from the GSN Community Standard v3.0]: While the authors and the publishers have used reasonable endeavours to ensure that the information and guidance given in this work is correct, all parties must rely on their own skill and judgement when making use of this work and obtain professional or specialist advice before taking, or refraining from, any action on the basis of the content of this work. Neither the authors nor the publishers make any representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to such information and guidance for any purpose, and they will not be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever (including as a result of negligence) arising out of, or in connection with, the use of this work. The views and opinions expressed in this publication are those of the authors and do not necessarily reflect those of their employers, the SCSC1 or other organisations.</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://schema.org/url"/>
+        <AnnotationProperty abbreviatedIRI="schema:url"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/OntoGSN/</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://schema.org/version"/>
+        <AnnotationProperty abbreviatedIRI="schema:version"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">3.0</Literal>
     </Annotation>
     <Annotation>
@@ -84,7 +96,7 @@
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1.2</Literal>
     </Annotation>
     <Annotation>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <Literal xml:lang="en">GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence.</Literal>
     </Annotation>
     <Declaration>
@@ -193,10 +205,10 @@
         <ObjectProperty IRI="#supportedBy"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="http://schema.org/description"/>
+        <DataProperty abbreviatedIRI="schema:description"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="http://schema.org/identifier"/>
+        <DataProperty abbreviatedIRI="schema:identifier"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#argumentType"/>
@@ -274,79 +286,79 @@
         <DataProperty IRI="#viewType"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://creativecommons.org/ns#license"/>
+        <AnnotationProperty abbreviatedIRI="cc:license"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/contributor"/>
+        <AnnotationProperty abbreviatedIRI="dc:contributor"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/created"/>
+        <AnnotationProperty abbreviatedIRI="dc:created"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/creator"/>
+        <AnnotationProperty abbreviatedIRI="dc:creator"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/description"/>
+        <AnnotationProperty abbreviatedIRI="dc:description"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/identifier"/>
+        <AnnotationProperty abbreviatedIRI="dc:identifier"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/issued"/>
+        <AnnotationProperty abbreviatedIRI="dc:issued"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/modified"/>
+        <AnnotationProperty abbreviatedIRI="dc:modified"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/publisher"/>
+        <AnnotationProperty abbreviatedIRI="dc:publisher"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+        <AnnotationProperty abbreviatedIRI="dc:source"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/title"/>
+        <AnnotationProperty abbreviatedIRI="dc:title"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/terms/abstract"/>
+        <AnnotationProperty abbreviatedIRI="terms:abstract"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/terms/bibliographicCitation"/>
+        <AnnotationProperty abbreviatedIRI="terms:bibliographicCitation"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
+        <AnnotationProperty abbreviatedIRI="terms:created"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://purl.org/vocab/vann/preferredNamespacePrefix"/>
+        <AnnotationProperty abbreviatedIRI="vann:preferredNamespacePrefix"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://schema.org/citation"/>
+        <AnnotationProperty abbreviatedIRI="schema:citation"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://schema.org/description"/>
+        <AnnotationProperty abbreviatedIRI="schema:description"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://schema.org/disclaimer"/>
+        <AnnotationProperty abbreviatedIRI="schema:disclaimer"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://schema.org/license"/>
+        <AnnotationProperty abbreviatedIRI="schema:license"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://schema.org/url"/>
+        <AnnotationProperty abbreviatedIRI="schema:url"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://schema.org/version"/>
+        <AnnotationProperty abbreviatedIRI="schema:version"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+        <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#altLabel"/>
+        <AnnotationProperty abbreviatedIRI="skos:altLabel"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#note"/>
+        <AnnotationProperty abbreviatedIRI="skos:note"/>
     </Declaration>
     <Declaration>
         <AnnotationProperty IRI="#applicability"/>
@@ -413,7 +425,7 @@
     </EquivalentClasses>
     <SubClassOf>
         <Annotation>
-            <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+            <AnnotationProperty abbreviatedIRI="skos:definition"/>
             <Literal xml:lang="en">The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module.</Literal>
         </Annotation>
         <Annotation>
@@ -448,14 +460,14 @@
     <SubClassOf>
         <Class IRI="#Argument"/>
         <DataSomeValuesFrom>
-            <DataProperty IRI="http://schema.org/identifier"/>
+            <DataProperty abbreviatedIRI="schema:identifier"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Argument"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="http://schema.org/identifier"/>
+            <DataProperty abbreviatedIRI="schema:identifier"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataExactCardinality>
     </SubClassOf>
@@ -469,7 +481,7 @@
     </SubClassOf>
     <SubClassOf>
         <Annotation>
-            <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+            <AnnotationProperty abbreviatedIRI="skos:definition"/>
             <Literal xml:lang="en">GSN assumptions provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase.</Literal>
         </Annotation>
         <Class IRI="#Assumption"/>
@@ -515,7 +527,7 @@
     </SubClassOf>
     <SubClassOf>
         <Annotation>
-            <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+            <AnnotationProperty abbreviatedIRI="skos:definition"/>
             <Literal xml:lang="en">Two kinds of GSN context statement exist. Where a context statement draws attention to explanatory contextual information (such as the definition of some term), this information shall be stated briefly using complete sentences of a noun-phrase + verb-phrase structure. Where a context statement is a reference to an artefact of some kind, which informs the reasoning step, the context statement shall be expressed as a noun phrase.</Literal>
         </Annotation>
         <Class IRI="#Context"/>
@@ -527,14 +539,14 @@
     <SubClassOf>
         <Class IRI="#GSNElement"/>
         <DataSomeValuesFrom>
-            <DataProperty IRI="http://schema.org/identifier"/>
+            <DataProperty abbreviatedIRI="schema:identifier"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#GSNElement"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="http://schema.org/identifier"/>
+            <DataProperty abbreviatedIRI="schema:identifier"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataExactCardinality>
     </SubClassOf>
@@ -585,7 +597,7 @@
     </SubClassOf>
     <SubClassOf>
         <Annotation>
-            <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+            <AnnotationProperty abbreviatedIRI="skos:definition"/>
             <Literal xml:lang="en">GSN goals document the claims made in the argument (i.e. premises and conclusions). Each goal shall contain a single goal statement, expressed as a proposition in the form of a noun phrase + verb-phrase sentence.</Literal>
         </Annotation>
         <Class IRI="#Goal"/>
@@ -600,7 +612,7 @@
     </SubClassOf>
     <SubClassOf>
         <Annotation>
-            <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+            <AnnotationProperty abbreviatedIRI="skos:definition"/>
             <Literal xml:lang="en">GSN justifications provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase.</Literal>
         </Annotation>
         <Class IRI="#Justification"/>
@@ -647,7 +659,7 @@
     <SubClassOf>
         <Class IRI="#Pattern"/>
         <DataSomeValuesFrom>
-            <DataProperty IRI="http://schema.org/description"/>
+            <DataProperty abbreviatedIRI="schema:description"/>
             <Datatype abbreviatedIRI="rdfs:Literal"/>
         </DataSomeValuesFrom>
     </SubClassOf>
@@ -717,14 +729,14 @@
     <SubClassOf>
         <Class IRI="#RelationshipWithConfidence"/>
         <DataSomeValuesFrom>
-            <DataProperty IRI="http://schema.org/identifier"/>
+            <DataProperty abbreviatedIRI="schema:identifier"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataSomeValuesFrom>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#RelationshipWithConfidence"/>
         <DataExactCardinality cardinality="1">
-            <DataProperty IRI="http://schema.org/identifier"/>
+            <DataProperty abbreviatedIRI="schema:identifier"/>
             <Datatype abbreviatedIRI="xsd:string"/>
         </DataExactCardinality>
     </SubClassOf>
@@ -744,7 +756,7 @@
     </SubClassOf>
     <SubClassOf>
         <Annotation>
-            <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+            <AnnotationProperty abbreviatedIRI="skos:definition"/>
             <Literal xml:lang="en">GSN solutions make no claim, but are simply references to evidence items that provide support for a particular claim. They shall therefore be stated as noun-phrases.</Literal>
         </Annotation>
         <Class IRI="#Solution"/>
@@ -778,7 +790,7 @@
     </SubClassOf>
     <SubClassOf>
         <Annotation>
-            <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+            <AnnotationProperty abbreviatedIRI="skos:definition"/>
             <Literal xml:lang="en">GSN strategy statements describe the reasoning that connects parent goals and their supporting goals, but the core claims and the structure connecting those claims remain unchanged. Strategy statements contain a brief description of the argument approach.</Literal>
         </Annotation>
         <Class IRI="#Strategy"/>
@@ -1188,7 +1200,7 @@
     </DisjointDataProperties>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1198,6 +1210,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S40</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Confidence Argument Extension</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -1228,7 +1244,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1239,6 +1255,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S16</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
+        </Annotation>
         <Body>
             <ClassAtom>
                 <Class IRI="#Assumption"/>
@@ -1265,7 +1285,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1276,6 +1296,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S1</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
+        </Annotation>
         <Body>
             <ClassAtom>
                 <Class IRI="#Assumption"/>
@@ -1302,7 +1326,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1312,6 +1336,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S17</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -1343,7 +1371,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1353,6 +1381,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S32</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -1398,7 +1430,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1408,6 +1440,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S9</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -1454,7 +1490,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1464,6 +1500,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S6</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -1491,7 +1531,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1501,6 +1541,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S8</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -1533,7 +1577,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1543,6 +1587,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S5</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -1575,7 +1623,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1586,6 +1634,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S45</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Confidence Argument Extension</Literal>
+        </Annotation>
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#supportedBy"/>
@@ -1622,7 +1674,7 @@
                 <Class IRI="#Goal"/>
                 <Variable IRI="#G"/>
             </ClassAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#S1"/>
                 <Variable IRI="#S2"/>
             </BuiltInAtom>
@@ -1666,7 +1718,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1677,6 +1729,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S44</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Confidence Argument Extension</Literal>
+        </Annotation>
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#supportedBy"/>
@@ -1709,7 +1765,7 @@
                 <Class IRI="#Goal"/>
                 <Variable IRI="#G"/>
             </ClassAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#S1"/>
                 <Variable IRI="#S2"/>
             </BuiltInAtom>
@@ -1757,7 +1813,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1767,6 +1823,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S49</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Dialectic Extension</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -1799,7 +1859,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1809,6 +1869,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S48</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Dialectic Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -1836,7 +1900,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1846,6 +1910,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S38</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -1873,7 +1941,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1884,6 +1952,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S51</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Dialectic Extension</Literal>
+        </Annotation>
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#challenges"/>
@@ -1921,7 +1993,7 @@
                 <Variable IRI="#G3"/>
                 <Variable IRI="#G1"/>
             </ObjectPropertyAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#G1"/>
                 <Variable IRI="#G2"/>
             </BuiltInAtom>
@@ -1970,7 +2042,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -1981,6 +2053,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S43</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Confidence Argument Extension</Literal>
+        </Annotation>
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#supportedBy"/>
@@ -2057,7 +2133,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2068,6 +2144,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S42</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Confidence Argument Extension</Literal>
+        </Annotation>
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#supportedBy"/>
@@ -2144,7 +2224,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2154,6 +2234,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S29</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -2209,7 +2293,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2219,6 +2303,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S33</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -2253,7 +2341,7 @@
                 <Variable IRI="#E"/>
                 <Variable IRI="#J"/>
             </ObjectPropertyAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#M1"/>
                 <Variable IRI="#M2"/>
             </BuiltInAtom>
@@ -2268,7 +2356,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2279,6 +2367,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S24</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
+        </Annotation>
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#contains"/>
@@ -2303,7 +2395,7 @@
                 <Class IRI="#Module"/>
                 <Variable IRI="#M"/>
             </ClassAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#M"/>
                 <Variable IRI="#N"/>
             </BuiltInAtom>
@@ -2318,7 +2410,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2329,6 +2421,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S23</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
+        </Annotation>
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#contains"/>
@@ -2353,7 +2449,7 @@
                 <Class IRI="#Module"/>
                 <Variable IRI="#M"/>
             </ClassAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#M"/>
                 <Variable IRI="#N"/>
             </BuiltInAtom>
@@ -2368,7 +2464,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2379,6 +2475,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S31</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
+        </Annotation>
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#contains"/>
@@ -2425,7 +2525,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2435,6 +2535,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S25</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -2448,7 +2552,7 @@
                 <Variable IRI="#A"/>
             </ObjectPropertyAtom>
             <DataPropertyAtom>
-                <DataProperty IRI="http://schema.org/identifier"/>
+                <DataProperty abbreviatedIRI="schema:identifier"/>
                 <Variable IRI="#A"/>
                 <Variable IRI="#ID"/>
             </DataPropertyAtom>
@@ -2456,12 +2560,12 @@
                 <Class IRI="#Module"/>
                 <Variable IRI="#M"/>
             </ClassAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#A"/>
                 <Variable IRI="#B"/>
             </BuiltInAtom>
             <DataPropertyAtom>
-                <DataProperty IRI="http://schema.org/identifier"/>
+                <DataProperty abbreviatedIRI="schema:identifier"/>
                 <Variable IRI="#B"/>
                 <Variable IRI="#ID"/>
             </DataPropertyAtom>
@@ -2481,7 +2585,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2491,6 +2595,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S28</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -2523,7 +2631,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2533,6 +2641,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S37</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <ClassAtom>
@@ -2547,7 +2659,7 @@
                 <Class IRI="#Module"/>
                 <Variable IRI="#M2"/>
             </ClassAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#M3"/>
                 <Variable IRI="#M1"/>
             </BuiltInAtom>
@@ -2561,11 +2673,11 @@
                 <Variable IRI="#M2"/>
                 <Variable IRI="#M3"/>
             </ObjectPropertyAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#M1"/>
                 <Variable IRI="#M2"/>
             </BuiltInAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#M2"/>
                 <Variable IRI="#M3"/>
             </BuiltInAtom>
@@ -2595,7 +2707,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2605,6 +2717,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S27</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -2651,7 +2767,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2661,6 +2777,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S26</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -2707,7 +2827,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2717,6 +2837,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S30</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -2752,7 +2876,7 @@
                 <Variable IRI="#A"/>
                 <Variable IRI="#B"/>
             </ObjectPropertyAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#M1"/>
                 <Variable IRI="#M2"/>
             </BuiltInAtom>
@@ -2767,7 +2891,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2778,6 +2902,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S35</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
+        </Annotation>
         <Body>
             <ClassAtom>
                 <Class IRI="#Module"/>
@@ -2802,7 +2930,7 @@
                 <Variable IRI="#E1"/>
                 <Variable IRI="#E2"/>
             </ObjectPropertyAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#M1"/>
                 <Variable IRI="#M2"/>
             </BuiltInAtom>
@@ -2817,7 +2945,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2828,6 +2956,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S34</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
+        </Annotation>
         <Body>
             <ClassAtom>
                 <Class IRI="#Module"/>
@@ -2852,7 +2984,7 @@
                 <Variable IRI="#M2"/>
                 <Variable IRI="#E2"/>
             </ObjectPropertyAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#M1"/>
                 <Variable IRI="#M2"/>
             </BuiltInAtom>
@@ -2867,7 +2999,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2878,6 +3010,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S36</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
+        </Annotation>
         <Body>
             <ObjectPropertyAtom>
                 <ObjectProperty IRI="#supportedBy"/>
@@ -2897,7 +3033,7 @@
                 <Variable IRI="#M1"/>
                 <Variable IRI="#E1"/>
             </ObjectPropertyAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#M1"/>
                 <Variable IRI="#M2"/>
             </BuiltInAtom>
@@ -2912,7 +3048,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2922,6 +3058,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S20</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Argument Pattern Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -2959,7 +3099,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -2969,6 +3109,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S14</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -3006,7 +3150,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3017,6 +3161,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S13</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
+        </Annotation>
         <Body>
             <ClassAtom>
                 <Class IRI="#Solution"/>
@@ -3057,7 +3205,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3068,6 +3216,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S11</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
+        </Annotation>
         <Body>
             <ClassAtom>
                 <Class IRI="#Solution"/>
@@ -3094,7 +3246,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3105,6 +3257,10 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S10</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
+        </Annotation>
         <Body>
             <ClassAtom>
                 <Class IRI="#Solution"/>
@@ -3131,7 +3287,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3141,6 +3297,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S3</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <ClassAtom>
@@ -3173,7 +3333,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3183,6 +3343,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S46</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Dialectic Extension</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -3210,7 +3374,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3220,6 +3384,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S4</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <ClassAtom>
@@ -3252,7 +3420,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3262,6 +3430,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S21</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Argument Pattern Extension</Literal>
         </Annotation>
         <Body>
             <ClassAtom>
@@ -3299,7 +3471,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3309,6 +3481,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S22</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Argument Pattern Extension</Literal>
         </Annotation>
         <Body>
             <ClassAtom>
@@ -3351,7 +3527,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3361,6 +3537,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S2</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -3389,7 +3569,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3399,6 +3579,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S7</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -3467,7 +3651,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3477,6 +3661,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S52</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Dialectic Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -3494,7 +3682,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3504,6 +3692,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S50</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Dialectic Extension</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -3535,7 +3727,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3545,6 +3737,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S39</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Modular Extension</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -3573,7 +3769,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3583,6 +3779,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S19</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -3614,7 +3814,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3624,6 +3824,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S18</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <ObjectPropertyAtom>
@@ -3655,7 +3859,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3665,6 +3869,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S12</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Core GSN</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -3698,7 +3906,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3709,22 +3917,26 @@
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S41</Literal>
         </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Confidence Argument Extension</Literal>
+        </Annotation>
         <Body>
             <DataPropertyAtom>
-                <DataProperty IRI="http://schema.org/identifier"/>
+                <DataProperty abbreviatedIRI="schema:identifier"/>
                 <Variable IRI="#A"/>
                 <Variable IRI="#N"/>
             </DataPropertyAtom>
             <DataPropertyAtom>
-                <DataProperty IRI="http://schema.org/identifier"/>
+                <DataProperty abbreviatedIRI="schema:identifier"/>
                 <Variable IRI="#B"/>
                 <Variable IRI="#M"/>
             </DataPropertyAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#notEqual">
+            <BuiltInAtom abbreviatedIRI="swrlb:notEqual">
                 <Variable IRI="#A"/>
                 <Variable IRI="#B"/>
             </BuiltInAtom>
-            <BuiltInAtom IRI="http://www.w3.org/2003/11/swrlb#equal">
+            <BuiltInAtom abbreviatedIRI="swrlb:equal">
                 <Variable IRI="#N"/>
                 <Variable IRI="#M"/>
             </BuiltInAtom>
@@ -3744,7 +3956,7 @@
     </DLSafeRule>
     <DLSafeRule>
         <Annotation>
-            <AnnotationProperty IRI="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"/>
+            <AnnotationProperty abbreviatedIRI="swrla:isRuleEnabled"/>
             <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
         </Annotation>
         <Annotation>
@@ -3754,6 +3966,10 @@
         <Annotation>
             <AnnotationProperty abbreviatedIRI="rdfs:label"/>
             <Literal>S47</Literal>
+        </Annotation>
+        <Annotation>
+            <AnnotationProperty IRI="#coreOrExtension"/>
+            <Literal>Dialectic Extension</Literal>
         </Annotation>
         <Body>
             <DataPropertyAtom>
@@ -3776,12 +3992,12 @@
         <Literal xml:lang="en">Argument</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Argument</IRI>
         <Literal xml:lang="en">A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Argument</IRI>
         <Literal xml:lang="en">A connected series of claims intended to establish an overall claim.</Literal>
     </AnnotationAssertion>
@@ -3796,7 +4012,7 @@
         <Literal xml:lang="en">Artefact</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#altLabel"/>
+        <AnnotationProperty abbreviatedIRI="skos:altLabel"/>
         <IRI>#Artefact</IRI>
         <Literal xml:lang="en">Evidence</Literal>
     </AnnotationAssertion>
@@ -3821,7 +4037,7 @@
         <Literal xml:lang="en">Assumption</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Assumption</IRI>
         <Literal xml:lang="en">An assumption, rendered as an oval with the letter &apos;A&apos; at the top- or bottom-right, presents an intentionally unsubstantiated statement.</Literal>
     </AnnotationAssertion>
@@ -3841,12 +4057,12 @@
         <Literal xml:lang="en">Assurance Case</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#AssuranceCase</IRI>
         <Literal xml:lang="en">A reasoned and compelling argument, supported by a body of evidence, that a system, service or organisation will operate as intended for a defined application in a defined environment.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#AssuranceCase</IRI>
         <Literal xml:lang="en">Arguments and evidence intended to demonstrate that a system meets its assurance requirements.</Literal>
     </AnnotationAssertion>
@@ -3861,7 +4077,7 @@
         <Literal xml:lang="en">Catalogue</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Catalogue</IRI>
         <Literal xml:lang="en">A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}.</Literal>
     </AnnotationAssertion>
@@ -3876,7 +4092,7 @@
         <Literal xml:lang="en">Context</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Context</IRI>
         <Literal xml:lang="en">A context, rendered as shown left, presents a contextual artefact. This can be a reference to contextual information, or a statement.</Literal>
     </AnnotationAssertion>
@@ -3896,22 +4112,22 @@
         <Literal xml:lang="en">Defeater</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#altLabel"/>
+        <AnnotationProperty abbreviatedIRI="skos:altLabel"/>
         <IRI>#Defeater</IRI>
         <Literal xml:lang="en">Dialectic Element</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Defeater</IRI>
         <Literal>The source of challenge being applied; can be directed at any part of an argument. A defeater (goal or solution) can challenge any element in a goal structure, e.g. goal, solution, strategy, context, assumption, justification.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#note"/>
+        <AnnotationProperty abbreviatedIRI="skos:note"/>
         <IRI>#Defeater</IRI>
         <Literal xml:lang="en">Membership of this class is only meant to be inferred, not asserted! Please do not add individuals to this class manually (i.e., assertions).</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#note"/>
+        <AnnotationProperty abbreviatedIRI="skos:note"/>
         <IRI>#Defeater</IRI>
         <Literal xml:lang="en">The goal and solution statements should be clearly expressed such that the crux of the challenge is unequivocally communicated. Thus, the link between the part of the argument that is being challenged (target) and the dialectic element (source) is self-evident.</Literal>
     </AnnotationAssertion>
@@ -3936,17 +4152,17 @@
         <Literal xml:lang="en">Goal</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#altLabel"/>
+        <AnnotationProperty abbreviatedIRI="skos:altLabel"/>
         <IRI>#Goal</IRI>
         <Literal xml:lang="en">Claim</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Goal</IRI>
         <Literal xml:lang="en">(Claim is) A proposition being asserted by the author that is a true or false statement.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Goal</IRI>
         <Literal xml:lang="en">A goal, rendered as a rectangle, presents a claim forming part of the argument.</Literal>
     </AnnotationAssertion>
@@ -3966,7 +4182,7 @@
         <Literal xml:lang="en">Instantiation Data Reference</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#InstantiationDataReference</IRI>
         <Literal>This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument.</Literal>
     </AnnotationAssertion>
@@ -3986,7 +4202,7 @@
         <Literal xml:lang="en">Justification</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Justification</IRI>
         <Literal xml:lang="en">A justification, rendered as an oval with the letter &apos;J&apos; at the top- or bottom-right, presents a statement of rationale.</Literal>
     </AnnotationAssertion>
@@ -4006,7 +4222,7 @@
         <Literal xml:lang="en">Module</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Module</IRI>
         <Literal xml:lang="en">Goal structures can be partitioned into separate, but interrelated, modules. This can allow the division of an overall goal structure into separate goal structures focusing on particular aspects of the overall argument. A module may contain one or more arguments and may contain other modules.</Literal>
     </AnnotationAssertion>
@@ -4046,7 +4262,7 @@
         <Literal xml:lang="en">Relationship with Confidence</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#note"/>
+        <AnnotationProperty abbreviatedIRI="skos:note"/>
         <IRI>#RelationshipWithConfidence</IRI>
         <Literal xml:lang="en">The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module.</Literal>
     </AnnotationAssertion>
@@ -4061,7 +4277,7 @@
         <Literal xml:lang="en">Solution</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Solution</IRI>
         <Literal xml:lang="en">A solution, rendered as a circle, presents a reference to an evidence item.</Literal>
     </AnnotationAssertion>
@@ -4081,7 +4297,7 @@
         <Literal xml:lang="en">Strategy</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Strategy</IRI>
         <Literal xml:lang="en">A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s).</Literal>
     </AnnotationAssertion>
@@ -4101,7 +4317,7 @@
         <Literal xml:lang="en">Template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#Template</IRI>
         <Literal xml:lang="en">A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development.</Literal>
     </AnnotationAssertion>
@@ -4116,7 +4332,7 @@
         <Literal xml:lang="en">View</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#View</IRI>
         <Literal xml:lang="en">The argument view depicts the argument inside an individual module.</Literal>
     </AnnotationAssertion>
@@ -4131,7 +4347,7 @@
         <Literal xml:lang="en">applicability</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#applicability</IRI>
         <Literal xml:lang="en">The applicability section should state under what circumstances the pattern can be applied, making clear the assumptions and principles underlying the pattern to avoid inappropriate application in a mismatched context. This section should record what contextual information is required in order to apply the pattern.</Literal>
     </AnnotationAssertion>
@@ -4166,7 +4382,7 @@
         <Literal xml:lang="en">assurance claim point</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#assuranceClaimPoint</IRI>
         <Literal xml:lang="en">An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument.</Literal>
     </AnnotationAssertion>
@@ -4196,7 +4412,7 @@
         <Literal>dotted line</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://schema.org/description"/>
+        <AnnotationProperty abbreviatedIRI="schema:description"/>
         <IRI>#away</IRI>
         <Literal xml:lang="en">An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module.</Literal>
     </AnnotationAssertion>
@@ -4206,7 +4422,7 @@
         <Literal xml:lang="en">away</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#away</IRI>
         <Literal xml:lang="en">An away element reference repeats a claim or evidence presented in another argument module.</Literal>
     </AnnotationAssertion>
@@ -4226,12 +4442,12 @@
         <Literal xml:lang="en">challenges</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#challenges</IRI>
         <Literal xml:lang="en">Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#note"/>
+        <AnnotationProperty abbreviatedIRI="skos:note"/>
         <IRI>#challenges</IRI>
         <Literal xml:lang="en">A challenge must be levied against the appropriate aspect of the goal structure.</Literal>
     </AnnotationAssertion>
@@ -4251,7 +4467,7 @@
         <Literal xml:lang="en">choice</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#choice</IRI>
         <Literal xml:lang="en">A GSN choice can be used to denote possible alternatives in satisfying a relationship.</Literal>
     </AnnotationAssertion>
@@ -4271,7 +4487,7 @@
         <Literal xml:lang="en">collaboration</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#collaboration</IRI>
         <Literal xml:lang="en">The collaboration section should describe how elements of the pattern work together to achieve the desired effect, particularly where there are links that are not readily apparent from the argument structure.</Literal>
     </AnnotationAssertion>
@@ -4286,7 +4502,7 @@
         <Literal xml:lang="en">consequences</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#consequences</IRI>
         <Literal xml:lang="en">The consequences section should make clear what work remains after the pattern has been applied. This should highlight where further support to the argument is required, and assumptions that need to be discharged.</Literal>
     </AnnotationAssertion>
@@ -4301,7 +4517,7 @@
         <Literal xml:lang="en">consistent with</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#consistentWith</IRI>
         <Literal>By making the relationship to the away goal the author is asserting not only the inference of support for the parent goal, but also that the context in which the away goal is declared is consistent with the context and assumptions in scope for the parent goal.</Literal>
     </AnnotationAssertion>
@@ -4326,17 +4542,17 @@
         <Literal xml:lang="en">contract</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#contract</IRI>
         <Literal xml:lang="en">A contract module is a special type of module that controls the relationship between argument module interfaces using arguments to define how a goal in one module is supported by one or more goals in one or more other modules.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#note"/>
+        <AnnotationProperty abbreviatedIRI="skos:note"/>
         <IRI>#contract</IRI>
         <Literal xml:lang="en">A contract may be described in textual form (e.g. as a table) or for more complex relationships may be described within a contract module using GSN.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#note"/>
+        <AnnotationProperty abbreviatedIRI="skos:note"/>
         <IRI>#contract</IRI>
         <Literal xml:lang="en">Contract modules can be used in the support relationship between modules to aid decoupling. The de-coupling by use of a contract permits argument module construction in cases where the eventual source of support for an argument is unknown at the time of authoring or can be changed for example through re-use or planned product improvement or reconfiguration.</Literal>
     </AnnotationAssertion>
@@ -4356,12 +4572,12 @@
         <Literal xml:lang="en">core or extension</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#coreOrExtension</IRI>
         <Literal xml:lang="en">Indicator of the sourcing section in the GSN Community Standard v3.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://schema.org/description"/>
+        <AnnotationProperty abbreviatedIRI="schema:description"/>
         <IRI>#defeated</IRI>
         <Literal xml:lang="en">Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships.</Literal>
     </AnnotationAssertion>
@@ -4371,7 +4587,7 @@
         <Literal xml:lang="en">defeated</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#defeated</IRI>
         <Literal xml:lang="en">This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements.</Literal>
     </AnnotationAssertion>
@@ -4391,7 +4607,7 @@
         <Literal xml:lang="en">examples</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#examples</IRI>
         <Literal xml:lang="en">It may be useful to provide example illustrations of the application of the pattern, particularly for more abstract patterns. Illustrations should include a typical case and can be supplemented with atypical cases where more than one example is provided.</Literal>
     </AnnotationAssertion>
@@ -4416,7 +4632,7 @@
         <Literal xml:lang="en">implementation</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#implementation</IRI>
         <Literal xml:lang="en">The implementation section should communicate how the application of the pattern is carried out e.g. the order in which elements should be developed; communicate hints or techniques that may ease successful application; highlight common or recognised pitfalls with the application of the pattern; and record potential misinterpretation of the terms or concepts in the pattern.</Literal>
     </AnnotationAssertion>
@@ -4431,7 +4647,7 @@
         <Literal xml:lang="en">in context of</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#inContextOf</IRI>
         <Literal xml:lang="en">InContextOf, rendered as a line with a hollow arrowhead, declares a contextual relationship.</Literal>
     </AnnotationAssertion>
@@ -4451,7 +4667,7 @@
         <Literal xml:lang="en">in doubt</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#inDoubt</IRI>
         <Literal xml:lang="en">The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt.</Literal>
     </AnnotationAssertion>
@@ -4476,7 +4692,7 @@
         <Literal xml:lang="en">intent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#intent</IRI>
         <Literal xml:lang="en">The intent statement should state clearly what the pattern aims to achieve.</Literal>
     </AnnotationAssertion>
@@ -4491,7 +4707,7 @@
         <Literal xml:lang="en">known uses</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#knownUses</IRI>
         <Literal xml:lang="en">It may be useful to provide references to known applications of the pattern. These can serve as additional examples.</Literal>
     </AnnotationAssertion>
@@ -4536,7 +4752,7 @@
         <Literal xml:lang="en">motivation</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#motivation</IRI>
         <Literal xml:lang="en">The motivation statement can be used to state why the pattern was created. It could be expressed in terms of previous experiences e.g. as the abstraction of a successfully presented argument, or challenges addressed e.g. argument topics that are often incompletely or poorly addressed.</Literal>
     </AnnotationAssertion>
@@ -4576,7 +4792,7 @@
         <Literal xml:lang="en">optional</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#optional</IRI>
         <Literal xml:lang="en">Optional instantiation means that the relationship and the argument below may or may not be instantiated.</Literal>
     </AnnotationAssertion>
@@ -4596,7 +4812,7 @@
         <Literal xml:lang="en">participants</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#participants</IRI>
         <Literal xml:lang="en">The participants section augments the structure by providing a description of each element. This can provide more complete descriptions, clarify the role of the element in the overall argument and emphasise the aspects that require development or instantiation.</Literal>
     </AnnotationAssertion>
@@ -4611,7 +4827,7 @@
         <Literal xml:lang="en">public</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#public</IRI>
         <Literal xml:lang="en">This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element.</Literal>
     </AnnotationAssertion>
@@ -4651,7 +4867,7 @@
         <Literal xml:lang="en">related to</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#relatedTo</IRI>
         <Literal xml:lang="en">This section can be used to reference patterns that are related e.g. addressing the same intent in a different context.</Literal>
     </AnnotationAssertion>
@@ -4666,12 +4882,12 @@
         <Literal xml:lang="en">relationship type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#relationshipType</IRI>
         <Literal xml:lang="en">An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#relationshipType</IRI>
         <Literal xml:lang="en">SupportedBy relationships – represented by lines with solid arrowheads – indicate inferential or evidential relationships between elements. InContextOf relationships – represented as lines with hollow arrowheads – declare contextual relationships.</Literal>
     </AnnotationAssertion>
@@ -4706,7 +4922,7 @@
         <Literal xml:lang="en">structure</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#structure</IRI>
         <Literal xml:lang="en">The structure uses the structural and element abstraction notations to present the pattern, clearly indicating where the argument needs to be further developed or populated with details to instantiate the pattern for a specific case.</Literal>
     </AnnotationAssertion>
@@ -4721,7 +4937,7 @@
         <Literal xml:lang="en">structured</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#structured</IRI>
         <Literal xml:lang="en">A particular kind of argument where the relationships between the asserted claims, and from the evidence to the claims, are explicitly represented.</Literal>
     </AnnotationAssertion>
@@ -4736,7 +4952,7 @@
         <Literal xml:lang="en">substituted by</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#substitutedBy</IRI>
         <Literal xml:lang="en">There may be occasions when a goal or strategy requires fuller justification than can be provided within the confines of a GSN justification element. In such cases, an away goal can be substituted for the justification.</Literal>
     </AnnotationAssertion>
@@ -4751,7 +4967,7 @@
         <Literal xml:lang="en">supported by</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#supportedBy</IRI>
         <Literal xml:lang="en">SupportedBy, rendered as a line with a solid arrowhead, allows support relationships between elements to be documented.</Literal>
     </AnnotationAssertion>
@@ -4786,12 +5002,12 @@
         <Literal xml:lang="en">top (goal)</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#top</IRI>
         <Literal xml:lang="en">A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#top</IRI>
         <Literal xml:lang="en">The top goal presents the overall claim asserted by the author and it is up to the reader to determine their belief that it is adequately supported.</Literal>
     </AnnotationAssertion>
@@ -4816,7 +5032,7 @@
         <Literal xml:lang="en">undeveloped</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#undeveloped</IRI>
         <Literal xml:lang="en">Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed.</Literal>
     </AnnotationAssertion>
