@@ -1,0 +1,28 @@
+/* docs/_sass/_sparql.scss */
+table.sparql {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.95rem;
+}
+table.sparql th,
+table.sparql td {
+  border: 1px solid #ddd;
+  padding: 6px 8px;
+}
+table.sparql th {
+  background: #f6f6f6;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  z-index: 1; /* keeps header above cells when scrolling */
+}
+table.sparql tr:nth-child(even) { background: #fafafa; }
+
+/* Optional: narrow screens */
+@media (max-width: 640px) {
+  table.sparql { font-size: 0.9rem; }
+}
+
+/* Optional: dark skin tweak (MM supports skins) */
+html[data-theme="dark"] table.sparql th { background: #2a2a2a; }
+html[data-theme="dark"] table.sparql tr:nth-child(even) { background: #1f1f1f; }
