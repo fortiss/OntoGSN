@@ -57,13 +57,12 @@ function renderTable(el, rows) {
   el.innerHTML = html;
 }
 
-
-(async () => {
+async function runQuery(queryFile) {
   try {
-    await init(); // loads web_bg.wasm from the same CDN folder
+    await init(); // Load the Oxigraph WASM module
     const store = new Store();
 
-    // Your ontologies live in ./assets/data
+    // Load the ontology and example case
     const ontoPath    = `${base}/assets/data/ontogsn_lite.ttl`;
     const examplePath = `${base}/assets/data/example_ac.ttl`;
 
@@ -72,9 +71,9 @@ function renderTable(el, rows) {
       getTTL(examplePath),
     ]);
 
-    // Load both into the default graph
+
     try {
-      store.load(ttlOnto,    "text/turtle", "https://w3id.org/OntoGSN/ontology#");
+      store.load(ttlOnto, "text/turtle", "https://w3id.org/OntoGSN/ontology#");
       store.load(ttlExample, "text/turtle", "https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#");
     } catch (e) {
       // Help debug common "Invalid IRI code point ' '" issues
@@ -82,11 +81,11 @@ function renderTable(el, rows) {
       show(`Parse error while loading TTL: ${e.message}\n\nPreview of ontogsn_lite.ttl:\n${preview}`);
       throw e;
     }
+    
+    // Load the selected SPARQL query
+    const query = await loadQuery(queryFile);
+    const res = store.query(query);
 
-    // Sample query
-    const q = await loadQuery("/assets/data/read_all.sparql");
-
-    const res  = store.query(q);
     const rows = [];
     for (const b of res) {
       const obj = {};
@@ -96,8 +95,14 @@ function renderTable(el, rows) {
     renderTable(document.getElementById("results"), rows);
   } catch (e) {
     console.error(e);
-    if (!out.textContent || out.textContent === "Loading…") {
-      show("Error: " + e.message);
-    }
+    show("Error: " + e.message);
   }
-})();
+}
+
+document.getElementById("readAllNodesBtn").addEventListener("click", () => {
+  runQuery("/assets/data/read_all_nodes.sparql");
+});
+
+document.getElementById("readAllRelationsBtn").addEventListener("click", () => {
+  runQuery("/assets/data/read_all_relations.sparql");
+});
