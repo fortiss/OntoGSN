@@ -1,0 +1,18 @@
+PREFIX schema: <https://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+SELECT DISTINCT ?s ?p ?o
+WHERE {
+    ?s ?p ?o .
+    FILTER(?p IN (gsn:supportedBy, gsn:inContextOf, gsn:challenges))
+    #?s_iri ?p_iri ?o_iri;
+    #        a ?type;
+    #        schema:identifier ?s.
+    #?p_iri rdfs:label ?p_label.
+    #BIND(STR(?p_label) AS ?p).
+    #?o_iri schema:identifier ?o. 
+    #FILTER(CONTAINS(?p_label, "support") || CONTAINS(?p_label, "context") || CONTAINS(?p_label, "challenge"))
+
+} 
+ORDER BY ?s

@@ -1,28 +1,182 @@
-// Oxigraph browser build (v0.5.x): web.js + web_bg.wasm from CDN
 import init, { Store } from "https://cdn.jsdelivr.net/npm/oxigraph@0.5.2/web.js";
+import { visualizeSPO } from "./graph.js";
 
-const out  = document.getElementById("out");
-const show = x => out.textContent = typeof x === "string" ? x : JSON.stringify(x, null, 2);
-const base = new URL("../../", import.meta.url).pathname.replace(/\/$/, "");
+/** @typedef {{s:string,p:string,o:string}} SPORow */
 
-async function loadQuery(path) {
-  const url = `${base}${path.startsWith("/") ? path : `/${path}`}`;
-  const r = await fetch(url, { cache: "no-store" });
+// ---------- DOM handles ----------
+const outEl     = document.getElementById("out");
+const resultsEl = document.getElementById("results");
+const graphEl   = document.getElementById("graph");
+
+const show = x => { if (outEl) outEl.textContent = (typeof x === "string" ? x : JSON.stringify(x, null, 2)); };
+
+// Compute repository root (two levels up from /assets/js/*.js)
+const BASE_URL  = new URL("../../", import.meta.url);
+const BASE_PATH = (BASE_URL.protocol.startsWith("http") ? BASE_URL.href : BASE_URL.pathname).replace(/\/$/, "");
+const MIME_TTL = "text/turtle";
+const BASE_ONTO = "https://w3id.org/OntoGSN/ontology#";
+const BASE_CASE = "https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#";
+
+// Centralize paths in one place for readability
+const PATHS = {
+  onto    : "/assets/data/ontogsn_lite.ttl",
+  example : "/assets/data/example_ac.ttl",
+  q       : {
+    nodes     : "/assets/data/read_all_nodes.sparql",
+    rels      : "/assets/data/read_all_relations.sparql",
+    visualize : "/assets/data/visualize_graph.sparql",
+    propCtx   : "/assets/data/propagate_context.sparql",
+    propDef   : "/assets/data/propagate_defeater.sparql",
+  }
+};
+
+// One global-ish app instance to keep state tidy
+class QueryApp {
+  /** @type {Store|null} */                     store = null;
+  /** @type {ReturnType<visualizeSPO>|null} */  graphCtl = null;
+  /** @type {(e:Event)=>void} */                _onResize = () => {};
+
+  async init() {
+    await init();
+    this.store = new Store();
+    await this._loadTTL();
+    this._attachUI();
+  }
+
+  async run(queryPath) {
+    try {
+      this._setBusy(true);
+      const query = await fetchText(queryPath);
+      const res   = this.store.query(query);
+      const rows  = bindingsToRows(res);
+      renderTable(resultsEl, rows);
+
+      // The graph expects ?s ?p ?o
+      const graphRows = rows.filter(r => r.s && r.p && r.o).map(r => ({ s: r.s, p: r.p, o: r.o }));
+
+      if (this.graphCtl) this.graphCtl.destroy();
+      this.graphCtl = visualizeSPO(graphRows, {
+        mount: graphEl,
+        height: 520,
+        label: shorten,
+        supportedBy: [
+          "supported by",
+          "gsn:supportedBy",
+          "https://w3id.org/OntoGSN/ontology#supportedBy",
+          "http://w3id.org/gsn#supportedBy",
+        ],
+        contextOf: [
+          "in context of",
+          "gsn:inContextOf",
+          "https://w3id.org/OntoGSN/ontology#inContextOf",
+          "http://w3id.org/gsn#inContextOf",
+        ],
+        challenges: [
+          "challenges",
+          "gsn:challenges",
+          "https://w3id.org/OntoGSN/ontology#challenges",
+          "http://w3id.org/gsn#challenges",
+        ],
+        theme: "light",
+      });
+
+      // Keep resize listener idempotent
+      window.removeEventListener("resize", this._onResize);
+      this._onResize = () => this.graphCtl && this.graphCtl.fit();
+      window.addEventListener("resize", this._onResize);
+      // You can keep a global for compatibility if other scripts poke it
+      window.graphCtl = this.graphCtl;
+    } catch (e) {
+      outEl.textContent =
+        `Error running ${queryPath}:
+        ${e?.message || e}
+        Hints:
+          - Check the path (is it correct under GitHub Pages?)
+          - Did TTLs parse? (see console for parse errors)
+          - Does the query SELECT ?s ?p ?o if you expect graph output?`;
+      console.error(e);
+    } finally {
+      this._setBusy(false);
+    }
+  }
+
+  // --- private helpers ---
+
+  async _loadTTL() {
+    // Always load from BASE_PATH, used in both TEST and PROD
+    const ontoURL    = `${BASE_PATH}${PATHS.onto}`;
+    const exampleURL = `${BASE_PATH}${PATHS.example}`;
+    const [ttlOnto, ttlExample] = await Promise.all([getTTL(ontoURL), getTTL(exampleURL)]);
+    try {
+      this.store.load(ttlOnto, MIME_TTL, BASE_ONTO);
+      this.store.load(ttlExample, MIME_TTL, BASE_CASE);
+    } catch (e) {
+      const preview = ttlOnto.slice(0, 300);
+      show?.(`Parse error while loading TTL: ${e.message}\n\nPreview of ontogsn_lite.ttl:\n${preview}`);
+      throw e;
+    }
+
+    // Wire graph interactions (context/defeater propagation) once
+    window.addEventListener("gsn:contextClick", async (ev) => {
+      const iri = ev?.detail?.id;
+      if (!iri) return;
+      const tmpl = await fetchText(PATHS.q.propCtx);
+      const q    = tmpl.replaceAll("{{CTX_IRI}}", `<${iri}>`);
+      const res  = this.store.query(q);
+      const rows = bindingsToRows(res);
+      const ids  = rows.map(r => r.nodeIRI).filter(Boolean);
+      this.graphCtl?.clearAll();
+      this.graphCtl?.highlightByIds(ids, "in-context");
+    });
+
+    window.addEventListener("gsn:defeaterClick", async (ev) => {
+      const iri = ev?.detail?.id;
+      if (!iri) return;
+      const tmpl = await fetchText(PATHS.q.propDef);
+      const q    = tmpl.replaceAll("{{DFT_IRI}}", `<${iri}>`);
+      const res  = this.store.query(q);
+      const rows = bindingsToRows(res);
+      const ids  = rows.map(r => r.hitIRI).filter(Boolean);
+      this.graphCtl?.clearAll();
+      this.graphCtl?.highlightByIds(ids, "def-prop");
+    });
+  }
+
+  _attachUI() {
+    // Single event delegation for all buttons tagged with [data-query]
+    document.addEventListener("click", (e) => {
+      const btn = e.target instanceof Element ? e.target.closest("[data-query]") : null;
+      if (!btn) return;
+      const path = btn.getAttribute("data-query");
+      if (!path) return;
+      this.run(path);
+    });
+  }
+
+  _setBusy(busy) {
+    document.body.toggleAttribute("aria-busy", !!busy);
+    const btns = document.querySelectorAll("[data-query]");
+    btns.forEach(b => b.toggleAttribute("disabled", !!busy));
+  }
+}
+
+// ---------- generic helpers ----------
+
+async function fetchText(relPath) {
+  const url = (relPath.startsWith("http") ? relPath :
+               `${BASE_PATH}${relPath.startsWith("/") ? "" : "/"}${relPath}`);
+  const r = await fetch(`${url}?v=${performance.timeOrigin}`, { cache: "no-store" });
   if (!r.ok) throw new Error(`Fetch failed ${r.status} for ${url}`);
   const txt = await r.text();
-  return txt.replace(/^\uFEFF/, ""); // strip BOM if present
+  return txt.replace(/^\uFEFF/, ""); // strip BOM
 }
 
 async function getTTL(url) {
-  const r = await fetch(url, { cache: "no-store" });
+  const r = await fetch(`${url}?v=${performance.timeOrigin}`, { cache: "no-store" });
   if (!r.ok) throw new Error(`Fetch failed ${r.status} for ${url}`);
   const txt = await r.text();
-
-  // If we accidentally fetched an HTML error/404 page, bail early
-  const firstLine = txt.split(/\r?\n/).find(l => l.trim().length) || "";
-  if (firstLine.startsWith("<!")) {
-    throw new Error(`Got HTML instead of Turtle from ${url}. Check the path.`);
-  }
+  const first = txt.split(/\r?\n/).find(l => l.trim().length) || "";
+  if (first.startsWith("<!")) throw new Error(`Got HTML instead of Turtle from ${url}. Check the path.`);
   return txt;
 }
 
@@ -41,68 +195,43 @@ function termToDisplay(t) {
     default: return t.value ?? String(t);
   }
 }
-const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-/** rows: Array<Object>, keys are variable names */
+function bindingsToRows(iter) {
+  const rows = [];
+  for (const b of iter) {
+    const obj = {};
+    for (const [k, v] of b) obj[k] = termToDisplay(v);
+    rows.push(obj);
+  }
+  return rows;
+}
+
 function renderTable(el, rows) {
+  if (!el) return;
   if (!rows.length) { el.innerHTML = "<p>No results.</p>"; return; }
   const headers = [...new Set(rows.flatMap(r => Object.keys(r)))];
-  let html = '<table class="sparql"><thead><tr>' +
-             headers.map(h => `<th>${esc(h)}</th>`).join("") +
-             '</tr></thead><tbody>';
-  for (const r of rows) {
-    html += '<tr>' + headers.map(h => `<td>${esc(r[h] ?? "")}</td>`).join("") + '</tr>';
-  }
+  let html = '<table class="sparql"><thead><tr>' + headers.map(h => `<th>${esc(h)}</th>`).join("") + '</tr></thead><tbody>';
+  for (const r of rows) html += '<tr>' + headers.map(h => `<td>${esc(r[h] ?? "")}</td>`).join("") + '</tr>';
   html += '</tbody></table>';
   el.innerHTML = html;
 }
 
-async function runQuery(queryFile) {
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function shorten(iriOrLabel) {
   try {
-    await init(); // Load the Oxigraph WASM module
-    const store = new Store();
-
-    // Load the ontology and example case
-    const ontoPath    = `${base}/assets/data/ontogsn_lite.ttl`;
-    const examplePath = `${base}/assets/data/example_ac.ttl`;
-
-    const [ttlOnto, ttlExample] = await Promise.all([
-      getTTL(ontoPath),
-      getTTL(examplePath),
-    ]);
-
-
-    try {
-      store.load(ttlOnto, "text/turtle", "https://w3id.org/OntoGSN/ontology#");
-      store.load(ttlExample, "text/turtle", "https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#");
-    } catch (e) {
-      // Help debug common "Invalid IRI code point ' '" issues
-      const preview = ttlOnto.slice(0, 300);
-      show(`Parse error while loading TTL: ${e.message}\n\nPreview of ontogsn_lite.ttl:\n${preview}`);
-      throw e;
-    }
-    
-    // Load the selected SPARQL query
-    const query = await loadQuery(queryFile);
-    const res = store.query(query);
-
-    const rows = [];
-    for (const b of res) {
-      const obj = {};
-      for (const [k, v] of b) obj[k] = termToDisplay(v);
-      rows.push(obj);
-    }
-    renderTable(document.getElementById("results"), rows);
-  } catch (e) {
-    console.error(e);
-    show("Error: " + e.message);
+    const u = new URL(iriOrLabel);
+    if (u.hash && u.hash.length > 1) return u.hash.slice(1);
+    const parts = u.pathname.split("/").filter(Boolean);
+    return parts[parts.length - 1] || iriOrLabel;
+  } catch {
+    return iriOrLabel.replace(/^.*[#/]/, "");
   }
 }
 
-document.getElementById("readAllNodesBtn").addEventListener("click", () => {
-  runQuery("/assets/data/read_all_nodes.sparql");
-});
+// ---------- boot ----------
+const app = new QueryApp();
+app.init();
 
-document.getElementById("readAllRelationsBtn").addEventListener("click", () => {
-  runQuery("/assets/data/read_all_relations.sparql");
-});
+// Also export the app for debugging in console if needed
+export default app;

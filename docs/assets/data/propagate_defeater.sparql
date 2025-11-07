@@ -1,0 +1,14 @@
+PREFIX gsn:   <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema:<https://schema.org/>
+PREFIX case: <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#>
+
+SELECT DISTINCT ?hitIRI ?hit ?dft ?defeater ?goal
+WHERE {
+    VALUES ?dft { {{DFT_IRI}} }
+    ?dft gsn:challenges ?g ;
+         schema:identifier ?defeater .
+    ?g schema:identifier ?goal .
+    ?hitIRI (gsn:supportedBy)* ?g ;
+             schema:identifier ?hit .
+}
+ORDER BY ?hit

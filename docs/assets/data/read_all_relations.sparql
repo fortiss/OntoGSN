@@ -6,12 +6,13 @@ SELECT ?Type ?Node_A ?relatesTo (GROUP_CONCAT(CONCAT(?Node_B); SEPARATOR="\n") A
 WHERE {
     ?nodeIRI a ?TypeIRI;
              schema:identifier ?Node_A .
-    ?TypeIRI rdfs:label ?Type.
+    ?TypeIRI rdfs:label ?TypeLabel.
+    BIND(STR(?TypeLabel) AS ?Type).
     OPTIONAL {
         ?nodeIRI ?propertyIRI_A ?otherNodeIRI .
         ?propertyIRI_A rdfs:label ?prop_a .
         ?otherNodeIRI schema:identifier ?nodeB_id_a .
-        BIND(CONCAT("--(", STR(?prop_a), ")->") AS ?relatesTo)
+        BIND(STR(?prop_a) AS ?relatesTo)
         BIND(STR(?nodeB_id_a) AS ?Node_B)
     }
 
