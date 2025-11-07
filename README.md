@@ -5,10 +5,10 @@
 [![Format: OWL/XML](https://img.shields.io/badge/Format-OWX-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.owx)
 
 ## Note For Potential Reviewers
-If you are interested in reviewing the OntoGSN before we submit a paper on it (ETA: mid-May 2025), please provide your comments in the OntoGSN Design Document (PDF) and reach out to me directly at momcilovic [at] fortiss [dot] org. Thank you!
+If you are interested in reviewing the OntoGSN, please reach out to me directly at momcilovic [at] fortiss [dot] org. Thank you!
 
 # Introduction
-OntoGSN is an ontology for managing GSN assurance cases dynamically, using the advantages of the semantic technology stack. 
+OntoGSN is an ontology for managing GSN assurance cases semantically, using the advantages of the Semantic Web. 
 
 These advantages include: 1)	storing and querying graph data in a structure made for that purpose; 2) representing the domain or world in human-readable visual-izable format; 3) integrating references to data, documents or code easily and in the same store; 4) automating rules and verification of quality with logic-based reasoners; 5)	providing the basis for more advanced methods and extensions (e.g., GraphRAG); 6)	making use of a vibrant community and (mostly) free and open-source tools.
 
