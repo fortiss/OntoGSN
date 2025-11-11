@@ -3,8 +3,16 @@
 @prefix dc:     <http://purl.org/dc/terms/> .
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 @prefix case:   <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix did: <http://www.fortiss-demo.org/ontologies/defence-in-depth/> .
+@prefix xyz: <http://www.example.com/placeholder#> .
 
-case:AC_ACT-FASTRobustLLM
+case:arXivPaper rdfs:label "arXiv preprint" .
+owl:Ontology rdfs:label "Ontology" .
+
+case:AC_ACT_FASTRobustLLM
     a gsn:AssuranceCase ;
     schema:identifier "AC-2025-ACT-FAST-RobustLLM" ;
     schema:name "ACT-FAST LLM Adversarial Robustness Assurance Case" ;
@@ -23,6 +31,25 @@ case:ARG_Robustness
                  case:C1 , case:C2 ,
                  case:A1 , case:J1 .
 
+case:M1
+    a gsn:Module ;
+    rdfs:label "M1" ;
+    gsn:contains case:G1, case:G2, case:S1 ,
+                 case:G1_1, case:G2_1, case:G2_2, 
+                 case:G1_2, case:G1_3, case:G1_2_1,
+                 case:G1_2_2, case:C1, case:C2 ,
+                 case:C1_1, case:A1, case:J1,
+                 case:Sn1, case:Sn2, case:Sn1_2_1,
+                 case:D1_2_2, case:D1_2_1 .
+
+case:M2
+    a gsn:Module ;
+    rdfs:label "M2" ;
+    gsn:contains case:G3, case:G3, case:G3_1, case:G3_2,
+                 case:G3_3, case:G3_3_1, case:G3_3_2,
+                 case:G3_3_3, case:Sn3_3_1_1, case:Sn3_3_1_2,
+                 case:Sn3_3_2, case:Sn3_3_3 .
+
 case:G1
     a gsn:Goal ;
     schema:identifier "G1" ;
@@ -34,9 +61,9 @@ case:G1
 case:G2
     a gsn:Goal ;
     schema:identifier "G2" ;
-    gsn:statement "Placeholder." ;
-    gsn:valid true ;
-    gsn:supportedBy case:G2_1 .
+    gsn:statement "ACT-FAST is enveloped by guardrails which prevent harmful responses from propagating downstream." ;
+    gsn:valid false ;
+    gsn:supportedBy case:G2_1, case:G2_2 .
 
 case:S1
     a gsn:Strategy ;
@@ -50,34 +77,49 @@ case:G1_1
     gsn:statement "The LLM resists jailbreak attacks within the documented prompt-safety envelope." ;
     gsn:valid true ;
     gsn:supportedBy case:Sn1 , case:Sn2 ;
-    gsn:inContextOf case:C1_1 .
+    gsn:inContextOf case:C1_1, case:J1 ; 
+    did:covers did:modelDetectionLayer .
 
 case:G2_1
     a gsn:Goal ;
     schema:identifier "G2.1" ;
-    gsn:statement "Placeholder." ;
+    gsn:statement "The implemented filters detect out-of-distribution responses ." ;
     gsn:valid true ;
-    gsn:supportedBy case:Sn1_2_1 .
+    gsn:supportedBy case:Sn1_2_1 ;
+    did:covers did:outputDetectionLayer, did:downstreamInteractionLayer .
+
+case:G2_2
+    a gsn:Goal ;
+    schema:identifier "G2.2" ;
+    gsn:statement "The actuation system downstream from the model engages a failsafe if appropriate primitives are not detected." ;
+    gsn:valid true ;
+    gsn:supportedBy case:Sn1_2_1 ;
+    did:covers did:downstreamInteractionLayer .
 
 case:G1_2
     a gsn:Goal ;
     schema:identifier "G1.2" ;
     gsn:statement "The LLM and tool-use pipeline mitigate prompt-injection attacks originating from external content." ;
     gsn:valid true ;
+    gsn:true true ;
     gsn:supportedBy case:G1_2_1, case:G1_2_2 ;
-    gsn:inContextOf case:C2 .
+    gsn:inContextOf case:C2, case:A1 ;
+    did:covers did:inputDetectionLayer .
 
 case:G1_3
     a gsn:Goal ;
     schema:identifier "G1.3" ;
     gsn:statement "The LLM prevents sensitive data exfiltration under realistic attacker prompts and contexts." ;
-    gsn:valid false .
+    gsn:undeveloped true ;
+    gsn:inContextOf case:A1_3 ;
+    did:covers did:modelDetectionLayer .
 
 case:G1_2_1
     a gsn:Goal ;
     schema:identifier "G1.2.1" ;
     gsn:statement "Placeholder" ;
     gsn:valid true ;
+    gsn:true false ;
     gsn:supportedBy case:Sn1_2_1 .
 
 case:G1_2_2
@@ -99,13 +141,33 @@ case:C2
 case:C1_1
     a gsn:Context ;
     schema:identifier "C1.1" ;
-    gsn:statement "Placeholder" .
+    schema:url "https://github.com/centerforaisafety/HarmBench/blob/8e1604d1171fe8a48d8febecd22f600e462bdcdd/data/optimizer_targets/harmbench_targets_text.json" ;
+    gsn:statement "Default HarmBench target responses" ;
+    gsn:refersTo <https://fortiss-demo.org/ontologies/actfast/harmbench/2025-10-31> ;
+    schema:about [
+        a prov:Collection ;
+        dc:title "HarmBench context pack (2025-10-31)" ;
+        prov:hadMember <https://fortiss-demo.org/ontologies/actfast/harmbench/2025-10-31> ;
+        prov:hadMember <arxiv:2402.04249>
+    ] .
+
+<arxiv:2402.04249> a case:arXivPaper;
+                 schema:identifier "2402.04249" .
+
+<https://fortiss-demo.org/ontologies/actfast/harmbench/2025-10-31> a owl:Ontology;
+                                                                   schema:identifier "HarmBench Onto".
 
 case:A1
     a gsn:Assumption ;
     schema:identifier "A1" ;
     gsn:statement "Selected robustness benchmarks are representative of expected user and attacker behaviors in production." ;
-    gsn:true true .  # truthfulness flag for assumptions in core
+    gsn:true true .
+
+case:A1_3
+    a gsn:Assumption ;
+    schema:identifier "A1_3" ;
+    gsn:valid false ;
+    gsn:statement "Placeholder assumption." .
 
 case:J1
     a gsn:Justification ;
@@ -118,21 +180,41 @@ case:Sn1
     gsn:statement "Independent red-team campaign on ACT-FAST LLM (Oct–Nov 2025) with findings and mitigations." ;
     schema:url <https://example.org/ACT-FAST/assurance/redteam-2025-11.pdf> ;
     dc:creator "External Security Partner A" ;
-    schema:datePublished "2025-11-01"^^xsd:date .
+    gsn:true false ;
+    schema:datePublished "2025-11-01"^^xsd:date ;
+    schema:about [
+        a prov:Collection ;
+        dc:title "placeholder" ;
+    ] .
 
 case:Sn2
     a gsn:Solution ;
     schema:identifier "Sn2" ;
     gsn:statement "Automated jailbreak benchmark (200 prompts, pass rate ≥ 97% with refusal consistency checks)." ;
     schema:url <https://example.org/ACT-FAST/assurance/jailbreak-benchmark-2025-10.json> ;
-    schema:datePublished "2025-10-28"^^xsd:date .
+    schema:datePublished "2025-10-28"^^xsd:date ;
+    schema:about [
+        a prov:Collection ;
+        dc:title "placeholder" ;
+    ] .
 
 case:Sn1_2_1
     a gsn:Solution ;
     schema:identifier "Sn1.2.1" ;
+    gsn:valid false ;
     gsn:statement "PI test suite on web-scraped content: model isolates instructions, blocks tool calls, and sanitizes returns." ;
     schema:url <https://example.org/ACT-FAST/assurance/pi-suite-2025-10.csv> ;
-    schema:datePublished "2025-10-30"^^xsd:date .
+    schema:datePublished "2025-10-30"^^xsd:date ;
+    schema:about [
+        a prov:Collection ;
+        dc:title "PI test suite" ;
+        prov:hadMember <http://localhost:8000/> ;
+    ] .
+
+<http://localhost:8000/> a case:HostName;
+                         schema:identifier "localhost 8000".
+
+case:HostName rdfs:label "Host Name".
 
 case:ARG_Robustness
     gsn:contains case:C1 , case:C2 ,
@@ -153,7 +235,53 @@ case:D1_2_1
 
 case:Req_XYZ
     a case:Requirement;
-    gsn:supportedBy case:G1, case:G2 .
+    xyz:addressedBy case:G1, case:G2, case:G3 .
 
-case:G1_1 gsn:inContextOf case:J1 .
-case:G1_2 gsn:inContextOf case:A1 .
+case:G3
+    a gsn:Goal ;
+    schema:identifier "G3" ;
+    gsn:statement "The user interface (UI) contains measures to deter malicious users.";
+    gsn:valid true ;
+    gsn:supportedBy case:G3_1, case:G3_2, case:G3_3 ;
+    did:covers did:upstreamInteractionLayer .
+
+case:G3_1
+    a gsn:Goal ;
+    schema:identifier "G3_1" ;
+    gsn:statement "Users are authenticated in the UI before the chatbox is enabled.";
+    gsn:valid true .
+
+case:G3_2
+    a gsn:Goal ;
+    schema:identifier "G3_2" ;
+    gsn:statement "The chatbox contains prefilled prompt patterns which users can adapt up to a limit." ;
+    gsn:supportedBy case:Sn3_2 .
+
+case:G3_3
+    a gsn:Goal ;
+    schema:identifier "G3_3" ;
+    gsn:statement "Authenticated users are greeted with messages to deter them from engaging in unsafe behavior." ;
+    gsn:supportedBy case:G3_3_1, case:G3_3_2, case:G3_3_3 .
+
+case:G3_3_1
+    a gsn:Goal ;
+    schema:identifier "G3_3_1" ;
+    gsn:statement "Disclaimers and terms of use are shown to the users to accept before proceeding to the chatbox." ;
+    gsn:supportedBy case:Sn3_3_1_1, case:Sn3_3_1_2 .
+
+case:G3_3_2
+    a gsn:Goal ;
+    schema:identifier "G3_3_2" ;
+    gsn:statement "Instructions for use and warnings are displayed beneath the chatbox." ;
+    gsn:supportedBy case:Sn3_3_2 .
+
+case:G3_3_3
+    a gsn:Goal ;
+    schema:identifier "G3_3_3" ;
+    gsn:statement "Modifiable characters in prompts are checked against a blacklist of keywords in real-time." ;
+    gsn:supportedBy case:Placeholder .
+
+case:Sn3_3_1_1 a gsn:Solution . 
+case:Sn3_3_1_2 a gsn:Solution . 
+case:Sn3_3_2 a gsn:Solution . 
+#case:Sn3_3_3 a gsn:Solution .

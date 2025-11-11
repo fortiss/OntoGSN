@@ -23,6 +23,7 @@
   --link:          #999; /* supportedBy */
   --link-ctx:      #666; /* inContextOf  */
   --def:           #c44; /* challenges   */
+  --clt:           #6a1b9a; /* refersTo */
 
   /* Accents */
   --highlight-stroke: #186e78;
@@ -32,6 +33,12 @@
   --badge-border:  #999;
   --badge-ctx-a:   #fff;
   --badge-ctx-b:   #e9e9e9;
+  --badge-vld-a:   #d5ffcd;
+  --badge-vld-b:   #0d7215;
+  --badge-ivld-a:   #ffffec;
+  --badge-ivld-b:   #cdc312;
+  --badge-undev-a:   #ffdeb8;
+  --badge-undev-b:   #ea7d00;
 
   /* UI */
   --btn-bg:        #f8f8f8;
@@ -69,6 +76,14 @@
 }
 
 /* === Layout & UI ======================================================== */
+#graph, .gsn-host { height: 520px; min-width: 0; }
+
+#graph.hide-ctx .gsn-node.ctx,
+#graph.hide-ctx .gsn-link.ctx { display: none; }
+
+#graph.hide-def .gsn-node.def,
+#graph.hide-def .gsn-link.def { display: none; }
+
 .gsn-legend {
   display: flex;
   gap: var(--gap-md);
@@ -109,7 +124,45 @@
     var(--badge-ctx-b) 3px, var(--badge-ctx-b) 6px
   );
 }
-.gsn-badge.def { background: #ffd6d6; border-color: var(--def); }
+.gsn-badge.def { 
+  background: #ffd6d6; 
+  border-color: var(--def); 
+}
+
+.gsn-badge.clt { 
+  background: #f3e5f5; 
+  border-color: var(--clt); 
+}
+
+.gsn-badge.vld {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--badge-vld-a), var(--badge-vld-a) 3px,
+    var(--badge-vld-b) 3px, var(--badge-vld-b) 6px
+  );
+}
+
+.gsn-badge.ivld {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--badge-ivld-a), var(--badge-ivld-a) 3px,
+    var(--badge-ivld-b) 3px, var(--badge-ivld-b) 6px
+  );
+}
+
+.gsn-badge.undev {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--badge-undev-a), var(--badge-undev-a) 3px,
+    var(--badge-undev-b) 3px, var(--badge-undev-b) 6px
+  );
+}
+
+.gsn-badge.rule { 
+  background: #ffffff; 
+  border: 2px solid #8f0303 ;
+}
+
 
 /* === Canvas (SVG root) ================================================== */
 .gsn-svg {
@@ -183,6 +236,79 @@
 .gsn-node.dup rect {
   stroke-dasharray: 3 2;
   opacity: .9;
+}
+
+.gsn-node.invalid rect {
+  stroke: #cdc312;
+  stroke-width: 2.5px;
+  fill: #ffffec;
+  fill-opacity: 1;
+}
+
+.gsn-node.valid rect {
+  stroke: #0d7215;
+  stroke-width: 2.5px;
+  fill: #d5ffcd;
+  fill-opacity: 1;
+}
+
+.gsn-node.undev rect {
+  stroke: #ea7d00;
+  stroke-width: 0.5px;
+  fill: #fff8f0;
+  fill-opacity: 1;
+}
+
+.gsn-link.invalid {
+  stroke: #cdc312;
+  stroke-width: 2.5px;
+  stroke-dasharray: 3 3;
+}
+
+.gsn-link.valid {
+  stroke: #0d7215;
+  stroke-width: 2.5px;
+  stroke-dasharray: 3 3;
+}
+
+.collection-dot { fill: #6a1b9a; }
+.collection-item circle { fill: #8e24aa; }
+
+.gsn-node.collection.ext rect { 
+  stroke: #6a1b9a;
+  stroke-width: 0.5px;
+  fill: #f3e5f5;
+  fill-opacity: 1;
+}
+.gsn-link.collection {
+  stroke: #6a1b9a;
+  stroke-width: 0.5px;
+  stroke-dasharray: 4 3;
+}
+
+.gsn-node.collection.item rect {
+  stroke: none !important;
+  stroke-width: 1px;
+  fill: #f7e8fb;
+}
+
+.gsn-node.collection.item text {
+  font-size: 11px; /* a hair smaller so labels fit */
+}
+
+.gsn-node.rule rect {
+  stroke-width: 2;
+  stroke: #8f0303;
+  fill: #ffffff;
+}
+
+.gsn-node.rule text {
+  font-weight: 700;
+}
+
+.gsn-link.rule {
+  stroke: #8f0303;
+  stroke-width: 2px;
 }
 
 /* === Markers (arrowheads) ============================================== */

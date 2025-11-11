@@ -27,6 +27,8 @@ const PATHS = {
     visualize : "/assets/data/visualize_graph.sparql",
     propCtx   : "/assets/data/propagate_context.sparql",
     propDef   : "/assets/data/propagate_defeater.sparql",
+    listModules     : "/assets/data/list_modules.sparql",
+    visualizeByMod  : "/assets/data/visualize_graph_by_module.sparql"
   }
 };
 
@@ -35,50 +37,133 @@ class QueryApp {
   /** @type {Store|null} */                     store = null;
   /** @type {ReturnType<visualizeSPO>|null} */  graphCtl = null;
   /** @type {(e:Event)=>void} */                _onResize = () => {};
+  /** @type {Map<string, Set<string>>} */       overlays = new Map();
 
   async init() {
     await init();
     this.store = new Store();
     await this._loadTTL();
     this._attachUI();
+    await this._buildModulesBar();
   }
 
-  async run(queryPath) {
+  async run(queryPath, overlayClass = null, { noTable = false } = {}) {
     try {
       this._setBusy(true);
       const query = await fetchText(queryPath);
       const res   = this.store.query(query);
       const rows  = bindingsToRows(res);
-      renderTable(resultsEl, rows);
 
+      if (!noTable) {
+        renderTable(resultsEl, rows);
+      }
+
+      const hasS = rows.length > 0 && Object.prototype.hasOwnProperty.call(rows[0], "s");
+      const hasP = rows.length > 0 && Object.prototype.hasOwnProperty.call(rows[0], "p");
+      const hasO = rows.length > 0 && Object.prototype.hasOwnProperty.call(rows[0], "o");
+      
+      const hasCollectionsShape = rows.length > 0 && "ctx" in rows[0] && "clt" in rows[0] && "item" in rows[0];
+
+      if (hasCollectionsShape) {
+        if (!this.graphCtl?.addCollections) {
+          this._setStatus?.('Collections overlay not available. Draw the graph first.');
+          return;
+        }
+        this.graphCtl.addCollections(rows, { dx: 90, dy: 26 }); // tweak spacing if you like
+        this._setStatus?.(`Added ${rows.length} collection link${rows.length===1?"":"s"}.`);
+
+        // keep your resize handler + window.graphCtl lines (same as other branches)
+        window.removeEventListener("resize", this._onResize);
+        this._onResize = () => this.graphCtl && this.graphCtl.fit();
+        window.addEventListener("resize", this._onResize);
+        window.graphCtl = this.graphCtl;
+        return;
+      }
+      
       // The graph expects ?s ?p ?o
-      const graphRows = rows.filter(r => r.s && r.p && r.o).map(r => ({ s: r.s, p: r.p, o: r.o }));
+      const graphRows = toTriples(rows);
+      if (graphRows.length) {
+        console.debug("[graph/run] triples:", graphRows.length, graphRows.slice(0, 5));
 
-      if (this.graphCtl) this.graphCtl.destroy();
-      this.graphCtl = visualizeSPO(graphRows, {
-        mount: graphEl,
-        height: 520,
-        label: shorten,
-        supportedBy: [
-          "supported by",
-          "gsn:supportedBy",
-          "https://w3id.org/OntoGSN/ontology#supportedBy",
-          "http://w3id.org/gsn#supportedBy",
-        ],
-        contextOf: [
-          "in context of",
-          "gsn:inContextOf",
-          "https://w3id.org/OntoGSN/ontology#inContextOf",
-          "http://w3id.org/gsn#inContextOf",
-        ],
-        challenges: [
-          "challenges",
-          "gsn:challenges",
-          "https://w3id.org/OntoGSN/ontology#challenges",
-          "http://w3id.org/gsn#challenges",
-        ],
-        theme: "light",
-      });
+        if (this.graphCtl && typeof this.graphCtl.destroy === "function") {
+          this.graphCtl.destroy();
+          this.graphCtl = null;
+        } else {
+          this._setStatus?.("No triples found in results (expecting ?s ?p ?o).");
+        }
+
+        this.graphCtl = visualizeSPO(graphRows, {
+          mount: graphEl,
+          height: 520,
+          label: shorten,
+          supportedBy: [
+            "supported by",
+            "gsn:supportedBy",
+            "https://w3id.org/OntoGSN/ontology#supportedBy",
+            "http://w3id.org/gsn#supportedBy",
+          ],
+          contextOf: [
+            "in context of",
+            "gsn:inContextOf",
+            "https://w3id.org/OntoGSN/ontology#inContextOf",
+            "http://w3id.org/gsn#inContextOf",
+          ],
+          challenges: [
+            "challenges",
+            "gsn:challenges",
+            "https://w3id.org/OntoGSN/ontology#challenges",
+            "http://w3id.org/gsn#challenges",
+          ],
+          theme: "light",
+        });
+      
+        if (this.graphCtl?.fit) this.graphCtl.fit();
+        this._setStatus?.(`Rendered graph from ${graphRows.length} triples.`);
+        this._applyVisibility();
+
+        window.removeEventListener("resize", this._onResize);
+        this._onResize = () => this.graphCtl && this.graphCtl.fit();
+        window.addEventListener("resize", this._onResize);
+
+        // expose for console/tests
+        window.graphCtl = this.graphCtl;
+        this._reapplyOverlays();
+        return;
+
+      }
+
+      if (hasS && !hasP && !hasO) {
+        if (!this.graphCtl?.highlightByIds) {
+          // No graph to highlight yet — give a friendly nudge
+          this._setStatus?.("Nothing to highlight yet. Run “Visualize Graph” first.");
+          return;
+        }
+
+        const ids = rows.map(r => r.s).filter(Boolean);
+        const cls = overlayClass || "overlay";
+
+        this.overlays.set(cls, new Set(ids));
+
+        this._reapplyOverlays();
+        this._setStatus?.(`Highlighted ${ids.length} ${cls} node${ids.length === 1 ? "" : "s"}.`);
+
+        window.removeEventListener("resize", this._onResize);
+        this._onResize = () => this.graphCtl && this.graphCtl.fit();
+        window.addEventListener("resize", this._onResize);
+        window.graphCtl = this.graphCtl;
+        return;        
+      }
+
+
+
+      // CASE 3: Anything else → fall back to your existing table/render logic
+      // (e.g., show raw table or an info message)
+      if (rows.length === 0) {
+        this._setStatus?.("No results.");
+        return;
+      }
+
+      this._setStatus?.("Query returned an unsupported shape. Expect either ?s ?p ?o (graph) or single ?s (overlay).");
 
       // Keep resize listener idempotent
       window.removeEventListener("resize", this._onResize);
@@ -101,6 +186,155 @@ class QueryApp {
   }
 
   // --- private helpers ---
+  async runInline(queryText, overlayClass = null, { noTable = false } = {}) {
+    try {
+      this._setBusy(true);
+
+      const res   = this.store.query(queryText);
+      const rows  = bindingsToRows(res);
+
+      if (!noTable) renderTable(resultsEl, rows);
+
+      const hasS = rows.length > 0 && Object.prototype.hasOwnProperty.call(rows[0], "s");
+      const hasP = rows.length > 0 && Object.prototype.hasOwnProperty.call(rows[0], "p");
+      const hasO = rows.length > 0 && Object.prototype.hasOwnProperty.call(rows[0], "o");
+
+      // Graph case
+      const graphRows = toTriples(rows);
+
+      if (graphRows.length) {
+        console.debug("[graph/inline] triples:", graphRows.length, graphRows.slice(0, 5));
+
+        if (this.graphCtl?.destroy) { 
+          this.graphCtl.destroy(); 
+          this.graphCtl = null; 
+        } else {
+          this._setStatus?.("No triples found in results (expecting ?s ?p ?o).");
+        }
+
+        this.graphCtl = visualizeSPO(graphRows, {
+          mount: graphEl,
+          height: 520,
+          label: shorten,
+          supportedBy: [
+            "supported by","gsn:supportedBy",
+            "https://w3id.org/OntoGSN/ontology#supportedBy","http://w3id.org/gsn#supportedBy",
+          ],
+          contextOf: [
+            "in context of","gsn:inContextOf",
+            "https://w3id.org/OntoGSN/ontology#inContextOf","http://w3id.org/gsn#inContextOf",
+          ],
+          challenges: [
+            "challenges","gsn:challenges",
+            "https://w3id.org/OntoGSN/ontology#challenges","http://w3id.org/gsn#challenges",
+          ],
+          theme: "light",
+        });
+
+        this.graphCtl?.fit?.();
+        this._applyVisibility();
+
+        window.removeEventListener("resize", this._onResize);
+        this._onResize = () => this.graphCtl && this.graphCtl.fit();
+        window.addEventListener("resize", this._onResize);
+        window.graphCtl = this.graphCtl;
+        this._reapplyOverlays();
+        return;
+      }
+
+      // Overlay-only case (kept for parity)
+      if (hasS && !hasP && !hasO) {
+        if (!this.graphCtl?.highlightByIds) {
+          this._setStatus?.("Nothing to highlight yet. Run “Visualize Graph” first.");
+          return;
+        }
+        const ids = rows.map(r => r.s).filter(Boolean);
+        const cls = overlayClass || "overlay";
+        this.overlays.set(cls, new Set(ids));
+        this._reapplyOverlays();
+        this._setStatus?.(`Highlighted ${ids.length} ${cls} node${ids.length === 1 ? "" : "s"}.`);
+        return;
+      }
+
+      this._setStatus?.("Query returned an unsupported shape.");
+    } catch (e) {
+      outEl.textContent = `Error (inline query): ${e?.message || e}`;
+    } finally {
+      this._setBusy(false);
+    }
+  }
+
+  async _buildModulesBar() {
+    // 1) Query modules
+    const listQ = await fetchText(PATHS.q.listModules);
+    const rows  = bindingsToRows(this.store.query(listQ));
+
+    // 2) Find/create the container at the bottom
+    let bar = document.getElementById("modulesBar");
+    if (!bar) {
+      bar = document.createElement("div");
+      bar.id = "modulesBar";
+      bar.className = "modules-bar";
+      document.body.appendChild(bar);
+    }
+    bar.innerHTML = "";
+
+    // 3) An “All” button to restore the global view
+    const btnAll = document.createElement("button");
+    btnAll.textContent = "All";
+    btnAll.addEventListener("click", () => this.run(PATHS.q.visualize));
+    bar.appendChild(btnAll);
+
+    // 4) One button per module
+    for (const r of rows) {
+      const iri   = r.module;
+      if (!iri) {
+        console.warn("[modules] Missing ?module variable in list_modules.sparql row:", r); 
+        continue; 
+      }
+
+      const label = r.label || shorten(iri);
+      const b = document.createElement("button");
+      b.textContent = label;
+      b.title = iri;
+      b.addEventListener("click", async (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        ev.stopImmediatePropagation();
+
+        const tmpl  = await fetchText(PATHS.q.visualizeByMod);
+        let query   = tmpl;
+        query = query.replaceAll("<{{MODULE_IRI}}>", `<${iri}>`);
+        query = query.replaceAll("{{MODULE_IRI}}", `<${iri}>`);
+        console.debug("[modules] query preview:", query.slice(0, 400));
+        await this.runInline(query, null, { noTable: false });
+      });
+      bar.appendChild(b);
+    }
+  }
+
+
+  _applyVisibility() {
+    const root = graphEl; // already defined at top of queries.js
+    const ctx = document.getElementById("toggle-context");
+    const df  = document.getElementById("toggle-defeat");
+    if (!root) return;
+    root.classList.toggle("hide-ctx", !(ctx?.checked));
+    root.classList.toggle("hide-def", !(df?.checked));
+    this.graphCtl?.fit?.(); // keep the view tidy
+  }
+
+  _reapplyOverlays() {
+    if (!this.graphCtl) return;
+    // one clean slate
+    if (this.graphCtl.clearAll) this.graphCtl.clearAll();
+    // then reapply each active class
+    for (const [cls, idSet] of this.overlays.entries()) {
+      if (idSet && idSet.size > 0) {
+        this.graphCtl.highlightByIds(Array.from(idSet), cls);
+      }
+    }
+  }
 
   async _loadTTL() {
     // Always load from BASE_PATH, used in both TEST and PROD
@@ -145,12 +379,42 @@ class QueryApp {
   _attachUI() {
     // Single event delegation for all buttons tagged with [data-query]
     document.addEventListener("click", (e) => {
-      const btn = e.target instanceof Element ? e.target.closest("[data-query]") : null;
+      const btn = e.target instanceof Element ? e.target.closest("[data-query]:not(input)") : null;
       if (!btn) return;
       const path = btn.getAttribute("data-query");
+      const noTable = btn.dataset.noTable === "1" || btn.dataset.noTable === "true";
       if (!path) return;
-      this.run(path);
+      this.run(path, null, { noTable });
     });
+
+    document.addEventListener("change", (e) => {
+      const el = e.target instanceof Element ? e.target.closest('input[type="checkbox"][data-query][data-class]') : null;
+      if (!el) return;
+      const path = el.getAttribute("data-query");
+      const cls  = el.getAttribute("data-class") || "overlay";
+      const noTable = el.dataset.noTable === "1" || el.dataset.noTable === "true";
+      if (!path) return;
+
+      if (el.checked) {
+        // fetch IDs for this class and apply
+        this.run(path, cls, { noTable });
+      } else {
+        // turn off this class overlay
+        this.overlays.set(cls, new Set());
+        this._reapplyOverlays();
+        this._setStatus?.(`Hid ${cls} overlay.`);
+      }
+
+      if (!el.checked && cls === "collection") {
+        this.graphCtl?.clearCollections?.();
+        this._setStatus?.("Hid collections overlay.");
+        return;
+      }
+    });
+    const ctxBox = document.getElementById("toggle-context");
+    const dfBox  = document.getElementById("toggle-defeat");
+    ctxBox?.addEventListener("change", () => this._applyVisibility());
+    dfBox ?.addEventListener("change", () => this._applyVisibility());
   }
 
   _setBusy(busy) {
@@ -161,6 +425,21 @@ class QueryApp {
 }
 
 // ---------- generic helpers ----------
+
+function toTriples(rows) {
+  const get = (r, keys) => keys.find(k => r[k] !== undefined);
+  const triples = [];
+  for (const r of rows) {
+    const ks = get(r, ["s","subject","subj","source","nodeIRI","from","g"]);
+    const kp = get(r, ["p","predicate","pred","rel","property","edge"]);
+    const ko = get(r, ["o","object","obj","target","to","hitIRI"]);
+    const s = ks ? r[ks] : undefined;
+    const p = kp ? r[kp] : undefined;
+    const o = ko ? r[ko] : undefined;
+    if (s && p && o) triples.push({ s, p, o });
+  }
+  return triples;
+}
 
 async function fetchText(relPath) {
   const url = (relPath.startsWith("http") ? relPath :
@@ -231,7 +510,11 @@ function shorten(iriOrLabel) {
 
 // ---------- boot ----------
 const app = new QueryApp();
-app.init();
+//app.init();
+window.addEventListener("DOMContentLoaded", async () => {
+  await app.init();                     // loads TTLs + wires UI
+  await app.run(PATHS.q.visualize); // or PATHS.q.visualize
+});
 
 // Also export the app for debugging in console if needed
 export default app;

@@ -1,0 +1,23 @@
+PREFIX gsn:   <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <https://schema.org/>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT  ?ctx ?clt ?item
+WHERE {
+    ?ctx schema:about ?clt .
+    ?clt a prov:Collection
+    OPTIONAL {
+        ?clt prov:hadMember ?itemID.
+        OPTIONAL { ?itemID schema:identifier ?itemA . }
+        OPTIONAL { ?itemID a ?typeIRI . }
+        OPTIONAL { ?typeIRI rdfs:label ?type . }
+    }
+    BIND(
+        IF(BOUND(?itemA) && BOUND(?type),
+        CONCAT(STR(?type), ": ", STR(?itemA)),
+        ""
+        ) AS ?item
+    )
+}

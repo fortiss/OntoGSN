@@ -1,0 +1,12 @@
+PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX case: <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#>
+
+SELECT DISTINCT ?s ?p ?o
+WHERE {
+    BIND(<{{MODULE_IRI}}> AS ?mod)
+    ?mod gsn:contains ?s .
+    ?s ?p ?o .
+    FILTER(?p IN (gsn:supportedBy, gsn:inContextOf, gsn:challenges))
+}
+ORDER BY ?s ?p ?o

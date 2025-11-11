@@ -1,0 +1,20 @@
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?s
+WHERE {
+    {?A a gsn:Assumption .
+    ?B gsn:inContextOf ?A .
+    ?A gsn:valid ?vA .
+    FILTER(xsd:boolean(?vA) = false)
+    BIND(?B AS ?s)}
+    UNION
+    {?A a gsn:Assumption .
+    ?B gsn:inContextOf ?A .
+    ?A gsn:valid ?vA .
+    FILTER(xsd:boolean(?vA) = false)
+    BIND(?A AS ?s)}
+    #{BIND(?B AS ?s)}
+    #UNION
+    #{BIND(?A AS ?s)}
+}

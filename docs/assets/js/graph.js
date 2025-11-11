@@ -60,10 +60,15 @@ export function visualizeSPO(rows, {
       <span><span class="gsn-badge"></span> supported by</span>
       <span><span class="gsn-badge ctx"></span> in context of</span>
       <span><span class="gsn-badge def"></span> challenges</span>
-      <span class="gsn-hint">scroll: zoom • drag: pan</span>
+      <span><span class="gsn-badge clt"></span> refers to</span>
+      <span><span class="gsn-badge vld"></span> valid</span>
+      <span><span class="gsn-badge ivld"></span> invalid</span>
+      <span><span class="gsn-badge undev"></span> undeveloped</span>
+      <span><span class="gsn-badge rule"></span> rule effects</span>
+      
       <span class="gsn-controls">
         <button class="gsn-btn" data-act="fit">Fit</button>
-        <button class="gsn-btn" data-act="reset">Reset</button>
+        <!-- <button class="gsn-btn" data-act="reset">Reset</button> -->
       </span>
     </div>
     <svg class="gsn-svg"><g class="gsn-viewport"></g></svg>
@@ -76,6 +81,7 @@ export function visualizeSPO(rows, {
   const svg   = d3.select(svgNode);
   const g     = svg.select(".gsn-viewport");
   const defs  = svg.append("defs");
+  const gOverCollections = g.append("g").attr("class", "gsn-overlay-collections");
 
   function marker(id, klass){
     const m = defs.append("marker")
@@ -205,11 +211,9 @@ export function visualizeSPO(rows, {
     }
   }
 
-  //const labelWidth = (t, minW = 44, maxW = 180, pad = 12) =>
-  //  Math.min(maxW, Math.max(minW, 7.2 * String(t).length + pad));
-
   // Context nodes placed to the right on same rank
   const ctxNodes = [], ctxLinks = [];
+  const ctxPos = new Map();
   const ctxOffsetX = 80, ctxOffsetY = 50;
   for (const n of nodes) {
     const ctxs = n.contexts ?? [];
@@ -218,8 +222,10 @@ export function visualizeSPO(rows, {
       const x = n.x + ctxOffsetX + i * ctxOffsetY;
       const y = n.y; 
       const tgtW = labelWidth(c.label);
+
       ctxNodes.push({ id: c.id, label: c.label, x, y, contextOf: n.id });
-      //ctxLinks.push({ source: { x: n.x, y: n.y }, target: { x, y } });
+      ctxPos.set(c.id, { x, y, host: n.id });
+
       ctxLinks.push({
         source: { x: n.x, y: n.y, w: srcW },
         target: { x,   y,   w: tgtW }
@@ -228,7 +234,7 @@ export function visualizeSPO(rows, {
   }
 
   const defNodes = [], defLinks = [];
-  const defOffsetX = 120, defOffsetY = 60;
+  const defOffsetX = 80, defOffsetY = 50;
   for (const n of nodes) {
     const defs = defeat.get(n.id) ? [...defeat.get(n.id)] : [];
     const tgtW = labelWidth(n.label);
@@ -251,8 +257,45 @@ export function visualizeSPO(rows, {
   console.debug("ctxLinks", ctxLinks.length, ctxLinks.slice(0, 3));
   console.debug("defLinks", defLinks.length, defLinks.slice(0, 3));
 
+  // --- Collections
+  const extNodeById = new Map();
+  let collectionsDrawn = false;
+
+  function getHostPos(id) {
+    const key = String(id).trim();
+    const p = pos.get(key) || ctxPos.get(key);
+    return p ? { x: p.x, y: p.y } : null;
+  }
+
+  function makeExternalNode(id, x, y, kind) {
+    // draw a small rounded-rect + text (very lightweight)
+    const g = gOverCollections.append("g")
+      .attr("class", `gsn-node collection ext ${kind}`)
+      .attr("data-id", id)
+      .attr("transform", `translate(${x},${y})`);
+
+    g.append("rect")
+      .attr("x", -28).attr("y", -12)
+      .attr("width", 56).attr("height", 24)
+      .attr("rx", 6).attr("ry", 6);
+
+    g.append("text")
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.35em")
+      .text(kind === "clt" ? "Collection" : "Item");
+
+    extNodeById.set(id, { x, y, kind, g });
+    return extNodeById.get(id);
+  }
+
+  function link(a, b, cls = "collection") {
+    gOverCollections.append("path")
+      .attr("class", `gsn-link ${cls}`)
+      .attr("d", `M${a.x},${a.y} L${b.x},${b.y}`);
+  }
+
+
   // --- Render
-  //const linkLine = d3.linkVertical().x(d => d.x).y(d => d.y);
   const linkV = d3.linkVertical().x(d => d.x).y(d => d.y);
   const linkH = d3.linkHorizontal().x(d => d.x).y(d => d.y);
 
@@ -279,7 +322,7 @@ export function visualizeSPO(rows, {
         target: { x: d.target.x, y: d.target.y - NODE_H/2 }
       }))
       .attr("marker-end", `url(#${idArrow})`)
-    .append("title").text("supported by (additional)");
+    .append("title").text("supported by");
 
   g.selectAll("path.gsn-link.ctx")
     .data(ctxLinks)
@@ -337,10 +380,16 @@ export function visualizeSPO(rows, {
     .text(d => d.label)
     .append("title").text(d => `${d.id} (challenges ${d.challenges})`);
 
-  function clearAll(){ nodeG.attr("class","gsn-node"); }
+  function clearAll(){ 
+    nodeG.attr("class","gsn-node"); 
+    ctxG.attr("class", "gsn-node ctx");
+    defG.attr("class", "gsn-node def");
+  }
   function highlightByIds(ids, klass){
-    const S = new Set(ids);
+    const S = new Set(ids.map(String));
     nodeG.classed(klass, d => S.has(d.id));
+    ctxG.classed(klass, d => S.has(String(d.id)));
+    defG.classed(klass, d => S.has(String(d.id)));
   }
   window.graphCtl = { clearAll, highlightByIds, fit, reset };
 
@@ -385,6 +434,7 @@ export function visualizeSPO(rows, {
   svg.call(zoom);
 
   function fit(pad = 40) {
+    svg.interrupt();
     const bbox = g.node().getBBox();
     const vw   = svgNode.clientWidth || svgNode.viewBox.baseVal.width || 800;
     const vh   = svgNode.clientHeight || svgNode.viewBox.baseVal.height || height;
@@ -393,16 +443,125 @@ export function visualizeSPO(rows, {
     const s    = Math.max(0.25, Math.min(2.5, Math.min(sx, sy)));
     const tx   = pad - bbox.x * s + (vw - (bbox.width * s + pad * 2)) / 2;
     const ty   = pad - bbox.y * s + (vh - (bbox.height * s + pad * 2)) / 2;
-    svg.transition().duration(450).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(s));
+
+    const t = d3.zoomIdentity.translate(tx, ty).scale(s);
+    svg.transition()
+      .duration(450)
+      .call(zoom.transform, t)
+      .on("end interrupt", () => {svg.call(zoom)});
+    if (!vw || !vh) return;
   }
-  function reset()  { svg.transition().duration(400).call(zoom.transform, d3.zoomIdentity); }
+  function reset()  { 
+    svg.interrupt(); 
+    svg.transition()
+      .duration(400)
+      .call(zoom.transform, d3.zoomIdentity)
+      .on("end interrupt", () => svg.call(zoom)); 
+    }
   function destroy() { rootEl.innerHTML = ""; }
 
-  rootEl.querySelector('[data-act="fit"]').addEventListener("click", fit);
-  rootEl.querySelector('[data-act="reset"]').addEventListener("click", reset);
+  function clearCollections() {
+    gOverCollections.selectAll("*").remove();
+    extNodeById.clear();
+    collectionsDrawn = false;
+  }
+
+  function addCollections(rows, opts = {}) {
+    // rows: [{ctx, clt, item}]
+    const dxHub     = opts.dxHub     ?? 90;  // hub distance to the right of the anchor
+    const dyHub     = opts.dyHub     ?? 40;
+    const dyStride  = opts.dyStride  ?? 30;  // vertical spacing between multiple hubs per same ctx
+    const rHub      = opts.rHub      ?? 5;   // hub (collection) radius
+    const rItem     = opts.rItem     ?? 4;   // item dot radius
+    const armLen    = opts.armLen    ?? 50;  // hub→item spoke length
+    const maxPerRow = opts.maxPerRow ?? 6;   // number of items to arrange around hub before next ring
+
+    const groups = new Map(); // key: `${ctx}||${clt}` → { ctx, clt, items: Set<item> }
+    for (const r of rows) {
+      const key = `${r.ctx}||${r.clt}`;
+      let g = groups.get(key);
+      if (!g) { g = { ctx: r.ctx, clt: r.clt, items: new Set() }; groups.set(key, g); }
+      g.items.add(r.item);
+    }
+
+    const hubsPerCtx = new Map(); // ctx → count
+    for (const gk of groups.keys()) {
+      const { ctx, clt, items } = groups.get(gk);
+      const host = getHostPos(ctx);
+      if (!host) continue; // no anchor on canvas, skip
+
+      const idx = (hubsPerCtx.get(ctx) ?? 0);
+      hubsPerCtx.set(ctx, idx + 1);
+
+      const hubX = host.x + dxHub;
+      const hubY = host.y + dyHub + idx*dyStride; // south + stacked south
+
+      // Hub (collection) as a small dot
+      const hub = gOverCollections.append("g")
+        .attr("class", "collection-hub")
+        .attr("transform", `translate(${hubX},${hubY})`);
+
+      hub.append("circle")
+        .attr("r", rHub)
+        .attr("class", "collection-dot");
+
+      // Link from anchor (context/main) to hub
+      gOverCollections.append("path")
+        .attr("class", "gsn-link collection")
+        .attr("d", `M${host.x},${host.y} L${hubX},${hubY}`);
+
+      // 3) Arrange items in a small radial fan around the hub
+      const itemList = Array.from(items);
+      const perRing  = Math.max(1, maxPerRow);
+      const ringGap  = 16;     // distance between concentric rings of items
+      const baseR    = armLen; // radius for first ring
+
+      itemList.forEach((itemId, i) => {
+        const ring = Math.floor(i / perRing);
+        const pos  = i % perRing;
+        const startAngle = opts.startAngle ?? Math.PI / 2;
+        const angle = startAngle + (2 * Math.PI / perRing) * pos; // start upwards
+
+        const radius = baseR + ring * ringGap;
+        const ix = hubX + Math.cos(angle) * radius;
+        const iy = hubY + Math.sin(angle) * radius;
+
+        // spoke
+        gOverCollections.append("path")
+          .attr("class", "gsn-link collection")
+          .attr("d", `M${hubX},${hubY} L${ix},${iy}`);
+
+        // item dot (with <title> tooltip so we don’t clutter with labels)
+        const itemLabel = label(itemId);
+        const w = Math.max(42, Math.min(180, labelWidth(itemLabel))); // clamp width a bit
+        const h = 20;
+
+        const gi = gOverCollections.append("g")
+          .attr("class", "gsn-node collection item")
+          .attr("transform", `translate(${ix},${iy})`);
+
+        gi.append("rect")
+          .attr("width", w)
+          .attr("height", h)
+          .attr("x", -w / 2)
+          .attr("y", -h / 2);
+
+        gi.append("text")
+          .attr("text-anchor", "middle")
+          .attr("dy", "0.35em")
+          .text(itemId)
+          .append("title").text(itemId);
+      });
+    }
+
+    collectionsDrawn = true;
+  }
+
+  rootEl.querySelector('[data-act="fit"]')?.addEventListener("click", fit);
+  rootEl.querySelector('[data-act="reset"]')?.addEventListener("click", reset);
   fit();
 
-  return { fit, reset, destroy, svg: svgNode, clearAll, highlightByIds };
+  return { fit, reset, destroy, svg: svgNode, clearAll, highlightByIds, addCollections, clearCollections };
 }
 
 let __gsnCssLinked = false;

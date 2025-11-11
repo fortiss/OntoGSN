@@ -1,0 +1,11 @@
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+SELECT ?s
+WHERE {
+  ?A a gsn:Solution ;
+     gsn:true ?tA .
+  FILTER(xsd:boolean(?tA) = false)
+  ?B gsn:supportedBy* ?A .
+  BIND(?B AS ?s)
+}

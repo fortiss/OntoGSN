@@ -1,0 +1,15 @@
+PREFIX gsn:   <https://w3id.org/OntoGSN/ontology#>
+
+SELECT  ?s
+WHERE {
+    {?s gsn:undeveloped true .}
+    UNION
+    {?s a ?type.
+     FILTER(?type IN (gsn:Goal,gsn:Strategy)) 
+        FILTER NOT EXISTS {
+            ?s gsn:supportedBy ?n.
+            ?n a ?typeN.
+            FILTER(?typeN IN (gsn:Goal,gsn:Solution,gsn:Strategy))
+        }
+    }
+}

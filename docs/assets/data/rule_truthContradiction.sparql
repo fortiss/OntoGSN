@@ -1,0 +1,24 @@
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?s
+WHERE {
+    {
+        ?A a gsn:Goal;
+           gsn:true ?tA.
+        ?B gsn:supportedBy ?A;
+           gsn:true ?tB.
+        FILTER(xsd:boolean(?tA) = false)
+        FILTER(xsd:boolean(?tB) = true)
+        BIND(?B AS ?s)
+    } UNION
+    {
+        ?A a gsn:Goal;
+           gsn:true ?tA.
+        ?B gsn:supportedBy ?A;
+           gsn:true ?tB.
+        FILTER(xsd:boolean(?tA) = false)
+        FILTER(xsd:boolean(?tB) = true)
+        BIND(?A AS ?s)
+    }
+}

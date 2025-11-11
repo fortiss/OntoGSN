@@ -1,0 +1,8 @@
+PREFIX gsn:   <https://w3id.org/OntoGSN/ontology#>
+PREFIX did: <http://www.fortiss-demo.org/ontologies/defence-in-depth/>
+
+SELECT  ?s ?l
+WHERE {
+    ?s did:covers ?l.
+    ?l a did:Layer.
+}
