@@ -1,7 +1,7 @@
 ---
 layout: default
 title: OntoGSN Playground
-permalink: /queries/
+permalink: /playground/
 ---
 
   <script>
