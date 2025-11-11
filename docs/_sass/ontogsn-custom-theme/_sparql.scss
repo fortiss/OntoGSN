@@ -1,168 +1,170 @@
-/* TEST-only minimal styles to mirror PROD layout without extra deps */
-body { 
-       font: 14px/1.45 system-ui, sans-serif; 
-       margin: 20px; 
-}
+/* docs/_sass/_sparql.scss */
+.page-playground {
+       body { 
+              font: 14px/1.45 system-ui, sans-serif; 
+              margin: 20px; 
+       }
 
-h1 { 
-       font-size: 20px; 
-       margin: 0 0 8px; 
-}
+       h1 { 
+              font-size: 20px; 
+              margin: 0 0 8px; 
+       }
 
-.btns { 
-       display:flex; 
-       gap:.5rem; 
-       flex-wrap:wrap; 
-       margin-bottom:.75rem; 
-}
+       .btns { 
+              display:flex; 
+              gap:.5rem; 
+              flex-wrap:wrap; 
+              margin-bottom:.75rem; 
+       }
 
-button { 
-       padding:.45rem .8rem; 
-       border:1px solid #ccc; 
-       border-radius:.5rem; 
-       background:#fff; 
-       cursor:pointer; 
-}
+       button { 
+              padding:.45rem .8rem; 
+              border:1px solid #ccc; 
+              border-radius:.5rem; 
+              background:#fff; 
+              cursor:pointer; 
+       }
 
-button:hover { 
-       background:#f8f8f8; 
-}
+       button:hover { 
+              background:#f8f8f8; 
+       }
 
-table.sparql { 
-       border-collapse: collapse; 
-       width: 100%; 
-}
+       table.sparql { 
+              border-collapse: collapse; 
+              width: 100%; 
+       }
 
-table.sparql th, table.sparql td { 
-       border:1px solid #ddd; 
-       padding:6px 8px; 
-       text-align:left; 
-       vertical-align:top; 
-}
+       table.sparql th, table.sparql td { 
+              border:1px solid #ddd; 
+              padding:6px 8px; 
+              text-align:left; 
+              vertical-align:top; 
+       }
 
-table.sparql thead th { 
-       position:sticky; 
-       top:0; 
-       background:#fafafa; 
-}
+       table.sparql thead th { 
+              position:sticky; 
+              top:0; 
+              background:#fafafa; 
+       }
 
-#out { 
-       margin-top:10px; 
-       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; 
-       background:#f6f6f6; 
-       padding:8px; 
-       border-radius:8px; 
-       min-height: 1.2rem; 
-       white-space:pre-wrap; 
-}
+       #out { 
+              margin-top:10px; 
+              font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; 
+              background:#f6f6f6; 
+              padding:8px; 
+              border-radius:8px; 
+              min-height: 1.2rem; 
+              white-space:pre-wrap; 
+       }
 
-.split{
-       display:flex;
-       gap:12px;
-       align-items:stretch
-}
+       .split{
+              display:flex;
+              gap:12px;
+              align-items:stretch
+       }
 
-#results,#graph{
-       flex:1 1 0;
-       min-width:0
-}
+       #results,#graph{
+              flex:1 1 0;
+              min-width:0
+       }
 
-#results{
-       max-height:520px;
-       overflow:auto
-}
+       #results{
+              max-height:520px;
+              overflow:auto
+       }
 
-#leftButtons,#rightButtons{
-       display:flex; 
-       gap:.5rem; 
-       flex-wrap:wrap;
-       flex:0 0 auto;
-}
+       #leftButtons,#rightButtons{
+              display:flex; 
+              gap:.5rem; 
+              flex-wrap:wrap;
+              flex:0 0 auto;
+       }
 
-#rightButtons{ 
-       margin-left:auto; 
-}
+       #rightButtons{ 
+              margin-left:auto; 
+       }
 
-body[aria-busy="true"] { 
-       cursor: progress; 
-}
+       body[aria-busy="true"] { 
+              cursor: progress; 
+       }
 
-body[aria-busy="true"] [data-query] { 
-       opacity: .6; 
-       pointer-events: none; 
-}
+       body[aria-busy="true"] [data-query] { 
+              opacity: .6; 
+              pointer-events: none; 
+       }
 
-.modules-bar { 
-       position: sticky; 
-       bottom: 0; 
-       background: #fff; 
-       padding: .5rem;
-       display: flex; 
-       gap: .5rem; 
-       border-top: 1px solid #eee; 
-       z-index: 1;
-}
+       .modules-bar { 
+              position: sticky; 
+              bottom: 0; 
+              background: #fff; 
+              padding: .5rem;
+              display: flex; 
+              gap: .5rem; 
+              border-top: 1px solid #eee; 
+              z-index: 1;
+       }
 
-[data-theme="dark"] .modules-bar { 
-       background: #111; 
-       border-top-color: #333; 
-}
+       [data-theme="dark"] .modules-bar { 
+              background: #111; 
+              border-top-color: #333; 
+       }
 
-.modules-bar button { 
-       padding: .35rem .6rem; 
-       border:1px solid #ccc; 
-       border-radius:.5rem; 
-       background:#fff; 
-       cursor:pointer; 
-}
+       .modules-bar button { 
+              padding: .35rem .6rem; 
+              border:1px solid #ccc; 
+              border-radius:.5rem; 
+              background:#fff; 
+              cursor:pointer; 
+       }
 
-[data-theme="dark"] .modules-bar button { 
-       background:#222; 
-       border-color:#444; 
-       color:#eee; 
-}
+       [data-theme="dark"] .modules-bar button { 
+              background:#222; 
+              border-color:#444; 
+              color:#eee; 
+       }
 
-/* unused (for now) */
-.layout {
-  display: grid;
-  grid-template-columns: 360px 1fr;   /* left width, tweak as you like */
-  gap: 16px;
-}
+       /* unused (for now) */
+       .layout {
+       display: grid;
+       grid-template-columns: 360px 1fr;   /* left width, tweak as you like */
+       gap: 16px;
+       }
 
-.left { 
-       min-width: 280px; 
-}
-.right { 
-       min-width: 0; 
-} /* allow graph to shrink */
+       .left { 
+              min-width: 280px; 
+       }
+       .right { 
+              min-width: 0; 
+       } /* allow graph to shrink */
 
-.tabs { 
-       display:flex; 
-       gap:.5rem; 
-       margin-bottom:.5rem; 
-}
+       .tabs { 
+              display:flex; 
+              gap:.5rem; 
+              margin-bottom:.5rem; 
+       }
 
-.tab { 
-       padding:.4rem .7rem; 
-       border:1px solid #ccc; 
-       border-radius:.5rem; 
-       background:#fff; 
-       cursor:pointer; 
-}
+       .tab { 
+              padding:.4rem .7rem; 
+              border:1px solid #ccc; 
+              border-radius:.5rem; 
+              background:#fff; 
+              cursor:pointer; 
+       }
 
-.tab.active { 
-       background:#f2f2f2; 
-}
+       .tab.active { 
+              background:#f2f2f2; 
+       }
 
-.panes { 
-       position: relative; 
-}
+       .panes { 
+              position: relative; 
+       }
 
-.pane[hidden] { 
-       display: none; 
-}
+       .pane[hidden] { 
+              display: none; 
+       }
 
-/* Optional: narrow screens */
-@media (max-width: 640px) {
-  table.sparql { font-size: 0.9rem; }
+       /* Optional: narrow screens */
+       @media (max-width: 640px) {
+       table.sparql { font-size: 0.9rem; }
+       }
 }

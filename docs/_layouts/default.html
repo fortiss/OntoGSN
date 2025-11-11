@@ -31,6 +31,11 @@
       </footer>
     </div>
 
+    <body
+      class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}{% if page.body_class %} {{ page.body_class }}{% endif %}"
+      dir="{% if site.rtl %}rtl{% else %}ltr{% endif %}"
+    >
+
     {% include scripts.html %}
   </body>
 </html>
