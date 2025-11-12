@@ -351,11 +351,14 @@ export function visualizeLayers(rows, {
 // Public helper: switch the app into layered view using the same SPARQL as the tree.
 export async function renderLayeredView(opts = {}) {
   // Ensure queries.js finished init (it already runs on DOMContentLoaded)
-  if (!app.store) await app.init(); // no-op if already done
+  if (!app.store) await app.init();
 
-  // Reuse the same SPARQL that “Visualize Graph” uses in index.html
-  const qURL = document.getElementById("btn-layered-view")?.dataset.q
-            || "/assets/data/visualize_graph.sparql";
+  const base = document.querySelector('meta[name="jekyll-baseurl"]')?.content || '';
+  const btn  = document.getElementById("btn-layered-view");
+  const qURL = (btn && btn.dataset.q) || (base + '/assets/data/visualize_graph.sparql');
+
+  if (!btn?.dataset.q) console.warn('btn-layered-view missing data-q; using fallback:', qURL);
+
   const r = await fetch(`${qURL}?v=${performance.timeOrigin}`, { cache: "no-store" });
   if (!r.ok) throw new Error(`Fetch failed ${r.status} for ${qURL}`);
   const query = (await r.text()).replace(/^\uFEFF/, "");
