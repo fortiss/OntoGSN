@@ -91,5 +91,5 @@ window.addEventListener('load', async () => {
   </div>
 </div>
 
-<script type="module" src="/assets/js/queries.js"></script>
-<script type="module" src="/assets/js/layers.js"></script>
+<script type="module" src="{{'/assets/js/queries.js' | relative_url}}"></script>
+<script type="module" src="{{'/assets/js/layers.js' | relative_url}}"></script>
