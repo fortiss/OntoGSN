@@ -1,14 +1,11 @@
 /* docs/_sass/_sparql.scss */
 body.page-playground {
-       body { 
-              font: 14px/1.45 system-ui, sans-serif; 
-              margin: 20px; 
-       }
-
-       h1 { 
-              font-size: 20px; 
-              margin: 0 0 8px; 
-       }
+       font: 14px/1.45 system-ui, sans-serif; 
+       margin: 20px; 
+       
+       h1 { font-size: 20px; margin: 0 0 8px; }
+       h2 { font-size: 1.05rem; }
+       h3 { font-size: 1rem; }
 
        .btns { 
               display:flex; 
@@ -84,11 +81,22 @@ body.page-playground {
               margin-left:auto; 
        }
 
-       body[aria-busy="true"] { 
+       #ruleButtons,#moduleButtons{
+              display:flex; 
+              gap:.5rem; 
+              flex-wrap:wrap;
+              flex:0 0 auto;
+       }
+
+       #moduleButtons{ 
+              margin-left:auto; 
+       }
+
+       &[aria-busy="true"] { 
               cursor: progress; 
        }
 
-       body[aria-busy="true"] [data-query] { 
+       &[aria-busy="true"] [data-query] { 
               opacity: .6; 
               pointer-events: none; 
        }

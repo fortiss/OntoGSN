@@ -2,9 +2,9 @@
 layout: default
 title: OntoGSN Playground
 permalink: /playground/
+body_class: page-playground
 styles: 
   - /assets/css/playground.css
-body_class: page-playground
 ---
 
 <script>
@@ -35,25 +35,25 @@ window.addEventListener('load', async () => {
         } catch (e) { console.error(e); alert('Reset error: '+e.message); }
       });
       </script>
-    <button data-query="{{ '/assets/data/read_all_nodes.sparql' | relative_url }}">See Node Info</button>
-    <button data-query="{{ '/assets/data/read_all_relations.sparql' | relative_url }}">See Relations</button>
+    <button data-query="/assets/data/read_all_nodes.sparql">See Node Info</button>
+    <button data-query="/assets/data/read_all_relations.sparql">See Relations</button>
   </div>
   <div id="rightButtons" class="btns">
-    <button data-query = "{{'/assets/data/visualize_graph.sparql' | relative_url}}" data-no-table = "1"> Tree View</button>
+    <button data-query = "/assets/data/visualize_graph.sparql" data-no-table = "1"> Tree View</button>
     <button id="btn-layered-view" data-no-table="1"> Layer View</button>
     <label><input id="toggle-context" type="checkbox" checked data-no-table="1"> Contextual</label>
     <label><input id="toggle-defeat" type="checkbox" checked data-no-table="1"> Dialectic</label>
     <label><input type="checkbox"
-      data-query="{{'/assets/data/visualize_undev_nodes.sparql' | relative_url}}"
+      data-query="/assets/data/visualize_undev_nodes.sparql"
       data-class="undev" data-no-table="1"> Undeveloped</label>
     <label><input type="checkbox"
-      data-query="{{'/assets/data/visualize_invalid_nodes.sparql' | relative_url}}"
+      data-query="/assets/data/visualize_invalid_nodes.sparql"
       data-class="invalid" data-no-table="1"> Invalid</label>
     <label><input type="checkbox"
-      data-query="{{'/assets/data/visualize_valid_nodes.sparql' | relative_url}}"
+      data-query="/assets/data/visualize_valid_nodes.sparql"
       data-class="valid" data-no-table="1"> Valid</label>
     <label><input type="checkbox"
-      data-query="{{'/assets/data/read_all_collections.sparql' | relative_url}}"
+      data-query="/assets/data/read_all_collections.sparql"
       data-class="collection" data-no-table="1"> Collections</label>
   </div>    
 </div>
@@ -69,17 +69,17 @@ window.addEventListener('load', async () => {
   <div id="ruleButtons" class="btns">
     Rules:
     <label><input type="checkbox"
-      data-query="{{'/assets/data/rule_assumptionInvalidation.sparql' | relative_url}}"
+      data-query="/assets/data/rule_assumptionInvalidation.sparql"
       data-class="rule" data-no-table="1">
       Invalid Assumptions
     </label>
     <label><input type="checkbox"
-      data-query="{{'/assets/data/rule_truthContradiction.sparql' | relative_url}}"
+      data-query="/assets/data/rule_truthContradiction.sparql"
       data-class="rule" data-no-table="1">
       Contradicting Truth
     </label>
     <label><input type="checkbox"
-      data-query="{{'/assets/data/rule_untrueSolution.sparql' | relative_url}}"
+      data-query="/assets/data/rule_untrueSolution.sparql"
       data-class="rule" data-no-table="1">
       Untrue Solution
     </label>
@@ -91,5 +91,5 @@ window.addEventListener('load', async () => {
   </div>
 </div>
 
-<script type="module" src="{{'/assets/js/queries.js' | relative_url}}"></script>
-<script type="module" src="{{'/assets/js/layers.js' | relative_url}}"></script>
+<script type="module" src="/assets/js/queries.js"></script>
+<script type="module" src="/assets/js/layers.js"></script>
