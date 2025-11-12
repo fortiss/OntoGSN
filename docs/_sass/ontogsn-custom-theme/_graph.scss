@@ -84,10 +84,12 @@
 #graph.hide-def .gsn-node.def,
 #graph.hide-def .gsn-link.def { display: none; }
 
-.gsn-legend {
+.gsn-legend, .legend-row {
   display: flex;
   gap: var(--gap-md);
   align-items: center;
+  flex-wrap: wrap;
+  gap: .75rem 1rem;
   padding: var(--pad-md) calc(var(--pad-md) + .25rem);
   border-bottom: 1px solid var(--border);
 }

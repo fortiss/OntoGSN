@@ -102,6 +102,8 @@ body.page-playground {
        }
 
        .modules-bar { 
+              display: flex;
+              align-items: center;
               position: sticky; 
               bottom: 0; 
               background: #fff; 
@@ -112,12 +114,21 @@ body.page-playground {
               z-index: 1;
        }
 
+       .modules-bar .label {
+              margin-right: .25rem;
+              font-weight: 500;
+       }
+
        [data-theme="dark"] .modules-bar { 
               background: #111; 
               border-top-color: #333; 
        }
 
        .modules-bar button { 
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              line-height: 1.2;
               padding: .35rem .6rem; 
               border:1px solid #ccc; 
               border-radius:.5rem; 
@@ -175,4 +186,20 @@ body.page-playground {
        @media (max-width: 640px) {
        table.sparql { font-size: 0.9rem; }
        }
+
+       label {
+              display: inline-flex;        /* keep input + text on one line */
+              align-items: center;         /* vertically center the pair */
+              gap: .4rem;                  /* space between box and text */
+              margin-right: 1rem;          /* space between labels */
+              line-height: 1.2;
+       }
+
+       input[type="checkbox"] {
+              margin: 0;                   /* zap default inline spacing */
+              vertical-align: middle;      /* fallback for older browsers */
+              /* optional micro-nudge if it still looks 1px off for your font */
+              /* transform: translateY(-1px); */
+       }
+
 }

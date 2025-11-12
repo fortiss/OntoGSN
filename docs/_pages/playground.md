@@ -14,7 +14,6 @@ window.addEventListener('load', async () => {
   localStorage.clear(); sessionStorage.clear();
 });
 </script>
-<h1>OntoGSN Playground</h1>
 
 <div class="split">
   <div id="leftButtons" class="btns">
@@ -86,8 +85,9 @@ window.addEventListener('load', async () => {
   </div>
   <div id="moduleButtons" class="btns">
     <span class="gsn-hint">scroll: zoom • drag: pan</span>
-    Modules: 
-    <div id="modulesBar" class="modules-bar"></div>
+    <div id="modulesBar" class="modules-bar">
+      <span class="label">Modules:</span>
+    </div>
   </div>
 </div>
 
