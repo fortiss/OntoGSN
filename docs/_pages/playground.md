@@ -39,7 +39,7 @@ window.addEventListener('load', async () => {
   </div>
   <div id="rightButtons" class="btns">
     <button data-query = "/assets/data/visualize_graph.sparql" data-no-table = "1"> Tree View</button>
-    <button id="btn-layered-view" data-no-table="1"> Layer View</button>
+    <button id="btn-layered-view" data-query = "{{ '/assets/data/visualize_graph.sparql' | relative_url }}" data-no-table="1"> Layer View</button>
     <label><input id="toggle-context" type="checkbox" checked data-no-table="1"> Contextual</label>
     <label><input id="toggle-defeat" type="checkbox" checked data-no-table="1"> Dialectic</label>
     <label><input type="checkbox"
