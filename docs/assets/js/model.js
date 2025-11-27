@@ -19,10 +19,10 @@ const clickable = [];
 let overloadEventListener = null;
 let currentSceneCtl = null;
 
-const BOX_ON_QUERY      = "/assets/data/queries/update_box_on.sparql";
-const BOX_OFF_QUERY     = "/assets/data/queries/update_box_off.sparql";
-const LUGGAGE_ON_QUERY  = "/assets/data/queries/update_luggage_on.sparql";
-const LUGGAGE_OFF_QUERY = "/assets/data/queries/update_luggage_off.sparql";
+const BOX_ON_QUERY      = "/docs/assets/data/queries/update_box_on.sparql";
+const BOX_OFF_QUERY     = "/docs/assets/data/queries/update_box_off.sparql";
+const LUGGAGE_ON_QUERY  = "/docs/assets/data/queries/update_luggage_on.sparql";
+const LUGGAGE_OFF_QUERY = "/docs/assets/data/queries/update_luggage_off.sparql";
 
 async function setLoadActive(name, active) {
   if (!app?.store) return;        // safety guard
@@ -976,7 +976,7 @@ async function ensureCarConfig() {
   if (carConfig) return carConfig;
 
   try {
-    carConfig = await loadCarConfigFromTTL("/assets/data/ontologies/car.ttl");
+    carConfig = await loadCarConfigFromTTL("/docs/assets/data/ontologies/car.ttl");
     console.log("Loaded car config from TTL:", carConfig);
   } catch (err) {
     console.error("Failed to load car config from TTL:", err);
@@ -1238,10 +1238,10 @@ export async function renderModelView({
 }
 
 const overloadedQueryTextPromise =
-  fetch("/assets/data/queries/propagate_overloadedCar.sparql").then(r => r.text());
+  fetch("/docs/assets/data/queries/propagate_overloadedCar.sparql").then(r => r.text());
 
 const carLoadWeightQueryTextPromise =
-  fetch("/assets/data/queries/read_carLoadWeight.sparql").then(r => r.text());
+  fetch("/docs/assets/data/queries/read_carLoadWeight.sparql").then(r => r.text());
 
 // Wire the “Model View” button
 window.addEventListener("DOMContentLoaded", () => {

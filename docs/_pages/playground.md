@@ -101,12 +101,10 @@ window.addEventListener('load', async () => {
 </div>
 
 <!-- Important: serve this file with a local web server (e.g., `python -m http.server`) -->
-<script type = "module" src = "/assets/js/queries.js" ></script>
-<script type = "module" src = "/assets/js/layers.js"  ></script>
+<script type="module" src="{{'/assets/js/queries.js' | relative_url}}"></script>
+<script type="module" src="{{'/assets/js/layers.js' | relative_url}}"></script>
 
 <script src  = "https://unpkg.com/n3@1.17.0/browser/n3.min.js"></script>
 <script type = "importmap">{"imports": {"three": "https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
-<script type = "module" src = "/assets/js/model.js"   ></script>
 
-<script type="module" src="{{'/assets/js/queries.js' | relative_url}}"></script>
-<script type="module" src="{{'/assets/js/layers.js' | relative_url}}"></script>
+<script type="module" src="{{'/assets/js/model.js' | relative_url}}"></script>
