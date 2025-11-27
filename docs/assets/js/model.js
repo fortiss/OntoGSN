@@ -19,10 +19,10 @@ const clickable = [];
 let overloadEventListener = null;
 let currentSceneCtl = null;
 
-const BOX_ON_QUERY      = "/OntoGSN/assets/data/queries/update_box_on.sparql";
-const BOX_OFF_QUERY     = "/OntoGSN/assets/data/queries/update_box_off.sparql";
-const LUGGAGE_ON_QUERY  = "/OntoGSN/assets/data/queries/update_luggage_on.sparql";
-const LUGGAGE_OFF_QUERY = "/OntoGSN/assets/data/queries/update_luggage_off.sparql";
+const BOX_ON_QUERY      = "/assets/data/queries/update_box_on.sparql";
+const BOX_OFF_QUERY     = "/assets/data/queries/update_box_off.sparql";
+const LUGGAGE_ON_QUERY  = "/assets/data/queries/update_luggage_on.sparql";
+const LUGGAGE_OFF_QUERY = "/assets/data/queries/update_luggage_off.sparql";
 
 async function setLoadActive(name, active) {
   if (!app?.store) return;        // safety guard

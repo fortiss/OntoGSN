@@ -723,7 +723,7 @@ export function visualizeSPO(rows, {
 }
 
 let __gsnCssLinked = false;
-function ensureGraphCss(href = "/assets/css/graph.css") {
+function ensureGraphCss(href = "OntoGSN/assets/css/graph.css") {
   if (__gsnCssLinked) return;
   const link = document.createElement("link");
   link.rel = "stylesheet";
