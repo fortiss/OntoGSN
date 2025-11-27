@@ -2,8 +2,10 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import app from "./queries.js"; // re-use the same Store + TTLs that queries.js sets up
 
+
+
 // Minimal CSS safety: load the same stylesheet graph.js expects if not present.
-(function ensureGraphCss(href = "/docs/assets/css/graph.css") {
+(function ensureGraphCss(href = "/OntoGSN/assets/css/graph.css") {
   if ([...document.styleSheets].some(s => s.href && s.href.endsWith(href))) return;
   const link = document.createElement("link");
   link.rel = "stylesheet";
@@ -522,7 +524,7 @@ export async function renderLayeredView(opts = {}) {
   if (!app.store) await app.init(); // no-op if already done
 
   // Reuse the same SPARQL that “Visualize Graph” uses in index.html
-  const qURL = "/docs/assets/data/queries/visualize_graph.sparql";
+  const qURL = "/OntoGSN/assets/data/queries/visualize_graph.sparql";
   const r = await fetch(`${qURL}?v=${performance.timeOrigin}`, { cache: "no-store" });
   if (!r.ok) throw new Error(`Fetch failed ${r.status} for ${qURL}`);
   const query = (await r.text()).replace(/^\uFEFF/, "");
