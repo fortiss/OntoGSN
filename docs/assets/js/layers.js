@@ -3,9 +3,7 @@ import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 import app from "./queries.js"; // re-use the same Store + TTLs that queries.js sets up
 
 // Minimal CSS safety: load the same stylesheet graph.js expects if not present.
-(function ensureGraphCss() {
-  const base = document.querySelector('meta[name="jekyll-baseurl"]')?.content || '';
-  const href = base + '/assets/css/graph.css';
+(function ensureGraphCss(href = "/assets/css/graph.css") {
   if ([...document.styleSheets].some(s => s.href && s.href.endsWith(href))) return;
   const link = document.createElement("link");
   link.rel = "stylesheet";
@@ -24,10 +22,55 @@ function shorten(iriOrLabel) {
     return String(iriOrLabel).replace(/^.*[#/]/, "");
   }
 }
-function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function esc(s) { 
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'}[c])); 
+}
+
 function labelWidth(t, minW = 44, maxW = 180, pad = 12) {
   return Math.min(maxW, Math.max(minW, 7.2 * String(t).length + pad));
 }
+
+const NODE_H = 26;
+
+function kindFromTypeIri(typeIri) {
+  if (!typeIri) return null;
+  const t = String(typeIri);
+
+  if (t.endsWith("#Goal")         || t.endsWith("/Goal"))         return "goal";
+  if (t.endsWith("#Strategy")     || t.endsWith("/Strategy"))     return "strategy";
+  if (t.endsWith("#Solution")     || t.endsWith("/Solution"))     return "solution";
+  if (t.endsWith("#Context")      || t.endsWith("/Context"))      return "context";
+  if (t.endsWith("#Assumption")   || t.endsWith("/Assumption"))   return "assumption";
+  if (t.endsWith("#Justification")|| t.endsWith("/Justification"))return "justification";
+
+  return null;
+}
+
+function inferNodeKind(id, labelText, typeIri) {
+  const fromType = kindFromTypeIri(typeIri);
+  if (fromType) return fromType;
+
+  const txt = String(labelText || id);
+  const p2  = txt.slice(0, 2).toUpperCase();
+  const p1  = txt.charAt(0).toUpperCase();
+
+  if (p2 === "SN") return "solution";
+  if (p1 === "S")  return "strategy";
+  if (p1 === "C")  return "context";
+  if (p1 === "A")  return "assumption";
+  if (p1 === "J")  return "justification";
+
+  return "goal";
+}
+
+
+
 function termToDisplay(t) {
   if (!t) return "";
   switch (t.termType) {
@@ -42,6 +85,7 @@ function termToDisplay(t) {
     default: return t.value ?? String(t);
   }
 }
+
 function bindingsToRows(iter) {
   const rows = [];
   for (const b of iter) {
@@ -99,6 +143,8 @@ export function visualizeLayers(rows, {
   const idArrow = `arrow-${uid}`;
   marker(idArrow);
 
+  const nodeType = new Map();
+
   // Build adjacency (supportedBy only; layered view focuses on sequential structure)
   const SUP = new Set([
     "supported by","gsn:supportedBy",
@@ -110,9 +156,24 @@ export function visualizeLayers(rows, {
   const children = new Map(); // parent -> Set(child)
   const parents  = new Map(); // child -> Set(parent)
   const nodesAll = new Set();
+  
   for (const r of rows) {
     if (!r || !r.s || !r.p || !r.o) continue;
     const S = norm(r.s), P = norm(r.p), O = norm(r.o);
+
+    // 👇 NEW: accept ?typeS / ?typeO (and fall back to old ?type)
+    const tS = r.typeS || r.type;  // subject type
+    const tO = r.typeO;            // object type
+
+    if (tS) {
+      const T = norm(tS);
+      if (T) nodeType.set(S, T);
+    }
+    if (tO) {
+      const TO = norm(tO);
+      if (TO) nodeType.set(O, TO);
+    }
+
     if (!SUP.has(P)) continue;
     if (!children.has(S)) children.set(S, new Set());
     if (!parents.has(O))  parents.set(O, new Set());
@@ -244,26 +305,93 @@ export function visualizeLayers(rows, {
       .attr("marker-end", `url(#${idArrow})`)
     .append("title").text("supported by");
 
-  // Draw nodes
-  const nodes = [...pos.entries()].map(([id, v]) => ({ id, ...v }));
+  // Draw nodes (same shapes as graph.js)
+  const nodes = [...pos.entries()].map(([id, v]) => {
+    const lbl     = v.label;
+    const typeIri = nodeType.get(id) || null;
+    return {
+      id,
+      label: lbl,
+      x: v.x,
+      y: v.y,
+      w: labelWidth(lbl),
+      h: NODE_H,
+      kind: inferNodeKind(id, lbl, typeIri),
+      typeIri
+    };
+  });
+
   const nodeG = g.selectAll("g.gsn-node")
     .data(nodes, d => d.id)
     .join("g")
-      .attr("class","gsn-node")
+      .attr("class", d => `gsn-node ${d.kind}`)
       .attr("data-id", d => d.id)
       .attr("transform", d => `translate(${d.x},${d.y})`);
 
-  nodeG.append("rect")
-    .attr("width",  d => labelWidth(d.label))
-    .attr("height", 26)
-    .attr("x", d => -labelWidth(d.label)/2)
-    .attr("y", -13);
+  // Core node shape per kind
+  const shapeG = nodeG.append("g")
+    .attr("class", "gsn-node-shape");
 
+  shapeG.each(function (d) {
+    const gShape = d3.select(this);
+    const w = d.w;
+    const h = d.h;
+    const x = -w / 2;
+    const y = -h / 2;
+
+    if (d.kind === "solution") {
+      // Circle
+      const r = Math.max(w, h) / 2;
+      gShape.append("circle")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("r", r);
+    } else if (d.kind === "strategy") {
+      // Parallelogram
+      const slant = Math.min(20, w / 5);
+      const points = [
+        [x + slant,     y],
+        [x + w + slant, y],
+        [x + w - slant, y + h],
+        [x - slant,     y + h]
+      ].map(p => p.join(",")).join(" ");
+      gShape.append("polygon")
+        .attr("points", points);
+    } else if (d.kind === "assumption" || d.kind === "justification") {
+      // Oval
+      const rx = w / 2;
+      const ry = h / 2;
+      gShape.append("ellipse")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("rx", rx)
+        .attr("ry", ry);
+    } else {
+      // Rectangle (goal)
+      gShape.append("rect")
+        .attr("width",  w)
+        .attr("height", h)
+        .attr("x", x)
+        .attr("y", y);
+    }
+  });
+
+  // Centered label
   nodeG.append("text")
     .attr("text-anchor","middle")
     .attr("dy","0.35em")
     .text(d => d.label)
     .append("title").text(d => d.id);
+
+  // "A" / "J" tags for assumptions / justifications
+  const ajNodes = nodeG.filter(d => d.kind === "assumption" || d.kind === "justification");
+  ajNodes.append("text")
+    .attr("class", "gsn-node-tag")
+    .attr("text-anchor", "start")
+    .attr("x", d => d.w / 2 - 6)
+    .attr("y", d => d.h / 2 + 8)
+    .text(d => d.kind === "assumption" ? "A" : "J");
+
 
   // Optional overlay layer for Collections/etc.
   const gOverlay = g.append("g").attr("class","gsn-overlay-collections");
@@ -291,11 +419,51 @@ export function visualizeLayers(rows, {
   }
   function destroy(){ rootEl.innerHTML = ""; }
 
+  function updateUndevDiamonds() {
+    const svgSel = d3.select(rootEl).select("svg.gsn-svg");
+
+    // Remove old diamonds
+    svgSel.selectAll("path.undev-diamond").remove();
+
+    svgSel.selectAll("g.gsn-node.undev").each(function () {
+      const gNode = d3.select(this);
+      const shape = gNode.select("rect, circle, ellipse, polygon");
+      if (!shape.node()) return;
+
+      const box  = shape.node().getBBox();
+      const size = 5;
+      const cx   = box.x + box.width / 2;
+      const cy   = box.y + box.height + size + 2;
+
+      gNode.append("path")
+        .attr("class", "undev-diamond")
+        .attr("d", `
+          M ${cx} ${cy - size}
+          L ${cx + size} ${cy}
+          L ${cx} ${cy + size}
+          L ${cx - size} ${cy}
+          Z
+        `);
+    });
+  }
+
+
   // API to keep overlays working with queries.js
-  function clearAll(){ nodeG.attr("class","gsn-node"); }
-  function highlightByIds(ids, klass = "overlay"){
+  function clearAll() {
+    nodeG.attr("class", d => `gsn-node ${d.kind}`);
+    d3.select(rootEl)
+      .select("svg.gsn-svg")
+      .selectAll("path.undev-diamond")
+      .remove();
+  }
+
+  function highlightByIds(ids, klass = "overlay") {
     const S = new Set(ids);
     nodeG.classed(klass, d => S.has(d.id));
+
+    if (klass === "undev") {
+      updateUndevDiamonds();
+    }
   }
 
   function clearCollections(){
@@ -351,14 +519,10 @@ export function visualizeLayers(rows, {
 // Public helper: switch the app into layered view using the same SPARQL as the tree.
 export async function renderLayeredView(opts = {}) {
   // Ensure queries.js finished init (it already runs on DOMContentLoaded)
-  if (!app.store) await app.init();
+  if (!app.store) await app.init(); // no-op if already done
 
-  const base = document.querySelector('meta[name="jekyll-baseurl"]')?.content || '';
-  const btn  = document.getElementById("btn-layered-view");
-  const qURL = (btn && btn.dataset.q) || (base + '/assets/data/visualize_graph.sparql');
-
-  if (!btn?.dataset.q) console.warn('btn-layered-view missing data-q; using fallback:', qURL);
-
+  // Reuse the same SPARQL that “Visualize Graph” uses in index.html
+  const qURL = "/assets/data/queries/visualize_graph.sparql";
   const r = await fetch(`${qURL}?v=${performance.timeOrigin}`, { cache: "no-store" });
   if (!r.ok) throw new Error(`Fetch failed ${r.status} for ${qURL}`);
   const query = (await r.text()).replace(/^\uFEFF/, "");

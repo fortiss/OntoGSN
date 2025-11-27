@@ -1,0 +1,5 @@
+PREFIX ex: <https://example.org/car-demo#>
+
+DELETE { ex:box ex:isActiveLoad ?old . }
+INSERT { ex:box ex:isActiveLoad true . }
+WHERE  { OPTIONAL { ex:box ex:isActiveLoad ?old . } }

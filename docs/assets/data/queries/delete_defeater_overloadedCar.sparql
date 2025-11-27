@@ -1,0 +1,13 @@
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX gsn:   <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema:<https://schema.org/>
+PREFIX ex:    <https://example.org/car-demo#>
+
+DELETE DATA {
+  ex:car_D1_2 a gsn:Defeater ;
+      gsn:challenges    ex:car_G1_2 ;
+      schema:identifier "D1.2" ;
+      gsn:statement     "Current load exceeds maximum allowed roof load." ;
+      ex:concernsElement ex:box, ex:luggage .
+  ex:M_Car gsn:contains ex:car_D1_2.
+}

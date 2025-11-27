@@ -6,8 +6,10 @@
 @prefix prov:   <http://www.w3.org/ns/prov#> .
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl:    <http://www.w3.org/2002/07/owl#> .
-@prefix did: <http://www.fortiss-demo.org/ontologies/defence-in-depth/> .
-@prefix xyz: <http://www.example.com/placeholder#> .
+@prefix did:    <http://www.fortiss-demo.org/ontologies/defence-in-depth/> .
+@prefix xyz:    <http://www.example.com/placeholder#> .
+@prefix ex:     <https://example.org/car-demo#> .
+
 
 case:arXivPaper rdfs:label "arXiv preprint" .
 owl:Ontology rdfs:label "Ontology" .
@@ -278,10 +280,179 @@ case:G3_3_2
 case:G3_3_3
     a gsn:Goal ;
     schema:identifier "G3_3_3" ;
-    gsn:statement "Modifiable characters in prompts are checked against a blacklist of keywords in real-time." ;
-    gsn:supportedBy case:Placeholder .
+    gsn:statement "Modifiable characters in prompts are checked against a blacklist of keywords in real-time." .
 
 case:Sn3_3_1_1 a gsn:Solution . 
 case:Sn3_3_1_2 a gsn:Solution . 
 case:Sn3_3_2 a gsn:Solution . 
 #case:Sn3_3_3 a gsn:Solution .
+
+# CAR ASSURANCE CASE
+
+ex:AC_CarStaticLoadSafety
+    a gsn:AssuranceCase ;
+    gsn:contains ex:car_G1, ex:car_S1,
+                 ex:car_G1_1, ex:car_G1_2,
+                 ex:car_G1_3, ex:car_C1,
+                 ex:car_C2, ex:car_A1, 
+                 ex:car_A2, ex:car_A3,
+                 ex:car_J1, ex:car_Sn1,
+                 ex:car_Sn2, ex:car_Sn3.
+
+ex:car_G1
+    a gsn:Goal ;
+    schema:identifier "G1" ;
+    gsn:statement
+        "For all planned demo drives, the OntoGSN Demo Hatchback operates within its static structural load limits."@en ;
+    gsn:inContextOf
+        ex:car_C1 ,
+        ex:car_C2 ,
+        ex:car_J1 ;
+    gsn:supportedBy ex:car_S1;
+    ex:concernsElement ex:Cabin .
+
+ex:car_S1
+    a gsn:Strategy ;
+    schema:identifier "S1" ;
+    gsn:statement
+        "Argument by decomposition over payload, roof load, and total permitted mass limits."@en ;
+    gsn:supportedBy
+        ex:car_G1_1 ,
+        ex:car_G1_2 ,
+        ex:car_G1_3
+    .
+
+ex:car_C1
+    a gsn:Context ;
+    schema:identifier "C1" ;
+    gsn:statement
+        "Static load-related properties of ex:car1 from car.ttl: payload 400 kg, roof load 50 kg, total permitted mass 1220 kg, seating capacity 5."@en ;
+    gsn:refersTo ex:car1
+    .
+
+ex:car_C2
+    a gsn:Context ;
+    schema:identifier "C2" ;
+    gsn:statement
+        "Planned use: short low-speed demo drives on a closed course with at most 5 occupants and light personal luggage only."@en
+    .
+
+ex:car_J1
+    a gsn:Justification ;
+    schema:identifier "J1" ;
+    gsn:statement
+        "This assurance case is restricted to static structural load safety (no overloading of chassis and suspension); crashworthiness and modern occupant protection (e.g., airbags) are explicitly out of scope."@en
+    .
+
+ex:car_A1
+    a gsn:Assumption ;
+    schema:identifier "A1" ;
+    gsn:statement
+        "For demo planning purposes, an average adult occupant mass of 80 kg is used."@en
+    .
+
+ex:car_A2
+    a gsn:Assumption ;
+    schema:identifier "A2" ;
+    gsn:statement
+        "Demo organizers enforce that no in-cabin cargo beyond occupants and light personal items is carried."@en
+    .
+
+ex:car_A3
+    a gsn:Assumption ;
+    schema:identifier "A3" ;
+    gsn:statement
+        "Any roof-mounted luggage or equipment is weighed or otherwise controlled so that it stays within the 50 kg roof-load rating."@en
+    .
+
+ex:car_G1_1
+    a gsn:Goal ;
+    schema:identifier "G1.1" ;
+    gsn:statement
+        "In all planned demo drives, the combined mass of occupants and in-cabin cargo does not exceed the payload rating."@en ;
+    gsn:inContextOf
+        ex:car_A1 , ex:car_A2 , ex:car_C1_1 ;
+    gsn:supportedBy ex:car_Sn1
+    .
+
+ex:car_C1_1
+    a gsn:Context ;
+    schema:identifier "C1.1" ;
+    gsn:statement "Payload rating: max. 400 kg"@en .
+
+ex:car_Sn1
+    a gsn:Solution ;
+    schema:identifier "Sn1" ;
+    gsn:statement
+        "car.ttl specifies schema:payload [schema:value 400 ^^xsd:float ; schema:unitCode 'KGM'] for ex:car1, interpreted as a 400 kg payload rating."@en ;
+    gsn:refersTo ex:car1
+    .
+
+ex:car_G1_2
+    a gsn:Goal ;
+    schema:identifier "G1.2" ;
+    gsn:statement
+        "In all planned demo drives, any roof-mounted load does not exceed the roof-load rating."@en ;
+    gsn:inContextOf
+        ex:car_A3, ex:car_C1_2 ;
+    gsn:supportedBy ex:car_Sn2
+    .
+
+ex:car_C1_2
+    a gsn:Context ;
+    gsn:statement
+        "Roof load rating: max. 50 kg" .
+
+ex:car_Sn2
+    a gsn:Solution ;
+    schema:identifier "Sn2" ;
+    gsn:statement
+        "Calculated roof load weight at demo drive."@en ;
+    gsn:refersTo ex:car1 ;
+    ex:concernsElement ex:Cabin .
+
+ex:car_G1_3
+    a gsn:Goal ;
+    schema:identifier "G1.3" ;
+    gsn:statement
+        "For all planned demo configurations, the overall vehicle mass does not exceed the total permitted mass."@en ;
+    gsn:inContextOf ex:car_A1 , ex:car_A2 , ex:car_A3, ex:car_C1_3 ;
+    gsn:supportedBy ex:car_Sn3 .
+
+ex:car_C1_3
+    a gsn:Context ;
+    gsn:statement
+        "Total permitted mass: max. 1220 kg" .
+
+ex:car_Sn3
+    a gsn:Solution ;
+    schema:identifier "Sn3" ;
+    gsn:statement
+        "car.ttl specifies schema:weightTotal [schema:value 1220 ^^xsd:float ; schema:unitCode 'KGM'] for ex:car1, interpreted as the maximum permitted total vehicle mass (curb + payload)."@en ;
+    gsn:refersTo ex:car1 .
+
+ex:car_G2
+    a gsn:Goal ;
+    schema:identifier "G2" ;
+    gsn:statement
+        "All four wheels of the OntoGSN Demo Hatchback correspond to the StandardWheel geometry assumed in the static load analysis, and are correctly positioned at the four corners of the vehicle."@en ;
+    ex:concernsElement
+        ex:frontLeftWheel ,
+        ex:frontRightWheel ,
+        ex:rearLeftWheel ,
+        ex:rearRightWheel
+    .
+
+ex:M_Car
+    a gsn:Module ;
+    rdfs:label       "M:Car" ;
+    schema:identifier "M:Car" ;
+    gsn:contains ex:AC_CarStaticLoadSafety ,
+                 ex:car_G1 , ex:car_S1 ,
+                 ex:car_G1_1 , ex:car_G1_2 ,
+                 ex:car_G1_3 , ex:car_C1 ,
+                 ex:car_C2 , ex:car_J1 ,
+                 ex:car_A1 , ex:car_A2 ,
+                 ex:car_A3 , ex:car_Sn1 , 
+                 ex:car_Sn2 , ex:car_Sn3,
+                 ex:car_G2 .

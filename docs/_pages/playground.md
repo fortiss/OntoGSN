@@ -34,26 +34,27 @@ window.addEventListener('load', async () => {
         } catch (e) { console.error(e); alert('Reset error: '+e.message); }
       });
       </script>
-    <button data-query="/assets/data/read_all_nodes.sparql">See Node Info</button>
-    <button data-query="/assets/data/read_all_relations.sparql">See Relations</button>
+    <button data-query="/assets/data/queries/read_all_nodes.sparql">See Node Info</button>
+    <button data-query="/assets/data/queries/read_all_relations.sparql">See Relations</button>
   </div>
   <div id="rightButtons" class="btns">
-    <button data-query = "/assets/data/visualize_graph.sparql" data-no-table = "1"> Tree View</button>
-    <button id="btn-layered-view" data-q="{{ '/assets/data/visualize_graph.sparql' | relative_url }}" data-no-table="1"> Layer View</button>
+    <button data-query="/assets/data/queries/visualize_graph.sparql" data-no-table="1">Tree View</button>
+    <button id="btn-layered-view" data-no-table="1">Layer View</button>
+    <button data-query="/assets/data/queries/read_carLoadWeight.sparql" id="btn-model-view" data-no-table="1">Model View</button>
     <label><input id="toggle-context" type="checkbox" checked data-no-table="1"> Contextual</label>
     <label><input id="toggle-defeat" type="checkbox" checked data-no-table="1"> Dialectic</label>
     <label><input type="checkbox"
-      data-query="/assets/data/visualize_undev_nodes.sparql"
+      data-query="/assets/data/queries/visualize_undev_nodes.sparql"
       data-class="undev" data-no-table="1"> Undeveloped</label>
     <label><input type="checkbox"
-      data-query="/assets/data/visualize_invalid_nodes.sparql"
+      data-query="/assets/data/queries/visualize_invalid_nodes.sparql"
       data-class="invalid" data-no-table="1"> Invalid</label>
     <label><input type="checkbox"
-      data-query="/assets/data/visualize_valid_nodes.sparql"
+      data-query="/assets/data/queries/visualize_valid_nodes.sparql"
       data-class="valid" data-no-table="1"> Valid</label>
     <label><input type="checkbox"
-      data-query="/assets/data/read_all_collections.sparql"
-      data-class="collection" data-no-table="1"> Collections</label>
+      data-query="/assets/data/queries/read_all_collections.sparql"
+      data-class="collection" data-no-table="1"> Evidence</label>
   </div>    
 </div>
 
@@ -65,31 +66,47 @@ window.addEventListener('load', async () => {
 <pre id="out"></pre>
 
 <div class="split">
-  <div id="ruleButtons" class="btns">
+  <div id="leftButtons" class="btns">
     Rules:
     <label><input type="checkbox"
-      data-query="/assets/data/rule_assumptionInvalidation.sparql"
+      data-query="/assets/data/queries/rule_assumptionInvalidation.sparql"
       data-class="rule" data-no-table="1">
-      Invalid Assumptions
+      Invalid assumptions
     </label>
     <label><input type="checkbox"
-      data-query="/assets/data/rule_truthContradiction.sparql"
+      data-query="/assets/data/queries/rule_truthContradiction.sparql"
       data-class="rule" data-no-table="1">
-      Contradicting Truth
+      Contradicting truth
     </label>
     <label><input type="checkbox"
-      data-query="/assets/data/rule_untrueSolution.sparql"
+      data-query="/assets/data/queries/rule_untrueSolution.sparql"
       data-class="rule" data-no-table="1">
-      Untrue Solution
+      Untrue solution
+    </label>
+    <label><input type="checkbox"
+      data-queries="/assets/data/queries/rule_checkLoadWeight.sparql;
+                    /assets/data/queries/propagate_overloadedCar.sparql;
+                    /assets/data/queries/write_defeater_overloadedCar.sparql"
+      data-delete-query="/assets/data/queries/delete_defeater_overloadedCar.sparql"
+      data-class="rule" data-no-table="1"
+      data-event="car:overloadChanged">
+      Overloaded car
     </label>
   </div>
-  <div id="moduleButtons" class="btns">
+  <div id="rightButtons" class="btns">
     <span class="gsn-hint">scroll: zoom • drag: pan</span>
-    <div id="modulesBar" class="modules-bar">
-      <span class="label">Modules:</span>
-    </div>
+    Modules: 
+    <div id="modulesBar" class="modules-bar"></div>
   </div>
 </div>
+
+<!-- Important: serve this file with a local web server (e.g., `python -m http.server`) -->
+<script type = "module" src = "/assets/js/queries.js" ></script>
+<script type = "module" src = "/assets/js/layers.js"  ></script>
+
+<script src  = "https://unpkg.com/n3@1.17.0/browser/n3.min.js"></script>
+<script type = "importmap">{"imports": {"three": "https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+<script type = "module" src = "/assets/js/model.js"   ></script>
 
 <script type="module" src="{{'/assets/js/queries.js' | relative_url}}"></script>
 <script type="module" src="{{'/assets/js/layers.js' | relative_url}}"></script>

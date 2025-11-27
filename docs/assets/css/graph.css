@@ -194,23 +194,42 @@
 }
 
 /* === Nodes ============================================================== */
-.gsn-node rect {
+.gsn-node rect,
+.gsn-node circle,
+.gsn-node ellipse,
+.gsn-node polygon {
   fill: var(--node-fill);
   stroke: var(--node-stroke);
   stroke-width: var(--stroke-thin);
+}
+
+.gsn-node rect {
+  /*
   rx: var(--radius-md);
   ry: var(--radius-md);
+  */
+  rx: 0;
+  ry: 0;
 }
+
 .gsn-node text {
   font-size: var(--font-size-md);
   dominant-baseline: middle;
   fill: var(--text);
 }
 
-/* Modifiers */
-.gsn-node.ctx rect { stroke-dasharray: 5 3; }
 
-.gsn-node.in-context rect {
+/* Modifiers */
+.gsn-node.ctx rect { 
+  stroke-dasharray: 5 3;
+  rx: var(--radius-md);
+  ry: var(--radius-md);
+}
+
+.gsn-node.in-context rect,
+.gsn-node.in-context circle,
+.gsn-node.in-context ellipse,
+.gsn-node.in-context polygon {
   stroke: var(--highlight-stroke);
   stroke-width: var(--stroke-xbold);
   fill: var(--highlight-fill);
@@ -224,7 +243,10 @@
   ry: var(--radius-md);
 }
 
-.gsn-node.def-prop rect {
+.gsn-node.def-prop rect,
+.gsn-node.def-prop circle,
+.gsn-node.def-prop ellipse,
+.gsn-node.def-prop polygon {
   stroke: var(--def);
   fill: #fff2f2;
   stroke-width: 2px;
@@ -233,31 +255,46 @@
 .gsn-node.ctx,
 .gsn-node.def { cursor: pointer; }
 
-.gsn-node.dup rect {
+.gsn-node.dup rect,
+.gsn-node.dup circle,
+.gsn-node.dup ellipse,
+.gsn-node.dup polygon {
   stroke-dasharray: 3 2;
   opacity: .9;
 }
 
-.gsn-node.invalid rect {
+.gsn-node.invalid rect,
+.gsn-node.invalid circle,
+.gsn-node.invalid ellipse,
+.gsn-node.invalid polygon {
   stroke: #cdc312;
   stroke-width: 2.5px;
   fill: #ffffec;
   fill-opacity: 1;
 }
 
-.gsn-node.valid rect {
+.gsn-node.valid rect,
+.gsn-node.valid circle,
+.gsn-node.valid ellipse,
+.gsn-node.valid polygon {
   stroke: #0d7215;
   stroke-width: 2.5px;
   fill: #d5ffcd;
   fill-opacity: 1;
 }
 
-.gsn-node.undev rect {
-  stroke: #ea7d00;
-  stroke-width: 0.5px;
-  fill: #fff8f0;
-  fill-opacity: 1;
+.gsn-node-tag {
+  font-size: 11px;
+  font-weight: 600;
+  dominant-baseline: alphabetic;
 }
+
+.gsn-node path.undev-diamond {
+  fill: #ffffff;
+  stroke: #000000;
+  stroke-width: 1.2px;
+}
+
 
 .gsn-link.invalid {
   stroke: #cdc312;

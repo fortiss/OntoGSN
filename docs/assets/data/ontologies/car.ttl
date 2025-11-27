@@ -1,0 +1,392 @@
+@prefix schema: <https://schema.org/> .
+@prefix ex:     <https://example.org/car-demo#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix gsn:   <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+
+ex:concernsElement a owl:ObjectProperty ;
+    rdfs:label "concerns element"@en ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:range  owl:Thing .
+
+ex:onTopOf a owl:ObjectProperty ;
+    rdfs:label "on top of"@en ;
+    rdfs:domain schema:Product ;
+    rdfs:range  schema:Product .
+
+ex:car1 a schema:Car ;
+  schema:name "OntoGSN Demo Hatchback" ;
+  schema:alternateName "Zastava 101-inspired OntoGSN demo" ;
+  schema:description "Small late-1970s style Yugoslav hatchback used as an OntoGSN demo car in a knowledge-augmented assurance case visualization." ;
+  schema:sameAs <https://en.wikipedia.org/wiki/Zastava_101> ;
+  schema:vehicleIdentificationNumber "0N7065N" ;
+  schema:acrissCode "ECMN" ;
+  schema:bodyType "3-door hatchback" ;
+  schema:vehicleConfiguration "3dr hatchback, 1.1L, FWD, 4M" ;
+
+  schema:brand [
+    a schema:Brand ;
+    schema:name "Zastava"
+  ] ;
+
+  schema:manufacturer [
+    a schema:Organization ;
+    schema:name "Zastava Automobili" ;
+    schema:countryOfOrigin [
+      a schema:Country ;
+      schema:name "Yugoslavia"
+    ]
+  ] ;
+
+  schema:model "101 1.1" ;
+  schema:vehicleModelDate "1971-10-15"^^xsd:date ;
+  schema:modelDate        "1971-10-15"^^xsd:date ;
+
+  schema:productionDate             "1983-06-01"^^xsd:date ;
+  schema:dateVehicleFirstRegistered "1983-07-01"^^xsd:date ;
+  schema:purchaseDate               "1989-05-20"^^xsd:date ;
+  schema:numberOfPreviousOwners     3 ;
+
+  schema:numberOfDoors         3 ;
+  schema:numberOfAxles         2 ;
+  schema:numberOfForwardGears  4 ;
+  schema:vehicleTransmission   "4-speed manual" ;
+  schema:driveWheelConfiguration schema:FrontWheelDriveConfiguration ;
+  schema:steeringPosition        schema:LeftHandDriving ;
+
+  schema:vehicleSeatingCapacity 5 ;
+  schema:seatingCapacity        5 ;
+  schema:vehicleInteriorColor   "brown cloth" ;
+  schema:vehicleInteriorType    "cloth seats, plastic dashboard" ;
+
+  schema:numberOfAirbags 0 ;
+  schema:knownVehicleDamages
+    "Light rust on rear wheel arches and worn driver seat upholstery." ;
+
+  schema:color "light olive green" ;
+  schema:category "classic compact car" ;
+
+  schema:width  [ a schema:QuantitativeValue ;
+                  schema:value "2.0"^^xsd:float ;
+                  schema:unitCode "MTR" ] ;
+  schema:height [ a schema:QuantitativeValue ;
+                  schema:value "1.55"^^xsd:float ;
+                  schema:unitCode "MTR" ] ;
+  schema:depth  [ a schema:QuantitativeValue ;
+                  schema:value "4.54"^^xsd:float ;
+                  schema:unitCode "MTR" ] ;
+  schema:wheelbase [ a schema:QuantitativeValue ;
+                     schema:value    "2.44"^^xsd:float ;
+                     schema:unitCode "MTR" ] ;
+
+  schema:weightTotal [
+    a schema:QuantitativeValue ;
+    schema:value    "1220"^^xsd:float ;    # 820 kg curb + ~400 kg payload (example)
+    schema:unitCode "KGM"
+  ] ;
+  schema:payload [
+    a schema:QuantitativeValue ;
+    schema:value    "400"^^xsd:float ;
+    schema:unitCode "KGM"
+  ] ;
+  schema:roofLoad [
+    a schema:QuantitativeValue ;
+    schema:value    "50"^^xsd:float ;      # typical small-car roof rack limit (example)
+    schema:unitCode "KGM"
+  ] ;
+  schema:cargoVolume [
+    a schema:QuantitativeValue ;
+    schema:value    "320"^^xsd:float ;     # approx. rear hatch volume in litres
+    schema:unitCode "LTR"
+  ] ;
+
+  schema:accelerationTime [
+    a schema:QuantitativeValue ;
+    schema:value    "16"^^xsd:float ;      # 0–100 km/h in ~16 s (varies by source):contentReference[oaicite:4]{index=4}
+    schema:unitCode "SEC" ;
+    schema:name     "0–100 km/h"
+  ] ;
+  schema:speed [
+    a schema:QuantitativeValue ;
+    schema:maxValue "135"^^xsd:float ;     # km/h top speed
+    schema:unitCode "KMH"
+  ] ;
+  schema:fuelCapacity [
+    a schema:QuantitativeValue ;
+    schema:value    "39"^^xsd:float ;      # 39 L tank
+    schema:unitCode "LTR"
+  ] ;
+  schema:fuelConsumption [
+    a schema:QuantitativeValue ;
+    schema:value    "7.0"^^xsd:float ;     # combined L/100 km
+    schema:unitText "L/100 km (combined)"
+  ] ;
+  schema:fuelEfficiency [
+    a schema:QuantitativeValue ;
+    schema:value    "14.3"^^xsd:float ;    # ~100 / 7
+    schema:unitText "km/L (combined)"
+  ] ;
+  schema:mileageFromOdometer [
+    a schema:QuantitativeValue ;
+    schema:value    "186000"^^xsd:float ;  # example mileage
+    schema:unitCode "KMT"
+  ] ;
+  schema:emissionsCO2 "165"^^xsd:float ;   # rough estimate from ~7 L/100 km petrol
+
+  # Engine (EngineSpecification)
+  schema:fuelType "petrol" ;
+  schema:vehicleEngine ex:engine1 ;
+
+  # Parts (your clickable meshes)
+  ex:hasPart ex:frontLeftWheel, ex:frontRightWheel,
+             ex:rearLeftWheel,  ex:rearRightWheel,
+             ex:frontLicensePlate,
+             ex:leftWindow, ex:rightWindow,
+             ex:leftDoor, ex:rightDoor,
+             ex:frontBumper, ex:Cabin ,
+             ex:frontWindshield, ex:rearWindshield,
+             ex:rightMirror, ex:leftMirror,
+             ex:frontRightLight, ex:frontLeftLight,
+             ex:rearRightLight, ex:rearLeftLight,
+             ex:rightDoorHandle, ex:leftDoorHandle .
+
+ex:car1
+  ex:bodyLength       "4.54"^^xsd:float ;
+  ex:bodyHeight       "0.75"^^xsd:float ;
+  ex:bodyDepth        "2.0"^^xsd:float ;
+  ex:bodyCenterY      "0.9"^^xsd:float ;
+  ex:bumperThicknessX "0.05"^^xsd:float ;
+  ex:bumperHeightY    "0.10"^^xsd:float ;
+  ex:bumperDepthZ     "1.80"^^xsd:float ;
+  ex:bumperCenterY    "0.575"^^xsd:float ;
+  ex:doorBottomY      "0.525"^^xsd:float ;
+  ex:doorTopY         "1.28"^^xsd:float ;
+  ex:doorFrontX       "0.9"^^xsd:float ;
+  ex:doorBackX        "-0.4"^^xsd:float ;
+  ex:doorDepthZ       "0.12"^^xsd:float ;
+  ex:doorDepthOffset  "0.95"^^xsd:float ;
+  ex:doorBottomY      "0.525"^^xsd:float ;
+  ex:doorTopY         "1.28"^^xsd:float ;
+  ex:doorFrontX       "0.90"^^xsd:float ;
+  ex:doorBackX        "-0.40"^^xsd:float ;
+  ex:doorDepthZ       "0.12"^^xsd:float ;
+  ex:doorZOffset      "0.95"^^xsd:float ;
+  ex:cabinWidthX      "2.15"^^xsd:float ;
+  ex:cabinHeightY     "0.80"^^xsd:float ;
+  ex:cabinDepthZ      "1.70"^^xsd:float ;
+  ex:cabinCenterX     "-0.50"^^xsd:float ;
+  ex:cabinCenterY     "1.55"^^xsd:float ;
+  ex:windshieldWidthX   "0.84"^^xsd:float ;
+  ex:windshieldHeightY  "0.55"^^xsd:float ;
+  ex:windshieldDepthZ   "1.66"^^xsd:float ;
+  ex:frontWindshieldCenterX  "0.63"^^xsd:float ;
+  ex:frontWindshieldCenterY  "1.45"^^xsd:float ;
+  ex:rearWindshieldCenterX   "-1.63"^^xsd:float ;
+  ex:rearWindshieldCenterY   "1.45"^^xsd:float ;
+  ex:windshieldCenterZ       "0.0"^^xsd:float ;
+  ex:lightWidthX    "0.15"^^xsd:float ;
+  ex:lightHeightY   "0.25"^^xsd:float ;
+  ex:lightDepthZ    "0.35"^^xsd:float ;
+  ex:frontLightCenterX "2.25"^^xsd:float ;
+  ex:rearLightCenterX  "-2.25"^^xsd:float ;
+  ex:lightCenterY      "0.85"^^xsd:float ;
+  ex:lightCenterZAbs   "0.7"^^xsd:float ;
+  ex:doorCenterXOffset    "-0.32"^^xsd:float ;
+  ex:doorSideOffsetDelta  "0.01"^^xsd:float ;
+  ex:doorHandleFrontX       "0.7"^^xsd:float ;
+  ex:doorHandleBackX        "0.4"^^xsd:float ;
+  ex:doorHandleCenterXOffset "-0.3"^^xsd:float ;
+  ex:doorHandleHeightY      "0.06"^^xsd:float ;
+  ex:doorHandleDepthExtraZ  "0.02"^^xsd:float ;
+  ex:doorHandleCenterY      "1.1"^^xsd:float ;
+  ex:mirrorYOffset        "0.05"^^xsd:float ;
+  ex:mirrorXBackOffset    "0.2"^^xsd:float ;
+  ex:mirrorWidthX         "0.28"^^xsd:float ;
+  ex:mirrorHeightY        "0.16"^^xsd:float ;
+  ex:mirrorDepthZ         "0.1"^^xsd:float ;
+  ex:mirrorSideOffsetDelta "0.18"^^xsd:float ;
+  ex:mirrorStemWidthX     "0.08"^^xsd:float ;
+  ex:mirrorStemHeightY    "0.08"^^xsd:float ;
+  ex:mirrorStemDepthZ     "0.18"^^xsd:float ;
+  ex:mirrorStemSideOffsetDelta "0.09"^^xsd:float ;
+  ex:mirrorStemXOffset    "0.08"^^xsd:float ;
+  ex:mirrorStemYOffset    "0.05"^^xsd:float ;
+  ex:sideWindowWidthDeltaX     "-0.1"^^xsd:float ;
+  ex:sideWindowHeightY         "0.65"^^xsd:float ;
+  ex:sideWindowCenterXOffset   "-0.32"^^xsd:float ;
+  ex:sideWindowCenterYOffset   "-0.05"^^xsd:float ;
+  ex:sideWindowDepthZ          "0.07"^^xsd:float ;
+  ex:sideWindowSideOffsetDelta "0.1"^^xsd:float .
+
+ex:engine1 a schema:EngineSpecification ;
+  schema:engineDisplacement [
+    a schema:QuantitativeValue ;
+    schema:value    "1116"^^xsd:float ;    # 1.116 L
+    schema:unitCode "CMQ"
+  ] ;
+  schema:enginePower [
+    a schema:QuantitativeValue ;
+    schema:value    "41"^^xsd:float ;      # kW ≈ 56 hp
+    schema:unitCode "KWT"
+  ] ;
+  schema:torque [
+    a schema:QuantitativeValue ;
+    schema:value    "79"^^xsd:float ;      # Nm (approx from sources)
+    schema:unitCode "NU"
+  ] ;
+  schema:engineType "Inline 4, overhead cam" ;
+  schema:fuelType   "petrol" .
+
+ex:frontLicensePlate a schema:Product ;
+  schema:name "Front license plate" ;
+  ex:width "0.7"^^xsd:float ;
+  ex:height "0.15"^^xsd:float ;
+  schema:isPartOf ex:car1 .
+
+ex:StandardWheel 
+  rdfs:subClassOf schema:Product ;
+  schema:name     "Standard Wheel" ;
+  ex:type         "Cylinder" ;
+  ex:radius       "0.4"^^xsd:float ;
+  ex:width        "0.5"^^xsd:float ;
+  ex:segments     "24"^^xsd:float ;
+  ex:y            "0.5"^^xsd:float ;
+  ex:offsetX      "1.4"^^xsd:float ;
+  ex:offsetZ      "0.85"^^xsd:float .
+
+ex:frontLeftWheel a ex:StandardWheel ;
+  schema:name "Front-left wheel" ;
+  schema:isPartOf ex:car1 ;
+  ex:positionOnVehicle "front-left" .
+
+ex:frontRightWheel a ex:StandardWheel ;
+  schema:name "Front-right wheel" ;
+  schema:isPartOf ex:car1 ;
+  ex:positionOnVehicle "front-right" .
+
+ex:rearLeftWheel a ex:StandardWheel ;
+  schema:name "Rear-left wheel" ;
+  schema:isPartOf ex:car1 ;
+  ex:positionOnVehicle "rear-left" .
+
+ex:rearRightWheel a ex:StandardWheel ;
+  schema:name "Rear-right wheel" ;
+  schema:isPartOf ex:car1 ;
+  ex:positionOnVehicle "rear-right" .
+
+ex:leftWindow a schema:Product ;
+  schema:name "Left side window" ;
+  schema:isPartOf ex:car1 .
+
+ex:rightWindow a schema:Product ;
+  schema:name "Right side window" ;
+  schema:isPartOf ex:car1 .
+
+ex:leftDoor a schema:Product ;
+  schema:name "Left door" ;
+  schema:isPartOf ex:car1 .
+
+ex:rightDoor a schema:Product ;
+  schema:name "Right door" ;
+  schema:isPartOf ex:car1 .
+
+ex:frontBumper a schema:Product ;
+  schema:name "Front bumper" ;
+  schema:isPartOf ex:car1 .
+
+ex:Cabin a schema:Product ;
+  schema:name "Cabin" ;
+  schema:isPartOf ex:car1 .
+
+ex:frontWindshield a schema:Product ;
+  schema:name "Front windshield" ;
+  schema:isPartOf ex:car1 .
+
+ex:rearWindshield a schema:Product ;
+  schema:name "Rear windshield" ;
+  schema:isPartOf ex:car1 .
+
+ex:rightMirror a schema:Product ;
+  schema:name "Right mirror" ;
+  schema:isPartOf ex:car1 .
+
+ex:leftMirror a schema:Product ;
+  schema:name "Left mirror" ;
+  schema:isPartOf ex:car1 .
+
+ex:frontRightLight a schema:Product ;
+  schema:name "Front-right light" ;
+  schema:isPartOf ex:car1 .
+
+ex:frontLeftLight a schema:Product ;
+  schema:name "Front-left light" ;
+  schema:isPartOf ex:car1 .
+
+ex:rearRightLight a schema:Product ;
+  schema:name "Rear-right light" ;
+  schema:isPartOf ex:car1 .
+
+ex:rearLeftLight a schema:Product ;
+  schema:name "Rear-left light" ;
+  schema:isPartOf ex:car1 .
+
+ex:rightDoorHandle a schema:Product ;
+  schema:name "Right door handle" ;
+  schema:isPartOf ex:car1 .
+
+ex:leftDoorHandle a schema:Product ;
+  schema:name "Left door handle" ;
+  schema:isPartOf ex:car1 .
+
+ex:roofRack a schema:VehiclePart ;
+  schema:name "Roof rack" .
+  
+ex:car1 ex:hasPart ex:roofRack .
+ex:car1
+  ex:roofRackWidth   "2.0"^^xsd:float ;
+  ex:roofRackDepth   "1.5"^^xsd:float ;
+  ex:roofRackHeight  "0.05"^^xsd:float ;
+  ex:roofRackCenterY "1.17"^^xsd:float .
+
+ex:roofLoad a schema:VehiclePart ;
+  schema:name "Roof load" .
+
+ex:box a schema:Product ;
+  schema:name "Box" ;
+  schema:weight [
+    a schema:QuantitativeValue ;
+    schema:value    "45"^^xsd:float ;
+    schema:unitCode "KGM"
+  ] .
+
+ex:car1 ex:hasPart ex:box .
+ex:car1
+  ex:boxWidth   "1.0"^^xsd:float ;
+  ex:boxDepth   "0.8"^^xsd:float ;
+  ex:boxHeight  "0.8"^^xsd:float ;
+  ex:boxCenterY "0.43"^^xsd:float .
+
+ex:luggage a schema:Product ;
+  schema:name "Luggage" ;
+  schema:weight [
+    a schema:QuantitativeValue ;
+    schema:value    "25"^^xsd:float ;
+    schema:unitCode "KGM"
+  ] .
+
+ex:car1 ex:hasPart ex:luggage .
+ex:car1
+  ex:luggageWidth   "0.8"^^xsd:float ;
+  ex:luggageDepth   "0.3"^^xsd:float ;
+  ex:luggageHeight  "0.4"^^xsd:float ;
+  ex:luggageCenterY "0.23"^^xsd:float .
+
+# Positioning
+ex:car1 ex:onTopOf ex:rearLeftWheel, ex:rearRightWheel,
+                   ex:frontLeftWheel, ex:frontRightWheel .
+ex:Cabin ex:onTopOf ex:car1 .
+ex:roofRack ex:onTopOf ex:Cabin .
+ex:box ex:onTopOf ex:roofRack .
+ex:luggage ex:onTopOf ex:roofRack .
