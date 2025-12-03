@@ -6,7 +6,9 @@
 [![Format: JSON-LD](https://img.shields.io/badge/Format-JSON--LD-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.jsonld)
 [![Format: OWL/XML](https://img.shields.io/badge/Format-OWX-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.owx)
 
-Visit our **OntoGSN Workbench** at: https://github.com/fortiss/ontogsn_workbench !
+- **Workbench**: https://github.com/fortiss/ontogsn_workbench
+- **Website**: https://fortiss.github.io/OntoGSN/
+- **Playground**: https://fortiss.github.io/OntoGSN/playground
 
 ## Introduction
 This repository contains the OntoGSN ontologies for managing and extending GSN assurance cases *semantically*. It also contains the code for the website.
