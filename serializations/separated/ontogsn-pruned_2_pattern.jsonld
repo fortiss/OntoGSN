@@ -1,0 +1,457 @@
+[ {
+  "@id" : "_:genid1",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ]
+}, {
+  "@id" : "_:genid2",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2002/07/owl#unionOf" : [ {
+    "@list" : [ {
+      "@id" : "https://w3id.org/OntoGSN/ontology#Argument"
+    }, {
+      "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement"
+    } ]
+  } ]
+}, {
+  "@id" : "_:genid5",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2002/07/owl#unionOf" : [ {
+    "@list" : [ {
+      "@id" : "https://w3id.org/OntoGSN/ontology#Goal"
+    }, {
+      "@id" : "https://w3id.org/OntoGSN/ontology#Strategy"
+    } ]
+  } ]
+}, {
+  "@id" : "_:genid8",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
+  "http://www.w3.org/2002/07/owl#allValuesFrom" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2002/07/owl#onProperty" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#contains"
+  } ]
+}, {
+  "@id" : "_:genid9",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
+  "http://www.w3.org/2002/07/owl#onProperty" : [ {
+    "@id" : "http://schema.org/description"
+  } ],
+  "http://www.w3.org/2002/07/owl#someValuesFrom" : [ {
+    "@id" : "http://www.w3.org/2000/01/rdf-schema#Literal"
+  } ]
+}, {
+  "@id" : "http://schema.org/description",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ]
+}, {
+  "@id" : "http://www.w3.org/2004/02/skos/core#definition",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#Argument",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#Catalogue",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Catalogue"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "_:genid8"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#Goal",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#InstantiationDataReference",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Instantiation Data Reference"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@value" : "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument."
+  } ],
+  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
+    "@value" : "hollow triangle"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#Pattern",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "_:genid9"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#Relationship",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#Strategy",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#Template",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "Template"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#applicability",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "applicability"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "The applicability section should state under what circumstances the pattern can be applied, making clear the assumptions and principles underlying the pattern to avoid inappropriate application in a mismatched context. This section should record what contextual information is required in order to apply the pattern."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#attachedTo",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#InstantiationDataReference"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "attached to"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Template"
+  } ],
+  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
+    "@value" : "dotted line"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#choice",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Relationship"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "choice"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "A GSN choice can be used to denote possible alternatives in satisfying a relationship."
+  } ],
+  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
+    "@value" : "solid diamond"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#collaboration",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "collaboration"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "The collaboration section should describe how elements of the pattern work together to achieve the desired effect, particularly where there are links that are not readily apparent from the argument structure."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#consequences",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "consequences"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "The consequences section should make clear what work remains after the pattern has been applied. This should highlight where further support to the argument is required, and assumptions that need to be discharged."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#contains",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#examples",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "examples"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "It may be useful to provide example illustrations of the application of the pattern, particularly for more abstract patterns. Illustrations should include a typical case and can be supplemented with atypical cases where more than one example is provided."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#final",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Argument"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "final"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#implementation",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "implementation"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "The implementation section should communicate how the application of the pattern is carried out e.g. the order in which elements should be developed; communicate hints or techniques that may ease successful application; highlight common or recognised pitfalls with the application of the pattern; and record potential misinterpretation of the terms or concepts in the pattern."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#instantiationOf",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "_:genid2"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "instantiation of"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#intent",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "intent"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "The intent statement should state clearly what the pattern aims to achieve."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#knownUses",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "known uses"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "It may be useful to provide references to known applications of the pattern. These can serve as additional examples."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#maxCardinality",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Relationship"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "maximum cardinality"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+  } ],
+  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
+    "@value" : "text"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#minCardinality",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Relationship"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "minimum cardinality"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+  } ],
+  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
+    "@value" : "text"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#motivation",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "motivation"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "The motivation statement can be used to state why the pattern was created. It could be expressed in terms of previous experiences e.g. as the abstraction of a successfully presented argument, or challenges addressed e.g. argument topics that are often incompletely or poorly addressed."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#multiple",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Relationship"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "multiple"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ],
+  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
+    "@value" : "solid ball"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#optional",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Relationship"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "optional"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "Optional instantiation means that the relationship and the argument below may or may not be instantiated."
+  } ],
+  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
+    "@language" : "en",
+    "@value" : "hollow ball"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#participants",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "participants"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "The participants section augments the structure by providing a description of each element. This can provide more complete descriptions, clarify the role of the element in the overall argument and emphasise the aspects that require development or instantiation."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#published",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Argument"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "published"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#relatedTo",
+  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "related to"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "This section can be used to reference patterns that are related e.g. addressing the same intent in a different context."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#renderedAs",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#structure",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#Pattern"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "structure"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "The structure uses the structural and element abstraction notations to present the pattern, clearly indicating where the argument needs to be further developed or populated with details to instantiate the pattern for a specific case."
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#undeveloped",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "_:genid5"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "undeveloped"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ],
+  "http://www.w3.org/2004/02/skos/core#definition" : [ {
+    "@language" : "en",
+    "@value" : "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."
+  } ],
+  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
+    "@value" : "hollow diamond"
+  } ]
+}, {
+  "@id" : "https://w3id.org/OntoGSN/ontology#uninstantiated",
+  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
+  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
+    "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
+    "@language" : "en",
+    "@value" : "uninstantiated"
+  } ],
+  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
+    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
+  } ],
+  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
+    "@value" : "hollow triangle"
+  } ]
+} ]

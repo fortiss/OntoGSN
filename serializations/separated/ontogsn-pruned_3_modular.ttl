@@ -1,0 +1,120 @@
+@prefix : <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema: <http://schema.org/> .
+@base <https://w3id.org/OntoGSN/ontology#> .
+
+gsn:consistentWith rdf:type owl:ObjectProperty ,
+                                 owl:SymmetricProperty ;
+                        rdfs:domain [ rdf:type owl:Class ;
+                                      owl:unionOf ( gsn:Assumption
+                                                    gsn:Context
+                                                  )
+                                    ] ;
+                        rdfs:range [ rdf:type owl:Class ;
+                                     owl:unionOf ( gsn:Assumption
+                                                   gsn:Context
+                                                 )
+                                   ] ;
+                        rdfs:label "consistent with"@en ;
+                        skos:definition "By making the relationship to the away goal the author is asserting not only the inference of support for the parent goal, but also that the context in which the away goal is declared is consistent with the context and assumptions in scope for the parent goal." .
+gsn:substitutedBy rdf:type owl:ObjectProperty ;
+                       rdfs:domain gsn:Justification ;
+                       rdfs:range [ owl:intersectionOf ( gsn:Goal
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty gsn:away ;
+                                                           owl:hasValue "true"^^xsd:boolean
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+                       rdfs:label "substituted by"@en ;
+                       skos:definition "There may be occasions when a goal or strategy requires fuller justification than can be provided within the confines of a GSN justification element. In such cases, an away goal can be substituted for the justification."@en .
+gsn:away rdf:type owl:DatatypeProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( gsn:Assumption
+                                          gsn:Context
+                                          gsn:Goal
+                                          gsn:Justification
+                                          gsn:Solution
+                                        )
+                          ] ;
+              rdfs:range xsd:boolean ;
+              schema:description "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en ;
+              rdfs:label "away"@en ;
+              skos:definition "An away element reference repeats a claim or evidence presented in another argument module."@en ;
+              gsn:renderedAs "bisecting line in the lower half" .
+gsn:contract rdf:type owl:DatatypeProperty ;
+                  rdfs:domain gsn:Module ;
+                  rdfs:range xsd:boolean ;
+                  owl:propertyDisjointWith gsn:undeveloped ;
+                  rdfs:label "contract"@en ;
+                  skos:definition "A contract module is a special type of module that controls the relationship between argument module interfaces using arguments to define how a goal in one module is supported by one or more goals in one or more other modules."@en ;
+                  skos:note "A contract may be described in textual form (e.g. as a table) or for more complex relationships may be described within a contract module using GSN."@en ,
+                            "Contract modules can be used in the support relationship between modules to aid decoupling. The de-coupling by use of a contract permits argument module construction in cases where the eventual source of support for an argument is unknown at the time of authoring or can be changed for example through re-use or planned product improvement or reconfiguration."@en ;
+                  gsn:renderedAs "a rectangle with two smaller rectangles (of equal size to each other) adjoining at the top left and bottom right" .
+gsn:public rdf:type owl:DatatypeProperty ;
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( gsn:Assumption
+                                            gsn:Context
+                                            gsn:Goal
+                                            gsn:Justification
+                                            gsn:Solution
+                                          )
+                            ] ;
+                rdfs:range xsd:boolean ;
+                rdfs:label "public"@en ;
+                skos:definition "This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element."@en ;
+                gsn:renderedAs "miniature module symbol superimposed on an element at the top right" .
+gsn:toBeSupportedByContract rdf:type owl:DatatypeProperty ;
+                                 rdfs:domain gsn:Goal ;
+                                 rdfs:range xsd:boolean ;
+                                 owl:propertyDisjointWith gsn:undeveloped ;
+                                 rdfs:label "to be supported by contract"@en ;
+                                 gsn:renderedAs "attached centrally immediately below the goal to which it relates" .
+gsn:viewType rdf:type owl:DatatypeProperty ;
+                  rdfs:domain gsn:View ;
+                  rdfs:range [ rdf:type rdfs:Datatype ;
+                               owl:oneOf [ rdf:type rdf:List ;
+                                           rdf:first "architecture" ;
+                                           rdf:rest [ rdf:type rdf:List ;
+                                                      rdf:first "argument" ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ]
+                             ] ;
+                  rdfs:label "view type"@en .
+gsn:Module rdf:type owl:Class ;
+                rdfs:subClassOf gsn:GSNElement ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty gsn:contains ;
+                                  owl:allValuesFrom [ rdf:type owl:Class ;
+                                                      owl:unionOf ( gsn:Argument
+                                                                    gsn:Module
+                                                                  )
+                                                    ]
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty gsn:inContextOf ;
+                                  owl:allValuesFrom gsn:Module
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty gsn:supportedBy ;
+                                  owl:allValuesFrom gsn:Module
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty gsn:contains ;
+                                  owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass gsn:Argument
+                                ] ;
+                rdfs:label "Module"@en ;
+                skos:definition "Goal structures can be partitioned into separate, but interrelated, modules. This can allow the division of an overall goal structure into separate goal structures focusing on particular aspects of the overall argument. A module may contain one or more arguments and may contain other modules."@en ;
+                gsn:renderedAs "a rectangle with a second smaller rectangle adjoining at the top left" .
+gsn:View rdf:type owl:Class ;
+              rdfs:label "View"@en ;
+              skos:definition "The argument view depicts the argument inside an individual module."@en .

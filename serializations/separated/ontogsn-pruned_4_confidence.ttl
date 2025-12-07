@@ -1,0 +1,116 @@
+@prefix : <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema: <http://schema.org/> .
+@base <https://w3id.org/OntoGSN/ontology#> .
+
+gsn:associatedWith rdf:type owl:ObjectProperty ;
+                        rdfs:domain [ rdf:type owl:Class ;
+                                      owl:unionOf ( gsn:ArtefactReference
+                                                    gsn:RelationshipWithConfidence
+                                                  )
+                                    ] ;
+                        rdfs:range gsn:Argument ;
+                        rdfs:label "associated with"@en ;
+                        gsn:coreOrExtension "Confidence Argument Extension"@en .
+gsn:argumentType rdf:type owl:DatatypeProperty ;
+                      rdfs:domain gsn:Argument ;
+                      rdfs:range [ rdf:type rdfs:Datatype ;
+                                   owl:oneOf [ rdf:type rdf:List ;
+                                               rdf:first "confidence" ;
+                                               rdf:rest [ rdf:type rdf:List ;
+                                                          rdf:first "dialectic" ;
+                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                     rdf:first "risk" ;
+                                                                     rdf:rest rdf:nil
+                                                                   ]
+                                                        ]
+                                             ]
+                                 ] ;
+                      rdfs:label "argument type"@en ;
+                      gsn:coreOrExtension "Confidence Argument Extension"@en .
+gsn:assuranceClaimPoint rdf:type owl:DatatypeProperty ;
+                             rdfs:domain [ rdf:type owl:Class ;
+                                           owl:unionOf ( gsn:ArtefactReference
+                                                         gsn:RelationshipWithConfidence
+                                                       )
+                                         ] ;
+                             rdfs:range xsd:boolean ;
+                             rdfs:label "assurance claim point"@en ;
+                             skos:definition "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."@en ;
+                             gsn:coreOrExtension "Confidence Argument Extension"@en ;
+                             gsn:renderedAs "solid square" .
+_:genid83 rdf:type owl:Class ;
+           owl:unionOf ( [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                  owl:onProperty gsn:contains ;
+                                                  owl:someValuesFrom gsn:ArtefactReference
+                                                ]
+                                                [ rdf:type owl:Restriction ;
+                                                  owl:onProperty gsn:contains ;
+                                                  owl:someValuesFrom gsn:Goal
+                                                ]
+                                              ) ;
+                           rdf:type owl:Class
+                         ]
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gsn:statement ;
+                           owl:someValuesFrom xsd:string
+                         ]
+                       ) .
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Argument ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid83 ;
+   skos:definition "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
+   gsn:coreOrExtension "Confidence Argument Extension"
+ ] .
+gsn:RelationshipWithConfidence rdf:type owl:Class ;
+                                    rdfs:subClassOf gsn:Relationship ,
+                                                    [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                             owl:onProperty gsn:associatedWith ;
+                                                                             owl:someValuesFrom gsn:Argument
+                                                                           ]
+                                                                           [ rdf:type owl:Restriction ;
+                                                                             owl:onProperty gsn:assuranceClaimPoint ;
+                                                                             owl:someValuesFrom xsd:boolean
+                                                                           ]
+                                                                         ) ;
+                                                      rdf:type owl:Class
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty rdf:object ;
+                                                      owl:allValuesFrom [ rdf:type owl:Class ;
+                                                                          owl:unionOf ( gsn:Context
+                                                                                        gsn:Solution
+                                                                                        gsn:Strategy
+                                                                                      )
+                                                                        ]
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty gsn:associatedWith ;
+                                                      owl:allValuesFrom [ owl:intersectionOf ( gsn:Argument
+                                                                                               [ rdf:type owl:Restriction ;
+                                                                                                 owl:onProperty gsn:argumentType ;
+                                                                                                 owl:hasValue "confidence"
+                                                                                               ]
+                                                                                             ) ;
+                                                                          rdf:type owl:Class
+                                                                        ]
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty schema:identifier ;
+                                                      owl:someValuesFrom xsd:string
+                                                    ] ,
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty schema:identifier ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onDataRange xsd:string
+                                                    ] ;
+                                    rdfs:label "Relationship with Confidence"@en ;
+                                    skos:note "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
+                                    gsn:coreOrExtension "Confidence Argument Extension"@en .

@@ -1,0 +1,1301 @@
+@prefix : <https://w3id.org/OntoGSN/ontology#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix swrla: <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@prefix schema: <http://schema.org/> .
+@base <https://w3id.org/OntoGSN/ontology#> .
+
+<https://w3id.org/OntoGSN/ontology> rdf:type owl:Ontology ;
+                                     cc:license "https://creativecommons.org/licenses/by/4.0/" ;
+                                     dc:contributor "Barbara Gallina, Dian Balta, Ingmar Kessler"@en ;
+                                     dc:creator "Standard: The Assurance Case Working Group (ACWG)"@en ,
+                                                "Tomas Bueno Momčilović"@en ;
+                                     dc:description "OntoGSN is an ontology for managing assurance cases in the Goal Structuring Notation (GSN). The goal of the ontology is to help users in linking the elements of their cases - claims and evidence - with the internationalized resource identifiers (IRIs) of represented concepts, events and data, and in evaluating the validity of their argument."@en ;
+                                     dc:identifier "SCSC-141C" ;
+                                     dc:issued "2025-02-24"^^xsd:date ;
+                                     dc:modified "2025-06-19T00:00:00Z" ;
+                                     dc:publisher "https://www.fortiss.org/"@en ;
+                                     dc:source "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C"@en ;
+                                     dc:title "OntoGSN"@en ;
+                                     terms:bibliographicCitation "Bueno Momcilovic, T., Kessler, I., Gallina, B., & Balta, D. (2025). OntoGSN: An Ontology for Dynamic Management of Assurance Cases." ;
+                                     terms:created "20th February 2025"@en ;
+                                     vann:preferredNamespacePrefix "gsn" ;
+                                     schema:disclaimer "[Disclaimer from the GSN Community Standard v3.0]: While the authors and the publishers have used reasonable endeavours to ensure that the information and guidance given in this work is correct, all parties must rely on their own skill and judgement when making use of this work and obtain professional or specialist advice before taking, or refraining from, any action on the basis of the content of this work. Neither the authors nor the publishers make any representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to such information and guidance for any purpose, and they will not be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever (including as a result of negligence) arising out of, or in connection with, the use of this work. The views and opinions expressed in this publication are those of the authors and do not necessarily reflect those of their employers, the SCSC1 or other organisations."@en ;
+                                     schema:url "https://w3id.org/OntoGSN/"^^xsd:anyURI ;
+                                     schema:version 3.0 ;
+                                     owl:versionInfo 1.2 ;
+                                     skos:definition "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."@en .
+
+cc:license rdf:type owl:AnnotationProperty .
+dc:contributor rdf:type owl:AnnotationProperty .
+dc:created rdf:type owl:AnnotationProperty .
+dc:creator rdf:type owl:AnnotationProperty .
+dc:description rdf:type owl:AnnotationProperty .
+dc:identifier rdf:type owl:AnnotationProperty .
+dc:issued rdf:type owl:AnnotationProperty .
+dc:modified rdf:type owl:AnnotationProperty .
+dc:publisher rdf:type owl:AnnotationProperty .
+dc:source rdf:type owl:AnnotationProperty .
+dc:title rdf:type owl:AnnotationProperty .
+terms:abstract rdf:type owl:AnnotationProperty .
+terms:bibliographicCitation rdf:type owl:AnnotationProperty .
+terms:created rdf:type owl:AnnotationProperty .
+vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty .
+schema:citation rdf:type owl:AnnotationProperty .
+schema:description rdf:type owl:AnnotationProperty .
+schema:disclaimer rdf:type owl:AnnotationProperty .
+schema:license rdf:type owl:AnnotationProperty .
+schema:url rdf:type owl:AnnotationProperty .
+schema:version rdf:type owl:AnnotationProperty .
+swrla:isRuleEnabled rdf:type owl:AnnotationProperty .
+skos:altLabel rdf:type owl:AnnotationProperty .
+skos:definition rdf:type owl:AnnotationProperty .
+skos:note rdf:type owl:AnnotationProperty .
+
+gsn:coreOrExtension rdf:type owl:AnnotationProperty ;
+                    rdfs:label "core or extension"@en ;
+                    skos:definition "Indicator of the sourcing section in the GSN Community Standard v3."@en .
+
+gsn:renderedAs rdf:type owl:AnnotationProperty ;
+               rdfs:label "rendered as"@en ;
+               gsn:coreOrExtension "Core GSN"@en .
+
+xsd:date rdf:type rdfs:Datatype .
+
+rdf:object rdf:type owl:ObjectProperty .
+rdf:predicate rdf:type owl:ObjectProperty .
+rdf:subject rdf:type owl:ObjectProperty .
+gsn:contains rdf:type owl:ObjectProperty ;
+             rdfs:domain [ rdf:type owl:Class ;
+                           owl:unionOf ( gsn:Argument
+                                         gsn:AssuranceCase
+                                         gsn:Module
+                                       )
+                         ] ;
+             rdfs:range [ rdf:type owl:Class ;
+                          owl:unionOf ( gsn:Argument
+                                        gsn:Artefact
+                                        gsn:Module
+                                      )
+                        ] ;
+             rdfs:label "contains"@en ;
+             gsn:coreOrExtension "Core GSN"@en .
+gsn:inContextOf rdf:type owl:ObjectProperty ,
+                         owl:AsymmetricProperty ,
+                         owl:IrreflexiveProperty ;
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( gsn:Goal
+                                            gsn:Strategy
+                                          )
+                            ] ;
+                rdfs:range [ rdf:type owl:Class ;
+                             owl:unionOf ( gsn:Assumption
+                                           gsn:Context
+                                           gsn:Justification
+                                           gsn:Module
+                                         )
+                           ] ;
+                rdfs:label "in context of"@en ;
+                skos:definition "InContextOf, rendered as a line with a hollow arrowhead, declares a contextual relationship."@en ;
+                gsn:coreOrExtension "Core GSN"@en ;
+                gsn:renderedAs "line with a hollow arrowhead" .
+gsn:refersTo rdf:type owl:ObjectProperty ;
+             rdfs:domain gsn:ArtefactReference ;
+             rdfs:range gsn:Artefact ;
+             rdfs:label "refers to"@en ;
+             gsn:coreOrExtension "Core GSN"@en .
+gsn:supportedBy rdf:type owl:ObjectProperty ,
+                         owl:AsymmetricProperty ,
+                         owl:IrreflexiveProperty ;
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( gsn:Goal
+                                            gsn:Strategy
+                                          )
+                            ] ;
+                rdfs:range [ rdf:type owl:Class ;
+                             owl:unionOf ( gsn:Goal
+                                           gsn:Module
+                                           gsn:Solution
+                                           gsn:Strategy
+                                         )
+                           ] ;
+                rdfs:label "supported by"@en ;
+                skos:definition "SupportedBy, rendered as a line with a solid arrowhead, allows support relationships between elements to be documented."@en ;
+                gsn:coreOrExtension "Core GSN"@en ;
+                gsn:renderedAs "line with a solid arrowhead" .
+schema:description rdf:type owl:DatatypeProperty .
+schema:identifier rdf:type owl:DatatypeProperty .
+gsn:offDiagram rdf:type owl:DatatypeProperty ;
+               rdfs:domain gsn:GSNElement ;
+               rdfs:range xsd:boolean ;
+               rdfs:label "off-diagram"@en ;
+               gsn:coreOrExtension "Core GSN"@en .
+gsn:relationshipType rdf:type owl:DatatypeProperty ;
+                     rdfs:domain gsn:Relationship ;
+                     rdfs:range [ rdf:type rdfs:Datatype ;
+                                  owl:oneOf [ rdf:type rdf:List ;
+                                              rdf:first "contextual" ;
+                                              rdf:rest [ rdf:type rdf:List ;
+                                                         rdf:first "evidential" ;
+                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                    rdf:first "inferential" ;
+                                                                    rdf:rest rdf:nil
+                                                                  ]
+                                                       ]
+                                            ]
+                                ] ;
+                     rdfs:label "relationship type"@en ;
+                     skos:definition "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information."@en ,
+                                     "SupportedBy relationships – represented by lines with solid arrowheads – indicate inferential or evidential relationships between elements. InContextOf relationships – represented as lines with hollow arrowheads – declare contextual relationships."@en ;
+                     gsn:coreOrExtension "Core GSN"@en .
+gsn:statement rdf:type owl:DatatypeProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( gsn:Argument
+                                          gsn:GSNElement
+                                        )
+                          ] ;
+              rdfs:range xsd:string ;
+              rdfs:label "statement"@en ;
+              gsn:coreOrExtension "Core GSN"@en .
+gsn:structured rdf:type owl:DatatypeProperty ;
+               rdfs:domain gsn:Argument ;
+               rdfs:range xsd:boolean ;
+               rdfs:label "structured"@en ;
+               skos:definition "A particular kind of argument where the relationships between the asserted claims, and from the evidence to the claims, are explicitly represented."@en ;
+               gsn:coreOrExtension "Core GSN"@en .
+gsn:top rdf:type owl:DatatypeProperty ;
+        rdfs:domain gsn:Goal ;
+        rdfs:range xsd:boolean ;
+        rdfs:label "top (goal)"@en ;
+        skos:definition "A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure."@en ,
+                        "The top goal presents the overall claim asserted by the author and it is up to the reader to determine their belief that it is adequately supported."@en ;
+        gsn:coreOrExtension "Core GSN"@en .
+gsn:true rdf:type owl:DatatypeProperty ;
+         rdfs:domain gsn:GSNElement ;
+         rdfs:range xsd:boolean ;
+         rdfs:label "true"@en ;
+         gsn:coreOrExtension "Core GSN"@en .
+gsn:valid rdf:type owl:DatatypeProperty ;
+          rdfs:domain gsn:GSNElement ;
+          rdfs:range xsd:boolean ;
+          rdfs:label "valid"@en ;
+          gsn:coreOrExtension "Core GSN"@en .
+
+rdf:Statement rdf:type owl:Class .
+gsn:Argument rdf:type owl:Class ;
+             rdfs:subClassOf _:genid83 ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty gsn:contains ;
+                               owl:allValuesFrom gsn:GSNElement
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty schema:identifier ;
+                               owl:someValuesFrom xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty schema:identifier ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:string
+                             ] ;
+             rdfs:label "Argument"@en ;
+             skos:definition "A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information."@en ,
+                             "A connected series of claims intended to establish an overall claim."@en ;
+             gsn:coreOrExtension "Core GSN"@en .
+
+gsn:Artefact rdf:type owl:Class ;
+             rdfs:label "Artefact"@en ;
+             skos:altLabel "Evidence"@en ;
+             gsn:coreOrExtension "Core GSN"@en .
+
+gsn:ArtefactReference rdf:type owl:Class ;
+                      rdfs:subClassOf gsn:GSNElement ;
+                      rdfs:label "Artefact Reference"@en ;
+                      gsn:coreOrExtension "Core GSN"@en .
+
+gsn:Assumption rdf:type owl:Class ;
+               rdfs:subClassOf gsn:GSNElement ,
+                               _:genid96 ;
+               rdfs:label "Assumption"@en ;
+               skos:definition "An assumption, rendered as an oval with the letter 'A' at the top- or bottom-right, presents an intentionally unsubstantiated statement."@en ;
+               gsn:coreOrExtension "Core GSN"@en ;
+               gsn:renderedAs "oval"@en .
+
+_:genid96 rdf:type owl:Restriction ;
+           owl:onProperty gsn:statement ;
+           owl:someValuesFrom xsd:string .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Assumption ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid96 ;
+   skos:definition "GSN assumptions provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase."@en
+ ] .
+
+gsn:AssuranceCase rdf:type owl:Class ;
+                  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                    owl:onProperty gsn:contains ;
+                                    owl:someValuesFrom gsn:Argument
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty gsn:contains ;
+                                    owl:someValuesFrom gsn:Artefact
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty gsn:contains ;
+                                    owl:allValuesFrom [ rdf:type owl:Class ;
+                                                        owl:unionOf ( gsn:Argument
+                                                                      gsn:Artefact
+                                                                    )
+                                                      ]
+                                  ] ;
+                  rdfs:label "Assurance Case"@en ;
+                  skos:definition "A reasoned and compelling argument, supported by a body of evidence, that a system, service or organisation will operate as intended for a defined application in a defined environment."@en ,
+                                  "Arguments and evidence intended to demonstrate that a system meets its assurance requirements."@en ;
+                  gsn:coreOrExtension "Core GSN"@en .
+
+gsn:Context rdf:type owl:Class ;
+            rdfs:subClassOf gsn:ArtefactReference ,
+                            _:genid105 ;
+            rdfs:label "Context"@en ;
+            skos:definition "A context, rendered as shown left, presents a contextual artefact. This can be a reference to contextual information, or a statement."@en ;
+            gsn:coreOrExtension "Core GSN"@en ;
+            gsn:renderedAs "rounded rectangle"@en .
+
+_:genid105 rdf:type owl:Restriction ;
+            owl:onProperty gsn:statement ;
+            owl:someValuesFrom xsd:string .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Context ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid105 ;
+   skos:definition "Two kinds of GSN context statement exist. Where a context statement draws attention to explanatory contextual information (such as the definition of some term), this information shall be stated briefly using complete sentences of a noun-phrase + verb-phrase structure. Where a context statement is a reference to an artefact of some kind, which informs the reasoning step, the context statement shall be expressed as a noun phrase."@en
+ ] .
+
+gsn:GSNElement rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty schema:identifier ;
+                                 owl:someValuesFrom xsd:string
+                               ] ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty schema:identifier ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onDataRange xsd:string
+                               ] ;
+               rdfs:label "GSN Element"@en ;
+               gsn:coreOrExtension "Core GSN"@en .
+
+gsn:Goal rdf:type owl:Class ;
+         rdfs:subClassOf gsn:GSNElement ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gsn:inContextOf ;
+                           owl:someValuesFrom gsn:Context
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gsn:challenges ;
+                           owl:allValuesFrom [ rdf:type owl:Class ;
+                                               owl:unionOf ( gsn:GSNElement
+                                                             gsn:Relationship
+                                                           )
+                                             ]
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gsn:inContextOf ;
+                           owl:allValuesFrom [ rdf:type owl:Class ;
+                                               owl:unionOf ( gsn:Assumption
+                                                             gsn:Context
+                                                             gsn:Justification
+                                                             gsn:Module
+                                                           )
+                                             ]
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty gsn:supportedBy ;
+                           owl:allValuesFrom [ rdf:type owl:Class ;
+                                               owl:unionOf ( gsn:Goal
+                                                             gsn:Module
+                                                             gsn:Solution
+                                                             gsn:Strategy
+                                                           )
+                                             ]
+                         ] ,
+                         _:genid129 ;
+         rdfs:label "Goal"@en ;
+         skos:altLabel "Claim"@en ;
+         skos:definition "(Claim is) A proposition being asserted by the author that is a true or false statement."@en ,
+                         "A goal, rendered as a rectangle, presents a claim forming part of the argument."@en ;
+         gsn:coreOrExtension "Core GSN"@en ;
+         gsn:renderedAs "rectangle"@en .
+
+_:genid129 rdf:type owl:Restriction ;
+            owl:onProperty gsn:statement ;
+            owl:someValuesFrom xsd:string .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Goal ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid129 ;
+   skos:definition "GSN goals document the claims made in the argument (i.e. premises and conclusions). Each goal shall contain a single goal statement, expressed as a proposition in the form of a noun phrase + verb-phrase sentence."@en
+ ] .
+
+gsn:Justification rdf:type owl:Class ;
+                  rdfs:subClassOf gsn:GSNElement ,
+                                  _:genid131 ;
+                  rdfs:label "Justification"@en ;
+                  skos:definition "A justification, rendered as an oval with the letter 'J' at the top- or bottom-right, presents a statement of rationale."@en ;
+                  gsn:coreOrExtension "Core GSN"@en ;
+                  gsn:renderedAs "oval"@en .
+
+_:genid131 rdf:type owl:Restriction ;
+            owl:onProperty gsn:statement ;
+            owl:someValuesFrom xsd:string .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Justification ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid131 ;
+   skos:definition "GSN justifications provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase."@en
+ ] .
+
+gsn:Relationship rdf:type owl:Class ;
+                 rdfs:subClassOf rdf:Statement ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty rdf:object ;
+                                   owl:allValuesFrom gsn:GSNElement
+                                 ] ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty rdf:subject ;
+                                   owl:allValuesFrom [ rdf:type owl:Class ;
+                                                       owl:unionOf ( gsn:Defeater
+                                                                     gsn:Goal
+                                                                     gsn:Strategy
+                                                                   )
+                                                     ]
+                                 ] ;
+                 rdfs:label "Relationship"@en ;
+                 gsn:coreOrExtension "Core GSN"@en .
+
+gsn:Solution rdf:type owl:Class ;
+             rdfs:subClassOf gsn:ArtefactReference ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty gsn:challenges ;
+                               owl:allValuesFrom [ rdf:type owl:Class ;
+                                                   owl:unionOf ( gsn:GSNElement
+                                                                 gsn:Relationship
+                                                               )
+                                                 ]
+                             ] ,
+                             _:genid168 ;
+             rdfs:label "Solution"@en ;
+             skos:definition "A solution, rendered as a circle, presents a reference to an evidence item."@en ;
+             gsn:coreOrExtension "Core GSN"@en ;
+             gsn:renderedAs "circle"@en .
+
+_:genid168 rdf:type owl:Restriction ;
+            owl:onProperty gsn:statement ;
+            owl:someValuesFrom xsd:string .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Solution ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid168 ;
+   skos:definition "GSN solutions make no claim, but are simply references to evidence items that provide support for a particular claim. They shall therefore be stated as noun-phrases."@en
+ ] .
+
+gsn:Strategy rdf:type owl:Class ;
+             rdfs:subClassOf gsn:GSNElement ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty gsn:inContextOf ;
+                               owl:allValuesFrom [ rdf:type owl:Class ;
+                                                   owl:unionOf ( gsn:Assumption
+                                                                 gsn:Context
+                                                                 gsn:Justification
+                                                                 gsn:Module
+                                                               )
+                                                 ]
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty gsn:supportedBy ;
+                               owl:allValuesFrom gsn:Goal
+                             ] ,
+                             _:genid177 ;
+             rdfs:label "Strategy"@en ;
+             skos:definition "A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s)."@en ;
+             gsn:coreOrExtension "Core GSN"@en ;
+             gsn:renderedAs "parallelogram"@en .
+
+_:genid177 rdf:type owl:Restriction ;
+            owl:onProperty gsn:statement ;
+            owl:someValuesFrom xsd:string .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Strategy ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid177 ;
+   skos:definition "GSN strategy statements describe the reasoning that connects parent goals and their supporting goals, but the core claims and the structure connecting those claims remain unchanged. Strategy statements contain a brief description of the argument approach."@en
+ ] .
+
+[ owl:intersectionOf ( gsn:Goal
+                       [ rdf:type owl:Class ;
+                         owl:complementOf [ rdf:type owl:Restriction ;
+                                            owl:onProperty [ owl:inverseOf gsn:supportedBy
+                                                           ] ;
+                                            owl:someValuesFrom gsn:Goal
+                                          ]
+                       ]
+                     ) ;
+  rdf:type owl:Class ;
+  owl:equivalentClass [ rdf:type owl:Restriction ;
+                        owl:onProperty gsn:top ;
+                        owl:hasValue "true"^^xsd:boolean
+                      ]
+] .
+
+gsn:A rdf:type swrl:Variable .
+gsn:B rdf:type swrl:Variable .
+<urn:swrl:var#B> rdf:type swrl:Variable .
+<urn:swrl:var#C> rdf:type swrl:Variable .
+<urn:swrl:var#A> rdf:type swrl:Variable .
+gsn:C rdf:type swrl:Variable .
+gsn:X rdf:type swrl:Variable .
+gsn:R rdf:type swrl:Variable .
+gsn:R3 rdf:type swrl:Variable .
+gsn:R1 rdf:type swrl:Variable .
+gsn:R2 rdf:type swrl:Variable .
+gsn:P rdf:type swrl:Variable .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S16" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Assumption ;
+                           swrl:argument1 gsn:A
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:true ;
+                                      swrl:argument1 gsn:A ;
+                                      swrl:argument2 "false"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:inContextOf ;
+                                                 swrl:argument1 gsn:B ;
+                                                 swrl:argument2 gsn:A
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:true ;
+                           swrl:argument1 gsn:B ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S1" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Assumption ;
+                           swrl:argument1 gsn:A
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:valid ;
+                                      swrl:argument1 gsn:A ;
+                                      swrl:argument2 "false"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:inContextOf ;
+                                                 swrl:argument1 gsn:B ;
+                                                 swrl:argument2 gsn:A
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:valid ;
+                           swrl:argument1 gsn:B ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S17" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsn:supportedBy ;
+                           swrl:argument1 <urn:swrl:var#B> ;
+                           swrl:argument2 <urn:swrl:var#C>
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsn:inContextOf ;
+                                      swrl:argument1 <urn:swrl:var#B> ;
+                                      swrl:argument2 <urn:swrl:var#A>
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:ClassAtom ;
+                                                 swrl:classPredicate gsn:Assumption ;
+                                                 swrl:argument1 <urn:swrl:var#A>
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsn:Goal ;
+                                                            swrl:argument1 <urn:swrl:var#C>
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsn:inContextOf ;
+                           swrl:argument1 <urn:swrl:var#C> ;
+                           swrl:argument2 <urn:swrl:var#A>
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S9" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:true ;
+                           swrl:argument1 gsn:C ;
+                           swrl:argument2 "true"^^xsd:boolean
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:true ;
+                                      swrl:argument1 gsn:B ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:supportedBy ;
+                                                 swrl:argument1 gsn:C ;
+                                                 swrl:argument2 gsn:B
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                            swrl:propertyPredicate gsn:true ;
+                                                            swrl:argument1 gsn:A ;
+                                                            swrl:argument2 "true"^^xsd:boolean
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate gsn:supportedBy ;
+                                                                       swrl:argument1 gsn:C ;
+                                                                       swrl:argument2 gsn:A
+                                                                     ] ;
+                                                           rdf:rest [ rdf:type swrl:AtomList ;
+                                                                      rdf:first [ rdf:type swrl:ClassAtom ;
+                                                                                  swrl:classPredicate gsn:Goal ;
+                                                                                  swrl:argument1 gsn:A
+                                                                                ] ;
+                                                                      rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                 rdf:first [ rdf:type swrl:ClassAtom ;
+                                                                                             swrl:classPredicate gsn:Goal ;
+                                                                                             swrl:argument1 gsn:B
+                                                                                           ] ;
+                                                                                 rdf:rest rdf:nil
+                                                                               ]
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:valid ;
+                           swrl:argument1 gsn:C ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S6" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsn:supportedBy ;
+                           swrl:argument1 gsn:X ;
+                           swrl:argument2 gsn:A
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsn:supportedBy ;
+                                      swrl:argument1 gsn:A ;
+                                      swrl:argument2 gsn:B
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:ClassAtom ;
+                                                 swrl:classPredicate gsn:Goal ;
+                                                 swrl:argument1 gsn:A
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:top ;
+                           swrl:argument1 gsn:A ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S8" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:true ;
+                           swrl:argument1 gsn:A ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:true ;
+                                      swrl:argument1 gsn:B ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:supportedBy ;
+                                                 swrl:argument1 gsn:B ;
+                                                 swrl:argument2 gsn:A
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsn:Goal ;
+                                                            swrl:argument1 gsn:A
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:valid ;
+                           swrl:argument1 gsn:B ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S5" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsn:supportedBy ;
+                           swrl:argument1 gsn:A ;
+                           swrl:argument2 gsn:B
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate rdf:subject ;
+                                      swrl:argument1 gsn:R ;
+                                      swrl:argument2 gsn:A
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate rdf:object ;
+                                                 swrl:argument1 gsn:R ;
+                                                 swrl:argument2 gsn:B
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsn:Goal ;
+                                                            swrl:argument1 gsn:B
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:relationshipType ;
+                           swrl:argument1 gsn:R ;
+                           swrl:argument2 "inferential"
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S14" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:true ;
+                           swrl:argument1 gsn:R ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate rdf:subject ;
+                                      swrl:argument1 gsn:R ;
+                                      swrl:argument2 gsn:A
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:inContextOf ;
+                                                 swrl:argument1 gsn:A ;
+                                                 swrl:argument2 gsn:B
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsn:Relationship ;
+                                                            swrl:argument1 gsn:R
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate rdf:object ;
+                                                                       swrl:argument1 gsn:R ;
+                                                                       swrl:argument2 gsn:B
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:true ;
+                           swrl:argument1 gsn:A ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S13" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Solution ;
+                           swrl:argument1 gsn:A
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate gsn:Solution ;
+                                      swrl:argument1 gsn:B
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:true ;
+                                                 swrl:argument1 gsn:B ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                            swrl:propertyPredicate gsn:supportedBy ;
+                                                            swrl:argument1 gsn:C ;
+                                                            swrl:argument2 gsn:B
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                       swrl:propertyPredicate gsn:true ;
+                                                                       swrl:argument1 gsn:A ;
+                                                                       swrl:argument2 "true"^^xsd:boolean
+                                                                     ] ;
+                                                           rdf:rest [ rdf:type swrl:AtomList ;
+                                                                      rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                  swrl:propertyPredicate gsn:supportedBy ;
+                                                                                  swrl:argument1 gsn:C ;
+                                                                                  swrl:argument2 gsn:A
+                                                                                ] ;
+                                                                      rdf:rest rdf:nil
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:true ;
+                           swrl:argument1 gsn:C ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S11" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Solution ;
+                           swrl:argument1 gsn:A
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:true ;
+                                      swrl:argument1 gsn:A ;
+                                      swrl:argument2 "false"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:supportedBy ;
+                                                 swrl:argument1 gsn:B ;
+                                                 swrl:argument2 gsn:A
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:true ;
+                           swrl:argument1 gsn:B ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S10" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Solution ;
+                           swrl:argument1 gsn:A
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsn:supportedBy ;
+                                      swrl:argument1 gsn:B ;
+                                      swrl:argument2 gsn:A
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:true ;
+                                                 swrl:argument1 gsn:A ;
+                                                 swrl:argument2 "true"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:true ;
+                           swrl:argument1 gsn:B ;
+                           swrl:argument2 "true"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S3" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Solution ;
+                           swrl:argument1 gsn:B
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsn:supportedBy ;
+                                      swrl:argument1 gsn:A ;
+                                      swrl:argument2 gsn:B
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate rdf:subject ;
+                                                 swrl:argument1 gsn:R ;
+                                                 swrl:argument2 gsn:A
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                            swrl:propertyPredicate rdf:object ;
+                                                            swrl:argument1 gsn:R ;
+                                                            swrl:argument2 gsn:B
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:relationshipType ;
+                           swrl:argument1 gsn:R ;
+                           swrl:argument2 "evidential"
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S4" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Strategy ;
+                           swrl:argument1 gsn:B
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsn:supportedBy ;
+                                      swrl:argument1 gsn:A ;
+                                      swrl:argument2 gsn:B
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate rdf:subject ;
+                                                 swrl:argument1 gsn:R ;
+                                                 swrl:argument2 gsn:A
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                            swrl:propertyPredicate rdf:object ;
+                                                            swrl:argument1 gsn:R ;
+                                                            swrl:argument2 gsn:B
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:relationshipType ;
+                           swrl:argument1 gsn:R ;
+                           swrl:argument2 "inferential"
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S2" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate rdf:subject ;
+                           swrl:argument1 gsn:R ;
+                           swrl:argument2 gsn:A
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsn:inContextOf ;
+                                      swrl:argument1 gsn:A ;
+                                      swrl:argument2 gsn:B
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate rdf:object ;
+                                                 swrl:argument1 gsn:R ;
+                                                 swrl:argument2 gsn:B
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:relationshipType ;
+                           swrl:argument1 gsn:R ;
+                           swrl:argument2 "contextual"
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S7" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate rdf:object ;
+                           swrl:argument1 gsn:R3 ;
+                           swrl:argument2 gsn:A
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate rdf:subject ;
+                                      swrl:argument1 gsn:R1 ;
+                                      swrl:argument2 gsn:A
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate rdf:subject ;
+                                                 swrl:argument1 gsn:R2 ;
+                                                 swrl:argument2 gsn:B
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                            swrl:propertyPredicate rdf:subject ;
+                                                            swrl:argument1 gsn:R3 ;
+                                                            swrl:argument2 gsn:C
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate rdf:predicate ;
+                                                                       swrl:argument1 gsn:R3 ;
+                                                                       swrl:argument2 gsn:P
+                                                                     ] ;
+                                                           rdf:rest [ rdf:type swrl:AtomList ;
+                                                                      rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                  swrl:propertyPredicate rdf:predicate ;
+                                                                                  swrl:argument1 gsn:R2 ;
+                                                                                  swrl:argument2 gsn:P
+                                                                                ] ;
+                                                                      rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                 rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                             swrl:propertyPredicate rdf:object ;
+                                                                                             swrl:argument1 gsn:R1 ;
+                                                                                             swrl:argument2 gsn:B
+                                                                                           ] ;
+                                                                                 rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                            rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                                        swrl:propertyPredicate rdf:object ;
+                                                                                                        swrl:argument1 gsn:R2 ;
+                                                                                                        swrl:argument2 gsn:C
+                                                                                                      ] ;
+                                                                                            rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                                       rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                                                   swrl:propertyPredicate rdf:predicate ;
+                                                                                                                   swrl:argument1 gsn:R1 ;
+                                                                                                                   swrl:argument2 gsn:P
+                                                                                                                 ] ;
+                                                                                                       rdf:rest rdf:nil
+                                                                                                     ]
+                                                                                          ]
+                                                                               ]
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:valid ;
+                           swrl:argument1 gsn:R1 ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:valid ;
+                                      swrl:argument1 gsn:R2 ;
+                                      swrl:argument2 "false"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:valid ;
+                                                 swrl:argument1 gsn:R3 ;
+                                                 swrl:argument2 "false"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S19" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsn:inContextOf ;
+                           swrl:argument1 gsn:A ;
+                           swrl:argument2 gsn:B
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:BuiltinAtom ;
+                                      swrl:builtin <http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing> ;
+                                      swrl:arguments ( gsn:B
+                                                       gsn:R
+                                                     )
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate rdf:subject ;
+                           swrl:argument1 gsn:R ;
+                           swrl:argument2 gsn:A
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate gsn:Relationship ;
+                                      swrl:argument1 gsn:R
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate rdf:object ;
+                                                 swrl:argument1 gsn:R ;
+                                                 swrl:argument2 gsn:B
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S18" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsn:supportedBy ;
+                           swrl:argument1 gsn:A ;
+                           swrl:argument2 gsn:B
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:BuiltinAtom ;
+                                      swrl:builtin <http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing> ;
+                                      swrl:arguments ( gsn:B
+                                                       gsn:R
+                                                     )
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate rdf:subject ;
+                           swrl:argument1 gsn:R ;
+                           swrl:argument2 gsn:A
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate gsn:Relationship ;
+                                      swrl:argument1 gsn:R
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate rdf:object ;
+                                                 swrl:argument1 gsn:R ;
+                                                 swrl:argument2 gsn:B
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:comment "" ;
+   rdfs:label "S12" ;
+   gsn:coreOrExtension "Core GSN" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:valid ;
+                           swrl:argument1 gsn:B ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:valid ;
+                                      swrl:argument1 gsn:A ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:supportedBy ;
+                                                 swrl:argument1 gsn:C ;
+                                                 swrl:argument2 gsn:B
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                            swrl:propertyPredicate gsn:supportedBy ;
+                                                            swrl:argument1 gsn:C ;
+                                                            swrl:argument2 gsn:A
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:valid ;
+                           swrl:argument1 gsn:C ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .

@@ -1,0 +1,217 @@
+@prefix : <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema: <http://schema.org/> .
+@base <https://w3id.org/OntoGSN/ontology#> .
+
+<https://w3id.org/OntoGSN/ontology> rdf:type owl:Ontology .
+skos:altLabel rdf:type owl:AnnotationProperty .
+skos:definition rdf:type owl:AnnotationProperty .
+gsn:renderedAs rdf:type owl:AnnotationProperty ;
+                    rdfs:label "rendered as"@en .
+xsd:date rdf:type rdfs:Datatype .
+rdf:object rdf:type owl:ObjectProperty .
+rdf:predicate rdf:type owl:ObjectProperty .
+rdf:subject rdf:type owl:ObjectProperty .
+gsn:contains rdf:type owl:ObjectProperty ;
+                  rdfs:label "contains"@en .
+gsn:inContextOf rdf:type owl:ObjectProperty ,
+                              owl:AsymmetricProperty ,
+                              owl:IrreflexiveProperty ;
+                     rdfs:domain [ rdf:type owl:Class ;
+                                   owl:unionOf ( gsn:Goal
+                                                 gsn:Strategy
+                                               )
+                                 ] ;
+                     rdfs:label "in context of"@en ;
+                     skos:definition "InContextOf, rendered as a line with a hollow arrowhead, declares a contextual relationship."@en ;
+                     gsn:renderedAs "line with a hollow arrowhead" .
+gsn:refersTo rdf:type owl:ObjectProperty ;
+                  rdfs:domain gsn:ArtefactReference ;
+                  rdfs:range gsn:Artefact ;
+                  rdfs:label "refers to"@en .
+gsn:supportedBy rdf:type owl:ObjectProperty ,
+                              owl:AsymmetricProperty ,
+                              owl:IrreflexiveProperty ;
+                     rdfs:domain [ rdf:type owl:Class ;
+                                   owl:unionOf ( gsn:Goal
+                                                 gsn:Strategy
+                                               )
+                                 ] ;
+                     rdfs:label "supported by"@en ;
+                     skos:definition "SupportedBy, rendered as a line with a solid arrowhead, allows support relationships between elements to be documented."@en ;
+                     gsn:renderedAs "line with a solid arrowhead" .
+schema:identifier rdf:type owl:DatatypeProperty .
+gsn:offDiagram rdf:type owl:DatatypeProperty ;
+                    rdfs:domain gsn:GSNElement ;
+                    rdfs:range xsd:boolean ;
+                    rdfs:label "off-diagram"@en .
+gsn:relationshipType rdf:type owl:DatatypeProperty ;
+                          rdfs:domain gsn:Relationship ;
+                          rdfs:range [ rdf:type rdfs:Datatype ;
+                                       owl:oneOf [ rdf:type rdf:List ;
+                                                   rdf:first "contextual" ;
+                                                   rdf:rest [ rdf:type rdf:List ;
+                                                              rdf:first "evidential" ;
+                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                         rdf:first "inferential" ;
+                                                                         rdf:rest rdf:nil
+                                                                       ]
+                                                            ]
+                                                 ]
+                                     ] ;
+                          rdfs:label "relationship type"@en ;
+                          skos:definition "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information."@en ,
+                                          "SupportedBy relationships – represented by lines with solid arrowheads – indicate inferential or evidential relationships between elements. InContextOf relationships – represented as lines with hollow arrowheads – declare contextual relationships."@en .
+gsn:statement rdf:type owl:DatatypeProperty ;
+                   rdfs:range xsd:string ;
+                   rdfs:label "statement"@en .
+gsn:structured rdf:type owl:DatatypeProperty ;
+                    rdfs:range xsd:boolean ;
+                    rdfs:label "structured"@en ;
+                    skos:definition "A particular kind of argument where the relationships between the asserted claims, and from the evidence to the claims, are explicitly represented."@en .
+gsn:top rdf:type owl:DatatypeProperty ;
+             rdfs:domain gsn:Goal ;
+             rdfs:range xsd:boolean ;
+             rdfs:label "top (goal)"@en ;
+             skos:definition "A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure."@en ,
+                             "The top goal presents the overall claim asserted by the author and it is up to the reader to determine their belief that it is adequately supported."@en .
+rdf:Statement rdf:type owl:Class .
+gsn:Artefact rdf:type owl:Class ;
+                  rdfs:label "Artefact"@en ;
+                  skos:altLabel "Evidence"@en .
+gsn:ArtefactReference rdf:type owl:Class ;
+                           rdfs:subClassOf gsn:GSNElement ;
+                           rdfs:label "Artefact Reference"@en .
+gsn:Assumption rdf:type owl:Class ;
+                    rdfs:subClassOf gsn:GSNElement ,
+                                    _:genid11 ;
+                    rdfs:label "Assumption"@en ;
+                    skos:definition "An assumption, rendered as an oval with the letter 'A' at the top- or bottom-right, presents an intentionally unsubstantiated statement."@en ;
+                    gsn:renderedAs "oval"@en .
+_:genid11 rdf:type owl:Restriction ;
+           owl:onProperty gsn:statement ;
+           owl:someValuesFrom xsd:string .
+
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Assumption ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid11 ;
+   skos:definition "GSN assumptions provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase."@en
+ ] .
+gsn:AssuranceCase rdf:type owl:Class ;
+                       rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                         owl:onProperty gsn:contains ;
+                                         owl:someValuesFrom gsn:Artefact
+                                       ] ;
+                       rdfs:label "Assurance Case"@en ;
+                       skos:definition "A reasoned and compelling argument, supported by a body of evidence, that a system, service or organisation will operate as intended for a defined application in a defined environment."@en ,
+                                       "Arguments and evidence intended to demonstrate that a system meets its assurance requirements."@en .
+gsn:Context rdf:type owl:Class ;
+                 rdfs:subClassOf gsn:ArtefactReference ,
+                                 _:genid14 ;
+                 rdfs:label "Context"@en ;
+                 skos:definition "A context, rendered as shown left, presents a contextual artefact. This can be a reference to contextual information, or a statement."@en ;
+                 gsn:renderedAs "rounded rectangle"@en .
+_:genid14 rdf:type owl:Restriction ;
+           owl:onProperty gsn:statement ;
+           owl:someValuesFrom xsd:string .
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Context ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid14 ;
+   skos:definition "Two kinds of GSN context statement exist. Where a context statement draws attention to explanatory contextual information (such as the definition of some term), this information shall be stated briefly using complete sentences of a noun-phrase + verb-phrase structure. Where a context statement is a reference to an artefact of some kind, which informs the reasoning step, the context statement shall be expressed as a noun phrase."@en
+ ] .
+gsn:GSNElement rdf:type owl:Class ;
+                    rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                      owl:onProperty schema:identifier ;
+                                      owl:someValuesFrom xsd:string
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty schema:identifier ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onDataRange xsd:string
+                                    ] ;
+                    rdfs:label "GSN Element"@en .
+gsn:Goal rdf:type owl:Class ;
+              rdfs:subClassOf gsn:GSNElement ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty gsn:inContextOf ;
+                                owl:someValuesFrom gsn:Context
+                              ] ,
+                              _:genid19 ;
+              rdfs:label "Goal"@en ;
+              skos:altLabel "Claim"@en ;
+              skos:definition "(Claim is) A proposition being asserted by the author that is a true or false statement."@en ,
+                              "A goal, rendered as a rectangle, presents a claim forming part of the argument."@en ;
+              gsn:renderedAs "rectangle"@en .
+_:genid19 rdf:type owl:Restriction ;
+           owl:onProperty gsn:statement ;
+           owl:someValuesFrom xsd:string .
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Goal ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid19 ;
+   skos:definition "GSN goals document the claims made in the argument (i.e. premises and conclusions). Each goal shall contain a single goal statement, expressed as a proposition in the form of a noun phrase + verb-phrase sentence."@en
+ ] .
+gsn:Justification rdf:type owl:Class ;
+                       rdfs:subClassOf gsn:GSNElement ,
+                                       _:genid21 ;
+                       rdfs:label "Justification"@en ;
+                       skos:definition "A justification, rendered as an oval with the letter 'J' at the top- or bottom-right, presents a statement of rationale."@en ;
+                       gsn:renderedAs "oval"@en .
+_:genid21 rdf:type owl:Restriction ;
+           owl:onProperty gsn:statement ;
+           owl:someValuesFrom xsd:string .
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Justification ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid21 ;
+   skos:definition "GSN justifications provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase."@en
+ ] .
+gsn:Relationship rdf:type owl:Class ;
+                      rdfs:subClassOf rdf:Statement ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty rdf:object ;
+                                        owl:allValuesFrom gsn:GSNElement
+                                      ] ;
+                      rdfs:label "Relationship"@en .
+gsn:Solution rdf:type owl:Class ;
+                  rdfs:subClassOf gsn:ArtefactReference ,
+                                  _:genid24 ;
+                  rdfs:label "Solution"@en ;
+                  skos:definition "A solution, rendered as a circle, presents a reference to an evidence item."@en ;
+                  gsn:renderedAs "circle"@en .
+_:genid24 rdf:type owl:Restriction ;
+           owl:onProperty gsn:statement ;
+           owl:someValuesFrom xsd:string .
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Solution ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid24 ;
+   skos:definition "GSN solutions make no claim, but are simply references to evidence items that provide support for a particular claim. They shall therefore be stated as noun-phrases."@en
+ ] .
+gsn:Strategy rdf:type owl:Class ;
+                  rdfs:subClassOf gsn:GSNElement ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty gsn:supportedBy ;
+                                    owl:allValuesFrom gsn:Goal
+                                  ] ,
+                                  _:genid27 ;
+                  rdfs:label "Strategy"@en ;
+                  skos:definition "A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s)."@en ;
+                  gsn:renderedAs "parallelogram"@en .
+_:genid27 rdf:type owl:Restriction ;
+           owl:onProperty gsn:statement ;
+           owl:someValuesFrom xsd:string .
+[ rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Strategy ;
+   owl:annotatedProperty rdfs:subClassOf ;
+   owl:annotatedTarget _:genid27 ;
+   skos:definition "GSN strategy statements describe the reasoning that connects parent goals and their supporting goals, but the core claims and the structure connecting those claims remain unchanged. Strategy statements contain a brief description of the argument approach."@en
+ ] .

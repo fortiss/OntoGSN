@@ -1,0 +1,58 @@
+@prefix : <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix schema: <http://schema.org/> .
+@base <https://w3id.org/OntoGSN/ontology#> .
+
+gsn:challenges rdf:type owl:ObjectProperty ;
+                    rdfs:domain [ rdf:type owl:Class ;
+                                  owl:unionOf ( gsn:Goal
+                                                gsn:Solution
+                                              )
+                                ] ;
+                    rdfs:range gsn:GSNElement ;
+                    rdfs:label "challenges"@en ;
+                    skos:definition "Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument."@en ;
+                    skos:note "A challenge must be levied against the appropriate aspect of the goal structure."@en ;
+                    gsn:coreOrExtension "Dialectic Extension"@en ;
+                    gsn:renderedAs "dashed line with an open arrowhead" .
+gsn:defeated rdf:type owl:DatatypeProperty ;
+                  rdfs:domain [ rdf:type owl:Class ;
+                                owl:unionOf ( gsn:GSNElement
+                                              gsn:Relationship
+                                            )
+                              ] ;
+                  rdfs:range xsd:boolean ;
+                  schema:description "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
+                  rdfs:label "defeated"@en ;
+                  skos:definition "This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements."@en ;
+                  gsn:coreOrExtension "Dialectic Extension"@en ;
+                  gsn:renderedAs "cross (‘X’) superimposed on a GSN element or relationship" .
+gsn:inDoubt rdf:type owl:DatatypeProperty ;
+                 rdfs:domain [ rdf:type owl:Class ;
+                               owl:unionOf ( gsn:AssuranceCase
+                                             gsn:GSNElement
+                                             gsn:Relationship
+                                           )
+                             ] ;
+                 rdfs:range xsd:boolean ;
+                 rdfs:label "in doubt"@en ;
+                 skos:definition "The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt."@en ;
+                 gsn:coreOrExtension "Dialectic Extension"@en .
+gsn:Defeater rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Class ;
+                                        owl:unionOf ( gsn:Goal
+                                                      gsn:Solution
+                                                    )
+                                      ] ;
+                  rdfs:label "Defeater"@en ;
+                  skos:altLabel "Dialectic Element"@en ;
+                  skos:definition "The source of challenge being applied; can be directed at any part of an argument. A defeater (goal or solution) can challenge any element in a goal structure, e.g. goal, solution, strategy, context, assumption, justification." ;
+                  skos:note "Membership of this class is only meant to be inferred, not asserted! Please do not add individuals to this class manually (i.e., assertions)."@en ,
+                            "The goal and solution statements should be clearly expressed such that the crux of the challenge is unequivocally communicated. Thus, the link between the part of the argument that is being challenged (target) and the dialectic element (source) is self-evident."@en ;
+                  gsn:coreOrExtension "Dialectic Extension"@en .
