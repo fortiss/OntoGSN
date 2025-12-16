@@ -22,6 +22,7 @@ Many thanks to:
 - Ingmar Kessler, Jule Hendricks, Prof. Barbara Gallina and Dian Balta for contributions to the ontology and the paper;
 - Yannick Landeck, Radouane Bouchekir, Tewodros Beyene, Carmen Carlan, and Laure Millet for reviewing various iterations of work;
 - Will Franks (Adelard / NCC Group), Ewen Denney (NASA Ames) and Laure Millet (Critical Systems Labs) for providing access to the tools of their respective organizations.
+See our website for more information: https://fortiss.github.io/OntoGSN/
 
 ## Dependencies
 Existing objects and properties are imported from the following foundational ontologies: Resource Description Framework Schema (RDFS), XML Schema Definition Language (XSD), Dublin-Core (DC), Schema.org, and Simple Knowledge Organization System (SKOS). Reasoning is based on the Semantic Web Rule Language (SWRL)  rules and OWL axioms, which can be executed with supported rule engines (e.g., Pellet or Drools).
