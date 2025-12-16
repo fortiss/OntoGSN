@@ -1,8 +1,7 @@
 // /assets/js/layers.js
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-import app from "./queries.js"; // re-use the same Store + TTLs that queries.js sets up
-
-
+import app from "./queries.js";
+import panes from "./panes.js";
 
 // Minimal CSS safety: load the same stylesheet graph.js expects if not present.
 (function ensureGraphCss(href = "/OntoGSN/assets/css/graph.css") {
@@ -99,11 +98,11 @@ function bindingsToRows(iter) {
 }
 
 export function visualizeLayers(rows, {
-  mount  = "#graph",
+  mount  = ".gsn-host",
   width  = null,
   height = 520,
   label  = shorten,
-  laneLabels = null,   // e.g., ["Upstream","Input","Model","Output","Downstream","Learn"]
+  laneLabels = null,
   laneCount = null,
   assignLayer = null,
   allowEmptyLanes = true
@@ -125,8 +124,16 @@ export function visualizeLayers(rows, {
   `;
 
   const svgNode = rootEl.querySelector(".gsn-svg");
-  if (width != null) svgNode.setAttribute("width", String(width));
+  if (!svgNode) throw new Error("visualizeLayers: internal error – svg root not found");
+
+  const rect       = rootEl.getBoundingClientRect();
+  const pixelWidth = width ?? Math.max(300, rect.width || 800);
+
+  svgNode.setAttribute("width",  String(pixelWidth));
   svgNode.setAttribute("height", String(height));
+
+  // if (width != null) svgNode.setAttribute("width", String(width));
+  
   const svg  = d3.select(svgNode);
   const g    = svg.select(".gsn-viewport");
   const defs = svg.append("defs");
@@ -404,7 +411,12 @@ export function visualizeLayers(rows, {
 
   function fit(pad = 40) {
     svg.interrupt();
+    const gNode = g.node();
+    if (!gNode) return;
+
     const bbox = g.node().getBBox();
+    if (!bbox.width || !bbox.height) return;
+
     const vw   = svgNode.clientWidth || svgNode.viewBox.baseVal.width || W;
     const vh   = svgNode.clientHeight || svgNode.viewBox.baseVal.height || H;
     const sx   = (vw - pad * 2) / bbox.width;
@@ -476,8 +488,8 @@ export function visualizeLayers(rows, {
     // simple rendering: a small hub to the RIGHT of the ctx node with item pills around it
     clearCollections();
     const hubsByCtx = new Map();
-    const hubDx = opts.dxHub ?? 90;
-    const hubDy = opts.dyHub ?? 0;
+    const hubDx = opts.dxHub ?? opts.dx ?? 90;
+    const hubDy = opts.dyHub ?? opts.dy ?? 0;
     const arm   = opts.armLen ?? 46;
 
     for (const r of rows) {
@@ -520,8 +532,8 @@ export function visualizeLayers(rows, {
 
 // Public helper: switch the app into layered view using the same SPARQL as the tree.
 export async function renderLayeredView(opts = {}) {
-  // Ensure queries.js finished init (it already runs on DOMContentLoaded)
-  if (!app.store) await app.init(); // no-op if already done
+  // Ensure queries.js finished init
+  if (!app.store) await app.init();
 
   // Reuse the same SPARQL that “Visualize Graph” uses in index.html
   const qURL = "/OntoGSN/assets/data/queries/visualize_graph.sparql";
@@ -532,25 +544,51 @@ export async function renderLayeredView(opts = {}) {
   const res  = app.store.query(query);
   const rows = bindingsToRows(res);
 
-  // Create layered controller and *hand it to the app* so overlays continue to work
+  // 🔹 Resolve the right-hand host just like model.js does
+  const host   = opts.mount || panes.getRightPane() || "#rightPane";
+  const rootEl = (typeof host === "string")
+    ? document.querySelector(host)
+    : host;
+
+  if (!rootEl) {
+    console.error("[layers] mount host not found:", host);
+    return;
+  }
+
+  // 🔹 Destroy any previous graph/model/layer controller
+  if (app.graphCtl && typeof app.graphCtl.destroy === "function") {
+    try {
+      app.graphCtl.destroy();
+    } catch (e) {
+      console.warn("[layers] error destroying previous controller", e);
+    }
+  }
+  app.graphCtl   = null;
+  window.graphCtl = null;
+
+  // 🔹 Clear whatever was in the right pane before
+  if (typeof panes.clearRightPane === "function") {
+    panes.clearRightPane();
+  } else {
+    rootEl.innerHTML = "";
+  }
+
+  // 🔹 Build the layered view into the right pane
   const ctl = visualizeLayers(rows, {
-    mount: "#graph",
+    mount: rootEl,           // pass the actual element
     height: 520,
     label: shorten,
-    // (Optional) customize layer labels here:
-    laneLabels: ["Upstream","Input","Model","Output","Downstream","Learn", "xyz"],
+    laneLabels: ["Upstream","Input","Model","Output","Downstream","Learn","xyz"],
     laneCount: 7,
     ...opts
   });
 
-  // Mirror how queries.js exposes graphCtl + resize handling
+  // 🔹 Register controller like the other views
   app.graphCtl = ctl;
+  if (typeof panes.setRightController === "function") {
+    panes.setRightController("layers", ctl);
+  }
   window.graphCtl = ctl;
-
-  // Keep “fit on resize” parity
-  const onResize = () => app.graphCtl && app.graphCtl.fit();
-  window.removeEventListener("resize", onResize);
-  window.addEventListener("resize", onResize);
 }
 
 // Wire the “Layered View” button if present

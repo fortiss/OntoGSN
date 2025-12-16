@@ -1,6 +1,7 @@
-import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
-import { OrbitControls } from "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js";
+import * as THREE from "../vendor/three.module.js";
+import { OrbitControls } from "../vendor/OrbitControls.js";
 import app from "./queries.js";
+import panes from "./panes.js";
 
 // RDF / Turtle handling via N3 (global from index.html)
 const { Parser, Store, DataFactory, Writer } = N3;
@@ -260,6 +261,10 @@ function createCarScene(config) {
   // ---------- DOM / RENDERER / CAMERA ----------
 
   const container = document.getElementById("scene-container");
+  if (!container) throw new Error("Model view: #scene-container not found");
+
+  //await ensureCarConfig();
+  //const sceneCtl = await createCarScene(carConfig, container);
 
   const renderer = new THREE.WebGLRenderer({
     antialias: !/Mobile|Android/.test(navigator.userAgent)
@@ -711,7 +716,8 @@ function createCarScene(config) {
     renderer.setSize(width, height);
     render();
   }
-  window.addEventListener("resize", onWindowResize);
+
+  onWindowResize();
 
   renderer.domElement.addEventListener("pointerdown", onPointerDown);
 
@@ -749,15 +755,6 @@ function createCarScene(config) {
   }
 
   // ---------- ANIMATION LOOP ----------
-
-  /*
-  function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
-  }
-  animate();
-  */
 
   function render() {
     renderer.render(scene, camera);
@@ -818,6 +815,7 @@ function createCarScene(config) {
     setLuggageVisible,
     setRoofLoadVisible,
     setOverloadedPartsByIri,
+    fit: onWindowResize,
     destroy
   };
 }
@@ -987,15 +985,17 @@ async function ensureCarConfig() {
   return carConfig;
 }
 
-// Public entry point: render the car into the right-hand #graph block
 export async function renderModelView({
-  mount  = "#graph",
+  mount  = null,
   height = 520
 } = {}) {
-  const rootEl = typeof mount === "string" ? document.querySelector(mount) : mount;
-  if (!rootEl) throw new Error(`Model view: mount "${mount}" not found`);
 
-  // Clean previous GSN graph / layered SVG if present
+  const host   = mount || panes.getRightPane() || "#rightPane";
+  const rootEl = typeof host === "string" ? document.querySelector(host) : host;
+  if (!rootEl) throw new Error(`Model view: mount host not found`);
+
+  panes.clearRightPane();
+
   if (app?.graphCtl && typeof app.graphCtl.destroy === "function") {
     app.graphCtl.destroy();
     app.graphCtl = null;
@@ -1089,6 +1089,11 @@ export async function renderModelView({
   currentSceneCtl = sceneCtl;
   setupDownloadButton();
   await refreshLoadInfo();
+
+  // Register the model controller with PaneManager & app
+  app.graphCtl = sceneCtl;
+  panes.setRightController("model", sceneCtl);
+  window.graphCtl = sceneCtl;
 
   // Wire up box / luggage toggles
   // Wire up box / luggage toggles + overloaded rule checkbox

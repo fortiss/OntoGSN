@@ -76,26 +76,64 @@
 }
 
 /* === Layout & UI ======================================================== */
-#graph, .gsn-host { height: 520px; min-width: 0; }
+.gsn-host {
+  height: 520px;
+  min-width: 0;
+}
 
-#graph.hide-ctx .gsn-node.ctx,
-#graph.hide-ctx .gsn-link.ctx { display: none; }
+/* Hide context / defeaters based on classes on the host */
+.gsn-host.hide-ctx .gsn-node.ctx,
+.gsn-host.hide-ctx .gsn-link.ctx {
+  display: none;
+}
 
-#graph.hide-def .gsn-node.def,
-#graph.hide-def .gsn-link.def { display: none; }
+.gsn-host.hide-def .gsn-node.def,
+.gsn-host.hide-def .gsn-link.def {
+  display: none;
+}
+
 
 .gsn-legend {
   display: flex;
-  gap: var(--gap-md);
+  flex-wrap: wrap;
+  gap: 0.25rem 0.8rem;
   align-items: center;
   padding: var(--pad-md) calc(var(--pad-md) + .25rem);
   border-bottom: 1px solid var(--border);
+  max-width: 100%; 
+}
+
+.gsn-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.gsn-legend-node {
+  width: 32px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Slightly smaller text inside legend nodes so it fits nicely */
+.gsn-legend-node text {
+  font-size: 11px;
+}
+
+/* Optional: keep tooltip cursor */
+.gsn-legend-item[title] {
+  cursor: help;
 }
 
 .gsn-controls {
   margin-left: auto;
   display: flex;
   gap: var(--gap-sm);
+  margin-left: auto;
+  flex-wrap: wrap;      /* controls themselves can wrap if needed */
+  order: 99;            /* push them to the end of the legend */
 }
 
 .gsn-btn {

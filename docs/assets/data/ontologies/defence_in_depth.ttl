@@ -1,113 +1,133 @@
-@prefix did: <http://www.fortiss-demo.org/ontologies/defence-in-depth/> .
-@prefix : <http://www.fortiss-demo.org/ontologies/defence-in-depth/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@base <http://www.fortiss-demo.org/ontologies/defence-in-depth/> .
+@prefix did:    <http://www.fortiss-demo.org/ontologies/defence-in-depth/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml:    <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org/> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+@base           <http://www.fortiss-demo.org/ontologies/defence-in-depth/> .
 
-<http://www.fortiss-demo.org/ontologies/defence-in-depth> rdf:type owl:Ontology .
+<http://www.fortiss-demo.org/ontologies/defence-in-depth>
+    a                   owl:Ontology ;
+    owl:versionIRI      <http://www.fortiss-demo.org/ontologies/defence-in-depth/1.0> ;
+    owl:versionInfo     "1.0.0" ;
+    dct:title           "Defence in Depth Ontology"@en ;
+    dct:description     "A lightweight ontology describing defence-in-depth layers of an adversarial robustness system and their alignment with NIST CSF Functions."@en ;
+    dct:creator         "Tomas Bueno Momcilovic" ;
+    dct:license         <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    dct:created         "2025-01-01"^^xsd:date ;
+    owl:imports         <http://www.w3.org/ns/prov-o#> .
 
-<http://schema.org/identifier> rdf:type owl:AnnotationProperty .
+did:covers rdf:type     owl:ObjectProperty ;
+           rdfs:label   "covers"@en ;
+           rdfs:comment "Indicates that a defence-in-depth layer covers one or more NIST Functions."@en ;
+           rdfs:domain  did:Layer ;
+           rdfs:range   did:NISTFunction .
 
-:covers rdf:type owl:ObjectProperty ;
-        rdfs:label "covers"@en .
+did:position rdf:type     owl:DatatypeProperty ;
+             rdfs:label   "position index"@en ;
+             rdfs:comment "Numerical ordering of layers or NIST functions in the defence-in-depth stack."@en ;
+             rdfs:domain  owl:Thing ;
+             rdfs:range   xsd:integer .
 
-:position rdf:type owl:DatatypeProperty .
-
-:Layer rdf:type owl:Class ;
-       rdfs:label "Layer"@en ;
+did:Layer rdf:type              owl:Class ;
+          rdfs:label            "Layer"@en ;
+          rdfs:comment          "A layer in a defence-in-depth architecture."@en ;
        prov:hadPrimarySource <https://ieeexplore.ieee.org/abstract/document/10771205> .
 
-:NISTFunction rdf:type owl:Class ;
-              rdfs:label "NIST Function"@en ;
-              prov:hadPrimarySource <https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf>.
+did:NISTFunction rdf:type               owl:Class ;
+                 rdfs:label             "NIST Function"@en ;
+                 rdfs:comment           "A Function from the NIST Cybersecurity Framework (Identify, Protect, Detect, Respond, Recover, Govern)."@en ;
+                 prov:hadPrimarySource  <https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf>.
 
-:detect rdf:type owl:NamedIndividual ,
-                 :NISTFunction ;
-        :position 3 ;
-        <http://schema.org/identifier> "DE" ;
-        rdfs:isDefinedBy "Possible cybersecurity attacks and compromises are found and analyzed. DETECT enables the timely discovery and analysis of anomalies, indicators of compromise, and other potentially adverse events that may indicate that cybersecurity attacks and incidents are occurring. This Function supports successful incident response and recovery activities."@en ;
+did:detect rdf:type owl:NamedIndividual ,
+                    did:NISTFunction ;
+        did:position "3"^^xsd:integer ;
+        schema:identifier "DE"^^xsd:string ;
+        rdfs:comment "Possible cybersecurity attacks and compromises are found and analyzed. DETECT enables the timely discovery and analysis of anomalies, indicators of compromise, and other potentially adverse events that may indicate that cybersecurity attacks and incidents are occurring. This Function supports successful incident response and recovery activities."@en ;
         rdfs:label "Detect"@en ;
         prov:hadPrimarySource <https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf> .
 
-:downstreamInteractionLayer rdf:type owl:NamedIndividual ,
-                                     :Layer ;
-                            :position 5 ;
+did:downstreamInteractionLayer rdf:type owl:NamedIndividual ,
+                                     did:Layer ;
+                            did:position "5"^^xsd:integer ;
                             rdfs:label "Downstream Interaction Layer"@en ;
                             prov:hadPrimarySource <https://ieeexplore.ieee.org/abstract/document/10771205> .
 
-:govern rdf:type owl:NamedIndividual ,
-                 :NISTFunction ;
-        :position 0 ;
-        <http://schema.org/identifier> "GV" ;
-        rdfs:isDefinedBy "The organization’s cybersecurity risk management strategy, expectations, and policy are established, communicated, and monitored. The GOVERN Function provides outcomes to inform what an organization may do to achieve and prioritize the outcomes of the other five Functions in the context of its mission and stakeholder expectations. Governance activities are critical for incorporating cybersecurity into an organization’s broader enterprise risk management (ERM) strategy. GOVERN addresses an understanding of organizational context; the establishment of cybersecurity strategy and cybersecurity supply chain risk management; roles, responsibilities, and authorities; policy; and the oversight of cybersecurity strategy."@en ;
+did:govern rdf:type owl:NamedIndividual ,
+                 did:NISTFunction ;
+        did:position "0"^^xsd:integer ;
+        schema:identifier "GV"^^xsd:string ;
+        rdfs:comment "The organization’s cybersecurity risk management strategy, expectations, and policy are established, communicated, and monitored. The GOVERN Function provides outcomes to inform what an organization may do to achieve and prioritize the outcomes of the other five Functions in the context of its mission and stakeholder expectations. Governance activities are critical for incorporating cybersecurity into an organization’s broader enterprise risk management (ERM) strategy. GOVERN addresses an understanding of organizational context; the establishment of cybersecurity strategy and cybersecurity supply chain risk management; roles, responsibilities, and authorities; policy; and the oversight of cybersecurity strategy."@en ;
         rdfs:label "Govern"@en ;
         prov:hadPrimarySource <https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf> .
 
-:identify rdf:type owl:NamedIndividual ,
-                   :NISTFunction ;
-          :position 1 ;
-          <http://schema.org/identifier> "ID" ;
-          rdfs:isDefinedBy "The organization’s current cybersecurity risks are understood. Understanding the organization’s assets (e.g., data, hardware, software, systems, facilities, services, people), suppliers, and related cybersecurity risks enables an organization to prioritize its efforts consistent with its risk management strategy and the mission needs identified under GOVERN. This Function also includes the identification of improvement opportunities for the organization’s policies, plans, processes, procedures, and practices that support cybersecurity risk management to inform efforts under all six Functions."@en ;
+did:identify rdf:type owl:NamedIndividual ,
+                   did:NISTFunction ;
+          did:position "1"^^xsd:integer ;
+          schema:identifier "ID"^^xsd:string ;
+          rdfs:comment "The organization’s current cybersecurity risks are understood. Understanding the organization’s assets (e.g., data, hardware, software, systems, facilities, services, people), suppliers, and related cybersecurity risks enables an organization to prioritize its efforts consistent with its risk management strategy and the mission needs identified under GOVERN. This Function also includes the identification of improvement opportunities for the organization’s policies, plans, processes, procedures, and practices that support cybersecurity risk management to inform efforts under all six Functions."@en ;
           rdfs:label "Identify"@en ;
           prov:hadPrimarySource <https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf> .
 
-:incidentFeedbackLayer rdf:type owl:NamedIndividual ,
-                                :Layer ;
-                       :covers :govern ,
-                               :identify ;
-                       :position 6 ;
+did:incidentFeedbackLayer rdf:type owl:NamedIndividual ,
+                                did:Layer ;
+                       did:covers did:govern ,
+                               did:identify ;
+                       did:position "6"^^xsd:integer ;
                        rdfs:label "Incident Feedback Layer"@en ;
                        prov:hadPrimarySource <https://ieeexplore.ieee.org/abstract/document/10771205> .
 
-:inputDetectionLayer rdf:type owl:NamedIndividual ,
-                              :Layer ;
-                     :covers :protect ;
-                     :position 2 ;
+did:inputDetectionLayer rdf:type owl:NamedIndividual ,
+                              did:Layer ;
+                     did:covers did:protect ;
+                     did:position "2"^^xsd:integer ;
                      rdfs:label "Input-Based Detection Layer"@en ;
                      prov:hadPrimarySource <https://ieeexplore.ieee.org/abstract/document/10771205> .
 
-:modelDetectionLayer rdf:type owl:NamedIndividual ,
-                              :Layer ;
-                     :position 3 ;
+did:modelDetectionLayer rdf:type owl:NamedIndividual ,
+                              did:Layer ;
+                     did:position "3"^^xsd:integer ;
                      rdfs:label "Model-Based Detection Layer"@en ;
                      prov:hadPrimarySource <https://ieeexplore.ieee.org/abstract/document/10771205> .
 
-:outputDetectionLayer rdf:type owl:NamedIndividual ,
-                               :Layer ;
-                      :position 4 ;
+did:outputDetectionLayer rdf:type owl:NamedIndividual ,
+                               did:Layer ;
+                      did:position "4"^^xsd:integer ;
                       rdfs:label "Output-Based Detection Layer"@en ;
                       prov:hadPrimarySource <https://ieeexplore.ieee.org/abstract/document/10771205> .
 
-:protect rdf:type owl:NamedIndividual ,
-                  :NISTFunction ;
-         :position 2 ;
-         <http://schema.org/identifier> "PR" ;
-         rdfs:isDefinedBy "Safeguards to manage the organization’s cybersecurity risks are used. Once assets and risks are identified and prioritized, PROTECT supports the ability to secure those assets to prevent or lower the likelihood and impact of adverse cybersecurity events, as well as to increase the likelihood and impact of taking advantage of opportunities. Outcomes covered by this Function include identity management, authentication, and access control; awareness and training; data security; platform security (i.e., securing the hardware, software, and services of physical and virtual platforms); and the resilience of technology infrastructure."@en ;
+did:protect rdf:type owl:NamedIndividual ,
+                  did:NISTFunction ;
+         did:position "2"^^xsd:integer ;
+         schema:identifier "PR"^^xsd:string ;
+         rdfs:comment "Safeguards to manage the organization’s cybersecurity risks are used. Once assets and risks are identified and prioritized, PROTECT supports the ability to secure those assets to prevent or lower the likelihood and impact of adverse cybersecurity events, as well as to increase the likelihood and impact of taking advantage of opportunities. Outcomes covered by this Function include identity management, authentication, and access control; awareness and training; data security; platform security (i.e., securing the hardware, software, and services of physical and virtual platforms); and the resilience of technology infrastructure."@en ;
          rdfs:label "Protect"@en ;
          prov:hadPrimarySource <https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf> .
 
-:recover rdf:type owl:NamedIndividual ,
-                  :NISTFunction ;
-         :position 5 ;
-         <http://schema.org/identifier> "RC" ;
-         rdfs:isDefinedBy "Assets and operations affected by a cybersecurity incident are restored. RECOVER supports the timely restoration of normal operations to reduce the effects of cybersecurity incidents and enable appropriate communication during recovery efforts."@en ;
+did:recover rdf:type owl:NamedIndividual ,
+                  did:NISTFunction ;
+         did:position "5"^^xsd:integer ;
+         schema:identifier "RC"^^xsd:string ;
+         rdfs:comment "Assets and operations affected by a cybersecurity incident are restored. RECOVER supports the timely restoration of normal operations to reduce the effects of cybersecurity incidents and enable appropriate communication during recovery efforts."@en ;
          rdfs:label "Recover"@en ;
          prov:hadPrimarySource <https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf> .
 
-:respond rdf:type owl:NamedIndividual ,
-                  :NISTFunction ;
-         :position 4 ;
-         <http://schema.org/identifier> "RS" ;
-         rdfs:isDefinedBy "Actions regarding a detected cybersecurity incident are taken. RESPOND supports the ability to contain the effects of cybersecurity incidents. Outcomes within this Function cover incident management, analysis, mitigation, reporting, and communication."@en ;
+did:respond rdf:type owl:NamedIndividual ,
+                  did:NISTFunction ;
+         did:position "4"^^xsd:integer ;
+         schema:identifier "RS"^^xsd:string ;
+         rdfs:comment "Actions regarding a detected cybersecurity incident are taken. RESPOND supports the ability to contain the effects of cybersecurity incidents. Outcomes within this Function cover incident management, analysis, mitigation, reporting, and communication."@en ;
          rdfs:label "Respond"@en ;
          prov:hadPrimarySource <https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf> .
 
-:upstreamInteractionLayer rdf:type owl:NamedIndividual ,
-                                   :Layer ;
-                          :covers :protect ;
-                          :position 1 ;
-                          rdfs:label "Upsteam Interaction Layer"@en ;
+did:upstreamInteractionLayer rdf:type owl:NamedIndividual ,
+                                   did:Layer ;
+                          did:covers did:protect ;
+                          did:position "1"^^xsd:integer ;
+                          rdfs:label "Upstream Interaction Layer"@en ;
                           prov:hadPrimarySource <https://ieeexplore.ieee.org/abstract/document/10771205> .
+
+

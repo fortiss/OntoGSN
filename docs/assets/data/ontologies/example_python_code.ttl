@@ -1,0 +1,24 @@
+@prefix py:     <https://example.org/python-code#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix schema: <https://schema.org/> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix case:   <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+py:CodeArtefact rdf:type owl:Class ;
+                rdfs:label "Code Artefact"@en .
+py:progLanguage rdf:type owl:DatatypeProperty ;
+            rdfs:label "programming language"@en .
+py:filePath rdf:type owl:DatatypeProperty ;
+            rdfs:label "filepath"@en .
+py:implements rdf:type owl:ObjectProperty ;
+              rdfs:label "implements" .
+py:implementedIn rdf:type owl:ObjectProperty ;
+              rdfs:label "implemented in" .
+
+py:SqlSanitizer_v1 a py:CodeArtefact ;
+  rdfs:label "sanitize_input in db_utils.py" ;
+  py:progLanguage "Python" ;
+  py:filePath "code_example.py#sanitize_input" ;
+  py:implements case:Sn11 .

@@ -1,0 +1,19 @@
+PREFIX schema: <https://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+SELECT DISTINCT ?Subject ?Predicate ?Object
+WHERE {
+    ?s ?p ?o .
+    ?s schema:identifier ?Subj .
+    ?p rdfs:label ?Predicate .
+    ?o schema:identifier ?Obj .
+    OPTIONAL { ?s a ?typeS . 
+    		   ?typeS rdfs:label ?SubjectType .}
+    BIND(CONCAT(?SubjectType, " ", ?Subj) AS ?Subject)
+    OPTIONAL { ?o a ?typeO . 
+    			?typeO rdfs:label ?ObjectType}
+    BIND(CONCAT(?ObjectType, " ", ?Obj) AS ?Object)
+    FILTER(?p IN (gsn:supportedBy, gsn:inContextOf, gsn:challenges))
+} 
+ORDER BY ?s

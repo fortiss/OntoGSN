@@ -1,0 +1,138 @@
+@prefix asce_m: <https://fortiss.github.io/OntoGSN/ontology/asce_mappings#>
+@prefix asce:   <https://fortiss.github.io/OntoGSN/ontology/asce#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://fortiss.github.io/OntoGSN/ontology/asce_mappings> a owl:Ontology ;
+                                                           owl:imports <https://fortiss.github.io/OntoGSN/ontology/asce> ;
+                                                           owl:imports <https://w3id.org/OntoGSN/ontology> .
+
+asce_m:GoalNode a owl:Class ;
+  #rdfs:subClassOf gsn:Goal ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:intersectionOf (
+      asce:Node
+      [ a owl:Restriction ;
+        owl:onProperty asce:type ;
+        owl:hasValue "1"^^xsd:nonNegativeInteger
+      ]
+    )
+  ] .
+
+asce_m:SolutionNode a owl:Class ;
+  #rdfs:subClassOf gsn:Solution ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:intersectionOf (
+      asce:Node
+      [ a owl:Restriction ;
+        owl:onProperty asce:type ;
+        owl:hasValue "2"^^xsd:nonNegativeInteger
+      ]
+    )
+  ] .
+
+asce_m:StrategyNode a owl:Class ;
+  #rdfs:subClassOf gsn:Strategy ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:intersectionOf (
+      asce:Node
+      [ a owl:Restriction ;
+        owl:onProperty asce:type ;
+        owl:hasValue "3"^^xsd:nonNegativeInteger
+      ]
+    )
+  ] .
+
+asce_m:AssumptionNode a owl:Class ;
+  #rdfs:subClassOf gsn:Assumption ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:intersectionOf (
+      asce:Node
+      [ a owl:Restriction ;
+        owl:onProperty asce:type ;
+        owl:hasValue "4"^^xsd:nonNegativeInteger
+      ]
+    )
+  ] .
+
+asce_m:JustificationNode a owl:Class ;
+  #rdfs:subClassOf gsn:Justification ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:intersectionOf (
+      asce:Node
+      [ a owl:Restriction ;
+        owl:onProperty asce:type ;
+        owl:hasValue "5"^^xsd:nonNegativeInteger
+      ]
+    )
+  ] .
+
+asce_m:ContextNode a owl:Class ;
+  #rdfs:subClassOf gsn:Context ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:intersectionOf (
+      asce:Node
+      [ a owl:Restriction ;
+        owl:onProperty asce:type ;
+        owl:hasValue "6"^^xsd:nonNegativeInteger
+      ]
+    )
+  ] .
+
+asce_m:SupportedByLink a owl:Class ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:intersectionOf (
+      asce:Link
+      [ a owl:Restriction ;
+        owl:onProperty asce:type ;
+        owl:hasValue "1"^^xsd:nonNegativeInteger
+      ]
+    )
+  ] ;
+  rdfs:label "ASCE link of type 1 (supportedBy)"@en .
+
+asce:ContextLink a owl:Class ;
+  owl:equivalentClass [
+    a owl:Class ;
+    owl:intersectionOf (
+      asce:Link
+      [ a owl:Restriction ;
+        owl:onProperty asce:type ;
+        owl:hasValue "2"^^xsd:nonNegativeInteger
+      ]
+    )
+  ] ;
+  rdfs:label "ASCE link of type 2 (inContextOf)"@en .
+
+asce:ASCENetwork    owl:equivalentClass     gsn:AssuranceCase .
+asce:Link           rdfs:subClassOf         gsn:Relationship .
+asce:Node           rdfs:subClassOf         gsn:GSNElement .
+asce:View           owl:equivalentClass     gsn:View .
+asce:EmbeddedImage  rdfs:subClassOf         gsn:Artefact .
+asce:ExportPath     rdfs:subClassOf         gsn:Argument .
+asce:contains       owl:equivalentProperty  gsn:contains .
+asce:startReference rdfs:subPropertyOf      gsn:source .
+asce:endReference   rdfs:subPropertyOf      gsn:target .
+
+asce:GoalNode           owl:equivalentClass gsn:Goal .
+asce:SolutionNode       owl:equivalentClass gsn:Solution .
+asce:StrategyNode       owl:equivalentClass gsn:Strategy .
+asce:AssumptionNode     owl:equivalentClass gsn:Assumption .
+asce:JustificationNode  owl:equivalentClass gsn:Justification .
+asce:ContextNode        owl:equivalentClass gsn:Context .
+
+asce:requiresDevelopment    owl:equivalentProperty  gsn:undeveloped .
+asce:requiresInstantiation  owl:equivalentProperty  gsn:uninstantiated .
+asce:userId                 rdfs:subPropertyOf      schema:identifier .
+asce:reference              rdfs:subPropertyOf      schema:identifier .
+asce:userTitle              rdfs:subPropertyOf      rdfs:label .
+asce:userTitle              rdfs:subPropertyOf      gsn:statement .

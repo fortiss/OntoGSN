@@ -1,0 +1,10 @@
+PREFIX ex: <https://example.org/car-demo#>
+PREFIX case: <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#>
+PREFIX schema: <https://schema.org/>
+
+SELECT ?doc
+WHERE {
+  case:AC_ACT_FASTRobustLLM ex:summarizedIn ?docIRI .
+  ?docIRI schema:contentUrl ?doc .
+}
+LIMIT 1

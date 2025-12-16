@@ -1,0 +1,11 @@
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX gsn:   <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema:<https://schema.org/>
+PREFIX ex:    <https://example.org/car-demo#>
+
+INSERT DATA {
+  ex:{{IRI}} a {{TYPE}} ;
+    schema:identifier "{{ID}}" ;
+    schema:name       "{{LABEL}}" ;
+    gsn:statement     "{{STATEMENT}}" .
+}

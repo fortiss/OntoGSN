@@ -9,10 +9,15 @@
 @prefix did:    <http://www.fortiss-demo.org/ontologies/defence-in-depth/> .
 @prefix xyz:    <http://www.example.com/placeholder#> .
 @prefix ex:     <https://example.org/car-demo#> .
+@prefix py:     <https://example.org/python-code#> .
 
 
 case:arXivPaper rdfs:label "arXiv preprint" .
 owl:Ontology rdfs:label "Ontology" .
+
+case:OntoGSNPlayground a xyz:WebApp;
+                        schema:contentUrl "https://fortiss.github.io/OntoGSN/assets/data/welcome.md" .
+                        #schema:contentUrl "http://localhost:8000/assets/data/welcome.md" .
 
 case:AC_ACT_FASTRobustLLM
     a gsn:AssuranceCase ;
@@ -23,6 +28,12 @@ case:AC_ACT_FASTRobustLLM
     schema:dateCreated "2025-10-15"^^xsd:date ;
     schema:dateModified "2025-11-04"^^xsd:date ;
     gsn:contains case:ARG_Robustness , case:Sn1 , case:Sn2 , case:Sn1_2_1 .
+
+case:AC_ACT_FASTRobustLLM ex:summarizedIn case:ACT_FAST_Document .
+
+case:ACT_FAST_Document a ex:Document ;
+                       schema:contentUrl "https://fortiss.github.io/OntoGSN/assets/data/report.md" .
+                       #schema:contentUrl "http://localhost:8000/assets/data/report.md" .
 
 case:ARG_Robustness
     a gsn:Argument ;
@@ -456,3 +467,21 @@ ex:M_Car
                  ex:car_A3 , ex:car_Sn1 , 
                  ex:car_Sn2 , ex:car_Sn3,
                  ex:car_G2 .
+
+case:G11
+  a gsn:Goal ;
+  schema:identifier "G11" ;
+  gsn:supportedBy case:Sn11;
+  gsn:statement "Database inputs to the users table are sanitized against SQL injection." .
+
+case:Sn11
+  a gsn:Solution ;
+  schema:identifier "Sn11" ;
+  gsn:statement "Python sanitize_input(..) function uses parameterized SQL queries." ;
+  py:implementedIn py:SqlSanitizer_v1 .
+
+case:M_SQL a gsn:Module;
+           rdfs:label "M:SQL";
+           schema:identifier "M:SQL";
+           gsn:contains case:G11, case:Sn11 .
+

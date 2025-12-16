@@ -1,169 +1,293 @@
 body.page-playground {
-       body { 
-              font: 14px/1.45 system-ui, sans-serif; 
-              margin: 20px; 
+       body {
+              font: 14px/1.45 system-ui, sans-serif;
+              margin: 20px;
        }
 
-       h1 { 
-              font-size: 20px; 
-              margin: 0 0 8px; 
+       h1 {
+              font-size: 20px;
+              margin: 0 0 8px;
        }
 
-       .btns { 
-              display:flex; 
-              gap:.5rem; 
-              flex-wrap:wrap; 
-              margin-bottom:.75rem; 
+       .btns {
+              display: flex;
+              gap: .5rem;
+              flex-wrap: wrap;
+              margin-bottom: .75rem;
        }
 
-       button { 
-              padding:.45rem .8rem; 
-              border:1px solid #ccc; 
-              border-radius:.5rem; 
-              background:#fff; 
-              cursor:pointer; 
+       button {
+              padding: .45rem .8rem;
+              border: 1px solid #ccc;
+              border-radius: .5rem;
+              background: #fff;
+              cursor: pointer;
        }
 
-       button:hover { 
-              background:#f8f8f8; 
+       button:hover {
+              background: #f8f8f8;
        }
 
-       table.sparql { 
-              border-collapse: collapse; 
-              width: 100%; 
+       table.sparql {
+              border-collapse: collapse;
+              width: 100%;
        }
 
-       table.sparql th, table.sparql td { 
-              border:1px solid #ddd; 
-              padding:6px 8px; 
-              text-align:left; 
-              vertical-align:top; 
+       table.sparql th,
+       table.sparql td {
+              border: 1px solid #ddd;
+              padding: 6px 8px;
+              text-align: left;
+              vertical-align: top;
        }
 
-       table.sparql thead th { 
-              position:sticky; 
-              top:0; 
-              background:#fafafa; 
+       table.sparql thead th {
+              position: sticky;
+              top: 0;
+              background: #fafafa;
        }
 
-       #out { 
-              margin-top:10px; 
-              font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; 
-              background:#f6f6f6; 
-              padding:8px; 
-              border-radius:8px; 
-              min-height: 1.2rem; 
-              white-space:pre-wrap; 
+       #out {
+              margin-top: 10px;
+              font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+              background: #f6f6f6;
+              padding: 8px;
+              border-radius: 8px;
+              min-height: 1.2rem;
+              white-space: pre-wrap;
        }
 
-       .split{
-              display:flex;
-              gap:12px;
-              align-items:stretch
+       .split {
+              display: flex;
+              gap: 12px;
+              align-items: stretch
        }
 
-       #results,#graph{
-              flex:1 1 0;
-              min-width:0
+       /* Two fixed halves in the main split */
+       #leftPane,
+       #rightPane {
+              flex: 0 0 50%;
+              /* take 50% each, don't grow/shrink based on content */
+              max-width: 50%;
+              min-width: 0;
+              /* allow inner content to overflow/scroll instead of stretching the flex item */
        }
 
-       #results{
-              max-height:520px;
-              overflow:auto
+
+       #results {
+              max-height: 520px;
+              overflow: auto
        }
 
-       #leftButtons,#rightButtons{
-              display:flex; 
-              gap:.5rem; 
-              flex-wrap:wrap;
-              flex:0 0 auto;
+       .left-tabs {
+              display: flex;
+              gap: 0.5rem;
+              margin-bottom: 0.5rem;
        }
 
-       #rightButtons{ 
-              margin-left:auto; 
+       .left-tabs .tab.active {
+              font-weight: 600;
+              text-decoration: underline;
        }
 
-       body[aria-busy="true"] { 
-              cursor: progress; 
+       #leftButtons,
+       #rightButtons {
+              display: flex;
+              gap: .5rem;
+              flex-wrap: wrap;
+              flex: 0 0 auto;
        }
 
-       body[aria-busy="true"] [data-query] { 
-              opacity: .6; 
-              pointer-events: none; 
+       #rightButtons {
+              margin-left: auto;
        }
 
-       .modules-bar { 
-              position: sticky; 
-              bottom: 0; 
-              background: #fff; 
+       body[aria-busy="true"] {
+              cursor: progress;
+       }
+
+       body[aria-busy="true"] [data-query] {
+              opacity: .6;
+              pointer-events: none;
+       }
+
+       .modules-bar {
+              position: sticky;
+              bottom: 0;
+              background: #fff;
               padding: .5rem;
-              display: flex; 
-              gap: .5rem; 
-              border-top: 1px solid #eee; 
+              display: flex;
+              gap: .5rem;
+              border-top: 1px solid #eee;
               z-index: 1;
        }
 
-       [data-theme="dark"] .modules-bar { 
-              background: #111; 
-              border-top-color: #333; 
+       [data-theme="dark"] .modules-bar {
+              background: #111;
+              border-top-color: #333;
        }
 
-       .modules-bar button { 
-              padding: .35rem .6rem; 
-              border:1px solid #ccc; 
-              border-radius:.5rem; 
-              background:#fff; 
-              cursor:pointer; 
+       .modules-bar button {
+              padding: .35rem .6rem;
+              border: 1px solid #ccc;
+              border-radius: .5rem;
+              background: #fff;
+              cursor: pointer;
        }
 
-       [data-theme="dark"] .modules-bar button { 
-              background:#222; 
-              border-color:#444; 
-              color:#eee; 
+       .modules-bar button.tab.active {
+              text-decoration: underline;
+       }
+
+       [data-theme="dark"] .modules-bar button {
+              background: #222;
+              border-color: #444;
+              color: #eee;
        }
 
        /* unused (for now) */
        .layout {
-       display: grid;
-       grid-template-columns: 360px 1fr;   /* left width, tweak as you like */
-       gap: 16px;
+              display: grid;
+              grid-template-columns: 360px 1fr;
+              /* left width, tweak as you like */
+              gap: 16px;
        }
 
-       .left { 
-              min-width: 280px; 
-       }
-       .right { 
-              min-width: 0; 
-       } /* allow graph to shrink */
-
-       .tabs { 
-              display:flex; 
-              gap:.5rem; 
-              margin-bottom:.5rem; 
+       .left {
+              min-width: 280px;
        }
 
-       .tab { 
-              padding:.4rem .7rem; 
-              border:1px solid #ccc; 
-              border-radius:.5rem; 
-              background:#fff; 
-              cursor:pointer; 
+       .right {
+              min-width: 0;
        }
 
-       .tab.active { 
-              background:#f2f2f2; 
+       .tabs {
+              display: flex;
+              gap: .5rem;
+              margin-bottom: .5rem;
        }
 
-       .panes { 
-              position: relative; 
+       .tab {
+              padding: .4rem .7rem;
+              border: 1px solid #ccc;
+              border-radius: .5rem;
+              background: #fff;
+              cursor: pointer;
        }
 
-       .pane[hidden] { 
-              display: none; 
+       .tab.active {
+              background: #f2f2f2;
+              font-weight: 600;
        }
 
-       /* Optional: narrow screens */
-       @media (max-width: 640px) {
-       table.sparql { font-size: 0.9rem; }
+       .panes {
+              position: relative;
+       }
+
+       .pane[hidden] {
+              display: none;
+       }
+
+       #leftPane {
+              display: flex;
+              flex-direction: column;
+              min-height: 0;
+              height: 520px;
+              overflow-x: hidden;
+       }
+
+       #rightPane {
+              min-height: 0;
+              height: 520px;
+       }
+
+       #results,
+       #editor-root,
+       #doc-root,
+       #welcome-root {
+              flex: 1 1 auto;
+              min-height: 0;
+              overflow-y: auto;
+              overflow-x: hidden;
+       }
+
+       #results table.sparql {
+              width: 100%;
+              table-layout: fixed;
+              /* columns share width, don't auto-grow */
+       }
+
+       #results table.sparql th,
+       #results table.sparql td {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              /* cut off very long IRIs nicely */
+              word-wrap: break-word;
+              /* or use: overflow-wrap: anywhere; */
+       }
+
+       #results {
+              max-height: 520px;
+       }
+
+       .doc-view .doc-entity {
+              background: none;
+              border: none;
+              padding: 0;
+              margin: 0;
+              font: inherit;
+              cursor: pointer;
+              border-bottom: 1px dotted var(--accent-color, #888);
+       }
+
+       .doc-entity-tooltip {
+              position: absolute;
+              z-index: 1000;
+              max-width: 320px;
+              padding: 0.5rem 0.75rem;
+              background: var(--doc-tooltip-bg, #111);
+              color: var(--doc-tooltip-fg, #f9f9f9);
+              border-radius: 0.375rem;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+              font-size: 0.85rem;
+       }
+
+       .doc-entity-tooltip-header {
+              font-weight: 600;
+              margin-bottom: 0.25rem;
+       }
+
+       .doc-entity-tooltip-body p {
+              margin: 0.15rem 0 0;
+       }
+
+       .doc-entity-tooltip-iri {
+              font-family: monospace;
+              font-size: 0.75rem;
+              opacity: 0.8;
+              word-break: break-all;
+       }
+
+       .code-panel pre {
+              background: #f7f7f7;
+              border-radius: 6px;
+              padding: 0.75rem 1rem;
+              margin: 0 0 1rem;
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+                     "Liberation Mono", "Courier New", monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+
+              /* Prevent it from pushing the layout sideways/too far down */
+              overflow-x: auto;
+              overflow-y: auto;
+              max-height: 22rem;
+       }
+
+       /* Allow long IRIs etc. to break nicely */
+       .code-panel p,
+       .code-panel a,
+       .code-panel code {
+              overflow-wrap: anywhere;
        }
 }

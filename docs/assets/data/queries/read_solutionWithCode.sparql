@@ -1,0 +1,20 @@
+PREFIX py:   <https://example.org/python-code#>
+PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
+
+SELECT ?lang ?filePath WHERE {
+  BIND(<${solutionIri}> AS ?sol)
+
+  {
+    # Case 1: Solution → code
+    ?sol py:providedByCode ?code .
+  }
+  UNION
+  {
+    # Case 2: Code → solution
+    ?code py:implements ?sol .
+  }
+
+  ?code py:progLanguage ?lang ;
+        py:filePath     ?filePath .
+}
+LIMIT 1

@@ -1,0 +1,10 @@
+PREFIX case:   <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#>
+PREFIX schema: <https://schema.org/>
+PREFIX py:     <https://example.org/python-code#>
+
+SELECT ?code
+WHERE {
+  case:Sn11 py:implementedIn ?codeIRI .
+  ?codeIRI schema:contentUrl ?code .
+}
+LIMIT 1

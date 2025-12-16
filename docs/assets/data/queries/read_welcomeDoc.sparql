@@ -1,0 +1,8 @@
+PREFIX case: <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#>
+PREFIX schema: <https://schema.org/>
+
+SELECT ?doc
+WHERE {
+  case:OntoGSNPlayground schema:contentUrl ?doc .
+}
+LIMIT 1

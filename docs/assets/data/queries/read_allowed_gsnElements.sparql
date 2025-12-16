@@ -1,0 +1,7 @@
+PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?type WHERE {
+  ?type rdfs:subClassOf+ gsn:GSNElement .
+}
+ORDER BY ?type

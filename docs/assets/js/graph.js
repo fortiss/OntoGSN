@@ -1,7 +1,7 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
 export function visualizeSPO(rows, {
-  mount      = "#graph",
+  mount      = ".gsn-host",
   width      = null,
   height     = 520,
   supportedBy = ["supported by",
@@ -27,24 +27,147 @@ export function visualizeSPO(rows, {
   // --- Reset mount content (idempotent)
   rootEl.innerHTML = `
     <div class="gsn-legend">
-      <span> <span class="gsn-badge">       </span> supported by  </span>
-      <span> <span class="gsn-badge ctx">   </span> in context of </span>
-      <span> <span class="gsn-badge def">   </span> challenges    </span>
-      <span> <span class="gsn-badge clt">   </span> refers to     </span>
-      <span> <span class="gsn-badge vld">   </span> valid         </span>
-      <span> <span class="gsn-badge ivld">  </span> invalid       </span>
-      <span> <span class="gsn-badge undev"> </span> undeveloped   </span>
-      <span> <span class="gsn-badge rule">  </span> rule effects  </span>
-      
-      <span class="gsn-controls">
+      <!-- Goal -->
+      <span class="gsn-legend-item" title="Goal node">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node goal">
+            <rect x="4" y="4" width="72" height="28"></rect>
+            <text x="40" y="20" text-anchor="middle">G</text>
+          </g>
+        </svg>
+        goal
       </span>
+
+      <!-- Strategy -->
+      <span class="gsn-legend-item" title="Strategy node">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node strategy">
+            <!-- simple “parallelogram-ish” polygon -->
+            <polygon points="8,4 76,4 68,32 0,32"></polygon>
+            <text x="40" y="20" text-anchor="middle">S</text>
+          </g>
+        </svg>
+        strategy
+      </span>
+
+      <!-- Solution -->
+      <span class="gsn-legend-item" title="Solution node (evidence)">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node solution">
+            <circle cx="40" cy="18" r="14"></circle>
+            <text x="40" y="20" text-anchor="middle">Sn</text>
+          </g>
+        </svg>
+        solution
+      </span>
+
+      <!-- Context (using your .ctx modifier) -->
+      <span class="gsn-legend-item" title="context">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node ctx">
+            <rect x="4" y="4" width="72" height="28"></rect>
+            <text x="40" y="20" text-anchor="middle">C</text>
+          </g>
+        </svg>
+        context
+      </span>
+
+      <!-- Assumption / Justification (oval) -->
+      <span class="gsn-legend-item" title="assumption / justification">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node ctx">
+            <!-- oval shape -->
+            <ellipse cx="40" cy="18" rx="34" ry="14"></ellipse>
+
+            <!-- A marker (you could change to A/J if you want) -->
+            <text x="40" y="20" text-anchor="middle">A</text>
+          </g>
+        </svg>
+        assumption / justification
+      </span>
+
+      <!-- Defeater -->
+      <span class="gsn-legend-item" title="Defeater (challenge)">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node def">
+            <rect x="4" y="4" width="72" height="28"></rect>
+            <text x="40" y="20" text-anchor="middle">D</text>
+          </g>
+        </svg>
+        defeater
+      </span>
+
+      <!-- Valid / Invalid / Undeveloped (statuses as node styles) -->
+      <span class="gsn-legend-item" title="Node marked as valid">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node valid">
+            <rect x="4" y="4" width="72" height="28"></rect>
+          </g>
+        </svg>
+        valid
+      </span>
+
+      <span class="gsn-legend-item" title="Artefacts (evidential or contextual)">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node collection item">
+            <rect x="4" y="4" width="72" height="28"></rect>
+          </g>
+        </svg>
+        artefacts
+      </span>
+
+      <span class="gsn-legend-item" title="Node marked as invalid">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node invalid">
+            <rect x="4" y="4" width="72" height="28"></rect>
+          </g>
+        </svg>
+        invalid
+      </span>
+
+      <span class="gsn-legend-item" title="Undeveloped goal">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node">
+            <rect x="4" y="4" width="72" height="28"></rect>
+            <!-- use your existing .undev-diamond styling -->
+            <path class="undev-diamond"
+                  d="M40 6 L60 18 L40 30 L20 18 Z"></path>
+          </g>
+        </svg>
+        undeveloped
+      </span>
+
+      <!-- Rule node -->
+      <span class="gsn-legend-item" title="Rule effect node">
+        <svg class="gsn-legend-node" viewBox="0 0 80 36">
+          <g class="gsn-node rule">
+            <rect x="4" y="4" width="72" height="28"></rect>
+            <text x="40" y="20" text-anchor="middle">R</text>
+          </g>
+        </svg>
+        rule effects
+      </span>
+
+      <span class="gsn-controls"></span>
     </div>
-    <svg class="gsn-svg"><g class="gsn-viewport"></g></svg>
+    <svg class="gsn-svg">
+      <g class="gsn-viewport"></g>
+    </svg>
   `;
 
   const svgNode = rootEl.querySelector(".gsn-svg");
+  if (!svgNode) throw new Error("visualizeSPO: internal error – svg root not found");
+
+  const rect       = rootEl.getBoundingClientRect();
+  const pixelWidth = width ?? Math.max(300, rect.width || 800);
+
+  svgNode.setAttribute("width",  String(pixelWidth));
+  svgNode.setAttribute("height", String(height));
+
+  /*
   if (width != null) svgNode.setAttribute("width", String(width));
   svgNode.setAttribute("height", String(height));
+  */
 
   const svg              = d3.select(svgNode);
   const g                = svg.select(".gsn-viewport");
@@ -274,7 +397,22 @@ export function visualizeSPO(rows, {
       const y = n.y; 
       const tgtW = labelWidth(c.label);
 
-      ctxNodes.push({ id: c.id, label: c.label, x, y, contextOf: n.id });
+      const typeIri = nodeType.get(c.id) || null;
+      const kind    = inferNodeKind(c.id, c.label, typeIri) || "context";
+      const w       = labelWidth(c.label);
+      const h       = NODE_H;
+
+      ctxNodes.push({
+        id: c.id,
+        label: c.label,
+        x,
+        y,
+        contextOf: n.id,
+        kind,
+        typeIri,
+        w,
+        h
+      });
       ctxPos.set(c.id, { x, y, host: n.id });
 
       ctxLinks.push({
@@ -441,8 +579,9 @@ export function visualizeSPO(rows, {
 
   function clearAll() {
     nodeG.attr("class", d => `gsn-node ${d.kind}`);
-    ctxG.attr("class", "gsn-node ctx");
+    ctxG.attr("class", d => `gsn-node ctx ${d.kind}`);
     defG.attr("class", "gsn-node def");
+
     d3.select(rootEl)
       .select("svg.gsn-svg")
       .selectAll("path.undev-diamond")
@@ -461,8 +600,6 @@ export function visualizeSPO(rows, {
       updateUndevDiamonds(rootEl);
     }
   }
-
-  window.graphCtl = { clearAll, highlightByIds, fit, reset };
 
   // --- Core node shapes per GSN element kind -----------------------------
   const shapeG = nodeG.append("g")
@@ -531,20 +668,37 @@ export function visualizeSPO(rows, {
   const ctxG = g.selectAll("g.gsn-node.ctx")
     .data(ctxNodes)
     .join("g")
-      .attr("class", "gsn-node ctx")
+      .attr("class", d => `gsn-node ctx ${d.kind}`)
       .attr("transform", d => `translate(${d.x},${d.y})`);
 
   ctxG.on("click", (ev, d) => {
     window.dispatchEvent(new CustomEvent("gsn:contextClick", {
-      detail: { id: d.id, label: d.label } // id: IRI, label: "C1"
+      detail: { id: d.id, label: d.label } // id: IRI, label: "C1"/"A1"/"J1"
     }));
   });
 
-  ctxG.append("rect")
-    .attr("width", d => labelWidth(d.label))
-    .attr("height", 22)
-    .attr("x", d => -labelWidth(d.label)/2)
-    .attr("y", -11);
+  // Shape: rect for normal context, ellipse for assumption/justification
+  ctxG.each(function (d) {
+    const gCtx = d3.select(this);
+    const w = d.w;
+    const h = d.h;
+    const x = -w / 2;
+    const y = -h / 2;
+
+    if (d.kind === "assumption" || d.kind === "justification") {
+      gCtx.append("ellipse")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("rx", w / 2)
+        .attr("ry", h / 2);
+    } else {
+      gCtx.append("rect")
+        .attr("width",  w)
+        .attr("height", h)
+        .attr("x",      x)
+        .attr("y",      y);
+    }
+  });
 
   ctxG.append("text")
     .attr("text-anchor", "middle")
@@ -552,13 +706,28 @@ export function visualizeSPO(rows, {
     .text(d => d.label)
     .append("title").text(d => `${d.id} (context of ${d.contextOf})`);
 
+  // A/J marker on the bottom-right for assumptions/justifications
+  const ctxAJ = ctxG.filter(d => d.kind === "assumption" || d.kind === "justification");
+  ctxAJ.append("text")
+    .attr("class", "gsn-node-tag")
+    .attr("text-anchor", "start")
+    .attr("x", d => d.w / 2 - 6)
+    .attr("y", d => d.h / 2 + 8)
+    .text(d => d.kind === "assumption" ? "A" : "J");
+
   // --- Zoom/Pan + controls
   const zoom = d3.zoom().scaleExtent([0.25, 3]).on("zoom", ev => g.attr("transform", ev.transform));
   svg.call(zoom);
 
   function fit(pad = 40) {
     svg.interrupt();
+
+    const gNode = g.node();
+    if (!gNode) return;
+
     const bbox = g.node().getBBox();
+    if (!bbox.width || !bbox.height) return;
+    
     const vw   = svgNode.clientWidth || svgNode.viewBox.baseVal.width || 800;
     const vh   = svgNode.clientHeight || svgNode.viewBox.baseVal.height || height;
     const sx   = (vw - pad * 2) / bbox.width;
@@ -591,13 +760,13 @@ export function visualizeSPO(rows, {
 
   function addCollections(rows, opts = {}) {
     // rows: [{ctx, clt, item}]
-    const dxHub     = opts.dxHub     ?? 90;  // hub distance to the right of the anchor
-    const dyHub     = opts.dyHub     ?? 40;
-    const dyStride  = opts.dyStride  ?? 30;  // vertical spacing between multiple hubs per same ctx
-    const rHub      = opts.rHub      ?? 5;   // hub (collection) radius
-    const rItem     = opts.rItem     ?? 4;   // item dot radius
-    const armLen    = opts.armLen    ?? 50;  // hub→item spoke length
-    const maxPerRow = opts.maxPerRow ?? 6;   // number of items to arrange around hub before next ring
+    const dxHub     = opts.dxHub     ?? opts.dx     ?? 90;
+    const dyHub     = opts.dyHub     ?? opts.dy     ?? 40;
+    const dyStride  = opts.dyStride  ?? 30;
+    const rHub      = opts.rHub      ?? 5;
+    const rItem     = opts.rItem     ?? 4;
+    const armLen    = opts.armLen    ?? 50;
+    const maxPerRow = opts.maxPerRow ?? 6;
 
     const groups = new Map(); // key: `${ctx}||${clt}` → { ctx, clt, items: Set<item> }
     for (const r of rows) {

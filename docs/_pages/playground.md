@@ -5,6 +5,7 @@ permalink: /playground/
 body_class: page-playground
 styles: 
   - /assets/css/playground.css
+  - /assets/vendor/github.min.css
 ---
 
 <script>
@@ -16,31 +17,19 @@ window.addEventListener('load', async () => {
 </script>
 
 <div class="split">
-  <div id="leftButtons" class="btns">
-    <button id="reset-cache">Reset cache</button>
-      <script type="module">
-      document.getElementById('reset-cache').addEventListener('click', async () => {
-        try {
-          if ('caches' in window) for (const n of await caches.keys()) await caches.delete(n);
-          localStorage.clear(); sessionStorage.clear();
-          if ('serviceWorker' in navigator) for (const r of await navigator.serviceWorker.getRegistrations()) await r.unregister();
-          if (window.indexedDB && indexedDB.databases) {
-            for (const db of await indexedDB.databases()) {
-              if (!db.name) continue;
-              await new Promise(res => { const req = indexedDB.deleteDatabase(db.name); req.onblocked=req.onerror=req.onsuccess=()=>res(); });
-            }
-          }
-          location.reload();
-        } catch (e) { console.error(e); alert('Reset error: '+e.message); }
-      });
-      </script>
-    <button data-query="/assets/data/queries/read_all_nodes.sparql">See Node Info</button>
-    <button data-query="/assets/data/queries/read_all_relations.sparql">See Relations</button>
+  <div id="leftButtons" class="btns" data-tab-group="left-main">
+    <button id = "tab-welcome"  class = "tab active" data-doc-query = "/assets/data/queries/read_welcomeDoc.sparql" data-doc-var = "doc"> Welcome   </button>
+    <button id = "tab-table"  class = "tab"> Table   </button>
+    <button id = "tab-editor" class = "tab"       > Editor  </button> 
+    <button id = "tab-doc"    class = "tab" data-doc-query = "/assets/data/queries/read_document.sparql" data-doc-var = "doc"> Document </button>
+    <button id = "tab-code"   class = "tab"> Code </button>
+    <button id="tab-converter" class="tab">Converter</button>
+    <button id="tab-chat"      class="tab">Chat</button>
   </div>
-  <div id="rightButtons" class="btns">
-    <button data-query="/assets/data/queries/visualize_graph.sparql" data-no-table="1">Tree View</button>
-    <button id="btn-layered-view" data-no-table="1">Layer View</button>
-    <button data-query="/assets/data/queries/read_carLoadWeight.sparql" id="btn-model-view" data-no-table="1">Model View</button>
+  <div id="rightButtons" class="btns" data-tab-group="right-main">
+    <button data-query="/assets/data/queries/visualize_graph.sparql" data-no-table="1" class = "tab active"> Tree </button>
+    <button id="btn-layered-view" data-no-table="1" class = "tab"> Layer </button>
+    <button data-query="/assets/data/queries/read_carLoadWeight.sparql" id="btn-model-view" data-no-table="1" class = "tab"> Model </button>
     <label><input id="toggle-context" type="checkbox" checked data-no-table="1"> Contextual</label>
     <label><input id="toggle-defeat" type="checkbox" checked data-no-table="1"> Dialectic</label>
     <label><input type="checkbox"
@@ -54,15 +43,24 @@ window.addEventListener('load', async () => {
       data-class="valid" data-no-table="1"> Valid</label>
     <label><input type="checkbox"
       data-query="/assets/data/queries/read_all_collections.sparql"
-      data-class="collection" data-no-table="1"> Evidence</label>
+      data-class="collection" data-no-table="1"> Artefacts</label>
   </div>    
 </div>
 
-
 <div class="split">
-  <div id="results"></div>
-  <div id="graph"></div>
+  <div id="leftPane" class="pane pane-left">
+    <div id = "results"></div>
+    <!-- -->
+    <div id = "welcome-root"   style = "display: none;"></div> 
+    <div id = "editor-root"    style = "display: none;"></div>
+    <div id = "doc-root"       style = "display: none;"></div>
+    <div id = "converter-root" style = "display: none;"></div>
+    <div id = "code-root"      style = "display: none;"></div>
+    <div id = "chat-root"      style = "display: none;"></div>
+  </div>
+  <div id="rightPane" class="pane pane-right gsn-host"></div>
 </div>
+
 <pre id="out"></pre>
 
 <div class="split">
@@ -96,15 +94,22 @@ window.addEventListener('load', async () => {
   <div id="rightButtons" class="btns">
     <span class="gsn-hint">scroll: zoom • drag: pan</span>
     Modules: 
-    <div id="modulesBar" class="modules-bar"></div>
+    <div id="modulesBar" class="modules-bar" data-tab-group="modules"></div>
   </div>
 </div>
 
 <!-- Important: serve this file with a local web server (e.g., `python -m http.server`) -->
-<script type="module" src="{{'/assets/js/queries.js' | relative_url}}"></script>
-<script type="module" src="{{'/assets/js/layers.js' | relative_url}}"></script>
+<script src  = "/assets/vendor/n3.min.js"></script>
+<script type = "importmap">{"imports": {"three": "/assets/vendor/three.module.js"}}</script>
+<script src = "/assets/vendor/highlight.min.js"></script>
 
-<script src  = "https://unpkg.com/n3@1.17.0/browser/n3.min.js"></script>
-<script type = "importmap">{"imports": {"three": "https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
-
-<script type="module" src="{{'/assets/js/model.js' | relative_url}}"></script>
+<script type = "module" src = "/assets/js/welcome.js" ></script>
+<script type = "module" src = "/assets/js/queries.js" ></script>
+<script type = "module" src = "/assets/js/layers.js"  ></script>
+<script type = "module" src = "/assets/js/model.js"   ></script>
+<script type = "module" src = "/assets/js/editor.js"  ></script>
+<script type = "module" src = "/assets/js/table.js"   ></script>
+<script type = "module" src = "/assets/js/document.js"></script>
+<script type = "module" src = "/assets/js/converter.js"></script>
+<script type = "module" src = "/assets/js/code.js"    ></script>
+<script type = "module" src = "/assets/js/chat.js"    ></script>

@@ -3,8 +3,19 @@
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix gsn:   <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
 @prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+
+
+<https://example.org/car-demo#>
+  a               owl:Ontology;
+  dct:title       "OntoGSN Car Demo Ontology"@en ;
+  dct:description "Geometry and parts model for OntoGSN demo car, aligned with schema.org"@en ;
+  dct:creator     "Tomas Bueno Momcilovic" ;
+  dct:license     <https://creativecommons.org/publicdomain/zero/1.0/> ;
+  dct:created     "2025-11-29"^^xsd:date ;
+  owl:imports     <https://schema.org/version/latest/schemaorg-current-https.ttl> .
 
 ex:concernsElement a owl:ObjectProperty ;
     rdfs:label "concerns element"@en ;
@@ -16,9 +27,25 @@ ex:onTopOf a owl:ObjectProperty ;
     rdfs:domain schema:Product ;
     rdfs:range  schema:Product .
 
+ex:underneath a owl:ObjectProperty ;
+  owl:inverseOf ex:onTopOf ;
+  rdfs:label "underneath"@en .
+
+ex:hasPart a owl:ObjectProperty ;
+  rdfs:label "has part"@en ;
+  rdfs:comment "3D part or component of the car model."@en ;
+  rdfs:domain schema:Product ;
+  rdfs:range  schema:Product ;
+  rdfs:subPropertyOf schema:hasPart .
+
+ex:bodyLength a owl:DatatypeProperty ;
+  rdfs:label "body length (m)"@en ;
+  rdfs:domain schema:Vehicle ;
+  rdfs:range  xsd:float .
+
 ex:car1 a schema:Car ;
-  schema:name "OntoGSN Demo Hatchback" ;
-  schema:alternateName "Zastava 101-inspired OntoGSN demo" ;
+  schema:name "OntoGSN Demo Hatchback"@en ;
+  schema:alternateName "Zastava 101-inspired OntoGSN demo"@en ;
   schema:description "Small late-1970s style Yugoslav hatchback used as an OntoGSN demo car in a knowledge-augmented assurance case visualization." ;
   schema:sameAs <https://en.wikipedia.org/wiki/Zastava_101> ;
   schema:vehicleIdentificationNumber "0N7065N" ;
@@ -28,15 +55,15 @@ ex:car1 a schema:Car ;
 
   schema:brand [
     a schema:Brand ;
-    schema:name "Zastava"
+    schema:name "Zastava"@en
   ] ;
 
   schema:manufacturer [
     a schema:Organization ;
-    schema:name "Zastava Automobili" ;
+    schema:name "Zastava Automobili"@en ;
     schema:countryOfOrigin [
       a schema:Country ;
-      schema:name "Yugoslavia"
+      schema:name "Yugoslavia"@en
     ]
   ] ;
 
@@ -47,21 +74,21 @@ ex:car1 a schema:Car ;
   schema:productionDate             "1983-06-01"^^xsd:date ;
   schema:dateVehicleFirstRegistered "1983-07-01"^^xsd:date ;
   schema:purchaseDate               "1989-05-20"^^xsd:date ;
-  schema:numberOfPreviousOwners     3 ;
+  schema:numberOfPreviousOwners     "3"^^xsd:integer ;
 
-  schema:numberOfDoors         3 ;
-  schema:numberOfAxles         2 ;
-  schema:numberOfForwardGears  4 ;
+  schema:numberOfDoors         "3"^^xsd:integer ;
+  schema:numberOfAxles         "2"^^xsd:integer ;
+  schema:numberOfForwardGears  "4"^^xsd:integer ;
   schema:vehicleTransmission   "4-speed manual" ;
   schema:driveWheelConfiguration schema:FrontWheelDriveConfiguration ;
   schema:steeringPosition        schema:LeftHandDriving ;
 
-  schema:vehicleSeatingCapacity 5 ;
-  schema:seatingCapacity        5 ;
+  schema:vehicleSeatingCapacity "5"^^xsd:integer ;
+  schema:seatingCapacity        "5"^^xsd:integer ;
   schema:vehicleInteriorColor   "brown cloth" ;
   schema:vehicleInteriorType    "cloth seats, plastic dashboard" ;
 
-  schema:numberOfAirbags 0 ;
+  schema:numberOfAirbags "0"^^xsd:integer ;
   schema:knownVehicleDamages
     "Light rust on rear wheel arches and worn driver seat upholstery." ;
 
@@ -106,7 +133,7 @@ ex:car1 a schema:Car ;
     a schema:QuantitativeValue ;
     schema:value    "16"^^xsd:float ;      # 0–100 km/h in ~16 s (varies by source):contentReference[oaicite:4]{index=4}
     schema:unitCode "SEC" ;
-    schema:name     "0–100 km/h"
+    schema:name     "0–100 km/h"@en
   ] ;
   schema:speed [
     a schema:QuantitativeValue ;
@@ -153,72 +180,67 @@ ex:car1 a schema:Car ;
              ex:rightDoorHandle, ex:leftDoorHandle .
 
 ex:car1
-  ex:bodyLength       "4.54"^^xsd:float ;
-  ex:bodyHeight       "0.75"^^xsd:float ;
-  ex:bodyDepth        "2.0"^^xsd:float ;
-  ex:bodyCenterY      "0.9"^^xsd:float ;
-  ex:bumperThicknessX "0.05"^^xsd:float ;
-  ex:bumperHeightY    "0.10"^^xsd:float ;
-  ex:bumperDepthZ     "1.80"^^xsd:float ;
-  ex:bumperCenterY    "0.575"^^xsd:float ;
-  ex:doorBottomY      "0.525"^^xsd:float ;
-  ex:doorTopY         "1.28"^^xsd:float ;
-  ex:doorFrontX       "0.9"^^xsd:float ;
-  ex:doorBackX        "-0.4"^^xsd:float ;
-  ex:doorDepthZ       "0.12"^^xsd:float ;
-  ex:doorDepthOffset  "0.95"^^xsd:float ;
-  ex:doorBottomY      "0.525"^^xsd:float ;
-  ex:doorTopY         "1.28"^^xsd:float ;
-  ex:doorFrontX       "0.90"^^xsd:float ;
-  ex:doorBackX        "-0.40"^^xsd:float ;
-  ex:doorDepthZ       "0.12"^^xsd:float ;
-  ex:doorZOffset      "0.95"^^xsd:float ;
-  ex:cabinWidthX      "2.15"^^xsd:float ;
-  ex:cabinHeightY     "0.80"^^xsd:float ;
-  ex:cabinDepthZ      "1.70"^^xsd:float ;
-  ex:cabinCenterX     "-0.50"^^xsd:float ;
-  ex:cabinCenterY     "1.55"^^xsd:float ;
-  ex:windshieldWidthX   "0.84"^^xsd:float ;
-  ex:windshieldHeightY  "0.55"^^xsd:float ;
-  ex:windshieldDepthZ   "1.66"^^xsd:float ;
-  ex:frontWindshieldCenterX  "0.63"^^xsd:float ;
-  ex:frontWindshieldCenterY  "1.45"^^xsd:float ;
-  ex:rearWindshieldCenterX   "-1.63"^^xsd:float ;
-  ex:rearWindshieldCenterY   "1.45"^^xsd:float ;
-  ex:windshieldCenterZ       "0.0"^^xsd:float ;
-  ex:lightWidthX    "0.15"^^xsd:float ;
-  ex:lightHeightY   "0.25"^^xsd:float ;
-  ex:lightDepthZ    "0.35"^^xsd:float ;
-  ex:frontLightCenterX "2.25"^^xsd:float ;
-  ex:rearLightCenterX  "-2.25"^^xsd:float ;
-  ex:lightCenterY      "0.85"^^xsd:float ;
-  ex:lightCenterZAbs   "0.7"^^xsd:float ;
-  ex:doorCenterXOffset    "-0.32"^^xsd:float ;
-  ex:doorSideOffsetDelta  "0.01"^^xsd:float ;
-  ex:doorHandleFrontX       "0.7"^^xsd:float ;
-  ex:doorHandleBackX        "0.4"^^xsd:float ;
-  ex:doorHandleCenterXOffset "-0.3"^^xsd:float ;
-  ex:doorHandleHeightY      "0.06"^^xsd:float ;
-  ex:doorHandleDepthExtraZ  "0.02"^^xsd:float ;
-  ex:doorHandleCenterY      "1.1"^^xsd:float ;
-  ex:mirrorYOffset        "0.05"^^xsd:float ;
-  ex:mirrorXBackOffset    "0.2"^^xsd:float ;
-  ex:mirrorWidthX         "0.28"^^xsd:float ;
-  ex:mirrorHeightY        "0.16"^^xsd:float ;
-  ex:mirrorDepthZ         "0.1"^^xsd:float ;
-  ex:mirrorSideOffsetDelta "0.18"^^xsd:float ;
-  ex:mirrorStemWidthX     "0.08"^^xsd:float ;
-  ex:mirrorStemHeightY    "0.08"^^xsd:float ;
-  ex:mirrorStemDepthZ     "0.18"^^xsd:float ;
-  ex:mirrorStemSideOffsetDelta "0.09"^^xsd:float ;
-  ex:mirrorStemXOffset    "0.08"^^xsd:float ;
-  ex:mirrorStemYOffset    "0.05"^^xsd:float ;
-  ex:sideWindowWidthDeltaX     "-0.1"^^xsd:float ;
-  ex:sideWindowHeightY         "0.65"^^xsd:float ;
-  ex:sideWindowCenterXOffset   "-0.32"^^xsd:float ;
-  ex:sideWindowCenterYOffset   "-0.05"^^xsd:float ;
-  ex:sideWindowDepthZ          "0.07"^^xsd:float ;
-  ex:sideWindowSideOffsetDelta "0.1"^^xsd:float .
+  ex:bodyLength                 "4.54"^^xsd:float ;
+  ex:bodyHeight                 "0.75"^^xsd:float ;
+  ex:bodyDepth                  "2.00"^^xsd:float ;
+  ex:bodyCenterY                "0.90"^^xsd:float ;
+  ex:bumperThicknessX           "0.05"^^xsd:float ;
+  ex:bumperHeightY              "0.10"^^xsd:float ;
+  ex:bumperDepthZ               "1.80"^^xsd:float ;
+  ex:bumperCenterY              "0.575"^^xsd:float ;
+  ex:doorDepthOffset            "0.95"^^xsd:float ;
+  ex:doorBottomY                "0.525"^^xsd:float ;
+  ex:doorTopY                   "1.28"^^xsd:float ;
+  ex:doorFrontX                 "0.90"^^xsd:float ;
+  ex:doorBackX                  "-0.40"^^xsd:float ;
+  ex:doorDepthZ                 "0.12"^^xsd:float ;
+  ex:doorZOffset                "0.95"^^xsd:float ;
+  ex:cabinWidthX                "2.15"^^xsd:float ;
+  ex:cabinHeightY               "0.80"^^xsd:float ;
+  ex:cabinDepthZ                "1.70"^^xsd:float ;
+  ex:cabinCenterX               "-0.50"^^xsd:float ;
+  ex:cabinCenterY               "1.55"^^xsd:float ;
+  ex:windshieldWidthX           "0.84"^^xsd:float ;
+  ex:windshieldHeightY          "0.55"^^xsd:float ;
+  ex:windshieldDepthZ           "1.66"^^xsd:float ;
+  ex:frontWindshieldCenterX     "0.63"^^xsd:float ;
+  ex:frontWindshieldCenterY     "1.45"^^xsd:float ;
+  ex:rearWindshieldCenterX      "-1.63"^^xsd:float ;
+  ex:rearWindshieldCenterY      "1.45"^^xsd:float ;
+  ex:windshieldCenterZ          "0.00"^^xsd:float ;
+  ex:lightWidthX                "0.15"^^xsd:float ;
+  ex:lightHeightY               "0.25"^^xsd:float ;
+  ex:lightDepthZ                "0.35"^^xsd:float ;
+  ex:frontLightCenterX          "2.25"^^xsd:float ;
+  ex:rearLightCenterX           "-2.25"^^xsd:float ;
+  ex:lightCenterY               "0.85"^^xsd:float ;
+  ex:lightCenterZAbs            "0.70"^^xsd:float ;
+  ex:doorCenterXOffset          "-0.32"^^xsd:float ;
+  ex:doorSideOffsetDelta        "0.01"^^xsd:float ;
+  ex:doorHandleFrontX           "0.70"^^xsd:float ;
+  ex:doorHandleBackX            "0.40"^^xsd:float ;
+  ex:doorHandleCenterXOffset    "-0.30"^^xsd:float ;
+  ex:doorHandleHeightY          "0.06"^^xsd:float ;
+  ex:doorHandleDepthExtraZ      "0.02"^^xsd:float ;
+  ex:doorHandleCenterY          "1.10"^^xsd:float ;
+  ex:mirrorYOffset              "0.05"^^xsd:float ;
+  ex:mirrorXBackOffset          "0.20"^^xsd:float ;
+  ex:mirrorWidthX               "0.28"^^xsd:float ;
+  ex:mirrorHeightY              "0.16"^^xsd:float ;
+  ex:mirrorDepthZ               "0.10"^^xsd:float ;
+  ex:mirrorSideOffsetDelta      "0.18"^^xsd:float ;
+  ex:mirrorStemWidthX           "0.08"^^xsd:float ;
+  ex:mirrorStemHeightY          "0.08"^^xsd:float ;
+  ex:mirrorStemDepthZ           "0.18"^^xsd:float ;
+  ex:mirrorStemSideOffsetDelta  "0.09"^^xsd:float ;
+  ex:mirrorStemXOffset          "0.08"^^xsd:float ;
+  ex:mirrorStemYOffset          "0.05"^^xsd:float ;
+  ex:sideWindowWidthDeltaX      "-0.10"^^xsd:float ;
+  ex:sideWindowHeightY          "0.65"^^xsd:float ;
+  ex:sideWindowCenterXOffset    "-0.32"^^xsd:float ;
+  ex:sideWindowCenterYOffset    "-0.05"^^xsd:float ;
+  ex:sideWindowDepthZ           "0.07"^^xsd:float ;
+  ex:sideWindowSideOffsetDelta  "0.10"^^xsd:float .
 
 ex:engine1 a schema:EngineSpecification ;
   schema:engineDisplacement [
@@ -240,14 +262,15 @@ ex:engine1 a schema:EngineSpecification ;
   schema:fuelType   "petrol" .
 
 ex:frontLicensePlate a schema:Product ;
-  schema:name "Front license plate" ;
+  schema:name "Front license plate"@en ;
   ex:width "0.7"^^xsd:float ;
   ex:height "0.15"^^xsd:float ;
   schema:isPartOf ex:car1 .
 
 ex:StandardWheel 
+  a               owl:Class ;
   rdfs:subClassOf schema:Product ;
-  schema:name     "Standard Wheel" ;
+  rdfs:label      "Standard Wheel"@en ;
   ex:type         "Cylinder" ;
   ex:radius       "0.4"^^xsd:float ;
   ex:width        "0.5"^^xsd:float ;
@@ -257,91 +280,92 @@ ex:StandardWheel
   ex:offsetZ      "0.85"^^xsd:float .
 
 ex:frontLeftWheel a ex:StandardWheel ;
-  schema:name "Front-left wheel" ;
+  schema:name "Front-left wheel"@en ;
   schema:isPartOf ex:car1 ;
   ex:positionOnVehicle "front-left" .
 
 ex:frontRightWheel a ex:StandardWheel ;
-  schema:name "Front-right wheel" ;
+  schema:name "Front-right wheel"@en ;
   schema:isPartOf ex:car1 ;
   ex:positionOnVehicle "front-right" .
 
 ex:rearLeftWheel a ex:StandardWheel ;
-  schema:name "Rear-left wheel" ;
+  schema:name "Rear-left wheel"@en ;
   schema:isPartOf ex:car1 ;
   ex:positionOnVehicle "rear-left" .
 
 ex:rearRightWheel a ex:StandardWheel ;
-  schema:name "Rear-right wheel" ;
+  schema:name "Rear-right wheel"@en ;
   schema:isPartOf ex:car1 ;
   ex:positionOnVehicle "rear-right" .
 
 ex:leftWindow a schema:Product ;
-  schema:name "Left side window" ;
+  schema:name "Left side window"@en ;
   schema:isPartOf ex:car1 .
 
 ex:rightWindow a schema:Product ;
-  schema:name "Right side window" ;
+  schema:name "Right side window"@en ;
   schema:isPartOf ex:car1 .
 
 ex:leftDoor a schema:Product ;
-  schema:name "Left door" ;
+  schema:name "Left door"@en ;
   schema:isPartOf ex:car1 .
 
 ex:rightDoor a schema:Product ;
-  schema:name "Right door" ;
+  schema:name "Right door"@en ;
   schema:isPartOf ex:car1 .
 
 ex:frontBumper a schema:Product ;
-  schema:name "Front bumper" ;
+  schema:name "Front bumper"@en ;
   schema:isPartOf ex:car1 .
 
 ex:Cabin a schema:Product ;
-  schema:name "Cabin" ;
+  schema:name "Cabin"@en ;
   schema:isPartOf ex:car1 .
 
 ex:frontWindshield a schema:Product ;
-  schema:name "Front windshield" ;
+  schema:name "Front windshield"@en ;
   schema:isPartOf ex:car1 .
 
 ex:rearWindshield a schema:Product ;
-  schema:name "Rear windshield" ;
+  schema:name "Rear windshield"@en ;
   schema:isPartOf ex:car1 .
 
 ex:rightMirror a schema:Product ;
-  schema:name "Right mirror" ;
+  schema:name "Right mirror"@en ;
   schema:isPartOf ex:car1 .
 
 ex:leftMirror a schema:Product ;
-  schema:name "Left mirror" ;
+  schema:name "Left mirror"@en ;
   schema:isPartOf ex:car1 .
 
 ex:frontRightLight a schema:Product ;
-  schema:name "Front-right light" ;
+  schema:name "Front-right light"@en ;
   schema:isPartOf ex:car1 .
 
 ex:frontLeftLight a schema:Product ;
-  schema:name "Front-left light" ;
+  schema:name "Front-left light"@en ;
   schema:isPartOf ex:car1 .
 
 ex:rearRightLight a schema:Product ;
-  schema:name "Rear-right light" ;
+  schema:name "Rear-right light"@en ;
   schema:isPartOf ex:car1 .
 
 ex:rearLeftLight a schema:Product ;
-  schema:name "Rear-left light" ;
+  schema:name "Rear-left light"@en ;
   schema:isPartOf ex:car1 .
 
 ex:rightDoorHandle a schema:Product ;
-  schema:name "Right door handle" ;
+  schema:name "Right door handle"@en ;
   schema:isPartOf ex:car1 .
 
 ex:leftDoorHandle a schema:Product ;
-  schema:name "Left door handle" ;
+  schema:name "Left door handle"@en ;
   schema:isPartOf ex:car1 .
 
 ex:roofRack a schema:VehiclePart ;
-  schema:name "Roof rack" .
+  schema:name "Roof rack"@en ;
+  schema:identifier "roofRack"^^xsd:string .
   
 ex:car1 ex:hasPart ex:roofRack .
 ex:car1
@@ -351,10 +375,10 @@ ex:car1
   ex:roofRackCenterY "1.17"^^xsd:float .
 
 ex:roofLoad a schema:VehiclePart ;
-  schema:name "Roof load" .
+  schema:name "Roof load"@en .
 
 ex:box a schema:Product ;
-  schema:name "Box" ;
+  schema:name "Box"@en ;
   schema:weight [
     a schema:QuantitativeValue ;
     schema:value    "45"^^xsd:float ;
@@ -369,7 +393,7 @@ ex:car1
   ex:boxCenterY "0.43"^^xsd:float .
 
 ex:luggage a schema:Product ;
-  schema:name "Luggage" ;
+  schema:name "Luggage"@en ;
   schema:weight [
     a schema:QuantitativeValue ;
     schema:value    "25"^^xsd:float ;

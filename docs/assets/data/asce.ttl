@@ -1,0 +1,371 @@
+@prefix : <https://fortiss.github.io/OntoGSN/ontology/asce#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix asce: <https://fortiss.github.io/OntoGSN/ontology/asce#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@base <https://fortiss.github.io/OntoGSN/ontology/asce#> .
+
+<https://fortiss.github.io/OntoGSN/ontology/asce> rdf:type owl:Ontology .
+
+asce:contains rdf:type owl:ObjectProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( 
+                                   asce:ASCENetwork
+                                   asce:View
+                                   asce:ExportPath
+                                   )
+                          ] ;
+              rdfs:range owl:Thing ;
+              rdfs:label "contains"@en .
+
+asce:endReference rdf:type owl:ObjectProperty ;
+                  rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( 
+                                   asce:Link
+                                   asce:PathSegment
+                                   )
+                              ] ;
+                  rdfs:range asce:Node ;
+                  rdfs:label "end reference"@en ;
+                  schema:identifier "end-reference" .
+
+asce:startReference rdf:type owl:ObjectProperty ;
+                    rdfs:domain [ rdf:type owl:Class ;
+                                  owl:unionOf ( 
+                                   asce:Link
+                                   asce:PathSegment
+                                   )
+                                ] ;
+                    rdfs:range asce:Node ;
+                    rdfs:label "start reference"@en ;
+                    schema:identifier "start-reference" .
+
+asce:usesFont rdf:type owl:ObjectProperty ;
+              rdfs:domain asce:ASCENetwork ;
+              rdfs:range asce:Font ;
+              rdfs:label "uses font"@en .
+
+asce:hasLayout rdf:type owl:ObjectProperty ;
+               rdfs:domain asce:Node ;
+               rdfs:range asce:Layout ;
+               rdfs:label "has layout"@en .
+
+asce:statusField rdf:type owl:DatatypeProperty ;
+                 rdfs:domain asce:Node ;
+                 rdfs:label "status field"@en ;
+                 schema:identifier "status-field" .
+
+asce:name rdf:type owl:DatatypeProperty ;
+          rdfs:domain asce:Font ;
+          rdfs:range xsd:string ;
+          rdfs:label "name"@en ;
+          schema:identifier "name" .
+
+asce:size rdf:type owl:DatatypeProperty ;
+          rdfs:domain asce:Font ;
+          rdfs:range xsd:string ;
+          rdfs:label "font size"@en ;
+          schema:identifier "size" .
+
+asce:ascePassword rdf:type owl:DatatypeProperty ;
+                  rdfs:domain asce:ASCENetwork ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "ASCE password"@en ;
+                  schema:identifier "asce-password" .
+
+asce:ascePasswordRead rdf:type owl:DatatypeProperty ;
+                      rdfs:domain asce:ASCENetwork ;
+                      rdfs:range xsd:string ;
+                      rdfs:label "ASCE password read"@en ;
+                      schema:identifier "asce-password-read" .
+
+asce:canvasUnits rdf:type owl:DatatypeProperty ;
+                 rdfs:domain asce:ASCENetwork ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "canvas units"@en ;
+                 schema:identifier "canvas-units" .
+
+asce:comments rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf asce:statusField ;
+              rdfs:domain asce:Node ;
+              rdfs:range xsd:string ;
+              rdfs:label "comments"@en ;
+              schema:identifier "comments" .
+
+asce:completed rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf asce:statusField ;
+               rdfs:domain asce:Node ;
+               rdfs:range xsd:boolean ;
+               rdfs:label "completed"@en ;
+               schema:identifier "completed" .
+
+asce:confidence rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf asce:statusField ;
+                rdfs:domain asce:Node ;
+                rdfs:range xsd:string ;
+                rdfs:label "confidence"@en ;
+                schema:identifier "confidence" .
+
+asce:hasExternalReference rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf asce:statusField ;
+                          rdfs:domain asce:Node ;
+                          rdfs:range xsd:boolean ;
+                          rdfs:label "has external reference"@en ;
+                          schema:identifier "hasexternalreference" .
+
+asce:height rdf:type owl:DatatypeProperty ;
+            rdfs:domain asce:Layout ;
+            rdfs:range xsd:integer ;
+            rdfs:label "height"@en ;
+            schema:identifier "height" .
+
+asce:htmlAnnotation rdf:type owl:DatatypeProperty ;
+                    rdfs:domain asce:Node ;
+                    rdfs:range rdf:HTML ;
+                    rdfs:label "HTML annotation"@en ;
+                    schema:identifier "html-annotation" .
+
+asce:includeAll rdf:type owl:DatatypeProperty ;
+                rdfs:domain asce:ExportPath ;
+                rdfs:range xsd:boolean ;
+                rdfs:label "include all"@en ;
+                schema:identifier "include-all" .
+
+asce:interpretationSchema rdf:type owl:DatatypeProperty ;
+                          rdfs:domain asce:ASCENetwork ;
+                          rdfs:range xsd:string ;
+                          rdfs:label "interpretation schema"@en ;
+                          schema:identifier "interpretation-schema" .
+
+asce:manualAttach rdf:type owl:DatatypeProperty ;
+                  rdfs:domain [ a owl:Class ;
+                                owl:unionOf ( asce:ASCENetwork
+                                              asce:View
+                                            )
+                              ] ;
+                  rdfs:range xsd:boolean ;
+                  rdfs:label "manual attach"@en ;
+                  schema:identifier "manual-attach" .
+
+asce:networkVersion rdf:type owl:DatatypeProperty ;
+                    rdfs:domain asce:ASCENetwork ;
+                    rdfs:range xsd:string ;
+                    rdfs:label "ASCE network version"@en ;
+                    schema:identifier "version" .
+
+asce:projectAuthor rdf:type owl:DatatypeProperty ;
+                   rdfs:domain asce:ASCENetwork ;
+                   rdfs:label "project author"@en ;
+                   schema:identifier "project-author" .
+
+asce:projectDescription rdf:type owl:DatatypeProperty ;
+                        rdfs:domain asce:ASCENetwork ;
+                        rdfs:range xsd:string ;
+                        rdfs:label "project description"@en ;
+                        schema:identifier "project-description" .
+
+asce:projectName rdf:type owl:DatatypeProperty ;
+                 rdfs:domain asce:ASCENetwork ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "project name"@en ;
+                 schema:identifier "project-name" .
+
+asce:projectVersion rdf:type owl:DatatypeProperty ;
+                    rdfs:domain asce:ASCENetwork ;
+                    rdfs:range xsd:string ;
+                    rdfs:label "project version"@en ;
+                    schema:identifier "project-version" .
+
+asce:reference rdf:type owl:DatatypeProperty ;
+               rdfs:label "reference"@en ;
+               rdfs:domain [ rdf:type owl:Class ;
+                             owl:unionOf ( asce:Link
+                                           asce:Node
+                                           asce:View
+                                           asce:EmbeddedImage
+                                           asce:ExportPath
+                                    )
+                      ] ;
+               rdfs:range xsd:string ;
+               schema:identifier "reference" .
+
+asce:requiresDevelopment rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf asce:statusField ;
+                         rdfs:domain asce:Node ;
+                         rdfs:range xsd:boolean ;
+                         rdfs:label "requires development"@en ;
+                         schema:identifier "requiresdevelopment" .
+
+asce:requiresInstantiation rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf asce:statusField ;
+                           rdfs:domain asce:Node ;
+                           rdfs:range xsd:boolean ;
+                           rdfs:label "requires instantiation"@en ;
+                           schema:identifier "requiresinstantiation" .
+
+asce:resourced rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf asce:statusField ;
+               rdfs:domain asce:Node ;
+               rdfs:range xsd:string ;
+               rdfs:label "resourced"@en ;
+               schema:identifier "resourced" .
+
+asce:risk rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf asce:statusField ;
+          rdfs:domain asce:Node ;
+          rdfs:range xsd:long ;
+          rdfs:label "risk"@en ;
+          schema:identifier "risk" .
+
+asce:spectrum1 rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf asce:statusField ;
+               rdfs:domain asce:Node ;
+               rdfs:range xsd:string ;
+               rdfs:label "spectrum 1"@en ;
+               schema:identifier "spectrum1" .
+
+asce:spectrum2 rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf asce:statusField ;
+               rdfs:domain asce:Node ;
+               rdfs:range xsd:string ;
+               rdfs:label "spectrum 2"@en ;
+               schema:identifier "spectrum2" .
+
+asce:strength rdf:type owl:DatatypeProperty ;
+              rdfs:domain asce:Link ;
+              rdfs:range xsd:integer ;
+              rdfs:label "strength"@en ;
+              schema:identifier "strength" .
+
+asce:title rdf:type owl:DatatypeProperty ;
+           rdfs:domain [ rdf:type owl:Class ;
+                         owl:unionOf ( 
+                            asce:View
+                            asce:ExportPath
+                         )] ;
+           rdfs:range xsd:string ;
+           rdfs:label "title"@en ;
+           schema:identifier "title" .
+
+asce:toolVersion rdf:type owl:DatatypeProperty ;
+                 rdfs:domain asce:ASCETool ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "tool version"@en ;
+                 schema:identifier "tool-version" .
+
+asce:type rdf:type owl:DatatypeProperty ;
+          rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( asce:Link
+                                      asce:Node
+                                    )
+                      ] ;
+          rdfs:range xsd:nonNegativeInteger ;
+          rdfs:label "type"@en ;
+          schema:identifier "type" .
+
+asce:userId rdf:type owl:DatatypeProperty ;
+            rdfs:domain asce:Node ;
+            rdfs:range xsd:string ;
+            rdfs:label "user ID"@en ;
+            schema:identifier "user-id" .
+
+asce:userTitle rdf:type owl:DatatypeProperty ;
+               rdfs:domain asce:Node ;
+               rdfs:range xsd:string ;
+               rdfs:label "user title"@en ;
+               schema:identifier "user-title" .
+
+asce:width rdf:type owl:DatatypeProperty ;
+           rdfs:domain asce:Layout ;
+           rdfs:range xsd:integer ;
+           rdfs:label "width"@en ;
+           schema:identifier "width" .
+
+asce:x rdf:type owl:DatatypeProperty ;
+       rdfs:domain asce:Layout ;
+       rdfs:range xsd:integer ;
+       rdfs:label "x"@en ;
+       schema:identifier "x" .
+
+asce:xDestination rdf:type owl:DatatypeProperty ;
+                  rdfs:domain asce:Attachment ;
+                  rdfs:range  xsd:decimal ;
+                  rdfs:label "x destination"@en ;
+                  schema:identifier "x-destination" .
+
+asce:xSource rdf:type owl:DatatypeProperty ;
+             rdfs:domain asce:Attachment ;
+             rdfs:range  xsd:decimal ;
+             rdfs:label "x source"@en ;
+             schema:identifier "x-source" .
+
+asce:y rdf:type owl:DatatypeProperty ;
+       rdfs:domain asce:Layout ;
+       rdfs:range xsd:integer ;
+       rdfs:label "y"@en ;
+       schema:identifier "y" .
+
+asce:yDestination rdf:type owl:DatatypeProperty ;
+                  rdfs:domain asce:Attachment ;
+                  rdfs:range  xsd:decimal ;
+                  rdfs:label "y destination"@en ;
+                  schema:identifier "y-destination" .
+
+asce:ySource rdf:type owl:DatatypeProperty ;
+             rdfs:domain asce:Attachment ;
+             rdfs:range  xsd:decimal ;
+             rdfs:label "y source"@en ;
+             schema:identifier "y-source" .
+
+asce:ASCENetwork rdf:type owl:Class ;
+                 rdfs:label "ASCE Network"@en ;
+                 schema:identifier "asce-network" .
+
+asce:EmbeddedImage rdf:type owl:Class ;
+                   rdfs:label "Embedded Image"@en ;
+                   schema:identifier "embedded-image" .
+
+asce:ExportPath rdf:type owl:Class ;
+                rdfs:label "Export Path"@en ;
+                schema:identifier "export-path" .
+
+asce:PathSegment rdf:type owl:Class ;
+                 rdfs:label "Path Segment"@en ;
+                 schema:identifier "path-segment" .
+
+asce:Link rdf:type owl:Class ;
+          rdfs:label "Link"@en ;
+          schema:identifier "link" .
+
+asce:Node rdf:type owl:Class ;
+          rdfs:label "Node"@en ;
+          schema:identifier "node" .
+
+asce:View rdf:type owl:Class ;
+          rdfs:label "View"@en ;
+          schema:identifier "view" .
+
+asce:Layout rdf:type owl:Class ;
+            rdfs:label "Layout"@en ;
+            schema:identifier "layout" .
+
+asce:Attachment rdf:type owl:Class ;
+                rdfs:label "Attachment"@en ;
+                schema:identifier "attachment" .
+
+asce:Font rdf:type owl:Class ;
+          rdfs:label "Font"@en ;
+          schema:identifier "font" .
+
+asce:ASCETool rdf:type owl:Class ;
+              rdfs:label "Assurance and Safety Case Environment (ASCE)" ;
+              schema:identifier "asce-tool" .
+
+asce:ASCETool_v5_0_0 rdf:type owl:NamedIndividual ,
+                              asce:ASCETool ;
+                     rdfs:label "ASCE v5.0.0"@en ;
+                     asce:toolVersion "5.0.0" .
+
