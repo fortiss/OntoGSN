@@ -60,23 +60,37 @@ body.page-playground {
        .split {
               display: flex;
               gap: 12px;
-              align-items: stretch
+              align-items: stretch;
        }
 
        /* Two fixed halves in the main split */
-       #leftPane,
-       #rightPane {
-              flex: 0 0 50%;
+       .split>#leftPane,
+       .split>#rightPane {
+              flex: 1 1 0;
               /* take 50% each, don't grow/shrink based on content */
-              max-width: 50%;
+              /*max-width: 50%;*/
               min-width: 0;
               /* allow inner content to overflow/scroll instead of stretching the flex item */
+              display: flex;
+              flex-direction: column;
+              overflow: hidden;
        }
 
+       /* the wrapper that contains the actual active pane */
+       #leftPane .panes,
+       #rightPane .panes {
+              flex: 1 1 0;
+              min-height: 0;
+              overflow: hidden;
+       }
 
-       #results {
-              max-height: 520px;
-              overflow: auto
+       /* the currently visible pane should scroll */
+       #leftPane .pane:not([hidden]),
+       #rightPane .pane:not([hidden]) {
+              height: 100%;
+              min-height: 0;
+              overflow: auto;
+              scrollbar-gutter: stable;
        }
 
        .left-tabs {
