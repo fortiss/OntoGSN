@@ -1,5 +1,3 @@
-// /assets/js/panes.js
-
 class PaneManager {
   constructor() {
     /** @type {HTMLElement|null} */

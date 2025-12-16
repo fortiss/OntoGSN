@@ -98,18 +98,23 @@ window.addEventListener('load', async () => {
   </div>
 </div>
 
-<!-- Important: serve this file with a local web server (e.g., `python -m http.server`) -->
-<script src  = "/assets/vendor/n3.min.js"></script>
-<script type = "importmap">{"imports": {"three": "/assets/vendor/three.module.js"}}</script>
-<script src = "/assets/vendor/highlight.min.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "{{ '/assets/vendor/three.module.js' | relative_url }}"
+  }
+}
+</script>
+<script src  = "{{'/assets/vendor/n3.min.js' | relative_url}}" ></script>
+<script src  = "{{ '/assets/vendor/highlight.min.js' | relative_url }}"></script>
 
-<script type = "module" src = "/assets/js/welcome.js" ></script>
-<script type = "module" src = "/assets/js/queries.js" ></script>
-<script type = "module" src = "/assets/js/layers.js"  ></script>
-<script type = "module" src = "/assets/js/model.js"   ></script>
-<script type = "module" src = "/assets/js/editor.js"  ></script>
-<script type = "module" src = "/assets/js/table.js"   ></script>
-<script type = "module" src = "/assets/js/document.js"></script>
-<script type = "module" src = "/assets/js/converter.js"></script>
-<script type = "module" src = "/assets/js/code.js"    ></script>
-<script type = "module" src = "/assets/js/chat.js"    ></script>
+<script type = "module" src = "{{'/assets/js/welcome.js' | relative_url}}" ></script>
+<script type = "module" src = "{{'/assets/js/queries.js' | relative_url}}" ></script>
+<script type = "module" src = "{{'/assets/js/layers.js' | relative_url}}"  ></script>
+<script type = "module" src = "{{'/assets/js/model.js' | relative_url}}"   ></script>
+<script type = "module" src = "{{'/assets/js/editor.js' | relative_url}}"  ></script>
+<script type = "module" src = "{{'/assets/js/table.js' | relative_url}}"   ></script>
+<script type = "module" src = "{{'/assets/js/document.js' | relative_url}}"></script>
+<script type = "module" src = "{{'/assets/js/converter.js' | relative_url}}"></script>
+<script type = "module" src = "{{'/assets/js/code.js' | relative_url}}"    ></script>
+<script type = "module" src = "{{'/assets/js/chat.js' | relative_url}}"    ></script>
