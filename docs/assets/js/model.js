@@ -1,5 +1,5 @@
-import * as THREE from "../vendor/three.module.js";
-import { OrbitControls } from "../vendor/OrbitControls.js";
+import * as THREE from "../js/vendor/three.module.js";
+import { OrbitControls } from "../js/vendor/OrbitControls.js";
 import app from "./queries.js";
 import panes from "./panes.js";
 
