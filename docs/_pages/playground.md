@@ -5,7 +5,7 @@ permalink: /playground/
 body_class: page-playground
 styles: 
   - /assets/css/playground.css
-  - /assets/vendor/github.min.css
+  - /assets/js/vendor/github.min.css
 ---
 
 <script>
@@ -101,12 +101,12 @@ window.addEventListener('load', async () => {
 <script type="importmap">
 {
   "imports": {
-    "three": "{{ '/assets/vendor/three.module.js' | relative_url }}"
+    "three": "{{ '/assets/js/vendor/three.module.js' | relative_url }}"
   }
 }
 </script>
-<script src  = "{{'/assets/vendor/n3.min.js' | relative_url}}" ></script>
-<script src  = "{{ '/assets/vendor/highlight.min.js' | relative_url }}"></script>
+<script src  = "{{'/assets/js/vendor/n3.min.js' | relative_url}}" ></script>
+<script src  = "{{ '/assets/js/vendor/highlight.min.js' | relative_url }}"></script>
 
 <script type = "module" src = "{{'/assets/js/welcome.js' | relative_url}}" ></script>
 <script type = "module" src = "{{'/assets/js/queries.js' | relative_url}}" ></script>
