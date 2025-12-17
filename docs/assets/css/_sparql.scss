@@ -1,0 +1,307 @@
+body.page-playground {
+  /* -------------------------------------------------------------- */
+  /* Global / box model                                             */
+  /* -------------------------------------------------------------- */
+
+  &,
+  & *,
+  & *::before,
+  & *::after {
+    box-sizing: border-box;
+  }
+
+  /* Design tokens */
+  --gap: 12px;
+  --pane-height: 520px;
+
+  --border: #ddd;
+  --border-soft: #eee;
+  --bg-soft: #f6f6f6;
+  --bg-head: #fafafa;
+
+  font: 14px/1.45 system-ui, sans-serif;
+  margin: 20px;
+
+  h1 {
+    font-size: 20px;
+    margin: 0 0 8px;
+  }
+
+  /* -------------------------------------------------------------- */
+  /* Buttons / tabs / bars                                          */
+  /* -------------------------------------------------------------- */
+
+  .btns {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: .75rem;
+  }
+
+  button {
+    padding: .45rem .8rem;
+    border: 1px solid #ccc;
+    border-radius: .5rem;
+    background: #fff;
+    cursor: pointer;
+
+    &:hover {
+      background: #f8f8f8;
+    }
+  }
+
+  .tab.active {
+    background: #f2f2f2;
+    font-weight: 600;
+  }
+
+  /* push right button bars to the edge */
+  #rightButtons {
+    margin-left: auto;
+  }
+
+  label {
+    display: inline-flex;
+    gap: .35rem;
+    align-items: center;
+  }
+
+  &[aria-busy="true"] {
+    cursor: progress;
+
+    [data-query] {
+      opacity: .6;
+      pointer-events: none;
+    }
+  }
+
+  /* -------------------------------------------------------------- */
+  /* Tables                                                         */
+  /* -------------------------------------------------------------- */
+
+  table.sparql {
+    border-collapse: collapse;
+    width: 100%;
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    thead th {
+      position: sticky;
+      top: 0;
+      background: var(--bg-head);
+      z-index: 1;
+    }
+  }
+
+  /* Prevent long IRIs from blowing up layout */
+  #results table.sparql {
+    table-layout: fixed;
+
+    th,
+    td {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  /* -------------------------------------------------------------- */
+  /* Output block                                                   */
+  /* -------------------------------------------------------------- */
+
+  #out {
+    margin-top: 10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas,
+      "Liberation Mono", monospace;
+    background: var(--bg-soft);
+    padding: 8px;
+    border-radius: 8px;
+    min-height: 1.2rem;
+    white-space: pre-wrap;
+  }
+
+  /* -------------------------------------------------------------- */
+  /* Split rows                                                     */
+  /* -------------------------------------------------------------- */
+
+  .split {
+    display: flex;
+    gap: var(--gap);
+    align-items: stretch;
+  }
+
+  /* Main 50/50 pane split */
+  .split > #leftPane,
+  .split > #rightPane {
+    flex: 1 1 0;
+    min-width: 0;         /* CRITICAL */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #leftPane,
+  #rightPane {
+    height: var(--pane-height);
+    min-height: 0;
+  }
+
+  #leftPane {
+    overflow-x: hidden;
+  }
+
+  /* Pane roots toggled by JS */
+  #results,
+  #welcome-root,
+  #editor-root,
+  #doc-root,
+  #converter-root,
+  #code-root,
+  #chat-root {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+  /* Right-hand graph host */
+  #rightPane,
+  .gsn-host {
+    min-width: 0;
+    min-height: 0;
+    position: relative;
+  }
+
+  /* -------------------------------------------------------------- */
+  /* Modules bar                                                    */
+  /* -------------------------------------------------------------- */
+
+  .modules-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: center;
+
+    background: #fff;
+    padding: .5rem;
+    border: 1px solid var(--border-soft);
+    border-radius: .5rem;
+
+    button {
+      padding: .35rem .6rem;
+      border: 1px solid #ccc;
+      border-radius: .5rem;
+      background: #fff;
+      cursor: pointer;
+
+      &.tab.active {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  [data-theme="dark"] {
+    .modules-bar {
+      background: #111;
+      border-color: #333;
+
+      button {
+        background: #222;
+        border-color: #444;
+        color: #eee;
+      }
+    }
+  }
+
+  /* -------------------------------------------------------------- */
+  /* Document tooltips                                              */
+  /* -------------------------------------------------------------- */
+
+  .doc-view .doc-entity {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
+    border-bottom: 1px dotted var(--accent-color, #888);
+  }
+
+  .doc-entity-tooltip {
+    position: absolute;
+    z-index: 1000;
+    max-width: 320px;
+    padding: 0.5rem 0.75rem;
+    background: var(--doc-tooltip-bg, #111);
+    color: var(--doc-tooltip-fg, #f9f9f9);
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-size: 0.85rem;
+
+    &-header {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    &-body p {
+      margin: 0.15rem 0 0;
+    }
+
+    &-iri {
+      font-family: monospace;
+      font-size: 0.75rem;
+      opacity: 0.8;
+      word-break: break-all;
+    }
+  }
+
+  /* -------------------------------------------------------------- */
+  /* Code panel                                                     */
+  /* -------------------------------------------------------------- */
+
+  .code-panel {
+    pre {
+      background: #f7f7f7;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      margin: 0 0 1rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.9rem;
+      line-height: 1.4;
+
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 22rem;
+    }
+
+    p,
+    a,
+    code {
+      overflow-wrap: anywhere;
+    }
+  }
+
+  /* -------------------------------------------------------------- */
+  /* Responsive                                                     */
+  /* -------------------------------------------------------------- */
+
+  @media (max-width: 900px) {
+    .split {
+      flex-direction: column;
+    }
+
+    #leftPane,
+    #rightPane {
+      height: auto;
+      max-height: none;
+    }
+  }
+}

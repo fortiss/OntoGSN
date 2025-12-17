@@ -20,7 +20,7 @@ async function runSparql(query) {
 
 const TARGET_SOLUTION_IRI = "https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#Sn11";
 const CODE_BASE_URL = "/assets/data/";
-const CODE_SOLUTION_QUERY = "OntoGSN/assets/data/queries/read_solutionWithCode.sparql";
+const CODE_SOLUTION_QUERY = "../assets/data/queries/read_solutionWithCode.sparql";
 
 async function fetchCodeMeta(solutionIri) {
   const r = await fetch(
