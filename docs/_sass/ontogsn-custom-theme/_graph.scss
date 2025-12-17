@@ -37,8 +37,8 @@
   --badge-vld-b:   #0d7215;
   --badge-ivld-a:   #ffffec;
   --badge-ivld-b:   #cdc312;
-  --badge-undev-a:   #ffdeb8;
-  --badge-undev-b:   #ea7d00;
+  --badge-undev-a:   #ffffff;
+  --badge-undev-b:   #ffffff;
 
   /* UI */
   --btn-bg:        #f8f8f8;
@@ -68,7 +68,7 @@
 [data-theme="dark"] {
   --bg:          #111;
   --text:        #eee;
-  --node-fill:   #222;
+  --node-fill:   none;
   --node-stroke: #ddd;
 
   --link:        #bbb;
@@ -76,28 +76,64 @@
 }
 
 /* === Layout & UI ======================================================== */
-#graph, .gsn-host { height: 520px; min-width: 0; }
+.gsn-host {
+  height: 520px;
+  min-width: 0;
+}
 
-#graph.hide-ctx .gsn-node.ctx,
-#graph.hide-ctx .gsn-link.ctx { display: none; }
+/* Hide context / defeaters based on classes on the host */
+.gsn-host.hide-ctx .gsn-node.ctx,
+.gsn-host.hide-ctx .gsn-link.ctx {
+  display: none;
+}
 
-#graph.hide-def .gsn-node.def,
-#graph.hide-def .gsn-link.def { display: none; }
+.gsn-host.hide-def .gsn-node.def,
+.gsn-host.hide-def .gsn-link.def {
+  display: none;
+}
 
-.gsn-legend, .legend-row {
+
+.gsn-legend {
   display: flex;
-  gap: var(--gap-md);
-  align-items: center;
   flex-wrap: wrap;
-  gap: .75rem 1rem;
+  gap: 0.25rem 0.8rem;
+  align-items: center;
   padding: var(--pad-md) calc(var(--pad-md) + .25rem);
   border-bottom: 1px solid var(--border);
+  max-width: 100%; 
+}
+
+.gsn-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.gsn-legend-node {
+  width: 32px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Slightly smaller text inside legend nodes so it fits nicely */
+.gsn-legend-node text {
+  font-size: 11px;
+}
+
+/* Optional: keep tooltip cursor */
+.gsn-legend-item[title] {
+  cursor: help;
 }
 
 .gsn-controls {
   margin-left: auto;
   display: flex;
   gap: var(--gap-sm);
+  margin-left: auto;
+  flex-wrap: wrap;      /* controls themselves can wrap if needed */
+  order: 99;            /* push them to the end of the legend */
 }
 
 .gsn-btn {
@@ -196,23 +232,42 @@
 }
 
 /* === Nodes ============================================================== */
-.gsn-node rect {
+.gsn-node rect,
+.gsn-node circle,
+.gsn-node ellipse,
+.gsn-node polygon {
   fill: var(--node-fill);
   stroke: var(--node-stroke);
   stroke-width: var(--stroke-thin);
+}
+
+.gsn-node rect {
+  /*
   rx: var(--radius-md);
   ry: var(--radius-md);
+  */
+  rx: 0;
+  ry: 0;
 }
+
 .gsn-node text {
   font-size: var(--font-size-md);
   dominant-baseline: middle;
   fill: var(--text);
 }
 
-/* Modifiers */
-.gsn-node.ctx rect { stroke-dasharray: 5 3; }
 
-.gsn-node.in-context rect {
+/* Modifiers */
+.gsn-node.ctx rect { 
+  stroke-dasharray: 5 3;
+  rx: var(--radius-md);
+  ry: var(--radius-md);
+}
+
+.gsn-node.in-context rect,
+.gsn-node.in-context circle,
+.gsn-node.in-context ellipse,
+.gsn-node.in-context polygon {
   stroke: var(--highlight-stroke);
   stroke-width: var(--stroke-xbold);
   fill: var(--highlight-fill);
@@ -226,7 +281,10 @@
   ry: var(--radius-md);
 }
 
-.gsn-node.def-prop rect {
+.gsn-node.def-prop rect,
+.gsn-node.def-prop circle,
+.gsn-node.def-prop ellipse,
+.gsn-node.def-prop polygon {
   stroke: var(--def);
   fill: #fff2f2;
   stroke-width: 2px;
@@ -235,31 +293,46 @@
 .gsn-node.ctx,
 .gsn-node.def { cursor: pointer; }
 
-.gsn-node.dup rect {
+.gsn-node.dup rect,
+.gsn-node.dup circle,
+.gsn-node.dup ellipse,
+.gsn-node.dup polygon {
   stroke-dasharray: 3 2;
   opacity: .9;
 }
 
-.gsn-node.invalid rect {
+.gsn-node.invalid rect,
+.gsn-node.invalid circle,
+.gsn-node.invalid ellipse,
+.gsn-node.invalid polygon {
   stroke: #cdc312;
   stroke-width: 2.5px;
   fill: #ffffec;
   fill-opacity: 1;
 }
 
-.gsn-node.valid rect {
+.gsn-node.valid rect,
+.gsn-node.valid circle,
+.gsn-node.valid ellipse,
+.gsn-node.valid polygon {
   stroke: #0d7215;
   stroke-width: 2.5px;
   fill: #d5ffcd;
   fill-opacity: 1;
 }
 
-.gsn-node.undev rect {
-  stroke: #ea7d00;
-  stroke-width: 0.5px;
-  fill: #fff8f0;
-  fill-opacity: 1;
+.gsn-node-tag {
+  font-size: 11px;
+  font-weight: 600;
+  dominant-baseline: alphabetic;
 }
+
+.gsn-node path.undev-diamond {
+  fill: #ffffff;
+  stroke: #000000;
+  stroke-width: 1.2px;
+}
+
 
 .gsn-link.invalid {
   stroke: #cdc312;
