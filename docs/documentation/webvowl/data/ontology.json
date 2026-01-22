@@ -1,0 +1,2827 @@
+{
+  "_comment" : "Created with OWL2VOWL (version 0.3.5), http://vowl.visualdataweb.org",
+  "header" : {
+    "languages" : [ "en", "undefined" ],
+    "baseIris" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns", "http://schema.org", "http://www.w3.org/2000/01/rdf-schema", "http://www.w3.org/2001/XMLSchema", "https://w3id.org/OntoGSN/ontology" ],
+    "title" : {
+      "en" : "OntoGSN"
+    },
+    "iri" : "https://w3id.org/OntoGSN/ontology",
+    "version" : "1.2",
+    "author" : [ "Standard: The Assurance Case Working Group (ACWG)", "Tomas Bueno Momčilović" ],
+    "description" : {
+      "en" : "OntoGSN is an ontology for managing assurance cases in the Goal Structuring Notation (GSN). The goal of the ontology is to help users in linking the elements of their cases - claims and evidence - with the internationalized resource identifiers (IRIs) of represented concepts, events and data, and in evaluating the validity of their argument."
+    },
+    "other" : {
+      "identifier" : [ {
+        "identifier" : "identifier",
+        "language" : "undefined",
+        "value" : "SCSC-141C",
+        "type" : "label"
+      } ],
+      "creator" : [ {
+        "identifier" : "creator",
+        "language" : "en",
+        "value" : "Standard: The Assurance Case Working Group (ACWG)",
+        "type" : "label"
+      }, {
+        "identifier" : "creator",
+        "language" : "en",
+        "value" : "Tomas Bueno Momčilović",
+        "type" : "label"
+      } ],
+      "created" : [ {
+        "identifier" : "created",
+        "language" : "en",
+        "value" : "20th February 2025",
+        "type" : "label"
+      } ],
+      "versionInfo" : [ {
+        "identifier" : "versionInfo",
+        "language" : "undefined",
+        "value" : "1.2",
+        "type" : "label"
+      } ],
+      "source" : [ {
+        "identifier" : "source",
+        "language" : "en",
+        "value" : "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C",
+        "type" : "label"
+      } ],
+      "title" : [ {
+        "identifier" : "title",
+        "language" : "en",
+        "value" : "OntoGSN",
+        "type" : "label"
+      } ],
+      "version" : [ {
+        "identifier" : "version",
+        "language" : "undefined",
+        "value" : "3.0",
+        "type" : "label"
+      } ],
+      "url" : [ {
+        "identifier" : "url",
+        "language" : "undefined",
+        "value" : "https://w3id.org/OntoGSN/",
+        "type" : "label"
+      } ],
+      "license" : [ {
+        "identifier" : "license",
+        "language" : "undefined",
+        "value" : "https://creativecommons.org/licenses/by/4.0/",
+        "type" : "label"
+      } ],
+      "contributor" : [ {
+        "identifier" : "contributor",
+        "language" : "en",
+        "value" : "Barbara Gallina, Dian Balta, Ingmar Kessler",
+        "type" : "label"
+      } ],
+      "preferredNamespacePrefix" : [ {
+        "identifier" : "preferredNamespacePrefix",
+        "language" : "undefined",
+        "value" : "gsn",
+        "type" : "label"
+      } ],
+      "publisher" : [ {
+        "identifier" : "publisher",
+        "language" : "en",
+        "value" : "https://www.fortiss.org/",
+        "type" : "label"
+      } ],
+      "modified" : [ {
+        "identifier" : "modified",
+        "language" : "undefined",
+        "value" : "2025-06-19T00:00:00Z",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence.",
+        "type" : "label"
+      } ],
+      "bibliographicCitation" : [ {
+        "identifier" : "bibliographicCitation",
+        "language" : "undefined",
+        "value" : "Bueno Momcilovic, T., Kessler, I., Gallina, B., & Balta, D. (2025). OntoGSN: An Ontology for Dynamic Management of Assurance Cases.",
+        "type" : "label"
+      } ],
+      "issued" : [ {
+        "identifier" : "issued",
+        "language" : "undefined",
+        "value" : "2025-02-24",
+        "type" : "label"
+      } ],
+      "disclaimer" : [ {
+        "identifier" : "disclaimer",
+        "language" : "en",
+        "value" : "[Disclaimer from the GSN Community Standard v3.0]: While the authors and the publishers have used reasonable endeavours to ensure that the information and guidance given in this work is correct, all parties must rely on their own skill and judgement when making use of this work and obtain professional or specialist advice before taking, or refraining from, any action on the basis of the content of this work. Neither the authors nor the publishers make any representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to such information and guidance for any purpose, and they will not be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever (including as a result of negligence) arising out of, or in connection with, the use of this work. The views and opinions expressed in this publication are those of the authors and do not necessarily reflect those of their employers, the SCSC1 or other organisations.",
+        "type" : "label"
+      } ]
+    }
+  },
+  "namespace" : [ ],
+  "class" : [ {
+    "id" : "0",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "3",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "2",
+    "type" : "owl:Class"
+  }, {
+    "id" : "17",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "19",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "20",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "30",
+    "type" : "rdfs:Literal"
+  }, {
+    "id" : "31",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "38",
+    "type" : "owl:Class"
+  }, {
+    "id" : "46",
+    "type" : "owl:Class"
+  }, {
+    "id" : "52",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "53",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "58",
+    "type" : "owl:Class"
+  }, {
+    "id" : "57",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "13",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "60",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "61",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "62",
+    "type" : "owl:Class"
+  }, {
+    "id" : "63",
+    "type" : "owl:Class"
+  }, {
+    "id" : "66",
+    "type" : "owl:Class"
+  }, {
+    "id" : "68",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "69",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "55",
+    "type" : "owl:Class"
+  }, {
+    "id" : "12",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "70",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "16",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "15",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "10",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "45",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "72",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "73",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "84",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "86",
+    "type" : "owl:Class"
+  }, {
+    "id" : "76",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "75",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "87",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "88",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "29",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "28",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "89",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "90",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "93",
+    "type" : "rdfs:Literal"
+  }, {
+    "id" : "94",
+    "type" : "owl:Thing"
+  }, {
+    "id" : "78",
+    "type" : "rdfs:Literal"
+  }, {
+    "id" : "96",
+    "type" : "owl:Class"
+  }, {
+    "id" : "39",
+    "type" : "rdfs:Literal"
+  }, {
+    "id" : "71",
+    "type" : "owl:Class"
+  }, {
+    "id" : "36",
+    "type" : "owl:Thing"
+  }, {
+    "id" : "98",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "42",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "100",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "7",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "43",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "102",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "103",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "92",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "81",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "18",
+    "type" : "owl:Class"
+  }, {
+    "id" : "6",
+    "type" : "owl:Class"
+  }, {
+    "id" : "4",
+    "type" : "owl:Class"
+  }, {
+    "id" : "26",
+    "type" : "owl:Class"
+  }, {
+    "id" : "50",
+    "type" : "owl:Class"
+  }, {
+    "id" : "106",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "107",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "23",
+    "type" : "owl:Class"
+  }, {
+    "id" : "108",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "34",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "109",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "110",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "65",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "1",
+    "type" : "owl:Class"
+  }, {
+    "id" : "112",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "114",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "121",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "83",
+    "type" : "owl:Class"
+  }, {
+    "id" : "9",
+    "type" : "owl:Class"
+  } ],
+  "classAttribute" : [ {
+    "instances" : 0,
+    "union" : [ "1", "2" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "0"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Defeater",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "Membership of this class is only meant to be inferred, not asserted! Please do not add individuals to this class manually (i.e., assertions).",
+        "type" : "label"
+      }, {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "The goal and solution statements should be clearly expressed such that the crux of the challenge is unequivocally communicated. Thus, the link between the part of the argument that is being challenged (target) and the dialectic element (source) is self-evident.",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Dialectic Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "undefined",
+        "value" : "The source of challenge being applied; can be directed at any part of an argument. A defeater (goal or solution) can challenge any element in a goal structure, e.g. goal, solution, strategy, context, assumption, justification.",
+        "type" : "label"
+      } ],
+      "altLabel" : [ {
+        "identifier" : "altLabel",
+        "language" : "en",
+        "value" : "Dialectic Element",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Defeater",
+      "en" : "Defeater"
+    },
+    "union" : [ "1", "2" ],
+    "attributes" : [ "union" ],
+    "id" : "3"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Solution",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "en",
+        "value" : "circle",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A solution, rendered as a circle, presents a reference to an evidence item.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Solution",
+      "en" : "Solution"
+    },
+    "id" : "2",
+    "superClasses" : [ "4" ]
+  }, {
+    "instances" : 0,
+    "union" : [ "18", "4" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "17"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#string",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "19",
+    "label" : {
+      "IRI-based" : "string"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#string",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "20",
+    "label" : {
+      "IRI-based" : "string"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2000/01/rdf-schema#Literal",
+    "baseIri" : "http://www.w3.org/2000/01/rdf-schema",
+    "id" : "30",
+    "label" : {
+      "IRI-based" : "Literal",
+      "undefined" : "Literal"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#string",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "31",
+    "label" : {
+      "IRI-based" : "string"
+    }
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Argument",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A connected series of claims intended to establish an overall claim.",
+        "type" : "label"
+      }, {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Argument",
+      "en" : "Argument"
+    },
+    "id" : "38"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Context",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "en",
+        "value" : "rounded rectangle",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A context, rendered as shown left, presents a contextual artefact. This can be a reference to contextual information, or a statement.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Context",
+      "en" : "Context"
+    },
+    "id" : "46",
+    "superClasses" : [ "4" ]
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#string",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "52",
+    "label" : {
+      "IRI-based" : "string"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#string",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "53",
+    "label" : {
+      "IRI-based" : "string"
+    }
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#InstantiationDataReference",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "hollow triangle",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "undefined",
+        "value" : "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "InstantiationDataReference",
+      "en" : "Instantiation Data Reference"
+    },
+    "id" : "58"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#string",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "57",
+    "label" : {
+      "IRI-based" : "string"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "13",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "60",
+    "label" : {
+      "IRI-based" : "nonNegativeInteger"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "61",
+    "label" : {
+      "IRI-based" : "nonNegativeInteger"
+    }
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Catalogue",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Catalogue",
+      "en" : "Catalogue"
+    },
+    "id" : "62"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#View",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "The argument view depicts the argument inside an individual module.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "View",
+      "en" : "View"
+    },
+    "id" : "63"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#AssuranceCase",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "Arguments and evidence intended to demonstrate that a system meets its assurance requirements.",
+        "type" : "label"
+      }, {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A reasoned and compelling argument, supported by a body of evidence, that a system, service or organisation will operate as intended for a defined application in a defined environment.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "AssuranceCase",
+      "en" : "Assurance Case"
+    },
+    "id" : "66"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "68",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "instances" : 0,
+    "union" : [ "6", "26" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "69"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Justification",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "en",
+        "value" : "oval",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A justification, rendered as an oval with the letter 'J' at the top- or bottom-right, presents a statement of rationale.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Justification",
+      "en" : "Justification"
+    },
+    "id" : "55",
+    "superClasses" : [ "6" ]
+  }, {
+    "instances" : 0,
+    "union" : [ "66", "6", "26" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "12"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "70",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "16",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "instances" : 0,
+    "union" : [ "1", "46", "2", "71", "55" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "15"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "10",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "45",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "72",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "instances" : 0,
+    "union" : [ "18", "4" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "73"
+  }, {
+    "instances" : 0,
+    "union" : [ "1", "2", "9", "23" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "84"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Template",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Template",
+      "en" : "Template"
+    },
+    "id" : "86",
+    "superClasses" : [ "50" ]
+  }, {
+    "instances" : 0,
+    "union" : [ "46", "71", "9", "55" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "76"
+  }, {
+    "instances" : 0,
+    "union" : [ "1", "23" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "75"
+  }, {
+    "instances" : 0,
+    "union" : [ "1", "23" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "87"
+  }, {
+    "instances" : 0,
+    "union" : [ "38", "6" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "88"
+  }, {
+    "instances" : 0,
+    "union" : [ "46", "71" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "29"
+  }, {
+    "instances" : 0,
+    "union" : [ "46", "71" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "28"
+  }, {
+    "instances" : 0,
+    "union" : [ "38", "9", "83" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "89"
+  }, {
+    "instances" : 0,
+    "union" : [ "38", "66", "9" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "90"
+  }, {
+    "iri" : "http://www.w3.org/2000/01/rdf-schema#Literal",
+    "id" : "93",
+    "label" : {
+      "IRI-based" : "Literal",
+      "undefined" : "Literal"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2002/07/owl#Thing",
+    "baseIri" : "http://owl2vowl.de",
+    "id" : "94",
+    "label" : {
+      "undefined" : "Thing"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2000/01/rdf-schema#Literal",
+    "id" : "78",
+    "label" : {
+      "IRI-based" : "Literal",
+      "undefined" : "Literal"
+    }
+  }, {
+    "iri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+    "baseIri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns",
+    "instances" : 0,
+    "label" : {
+      "IRI-based" : "Statement"
+    },
+    "subClasses" : [ "26" ],
+    "attributes" : [ "external" ],
+    "id" : "96"
+  }, {
+    "iri" : "http://www.w3.org/2000/01/rdf-schema#Literal",
+    "id" : "39",
+    "label" : {
+      "IRI-based" : "Literal",
+      "undefined" : "Literal"
+    }
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Assumption",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "en",
+        "value" : "oval",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "An assumption, rendered as an oval with the letter 'A' at the top- or bottom-right, presents an intentionally unsubstantiated statement.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Assumption",
+      "en" : "Assumption"
+    },
+    "id" : "71",
+    "superClasses" : [ "6" ]
+  }, {
+    "iri" : "http://www.w3.org/2002/07/owl#Thing",
+    "baseIri" : "http://owl2vowl.de",
+    "id" : "36",
+    "label" : {
+      "undefined" : "Thing"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "98",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "instances" : 0,
+    "union" : [ "1", "23" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "42"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "100",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "7",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "43",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "102",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#string",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "103",
+    "label" : {
+      "IRI-based" : "string"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "92",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "81",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module.",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Confidence Argument Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "RelationshipWithConfidence",
+      "en" : "Relationship with Confidence"
+    },
+    "id" : "18",
+    "superClasses" : [ "26" ]
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#GSNElement",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "GSNElement",
+      "en" : "GSN Element"
+    },
+    "subClasses" : [ "1", "71", "9", "55", "23", "4" ],
+    "id" : "6"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#ArtefactReference",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "ArtefactReference",
+      "en" : "Artefact Reference"
+    },
+    "subClasses" : [ "46", "2" ],
+    "id" : "4",
+    "superClasses" : [ "6" ]
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Relationship",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Relationship",
+      "en" : "Relationship"
+    },
+    "subClasses" : [ "18" ],
+    "id" : "26",
+    "superClasses" : [ "96" ]
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Pattern",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Pattern",
+      "en" : "Pattern"
+    },
+    "subClasses" : [ "86" ],
+    "id" : "50"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "106",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "107",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Strategy",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "en",
+        "value" : "parallelogram",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s).",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Strategy",
+      "en" : "Strategy"
+    },
+    "id" : "23",
+    "superClasses" : [ "6" ]
+  }, {
+    "instances" : 0,
+    "union" : [ "38", "6" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "108"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "34",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "109",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "instances" : 0,
+    "union" : [ "1", "46", "2", "71", "55" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "110"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "65",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Goal",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "en",
+        "value" : "rectangle",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "altLabel" : [ {
+        "identifier" : "altLabel",
+        "language" : "en",
+        "value" : "Claim",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "(Claim is) A proposition being asserted by the author that is a true or false statement.",
+        "type" : "label"
+      }, {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A goal, rendered as a rectangle, presents a claim forming part of the argument.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Goal",
+      "en" : "Goal"
+    },
+    "id" : "1",
+    "superClasses" : [ "6" ]
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#string",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "112",
+    "label" : {
+      "IRI-based" : "string"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#string",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "114",
+    "label" : {
+      "IRI-based" : "string"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#string",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "121",
+    "label" : {
+      "IRI-based" : "string"
+    }
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Artefact",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "altLabel" : [ {
+        "identifier" : "altLabel",
+        "language" : "en",
+        "value" : "Evidence",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Artefact",
+      "en" : "Artefact"
+    },
+    "id" : "83"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#Module",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "instances" : 0,
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "a rectangle with a second smaller rectangle adjoining at the top left",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "Goal structures can be partitioned into separate, but interrelated, modules. This can allow the division of an overall goal structure into separate goal structures focusing on particular aspects of the overall argument. A module may contain one or more arguments and may contain other modules.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "Module",
+      "en" : "Module"
+    },
+    "id" : "9",
+    "superClasses" : [ "6" ]
+  } ],
+  "property" : [ {
+    "id" : "5",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "8",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "11",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "14",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "21",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "22",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "24",
+    "type" : "owl:allValuesFrom"
+  }, {
+    "id" : "25",
+    "type" : "owl:allValuesFrom"
+  }, {
+    "id" : "27",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "32",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "33",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "35",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "37",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "40",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "41",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "44",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "47",
+    "type" : "owl:allValuesFrom"
+  }, {
+    "id" : "48",
+    "type" : "owl:allValuesFrom"
+  }, {
+    "id" : "49",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "51",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "54",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "56",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "59",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "64",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "67",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "74",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "77",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "79",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "80",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "82",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "85",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "91",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "95",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "97",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "99",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "101",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "104",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "105",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "111",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "113",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "115",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "116",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "117",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "118",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "119",
+    "type" : "owl:allValuesFrom"
+  }, {
+    "id" : "120",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "122",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "123",
+    "type" : "owl:allValuesFrom"
+  }, {
+    "id" : "124",
+    "type" : "owl:someValuesFrom"
+  }, {
+    "id" : "125",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "126",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "127",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "128",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "129",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "130",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "131",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "132",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "133",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "134",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "135",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "136",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "137",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "138",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "139",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "140",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "141",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "142",
+    "type" : "rdfs:SubClassOf"
+  }, {
+    "id" : "143",
+    "type" : "rdfs:SubClassOf"
+  } ],
+  "propertyAttribute" : [ {
+    "iri" : "https://w3id.org/OntoGSN/ontology#uninstantiated",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "7",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "hollow triangle",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "uninstantiated",
+      "en" : "uninstantiated"
+    },
+    "domain" : "6",
+    "attributes" : [ "datatype" ],
+    "id" : "5"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#contract",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "10",
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "A contract may be described in textual form (e.g. as a table) or for more complex relationships may be described within a contract module using GSN.",
+        "type" : "label"
+      }, {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "Contract modules can be used in the support relationship between modules to aid decoupling. The de-coupling by use of a contract permits argument module construction in cases where the eventual source of support for an argument is unknown at the time of authoring or can be changed for example through re-use or planned product improvement or reconfiguration.",
+        "type" : "label"
+      } ],
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "a rectangle with two smaller rectangles (of equal size to each other) adjoining at the top left and bottom right",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A contract module is a special type of module that controls the relationship between argument module interfaces using arguments to define how a goal in one module is supported by one or more goals in one or more other modules.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "contract",
+      "en" : "contract"
+    },
+    "domain" : "9",
+    "attributes" : [ "datatype" ],
+    "id" : "8"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#inDoubt",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "13",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Dialectic Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "inDoubt",
+      "en" : "in doubt"
+    },
+    "domain" : "12",
+    "attributes" : [ "datatype" ],
+    "id" : "11"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#away",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "16",
+    "description" : {
+      "en" : "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."
+    },
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "bisecting line in the lower half",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "An away element reference repeats a claim or evidence presented in another argument module.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "away",
+      "en" : "away"
+    },
+    "domain" : "15",
+    "attributes" : [ "datatype" ],
+    "id" : "14"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#statement",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "20",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "statement",
+      "en" : "statement"
+    },
+    "domain" : "2",
+    "attributes" : [ "datatype", "someValues" ],
+    "id" : "21"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#statement",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "19",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "statement",
+      "en" : "statement"
+    },
+    "domain" : "23",
+    "attributes" : [ "datatype", "someValues" ],
+    "id" : "22"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#supportedBy",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "1",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "line with a solid arrowhead",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "SupportedBy, rendered as a line with a solid arrowhead, allows support relationships between elements to be documented.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "supportedBy",
+      "en" : "supported by"
+    },
+    "domain" : "23",
+    "attributes" : [ "object", "irreflexive", "asymmetric", "allValues" ],
+    "id" : "24"
+  }, {
+    "iri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#object",
+    "baseIri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns",
+    "range" : "6",
+    "label" : {
+      "IRI-based" : "object"
+    },
+    "domain" : "26",
+    "attributes" : [ "object", "allValues", "external" ],
+    "id" : "25"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#consistentWith",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "29",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "undefined",
+        "value" : "By making the relationship to the away goal the author is asserting not only the inference of support for the parent goal, but also that the context in which the away goal is declared is consistent with the context and assumptions in scope for the parent goal.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "consistentWith",
+      "en" : "consistent with"
+    },
+    "domain" : "28",
+    "attributes" : [ "object", "symmetric" ],
+    "id" : "27"
+  }, {
+    "iri" : "http://schema.org/identifier",
+    "baseIri" : "http://schema.org",
+    "range" : "31",
+    "label" : {
+      "IRI-based" : "identifier"
+    },
+    "domain" : "18",
+    "attributes" : [ "datatype", "someValues", "external" ],
+    "id" : "32"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#offDiagram",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "34",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "offDiagram",
+      "en" : "off-diagram"
+    },
+    "domain" : "6",
+    "attributes" : [ "datatype" ],
+    "id" : "33"
+  }, {
+    "iri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#subject",
+    "baseIri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns",
+    "range" : "36",
+    "label" : {
+      "IRI-based" : "subject"
+    },
+    "domain" : "36",
+    "attributes" : [ "object", "external" ],
+    "id" : "35"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#argumentType",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "39",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Confidence Argument Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "argumentType",
+      "en" : "argument type"
+    },
+    "domain" : "38",
+    "attributes" : [ "datatype" ],
+    "id" : "37"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#associatedWith",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "38",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Confidence Argument Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "associatedWith",
+      "en" : "associated with"
+    },
+    "domain" : "17",
+    "attributes" : [ "object" ],
+    "id" : "40"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#undeveloped",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "43",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "hollow diamond",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "undeveloped",
+      "en" : "undeveloped"
+    },
+    "domain" : "42",
+    "attributes" : [ "datatype" ],
+    "id" : "41"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#choice",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "45",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "solid diamond",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A GSN choice can be used to denote possible alternatives in satisfying a relationship.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "choice",
+      "en" : "choice"
+    },
+    "domain" : "26",
+    "attributes" : [ "datatype" ],
+    "id" : "44"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#inContextOf",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "9",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "line with a hollow arrowhead",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "InContextOf, rendered as a line with a hollow arrowhead, declares a contextual relationship.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "inContextOf",
+      "en" : "in context of"
+    },
+    "domain" : "9",
+    "attributes" : [ "object", "irreflexive", "asymmetric", "allValues" ],
+    "id" : "47"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#supportedBy",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "9",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "line with a solid arrowhead",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "SupportedBy, rendered as a line with a solid arrowhead, allows support relationships between elements to be documented.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "supportedBy",
+      "en" : "supported by"
+    },
+    "domain" : "9",
+    "attributes" : [ "object", "irreflexive", "asymmetric", "allValues" ],
+    "id" : "48"
+  }, {
+    "iri" : "http://schema.org/description",
+    "baseIri" : "http://schema.org",
+    "range" : "30",
+    "label" : {
+      "IRI-based" : "description"
+    },
+    "domain" : "50",
+    "attributes" : [ "datatype", "someValues", "external" ],
+    "id" : "49"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#inContextOf",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "46",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "line with a hollow arrowhead",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "InContextOf, rendered as a line with a hollow arrowhead, declares a contextual relationship.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "inContextOf",
+      "en" : "in context of"
+    },
+    "domain" : "1",
+    "attributes" : [ "object", "irreflexive", "someValues", "asymmetric" ],
+    "id" : "51"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#statement",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "53",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "statement",
+      "en" : "statement"
+    },
+    "domain" : "55",
+    "attributes" : [ "datatype", "someValues" ],
+    "id" : "54"
+  }, {
+    "iri" : "http://schema.org/identifier",
+    "baseIri" : "http://schema.org",
+    "range" : "57",
+    "label" : {
+      "IRI-based" : "identifier"
+    },
+    "domain" : "6",
+    "attributes" : [ "datatype", "someValues", "external" ],
+    "id" : "56"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#statement",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "52",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "statement",
+      "en" : "statement"
+    },
+    "domain" : "1",
+    "attributes" : [ "datatype", "someValues" ],
+    "id" : "59"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#optional",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "65",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "en",
+        "value" : "hollow ball",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "Optional instantiation means that the relationship and the argument below may or may not be instantiated.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "optional",
+      "en" : "optional"
+    },
+    "domain" : "26",
+    "attributes" : [ "datatype" ],
+    "id" : "64"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#relatedTo",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "50",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "This section can be used to reference patterns that are related e.g. addressing the same intent in a different context.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "relatedTo",
+      "en" : "related to"
+    },
+    "domain" : "50",
+    "attributes" : [ "object" ],
+    "id" : "67"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#inContextOf",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "76",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "line with a hollow arrowhead",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "InContextOf, rendered as a line with a hollow arrowhead, declares a contextual relationship.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "inContextOf",
+      "en" : "in context of"
+    },
+    "domain" : "75",
+    "attributes" : [ "object", "irreflexive", "asymmetric" ],
+    "id" : "74"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#viewType",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "78",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "viewType",
+      "en" : "view type"
+    },
+    "domain" : "63",
+    "attributes" : [ "datatype" ],
+    "id" : "77"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#defeated",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "68",
+    "description" : {
+      "en" : "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."
+    },
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "cross (‘X’) superimposed on a GSN element or relationship",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Dialectic Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "defeated",
+      "en" : "defeated"
+    },
+    "domain" : "69",
+    "attributes" : [ "datatype" ],
+    "id" : "79"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#toBeSupportedByContract",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "81",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "attached centrally immediately below the goal to which it relates",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "toBeSupportedByContract",
+      "en" : "to be supported by contract"
+    },
+    "domain" : "1",
+    "attributes" : [ "datatype" ],
+    "id" : "80"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#refersTo",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "83",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "refersTo",
+      "en" : "refers to"
+    },
+    "domain" : "4",
+    "attributes" : [ "object" ],
+    "id" : "82"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#maxCardinality",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "61",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "text",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "maxCardinality",
+      "en" : "maximum cardinality"
+    },
+    "domain" : "26",
+    "attributes" : [ "datatype" ],
+    "id" : "85"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#top",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "92",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "The top goal presents the overall claim asserted by the author and it is up to the reader to determine their belief that it is adequately supported.",
+        "type" : "label"
+      }, {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "top",
+      "en" : "top (goal)"
+    },
+    "domain" : "1",
+    "attributes" : [ "datatype" ],
+    "id" : "91"
+  }, {
+    "range" : "96",
+    "domain" : "26",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "95"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#valid",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "98",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "valid",
+      "en" : "valid"
+    },
+    "domain" : "6",
+    "attributes" : [ "datatype" ],
+    "id" : "97"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#true",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "100",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "true",
+      "en" : "true"
+    },
+    "domain" : "6",
+    "attributes" : [ "datatype" ],
+    "id" : "99"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#structured",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "102",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "A particular kind of argument where the relationships between the asserted claims, and from the evidence to the claims, are explicitly represented.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "structured",
+      "en" : "structured"
+    },
+    "domain" : "38",
+    "attributes" : [ "datatype" ],
+    "id" : "101"
+  }, {
+    "iri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate",
+    "baseIri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns",
+    "range" : "36",
+    "label" : {
+      "IRI-based" : "predicate"
+    },
+    "domain" : "36",
+    "attributes" : [ "object", "external" ],
+    "id" : "104"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#substitutedBy",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "94",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "There may be occasions when a goal or strategy requires fuller justification than can be provided within the confines of a GSN justification element. In such cases, an away goal can be substituted for the justification.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "substitutedBy",
+      "en" : "substituted by"
+    },
+    "domain" : "55",
+    "attributes" : [ "object" ],
+    "id" : "105"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#relationshipType",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "93",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "SupportedBy relationships – represented by lines with solid arrowheads – indicate inferential or evidential relationships between elements. InContextOf relationships – represented as lines with hollow arrowheads – declare contextual relationships.",
+        "type" : "label"
+      }, {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "relationshipType",
+      "en" : "relationship type"
+    },
+    "domain" : "26",
+    "attributes" : [ "datatype" ],
+    "id" : "111"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#statement",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "114",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "statement",
+      "en" : "statement"
+    },
+    "domain" : "71",
+    "attributes" : [ "datatype", "someValues" ],
+    "id" : "113"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#contains",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "38",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "contains",
+      "en" : "contains"
+    },
+    "domain" : "66",
+    "attributes" : [ "object", "someValues" ],
+    "id" : "115"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#multiple",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "109",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "solid ball",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "multiple",
+      "en" : "multiple"
+    },
+    "domain" : "26",
+    "attributes" : [ "datatype" ],
+    "id" : "116"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#instantiationOf",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "50",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "instantiationOf",
+      "en" : "instantiation of"
+    },
+    "domain" : "88",
+    "attributes" : [ "object" ],
+    "id" : "117"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#contains",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "83",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "contains",
+      "en" : "contains"
+    },
+    "domain" : "66",
+    "attributes" : [ "object", "someValues" ],
+    "id" : "118"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#contains",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "50",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "contains",
+      "en" : "contains"
+    },
+    "domain" : "62",
+    "attributes" : [ "object", "allValues" ],
+    "id" : "119"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#statement",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "121",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "statement",
+      "en" : "statement"
+    },
+    "domain" : "46",
+    "attributes" : [ "datatype", "someValues" ],
+    "id" : "120"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#minCardinality",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "60",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "text",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "minCardinality",
+      "en" : "minimum cardinality"
+    },
+    "domain" : "26",
+    "attributes" : [ "datatype" ],
+    "id" : "122"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#contains",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "6",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "contains",
+      "en" : "contains"
+    },
+    "domain" : "38",
+    "attributes" : [ "object", "allValues" ],
+    "id" : "123"
+  }, {
+    "iri" : "http://schema.org/identifier",
+    "baseIri" : "http://schema.org",
+    "range" : "112",
+    "label" : {
+      "IRI-based" : "identifier"
+    },
+    "domain" : "38",
+    "attributes" : [ "datatype", "someValues", "external" ],
+    "id" : "124"
+  }, {
+    "range" : "26",
+    "domain" : "18",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "125"
+  }, {
+    "range" : "4",
+    "domain" : "2",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "126"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#contains",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "89",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "contains",
+      "en" : "contains"
+    },
+    "domain" : "90",
+    "attributes" : [ "object" ],
+    "id" : "127"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#supportedBy",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "84",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "line with a solid arrowhead",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "SupportedBy, rendered as a line with a solid arrowhead, allows support relationships between elements to be documented.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "supportedBy",
+      "en" : "supported by"
+    },
+    "domain" : "87",
+    "attributes" : [ "object", "irreflexive", "asymmetric" ],
+    "id" : "128"
+  }, {
+    "range" : "50",
+    "domain" : "86",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "129"
+  }, {
+    "range" : "4",
+    "domain" : "46",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "130"
+  }, {
+    "range" : "6",
+    "domain" : "4",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "131"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#public",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "107",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "miniature module symbol superimposed on an element at the top right",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "public",
+      "en" : "public"
+    },
+    "domain" : "110",
+    "attributes" : [ "datatype" ],
+    "id" : "132"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#challenges",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "6",
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "A challenge must be levied against the appropriate aspect of the goal structure.",
+        "type" : "label"
+      } ],
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "dashed line with an open arrowhead",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Dialectic Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "challenges",
+      "en" : "challenges"
+    },
+    "domain" : "0",
+    "attributes" : [ "object" ],
+    "id" : "133"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#final",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "70",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "final",
+      "en" : "final"
+    },
+    "domain" : "38",
+    "attributes" : [ "datatype" ],
+    "id" : "134"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#statement",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "103",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "statement",
+      "en" : "statement"
+    },
+    "domain" : "108",
+    "attributes" : [ "datatype" ],
+    "id" : "135"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#assuranceClaimPoint",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "72",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "solid square",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Confidence Argument Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "assuranceClaimPoint",
+      "en" : "assurance claim point"
+    },
+    "domain" : "73",
+    "attributes" : [ "datatype" ],
+    "id" : "136"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#attachedTo",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "86",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "dotted line",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "attachedTo",
+      "en" : "attached to"
+    },
+    "domain" : "58",
+    "attributes" : [ "object" ],
+    "id" : "137"
+  }, {
+    "range" : "6",
+    "domain" : "23",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "138"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#published",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "106",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Argument Pattern Extension",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "published",
+      "en" : "published"
+    },
+    "domain" : "38",
+    "attributes" : [ "datatype" ],
+    "id" : "139"
+  }, {
+    "range" : "6",
+    "domain" : "71",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "140"
+  }, {
+    "range" : "6",
+    "domain" : "1",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "141"
+  }, {
+    "range" : "6",
+    "domain" : "55",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "142"
+  }, {
+    "range" : "6",
+    "domain" : "9",
+    "attributes" : [ "object", "anonymous" ],
+    "id" : "143"
+  } ]
+}
