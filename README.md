@@ -21,7 +21,7 @@ OntoGSN was created using Stanford Protégé (v5.6.3) ontology editor, and follo
 Many thanks to: 
 - Ingmar Kessler, Jule Hendricks, Prof. Barbara Gallina and Dian Balta for contributions to the ontology and the paper;
 - Yannick Landeck, Radouane Bouchekir, Tewodros Beyene, Carmen Carlan, and Laure Millet for reviewing various iterations of work;
-- Will Franks (Adelard / NCC Group), Ewen Denney (NASA Ames) and Laure Millet (Critical Systems Labs) for providing access to the tools of their respective organizations.
+- Will Franks (Adelard / NCC Group) and Ewen Denney (NASA Ames) for providing access to the tools of their respective organizations.
 See our website for more information: https://fortiss.github.io/OntoGSN/
 
 ## Dependencies
