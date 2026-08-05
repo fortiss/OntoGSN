@@ -1,10 +1,9 @@
 # OntoGSN Ontology
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![Format: RDF/XML](https://img.shields.io/badge/Format-RDF%2FXML-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontogsn.owl)
+[![Format: RDF/XML](https://img.shields.io/badge/Format-RDF%2FXML-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.rdf)
 [![Format: TTL](https://img.shields.io/badge/Format-Turtle-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.ttl)
 [![Format: JSON-LD](https://img.shields.io/badge/Format-JSON--LD-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.jsonld)
-[![Format: OWL/XML](https://img.shields.io/badge/Format-OWX-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.owx)
 
 - **Workbench**: https://github.com/fortiss/ontogsn_workbench
 - **Website**: https://fortiss.github.io/OntoGSN/
@@ -24,6 +23,18 @@ Many thanks to:
 - Will Franks (Adelard / NCC Group) and Ewen Denney (NASA Ames) for providing access to the tools of their respective organizations.
 See our website for more information: https://fortiss.github.io/OntoGSN/
 
+## Serializations
+`serializations/ontogsn.ttl` is the maintained ontology. The RDF/XML and JSON-LD files
+beside it are generated from it and should not be edited by hand:
+
+```bash
+python serializations/build.py            # regenerate
+python serializations/build.py --check    # verify they are current
+```
+
+The OWL/XML file (`ontogsn.owl`) is deprecated and no longer published; it required the OWL
+API, which is not part of this toolchain. Earlier versions remain in the version history.
+
 ## Design record
 `OntoGSN Design Document.xlsx` records **why** each axiom exists: the clause of the GSN
 Community Standard it came from, a natural-language statement of the axiom, the Turtle it
@@ -40,7 +51,7 @@ Existing objects and properties are imported from the following foundational ont
 ## How to use
 ### Setup
 1. Install Stanford Protégé (v5.6.3), a similar ontology editor or a graph database (e.g., Ontotext GraphDB).
-2. Download ontogsn.owl into your project folder.
+2. Download `serializations/ontogsn.ttl` (or `ontogsn.rdf`) into your project folder.
 3. Import the file into your chosen editor/database.
 4. For Protégé, install the following plug-ins: ROWL Protege 5.0+ Plugin, Pellet Reasoner Plug-in.
 ### Simple Use: Static Assurance Case
