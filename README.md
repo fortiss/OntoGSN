@@ -24,6 +24,16 @@ Many thanks to:
 - Will Franks (Adelard / NCC Group) and Ewen Denney (NASA Ames) for providing access to the tools of their respective organizations.
 See our website for more information: https://fortiss.github.io/OntoGSN/
 
+## Design record
+`OntoGSN Design Document.xlsx` records **why** each axiom exists: the clause of the GSN
+Community Standard it came from, a natural-language statement of the axiom, the Turtle it
+corresponds to in `serializations/ontogsn.ttl`, and the rationale for including or excluding
+it. Decisions the ontology has since moved away from are retired to its `Archive` sheet rather
+than deleted, each with a recorded reason.
+
+It supersedes the Word and PDF versions of the design document, which are available in the
+version history of this repository.
+
 ## Dependencies
 Existing objects and properties are imported from the following foundational ontologies: Resource Description Framework Schema (RDFS), XML Schema Definition Language (XSD), Dublin-Core (DC), Schema.org, and Simple Knowledge Organization System (SKOS). Reasoning is based on the Semantic Web Rule Language (SWRL)  rules and OWL axioms, which can be executed with supported rule engines (e.g., Pellet or Drools).
 
