@@ -9,6 +9,30 @@ python tools/check_all.py            # is everything current and consistent?
 python tools/check_all.py --strict   # exit 1 if any derived file is out of date
 ```
 
+## Automation
+
+`.github/workflows/checks.yml` runs `check_all.py --strict` on every push to `main` and
+every pull request. It verifies; it never regenerates. Regeneration stays a deliberate act
+by a person, because a build that silently rewrites the ontology's derived files would hide
+exactly the drift this is meant to surface.
+
+A pre-commit hook catches the same thing before it is pushed. Enable it once per clone:
+
+```bash
+git config core.hooksPath tools/hooks
+```
+
+`core.hooksPath` points git at the versioned `tools/hooks/` rather than copying into
+`.git/hooks/`, so everyone gets the same hook instead of a stale copy of it.
+
+The hook runs `check_all.py --strict --staged`, which selects checks by what the commit
+touches. The full run takes about 25 seconds, nearly all of it in `serializations/build.py`
+re-serializing the ontology into two formats to compare them — fine in CI, far too slow for
+a hook people would then disable. Editing a SHACL shape does not re-verify the RDF/XML, and
+a commit touching no derived artefact costs about a quarter of a second.
+
+`git commit --no-verify` bypasses it.
+
 This is a build system, not a library. `nl.py` hardcodes 41 OntoGSN terms; `build_separated.py`
 and `build_full.py` encode OntoGSN's section structure. None of it transfers to another
 ontology without rewriting, which is why it lives here rather than in a repository of its

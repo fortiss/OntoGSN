@@ -1,0 +1,30 @@
+name: checks
+
+# Is what is committed self-consistent? Nothing here regenerates anything - it verifies
+# that the derived files match their sources and that the provenance record still agrees
+# with the ontology. Regeneration stays a deliberate act by a person.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  consistency:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      # --strict fails the build when a derived file is stale. The provenance report runs
+      # but does not gate: it lists things needing human judgement - an axiom nobody has
+      # documented yet, a sentence that needs rewriting - and CI should not fail because a
+      # decision is outstanding. Add --strict-provenance once the stored queries are fixed.
+      - name: derived files current, provenance record consistent
+        run: python tools/check_all.py --strict

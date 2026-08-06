@@ -1,0 +1,23 @@
+#!/bin/sh
+# Refuse a commit that would leave a generated file out of date.
+#
+# Enable it once, per clone:
+#     git config core.hooksPath tools/hooks
+#
+# core.hooksPath rather than a copy into .git/hooks, so the hook is versioned with the
+# repository and a collaborator gets the same one instead of a stale copy of it.
+#
+# Only the checks the commit actually affects are run - editing a SHACL shape does not
+# re-verify the RDF/XML - so the usual commit costs a couple of seconds. The provenance
+# report is advisory here and never blocks: it lists decisions a person has to make.
+#
+# To commit anyway:  git commit --no-verify
+
+python tools/check_all.py --strict --staged || {
+    echo
+    echo "A generated file is out of date. Regenerate it, stage the result, and commit again:"
+    echo "    python serializations/build.py"
+    echo "    python serializations/build_separated.py"
+    echo "    python shapes/build_full.py"
+    exit 1
+}
