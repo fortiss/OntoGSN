@@ -1,0 +1,170 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnsh:  <https://w3id.org/OntoGSN/shapes#> .
+@prefix dc:     <http://purl.org/dc/elements/1.1/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/shapes/dialectic> .
+
+<https://w3id.org/OntoGSN/shapes/dialectic> rdf:type owl:Ontology ;
+    dc:title "OntoGSN SHACL Shapes — Dialectic Extension"@en ;
+    dc:description "SHACL shapes derived from the Dialectic Extension section of the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape carries gsn:coreOrExtension \"Dialectic Extension\" so that provenance survives merging with the other shape modules."@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    owl:versionInfo "1.0.0" .
+
+
+#################################################################
+#    Prefix declarations for the SHACL-SPARQL constraints below
+#################################################################
+
+<https://w3id.org/OntoGSN/shapes/dialectic> sh:declare [
+        sh:prefix "gsn" ;
+        sh:namespace "https://w3id.org/OntoGSN/ontology#"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+#    Class (node) shapes
+#################################################################
+
+###  gsn:Defeater
+gsnsh:DefeaterShape rdf:type sh:NodeShape ;
+    rdfs:label "Defeater shape"@en ;
+    rdfs:comment "The source of challenge being applied; can be directed at any part of an argument. Membership of gsn:Defeater is only meant to be inferred, not asserted — this shape checks that any asserted membership at least agrees with the equivalent class ( gsn:Goal or gsn:Solution )."@en ;
+    sh:targetClass gsn:Defeater ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Solution ] ) ;
+    sh:message "Only a goal or a solution can be a defeater. Membership of this class is meant to be inferred by the reasoner, not stated by hand."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:challenges ;
+        sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
+        sh:name "challenges" ;
+        sh:description "A challenge must be levied against the appropriate aspect of the goal structure."@en ;
+        sh:message "A defeater may only challenge a GSN element or a relationship."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+#################################################################
+#    Property shapes (rdfs:domain, rdfs:range, cardinality)
+#################################################################
+
+###  gsn:challenges
+gsnsh:ChallengesPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:challenges — domain"@en ;
+    rdfs:comment "Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument."@en ;
+    sh:targetSubjectsOf gsn:challenges ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Solution ] ) ;
+    sh:message "Only a goal or a solution, acting as a defeater, may challenge part of an argument."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:ChallengesRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:challenges — range"@en ;
+    rdfs:comment "The declared rdfs:range is gsn:GSNElement only, but gsn:Goal and gsn:Solution both carry an owl:allValuesFrom restriction admitting gsn:Relationship as well, and the standard states that a challenge can be directed at any part of an argument. gsn:Relationship is therefore admitted here."@en ;
+    sh:targetObjectsOf gsn:challenges ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
+    sh:message "A challenge must be directed at a GSN element or a relationship."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:ChallengesIrreflexiveShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:challenges is irreflexive"@en ;
+    rdfs:comment "GSN convention rather than an explicit OWL axiom: the link between the part of the argument that is being challenged (target) and the dialectic element (source) must be self-evident, so an element cannot challenge itself."@en ;
+    sh:targetSubjectsOf gsn:challenges ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} challenges itself; the challenged part of the argument and the element raising the challenge must be different."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ;
+        sh:severity sh:Warning ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:challenges ?value .
+                FILTER ( sameTerm($this, ?value) )
+            }
+        """ ;
+    ] .
+
+
+###  gsn:defeated
+gsnsh:DefeatedPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:defeated"@en ;
+    rdfs:comment "This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements."@en ,
+                 "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
+    sh:targetSubjectsOf gsn:defeated ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
+    sh:message "Only a GSN element or a relationship may be marked as defeated."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:defeated ;
+        sh:name "defeated" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Defeated must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:inDoubt
+gsnsh:InDoubtPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:inDoubt"@en ;
+    rdfs:comment "The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt."@en ;
+    sh:targetSubjectsOf gsn:inDoubt ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or ( [ sh:class gsn:AssuranceCase ]
+            [ sh:class gsn:GSNElement ]
+            [ sh:class gsn:Relationship ] ) ;
+    sh:message "Only an assurance case, a GSN element or a relationship may be marked as in doubt."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:inDoubt ;
+        sh:name "in doubt" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "In doubt must be a single true or false value."@en ;
+    ] .
+
+
+#################################################################
+#    Dialectic consistency
+#################################################################
+
+gsnsh:DefeatedElementIsNotTrueShape rdf:type sh:NodeShape ;
+    rdfs:label "A defeated element is not true"@en ;
+    rdfs:comment "A defeated element has been successfully challenged, so it cannot simultaneously be asserted as true."@en ;
+    sh:targetSubjectsOf gsn:defeated ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path gsn:defeated ; sh:name "defeated" ; sh:hasValue true ] ] ]
+        [ sh:not [ sh:property [ sh:path gsn:true ; sh:name "true" ; sh:hasValue true ] ] ]
+    ) ;
+    sh:message "An element that has been defeated cannot also be marked as true."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:SuccessfulChallengeCastsDoubtShape rdf:type sh:NodeShape ;
+    rdfs:label "A successful challenge casts doubt on its target"@en ;
+    rdfs:comment "Complements, rather than replaces, the SWRL rules of the Dialectic Extension: if the claim presented in the challenging goal is true then this is sufficient to establish that the claim in the challenged element is in doubt. Run the reasoner if the assertion is expected to be inferred."@en ;
+    sh:targetSubjectsOf gsn:challenges ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} is true and challenges {?value}, which has not been marked as in doubt."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ;
+        sh:severity sh:Info ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:true true ;
+                      gsn:challenges ?value .
+                FILTER NOT EXISTS { ?value gsn:inDoubt true }
+            }
+        """ ;
+    ] .

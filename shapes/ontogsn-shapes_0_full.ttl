@@ -1,0 +1,1677 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnsh:  <https://w3id.org/OntoGSN/shapes#> .
+@prefix dc:     <http://purl.org/dc/elements/1.1/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/shapes> .
+
+# ###########################################################################
+# GENERATED FILE - DO NOT EDIT BY HAND.
+# Regenerate with:  python shapes/build_full.py
+# Edit the per-section modules instead:
+#   ontogsn-shapes_1_core.ttl        Core GSN
+#   ontogsn-shapes_2_pattern.ttl     Argument Pattern Extension
+#   ontogsn-shapes_3_modular.ttl     Modular Extension
+#   ontogsn-shapes_4_confidence.ttl  Confidence Argument Extension
+#   ontogsn-shapes_5_dialectic.ttl   Dialectic Extension
+# ###########################################################################
+
+<https://w3id.org/OntoGSN/shapes> rdf:type owl:Ontology ;
+    dc:title "OntoGSN SHACL Shapes"@en ;
+    dc:description "SHACL shapes for validating assurance-case data expressed with the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape is annotated with gsn:coreOrExtension, so the graph can be sliced back into its GSN Community Standard v3 sections."@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    owl:versionInfo "1.0.0" ;
+    owl:imports <https://w3id.org/OntoGSN/shapes/core> ,
+                <https://w3id.org/OntoGSN/shapes/pattern> ,
+                <https://w3id.org/OntoGSN/shapes/modular> ,
+                <https://w3id.org/OntoGSN/shapes/confidence> ,
+                <https://w3id.org/OntoGSN/shapes/dialectic> .
+
+# The sections whose shapes are inlined below. Slice the graph on
+# gsn:coreOrExtension to recover any one of them.
+<https://w3id.org/OntoGSN/shapes/core>
+    rdf:type owl:Ontology ; dc:title "OntoGSN SHACL Shapes - Core GSN"@en ;
+    gsn:coreOrExtension "Core GSN"@en .
+<https://w3id.org/OntoGSN/shapes/pattern>
+    rdf:type owl:Ontology ; dc:title "OntoGSN SHACL Shapes - Argument Pattern Extension"@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+<https://w3id.org/OntoGSN/shapes/modular>
+    rdf:type owl:Ontology ; dc:title "OntoGSN SHACL Shapes - Modular Extension"@en ;
+    gsn:coreOrExtension "Modular Extension"@en .
+<https://w3id.org/OntoGSN/shapes/confidence>
+    rdf:type owl:Ontology ; dc:title "OntoGSN SHACL Shapes - Confidence Argument Extension"@en ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en .
+<https://w3id.org/OntoGSN/shapes/dialectic>
+    rdf:type owl:Ontology ; dc:title "OntoGSN SHACL Shapes - Dialectic Extension"@en ;
+    gsn:coreOrExtension "Dialectic Extension"@en .
+
+
+# ###########################################################################
+# Core GSN
+# from ontogsn-shapes_1_core.ttl
+# ###########################################################################
+
+#################################################################
+#    Prefix declarations for the SHACL-SPARQL constraints below
+#################################################################
+
+<https://w3id.org/OntoGSN/shapes/core> sh:declare [
+        sh:prefix "gsn" ;
+        sh:namespace "https://w3id.org/OntoGSN/ontology#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "rdf" ;
+        sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+#    Class (node) shapes
+#################################################################
+
+###  gsn:Argument
+gsnsh:ArgumentShape rdf:type sh:NodeShape ;
+    rdfs:label "Argument shape"@en ;
+    sh:targetClass gsn:Argument ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "identifier" ;
+        sh:message "An argument must have exactly one identifier, written as text."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:class gsn:GSNElement ;
+        sh:name "contains" ;
+        sh:message "An argument may only contain GSN elements."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+###  gsn:ArtefactReference
+gsnsh:ArtefactReferenceShape rdf:type sh:NodeShape ;
+    rdfs:label "Artefact Reference shape"@en ;
+    sh:targetClass gsn:ArtefactReference ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path gsn:refersTo ;
+        sh:class gsn:Artefact ;
+        sh:name "refers to" ;
+        sh:message "An artefact reference may only point at an artefact."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+###  gsn:Assumption
+gsnsh:AssumptionShape rdf:type sh:NodeShape ;
+    rdfs:label "Assumption shape"@en ;
+    sh:targetClass gsn:Assumption ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path gsn:statement ;
+        sh:minCount 1 ;
+        sh:name "statement" ;
+        sh:description "GSN assumptions provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase."@en ;
+        sh:message "An assumption should carry a statement, written as a complete sentence."@en ;
+        sh:severity sh:Warning ;
+    ] .
+
+
+###  gsn:AssuranceCase
+gsnsh:AssuranceCaseShape rdf:type sh:NodeShape ;
+    rdfs:label "Assurance Case shape"@en ;
+    sh:targetClass gsn:AssuranceCase ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:Artefact ] ) ;
+        sh:name "contains" ;
+        sh:message "An assurance case may only contain arguments and artefacts."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:qualifiedValueShape [ sh:class gsn:Argument ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:name "contains an argument" ;
+        sh:message "An assurance case should contain at least one argument."@en ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:qualifiedValueShape [ sh:class gsn:Artefact ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:name "contains an artefact" ;
+        sh:message "An assurance case should contain at least one artefact as its body of evidence."@en ;
+        sh:severity sh:Warning ;
+    ] .
+
+
+###  gsn:Context
+gsnsh:ContextShape rdf:type sh:NodeShape ;
+    rdfs:label "Context shape"@en ;
+    sh:targetClass gsn:Context ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path gsn:statement ;
+        sh:minCount 1 ;
+        sh:name "statement" ;
+        sh:description "Two kinds of GSN context statement exist. Where a context statement draws attention to explanatory contextual information (such as the definition of some term), this information shall be stated briefly using complete sentences of a noun-phrase + verb-phrase structure. Where a context statement is a reference to an artefact of some kind, which informs the reasoning step, the context statement shall be expressed as a noun phrase."@en ;
+        sh:message "A context should carry a statement."@en ;
+        sh:severity sh:Warning ;
+    ] .
+
+
+###  gsn:GSNElement
+gsnsh:GSNElementShape rdf:type sh:NodeShape ;
+    rdfs:label "GSN Element shape"@en ;
+    sh:targetClass gsn:GSNElement ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "identifier" ;
+        sh:message "Every GSN element must have exactly one identifier, written as text."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+###  gsn:Goal
+gsnsh:GoalShape rdf:type sh:NodeShape ;
+    rdfs:label "Goal shape"@en ;
+    sh:targetClass gsn:Goal ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path gsn:statement ;
+        sh:minCount 1 ;
+        sh:name "statement" ;
+        sh:description "GSN goals document the claims made in the argument (i.e. premises and conclusions). Each goal shall contain a single goal statement, expressed as a proposition in the form of a noun phrase + verb-phrase sentence."@en ;
+        sh:message "A goal should carry a statement expressing its claim, written as a complete sentence."@en ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [
+        sh:path gsn:supportedBy ;
+        sh:or ( [ sh:class gsn:Goal ]
+                [ sh:class gsn:Module ]
+                [ sh:class gsn:Solution ]
+                [ sh:class gsn:Strategy ] ) ;
+        sh:name "supported by" ;
+        sh:message "A goal may only be supported by another goal, a module, a solution or a strategy."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:inContextOf ;
+        sh:or ( [ sh:class gsn:Assumption ]
+                [ sh:class gsn:Context ]
+                [ sh:class gsn:Justification ]
+                [ sh:class gsn:Module ] ) ;
+        sh:name "in context of" ;
+        sh:message "A goal may only be placed in the context of an assumption, a context, a justification or a module."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:inContextOf ;
+        sh:qualifiedValueShape [ sh:class gsn:Context ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:name "in context of a context" ;
+        sh:message "A goal should be placed in at least one context."@en ;
+        sh:severity sh:Warning ;
+    ] .
+
+
+###  gsn:Justification
+gsnsh:JustificationShape rdf:type sh:NodeShape ;
+    rdfs:label "Justification shape"@en ;
+    sh:targetClass gsn:Justification ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path gsn:statement ;
+        sh:minCount 1 ;
+        sh:name "statement" ;
+        sh:description "GSN justifications provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase."@en ;
+        sh:message "A justification should carry a statement."@en ;
+        sh:severity sh:Warning ;
+    ] .
+
+
+###  gsn:Relationship
+gsnsh:RelationshipShape rdf:type sh:NodeShape ;
+    rdfs:label "Relationship shape"@en ;
+    rdfs:comment "gsn:Relationship is a reification (rdfs:subClassOf rdf:Statement) used to attach decorators and confidence to a GSN link."@en ;
+    sh:targetClass gsn:Relationship ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path rdf:subject ;
+        sh:or ( [ sh:class gsn:Goal ]
+                [ sh:class gsn:Solution ]
+                [ sh:class gsn:Strategy ] ) ;
+        sh:name "subject" ;
+        sh:message "The source of a relationship must be a goal, a strategy or a solution."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path rdf:object ;
+        sh:class gsn:GSNElement ;
+        sh:name "object" ;
+        sh:message "The target of a relationship must be a GSN element."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path rdf:subject ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "subject" ;
+        sh:message "A relationship should name exactly one source element."@en ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [
+        sh:path rdf:object ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "object" ;
+        sh:message "A relationship should name exactly one target element."@en ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [
+        sh:path rdf:predicate ;
+        sh:in ( gsn:supportedBy gsn:inContextOf gsn:challenges ) ;
+        sh:maxCount 1 ;
+        sh:name "predicate" ;
+        sh:message "A relationship should record which kind of link it stands for: supported by, in context of, or challenges."@en ;
+        sh:severity sh:Warning ;
+    ] .
+
+
+###  gsn:Solution
+gsnsh:SolutionShape rdf:type sh:NodeShape ;
+    rdfs:label "Solution shape"@en ;
+    sh:targetClass gsn:Solution ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path gsn:statement ;
+        sh:minCount 1 ;
+        sh:name "statement" ;
+        sh:description "GSN solutions make no claim, but are simply references to evidence items that provide support for a particular claim. They shall therefore be stated as noun-phrases."@en ;
+        sh:message "A solution should carry a statement naming the evidence item, written as a noun phrase."@en ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [
+        sh:path gsn:refersTo ;
+        sh:class gsn:Artefact ;
+        sh:minCount 1 ;
+        sh:name "refers to" ;
+        sh:message "A solution presents a reference to an evidence item and should therefore point at an artefact."@en ;
+        sh:severity sh:Warning ;
+    ] .
+
+
+###  gsn:Strategy
+gsnsh:StrategyShape rdf:type sh:NodeShape ;
+    rdfs:label "Strategy shape"@en ;
+    sh:targetClass gsn:Strategy ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:property [
+        sh:path gsn:statement ;
+        sh:minCount 1 ;
+        sh:name "statement" ;
+        sh:description "GSN strategy statements describe the reasoning that connects parent goals and their supporting goals, but the core claims and the structure connecting those claims remain unchanged. Strategy statements contain a brief description of the argument approach."@en ;
+        sh:message "A strategy should carry a statement describing the argument approach."@en ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [
+        sh:path gsn:supportedBy ;
+        sh:class gsn:Goal ;
+        sh:name "supported by" ;
+        sh:message "A strategy may only be supported by a goal."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:inContextOf ;
+        sh:or ( [ sh:class gsn:Assumption ]
+                [ sh:class gsn:Context ]
+                [ sh:class gsn:Justification ]
+                [ sh:class gsn:Module ] ) ;
+        sh:name "in context of" ;
+        sh:message "A strategy may only be placed in the context of an assumption, a context, a justification or a module."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+#################################################################
+#    Property shapes (rdfs:domain, rdfs:range, cardinality)
+#################################################################
+
+###  gsn:contains
+gsnsh:ContainsPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:contains — domain"@en ;
+    rdfs:comment "The declared rdfs:range of gsn:contains (Argument, Artefact, Module) is narrower than the class-level owl:allValuesFrom axioms that use it (e.g. gsn:Argument contains only gsn:GSNElement, gsn:Catalogue contains only gsn:Pattern). The range is therefore validated per containing class rather than globally. gsn:Catalogue is added to the domain here for the same reason."@en ;
+    sh:targetSubjectsOf gsn:contains ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:or ( [ sh:class gsn:Argument ]
+            [ sh:class gsn:AssuranceCase ]
+            [ sh:class gsn:Module ]
+            [ sh:class gsn:Catalogue ] ) ;
+    sh:message "Only an argument, an assurance case, a module or a catalogue may contain other elements."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:inContextOf
+gsnsh:InContextOfPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:inContextOf — domain"@en ;
+    rdfs:comment "gsn:Module is added to the declared domain (Goal, Strategy) because gsn:Module carries an owl:allValuesFrom restriction on gsn:inContextOf."@en ;
+    sh:targetSubjectsOf gsn:inContextOf ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:or ( [ sh:class gsn:Goal ]
+            [ sh:class gsn:Strategy ]
+            [ sh:class gsn:Module ] ) ;
+    sh:message "Only a goal, a strategy or a module may be placed in a context."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:InContextOfRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:inContextOf — range"@en ;
+    sh:targetObjectsOf gsn:inContextOf ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:or ( [ sh:class gsn:Assumption ]
+            [ sh:class gsn:Context ]
+            [ sh:class gsn:Justification ]
+            [ sh:class gsn:Module ] ) ;
+    sh:message "A context link must point at an assumption, a context, a justification or a module."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:refersTo
+gsnsh:RefersToPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:refersTo — domain"@en ;
+    sh:targetSubjectsOf gsn:refersTo ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:class gsn:ArtefactReference ;
+    sh:message "Only an artefact reference may refer to an artefact."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:RefersToRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:refersTo — range"@en ;
+    sh:targetObjectsOf gsn:refersTo ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:class gsn:Artefact ;
+    sh:message "A reference must point at an artefact."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:supportedBy
+gsnsh:SupportedByPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:supportedBy — domain"@en ;
+    rdfs:comment "gsn:Module is added to the declared domain (Goal, Strategy) because gsn:Module carries an owl:allValuesFrom restriction on gsn:supportedBy."@en ;
+    sh:targetSubjectsOf gsn:supportedBy ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:or ( [ sh:class gsn:Goal ]
+            [ sh:class gsn:Strategy ]
+            [ sh:class gsn:Module ] ) ;
+    sh:message "Only a goal, a strategy or a module may be supported by something."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:SupportedByRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:supportedBy — range"@en ;
+    sh:targetObjectsOf gsn:supportedBy ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:or ( [ sh:class gsn:Goal ]
+            [ sh:class gsn:Module ]
+            [ sh:class gsn:Solution ]
+            [ sh:class gsn:Strategy ] ) ;
+    sh:message "Support must come from a goal, a module, a solution or a strategy."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:offDiagram
+gsnsh:OffDiagramPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:offDiagram"@en ;
+    sh:targetSubjectsOf gsn:offDiagram ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:class gsn:GSNElement ;
+    sh:message "Only a GSN element may be marked as off-diagram."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:offDiagram ;
+        sh:name "off-diagram" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Off-diagram must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:relationshipType
+gsnsh:RelationshipTypePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:relationshipType"@en ;
+    sh:targetSubjectsOf gsn:relationshipType ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may have a relationship type."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:relationshipType ;
+        sh:name "relationship type" ;
+        sh:in ( "contextual" "evidential" "inferential" ) ;
+        sh:maxCount 1 ;
+        sh:description "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information."@en ;
+        sh:message "A relationship type must be exactly one of \"contextual\", \"evidential\" or \"inferential\"."@en ;
+    ] .
+
+
+###  gsn:statement
+gsnsh:StatementPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:statement"@en ;
+    sh:targetSubjectsOf gsn:statement ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:GSNElement ] ) ;
+    sh:message "Only an argument or a GSN element may carry a statement."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:statement ;
+        sh:datatype xsd:string ;
+        sh:name "statement" ;
+        sh:message "A statement must be written as text."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:statement ;
+        sh:maxCount 1 ;
+        sh:name "statement" ;
+        sh:message "An element must carry at most one statement; the GSN Community Standard v3 requires a single statement per element."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+###  gsn:structured
+gsnsh:StructuredPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:structured"@en ;
+    sh:targetSubjectsOf gsn:structured ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:class gsn:Argument ;
+    sh:message "Only an argument may be marked as structured."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:structured ;
+        sh:name "structured" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:description "A particular kind of argument where the relationships between the asserted claims, and from the evidence to the claims, are explicitly represented."@en ;
+        sh:message "Structured must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:top
+gsnsh:TopPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:top"@en ;
+    sh:targetSubjectsOf gsn:top ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:class gsn:Goal ;
+    sh:message "Only a goal may be marked as a top goal."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:top ;
+        sh:name "top (goal)" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:description "A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure."@en ;
+        sh:message "Top goal must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:true
+gsnsh:TruePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:true"@en ;
+    sh:targetSubjectsOf gsn:true ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:class gsn:GSNElement ;
+    sh:message "Only a GSN element may be marked as true."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:true ;
+        sh:name "true" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "True must be a single true or false value; an element cannot be both true and not true."@en ;
+    ] .
+
+
+###  gsn:valid
+gsnsh:ValidPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:valid"@en ;
+    sh:targetSubjectsOf gsn:valid ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:class gsn:GSNElement ;
+    sh:message "Only a GSN element may be marked as valid."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:valid ;
+        sh:name "valid" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Valid must be a single true or false value; an element cannot be both valid and invalid."@en ;
+    ] .
+
+
+###  schema:identifier
+gsnsh:IdentifierPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "schema:identifier"@en ;
+    sh:targetObjectsOf schema:identifier ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:datatype xsd:string ;
+    sh:message "An identifier must be written as text."@en ;
+    sh:severity sh:Violation .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+###  Goal and not (inverse supportedBy some Goal) EquivalentTo top value true
+gsnsh:TopGoalHasNoParentShape rdf:type sh:NodeShape ;
+    rdfs:label "Top goal has no supported parent goal"@en ;
+    rdfs:comment "From the general class axiom: ( Goal and not (inverse gsn:supportedBy some Goal) ) EquivalentTo ( gsn:top value true )."@en ;
+    sh:targetClass gsn:Goal ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path gsn:top ; sh:name "top (goal)" ; sh:hasValue true ] ] ]
+        [ sh:property [ sh:path [ sh:inversePath gsn:supportedBy ] ;
+                        sh:qualifiedValueShape [ sh:class gsn:Goal ] ;
+                        sh:qualifiedMaxCount 0 ] ]
+    ) ;
+    sh:message "A goal marked as a top goal must not itself be supporting another goal; the top goal presents the pinnacle claim in the argument."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:UnparentedGoalIsTopShape rdf:type sh:NodeShape ;
+    rdfs:label "Goal without a parent goal is a top goal"@en ;
+    rdfs:comment "The converse direction of the general class axiom: a gsn:Goal that does not support any other gsn:Goal is a top goal and should be asserted as such."@en ;
+    sh:targetClass gsn:Goal ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:or (
+        [ sh:property [ sh:path gsn:top ; sh:name "top (goal)" ; sh:hasValue true ] ]
+        [ sh:property [ sh:path [ sh:inversePath gsn:supportedBy ] ;
+                        sh:qualifiedValueShape [ sh:class gsn:Goal ] ;
+                        sh:qualifiedMinCount 1 ] ]
+    ) ;
+    sh:message "A goal that is not supporting any other goal is a top goal and should be marked as one."@en ;
+    sh:severity sh:Warning .
+
+
+#################################################################
+#    Property characteristics (SHACL-SPARQL — requires an
+#    engine with the SPARQL constraint component enabled,
+#    e.g. pyshacl --advanced)
+#################################################################
+
+gsnsh:SupportedByIrreflexiveShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:supportedBy is irreflexive and asymmetric"@en ;
+    sh:targetSubjectsOf gsn:supportedBy ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} cannot be supported by itself."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:supportedBy ?value .
+                FILTER ( sameTerm($this, ?value) )
+            }
+        """ ;
+    ] ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} and {?value} cannot support each other; support runs in one direction only."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:supportedBy ?value .
+                ?value gsn:supportedBy $this .
+                FILTER ( !sameTerm($this, ?value) )
+            }
+        """ ;
+    ] .
+
+gsnsh:InContextOfIrreflexiveShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:inContextOf is irreflexive and asymmetric"@en ;
+    sh:targetSubjectsOf gsn:inContextOf ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} cannot be placed in the context of itself."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:inContextOf ?value .
+                FILTER ( sameTerm($this, ?value) )
+            }
+        """ ;
+    ] ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} and {?value} cannot be placed in the context of each other."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:inContextOf ?value .
+                ?value gsn:inContextOf $this .
+                FILTER ( !sameTerm($this, ?value) )
+            }
+        """ ;
+    ] .
+
+gsnsh:SupportCycleShape rdf:type sh:NodeShape ;
+    rdfs:label "The support structure is acyclic"@en ;
+    rdfs:comment "Not an explicit OWL axiom, but implied by GSN: a goal structure is a directed acyclic graph rooted in one or more top goals."@en ;
+    sh:targetClass gsn:GSNElement ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} takes part in a support cycle; a goal structure must not contain loops."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this gsn:supportedBy+ $this .
+            }
+        """ ;
+    ] .
+
+
+# ###########################################################################
+# Argument Pattern Extension
+# from ontogsn-shapes_2_pattern.ttl
+# ###########################################################################
+
+#################################################################
+#    Prefix declarations for the SHACL-SPARQL constraints below
+#################################################################
+
+<https://w3id.org/OntoGSN/shapes/pattern> sh:declare [
+        sh:prefix "gsn" ;
+        sh:namespace "https://w3id.org/OntoGSN/ontology#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "schema" ;
+        sh:namespace "http://schema.org/"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+#    Class (node) shapes
+#################################################################
+
+###  gsn:Catalogue
+gsnsh:CatalogueShape rdf:type sh:NodeShape ;
+    rdfs:label "Catalogue shape"@en ;
+    rdfs:comment "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
+    sh:targetClass gsn:Catalogue ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:class gsn:Pattern ;
+        sh:name "contains" ;
+        sh:message "A catalogue may only contain patterns."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:minCount 1 ;
+        sh:name "contains" ;
+        sh:message "A catalogue collates a series of patterns and should therefore contain at least one pattern."@en ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "Two patterns in this catalogue share the identifier {?id}; each pattern definition in a catalogue must have a unique pattern identifier."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/pattern> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this ?id
+            WHERE {
+                $this gsn:contains ?p1 , ?p2 .
+                ?p1 schema:identifier ?id .
+                ?p2 schema:identifier ?id .
+                FILTER ( !sameTerm(?p1, ?p2) )
+            }
+        """ ;
+    ] .
+
+
+###  gsn:InstantiationDataReference
+gsnsh:InstantiationDataReferenceShape rdf:type sh:NodeShape ;
+    rdfs:label "Instantiation Data Reference shape"@en ;
+    rdfs:comment "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument."@en ;
+    sh:targetClass gsn:InstantiationDataReference ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:property [
+        sh:path gsn:attachedTo ;
+        sh:class gsn:Template ;
+        sh:minCount 1 ;
+        sh:name "attached to" ;
+        sh:message "An instantiation data reference must be attached to at least one template."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+###  gsn:Pattern
+gsnsh:PatternShape rdf:type sh:NodeShape ;
+    rdfs:label "Pattern shape"@en ;
+    sh:targetClass gsn:Pattern ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:property [
+        sh:path schema:description ;
+        sh:nodeKind sh:Literal ;
+        sh:minCount 1 ;
+        sh:name "description" ;
+        sh:message "A pattern must carry a description."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "pattern identifier" ;
+        sh:message "A pattern definition should have a single, unique pattern identifier."@en ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [
+        sh:path gsn:relatedTo ;
+        sh:class gsn:Pattern ;
+        sh:name "related to" ;
+        sh:description "This section can be used to reference patterns that are related e.g. addressing the same intent in a different context."@en ;
+        sh:message "A pattern may only be related to another pattern."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [ sh:path gsn:intent ;         sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "intent" ;
+                  sh:description "The intent statement should state clearly what the pattern aims to achieve."@en ;
+                  sh:message "A pattern may state its intent only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:intent ; sh:name "intent" ; sh:minCount 1 ;
+                  sh:message "A pattern should state what it aims to achieve."@en ; sh:severity sh:Warning ] ;
+    sh:property [ sh:path gsn:motivation ;     sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "motivation" ;
+                  sh:message "A pattern may state its motivation only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:structure ;      sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "structure" ;
+                  sh:description "The structure uses the structural and element abstraction notations to present the pattern, clearly indicating where the argument needs to be further developed or populated with details to instantiate the pattern for a specific case."@en ;
+                  sh:message "A pattern may state its structure only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:participants ;   sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "participants" ;
+                  sh:message "A pattern may list its participants only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:collaboration ;  sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "collaboration" ;
+                  sh:message "A pattern may describe its collaboration only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:applicability ;  sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "applicability" ;
+                  sh:description "The applicability section should state under what circumstances the pattern can be applied, making clear the assumptions and principles underlying the pattern to avoid inappropriate application in a mismatched context. This section should record what contextual information is required in order to apply the pattern."@en ;
+                  sh:message "A pattern may state its applicability only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:applicability ; sh:name "applicability" ; sh:minCount 1 ;
+                  sh:message "A pattern should state under what circumstances it may be applied, so that it is not used in a mismatched context."@en ; sh:severity sh:Warning ] ;
+    sh:property [ sh:path gsn:consequences ;   sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "consequences" ;
+                  sh:description "The consequences section should make clear what work remains after the pattern has been applied. This should highlight where further support to the argument is required, and assumptions that need to be discharged."@en ;
+                  sh:message "A pattern may state its consequences only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:implementation ; sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "implementation" ;
+                  sh:message "A pattern may describe its implementation only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:examples ;       sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "examples" ;
+                  sh:message "A pattern may give its examples only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:knownUses ;      sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "known uses" ;
+                  sh:message "A pattern may list its known uses only once."@en ; sh:severity sh:Violation ] .
+
+
+###  gsn:Template
+gsnsh:TemplateShape rdf:type sh:NodeShape ;
+    rdfs:label "Template shape"@en ;
+    rdfs:comment "A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development."@en ;
+    sh:targetClass gsn:Template ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Pattern ;
+    sh:message "A template is a special case of a pattern."@en ;
+    sh:severity sh:Violation .
+
+
+#################################################################
+#    Property shapes (rdfs:domain, rdfs:range, cardinality)
+#################################################################
+
+###  gsn:attachedTo
+gsnsh:AttachedToPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:attachedTo — domain"@en ;
+    sh:targetSubjectsOf gsn:attachedTo ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:InstantiationDataReference ;
+    sh:message "Only an instantiation data reference may be attached to a template."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:AttachedToRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:attachedTo — range"@en ;
+    sh:targetObjectsOf gsn:attachedTo ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Template ;
+    sh:message "An instantiation data reference must be attached to a template."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:instantiationOf
+gsnsh:InstantiationOfPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:instantiationOf — domain"@en ;
+    sh:targetSubjectsOf gsn:instantiationOf ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:GSNElement ] ) ;
+    sh:message "Only an argument or a GSN element may be an instantiation of a pattern."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:InstantiationOfRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:instantiationOf — range"@en ;
+    sh:targetObjectsOf gsn:instantiationOf ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Pattern ;
+    sh:message "An instantiation must point at a pattern."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:relatedTo
+gsnsh:RelatedToPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:relatedTo — domain"@en ;
+    sh:targetSubjectsOf gsn:relatedTo ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Pattern ;
+    sh:message "Only a pattern may be related to another pattern."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:RelatedToRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:relatedTo — range"@en ;
+    sh:targetObjectsOf gsn:relatedTo ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Pattern ;
+    sh:message "A related item must be another pattern."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:choice
+gsnsh:ChoicePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:choice"@en ;
+    sh:targetSubjectsOf gsn:choice ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may be marked as a choice."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:choice ;
+        sh:name "choice" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:description "A GSN choice can be used to denote possible alternatives in satisfying a relationship."@en ;
+        sh:message "Choice must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:final
+gsnsh:FinalPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:final"@en ;
+    sh:targetSubjectsOf gsn:final ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Argument ;
+    sh:message "Only an argument may be marked as final."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:final ;
+        sh:name "final" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Final must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:maxCardinality / gsn:minCardinality
+gsnsh:CardinalityPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:minCardinality and gsn:maxCardinality"@en ;
+    sh:targetSubjectsOf gsn:minCardinality ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may have a minimum cardinality."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:minCardinality ;
+        sh:name "minimum cardinality" ;
+        sh:datatype xsd:nonNegativeInteger ;
+        sh:maxCount 1 ;
+        sh:message "A minimum cardinality must be a single whole number that is not negative."@en ;
+    ] ;
+    sh:property [
+        sh:path gsn:minCardinality ;
+        sh:name "minimum cardinality" ;
+        sh:lessThanOrEquals gsn:maxCardinality ;
+        sh:message "The minimum cardinality must not be greater than the maximum cardinality."@en ;
+    ] .
+
+gsnsh:MaxCardinalityPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:maxCardinality"@en ;
+    sh:targetSubjectsOf gsn:maxCardinality ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may have a maximum cardinality."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:maxCardinality ;
+        sh:name "maximum cardinality" ;
+        sh:datatype xsd:nonNegativeInteger ;
+        sh:maxCount 1 ;
+        sh:message "A maximum cardinality must be a single whole number that is not negative."@en ;
+    ] .
+
+
+###  gsn:multiple
+gsnsh:MultiplePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:multiple"@en ;
+    sh:targetSubjectsOf gsn:multiple ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may be marked as multiple."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:multiple ;
+        sh:name "multiple" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Multiple must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:optional
+gsnsh:OptionalPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:optional"@en ;
+    sh:targetSubjectsOf gsn:optional ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may be marked as optional."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:optional ;
+        sh:name "optional" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:description "Optional instantiation means that the relationship and the argument below may or may not be instantiated."@en ;
+        sh:message "Optional must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:published
+gsnsh:PublishedPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:published"@en ;
+    sh:targetSubjectsOf gsn:published ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Argument ;
+    sh:message "Only an argument may be marked as published."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:published ;
+        sh:name "published" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Published must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:undeveloped
+gsnsh:UndevelopedPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:undeveloped"@en ;
+    sh:targetSubjectsOf gsn:undeveloped ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Strategy ] ) ;
+    sh:message "Only a goal or a strategy may be marked as undeveloped."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:undeveloped ;
+        sh:name "undeveloped" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:description "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
+        sh:message "Undeveloped must be a single true or false value."@en ;
+    ] .
+
+gsnsh:UndevelopedHasNoSupportShape rdf:type sh:NodeShape ;
+    rdfs:label "An undeveloped element is not supported"@en ;
+    rdfs:comment "GSN convention rather than an explicit OWL axiom: the undeveloped decorator indicates that a line of argument has NOT been developed, so the element should carry no gsn:supportedBy links."@en ;
+    sh:targetSubjectsOf gsn:undeveloped ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path gsn:undeveloped ; sh:name "undeveloped" ; sh:hasValue true ] ] ]
+        [ sh:property [ sh:path gsn:supportedBy ; sh:name "supported by" ; sh:maxCount 0 ] ]
+    ) ;
+    sh:message "An element marked as undeveloped indicates that a line of argument has not been developed, and so should not yet be supported by anything."@en ;
+    sh:severity sh:Warning .
+
+
+###  gsn:uninstantiated
+gsnsh:UninstantiatedPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:uninstantiated"@en ;
+    sh:targetSubjectsOf gsn:uninstantiated ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:GSNElement ;
+    sh:message "Only a GSN element may be marked as uninstantiated."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:uninstantiated ;
+        sh:name "uninstantiated" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Uninstantiated must be a single true or false value."@en ;
+    ] .
+
+
+#################################################################
+#    Pattern documentation sections (annotation properties)
+#################################################################
+
+gsnsh:PatternSectionDomainShape rdf:type sh:NodeShape ;
+    rdfs:label "Pattern documentation sections — domain"@en ;
+    rdfs:comment "The ten pattern documentation sections all declare rdfs:domain gsn:Pattern."@en ;
+    sh:targetSubjectsOf gsn:applicability ;
+    sh:targetSubjectsOf gsn:collaboration ;
+    sh:targetSubjectsOf gsn:consequences ;
+    sh:targetSubjectsOf gsn:examples ;
+    sh:targetSubjectsOf gsn:implementation ;
+    sh:targetSubjectsOf gsn:intent ;
+    sh:targetSubjectsOf gsn:knownUses ;
+    sh:targetSubjectsOf gsn:motivation ;
+    sh:targetSubjectsOf gsn:participants ;
+    sh:targetSubjectsOf gsn:structure ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Pattern ;
+    sh:message "The pattern documentation sections (intent, motivation, structure, participants, collaboration, applicability, consequences, implementation, examples and known uses) may only be stated on a pattern."@en ;
+    sh:severity sh:Violation .
+
+
+# ###########################################################################
+# Modular Extension
+# from ontogsn-shapes_3_modular.ttl
+# ###########################################################################
+
+#################################################################
+#    Prefix declarations for the SHACL-SPARQL constraints below
+#################################################################
+
+<https://w3id.org/OntoGSN/shapes/modular> sh:declare [
+        sh:prefix "gsn" ;
+        sh:namespace "https://w3id.org/OntoGSN/ontology#"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+#    Class (node) shapes
+#################################################################
+
+###  gsn:Module
+gsnsh:ModuleShape rdf:type sh:NodeShape ;
+    rdfs:label "Module shape"@en ;
+    rdfs:comment "Goal structures can be partitioned into separate, but interrelated, modules. This can allow the division of an overall goal structure into separate goal structures focusing on particular aspects of the overall argument. A module may contain one or more arguments and may contain other modules."@en ;
+    sh:targetClass gsn:Module ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:Module ] ) ;
+        sh:name "contains" ;
+        sh:message "A module may only contain arguments and other modules."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:qualifiedValueShape [ sh:class gsn:Argument ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:name "contains an argument" ;
+        sh:message "A module must contain at least one argument."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:inContextOf ;
+        sh:class gsn:Module ;
+        sh:name "in context of" ;
+        sh:message "A module may only be placed in the context of another module."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:supportedBy ;
+        sh:class gsn:Module ;
+        sh:name "supported by" ;
+        sh:message "A module may only be supported by another module."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:contract ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:disjoint gsn:undeveloped ;
+        sh:name "contract" ;
+        sh:description "A contract module is a special type of module that controls the relationship between argument module interfaces using arguments to define how a goal in one module is supported by one or more goals in one or more other modules."@en ;
+        sh:message "Contract must be a single true or false value, and a module cannot be both a contract module and undeveloped."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+###  gsn:View
+gsnsh:ViewShape rdf:type sh:NodeShape ;
+    rdfs:label "View shape"@en ;
+    rdfs:comment "The argument view depicts the argument inside an individual module."@en ;
+    sh:targetClass gsn:View ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:property [
+        sh:path gsn:viewType ;
+        sh:in ( "architecture" "argument" ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "view type" ;
+        sh:message "A view must declare exactly one view type, either \"architecture\" or \"argument\"."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+#################################################################
+#    Property shapes (rdfs:domain, rdfs:range, cardinality)
+#################################################################
+
+###  gsn:consistentWith
+gsnsh:ConsistentWithPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:consistentWith — domain"@en ;
+    rdfs:comment "By making the relationship to the away goal the author is asserting not only the inference of support for the parent goal, but also that the context in which the away goal is declared is consistent with the context and assumptions in scope for the parent goal."@en ;
+    sh:targetSubjectsOf gsn:consistentWith ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:or ( [ sh:class gsn:Assumption ] [ sh:class gsn:Context ] ) ;
+    sh:message "Only an assumption or a context may be declared consistent with something."@en ;
+    sh:severity sh:Violation ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "Consistency runs both ways: {?value} should also be declared consistent with {$this}. Run the reasoner, or state the other direction as well."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ;
+        sh:severity sh:Warning ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:consistentWith ?value .
+                FILTER NOT EXISTS { ?value gsn:consistentWith $this }
+            }
+        """ ;
+    ] .
+
+gsnsh:ConsistentWithRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:consistentWith — range"@en ;
+    sh:targetObjectsOf gsn:consistentWith ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:or ( [ sh:class gsn:Assumption ] [ sh:class gsn:Context ] ) ;
+    sh:message "An element can only be consistent with an assumption or a context."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:substitutedBy
+gsnsh:SubstitutedByPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:substitutedBy — domain"@en ;
+    rdfs:comment "There may be occasions when a goal or strategy requires fuller justification than can be provided within the confines of a GSN justification element. In such cases, an away goal can be substituted for the justification."@en ;
+    sh:targetSubjectsOf gsn:substitutedBy ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:Justification ;
+    sh:message "Only a justification may be substituted by something."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:SubstitutedByRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:substitutedBy — range"@en ;
+    sh:targetObjectsOf gsn:substitutedBy ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:Goal ;
+    sh:property [
+        sh:path gsn:away ;
+        sh:hasValue true ;
+        sh:name "away" ;
+        sh:message "A justification may only be substituted by an away goal, that is, a goal marked as away."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:message "A justification may only be substituted by a goal that is marked as away."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:away
+gsnsh:AwayPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:away"@en ;
+    rdfs:comment "An away element reference repeats a claim or evidence presented in another argument module."@en ;
+    sh:targetSubjectsOf gsn:away ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:or ( [ sh:class gsn:Assumption ]
+            [ sh:class gsn:Context ]
+            [ sh:class gsn:Goal ]
+            [ sh:class gsn:Justification ]
+            [ sh:class gsn:Solution ] ) ;
+    sh:message "Only an assumption, a context, a goal, a justification or a solution may be marked as away."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:away ;
+        sh:name "away" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Away must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:contract
+gsnsh:ContractPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:contract"@en ;
+    sh:targetSubjectsOf gsn:contract ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:Module ;
+    sh:message "Only a module may be marked as a contract module."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:contract ;
+        sh:name "contract" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:disjoint gsn:undeveloped ;
+        sh:message "Contract must be a single true or false value, and a module cannot be both a contract module and undeveloped."@en ;
+    ] .
+
+
+###  gsn:public
+gsnsh:PublicPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:public"@en ;
+    rdfs:comment "This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element."@en ;
+    sh:targetSubjectsOf gsn:public ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:or ( [ sh:class gsn:Assumption ]
+            [ sh:class gsn:Context ]
+            [ sh:class gsn:Goal ]
+            [ sh:class gsn:Justification ]
+            [ sh:class gsn:Solution ] ) ;
+    sh:message "Only an assumption, a context, a goal, a justification or a solution may be marked as public."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:public ;
+        sh:name "public" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Public must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:toBeSupportedByContract
+gsnsh:ToBeSupportedByContractPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:toBeSupportedByContract"@en ;
+    sh:targetSubjectsOf gsn:toBeSupportedByContract ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:Goal ;
+    sh:message "Only a goal may be marked as to be supported by contract."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:toBeSupportedByContract ;
+        sh:name "to be supported by contract" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:disjoint gsn:undeveloped ;
+        sh:message "To be supported by contract must be a single true or false value, and a goal cannot be both awaiting a contract and undeveloped."@en ;
+    ] .
+
+
+###  gsn:viewType
+gsnsh:ViewTypePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:viewType"@en ;
+    sh:targetSubjectsOf gsn:viewType ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:View ;
+    sh:message "Only a view may have a view type."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:viewType ;
+        sh:name "view type" ;
+        sh:in ( "architecture" "argument" ) ;
+        sh:maxCount 1 ;
+        sh:message "A view type must be exactly one of \"architecture\" or \"argument\"."@en ;
+    ] .
+
+
+# ###########################################################################
+# Confidence Argument Extension
+# from ontogsn-shapes_4_confidence.ttl
+# ###########################################################################
+
+#################################################################
+#    Prefix declarations for the SHACL-SPARQL constraints below
+#################################################################
+
+<https://w3id.org/OntoGSN/shapes/confidence> sh:declare [
+        sh:prefix "gsn" ;
+        sh:namespace "https://w3id.org/OntoGSN/ontology#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "rdf" ;
+        sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+#    Class (node) shapes
+#################################################################
+
+###  gsn:Argument
+gsnsh:ArgumentContentShape rdf:type sh:NodeShape ;
+    rdfs:label "Argument content shape"@en ;
+    rdfs:comment "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ,
+                 "This axiom is asserted on gsn:Argument but annotated as part of the Confidence Argument Extension."@en ;
+    sh:targetClass gsn:Argument ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:or (
+        [ sh:property [ sh:path gsn:contains ; sh:name "contains" ;
+                        sh:qualifiedValueShape [ sh:class gsn:ArtefactReference ] ;
+                        sh:qualifiedMinCount 1 ] ;
+          sh:property [ sh:path gsn:contains ; sh:name "contains" ;
+                        sh:qualifiedValueShape [ sh:class gsn:Goal ] ;
+                        sh:qualifiedMinCount 1 ] ]
+        [ sh:property [ sh:path gsn:statement ; sh:name "statement" ;
+                        sh:datatype xsd:string ;
+                        sh:minCount 1 ] ]
+    ) ;
+    sh:message "An argument must either contain at least one artefact reference together with at least one goal, or carry a statement; the argument may be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
+    sh:severity sh:Warning .
+
+
+###  gsn:RelationshipWithConfidence
+gsnsh:RelationshipWithConfidenceShape rdf:type sh:NodeShape ;
+    rdfs:label "Relationship with Confidence shape"@en ;
+    rdfs:comment "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."@en ;
+    sh:targetClass gsn:RelationshipWithConfidence ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "identifier" ;
+        sh:message "A relationship with confidence must have exactly one identifier, written as text."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path rdf:object ;
+        sh:or ( [ sh:class gsn:Context ]
+                [ sh:class gsn:Solution ]
+                [ sh:class gsn:Strategy ] ) ;
+        sh:name "object" ;
+        sh:message "The target of a relationship with confidence must be a context, a solution or a strategy."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:associatedWith ;
+        sh:class gsn:Argument ;
+        sh:property [
+            sh:path gsn:argumentType ;
+            sh:name "argument type" ;
+            sh:hasValue "confidence" ;
+            sh:message "An argument associated with a relationship with confidence must be a confidence argument."@en ;
+        ] ;
+        sh:name "associated with" ;
+        sh:message "A relationship with confidence may only be associated with a confidence argument."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:associatedWith ;
+        sh:qualifiedValueShape [ sh:class gsn:Argument ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:name "associated with" ;
+        sh:message "A relationship with confidence must be associated with at least one argument."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:assuranceClaimPoint ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "assurance claim point" ;
+        sh:message "A relationship with confidence must say whether it is an assurance claim point, as a single true or false value."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+#################################################################
+#    Property shapes (rdfs:domain, rdfs:range, cardinality)
+#################################################################
+
+###  gsn:associatedWith
+gsnsh:AssociatedWithPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:associatedWith — domain"@en ;
+    sh:targetSubjectsOf gsn:associatedWith ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:or ( [ sh:class gsn:ArtefactReference ] [ sh:class gsn:RelationshipWithConfidence ] ) ;
+    sh:message "Only an artefact reference or a relationship with confidence may be associated with an argument."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:AssociatedWithRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:associatedWith — range"@en ;
+    sh:targetObjectsOf gsn:associatedWith ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:class gsn:Argument ;
+    sh:message "An association must point at an argument."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:argumentType
+gsnsh:ArgumentTypePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:argumentType"@en ;
+    sh:targetSubjectsOf gsn:argumentType ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:class gsn:Argument ;
+    sh:message "Only an argument may have an argument type."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:argumentType ;
+        sh:name "argument type" ;
+        sh:in ( "confidence" "dialectic" "risk" ) ;
+        sh:maxCount 1 ;
+        sh:message "An argument type must be exactly one of \"confidence\", \"dialectic\" or \"risk\"."@en ;
+    ] .
+
+
+###  gsn:assuranceClaimPoint
+gsnsh:AssuranceClaimPointPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:assuranceClaimPoint"@en ;
+    rdfs:comment "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."@en ;
+    sh:targetSubjectsOf gsn:assuranceClaimPoint ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:or ( [ sh:class gsn:ArtefactReference ] [ sh:class gsn:RelationshipWithConfidence ] ) ;
+    sh:message "Only an artefact reference or a relationship with confidence may be marked as an assurance claim point."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:assuranceClaimPoint ;
+        sh:name "assurance claim point" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Assurance claim point must be a single true or false value."@en ;
+    ] .
+
+
+#################################################################
+#    Confidence argument consistency
+#################################################################
+
+gsnsh:AssuranceClaimPointHasArgumentShape rdf:type sh:NodeShape ;
+    rdfs:label "Assurance claim point carries a confidence argument"@en ;
+    rdfs:comment "Derived from SWRL rule S40 and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en ;
+    sh:targetSubjectsOf gsn:assuranceClaimPoint ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path gsn:assuranceClaimPoint ; sh:name "assurance claim point" ; sh:hasValue true ] ] ]
+        [ sh:property [ sh:path gsn:associatedWith ; sh:name "associated with" ;
+                        sh:qualifiedValueShape [ sh:class gsn:Argument ] ;
+                        sh:qualifiedMinCount 1 ] ]
+    ) ;
+    sh:message "An element marked as an assurance claim point should be associated with a confidence argument."@en ;
+    sh:severity sh:Warning .
+
+
+# ###########################################################################
+# Dialectic Extension
+# from ontogsn-shapes_5_dialectic.ttl
+# ###########################################################################
+
+#################################################################
+#    Prefix declarations for the SHACL-SPARQL constraints below
+#################################################################
+
+<https://w3id.org/OntoGSN/shapes/dialectic> sh:declare [
+        sh:prefix "gsn" ;
+        sh:namespace "https://w3id.org/OntoGSN/ontology#"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+#    Class (node) shapes
+#################################################################
+
+###  gsn:Defeater
+gsnsh:DefeaterShape rdf:type sh:NodeShape ;
+    rdfs:label "Defeater shape"@en ;
+    rdfs:comment "The source of challenge being applied; can be directed at any part of an argument. Membership of gsn:Defeater is only meant to be inferred, not asserted — this shape checks that any asserted membership at least agrees with the equivalent class ( gsn:Goal or gsn:Solution )."@en ;
+    sh:targetClass gsn:Defeater ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Solution ] ) ;
+    sh:message "Only a goal or a solution can be a defeater. Membership of this class is meant to be inferred by the reasoner, not stated by hand."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:challenges ;
+        sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
+        sh:name "challenges" ;
+        sh:description "A challenge must be levied against the appropriate aspect of the goal structure."@en ;
+        sh:message "A defeater may only challenge a GSN element or a relationship."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+#################################################################
+#    Property shapes (rdfs:domain, rdfs:range, cardinality)
+#################################################################
+
+###  gsn:challenges
+gsnsh:ChallengesPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:challenges — domain"@en ;
+    rdfs:comment "Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument."@en ;
+    sh:targetSubjectsOf gsn:challenges ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Solution ] ) ;
+    sh:message "Only a goal or a solution, acting as a defeater, may challenge part of an argument."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:ChallengesRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:challenges — range"@en ;
+    rdfs:comment "The declared rdfs:range is gsn:GSNElement only, but gsn:Goal and gsn:Solution both carry an owl:allValuesFrom restriction admitting gsn:Relationship as well, and the standard states that a challenge can be directed at any part of an argument. gsn:Relationship is therefore admitted here."@en ;
+    sh:targetObjectsOf gsn:challenges ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
+    sh:message "A challenge must be directed at a GSN element or a relationship."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:ChallengesIrreflexiveShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:challenges is irreflexive"@en ;
+    rdfs:comment "GSN convention rather than an explicit OWL axiom: the link between the part of the argument that is being challenged (target) and the dialectic element (source) must be self-evident, so an element cannot challenge itself."@en ;
+    sh:targetSubjectsOf gsn:challenges ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} challenges itself; the challenged part of the argument and the element raising the challenge must be different."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ;
+        sh:severity sh:Warning ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:challenges ?value .
+                FILTER ( sameTerm($this, ?value) )
+            }
+        """ ;
+    ] .
+
+
+###  gsn:defeated
+gsnsh:DefeatedPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:defeated"@en ;
+    rdfs:comment "This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements."@en ,
+                 "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
+    sh:targetSubjectsOf gsn:defeated ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
+    sh:message "Only a GSN element or a relationship may be marked as defeated."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:defeated ;
+        sh:name "defeated" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Defeated must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:inDoubt
+gsnsh:InDoubtPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:inDoubt"@en ;
+    rdfs:comment "The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt."@en ;
+    sh:targetSubjectsOf gsn:inDoubt ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or ( [ sh:class gsn:AssuranceCase ]
+            [ sh:class gsn:GSNElement ]
+            [ sh:class gsn:Relationship ] ) ;
+    sh:message "Only an assurance case, a GSN element or a relationship may be marked as in doubt."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:inDoubt ;
+        sh:name "in doubt" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "In doubt must be a single true or false value."@en ;
+    ] .
+
+
+#################################################################
+#    Dialectic consistency
+#################################################################
+
+gsnsh:DefeatedElementIsNotTrueShape rdf:type sh:NodeShape ;
+    rdfs:label "A defeated element is not true"@en ;
+    rdfs:comment "A defeated element has been successfully challenged, so it cannot simultaneously be asserted as true."@en ;
+    sh:targetSubjectsOf gsn:defeated ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path gsn:defeated ; sh:name "defeated" ; sh:hasValue true ] ] ]
+        [ sh:not [ sh:property [ sh:path gsn:true ; sh:name "true" ; sh:hasValue true ] ] ]
+    ) ;
+    sh:message "An element that has been defeated cannot also be marked as true."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:SuccessfulChallengeCastsDoubtShape rdf:type sh:NodeShape ;
+    rdfs:label "A successful challenge casts doubt on its target"@en ;
+    rdfs:comment "Complements, rather than replaces, the SWRL rules of the Dialectic Extension: if the claim presented in the challenging goal is true then this is sufficient to establish that the claim in the challenged element is in doubt. Run the reasoner if the assertion is expected to be inferred."@en ;
+    sh:targetSubjectsOf gsn:challenges ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} is true and challenges {?value}, which has not been marked as in doubt."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ;
+        sh:severity sh:Info ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:true true ;
+                      gsn:challenges ?value .
+                FILTER NOT EXISTS { ?value gsn:inDoubt true }
+            }
+        """ ;
+    ] .

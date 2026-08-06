@@ -1,0 +1,255 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnsh:  <https://w3id.org/OntoGSN/shapes#> .
+@prefix dc:     <http://purl.org/dc/elements/1.1/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/shapes/modular> .
+
+<https://w3id.org/OntoGSN/shapes/modular> rdf:type owl:Ontology ;
+    dc:title "OntoGSN SHACL Shapes — Modular Extension"@en ;
+    dc:description "SHACL shapes derived from the Modular Extension section of the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape carries gsn:coreOrExtension \"Modular Extension\" so that provenance survives merging with the other shape modules."@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    owl:versionInfo "1.0.0" .
+
+
+#################################################################
+#    Prefix declarations for the SHACL-SPARQL constraints below
+#################################################################
+
+<https://w3id.org/OntoGSN/shapes/modular> sh:declare [
+        sh:prefix "gsn" ;
+        sh:namespace "https://w3id.org/OntoGSN/ontology#"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+#    Class (node) shapes
+#################################################################
+
+###  gsn:Module
+gsnsh:ModuleShape rdf:type sh:NodeShape ;
+    rdfs:label "Module shape"@en ;
+    rdfs:comment "Goal structures can be partitioned into separate, but interrelated, modules. This can allow the division of an overall goal structure into separate goal structures focusing on particular aspects of the overall argument. A module may contain one or more arguments and may contain other modules."@en ;
+    sh:targetClass gsn:Module ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:Module ] ) ;
+        sh:name "contains" ;
+        sh:message "A module may only contain arguments and other modules."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:qualifiedValueShape [ sh:class gsn:Argument ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:name "contains an argument" ;
+        sh:message "A module must contain at least one argument."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:inContextOf ;
+        sh:class gsn:Module ;
+        sh:name "in context of" ;
+        sh:message "A module may only be placed in the context of another module."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:supportedBy ;
+        sh:class gsn:Module ;
+        sh:name "supported by" ;
+        sh:message "A module may only be supported by another module."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:contract ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:disjoint gsn:undeveloped ;
+        sh:name "contract" ;
+        sh:description "A contract module is a special type of module that controls the relationship between argument module interfaces using arguments to define how a goal in one module is supported by one or more goals in one or more other modules."@en ;
+        sh:message "Contract must be a single true or false value, and a module cannot be both a contract module and undeveloped."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+###  gsn:View
+gsnsh:ViewShape rdf:type sh:NodeShape ;
+    rdfs:label "View shape"@en ;
+    rdfs:comment "The argument view depicts the argument inside an individual module."@en ;
+    sh:targetClass gsn:View ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:property [
+        sh:path gsn:viewType ;
+        sh:in ( "architecture" "argument" ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "view type" ;
+        sh:message "A view must declare exactly one view type, either \"architecture\" or \"argument\"."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+#################################################################
+#    Property shapes (rdfs:domain, rdfs:range, cardinality)
+#################################################################
+
+###  gsn:consistentWith
+gsnsh:ConsistentWithPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:consistentWith — domain"@en ;
+    rdfs:comment "By making the relationship to the away goal the author is asserting not only the inference of support for the parent goal, but also that the context in which the away goal is declared is consistent with the context and assumptions in scope for the parent goal."@en ;
+    sh:targetSubjectsOf gsn:consistentWith ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:or ( [ sh:class gsn:Assumption ] [ sh:class gsn:Context ] ) ;
+    sh:message "Only an assumption or a context may be declared consistent with something."@en ;
+    sh:severity sh:Violation ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "Consistency runs both ways: {?value} should also be declared consistent with {$this}. Run the reasoner, or state the other direction as well."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ;
+        sh:severity sh:Warning ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:consistentWith ?value .
+                FILTER NOT EXISTS { ?value gsn:consistentWith $this }
+            }
+        """ ;
+    ] .
+
+gsnsh:ConsistentWithRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:consistentWith — range"@en ;
+    sh:targetObjectsOf gsn:consistentWith ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:or ( [ sh:class gsn:Assumption ] [ sh:class gsn:Context ] ) ;
+    sh:message "An element can only be consistent with an assumption or a context."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:substitutedBy
+gsnsh:SubstitutedByPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:substitutedBy — domain"@en ;
+    rdfs:comment "There may be occasions when a goal or strategy requires fuller justification than can be provided within the confines of a GSN justification element. In such cases, an away goal can be substituted for the justification."@en ;
+    sh:targetSubjectsOf gsn:substitutedBy ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:Justification ;
+    sh:message "Only a justification may be substituted by something."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:SubstitutedByRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:substitutedBy — range"@en ;
+    sh:targetObjectsOf gsn:substitutedBy ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:Goal ;
+    sh:property [
+        sh:path gsn:away ;
+        sh:hasValue true ;
+        sh:name "away" ;
+        sh:message "A justification may only be substituted by an away goal, that is, a goal marked as away."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:message "A justification may only be substituted by a goal that is marked as away."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:away
+gsnsh:AwayPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:away"@en ;
+    rdfs:comment "An away element reference repeats a claim or evidence presented in another argument module."@en ;
+    sh:targetSubjectsOf gsn:away ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:or ( [ sh:class gsn:Assumption ]
+            [ sh:class gsn:Context ]
+            [ sh:class gsn:Goal ]
+            [ sh:class gsn:Justification ]
+            [ sh:class gsn:Solution ] ) ;
+    sh:message "Only an assumption, a context, a goal, a justification or a solution may be marked as away."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:away ;
+        sh:name "away" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Away must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:contract
+gsnsh:ContractPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:contract"@en ;
+    sh:targetSubjectsOf gsn:contract ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:Module ;
+    sh:message "Only a module may be marked as a contract module."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:contract ;
+        sh:name "contract" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:disjoint gsn:undeveloped ;
+        sh:message "Contract must be a single true or false value, and a module cannot be both a contract module and undeveloped."@en ;
+    ] .
+
+
+###  gsn:public
+gsnsh:PublicPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:public"@en ;
+    rdfs:comment "This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element."@en ;
+    sh:targetSubjectsOf gsn:public ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:or ( [ sh:class gsn:Assumption ]
+            [ sh:class gsn:Context ]
+            [ sh:class gsn:Goal ]
+            [ sh:class gsn:Justification ]
+            [ sh:class gsn:Solution ] ) ;
+    sh:message "Only an assumption, a context, a goal, a justification or a solution may be marked as public."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:public ;
+        sh:name "public" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Public must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:toBeSupportedByContract
+gsnsh:ToBeSupportedByContractPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:toBeSupportedByContract"@en ;
+    sh:targetSubjectsOf gsn:toBeSupportedByContract ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:Goal ;
+    sh:message "Only a goal may be marked as to be supported by contract."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:toBeSupportedByContract ;
+        sh:name "to be supported by contract" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:disjoint gsn:undeveloped ;
+        sh:message "To be supported by contract must be a single true or false value, and a goal cannot be both awaiting a contract and undeveloped."@en ;
+    ] .
+
+
+###  gsn:viewType
+gsnsh:ViewTypePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:viewType"@en ;
+    sh:targetSubjectsOf gsn:viewType ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:View ;
+    sh:message "Only a view may have a view type."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:viewType ;
+        sh:name "view type" ;
+        sh:in ( "architecture" "argument" ) ;
+        sh:maxCount 1 ;
+        sh:message "A view type must be exactly one of \"architecture\" or \"argument\"."@en ;
+    ] .

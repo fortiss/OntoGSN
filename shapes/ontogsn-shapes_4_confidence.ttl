@@ -1,0 +1,189 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnsh:  <https://w3id.org/OntoGSN/shapes#> .
+@prefix dc:     <http://purl.org/dc/elements/1.1/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/shapes/confidence> .
+
+<https://w3id.org/OntoGSN/shapes/confidence> rdf:type owl:Ontology ;
+    dc:title "OntoGSN SHACL Shapes — Confidence Argument Extension"@en ;
+    dc:description "SHACL shapes derived from the Confidence Argument Extension section of the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape carries gsn:coreOrExtension \"Confidence Argument Extension\" so that provenance survives merging with the other shape modules."@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    owl:versionInfo "1.0.0" .
+
+
+#################################################################
+#    Prefix declarations for the SHACL-SPARQL constraints below
+#################################################################
+
+<https://w3id.org/OntoGSN/shapes/confidence> sh:declare [
+        sh:prefix "gsn" ;
+        sh:namespace "https://w3id.org/OntoGSN/ontology#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "rdf" ;
+        sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+#    Class (node) shapes
+#################################################################
+
+###  gsn:Argument
+gsnsh:ArgumentContentShape rdf:type sh:NodeShape ;
+    rdfs:label "Argument content shape"@en ;
+    rdfs:comment "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ,
+                 "This axiom is asserted on gsn:Argument but annotated as part of the Confidence Argument Extension."@en ;
+    sh:targetClass gsn:Argument ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:or (
+        [ sh:property [ sh:path gsn:contains ; sh:name "contains" ;
+                        sh:qualifiedValueShape [ sh:class gsn:ArtefactReference ] ;
+                        sh:qualifiedMinCount 1 ] ;
+          sh:property [ sh:path gsn:contains ; sh:name "contains" ;
+                        sh:qualifiedValueShape [ sh:class gsn:Goal ] ;
+                        sh:qualifiedMinCount 1 ] ]
+        [ sh:property [ sh:path gsn:statement ; sh:name "statement" ;
+                        sh:datatype xsd:string ;
+                        sh:minCount 1 ] ]
+    ) ;
+    sh:message "An argument must either contain at least one artefact reference together with at least one goal, or carry a statement; the argument may be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
+    sh:severity sh:Warning .
+
+
+###  gsn:RelationshipWithConfidence
+gsnsh:RelationshipWithConfidenceShape rdf:type sh:NodeShape ;
+    rdfs:label "Relationship with Confidence shape"@en ;
+    rdfs:comment "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."@en ;
+    sh:targetClass gsn:RelationshipWithConfidence ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "identifier" ;
+        sh:message "A relationship with confidence must have exactly one identifier, written as text."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path rdf:object ;
+        sh:or ( [ sh:class gsn:Context ]
+                [ sh:class gsn:Solution ]
+                [ sh:class gsn:Strategy ] ) ;
+        sh:name "object" ;
+        sh:message "The target of a relationship with confidence must be a context, a solution or a strategy."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:associatedWith ;
+        sh:class gsn:Argument ;
+        sh:property [
+            sh:path gsn:argumentType ;
+            sh:name "argument type" ;
+            sh:hasValue "confidence" ;
+            sh:message "An argument associated with a relationship with confidence must be a confidence argument."@en ;
+        ] ;
+        sh:name "associated with" ;
+        sh:message "A relationship with confidence may only be associated with a confidence argument."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:associatedWith ;
+        sh:qualifiedValueShape [ sh:class gsn:Argument ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:name "associated with" ;
+        sh:message "A relationship with confidence must be associated with at least one argument."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:assuranceClaimPoint ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "assurance claim point" ;
+        sh:message "A relationship with confidence must say whether it is an assurance claim point, as a single true or false value."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+#################################################################
+#    Property shapes (rdfs:domain, rdfs:range, cardinality)
+#################################################################
+
+###  gsn:associatedWith
+gsnsh:AssociatedWithPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:associatedWith — domain"@en ;
+    sh:targetSubjectsOf gsn:associatedWith ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:or ( [ sh:class gsn:ArtefactReference ] [ sh:class gsn:RelationshipWithConfidence ] ) ;
+    sh:message "Only an artefact reference or a relationship with confidence may be associated with an argument."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:AssociatedWithRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:associatedWith — range"@en ;
+    sh:targetObjectsOf gsn:associatedWith ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:class gsn:Argument ;
+    sh:message "An association must point at an argument."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:argumentType
+gsnsh:ArgumentTypePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:argumentType"@en ;
+    sh:targetSubjectsOf gsn:argumentType ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:class gsn:Argument ;
+    sh:message "Only an argument may have an argument type."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:argumentType ;
+        sh:name "argument type" ;
+        sh:in ( "confidence" "dialectic" "risk" ) ;
+        sh:maxCount 1 ;
+        sh:message "An argument type must be exactly one of \"confidence\", \"dialectic\" or \"risk\"."@en ;
+    ] .
+
+
+###  gsn:assuranceClaimPoint
+gsnsh:AssuranceClaimPointPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:assuranceClaimPoint"@en ;
+    rdfs:comment "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."@en ;
+    sh:targetSubjectsOf gsn:assuranceClaimPoint ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:or ( [ sh:class gsn:ArtefactReference ] [ sh:class gsn:RelationshipWithConfidence ] ) ;
+    sh:message "Only an artefact reference or a relationship with confidence may be marked as an assurance claim point."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:assuranceClaimPoint ;
+        sh:name "assurance claim point" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Assurance claim point must be a single true or false value."@en ;
+    ] .
+
+
+#################################################################
+#    Confidence argument consistency
+#################################################################
+
+gsnsh:AssuranceClaimPointHasArgumentShape rdf:type sh:NodeShape ;
+    rdfs:label "Assurance claim point carries a confidence argument"@en ;
+    rdfs:comment "Derived from SWRL rule S40 and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en ;
+    sh:targetSubjectsOf gsn:assuranceClaimPoint ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path gsn:assuranceClaimPoint ; sh:name "assurance claim point" ; sh:hasValue true ] ] ]
+        [ sh:property [ sh:path gsn:associatedWith ; sh:name "associated with" ;
+                        sh:qualifiedValueShape [ sh:class gsn:Argument ] ;
+                        sh:qualifiedMinCount 1 ] ]
+    ) ;
+    sh:message "An element marked as an assurance claim point should be associated with a confidence argument."@en ;
+    sh:severity sh:Warning .

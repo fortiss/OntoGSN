@@ -1,0 +1,421 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnsh:  <https://w3id.org/OntoGSN/shapes#> .
+@prefix dc:     <http://purl.org/dc/elements/1.1/> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/shapes/pattern> .
+
+<https://w3id.org/OntoGSN/shapes/pattern> rdf:type owl:Ontology ;
+    dc:title "OntoGSN SHACL Shapes — Argument Pattern Extension"@en ;
+    dc:description "SHACL shapes derived from the Argument Pattern Extension section of the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape carries gsn:coreOrExtension \"Argument Pattern Extension\" so that provenance survives merging with the other shape modules."@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    owl:versionInfo "1.0.0" .
+
+
+#################################################################
+#    Prefix declarations for the SHACL-SPARQL constraints below
+#################################################################
+
+<https://w3id.org/OntoGSN/shapes/pattern> sh:declare [
+        sh:prefix "gsn" ;
+        sh:namespace "https://w3id.org/OntoGSN/ontology#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "schema" ;
+        sh:namespace "http://schema.org/"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+#    Class (node) shapes
+#################################################################
+
+###  gsn:Catalogue
+gsnsh:CatalogueShape rdf:type sh:NodeShape ;
+    rdfs:label "Catalogue shape"@en ;
+    rdfs:comment "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
+    sh:targetClass gsn:Catalogue ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:class gsn:Pattern ;
+        sh:name "contains" ;
+        sh:message "A catalogue may only contain patterns."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsn:contains ;
+        sh:minCount 1 ;
+        sh:name "contains" ;
+        sh:message "A catalogue collates a series of patterns and should therefore contain at least one pattern."@en ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "Two patterns in this catalogue share the identifier {?id}; each pattern definition in a catalogue must have a unique pattern identifier."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/pattern> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this ?id
+            WHERE {
+                $this gsn:contains ?p1 , ?p2 .
+                ?p1 schema:identifier ?id .
+                ?p2 schema:identifier ?id .
+                FILTER ( !sameTerm(?p1, ?p2) )
+            }
+        """ ;
+    ] .
+
+
+###  gsn:InstantiationDataReference
+gsnsh:InstantiationDataReferenceShape rdf:type sh:NodeShape ;
+    rdfs:label "Instantiation Data Reference shape"@en ;
+    rdfs:comment "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument."@en ;
+    sh:targetClass gsn:InstantiationDataReference ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:property [
+        sh:path gsn:attachedTo ;
+        sh:class gsn:Template ;
+        sh:minCount 1 ;
+        sh:name "attached to" ;
+        sh:message "An instantiation data reference must be attached to at least one template."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+###  gsn:Pattern
+gsnsh:PatternShape rdf:type sh:NodeShape ;
+    rdfs:label "Pattern shape"@en ;
+    sh:targetClass gsn:Pattern ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:property [
+        sh:path schema:description ;
+        sh:nodeKind sh:Literal ;
+        sh:minCount 1 ;
+        sh:name "description" ;
+        sh:message "A pattern must carry a description."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path schema:identifier ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "pattern identifier" ;
+        sh:message "A pattern definition should have a single, unique pattern identifier."@en ;
+        sh:severity sh:Warning ;
+    ] ;
+    sh:property [
+        sh:path gsn:relatedTo ;
+        sh:class gsn:Pattern ;
+        sh:name "related to" ;
+        sh:description "This section can be used to reference patterns that are related e.g. addressing the same intent in a different context."@en ;
+        sh:message "A pattern may only be related to another pattern."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [ sh:path gsn:intent ;         sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "intent" ;
+                  sh:description "The intent statement should state clearly what the pattern aims to achieve."@en ;
+                  sh:message "A pattern may state its intent only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:intent ; sh:name "intent" ; sh:minCount 1 ;
+                  sh:message "A pattern should state what it aims to achieve."@en ; sh:severity sh:Warning ] ;
+    sh:property [ sh:path gsn:motivation ;     sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "motivation" ;
+                  sh:message "A pattern may state its motivation only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:structure ;      sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "structure" ;
+                  sh:description "The structure uses the structural and element abstraction notations to present the pattern, clearly indicating where the argument needs to be further developed or populated with details to instantiate the pattern for a specific case."@en ;
+                  sh:message "A pattern may state its structure only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:participants ;   sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "participants" ;
+                  sh:message "A pattern may list its participants only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:collaboration ;  sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "collaboration" ;
+                  sh:message "A pattern may describe its collaboration only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:applicability ;  sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "applicability" ;
+                  sh:description "The applicability section should state under what circumstances the pattern can be applied, making clear the assumptions and principles underlying the pattern to avoid inappropriate application in a mismatched context. This section should record what contextual information is required in order to apply the pattern."@en ;
+                  sh:message "A pattern may state its applicability only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:applicability ; sh:name "applicability" ; sh:minCount 1 ;
+                  sh:message "A pattern should state under what circumstances it may be applied, so that it is not used in a mismatched context."@en ; sh:severity sh:Warning ] ;
+    sh:property [ sh:path gsn:consequences ;   sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "consequences" ;
+                  sh:description "The consequences section should make clear what work remains after the pattern has been applied. This should highlight where further support to the argument is required, and assumptions that need to be discharged."@en ;
+                  sh:message "A pattern may state its consequences only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:implementation ; sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "implementation" ;
+                  sh:message "A pattern may describe its implementation only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:examples ;       sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "examples" ;
+                  sh:message "A pattern may give its examples only once."@en ; sh:severity sh:Violation ] ;
+    sh:property [ sh:path gsn:knownUses ;      sh:nodeKind sh:Literal ; sh:maxCount 1 ;
+                  sh:name "known uses" ;
+                  sh:message "A pattern may list its known uses only once."@en ; sh:severity sh:Violation ] .
+
+
+###  gsn:Template
+gsnsh:TemplateShape rdf:type sh:NodeShape ;
+    rdfs:label "Template shape"@en ;
+    rdfs:comment "A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development."@en ;
+    sh:targetClass gsn:Template ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Pattern ;
+    sh:message "A template is a special case of a pattern."@en ;
+    sh:severity sh:Violation .
+
+
+#################################################################
+#    Property shapes (rdfs:domain, rdfs:range, cardinality)
+#################################################################
+
+###  gsn:attachedTo
+gsnsh:AttachedToPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:attachedTo — domain"@en ;
+    sh:targetSubjectsOf gsn:attachedTo ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:InstantiationDataReference ;
+    sh:message "Only an instantiation data reference may be attached to a template."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:AttachedToRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:attachedTo — range"@en ;
+    sh:targetObjectsOf gsn:attachedTo ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Template ;
+    sh:message "An instantiation data reference must be attached to a template."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:instantiationOf
+gsnsh:InstantiationOfPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:instantiationOf — domain"@en ;
+    sh:targetSubjectsOf gsn:instantiationOf ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:GSNElement ] ) ;
+    sh:message "Only an argument or a GSN element may be an instantiation of a pattern."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:InstantiationOfRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:instantiationOf — range"@en ;
+    sh:targetObjectsOf gsn:instantiationOf ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Pattern ;
+    sh:message "An instantiation must point at a pattern."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:relatedTo
+gsnsh:RelatedToPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:relatedTo — domain"@en ;
+    sh:targetSubjectsOf gsn:relatedTo ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Pattern ;
+    sh:message "Only a pattern may be related to another pattern."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:RelatedToRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:relatedTo — range"@en ;
+    sh:targetObjectsOf gsn:relatedTo ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Pattern ;
+    sh:message "A related item must be another pattern."@en ;
+    sh:severity sh:Violation .
+
+
+###  gsn:choice
+gsnsh:ChoicePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:choice"@en ;
+    sh:targetSubjectsOf gsn:choice ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may be marked as a choice."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:choice ;
+        sh:name "choice" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:description "A GSN choice can be used to denote possible alternatives in satisfying a relationship."@en ;
+        sh:message "Choice must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:final
+gsnsh:FinalPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:final"@en ;
+    sh:targetSubjectsOf gsn:final ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Argument ;
+    sh:message "Only an argument may be marked as final."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:final ;
+        sh:name "final" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Final must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:maxCardinality / gsn:minCardinality
+gsnsh:CardinalityPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:minCardinality and gsn:maxCardinality"@en ;
+    sh:targetSubjectsOf gsn:minCardinality ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may have a minimum cardinality."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:minCardinality ;
+        sh:name "minimum cardinality" ;
+        sh:datatype xsd:nonNegativeInteger ;
+        sh:maxCount 1 ;
+        sh:message "A minimum cardinality must be a single whole number that is not negative."@en ;
+    ] ;
+    sh:property [
+        sh:path gsn:minCardinality ;
+        sh:name "minimum cardinality" ;
+        sh:lessThanOrEquals gsn:maxCardinality ;
+        sh:message "The minimum cardinality must not be greater than the maximum cardinality."@en ;
+    ] .
+
+gsnsh:MaxCardinalityPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:maxCardinality"@en ;
+    sh:targetSubjectsOf gsn:maxCardinality ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may have a maximum cardinality."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:maxCardinality ;
+        sh:name "maximum cardinality" ;
+        sh:datatype xsd:nonNegativeInteger ;
+        sh:maxCount 1 ;
+        sh:message "A maximum cardinality must be a single whole number that is not negative."@en ;
+    ] .
+
+
+###  gsn:multiple
+gsnsh:MultiplePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:multiple"@en ;
+    sh:targetSubjectsOf gsn:multiple ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may be marked as multiple."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:multiple ;
+        sh:name "multiple" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Multiple must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:optional
+gsnsh:OptionalPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:optional"@en ;
+    sh:targetSubjectsOf gsn:optional ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Relationship ;
+    sh:message "Only a relationship may be marked as optional."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:optional ;
+        sh:name "optional" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:description "Optional instantiation means that the relationship and the argument below may or may not be instantiated."@en ;
+        sh:message "Optional must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:published
+gsnsh:PublishedPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:published"@en ;
+    sh:targetSubjectsOf gsn:published ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Argument ;
+    sh:message "Only an argument may be marked as published."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:published ;
+        sh:name "published" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Published must be a single true or false value."@en ;
+    ] .
+
+
+###  gsn:undeveloped
+gsnsh:UndevelopedPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:undeveloped"@en ;
+    sh:targetSubjectsOf gsn:undeveloped ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Strategy ] ) ;
+    sh:message "Only a goal or a strategy may be marked as undeveloped."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:undeveloped ;
+        sh:name "undeveloped" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:description "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
+        sh:message "Undeveloped must be a single true or false value."@en ;
+    ] .
+
+gsnsh:UndevelopedHasNoSupportShape rdf:type sh:NodeShape ;
+    rdfs:label "An undeveloped element is not supported"@en ;
+    rdfs:comment "GSN convention rather than an explicit OWL axiom: the undeveloped decorator indicates that a line of argument has NOT been developed, so the element should carry no gsn:supportedBy links."@en ;
+    sh:targetSubjectsOf gsn:undeveloped ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path gsn:undeveloped ; sh:name "undeveloped" ; sh:hasValue true ] ] ]
+        [ sh:property [ sh:path gsn:supportedBy ; sh:name "supported by" ; sh:maxCount 0 ] ]
+    ) ;
+    sh:message "An element marked as undeveloped indicates that a line of argument has not been developed, and so should not yet be supported by anything."@en ;
+    sh:severity sh:Warning .
+
+
+###  gsn:uninstantiated
+gsnsh:UninstantiatedPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:uninstantiated"@en ;
+    sh:targetSubjectsOf gsn:uninstantiated ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:GSNElement ;
+    sh:message "Only a GSN element may be marked as uninstantiated."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:uninstantiated ;
+        sh:name "uninstantiated" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:message "Uninstantiated must be a single true or false value."@en ;
+    ] .
+
+
+#################################################################
+#    Pattern documentation sections (annotation properties)
+#################################################################
+
+gsnsh:PatternSectionDomainShape rdf:type sh:NodeShape ;
+    rdfs:label "Pattern documentation sections — domain"@en ;
+    rdfs:comment "The ten pattern documentation sections all declare rdfs:domain gsn:Pattern."@en ;
+    sh:targetSubjectsOf gsn:applicability ;
+    sh:targetSubjectsOf gsn:collaboration ;
+    sh:targetSubjectsOf gsn:consequences ;
+    sh:targetSubjectsOf gsn:examples ;
+    sh:targetSubjectsOf gsn:implementation ;
+    sh:targetSubjectsOf gsn:intent ;
+    sh:targetSubjectsOf gsn:knownUses ;
+    sh:targetSubjectsOf gsn:motivation ;
+    sh:targetSubjectsOf gsn:participants ;
+    sh:targetSubjectsOf gsn:structure ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:class gsn:Pattern ;
+    sh:message "The pattern documentation sections (intent, motivation, structure, participants, collaboration, applicability, consequences, implementation, examples and known uses) may only be stated on a pattern."@en ;
+    sh:severity sh:Violation .
