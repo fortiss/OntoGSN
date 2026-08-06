@@ -249,25 +249,6 @@
     ]
   },
   {
-    "@id": "http://schema.org/description",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty",
-      "http://www.w3.org/2002/07/owl#DatatypeProperty"
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/2004/02/skos/core#definition",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/2004/02/skos/core#note",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
     "@id": "https://w3id.org/OntoGSN/ontology#Argument",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
@@ -308,12 +289,6 @@
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Module"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
         "@id": "_:genid0003"
@@ -330,23 +305,6 @@
       {
         "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
       }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Goal structures can be partitioned into separate, but interrelated, modules. This can allow the division of an overall goal structure into separate goal structures focusing on particular aspects of the overall argument. A module may contain one or more arguments and may contain other modules."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Modular Extension"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#renderedAs": [
-      {
-        "@value": "a rectangle with a second smaller rectangle adjoining at the top left"
-      }
     ]
   },
   {
@@ -359,24 +317,6 @@
     "@id": "https://w3id.org/OntoGSN/ontology#View",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "View"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "The argument view depicts the argument inside an individual module."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Modular Extension"
-      }
     ]
   },
   {
@@ -384,43 +324,14 @@
     "@type": [
       "http://www.w3.org/2002/07/owl#DatatypeProperty"
     ],
-    "http://schema.org/description": [
-      {
-        "@language": "en",
-        "@value": "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
         "@id": "_:genid0025"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "away"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "http://www.w3.org/2001/XMLSchema#boolean"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "An away element reference repeats a claim or evidence presented in another argument module."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Modular Extension"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#renderedAs": [
-      {
-        "@value": "bisecting line in the lower half"
       }
     ]
   },
@@ -435,26 +346,9 @@
         "@id": "_:genid0017"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "consistent with"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "_:genid0007"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@value": "By making the relationship to the away goal the author is asserting not only the inference of support for the parent goal, but also that the context in which the away goal is declared is consistent with the context and assumptions in scope for the parent goal."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Modular Extension"
       }
     ]
   },
@@ -474,12 +368,6 @@
         "@id": "https://w3id.org/OntoGSN/ontology#Module"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "contract"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "http://www.w3.org/2001/XMLSchema#boolean"
@@ -488,33 +376,6 @@
     "http://www.w3.org/2002/07/owl#propertyDisjointWith": [
       {
         "@id": "https://w3id.org/OntoGSN/ontology#undeveloped"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "A contract module is a special type of module that controls the relationship between argument module interfaces using arguments to define how a goal in one module is supported by one or more goals in one or more other modules."
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#note": [
-      {
-        "@language": "en",
-        "@value": "A contract may be described in textual form (e.g. as a table) or for more complex relationships may be described within a contract module using GSN."
-      },
-      {
-        "@language": "en",
-        "@value": "Contract modules can be used in the support relationship between modules to aid decoupling. The de-coupling by use of a contract permits argument module construction in cases where the eventual source of support for an argument is unknown at the time of authoring or can be changed for example through re-use or planned product improvement or reconfiguration."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Modular Extension"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#renderedAs": [
-      {
-        "@value": "a rectangle with two smaller rectangles (of equal size to each other) adjoining at the top left and bottom right"
       }
     ]
   },
@@ -540,39 +401,10 @@
         "@id": "_:genid0009"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "public"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "http://www.w3.org/2001/XMLSchema#boolean"
       }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Modular Extension"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#renderedAs": [
-      {
-        "@value": "miniature module symbol superimposed on an element at the top right"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/OntoGSN/ontology#renderedAs",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
     ]
   },
   {
@@ -585,27 +417,9 @@
         "@id": "https://w3id.org/OntoGSN/ontology#Justification"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "substituted by"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "_:genid0020"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "There may be occasions when a goal or strategy requires fuller justification than can be provided within the confines of a GSN justification element. In such cases, an away goal can be substituted for the justification."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Modular Extension"
       }
     ]
   },
@@ -625,12 +439,6 @@
         "@id": "https://w3id.org/OntoGSN/ontology#Goal"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "to be supported by contract"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "http://www.w3.org/2001/XMLSchema#boolean"
@@ -639,17 +447,6 @@
     "http://www.w3.org/2002/07/owl#propertyDisjointWith": [
       {
         "@id": "https://w3id.org/OntoGSN/ontology#undeveloped"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Modular Extension"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#renderedAs": [
-      {
-        "@value": "attached centrally immediately below the goal to which it relates"
       }
     ]
   },
@@ -669,21 +466,9 @@
         "@id": "https://w3id.org/OntoGSN/ontology#View"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "view type"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "_:genid0014"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Modular Extension"
       }
     ]
   },
@@ -695,7 +480,7 @@
     "http://purl.org/dc/elements/1.1/description": [
       {
         "@language": "en",
-        "@value": "The pruned Modular Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Excludes the SWRL rules; the term annotations are kept."
+        "@value": "The skeletal Modular Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Declarations and logical axioms only - no rules, no prose."
       }
     ],
     "http://purl.org/dc/elements/1.1/source": [

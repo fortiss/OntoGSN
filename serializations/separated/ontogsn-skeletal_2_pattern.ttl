@@ -1,0 +1,133 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dc:description a owl:AnnotationProperty .
+
+dc:source a owl:AnnotationProperty .
+
+dc:title a owl:AnnotationProperty .
+
+gsn:Catalogue a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gsn:Pattern ;
+            owl:onProperty gsn:contains ] .
+
+gsn:applicability a owl:AnnotationProperty ;
+    rdfs:domain gsn:Pattern .
+
+gsn:attachedTo a owl:ObjectProperty ;
+    rdfs:domain gsn:InstantiationDataReference ;
+    rdfs:range gsn:Template .
+
+gsn:choice a owl:DatatypeProperty ;
+    rdfs:domain gsn:Relationship ;
+    rdfs:range xsd:boolean .
+
+gsn:collaboration a owl:AnnotationProperty ;
+    rdfs:domain gsn:Pattern .
+
+gsn:consequences a owl:AnnotationProperty ;
+    rdfs:domain gsn:Pattern .
+
+gsn:coreOrExtension a owl:AnnotationProperty .
+
+gsn:examples a owl:AnnotationProperty ;
+    rdfs:domain gsn:Pattern .
+
+gsn:final a owl:DatatypeProperty ;
+    rdfs:domain gsn:Argument ;
+    rdfs:range xsd:boolean .
+
+gsn:implementation a owl:AnnotationProperty ;
+    rdfs:domain gsn:Pattern .
+
+gsn:instantiationOf a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:GSNElement ) ] ;
+    rdfs:range gsn:Pattern .
+
+gsn:intent a owl:AnnotationProperty ;
+    rdfs:domain gsn:Pattern .
+
+gsn:knownUses a owl:AnnotationProperty ;
+    rdfs:domain gsn:Pattern .
+
+gsn:maxCardinality a owl:DatatypeProperty ;
+    rdfs:domain gsn:Relationship ;
+    rdfs:range xsd:nonNegativeInteger .
+
+gsn:minCardinality a owl:DatatypeProperty ;
+    rdfs:domain gsn:Relationship ;
+    rdfs:range xsd:nonNegativeInteger .
+
+gsn:motivation a owl:AnnotationProperty ;
+    rdfs:domain gsn:Pattern .
+
+gsn:multiple a owl:DatatypeProperty ;
+    rdfs:domain gsn:Relationship ;
+    rdfs:range xsd:boolean .
+
+gsn:optional a owl:DatatypeProperty ;
+    rdfs:domain gsn:Relationship ;
+    rdfs:range xsd:boolean .
+
+gsn:participants a owl:AnnotationProperty ;
+    rdfs:domain gsn:Pattern .
+
+gsn:published a owl:DatatypeProperty ;
+    rdfs:domain gsn:Argument ;
+    rdfs:range xsd:boolean .
+
+gsn:relatedTo a owl:ObjectProperty ;
+    rdfs:domain gsn:Pattern ;
+    rdfs:range gsn:Pattern .
+
+gsn:structure a owl:AnnotationProperty ;
+    rdfs:domain gsn:Pattern .
+
+gsn:undeveloped a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Goal gsn:Strategy ) ] ;
+    rdfs:range xsd:boolean .
+
+gsn:uninstantiated a owl:DatatypeProperty ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:range xsd:boolean .
+
+<https://w3id.org/OntoGSN/ontology/pattern> a owl:Ontology ;
+    dc:description "The skeletal Argument Pattern Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Declarations and logical axioms only - no rules, no prose."@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    dc:title "OntoGSN — Argument Pattern Extension"@en ;
+    owl:versionInfo "1.2.2" ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+schema:description a owl:AnnotationProperty,
+        owl:DatatypeProperty .
+
+gsn:Goal a owl:Class .
+
+gsn:InstantiationDataReference a owl:Class .
+
+gsn:Strategy a owl:Class .
+
+gsn:Template a owl:Class ;
+    rdfs:subClassOf gsn:Pattern .
+
+gsn:contains a owl:ObjectProperty .
+
+gsn:GSNElement a owl:Class .
+
+gsn:Argument a owl:Class .
+
+gsn:Relationship a owl:Class .
+
+gsn:Pattern a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty schema:description ;
+            owl:someValuesFrom rdfs:Literal ] .
+

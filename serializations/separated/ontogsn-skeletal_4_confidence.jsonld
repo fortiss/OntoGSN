@@ -262,18 +262,6 @@
     ]
   },
   {
-    "@id": "http://www.w3.org/2004/02/skos/core#definition",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/2004/02/skos/core#note",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
     "@id": "https://w3id.org/OntoGSN/ontology#Argument",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
@@ -302,12 +290,6 @@
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Relationship with Confidence"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
         "@id": "_:genid0003"
@@ -326,18 +308,6 @@
       },
       {
         "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#note": [
-      {
-        "@language": "en",
-        "@value": "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Confidence Argument Extension"
       }
     ]
   },
@@ -363,21 +333,9 @@
         "@id": "https://w3id.org/OntoGSN/ontology#Argument"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "argument type"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "_:genid0008"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Confidence Argument Extension"
       }
     ]
   },
@@ -391,21 +349,9 @@
         "@id": "_:genid0017"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "associated with"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "https://w3id.org/OntoGSN/ontology#Argument"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Confidence Argument Extension"
       }
     ]
   },
@@ -419,43 +365,14 @@
         "@id": "_:genid0021"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "assurance claim point"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "http://www.w3.org/2001/XMLSchema#boolean"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Confidence Argument Extension"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#renderedAs": [
-      {
-        "@value": "solid square"
       }
     ]
   },
   {
     "@id": "https://w3id.org/OntoGSN/ontology#coreOrExtension",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
-    "@id": "https://w3id.org/OntoGSN/ontology#renderedAs",
     "@type": [
       "http://www.w3.org/2002/07/owl#AnnotationProperty"
     ]
@@ -468,7 +385,7 @@
     "http://purl.org/dc/elements/1.1/description": [
       {
         "@language": "en",
-        "@value": "The pruned Confidence Argument Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Excludes the SWRL rules; the term annotations are kept."
+        "@value": "The skeletal Confidence Argument Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Declarations and logical axioms only - no rules, no prose."
       }
     ],
     "http://purl.org/dc/elements/1.1/source": [

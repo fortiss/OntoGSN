@@ -93,31 +93,6 @@
     ]
   },
   {
-    "@id": "http://schema.org/description",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty",
-      "http://www.w3.org/2002/07/owl#DatatypeProperty"
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/2004/02/skos/core#altLabel",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/2004/02/skos/core#definition",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
-    "@id": "http://www.w3.org/2004/02/skos/core#note",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
     "@id": "https://w3id.org/OntoGSN/ontology#AssuranceCase",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
@@ -128,42 +103,9 @@
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "Defeater"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
         "@id": "_:genid0007"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#altLabel": [
-      {
-        "@language": "en",
-        "@value": "Dialectic Element"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@value": "The source of challenge being applied; can be directed at any part of an argument. A defeater (goal or solution) can challenge any element in a goal structure, e.g. goal, solution, strategy, context, assumption, justification."
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#note": [
-      {
-        "@language": "en",
-        "@value": "Membership of this class is only meant to be inferred, not asserted! Please do not add individuals to this class manually (i.e., assertions)."
-      },
-      {
-        "@language": "en",
-        "@value": "The goal and solution statements should be clearly expressed such that the crux of the challenge is unequivocally communicated. Thus, the link between the part of the argument that is being challenged (target) and the dialectic element (source) is self-evident."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Dialectic Extension"
       }
     ]
   },
@@ -201,38 +143,9 @@
         "@id": "_:genid0006"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "challenges"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument."
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#note": [
-      {
-        "@language": "en",
-        "@value": "A challenge must be levied against the appropriate aspect of the goal structure."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Dialectic Extension"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#renderedAs": [
-      {
-        "@value": "dashed line with an open arrowhead"
       }
     ]
   },
@@ -247,43 +160,14 @@
     "@type": [
       "http://www.w3.org/2002/07/owl#DatatypeProperty"
     ],
-    "http://schema.org/description": [
-      {
-        "@language": "en",
-        "@value": "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
         "@id": "_:genid0010"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "defeated"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "http://www.w3.org/2001/XMLSchema#boolean"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Dialectic Extension"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#renderedAs": [
-      {
-        "@value": "cross (‘X’) superimposed on a GSN element or relationship"
       }
     ]
   },
@@ -297,34 +181,10 @@
         "@id": "_:genid0003"
       }
     ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "in doubt"
-      }
-    ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "http://www.w3.org/2001/XMLSchema#boolean"
       }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Dialectic Extension"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/OntoGSN/ontology#renderedAs",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
     ]
   },
   {
@@ -335,7 +195,7 @@
     "http://purl.org/dc/elements/1.1/description": [
       {
         "@language": "en",
-        "@value": "The pruned Dialectic Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Excludes the SWRL rules; the term annotations are kept."
+        "@value": "The skeletal Dialectic Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Declarations and logical axioms only - no rules, no prose."
       }
     ],
     "http://purl.org/dc/elements/1.1/source": [

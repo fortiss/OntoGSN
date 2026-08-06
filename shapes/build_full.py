@@ -8,8 +8,10 @@ editing any module:
     python shapes/build_full.py
 """
 
+import argparse
 import io
 import os
+import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -86,6 +88,11 @@ def body(path):
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--check", action="store_true",
+                    help="verify the generated file is current; write nothing")
+    args = ap.parse_args()
+
     parts = [HEADER]
     for filename, section in MODULES:
         parts.append(
@@ -98,7 +105,20 @@ def main():
         parts.append(body(os.path.join(HERE, filename)))
 
     out_path = os.path.join(HERE, OUT)
-    io.open(out_path, "w", encoding="utf-8", newline="\n").write("".join(parts))
+    text = "".join(parts)
+
+    current = None
+    if os.path.exists(out_path):
+        current = io.open(out_path, encoding="utf-8").read()
+    if current == text:
+        print("{} is current".format(OUT))
+        return
+    # without this the one derived file with no --check could drift from its five
+    # sources unnoticed, which is exactly what happened to the separated serializations
+    if args.check:
+        sys.exit("{} is out of date - run python shapes/build_full.py".format(OUT))
+
+    io.open(out_path, "w", encoding="utf-8", newline="\n").write(text)
     print("wrote {}".format(out_path))
 
 
