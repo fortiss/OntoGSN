@@ -26,7 +26,7 @@ deliberately NOT imported by either of them: doing so would drag roughly two tho
 individuals into the ABox of every reasoner run over an assurance case."""@en ;
     dc:source "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C"@en ;
     vann:preferredNamespacePrefix "gsnprov" ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionInfo "1.1.0" ;
     rdfs:seeAlso <https://w3id.org/OntoGSN/ontology> , <https://w3id.org/OntoGSN/shapes> .
 
 
@@ -124,6 +124,15 @@ gsnprov:Query rdf:type owl:Class ;
     rdfs:label "query"@en ;
     skos:definition "A stored SPARQL query - a plan for getting an answer out of an assurance case."@en ;
     skos:note "A Plan rather than a plain Entity, because that is what PROV-O calls a specification of how something is to be done."@en .
+
+###  https://w3id.org/OntoGSN/provenance#QueryVerification
+gsnprov:QueryVerification rdf:type owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "query verification"@en ;
+    skos:definition "One occasion on which a stored query was executed against the example ABox and found to work: what form it took, what came back, and what it was verified against."@en ;
+    skos:note "Recorded rather than recomputed, because re-running every query on every change is the cost this record exists to avoid. gsnprov:verificationKey is what makes that safe: it covers the query, the ontology, the example ABox and the checker's own version, so a key that still matches is a question already answered and a key that no longer matches is an unverified query rather than a failing one."@en ;
+    skos:scopeNote "Written by tools/query_check.py into provenance/ontogsn-provenance-queries.ttl. A query with no verification has never been run; a verification whose key is stale describes a state of the repository that no longer exists."@en .
+
 
 ###  https://w3id.org/OntoGSN/provenance#Formalism
 gsnprov:Formalism rdf:type owl:Class ;
@@ -394,6 +403,84 @@ gsnprov:persona rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:range xsd:string ;
     rdfs:label "persona"@en ;
     skos:definition "The role that asks this question - assurance engineer, domain expert, auditor."@en .
+
+###  https://w3id.org/OntoGSN/provenance#operation
+gsnprov:operation rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain prov:Entity ;
+    rdfs:range xsd:string ;
+    rdfs:label "operation"@en ;
+    skos:definition "Which of create, read, update or delete a stored query performs."@en ;
+    skos:note "Kept as the query's own declaration rather than derived from its SPARQL form, because the two can legitimately disagree: inserting a strategy between a goal and its sub-goals is a DELETE/INSERT pair and is still a create."@en .
+
+
+#################################################################
+#    Datatype properties - verifying a query
+#################################################################
+
+###  https://w3id.org/OntoGSN/provenance#verificationKey
+gsnprov:verificationKey rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:QueryVerification ;
+    rdfs:range xsd:string ;
+    rdfs:label "verification key"@en ;
+    skos:definition "A hash over everything the verification depended on: the query text, the ontology, the example ABox, and the version of the checker."@en ;
+    skos:note "The whole point of recording verifications. Recompute the key and compare: equal means the query has already been verified in exactly this state and need not be run again; different means something it depends on has moved. It deliberately covers the ontology as well as the query, because a query's meaning is made of the terms it names."@en .
+
+###  https://w3id.org/OntoGSN/provenance#expectation
+gsnprov:expectation rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:QueryVerification ;
+    rdfs:range xsd:string ;
+    rdfs:label "expectation"@en ;
+    skos:definition "What the query declares should happen when it runs against the example ABox - rows, empty, insert, delete or change."@en ;
+    skos:note "Stated in the query's own header. Without it, verification could only show that a query parses; with it, a query that quietly stops matching anything is a failure rather than a zero."@en .
+
+###  https://w3id.org/OntoGSN/provenance#resultForm
+gsnprov:resultForm rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:QueryVerification ;
+    rdfs:range xsd:string ;
+    rdfs:label "result form"@en ;
+    skos:definition "The SPARQL form the query takes - SELECT, ASK, CONSTRUCT, INSERT, DELETE."@en .
+
+###  https://w3id.org/OntoGSN/provenance#verificationOutcome
+gsnprov:verificationOutcome rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:QueryVerification ;
+    rdfs:range xsd:string ;
+    rdfs:label "verification outcome"@en ;
+    skos:definition "Whether the query passed or failed when it was last executed."@en .
+
+###  https://w3id.org/OntoGSN/provenance#verifiedWith
+gsnprov:verifiedWith rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:QueryVerification ;
+    rdfs:range xsd:string ;
+    rdfs:label "verified with"@en ;
+    skos:definition "The SPARQL engine and version the query was executed on."@en ;
+    skos:note "Recorded because 'it executes' is a claim about an engine, not about SPARQL. Engines differ in what they accept, and a query verified on one is evidence about that one."@en .
+
+###  https://w3id.org/OntoGSN/provenance#rowCount
+gsnprov:rowCount rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:QueryVerification ;
+    rdfs:range xsd:integer ;
+    rdfs:label "row count"@en ;
+    skos:definition "How many rows the query returned against the example ABox."@en ;
+    skos:note "A number about the fixture, not about any real case. It is worth watching all the same: a count that changes when nobody changed the query is a change in the ontology or the fixture showing through."@en .
+
+###  https://w3id.org/OntoGSN/provenance#triplesAdded
+gsnprov:triplesAdded rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:QueryVerification ;
+    rdfs:range xsd:integer ;
+    rdfs:label "triples added"@en ;
+    skos:definition "How many triples the update inserted into the example ABox."@en .
+
+###  https://w3id.org/OntoGSN/provenance#triplesRemoved
+gsnprov:triplesRemoved rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:QueryVerification ;
+    rdfs:range xsd:integer ;
+    rdfs:label "triples removed"@en ;
+    skos:definition "How many triples the update deleted from the example ABox."@en .
+
+
+#################################################################
+#    Datatype properties - requirements
+#################################################################
 
 ###  https://w3id.org/OntoGSN/provenance#appliesTo
 gsnprov:appliesTo rdf:type owl:DatatypeProperty ;

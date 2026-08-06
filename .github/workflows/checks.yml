@@ -22,9 +22,14 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      # --strict fails the build when a derived file is stale. The provenance report runs
-      # but does not gate: it lists things needing human judgement - an axiom nobody has
-      # documented yet, a sentence that needs rewriting - and CI should not fail because a
-      # decision is outstanding. Add --strict-provenance once the stored queries are fixed.
-      - name: derived files current, provenance record consistent
+      # --strict fails the build when a derived file is stale, or when a stored query has
+      # not been verified against what is committed. The provenance report runs but does
+      # not gate: it lists things needing human judgement - an axiom nobody has documented
+      # yet, a sentence that needs rewriting - and CI should not fail because a decision is
+      # outstanding.
+      #
+      # The stored queries were the reason --strict-provenance was held back, and they are
+      # fixed: prov_check.py now reports nothing. Add the flag when you want an
+      # undocumented axiom to fail the build.
+      - name: derived files current, queries verified, provenance record consistent
         run: python tools/check_all.py --strict

@@ -47,6 +47,9 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `shapes/ontogsn-shapes_[1-5]*.ttl` | the five SHACL sections |
 | `provenance/ontogsn-provenance.ttl` | the provenance vocabulary |
 | `provenance/ontogsn-provenance-data.ttl` | **the design record** — ~36,000 words of quoted standard passages, rationale and prose that exist nowhere else |
+| `queries/*.rq` | the stored CRUD queries, one per competency question |
+| `queries/rules/*.rq` | the 51 SWRL rules as SPARQL updates |
+| `tools/testdata/*.ttl` | the example ABox, and one trigger per rule |
 
 | Generated | From | By |
 | :--- | :--- | :--- |
@@ -54,6 +57,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `serializations/separated/*` (36 files) | `ontogsn.ttl` | `serializations/build_separated.py` |
 | `shapes/ontogsn-shapes_0_full.ttl` | the five sections | `shapes/build_full.py` |
 | `provenance/ontogsn-provenance-augmentations.ttl` | the repo | `tools/prov_augment.py` |
+| `provenance/ontogsn-provenance-queries.ttl` | `queries/`, the ontology, the fixture | `tools/query_check.py` |
 | `provenance/Design Documentation.xlsx` | the provenance graph | `tools/prov_to_workbook.py` |
 
 Every generator has a `--check` mode. **Nothing runs them automatically** — no CI, no git
@@ -63,6 +67,8 @@ hooks. `check_all.py` is the one command to run before committing.
 
 ```
 check_all.py       every check, one command
+query_check.py     the stored queries vs an actual SPARQL engine
+run_rules.py       apply queries/rules/ to a case until nothing more is derived
 prov_check.py      the provenance record vs the ontology, the shapes and the queries
 prov_add.py        draft a decision for an axiom nobody has documented
 prov_retire.py     retire a decision, or bring it back
@@ -105,6 +111,34 @@ python tools/prov_retire.py dd-0680 --reason "..." --superseded-by dd-0646
 axiom is gone), `undocumented` (the new one has no decision), and `release-edited-in-place`
 (the file's checksum moved while `owl:versionInfo` did not). Fix the record, then update
 `gsnprov:fileChecksum` on the `gsnprov:FormalGraph` node, or bump the ontology version.
+
+## Stored queries
+
+`queries/` holds one SPARQL file per competency question; `queries/rules/` holds the 51
+SWRL rules as SPARQL updates. Both are verified by executing them against
+`serializations/ontogsn.ttl` and the fixtures in `tools/testdata/`, in Oxigraph:
+
+```bash
+python tools/query_check.py            # verify what changed, update the record
+python tools/query_check.py --all      # re-verify everything
+python tools/query_check.py --check    # CI: is the record current? executes nothing
+python tools/query_check.py -v         # one line per query
+```
+
+It checks the header, the `gsn:` namespace, that every `gsn:` term named exists in the
+ontology, and that the query does what its `expect:` line says when run.
+
+`provenance/ontogsn-provenance-queries.ttl` records a `gsnprov:verificationKey` per query,
+hashed over the query, the ontology, the fixtures and `CHECKER_VERSION`. Edit one query and
+one query re-runs; edit the ontology and all of them do. `--check` only compares keys, so a
+stale key means "not verified since it changed" — re-run without `--check` and commit the
+record.
+
+To apply the rules to a case:
+
+```bash
+python tools/run_rules.py mycase.ttl --out mycase-materialised.ttl
+```
 
 ## How an axiom is identified, and why not the obvious way
 

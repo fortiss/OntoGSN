@@ -6,8 +6,9 @@
     python tools/check_all.py --strict --staged   # only the checks the commit affects
 
 Nothing regenerates anything here. This answers one question: is what is committed
-self-consistent? Three of the four checks are about derived files being current; the
-fourth is about the provenance record still agreeing with the ontology.
+self-consistent? Three of the five checks are about derived files being current, one is
+about every stored query having been verified against what is committed, and the last is
+about the provenance record still agreeing with the ontology.
 
 The provenance report is never fatal on its own. It lists things a person has to judge -
 an axiom nobody has documented, a sentence that needs rewriting - and a build should not
@@ -41,13 +42,23 @@ CHECKS = [
      "command": ["shapes/build_full.py", "--check"],
      "gating": True,
      "triggers": ("shapes/",)},
+    # Executes nothing: it recomputes each query's verification key and compares it with
+    # provenance/ontogsn-provenance-queries.ttl. A stale key means a query nobody has
+    # re-run since it, the ontology or the fixture changed - so it gates, and the fix is
+    # to run the script without --check and commit the record it writes.
+    {"name": "stored queries verified",
+     "command": ["tools/query_check.py", "--check"],
+     "gating": True,
+     "triggers": ("queries/", "tools/testdata/", "tools/query_check.py",
+                  "serializations/ontogsn.ttl",
+                  "provenance/ontogsn-provenance-queries.ttl")},
     {"name": "provenance record",
      "command": ["tools/prov_check.py"],
      "gating": False,
      # the record describes the ontology, the shapes and the stored queries, so a change
      # to any of them can invalidate it
      "triggers": ("provenance/", "serializations/ontogsn.ttl", "shapes/",
-                  "interface/queries/", "OntoGSN Competency Questions.xlsx")},
+                  "queries/", "OntoGSN Competency Questions.xlsx")},
 ]
 
 

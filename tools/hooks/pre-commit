@@ -15,9 +15,11 @@
 
 python tools/check_all.py --strict --staged || {
     echo
-    echo "A generated file is out of date. Regenerate it, stage the result, and commit again:"
+    echo "A generated file is out of date, or a stored query has not been verified since"
+    echo "it changed. Regenerate, stage the result, and commit again:"
     echo "    python serializations/build.py"
     echo "    python serializations/build_separated.py"
     echo "    python shapes/build_full.py"
+    echo "    python tools/query_check.py"
     exit 1
 }
