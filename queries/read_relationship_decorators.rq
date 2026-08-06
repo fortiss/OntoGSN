@@ -1,0 +1,29 @@
+# id:        DE-08
+# persona:   Domain expert
+# operation: read
+# question:  Which relationships carry pattern decorators - optional, multiple, cardinality?
+# expect:    rows
+#
+# These say how a pattern is to be instantiated, and are the part most often lost when a
+# pattern is copied into a concrete case by hand.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?relationshipId ?subjectId ?objectId ?optional ?multiple ?choice ?minCardinality ?maxCardinality
+WHERE {
+  ?relationship a/rdfs:subClassOf* gsn:Relationship ;
+                schema:identifier ?relationshipId .
+  OPTIONAL { ?relationship rdf:subject ?subject . ?subject schema:identifier ?subjectId }
+  OPTIONAL { ?relationship rdf:object  ?object  . ?object  schema:identifier ?objectId }
+  OPTIONAL { ?relationship gsn:optional       ?optional }
+  OPTIONAL { ?relationship gsn:multiple       ?multiple }
+  OPTIONAL { ?relationship gsn:choice         ?choice }
+  OPTIONAL { ?relationship gsn:minCardinality ?minCardinality }
+  OPTIONAL { ?relationship gsn:maxCardinality ?maxCardinality }
+  FILTER(BOUND(?optional) || BOUND(?multiple) || BOUND(?choice)
+         || BOUND(?minCardinality) || BOUND(?maxCardinality))
+}
+ORDER BY ?relationshipId

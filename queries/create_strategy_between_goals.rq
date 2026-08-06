@@ -1,0 +1,35 @@
+# id:        AE-15
+# persona:   Assurance engineer
+# operation: create
+# question:  How is a strategy inserted between a goal and the sub-goals it already has?
+# expect:    change
+#
+# Inserting a strategy is a re-parenting, not an addition: the parent's existing support
+# links move onto the strategy, or the argument ends up with two routes to the same place.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+DELETE {
+  ?parent gsn:supportedBy ?child .
+}
+INSERT {
+  ?parent gsn:supportedBy ?strategy .
+  ?strategy a gsn:Strategy ;
+            schema:identifier ?strategyId ;
+            rdfs:label ?strategyId ;
+            gsn:statement ?strategyStatement ;
+            gsn:undeveloped false ;
+            gsn:supportedBy ?child .
+}
+WHERE {
+  VALUES (?parentId ?strategyId ?strategyStatement) {   # PARAMETERS
+    ("G1.1" "St2" "Argument over each detection failure mode in turn.")
+  }
+  ?parent schema:identifier ?parentId ;
+          gsn:supportedBy ?child .
+  FILTER NOT EXISTS { ?existing schema:identifier ?strategyId }
+  BIND(IRI(CONCAT(REPLACE(STR(?parent), "[^#/]*$", ""),
+                  ENCODE_FOR_URI(?strategyId))) AS ?strategy)
+}

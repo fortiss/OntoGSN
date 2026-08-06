@@ -1,0 +1,24 @@
+# id:        AE-07
+# persona:   Assurance engineer
+# operation: read
+# question:  If a given artefact is withdrawn or superseded, which claims are affected?
+# expect:    rows
+#
+# The impact analysis that has to be run before any evidence item is replaced.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?goalId ?statement ?solutionId
+WHERE {
+  VALUES ?artefactId { "Ev2" }        # PARAMETER: the artefact in question
+
+  ?artefact schema:identifier ?artefactId .
+  ?solution gsn:refersTo ?artefact ;
+            schema:identifier ?solutionId .
+  ?goal gsn:supportedBy+ ?solution ;
+        a gsn:Goal ;
+        schema:identifier ?goalId .
+  OPTIONAL { ?goal gsn:statement ?statement }
+}
+ORDER BY ?goalId

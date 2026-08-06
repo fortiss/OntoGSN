@@ -1,0 +1,38 @@
+# id:        AE-13
+# persona:   Assurance engineer
+# operation: create
+# question:  How is a new, empty assurance case started?
+# expect:    insert
+#
+# The only query in the set that names a case namespace of its own, because there is no
+# existing element to derive one from. Change the case: prefix below before running it.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX case:   <https://example.org/my-assurance-case#>
+
+INSERT DATA {
+  case:AC1 a gsn:AssuranceCase ;
+           schema:identifier "AC1" ;
+           rdfs:label "New assurance case" ;
+           gsn:statement "The system is acceptably safe for its intended use." ;
+           gsn:contains case:Arg1 .
+
+  case:Arg1 a gsn:Argument ;
+            schema:identifier "Arg1" ;
+            rdfs:label "Top-level argument" ;
+            gsn:statement "Argument over the identified hazards." ;
+            gsn:argumentType "risk" ;
+            gsn:structured true ;
+            gsn:final false ;
+            gsn:published false ;
+            gsn:contains case:G1 .
+
+  case:G1 a gsn:Goal ;
+          schema:identifier "G1" ;
+          rdfs:label "Goal G1" ;
+          gsn:statement "The system is acceptably safe for its intended use." ;
+          gsn:top true ;
+          gsn:undeveloped true .
+}

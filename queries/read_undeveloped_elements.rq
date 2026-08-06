@@ -1,0 +1,22 @@
+# id:        AE-09
+# persona:   Assurance engineer
+# operation: read
+# question:  Which lines of argument are declared undeveloped, and are still undeveloped?
+# expect:    rows
+#
+# The decorator is a promise. This finds the ones still outstanding, and separately the
+# ones that have since been developed and whose decorator nobody cleared.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?elementId ?type ?statement ?stillUndeveloped
+WHERE {
+  ?element gsn:undeveloped ?flag ;
+           a ?type ;
+           schema:identifier ?elementId .
+  FILTER(STR(?flag) = "true")
+  OPTIONAL { ?element gsn:statement ?statement }
+  BIND(NOT EXISTS { ?element gsn:supportedBy ?child } AS ?stillUndeveloped)
+}
+ORDER BY DESC(?stillUndeveloped) ?elementId

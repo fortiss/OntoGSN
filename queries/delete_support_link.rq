@@ -1,0 +1,30 @@
+# id:        AE-24
+# persona:   Assurance engineer
+# operation: delete
+# question:  How is one support or context link removed, leaving both elements in place?
+# expect:    delete
+#
+# Detaching a branch rather than deleting it - the sub-argument survives and can be
+# re-parented. The reification of the link goes with it, or it outlives what it describes.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+DELETE {
+  ?from ?predicate ?to .
+  ?relationship ?relationshipProperty ?relationshipValue .
+}
+WHERE {
+  VALUES (?fromId ?toId ?predicate) {                 # PARAMETERS
+    ("G1.1" "Sn2" gsn:supportedBy)
+  }
+  ?from schema:identifier ?fromId .
+  ?to schema:identifier ?toId .
+  ?from ?predicate ?to .
+  OPTIONAL {
+    ?relationship rdf:subject ?from ;
+                  rdf:object ?to ;
+                  ?relationshipProperty ?relationshipValue .
+  }
+}

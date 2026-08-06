@@ -1,0 +1,26 @@
+# id:        DE-04
+# persona:   Domain expert
+# operation: read
+# question:  Which away elements are referenced, and does the module they come from exist?
+# expect:    rows
+#
+# An away element repeats something declared elsewhere. If the elsewhere is not in the
+# store, the reference is dangling and the argument is not self-contained.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?elementId ?type ?homeModuleId ?public
+WHERE {
+  ?element gsn:away ?away ;
+           a ?type ;
+           schema:identifier ?elementId .
+  FILTER(STR(?away) = "true")
+  OPTIONAL {
+    ?home a gsn:Module ;
+          gsn:contains ?element ;
+          schema:identifier ?homeModuleId .
+  }
+  BIND(EXISTS { ?element gsn:public ?p . FILTER(STR(?p) = "true") } AS ?public)
+}
+ORDER BY ?elementId

@@ -1,0 +1,32 @@
+# id:        AE-05
+# persona:   Assurance engineer
+# operation: read
+# question:  What is the whole argument beneath a given goal?
+# expect:    rows
+#
+# ?depth is the length of the shortest support chain from the root, which is what makes
+# the result readable as a tree rather than a bag of elements.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?descendantId ?type ?statement (MIN(?hops) AS ?depth)
+WHERE {
+  VALUES ?rootId { "G1" }             # PARAMETER: the goal to expand
+
+  ?root schema:identifier ?rootId .
+  ?root gsn:supportedBy+ ?descendant .
+  ?descendant a ?type ;
+              schema:identifier ?descendantId .
+  OPTIONAL { ?descendant gsn:statement ?statement }
+  {
+    SELECT ?root ?descendant (COUNT(?step) AS ?hops)
+    WHERE {
+      ?root gsn:supportedBy* ?step .
+      ?step gsn:supportedBy+ ?descendant .
+    }
+    GROUP BY ?root ?descendant
+  }
+}
+GROUP BY ?descendantId ?type ?statement
+ORDER BY ?depth ?descendantId

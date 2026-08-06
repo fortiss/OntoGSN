@@ -1,0 +1,28 @@
+# id:        DE-03
+# persona:   Domain expert
+# operation: read
+# question:  Which modules depend on which, and through which elements?
+# expect:    rows
+#
+# The module-level edge is derived from the element-level one, so the witness element is
+# returned with it: a dependency nobody can point at an element for is a modelling error.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?fromModuleId ?kind ?toModuleId ?viaFromId ?viaToId
+WHERE {
+  ?from a gsn:Module ; schema:identifier ?fromModuleId ; gsn:contains ?viaFrom .
+  ?to   a gsn:Module ; schema:identifier ?toModuleId   ; gsn:contains ?viaTo .
+  FILTER(?from != ?to)
+  ?viaFrom schema:identifier ?viaFromId .
+  ?viaTo   schema:identifier ?viaToId .
+  {
+    ?viaFrom gsn:supportedBy ?viaTo .
+    BIND("supportedBy" AS ?kind)
+  } UNION {
+    ?viaFrom gsn:inContextOf ?viaTo .
+    BIND("inContextOf" AS ?kind)
+  }
+}
+ORDER BY ?fromModuleId ?toModuleId

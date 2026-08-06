@@ -1,0 +1,23 @@
+# id:        AU-06
+# persona:   Auditor
+# operation: read
+# question:  Do two distinct elements share a schema:identifier?
+# expect:    rows
+#
+# The ontology requires exactly one identifier per element and the SWRL rules invalidate
+# both parties to a clash (S25, S41), because every other query addresses elements by it.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?identifier (COUNT(DISTINCT ?element) AS ?holders) (GROUP_CONCAT(DISTINCT STR(?element); separator=" ") AS ?elements)
+WHERE {
+  VALUES ?kind { gsn:GSNElement gsn:Argument gsn:Artefact gsn:AssuranceCase
+                 gsn:Pattern gsn:Relationship }
+  ?element a/rdfs:subClassOf* ?kind ;
+           schema:identifier ?identifier .
+}
+GROUP BY ?identifier
+HAVING (COUNT(DISTINCT ?element) > 1)
+ORDER BY ?identifier

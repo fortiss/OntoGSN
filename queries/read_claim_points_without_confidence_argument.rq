@@ -1,0 +1,27 @@
+# id:        DE-02
+# persona:   Domain expert
+# operation: read
+# question:  Which assurance claim points have no confidence argument behind them?
+# expect:    rows
+#
+# An assurance claim point is a promise that confidence in this step has been argued
+# somewhere. One with nothing associated is the promise unkept.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?relationshipId ?subjectId ?objectId
+WHERE {
+  ?relationship gsn:assuranceClaimPoint ?acp ;
+                schema:identifier ?relationshipId .
+  FILTER(STR(?acp) = "true")
+  OPTIONAL { ?relationship rdf:subject ?subject . ?subject schema:identifier ?subjectId }
+  OPTIONAL { ?relationship rdf:object  ?object  . ?object  schema:identifier ?objectId }
+
+  FILTER NOT EXISTS {
+    ?relationship gsn:associatedWith ?argument .
+    ?argument gsn:argumentType "confidence" .
+  }
+}
+ORDER BY ?relationshipId

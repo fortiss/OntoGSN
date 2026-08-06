@@ -1,0 +1,20 @@
+# id:        AU-09
+# persona:   Auditor
+# operation: update
+# question:  How is a single element marked invalid?
+# expect:    change
+#
+# The flag-setting idiom used by every update below: delete whatever value is there,
+# insert the new one, and skip the row entirely if it already says what you want.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+DELETE { ?element gsn:valid ?old }
+INSERT { ?element gsn:valid false }
+WHERE {
+  VALUES ?elementId { "G1.1" }                        # PARAMETER
+  ?element schema:identifier ?elementId .
+  OPTIONAL { ?element gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

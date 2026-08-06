@@ -1,0 +1,32 @@
+# id:        AU-08
+# persona:   Auditor
+# operation: create
+# question:  How is a challenge recorded against part of the argument?
+# expect:    insert
+#
+# A challenge shaped as a goal asserts a counter-claim and puts its target in doubt; one
+# shaped as a solution cites evidence and defeats it. Change ?challengeType to pick.
+# gsn:Defeater is inferred from gsn:challenges, never asserted - see the class's note.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+INSERT {
+  ?challenge a ?challengeType ;
+             schema:identifier ?challengeId ;
+             rdfs:label ?challengeId ;
+             gsn:statement ?challengeStatement ;
+             gsn:undeveloped true ;
+             gsn:challenges ?target .
+}
+WHERE {
+  VALUES (?targetId ?challengeId ?challengeType ?challengeStatement) {   # PARAMETERS
+    ("G1.1" "CG3" gsn:Goal
+     "The field trial did not cover the night-time subset of the operational design domain.")
+  }
+  ?target schema:identifier ?targetId .
+  FILTER NOT EXISTS { ?existing schema:identifier ?challengeId }
+  BIND(IRI(CONCAT(REPLACE(STR(?target), "[^#/]*$", ""),
+                  ENCODE_FOR_URI(?challengeId))) AS ?challenge)
+}

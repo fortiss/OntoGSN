@@ -1,0 +1,28 @@
+# id:        AE-08
+# persona:   Assurance engineer
+# operation: read
+# question:  What context, assumptions and justifications are in scope for a given goal?
+# expect:    rows
+#
+# Context is inherited down the support chain (SWRL rule "Context Inheritance"), so a
+# goal is read in the context declared on it AND on everything above it.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?contextId ?type ?statement ?declaredOnId ?inherited
+WHERE {
+  VALUES ?goalId { "G1.1" }           # PARAMETER: the goal being read
+
+  ?goal schema:identifier ?goalId .
+  ?ancestor gsn:supportedBy* ?goal .
+  ?ancestor gsn:inContextOf ?context ;
+            schema:identifier ?declaredOnId .
+  ?context a ?type ;
+           schema:identifier ?contextId .
+  ?type rdfs:subClassOf* gsn:GSNElement .
+  OPTIONAL { ?context gsn:statement ?statement }
+  BIND(?ancestor != ?goal AS ?inherited)
+}
+ORDER BY ?inherited ?contextId

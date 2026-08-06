@@ -1,0 +1,493 @@
+# An example OntoGSN ABox, written to exercise every stored query in queries/.
+#
+# It is a fixture, not a model answer. Its job is to make each query return at least one
+# row, so that "the query executes" also means "the query matches the shape of real data".
+# Every GSN section is represented: core, argument pattern, modular, confidence, dialectic.
+#
+# The last section is DELIBERATELY MALFORMED - a support cycle, a duplicate identifier, a
+# solution with no artefact. Those exist so the diagnostic queries have something to find.
+# Do not copy that section into a real case.
+
+@prefix ex:     <https://w3id.org/OntoGSN/example#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix terms:  <http://purl.org/dc/terms/> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/OntoGSN/example> a owl:Ontology ;
+    rdfs:label "OntoGSN example assurance case"@en ;
+    owl:imports <https://w3id.org/OntoGSN/ontology> .
+
+
+#################################################################
+#    The case, its argument and its modules
+#################################################################
+
+ex:AC1 a gsn:AssuranceCase ;
+    schema:identifier "AC1" ;
+    rdfs:label "Perception subsystem assurance case"@en ;
+    gsn:statement "The perception subsystem is acceptably safe for the defined operational design domain." ;
+    gsn:contains ex:Arg1 , ex:ConfArg1 ,
+                 ex:Ev1 , ex:Ev2 , ex:Ev3 , ex:Ev4 , ex:Ev5 .
+
+ex:Arg1 a gsn:Argument ;
+    schema:identifier "Arg1" ;
+    rdfs:label "Perception safety argument"@en ;
+    gsn:statement "Argument over the identified hazards of the perception subsystem." ;
+    gsn:argumentType "risk" ;
+    gsn:structured true ;
+    gsn:final false ;
+    gsn:published true ;
+    gsn:contains ex:G1 , ex:G1_1 , ex:G1_2 , ex:G1_3 , ex:St1 ,
+                 ex:C1 , ex:C2 , ex:A1 , ex:J1 ,
+                 ex:Sn1 , ex:Sn2 , ex:Sn3 .
+
+# A confidence argument, referenced from the assurance claim point on R_G1_St1.
+ex:ConfArg1 a gsn:Argument ;
+    schema:identifier "ConfArg1" ;
+    rdfs:label "Confidence in the hazard decomposition"@en ;
+    gsn:statement "The decomposition over hazards is complete and the hazard log is current." ;
+    gsn:argumentType "confidence" ;
+    gsn:structured true .
+
+ex:M1 a gsn:Module ;
+    schema:identifier "M1" ;
+    rdfs:label "Perception module"@en ;
+    gsn:statement "The argument for the perception subsystem itself." ;
+    gsn:contract false ;
+    gsn:contains ex:Arg1 , ex:G1 , ex:G1_1 , ex:G1_2 , ex:G1_3 , ex:St1 ,
+                 ex:C1 , ex:C2 , ex:A1 , ex:J1 , ex:Sn1 , ex:Sn2 , ex:Sn3 .
+
+ex:M2 a gsn:Module ;
+    schema:identifier "M2" ;
+    rdfs:label "Sensor platform module"@en ;
+    gsn:statement "The argument for the sensor platform the perception subsystem runs on." ;
+    gsn:contract false ;
+    gsn:contains ex:Arg2 , ex:G2 , ex:C3 , ex:Sn4 .
+
+ex:M3 a gsn:Module ;
+    schema:identifier "M3" ;
+    rdfs:label "Perception / platform contract"@en ;
+    gsn:statement "The contract between the perception argument and the platform argument." ;
+    gsn:contract true ;
+    gsn:contains ex:Arg3 , ex:G3 .
+
+ex:Arg2 a gsn:Argument ;
+    schema:identifier "Arg2" ;
+    gsn:statement "Argument over the sensor platform's published performance envelope." ;
+    gsn:argumentType "risk" ;
+    gsn:structured true ;
+    gsn:contains ex:G2 , ex:C3 , ex:Sn4 .
+
+ex:Arg3 a gsn:Argument ;
+    schema:identifier "Arg3" ;
+    gsn:statement "Argument that the platform's envelope discharges the perception subsystem's demand." ;
+    gsn:argumentType "risk" ;
+    gsn:structured true ;
+    gsn:contains ex:G3 .
+
+
+#################################################################
+#    Core GSN: goals, strategy, context, solutions
+#################################################################
+
+ex:G1 a gsn:Goal ;
+    schema:identifier "G1" ;
+    rdfs:label "Goal G1"@en ;
+    gsn:statement "The perception subsystem is acceptably safe in the defined operational design domain." ;
+    gsn:top true ;
+    gsn:valid true ;
+    gsn:public true ;
+    gsn:undeveloped false ;
+    gsn:supportedBy ex:St1 ;
+    gsn:inContextOf ex:C1 , ex:A1 .
+
+ex:St1 a gsn:Strategy ;
+    schema:identifier "St1" ;
+    rdfs:label "Strategy St1"@en ;
+    gsn:statement "Argument over each hazard identified for the perception subsystem." ;
+    gsn:valid true ;
+    gsn:undeveloped false ;
+    gsn:supportedBy ex:G1_1 , ex:G1_2 , ex:G1_3 ;
+    gsn:inContextOf ex:C2 , ex:J1 .
+
+ex:G1_1 a gsn:Goal ;
+    schema:identifier "G1.1" ;
+    rdfs:label "Goal G1.1"@en ;
+    gsn:statement "False negative detections occur at a rate below the allocated target." ;
+    gsn:top false ;
+    gsn:valid true ;
+    gsn:true true ;
+    gsn:undeveloped false ;
+    gsn:supportedBy ex:Sn1 , ex:Sn2 .
+
+ex:G1_2 a gsn:Goal ;
+    schema:identifier "G1.2" ;
+    rdfs:label "Goal G1.2"@en ;
+    gsn:statement "False positive detections do not lead to unsafe braking demands." ;
+    gsn:top false ;
+    gsn:valid true ;
+    gsn:undeveloped false ;
+    gsn:supportedBy ex:Sn3 .
+
+# Undeveloped, and to be discharged by the platform module through a contract.
+ex:G1_3 a gsn:Goal ;
+    schema:identifier "G1.3" ;
+    rdfs:label "Goal G1.3"@en ;
+    gsn:statement "Sensor degradation is detected within the allocated fault detection interval." ;
+    gsn:top false ;
+    gsn:valid true ;
+    gsn:undeveloped true ;
+    gsn:toBeSupportedByContract true ;
+    gsn:instantiationOf ex:P1 ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy ex:G2 ;
+    gsn:inContextOf ex:C3 .
+
+ex:C1 a gsn:Context ;
+    schema:identifier "C1" ;
+    rdfs:label "Context C1"@en ;
+    gsn:statement "The operational design domain is defined in ODD-SPEC-04." ;
+    gsn:valid true ;
+    gsn:public true ;
+    gsn:refersTo ex:Ev4 .
+
+ex:C2 a gsn:Context ;
+    schema:identifier "C2" ;
+    rdfs:label "Context C2"@en ;
+    gsn:statement "The hazard log HAZ-LOG-11 lists the identified perception hazards." ;
+    gsn:valid true ;
+    gsn:refersTo ex:Ev5 .
+
+ex:A1 a gsn:Assumption ;
+    schema:identifier "A1" ;
+    rdfs:label "Assumption A1"@en ;
+    gsn:statement "The sensor calibration is maintained at the intervals given in the maintenance schedule." ;
+    gsn:valid true ;
+    gsn:true true .
+
+ex:A2 a gsn:Assumption ;
+    schema:identifier "A2" ;
+    rdfs:label "Assumption A2"@en ;
+    gsn:statement "The arbitration logic behaves identically on the current and the trialled sensor variant." ;
+    gsn:valid false ;
+    gsn:true false .
+
+ex:G1_2 gsn:inContextOf ex:A2 .
+
+ex:J1 a gsn:Justification ;
+    schema:identifier "J1" ;
+    rdfs:label "Justification J1"@en ;
+    gsn:statement "Hazard-directed decomposition is accepted practice for this class of subsystem." ;
+    gsn:valid true ;
+    gsn:substitutedBy ex:G2 .
+
+ex:Sn1 a gsn:Solution ;
+    schema:identifier "Sn1" ;
+    rdfs:label "Solution Sn1"@en ;
+    gsn:statement "Field trial detection performance report." ;
+    gsn:valid true ;
+    gsn:true true ;
+    gsn:refersTo ex:Ev1 .
+
+ex:Sn2 a gsn:Solution ;
+    schema:identifier "Sn2" ;
+    rdfs:label "Solution Sn2"@en ;
+    gsn:statement "Closed-loop simulation campaign results." ;
+    gsn:valid true ;
+    gsn:true true ;
+    gsn:assuranceClaimPoint true ;
+    gsn:refersTo ex:Ev2 .
+
+ex:Sn3 a gsn:Solution ;
+    schema:identifier "Sn3" ;
+    rdfs:label "Solution Sn3"@en ;
+    gsn:statement "Braking demand arbitration test report." ;
+    gsn:valid true ;
+    gsn:true true ;
+    gsn:refersTo ex:Ev3 .
+
+
+#################################################################
+#    Artefacts - the evidence items the solutions point at
+#################################################################
+
+ex:Ev1 a gsn:Artefact ;
+    schema:identifier "Ev1" ;
+    rdfs:label "FIELD-TRIAL-REPORT-2026-03"@en ;
+    schema:description "Detection performance measured over 4,200 km of field trials." ;
+    terms:created "2026-03-18"^^xsd:date .
+
+ex:Ev2 a gsn:Artefact ;
+    schema:identifier "Ev2" ;
+    rdfs:label "SIM-CAMPAIGN-2026-05"@en ;
+    schema:description "Closed-loop simulation over the hazard-directed scenario catalogue." ;
+    terms:created "2026-05-02"^^xsd:date .
+
+ex:Ev3 a gsn:Artefact ;
+    schema:identifier "Ev3" ;
+    rdfs:label "ARBITRATION-TEST-2024-09"@en ;
+    schema:description "Bench test of the braking demand arbitration logic." ;
+    terms:created "2024-09-30"^^xsd:date .
+
+ex:Ev4 a gsn:Artefact ;
+    schema:identifier "Ev4" ;
+    rdfs:label "ODD-SPEC-04"@en ;
+    schema:description "Operational design domain specification." ;
+    terms:created "2025-11-12"^^xsd:date .
+
+ex:Ev5 a gsn:Artefact ;
+    schema:identifier "Ev5" ;
+    rdfs:label "HAZ-LOG-11"@en ;
+    schema:description "Hazard log for the perception subsystem." ;
+    terms:created "2026-01-20"^^xsd:date .
+
+# Referenced by nobody - the collectable one.
+ex:Ev6 a gsn:Artefact ;
+    schema:identifier "Ev6" ;
+    rdfs:label "SUPPLIER-DATASHEET-DRAFT"@en ;
+    schema:description "Superseded supplier datasheet, no longer cited by any solution." ;
+    terms:created "2023-06-01"^^xsd:date .
+
+
+#################################################################
+#    Modular extension: the away goal and the contract
+#################################################################
+
+ex:G2 a gsn:Goal ;
+    schema:identifier "G2" ;
+    rdfs:label "Goal G2"@en ;
+    gsn:statement "The sensor platform reports degradation within 100 ms of onset." ;
+    gsn:top false ;
+    gsn:away true ;
+    gsn:public true ;
+    gsn:valid true ;
+    gsn:undeveloped false ;
+    gsn:supportedBy ex:Sn4 ;
+    gsn:inContextOf ex:C3 .
+
+ex:C3 a gsn:Context ;
+    schema:identifier "C3" ;
+    rdfs:label "Context C3"@en ;
+    gsn:statement "Degradation is defined in PLATFORM-SPEC-02 clause 7." ;
+    gsn:valid true ;
+    gsn:public true .
+
+ex:Sn4 a gsn:Solution ;
+    schema:identifier "Sn4" ;
+    rdfs:label "Solution Sn4"@en ;
+    gsn:statement "Platform fault injection campaign results." ;
+    gsn:valid true ;
+    gsn:true true ;
+    gsn:refersTo ex:Ev2 .
+
+# Inside the contract module, so it is public where it should not be.
+ex:G3 a gsn:Goal ;
+    schema:identifier "G3" ;
+    rdfs:label "Goal G3"@en ;
+    gsn:statement "The platform's 100 ms detection bound discharges the perception subsystem's demand." ;
+    gsn:top false ;
+    gsn:public true ;
+    gsn:valid true ;
+    gsn:undeveloped false ;
+    gsn:supportedBy ex:G2 .
+
+ex:M1 gsn:supportedBy ex:M2 .
+ex:C1 gsn:consistentWith ex:C3 .
+
+
+#################################################################
+#    Argument pattern extension
+#################################################################
+
+ex:P1 a gsn:Pattern ;
+    schema:identifier "P1" ;
+    rdfs:label "Fault detection interval pattern"@en ;
+    schema:description "Argues that a monitored fault is detected within an allocated interval." ;
+    gsn:intent "Establish that a degradation mode is detected in time to act on it."@en ;
+    gsn:applicability "Applies where the fault has a known onset signature and a monitored channel."@en ;
+    gsn:consequences "The allocated interval must be shown to be shorter than the fault tolerant time interval."@en .
+
+ex:P2 a gsn:Pattern ;
+    schema:identifier "P2" ;
+    rdfs:label "Monitored channel pattern"@en ;
+    schema:description "Argues that a monitored channel is itself trustworthy." ;
+    gsn:intent "Establish confidence in the monitor rather than the monitored function."@en ;
+    gsn:relatedTo ex:P1 .
+
+ex:T1 a gsn:Template ;
+    schema:identifier "T1" ;
+    rdfs:label "Fault detection interval template"@en ;
+    schema:description "The pattern above, instantiated for a single named sensor." ;
+    gsn:published false ;
+    gsn:final false .
+
+ex:IDR1 a gsn:InstantiationDataReference ;
+    schema:identifier "IDR1" ;
+    rdfs:label "Sensor register"@en ;
+    gsn:attachedTo ex:T1 .
+
+# Relationship decorators: the pattern's support is optional and may be repeated.
+ex:R_St1_G1_3 a gsn:Relationship ;
+    schema:identifier "R-St1-G1.3" ;
+    rdf:subject ex:St1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object ex:G1_3 ;
+    gsn:relationshipType "inferential" ;
+    gsn:optional true ;
+    gsn:multiple true ;
+    gsn:minCardinality 1 ;
+    gsn:maxCardinality 4 ;
+    gsn:valid true .
+
+
+ex:R_G1_2_Sn3 a gsn:Relationship ;
+    schema:identifier "R-G1.2-Sn3" ;
+    rdf:subject ex:G1_2 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object ex:Sn3 ;
+    gsn:valid true .
+
+
+#################################################################
+#    Confidence argument extension
+#################################################################
+
+ex:R_G1_St1 a gsn:RelationshipWithConfidence ;
+    schema:identifier "R-G1-St1" ;
+    rdf:subject ex:G1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object ex:St1 ;
+    gsn:relationshipType "inferential" ;
+    gsn:assuranceClaimPoint true ;
+    gsn:associatedWith ex:ConfArg1 ;
+    gsn:valid true .
+
+# An assurance claim point with no confidence argument behind it yet.
+ex:R_G1_1_Sn1 a gsn:RelationshipWithConfidence ;
+    schema:identifier "R-G1.1-Sn1" ;
+    rdf:subject ex:G1_1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object ex:Sn1 ;
+    gsn:relationshipType "evidential" ;
+    gsn:assuranceClaimPoint true ;
+    gsn:valid true .
+
+
+#################################################################
+#    Dialectic extension
+#################################################################
+
+# A goal-shaped challenge: it doubts G1.2 rather than defeating it outright.
+ex:CG1 a gsn:Goal ;
+    schema:identifier "CG1" ;
+    rdfs:label "Challenge CG1"@en ;
+    gsn:statement "The arbitration test did not cover the degraded-sensor operating mode." ;
+    gsn:top false ;
+    gsn:true true ;
+    gsn:valid true ;
+    gsn:undeveloped true ;
+    gsn:challenges ex:G1_2 .
+
+# A solution-shaped challenge: cited evidence, so it defeats what it challenges.
+ex:CSn1 a gsn:Solution ;
+    schema:identifier "CSn1" ;
+    rdfs:label "Challenge CSn1"@en ;
+    gsn:statement "Regression run RR-2026-06 shows the arbitration defect reproducing." ;
+    gsn:valid true ;
+    gsn:true true ;
+    gsn:refersTo ex:Ev3 ;
+    gsn:challenges ex:Sn3 .
+
+ex:CG2 a gsn:Goal ;
+    schema:identifier "CG2" ;
+    rdfs:label "Challenge CG2"@en ;
+    gsn:statement "Hazard-directed decomposition omits hazards arising from sensor interaction." ;
+    gsn:top false ;
+    gsn:true true ;
+    gsn:valid true ;
+    gsn:undeveloped false ;
+    gsn:challenges ex:St1 .
+
+ex:CSn2 a gsn:Solution ;
+    schema:identifier "CSn2" ;
+    rdfs:label "Challenge CSn2"@en ;
+    gsn:statement "Fault injection log FI-2026-04 records a missed degradation event." ;
+    gsn:valid true ;
+    gsn:true true ;
+    gsn:refersTo ex:Ev3 ;
+    gsn:challenges ex:G1_3 .
+
+ex:G1_2 gsn:inDoubt true .
+ex:Sn3 gsn:defeated true .
+
+
+#################################################################
+#    Deliberately malformed - what the diagnostic queries are for
+#################################################################
+
+# Two elements in one module sharing an identifier (SWRL S25 / S41).
+ex:M4 a gsn:Module ;
+    schema:identifier "M4" ;
+    rdfs:label "Quarantine module"@en ;
+    gsn:statement "Holds material that has not been reconciled with the main argument." ;
+    gsn:contract false ;
+    gsn:contains ex:Arg4 , ex:D1 , ex:D2 , ex:X1 , ex:X2 , ex:Orphan1 .
+
+ex:Arg4 a gsn:Argument ;
+    schema:identifier "Arg4" ;
+    gsn:statement "Unreconciled material." ;
+    gsn:structured false ;
+    gsn:contains ex:D1 , ex:D2 , ex:X1 , ex:X2 , ex:Orphan1 .
+
+ex:D1 a gsn:Goal ;
+    schema:identifier "DUP" ;
+    rdfs:label "Goal D1"@en ;
+    gsn:statement "Imported claim, identifier not yet reconciled." ;
+    gsn:top false ;
+    gsn:undeveloped true .
+
+ex:D2 a gsn:Goal ;
+    schema:identifier "DUP" ;
+    rdfs:label "Goal D2"@en ;
+    gsn:statement "A second imported claim carrying the same identifier as D1." ;
+    gsn:top false ;
+    gsn:undeveloped true .
+
+# A support cycle (SWRL S37): each claim rests on the other.
+ex:X1 a gsn:Goal ;
+    schema:identifier "X1" ;
+    rdfs:label "Goal X1"@en ;
+    gsn:statement "The monitor is correct because the diagnostic passes." ;
+    gsn:top true ;
+    gsn:undeveloped false ;
+    gsn:supportedBy ex:X2 .
+
+ex:X2 a gsn:Goal ;
+    schema:identifier "X2" ;
+    rdfs:label "Goal X2"@en ;
+    gsn:statement "The diagnostic passes because the monitor is correct." ;
+    gsn:top false ;
+    gsn:undeveloped false ;
+    gsn:supportedBy ex:X1 .
+
+# Reachable from no top goal: an imported claim nobody attached to the argument.
+ex:Orphan1 a gsn:Goal ;
+    schema:identifier "Orphan1" ;
+    rdfs:label "Goal Orphan1"@en ;
+    gsn:statement "Residual risk from the deprecated sensor variant is acceptable." ;
+    gsn:top false ;
+    gsn:undeveloped false .
+
+# A solution citing no artefact at all.
+ex:Sn5 a gsn:Solution ;
+    schema:identifier "Sn5" ;
+    rdfs:label "Solution Sn5"@en ;
+    gsn:statement "Engineering judgement of the integration team." ;
+    gsn:valid false ;
+    gsn:true false .
+
+ex:Orphan1 gsn:supportedBy ex:Sn5 .

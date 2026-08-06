@@ -1,0 +1,38 @@
+# id:        DE-10
+# persona:   Domain expert
+# operation: create
+# question:  How is a new piece of evidence attached to a goal?
+# expect:    insert
+#
+# Evidence enters as two nodes, not one: the artefact is the thing that exists, the
+# solution is the argument's reference to it. Conflating them is the commonest ABox error.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX terms:  <http://purl.org/dc/terms/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+INSERT {
+  ?goal gsn:supportedBy ?solution .
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            rdfs:label ?solutionId ;
+            gsn:statement ?solutionStatement ;
+            gsn:refersTo ?artefact .
+  ?artefact a gsn:Artefact ;
+            schema:identifier ?artefactId ;
+            rdfs:label ?artefactLabel ;
+            schema:description ?solutionStatement ;
+            terms:created ?created .
+}
+WHERE {
+  VALUES (?goalId ?solutionId ?solutionStatement ?artefactId ?artefactLabel ?created) {
+    ("G1.2" "Sn6" "Degraded-mode arbitration test report."
+     "Ev7" "ARBITRATION-TEST-2026-07" "2026-07-14"^^xsd:date)     # PARAMETERS
+  }
+  ?goal schema:identifier ?goalId .
+  FILTER NOT EXISTS { ?existing schema:identifier ?solutionId }
+  BIND(IRI(CONCAT(REPLACE(STR(?goal), "[^#/]*$", ""), ENCODE_FOR_URI(?solutionId))) AS ?solution)
+  BIND(IRI(CONCAT(REPLACE(STR(?goal), "[^#/]*$", ""), ENCODE_FOR_URI(?artefactId))) AS ?artefact)
+}

@@ -1,0 +1,29 @@
+# id:        AE-06
+# persona:   Assurance engineer
+# operation: read
+# question:  What evidence ultimately supports a given goal?
+# expect:    rows
+#
+# Solutions are references to evidence; the artefact behind the reference is what an
+# auditor actually asks to see, so both are returned.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?solutionId ?solutionStatement ?artefactId ?artefactLabel
+WHERE {
+  VALUES ?goalId { "G1" }             # PARAMETER: the goal to trace
+
+  ?goal schema:identifier ?goalId .
+  ?goal gsn:supportedBy+ ?solution .
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId .
+  OPTIONAL { ?solution gsn:statement ?solutionStatement }
+  OPTIONAL {
+    ?solution gsn:refersTo ?artefact .
+    ?artefact schema:identifier ?artefactId .
+    OPTIONAL { ?artefact rdfs:label ?artefactLabel }
+  }
+}
+ORDER BY ?solutionId

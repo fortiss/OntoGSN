@@ -1,0 +1,28 @@
+# id:        DE-06
+# persona:   Domain expert
+# operation: read
+# question:  Which elements instantiate which argument pattern, and is the pattern's own
+#            documentation complete?
+# expect:    rows
+#
+# The standard asks a pattern to state its intent, applicability and consequences before
+# anyone reuses it. Missing sections are how a pattern gets applied out of context.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?patternId ?patternLabel ?instanceId ?hasIntent ?hasApplicability ?hasConsequences
+WHERE {
+  ?pattern a/rdfs:subClassOf* gsn:Pattern ;
+           schema:identifier ?patternId .
+  OPTIONAL { ?pattern rdfs:label ?patternLabel }
+  OPTIONAL {
+    ?instance gsn:instantiationOf ?pattern ;
+              schema:identifier ?instanceId .
+  }
+  BIND(EXISTS { ?pattern gsn:intent        ?i } AS ?hasIntent)
+  BIND(EXISTS { ?pattern gsn:applicability ?a } AS ?hasApplicability)
+  BIND(EXISTS { ?pattern gsn:consequences  ?c } AS ?hasConsequences)
+}
+ORDER BY ?patternId ?instanceId

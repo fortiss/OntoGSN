@@ -24,44 +24,26 @@ Many thanks to:
 See our website for more information: https://fortiss.github.io/OntoGSN/
 
 ## Serializations
-`serializations/ontogsn.ttl` is the maintained ontology. The RDF/XML and JSON-LD files
-beside it are generated from it and should not be edited by hand:
-
-```bash
-python serializations/build.py            # regenerate
-python serializations/build.py --check    # verify they are current
-```
+`serializations/ontogsn.ttl` is the full ontology. The RDF/XML and JSON-LD serializations are generated from the TTL file:
 
 `serializations/separated/` holds the ontology cut by GSN section (`core`, `pattern`,
 `modular`, `confidence`, `dialectic`) and by scope (`complete` with the SWRL rules,
-`pruned` without them, `skeletal` without the prose either). Those 36 files are generated too:
+`pruned` without them, `skeletal` without the prose either). Those 36 files are generated too.
+
+## Queries
+
+`queries/` holds 43 CRUD SPARQL queries — one per competency question, covering all five
+GSN sections — and `queries/rules/` holds all 51 SWRL rules as SPARQL updates, for stores
+with no reasoner attached. Each query runs as-is against the example ABox in
+`tools/testdata/`, and is parameterised by element identifier so it can be pointed at a
+real case without editing a namespace into it.
 
 ```bash
-python serializations/build_separated.py            # regenerate
-python serializations/build_separated.py --check    # verify they are current
+python tools/query_check.py                                   # verify every query executes
+python tools/run_rules.py mycase.ttl --out mycase-derived.ttl # apply the rules to a case
 ```
 
-The OWL/XML file (`ontogsn.owl`) is deprecated and no longer published; it required the OWL
-API, which is not part of this toolchain. Earlier versions remain in the version history.
-
-## Design record
-`provenance/` records **why** each axiom exists: the clause of the GSN Community Standard it
-came from, a natural-language statement of the axiom, the Turtle it corresponds to in
-`serializations/ontogsn.ttl`, and the rationale for including or excluding it. It is a
-PROV-O-based graph in its own namespace, holding 937 decisions against 297 quoted passages
-of the standard. Decisions the ontology has since moved away from are retired rather than
-deleted, each with a recorded reason.
-
-```bash
-python tools/prov_check.py          # has anything drifted?
-python tools/prov_to_workbook.py    # rebuild the readable spreadsheet
-```
-
-`provenance/Design Documentation.xlsx` is a generated, human-readable view of that graph.
-See [`provenance/README.md`](provenance/README.md) for the model and some example queries.
-
-It supersedes `OntoGSN Design Document.xlsx` and the Word and PDF versions before it, all of
-which remain in the version history of this repository.
+See [`queries/README.md`](queries/README.md).
 
 ## Dependencies
 Existing objects and properties are imported from the following foundational ontologies: Resource Description Framework Schema (RDFS), XML Schema Definition Language (XSD), Dublin-Core (DC), Schema.org, and Simple Knowledge Organization System (SKOS). Reasoning is based on the Semantic Web Rule Language (SWRL)  rules and OWL axioms, which can be executed with supported rule engines (e.g., Pellet or Drools).
@@ -73,7 +55,7 @@ Existing objects and properties are imported from the following foundational ont
 3. Import the file into your chosen editor/database.
 4. For Protégé, install the following plug-ins: ROWL Protege 5.0+ Plugin, Pellet Reasoner Plug-in.
 ### Simple Use: Static Assurance Case
-Note: Depending on the chosen editor, you can edit the ontology manually in the user interface, via CRUD queries, or using plug-ins for importing from data files.
+Note: Depending on the chosen editor, you can edit the ontology manually in the user interface, via CRUD queries (see `queries/`), or using plug-ins for importing from data files.
 1. Add claims (e.g., goals) and evidence (e.g., solutions) as individuals using unique node identifiers.
 2. Add the node header as a label and textual content as description.
 3. Link the nodes with appropriate object properties (e.g., supportedBy).

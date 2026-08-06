@@ -1,0 +1,24 @@
+# id:        DE-01
+# persona:   Domain expert
+# operation: read
+# question:  Where are the assurance claim points, and what confidence argument backs each?
+# expect:    rows
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?relationshipId ?subjectId ?objectId ?confidenceArgumentId ?confidenceStatement
+WHERE {
+  ?relationship gsn:assuranceClaimPoint ?acp ;
+                schema:identifier ?relationshipId .
+  FILTER(STR(?acp) = "true")
+  OPTIONAL { ?relationship rdf:subject ?subject . ?subject schema:identifier ?subjectId }
+  OPTIONAL { ?relationship rdf:object  ?object  . ?object  schema:identifier ?objectId }
+  OPTIONAL {
+    ?relationship gsn:associatedWith ?argument .
+    ?argument schema:identifier ?confidenceArgumentId .
+    OPTIONAL { ?argument gsn:statement ?confidenceStatement }
+  }
+}
+ORDER BY ?relationshipId

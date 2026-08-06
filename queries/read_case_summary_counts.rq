@@ -1,0 +1,19 @@
+# id:        AE-02
+# persona:   Assurance engineer
+# operation: read
+# question:  How many elements of each GSN type does the case contain?
+# expect:    rows
+#
+# rdfs:subClassOf* walks the TBox, so a Solution is counted as a Solution and the query
+# still knows it is a GSN element. Nothing here needs a reasoner to have run first.
+
+PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?type (COUNT(DISTINCT ?element) AS ?count)
+WHERE {
+  ?element a ?type .
+  ?type rdfs:subClassOf* gsn:GSNElement .
+}
+GROUP BY ?type
+ORDER BY DESC(?count) ?type

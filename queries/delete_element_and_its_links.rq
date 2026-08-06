@@ -1,0 +1,30 @@
+# id:        AE-23
+# persona:   Assurance engineer
+# operation: delete
+# question:  How is an element removed without leaving dangling references to it?
+# expect:    delete
+#
+# Both directions and the reifications. Deleting only the outgoing triples leaves the
+# element's identifier gone but its parents still pointing at a node with no type.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+DELETE {
+  ?element ?outgoing ?object .
+  ?subject ?incoming ?element .
+  ?relationship ?relationshipProperty ?relationshipValue .
+}
+WHERE {
+  VALUES ?elementId { "G1.2" }                        # PARAMETER
+  ?element schema:identifier ?elementId .
+  {
+    ?element ?outgoing ?object .
+  } UNION {
+    ?subject ?incoming ?element .
+  } UNION {
+    ?relationship (rdf:subject|rdf:object) ?element ;
+                  ?relationshipProperty ?relationshipValue .
+  }
+}

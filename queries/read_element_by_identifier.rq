@@ -1,0 +1,29 @@
+# id:        AE-04
+# persona:   Assurance engineer
+# operation: read
+# question:  What does the element with a given identifier say, and what is it linked to?
+# expect:    rows
+#
+# The addressing primitive. Every GSN element carries exactly one schema:identifier, so
+# that - not the IRI - is how a person refers to an element.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?element ?type ?label ?statement ?property ?linkedId
+WHERE {
+  VALUES ?elementId { "G1" }          # PARAMETER: the identifier to look up
+
+  ?element schema:identifier ?elementId ;
+           a ?type .
+  OPTIONAL { ?element rdfs:label ?label }
+  OPTIONAL { ?element gsn:statement ?statement }
+  OPTIONAL {
+    VALUES ?property { gsn:supportedBy gsn:inContextOf gsn:refersTo gsn:challenges
+                       gsn:instantiationOf gsn:substitutedBy gsn:associatedWith }
+    ?element ?property ?linked .
+    ?linked schema:identifier ?linkedId .
+  }
+}
+ORDER BY ?type ?property ?linkedId

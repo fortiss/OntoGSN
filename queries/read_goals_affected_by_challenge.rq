@@ -1,0 +1,23 @@
+# id:        AU-05
+# persona:   Auditor
+# operation: read
+# question:  Which claims above a challenged element lose support if the challenge stands?
+# expect:    rows
+#
+# The challenge is levied at one element; what matters is everything resting on it.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?affectedId ?type ?statement ?challengeId ?targetId
+WHERE {
+  ?challenge gsn:challenges ?target ;
+             schema:identifier ?challengeId .
+  ?target schema:identifier ?targetId .
+  ?affected gsn:supportedBy* ?target ;
+            a ?type ;
+            schema:identifier ?affectedId .
+  FILTER(?type IN (gsn:Goal, gsn:Strategy))
+  OPTIONAL { ?affected gsn:statement ?statement }
+}
+ORDER BY ?challengeId ?affectedId

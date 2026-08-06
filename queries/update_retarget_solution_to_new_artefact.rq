@@ -1,0 +1,25 @@
+# id:        DE-15
+# persona:   Domain expert
+# operation: update
+# question:  How is a solution repointed when its evidence is superseded by a new version?
+# expect:    change
+#
+# The re-baselining operation. The solution - the argument's reference - stays put and
+# keeps its identifier; only the artefact behind it moves.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+DELETE { ?solution gsn:refersTo ?oldArtefact }
+INSERT { ?solution gsn:refersTo ?newArtefact }
+WHERE {
+  VALUES (?solutionId ?newArtefactId) {               # PARAMETERS
+    ("Sn3" "Ev1")
+  }
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId .
+  ?newArtefact a gsn:Artefact ;
+               schema:identifier ?newArtefactId .
+  OPTIONAL { ?solution gsn:refersTo ?oldArtefact }
+  FILTER(!BOUND(?oldArtefact) || ?oldArtefact != ?newArtefact)
+}

@@ -1,0 +1,25 @@
+# id:        AE-01
+# persona:   Assurance engineer
+# operation: read
+# question:  What assurance cases are in the store, and what arguments does each contain?
+# expect:    rows
+#
+# The orientation query: run this first against an unfamiliar store.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?caseId ?caseLabel ?argumentId ?argumentStatement
+WHERE {
+  ?case a gsn:AssuranceCase ;
+        schema:identifier ?caseId .
+  OPTIONAL { ?case rdfs:label ?caseLabel }
+  OPTIONAL {
+    ?case gsn:contains ?argument .
+    ?argument a gsn:Argument ;
+              schema:identifier ?argumentId .
+    OPTIONAL { ?argument gsn:statement ?argumentStatement }
+  }
+}
+ORDER BY ?caseId ?argumentId

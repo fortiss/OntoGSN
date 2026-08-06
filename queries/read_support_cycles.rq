@@ -1,0 +1,22 @@
+# id:        AU-07
+# persona:   Auditor
+# operation: read
+# question:  Does any element support itself through a chain - a circular argument?
+# expect:    rows
+#
+# gsn:supportedBy is asymmetric and irreflexive, so a cycle is a contradiction rather
+# than a warning; an OWL reasoner would report the whole ABox inconsistent instead of
+# telling you where. This says where.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?elementId ?type ?viaId
+WHERE {
+  ?element gsn:supportedBy+ ?element ;
+           a ?type ;
+           schema:identifier ?elementId .
+  ?element gsn:supportedBy ?via .
+  ?via schema:identifier ?viaId .
+}
+ORDER BY ?elementId

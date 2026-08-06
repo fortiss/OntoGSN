@@ -1,0 +1,30 @@
+# id:        AU-03
+# persona:   Auditor
+# operation: read
+# question:  Which elements or relationships are currently invalid, in doubt or defeated?
+# expect:    rows
+#
+# The three dialectic and validity flags collapsed into one worklist, with the reason.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?elementId ?reason ?statement
+WHERE {
+  ?element schema:identifier ?elementId .
+  OPTIONAL { ?element gsn:statement ?statement }
+  {
+    ?element gsn:valid ?v . FILTER(STR(?v) = "false")
+    BIND("invalid" AS ?reason)
+  } UNION {
+    ?element gsn:defeated ?d . FILTER(STR(?d) = "true")
+    BIND("defeated" AS ?reason)
+  } UNION {
+    ?element gsn:inDoubt ?i . FILTER(STR(?i) = "true")
+    BIND("in doubt" AS ?reason)
+  } UNION {
+    ?element gsn:true ?t . FILTER(STR(?t) = "false")
+    BIND("asserted false" AS ?reason)
+  }
+}
+ORDER BY ?elementId ?reason

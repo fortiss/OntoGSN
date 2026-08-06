@@ -1,0 +1,25 @@
+# id:        AU-04
+# persona:   Auditor
+# operation: read
+# question:  What challenges have been raised, against what, and by what kind of defeater?
+# expect:    rows
+#
+# A goal-shaped challenge puts its target in doubt; a solution-shaped one cites evidence
+# and defeats it. The distinction decides how urgent the row is.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?challengeId ?challengeKind ?challengeStatement ?targetId ?targetType
+WHERE {
+  ?challenge gsn:challenges ?target ;
+             schema:identifier ?challengeId ;
+             a ?challengeKind .
+  FILTER(?challengeKind IN (gsn:Goal, gsn:Solution, gsn:Defeater))
+  OPTIONAL { ?challenge gsn:statement ?challengeStatement }
+  OPTIONAL {
+    ?target schema:identifier ?targetId ;
+            a ?targetType .
+  }
+}
+ORDER BY ?challengeId

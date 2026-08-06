@@ -1,0 +1,29 @@
+# id:        AU-15
+# persona:   Auditor
+# operation: delete
+# question:  How is a whole assurance case and everything under it removed?
+# expect:    delete
+#
+# Follows reachability, not gsn:contains alone, which misses elements reached only through
+# supportedBy. Artefacts are spared - another case may cite them; use
+# delete_unreferenced_artefacts.rq for those.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+DELETE {
+  ?node ?outgoing ?object .
+  ?subject ?incoming ?node .
+}
+WHERE {
+  VALUES ?caseId { "AC1" }                            # PARAMETER
+  ?case a gsn:AssuranceCase ;
+        schema:identifier ?caseId .
+  ?case (gsn:contains|gsn:supportedBy|gsn:inContextOf|gsn:challenges)* ?node .
+  FILTER NOT EXISTS { ?node a gsn:Artefact }
+  {
+    ?node ?outgoing ?object .
+  } UNION {
+    ?subject ?incoming ?node .
+  }
+}

@@ -1,0 +1,24 @@
+# id:        DE-05
+# persona:   Domain expert
+# operation: read
+# question:  Which public elements sit inside a contract module, where they must not?
+# expect:    rows
+#
+# SWRL rule "Public Contract Invalidation" (S39) as a read: a contract module mediates
+# between interfaces and has no interface of its own to publish through.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?moduleId ?elementId ?type
+WHERE {
+  ?module gsn:contract ?contract ;
+          gsn:contains ?element ;
+          schema:identifier ?moduleId .
+  FILTER(STR(?contract) = "true")
+  ?element gsn:public ?public ;
+           a ?type ;
+           schema:identifier ?elementId .
+  FILTER(STR(?public) = "true")
+}
+ORDER BY ?moduleId ?elementId

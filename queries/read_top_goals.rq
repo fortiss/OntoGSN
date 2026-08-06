@@ -1,0 +1,22 @@
+# id:        AE-03
+# persona:   Assurance engineer
+# operation: read
+# question:  What is the top goal of each argument - the claim everything else supports?
+# expect:    rows
+#
+# Two ways of being top are accepted: the gsn:top decorator, and being a goal that no
+# other element supports. A case where the two disagree is worth looking at.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?goalId ?statement ?flaggedTop ?unsupportedFromAbove
+WHERE {
+  ?goal a gsn:Goal ;
+        schema:identifier ?goalId .
+  OPTIONAL { ?goal gsn:statement ?statement }
+  BIND(EXISTS { ?goal gsn:top ?t . FILTER(STR(?t) = "true") } AS ?flaggedTop)
+  BIND(NOT EXISTS { ?parent gsn:supportedBy ?goal } AS ?unsupportedFromAbove)
+  FILTER(?flaggedTop || ?unsupportedFromAbove)
+}
+ORDER BY ?goalId

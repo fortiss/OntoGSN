@@ -1,0 +1,17 @@
+# id:        AE-11
+# persona:   Assurance engineer
+# operation: read
+# question:  Which solutions cite no artefact - evidence claimed but not identified?
+# expect:    rows
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?solutionId ?statement
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId .
+  OPTIONAL { ?solution gsn:statement ?statement }
+  FILTER NOT EXISTS { ?solution gsn:refersTo ?artefact }
+}
+ORDER BY ?solutionId

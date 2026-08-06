@@ -1,0 +1,21 @@
+# id:        AE-17
+# persona:   Assurance engineer
+# operation: update
+# question:  How is the wording of a claim, strategy or context corrected?
+# expect:    change
+#
+# DELETE then INSERT in one operation, not two: gsn:statement is single-valued in
+# practice, and a bare INSERT would leave the element asserting both wordings at once.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+DELETE { ?element gsn:statement ?old }
+INSERT { ?element gsn:statement ?new }
+WHERE {
+  VALUES (?elementId ?new) {                          # PARAMETERS
+    ("G1.2" "False positive detections do not lead to unsafe braking demands in any operating mode.")
+  }
+  ?element schema:identifier ?elementId .
+  OPTIONAL { ?element gsn:statement ?old }
+}

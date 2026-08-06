@@ -1,0 +1,37 @@
+# id:        AU-14
+# persona:   Auditor
+# operation: delete
+# question:  How is a challenge withdrawn, together with the doubt and defeat it caused?
+# expect:    delete
+#
+# Withdrawing the challenge is not enough on its own: gsn:inDoubt and gsn:defeated were
+# written onto the target by a rule, and nothing retracts them when the reason goes away.
+# Clear them here, then re-run the dialectic updates to re-derive what still holds.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+DELETE {
+  ?challenge ?outgoing ?object .
+  ?subject ?incoming ?challenge .
+  ?relationship ?relationshipProperty ?relationshipValue .
+  ?target gsn:inDoubt ?doubt .
+  ?target gsn:defeated ?defeated .
+}
+WHERE {
+  VALUES ?challengeId { "CG1" }                       # PARAMETER
+  ?challenge schema:identifier ?challengeId .
+  {
+    ?challenge gsn:challenges ?target .
+    OPTIONAL { ?target gsn:inDoubt ?doubt }
+    OPTIONAL { ?target gsn:defeated ?defeated }
+  } UNION {
+    ?challenge ?outgoing ?object .
+  } UNION {
+    ?subject ?incoming ?challenge .
+  } UNION {
+    ?relationship (rdf:subject|rdf:object) ?challenge ;
+                  ?relationshipProperty ?relationshipValue .
+  }
+}

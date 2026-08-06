@@ -1,0 +1,31 @@
+# id:        AE-14
+# persona:   Assurance engineer
+# operation: create
+# question:  How is a sub-goal added beneath an existing goal or strategy?
+# expect:    insert
+#
+# The new element's IRI is minted in the parent's own namespace, so the query never has
+# to know which case it is being run against. Every create query below does the same.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+INSERT {
+  ?parent gsn:supportedBy ?new .
+  ?new a gsn:Goal ;
+       schema:identifier ?newId ;
+       rdfs:label ?newId ;
+       gsn:statement ?newStatement ;
+       gsn:top false ;
+       gsn:undeveloped true .
+}
+WHERE {
+  VALUES (?parentId ?newId ?newStatement) {           # PARAMETERS
+    ("St1" "G1.4" "Sensor occlusion is detected before it affects the detection rate.")
+  }
+  ?parent schema:identifier ?parentId .
+  FILTER NOT EXISTS { ?existing schema:identifier ?newId }
+  BIND(IRI(CONCAT(REPLACE(STR(?parent), "[^#/]*$", ""),
+                  ENCODE_FOR_URI(?newId))) AS ?new)
+}

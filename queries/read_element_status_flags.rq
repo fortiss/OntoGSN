@@ -1,0 +1,19 @@
+# id:        AU-02
+# persona:   Auditor
+# operation: read
+# question:  What is the current status of every element - valid, true, in doubt, defeated?
+# expect:    rows
+#
+# One row per flag rather than one row per element, because the flags are set by different
+# rules at different times and the useful question is usually about one of them.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?elementId ?flag ?value
+WHERE {
+  VALUES ?flag { gsn:valid gsn:true gsn:inDoubt gsn:defeated }
+  ?element ?flag ?value ;
+           schema:identifier ?elementId .
+}
+ORDER BY ?elementId ?flag

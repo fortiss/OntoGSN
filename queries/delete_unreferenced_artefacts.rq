@@ -1,0 +1,24 @@
+# id:        DE-16
+# persona:   Domain expert
+# operation: delete
+# question:  How are artefacts no solution or context cites any more cleared out?
+# expect:    delete
+#
+# Run read_solutions_without_artefact first. An artefact that looks unreferenced because
+# the solution meant to cite it was never linked is not rubbish, it is a broken link.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+
+DELETE {
+  ?artefact ?property ?value .
+  ?subject ?incoming ?artefact .
+}
+WHERE {
+  ?artefact a gsn:Artefact .
+  FILTER NOT EXISTS { ?reference gsn:refersTo ?artefact }
+  {
+    ?artefact ?property ?value .
+  } UNION {
+    ?subject ?incoming ?artefact .
+  }
+}

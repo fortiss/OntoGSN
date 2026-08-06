@@ -1,0 +1,24 @@
+# id:        AE-10
+# persona:   Assurance engineer
+# operation: read
+# question:  Which goals have no support at all and are not admitted to be undeveloped?
+# expect:    rows
+#
+# An unadmitted gap: the argument stops, and nothing on the diagram says so. This is the
+# single most useful completeness check in the set.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?goalId ?statement
+WHERE {
+  ?goal a gsn:Goal ;
+        schema:identifier ?goalId .
+  OPTIONAL { ?goal gsn:statement ?statement }
+
+  FILTER NOT EXISTS { ?goal gsn:supportedBy ?anything }
+  FILTER NOT EXISTS { ?goal gsn:undeveloped ?u . FILTER(STR(?u) = "true") }
+  FILTER NOT EXISTS { ?goal gsn:toBeSupportedByContract ?c . FILTER(STR(?c) = "true") }
+  FILTER NOT EXISTS { ?goal gsn:away ?a . FILTER(STR(?a) = "true") }
+}
+ORDER BY ?goalId
