@@ -1,0 +1,23 @@
+# rule:      S49
+# name:      Undeveloped Defeat
+# section:   Dialectic Extension
+# operation: rule
+# expect:    insert
+# swrl:      undeveloped(?G, false) ^ challenges(?G, ?E) ^ Goal(?G) ^ 'in doubt'(?E, true) ->
+#            defeated(?E, true)
+# reads:     IF Goal G challenges E AND G is NOT undeveloped AND E is in doubt THEN E is defeated
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?E gsn:defeated ?old }
+INSERT { ?E gsn:defeated true }
+WHERE {
+  ?G a gsn:Goal ;
+     gsn:undeveloped ?undeveloped ;
+     gsn:challenges ?E .
+  FILTER(STR(?undeveloped) = "false")
+  ?E gsn:inDoubt ?doubt .
+  FILTER(STR(?doubt) = "true")
+  OPTIONAL { ?E gsn:defeated ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}

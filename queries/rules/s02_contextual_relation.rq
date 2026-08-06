@@ -1,0 +1,22 @@
+# rule:      S2
+# name:      Contextual Relation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      rdf:subject(?R, ?A) ^ 'in context of'(?A, ?B) ^ rdf:object(?R, ?B) -> 'relationship
+#            type'(?R, "contextual")
+# reads:     IF R has subject A AND A is in context of B AND R has object B THEN R is a
+#            contextual relationship
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:relationshipType ?old }
+INSERT { ?R gsn:relationshipType "contextual" }
+WHERE {
+  ?R rdf:subject ?A ;
+     rdf:object ?B .
+  ?A gsn:inContextOf ?B .
+  OPTIONAL { ?R gsn:relationshipType ?old }
+  FILTER(!BOUND(?old) || ?old != "contextual")
+}

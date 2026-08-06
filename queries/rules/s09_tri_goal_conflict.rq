@@ -1,0 +1,25 @@
+# rule:      S9
+# name:      Tri-Goal Conflict
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      true(?C, true) ^ true(?B, false) ^ 'supported by'(?C, ?B) ^ true(?A, true) ^
+#            'supported by'(?C, ?A) ^ Goal(?A) ^ Goal(?B) -> valid(?C, false)
+# reads:     IF C is true AND B is false AND C is supported by B and A AND A is true AND A and B
+#            are Goals THEN C is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?C gsn:valid ?old }
+INSERT { ?C gsn:valid false }
+WHERE {
+  ?C gsn:true ?tC ;
+     gsn:supportedBy ?A , ?B .
+  FILTER(STR(?tC) = "true")
+  ?A a gsn:Goal ; gsn:true ?tA .
+  ?B a gsn:Goal ; gsn:true ?tB .
+  FILTER(STR(?tA) = "true")
+  FILTER(STR(?tB) = "false")
+  OPTIONAL { ?C gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

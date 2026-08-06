@@ -1,0 +1,35 @@
+# rule:      S40
+# name:      Confidence Relation Creation
+# section:   Confidence Argument Extension
+# operation: rule
+# expect:    insert
+# swrl:      'assurance claim point'(?A, true) ^ 'Artefact Reference'(?A) ^
+#            swrlx:makeOWLThing(?A, ?R) -> 'Relationship with Confidence'(?R) ^ rdf:subject(?R,
+#            ?A)
+# reads:     IF A is an Artefact Reference marked as an assurance claim point AND we introduce a
+#            reified confidence Relationship R for A THEN R is a Relationship with Confidence
+#            whose subject is A
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+INSERT {
+  ?R a gsn:RelationshipWithConfidence ;
+     schema:identifier ?relationshipId ;
+     rdf:subject ?A .
+}
+WHERE {
+  ?A a/rdfs:subClassOf* gsn:ArtefactReference ;
+     gsn:assuranceClaimPoint ?acp ;
+     schema:identifier ?idA .
+  FILTER(STR(?acp) = "true")
+  BIND(CONCAT("RC-", ?idA) AS ?relationshipId)
+  BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
+                  ENCODE_FOR_URI(?relationshipId))) AS ?R)
+  FILTER NOT EXISTS {
+    ?existing a gsn:RelationshipWithConfidence ;
+              rdf:subject ?A .
+  }
+}

@@ -1,0 +1,22 @@
+# rule:      S12
+# name:      Mixed Support Invalidation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      valid(?B, false) ^ valid(?A, true) ^ 'supported by'(?C, ?B) ^ 'supported by'(?C, ?A)
+#            -> valid(?C, false)
+# reads:     IF B is NOT valid AND A is valid AND C is supported by B and A THEN C is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?C gsn:valid ?old }
+INSERT { ?C gsn:valid false }
+WHERE {
+  ?A gsn:valid ?vA .
+  FILTER(STR(?vA) = "true")
+  ?B gsn:valid ?vB .
+  FILTER(STR(?vB) = "false")
+  ?C gsn:supportedBy ?A , ?B .
+  OPTIONAL { ?C gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

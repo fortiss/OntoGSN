@@ -1,0 +1,51 @@
+# rule:      S51
+# name:      Challenge Chain Invalidation
+# section:   Dialectic Extension
+# operation: rule
+# expect:    insert
+# swrl:      challenges(?D, ?R) ^ rdf:subject(?R, ?G3) ^ rdf:object(?R, ?G1) ^ Goal(?G1) ^
+#            Goal(?G3) ^ swrlx:makeOWLThing(?G3, ?S) ^ Goal(?G2) ^ 'supported by'(?G3, ?G1) ^
+#            swrlb:notEqual(?G1, ?G2) -> 'supported by'(?S, ?G2) ^ 'supported by'(?G3, ?S) ^
+#            valid(?D, false) ^ 'supported by'(?S, ?G1) ^ challenges(?D, ?S) ^ valid(?S, false) ^
+#            valid(?R, false) ^ Strategy(?S)
+# reads:     IF Defeater D challenges Relationship R between Goals G3 (subject) and G1 (object)
+#            AND G1 and G3 are Goals AND we introduce a Strategy S for G3 and another Goal G2
+#            distinct from G1 AND G3 is supported by G1 THEN Strategy S is supported by G1 and G2
+#            AND G3 is supported by S AND D now challenges S AND D, S and R are all marked NOT
+#            valid
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+DELETE {
+  ?D gsn:valid ?oldD .
+  ?R gsn:valid ?oldR .
+}
+INSERT {
+  ?S a gsn:Strategy ;
+     schema:identifier ?strategyId ;
+     gsn:supportedBy ?G1 , ?G2 ;
+     gsn:valid false .
+  ?G3 gsn:supportedBy ?S .
+  ?D gsn:challenges ?S ;
+     gsn:valid false .
+  ?R gsn:valid false .
+}
+WHERE {
+  ?D gsn:challenges ?R .
+  ?R rdf:subject ?G3 ;
+     rdf:object ?G1 .
+  ?G1 a gsn:Goal .
+  ?G3 a gsn:Goal ;
+      gsn:supportedBy ?G1 ;
+      schema:identifier ?idG3 .
+  ?G2 a gsn:Goal .
+  FILTER(?G1 != ?G2)
+  BIND(CONCAT("St-", ?idG3, "-rebutted") AS ?strategyId)
+  BIND(IRI(CONCAT(REPLACE(STR(?G3), "[^#/]*$", ""),
+                  ENCODE_FOR_URI(?strategyId))) AS ?S)
+  OPTIONAL { ?D gsn:valid ?oldD }
+  OPTIONAL { ?R gsn:valid ?oldR }
+  FILTER NOT EXISTS { ?G3 gsn:supportedBy ?S }
+}

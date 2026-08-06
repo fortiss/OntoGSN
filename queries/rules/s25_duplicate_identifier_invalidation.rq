@@ -1,0 +1,27 @@
+# rule:      S25
+# name:      Duplicate Identifier Invalidation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      contains(?M, ?B) ^ contains(?M, ?A) ^ schema:identifier(?A, ?ID) ^ Module(?M) ^
+#            swrlb:notEqual(?A, ?B) ^ schema:identifier(?B, ?ID) -> valid(?A, false) ^ valid(?B,
+#            false)
+# reads:     IF Module M contains both A and B AND A and B share the same schema identifier ID
+#            AND A and B are distinct THEN A is NOT valid AND B is NOT valid
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+DELETE { ?target gsn:valid ?old }
+INSERT { ?target gsn:valid false }
+WHERE {
+  ?M a gsn:Module ;
+     gsn:contains ?A , ?B .
+  ?A schema:identifier ?id .
+  ?B schema:identifier ?id .
+  FILTER(?A != ?B)
+  VALUES ?slot { 1 2 }
+  BIND(IF(?slot = 1, ?A, ?B) AS ?target)
+  OPTIONAL { ?target gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

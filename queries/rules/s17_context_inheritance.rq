@@ -1,0 +1,20 @@
+# rule:      S17
+# name:      Context Inheritance
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      'supported by'(?B, ?C) ^ 'in context of'(?B, ?A) ^ Assumption(?A) ^ Goal(?C) -> 'in
+#            context of'(?C, ?A)
+# reads:     IF B is supported by C AND B is in context of A AND A is an Assumption AND C is a
+#            Goal THEN C is in context of A
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?C gsn:inContextOf ?A }
+WHERE {
+  ?A a gsn:Assumption .
+  ?C a gsn:Goal .
+  ?B gsn:supportedBy ?C ;
+     gsn:inContextOf ?A .
+  FILTER NOT EXISTS { ?C gsn:inContextOf ?A }
+}

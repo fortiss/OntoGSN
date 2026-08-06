@@ -1,0 +1,49 @@
+# rule:      S43
+# name:      Goal-Strategy Confidence
+# section:   Confidence Argument Extension
+# operation: rule
+# expect:    insert
+# swrl:      'supported by'(?G2, ?S) ^ 'Relationship with Confidence'(?R1) ^ rdf:subject(?R1, ?S)
+#            ^ 'supported by'(?S, ?G1) ^ swrlx:makeOWLThing(?G2, ?R2) ^ rdf:object(?R1, ?G1) ^
+#            Strategy(?S) ^ Goal(?G1) ^ Goal(?G2) ^ 'associated with'(?R1, ?A) -> 'Relationship
+#            with Confidence'(?R2) ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2,
+#            true) ^ rdf:subject(?R2, ?G2) ^ rdf:object(?R2, ?S)
+# reads:     IF Goal G2 is supported by Strategy S AND S is supported by Goal G1 AND there is a
+#            Relationship with Confidence R1 from S to G1 associated with A THEN we create a
+#            Relationship with Confidence R2 from G2 to S associated with the same A AND mark R2
+#            as an assurance claim point
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+INSERT {
+  ?R2 a gsn:RelationshipWithConfidence ;
+      schema:identifier ?relationshipId ;
+      rdf:subject ?G2 ;
+      rdf:predicate gsn:supportedBy ;
+      rdf:object ?S ;
+      gsn:associatedWith ?A ;
+      gsn:assuranceClaimPoint true .
+}
+WHERE {
+  ?R1 a gsn:RelationshipWithConfidence ;
+      rdf:subject ?S ;
+      rdf:object ?G1 ;
+      gsn:associatedWith ?A .
+  ?S a gsn:Strategy ;
+     gsn:supportedBy ?G1 ;
+     schema:identifier ?idS .
+  ?G1 a gsn:Goal .
+  ?G2 a gsn:Goal ;
+      gsn:supportedBy ?S ;
+      schema:identifier ?idG2 .
+  BIND(CONCAT("RC-", ?idG2, "-", ?idS) AS ?relationshipId)
+  BIND(IRI(CONCAT(REPLACE(STR(?G2), "[^#/]*$", ""),
+                  ENCODE_FOR_URI(?relationshipId))) AS ?R2)
+  FILTER NOT EXISTS {
+    ?existing a gsn:RelationshipWithConfidence ;
+              rdf:subject ?G2 ;
+              rdf:object ?S .
+  }
+}

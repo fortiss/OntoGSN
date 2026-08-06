@@ -1,0 +1,33 @@
+# rule:      S19
+# name:      Context Relation Creation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      'in context of'(?A, ?B) ^ swrlx:makeOWLThing(?B, ?R) -> rdf:subject(?R, ?A) ^
+#            Relationship(?R) ^ rdf:object(?R, ?B)
+# reads:     IF A is in context of B THEN Create R AND R has subject A and object B
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+INSERT {
+  ?R a gsn:Relationship ;
+     schema:identifier ?relationshipId ;
+     rdf:subject ?A ;
+     rdf:predicate gsn:inContextOf ;
+     rdf:object ?B .
+}
+WHERE {
+  ?A gsn:inContextOf ?B ;
+     schema:identifier ?idA .
+  ?B schema:identifier ?idB .
+  BIND(CONCAT("R-", ?idA, "-inContextOf-", ?idB) AS ?relationshipId)
+  BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
+                  ENCODE_FOR_URI(?relationshipId))) AS ?R)
+  FILTER NOT EXISTS {
+    ?existing rdf:subject ?A ;
+              rdf:predicate gsn:inContextOf ;
+              rdf:object ?B .
+  }
+}

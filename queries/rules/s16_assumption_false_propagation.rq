@@ -1,0 +1,20 @@
+# rule:      S16
+# name:      Assumption False Propagation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      Assumption(?A) ^ true(?A, false) ^ 'in context of'(?B, ?A) -> true(?B, false)
+# reads:     IF A is an Assumption AND A is NOT true AND B is in context of A THEN B is NOT true
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?B gsn:true ?old }
+INSERT { ?B gsn:true false }
+WHERE {
+  ?A a gsn:Assumption ;
+     gsn:true ?tA .
+  FILTER(STR(?tA) = "false")
+  ?B gsn:inContextOf ?A .
+  OPTIONAL { ?B gsn:true ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

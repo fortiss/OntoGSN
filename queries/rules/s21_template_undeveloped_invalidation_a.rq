@@ -1,0 +1,27 @@
+# rule:      S21
+# name:      Template Undeveloped Invalidation (A)
+# section:   Argument Pattern Extension
+# operation: rule
+# expect:    insert
+# swrl:      Template(?A) ^ undeveloped(?R, true) ^ rdf:subject(?R, ?A) ^ published(?A, true) ->
+#            valid(?A, false) ^ valid(?R, false)
+# reads:     IF A is a Template AND there is an undeveloped Relation R whose subject is A AND A
+#            is published THEN A is NOT valid AND R is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?target gsn:valid ?old }
+INSERT { ?target gsn:valid false }
+WHERE {
+  ?A a gsn:Template ;
+     gsn:published ?published .
+  FILTER(STR(?published) = "true")
+  ?R gsn:undeveloped ?undeveloped ;
+     rdf:subject ?A .
+  FILTER(STR(?undeveloped) = "true")
+  VALUES ?slot { 1 2 }
+  BIND(IF(?slot = 1, ?A, ?R) AS ?target)
+  OPTIONAL { ?target gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

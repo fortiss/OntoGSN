@@ -1,0 +1,28 @@
+# rule:      S7
+# name:      Predicate Conflict Invalidation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      rdf:object(?R3, ?A) ^ rdf:subject(?R1, ?A) ^ rdf:subject(?R2, ?B) ^ rdf:subject(?R3,
+#            ?C) ^ rdf:predicate(?R3, ?P) ^ rdf:predicate(?R2, ?P) ^ rdf:object(?R1, ?B) ^
+#            rdf:object(?R2, ?C) ^ rdf:predicate(?R1, ?P) -> valid(?R1, false) ^ valid(?R2,
+#            false) ^ valid(?R3, false)
+# reads:     IF R1 has subject A, predicate P, and object B AND R2 has subject B, predicate P,
+#            and object C AND R3 has subject C, predicate P, and object A THEN R1 is NOT valid
+#            AND R2 is NOT valid AND R3 is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:valid ?old }
+INSERT { ?R gsn:valid false }
+WHERE {
+  ?R1 rdf:subject ?A ; rdf:predicate ?P ; rdf:object ?B .
+  ?R2 rdf:subject ?B ; rdf:predicate ?P ; rdf:object ?C .
+  ?R3 rdf:subject ?C ; rdf:predicate ?P ; rdf:object ?A .
+  FILTER(?R1 != ?R2 && ?R1 != ?R3 && ?R2 != ?R3)
+  VALUES ?slot { 1 2 3 }
+  BIND(IF(?slot = 1, ?R1, IF(?slot = 2, ?R2, ?R3)) AS ?R)
+  OPTIONAL { ?R gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

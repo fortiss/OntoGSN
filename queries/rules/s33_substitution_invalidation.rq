@@ -1,0 +1,26 @@
+# rule:      S33
+# name:      Substitution Invalidation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      contains(?M2, ?G) ^ Module(?M1) ^ Module(?M2) ^ 'substituted by'(?J, ?G) ^
+#            contains(?M1, ?J) ^ Justification(?J) ^ 'in context of'(?E, ?J) ^
+#            swrlb:notEqual(?M1, ?M2) -> valid(?J, false)
+# reads:     IF Module M2 contains Goal G AND M1 and M2 are Modules AND Justification J is
+#            substituted by G AND M1 contains J AND J is a Justification AND some element E is in
+#            context of J AND M1 and M2 are distinct THEN J is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?J gsn:valid ?old }
+INSERT { ?J gsn:valid false }
+WHERE {
+  ?M1 a gsn:Module ; gsn:contains ?J .
+  ?M2 a gsn:Module ; gsn:contains ?G .
+  FILTER(?M1 != ?M2)
+  ?J a gsn:Justification ;
+     gsn:substitutedBy ?G .
+  ?E gsn:inContextOf ?J .
+  OPTIONAL { ?J gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

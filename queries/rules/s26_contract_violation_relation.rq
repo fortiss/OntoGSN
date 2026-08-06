@@ -1,0 +1,28 @@
+# rule:      S26
+# name:      Contract Violation Relation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      rdf:object(?R, ?M1) ^ Module(?M1) ^ Module(?M2) ^ contains(?M2, ?A) ^ 'supported
+#            by'(?A, ?M1) ^ rdf:subject(?R, ?A) ^ contract(?M2, true) -> valid(?R, false)
+# reads:     IF Relationship R has object Module M1 AND M1 and M2 are Modules AND M2 contains A
+#            AND A is supported by M1 AND R has subject A AND M2 is under contract THEN R is NOT
+#            valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:valid ?old }
+INSERT { ?R gsn:valid false }
+WHERE {
+  ?M1 a gsn:Module .
+  ?M2 a gsn:Module ;
+      gsn:contains ?A ;
+      gsn:contract ?contract .
+  FILTER(STR(?contract) = "true")
+  ?A gsn:supportedBy ?M1 .
+  ?R rdf:subject ?A ;
+     rdf:object ?M1 .
+  OPTIONAL { ?R gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

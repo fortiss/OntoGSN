@@ -1,0 +1,20 @@
+# rule:      S46
+# name:      Challenge Defeat
+# section:   Dialectic Extension
+# operation: rule
+# expect:    insert
+# swrl:      valid(?S, true) ^ challenges(?S, ?E) ^ Solution(?S) -> defeated(?E, true)
+# reads:     IF S is a valid Solution AND S challenges E THEN E is defeated
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?E gsn:defeated ?old }
+INSERT { ?E gsn:defeated true }
+WHERE {
+  ?S a gsn:Solution ;
+     gsn:valid ?valid ;
+     gsn:challenges ?E .
+  FILTER(STR(?valid) = "true")
+  OPTIONAL { ?E gsn:defeated ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}

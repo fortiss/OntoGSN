@@ -1,0 +1,23 @@
+# rule:      S3
+# name:      Evidential Relation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      Solution(?B) ^ 'supported by'(?A, ?B) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ->
+#            'relationship type'(?R, "evidential")
+# reads:     IF B is a Solution AND A is supported by B AND R has subject A AND R has object B
+#            THEN R is an evidential relationship
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:relationshipType ?old }
+INSERT { ?R gsn:relationshipType "evidential" }
+WHERE {
+  ?B a gsn:Solution .
+  ?A gsn:supportedBy ?B .
+  ?R rdf:subject ?A ;
+     rdf:object ?B .
+  OPTIONAL { ?R gsn:relationshipType ?old }
+  FILTER(!BOUND(?old) || ?old != "evidential")
+}

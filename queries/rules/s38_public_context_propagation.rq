@@ -1,0 +1,20 @@
+# rule:      S38
+# name:      Public Context Propagation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      public(?G, true) ^ 'in context of'(?G, ?C) ^ Goal(?G) -> public(?C, true)
+# reads:     IF G is a public Goal AND G is in context of C THEN C is public
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?C gsn:public ?old }
+INSERT { ?C gsn:public true }
+WHERE {
+  ?G a gsn:Goal ;
+     gsn:public ?public ;
+     gsn:inContextOf ?C .
+  FILTER(STR(?public) = "true")
+  OPTIONAL { ?C gsn:public ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}

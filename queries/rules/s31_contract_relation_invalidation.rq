@@ -1,0 +1,27 @@
+# rule:      S31
+# name:      Contract Relation Invalidation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      contains(?M, ?B) ^ contains(?M, ?A) ^ 'to be supported by contract'(?A, true) ^
+#            'supported by'(?A, ?B) ^ rdf:subject(?R, ?A) ^ Module(?M) ^ rdf:object(?R, ?B) ->
+#            valid(?R, false)
+# reads:     IF Module M contains both A and B AND A is to be supported by contract and is
+#            supported by B AND Relationship R links A to B THEN R is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:valid ?old }
+INSERT { ?R gsn:valid false }
+WHERE {
+  ?M a gsn:Module ;
+     gsn:contains ?A , ?B .
+  ?A gsn:toBeSupportedByContract ?flag ;
+     gsn:supportedBy ?B .
+  FILTER(STR(?flag) = "true")
+  ?R rdf:subject ?A ;
+     rdf:object ?B .
+  OPTIONAL { ?R gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

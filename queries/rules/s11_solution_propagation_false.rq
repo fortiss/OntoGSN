@@ -1,0 +1,20 @@
+# rule:      S11
+# name:      Solution Propagation (False)
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      Solution(?A) ^ true(?A, false) ^ 'supported by'(?B, ?A) -> true(?B, false)
+# reads:     IF A is a Solution AND A is NOT true AND B is supported by A THEN B becomes NOT true
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?B gsn:true ?old }
+INSERT { ?B gsn:true false }
+WHERE {
+  ?A a gsn:Solution ;
+     gsn:true ?tA .
+  FILTER(STR(?tA) = "false")
+  ?B gsn:supportedBy ?A .
+  OPTIONAL { ?B gsn:true ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

@@ -1,0 +1,24 @@
+# rule:      S41
+# name:      Duplicate Name Invalidation
+# section:   Confidence Argument Extension
+# operation: rule
+# expect:    insert
+# swrl:      schema:identifier(?A, ?N) ^ schema:identifier(?B, ?M) ^ swrlb:notEqual(?A, ?B) ^
+#            swrlb:equal(?N, ?M) -> valid(?A, false) ^ valid(?B, false)
+# reads:     IF A has schema identifier N AND B has schema identifier M AND A and B are distinct
+#            AND N and M are equal THEN A is NOT valid AND B is NOT valid
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+DELETE { ?target gsn:valid ?old }
+INSERT { ?target gsn:valid false }
+WHERE {
+  ?A schema:identifier ?id .
+  ?B schema:identifier ?id .
+  FILTER(?A != ?B)
+  VALUES ?slot { 1 2 }
+  BIND(IF(?slot = 1, ?A, ?B) AS ?target)
+  OPTIONAL { ?target gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

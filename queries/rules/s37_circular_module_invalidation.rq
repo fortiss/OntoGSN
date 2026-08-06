@@ -1,0 +1,27 @@
+# rule:      S37
+# name:      Circular Module Invalidation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      Module(?M3) ^ Module(?M1) ^ Module(?M2) ^ swrlb:notEqual(?M3, ?M1) ^ 'supported
+#            by'(?M1, ?M2) ^ 'supported by'(?M2, ?M3) ^ swrlb:notEqual(?M1, ?M2) ^
+#            swrlb:notEqual(?M2, ?M3) ^ 'supported by'(?M3, ?M1) -> valid(?M1, false) ^
+#            valid(?M3, false) ^ valid(?M2, false)
+# reads:     IF M1, M2 and M3 are Modules AND M1 is supported by M2 AND M2 is supported by M3 AND
+#            M3 is supported by M1 AND all three Modules are pairwise distinct THEN M1 is NOT
+#            valid AND M2 is NOT valid AND M3 is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?target gsn:valid ?old }
+INSERT { ?target gsn:valid false }
+WHERE {
+  ?M1 a gsn:Module ; gsn:supportedBy ?M2 .
+  ?M2 a gsn:Module ; gsn:supportedBy ?M3 .
+  ?M3 a gsn:Module ; gsn:supportedBy ?M1 .
+  FILTER(?M1 != ?M2 && ?M1 != ?M3 && ?M2 != ?M3)
+  VALUES ?slot { 1 2 3 }
+  BIND(IF(?slot = 1, ?M1, IF(?slot = 2, ?M2, ?M3)) AS ?target)
+  OPTIONAL { ?target gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

@@ -1,0 +1,24 @@
+# rule:      S28
+# name:      Contract Support Invalidation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      contains(?M, ?A) ^ 'to be supported by contract'(?A, true) ^ contract(?M, true) ^
+#            Module(?M) -> valid(?A, false)
+# reads:     IF Module M contains A AND A is to be supported by contract AND M is under contract
+#            THEN A is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?A gsn:valid ?old }
+INSERT { ?A gsn:valid false }
+WHERE {
+  ?M a gsn:Module ;
+     gsn:contains ?A ;
+     gsn:contract ?contract .
+  FILTER(STR(?contract) = "true")
+  ?A gsn:toBeSupportedByContract ?flag .
+  FILTER(STR(?flag) = "true")
+  OPTIONAL { ?A gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

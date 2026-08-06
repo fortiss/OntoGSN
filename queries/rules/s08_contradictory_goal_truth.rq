@@ -1,0 +1,24 @@
+# rule:      S8
+# name:      Contradictory Goal Truth
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      true(?A, false) ^ true(?B, true) ^ 'supported by'(?B, ?A) ^ Goal(?A) -> valid(?B,
+#            false)
+# reads:     IF A is NOT true AND B is true AND B is supported by A AND A is a Goal THEN B is NOT
+#            valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?B gsn:valid ?old }
+INSERT { ?B gsn:valid false }
+WHERE {
+  ?A a gsn:Goal ;
+     gsn:true ?tA .
+  FILTER(STR(?tA) = "false")
+  ?B gsn:supportedBy ?A ;
+     gsn:true ?tB .
+  FILTER(STR(?tB) = "true")
+  OPTIONAL { ?B gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

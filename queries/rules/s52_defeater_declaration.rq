@@ -1,0 +1,15 @@
+# rule:      S52
+# name:      Defeater Declaration
+# section:   Dialectic Extension
+# operation: rule
+# expect:    insert
+# swrl:      challenges(?A, ?B) -> Defeater(?A)
+# reads:     IF A challenges B THEN A is a Defeater
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?A a gsn:Defeater }
+WHERE {
+  ?A gsn:challenges ?B .
+  FILTER NOT EXISTS { ?A a gsn:Defeater }
+}

@@ -1,0 +1,21 @@
+# rule:      S6
+# name:      Goal Top Flag
+# section:   Core GSN
+# operation: rule
+# expect:    change
+# swrl:      'supported by'(?X, ?A) ^ 'supported by'(?A, ?B) ^ Goal(?A) -> 'top (goal)'(?A,
+#            false)
+# reads:     IF X is supported by A AND A is supported by B AND A is a Goal THEN A is NOT a top-
+#            level goal
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?A gsn:top ?old }
+INSERT { ?A gsn:top false }
+WHERE {
+  ?A a gsn:Goal .
+  ?X gsn:supportedBy ?A .
+  ?A gsn:supportedBy ?B .
+  OPTIONAL { ?A gsn:top ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

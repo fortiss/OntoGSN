@@ -1,0 +1,28 @@
+# rule:      S30
+# name:      Contract Activation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      away(?A, true) ^ 'to be supported by contract'(?A, true) ^ Module(?M1) ^ Module(?M2)
+#            ^ contains(?M1, ?A) ^ contains(?M2, ?B) ^ 'supported by'(?A, ?B) ^
+#            swrlb:notEqual(?M1, ?M2) -> contract(?M2, true)
+# reads:     IF A is away and must be supported by contract AND M1 and M2 are Modules AND A is in
+#            M1 AND B is in M2 AND A is supported by B AND M1 and M2 are distinct THEN M2 becomes
+#            a contract Module
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?M2 gsn:contract ?old }
+INSERT { ?M2 gsn:contract true }
+WHERE {
+  ?A gsn:away ?away ;
+     gsn:toBeSupportedByContract ?byContract ;
+     gsn:supportedBy ?B .
+  FILTER(STR(?away) = "true")
+  FILTER(STR(?byContract) = "true")
+  ?M1 a gsn:Module ; gsn:contains ?A .
+  ?M2 a gsn:Module ; gsn:contains ?B .
+  FILTER(?M1 != ?M2)
+  OPTIONAL { ?M2 gsn:contract ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}

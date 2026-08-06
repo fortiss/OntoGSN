@@ -1,0 +1,26 @@
+# rule:      S32
+# name:      Context Consistency
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      'in context of'(?G1, ?C1) ^ 'in context of'(?G2, ?C2) ^ Goal(?G1) ^ Goal(?G2) ^
+#            away(?G2, true) ^ 'supported by'(?G1, ?G2) ^ Context(?C2) -> 'consistent with'(?C1,
+#            ?C2)
+# reads:     IF G1 is in context of C1 AND G2 is in context of C2 AND G1 and G2 are Goals AND G2
+#            is away AND G1 is supported by G2 AND C2 is a Context THEN C1 is consistent with C2
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?C1 gsn:consistentWith ?C2 }
+WHERE {
+  ?G1 a gsn:Goal ;
+      gsn:inContextOf ?C1 ;
+      gsn:supportedBy ?G2 .
+  ?G2 a gsn:Goal ;
+      gsn:inContextOf ?C2 ;
+      gsn:away ?away .
+  FILTER(STR(?away) = "true")
+  ?C2 a gsn:Context .
+  FILTER(?C1 != ?C2)
+  FILTER NOT EXISTS { ?C1 gsn:consistentWith ?C2 }
+}

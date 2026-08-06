@@ -1,0 +1,21 @@
+# rule:      S1
+# name:      Assumption Invalidation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      Assumption(?A) ^ valid(?A, false) ^ 'in context of'(?B, ?A) -> valid(?B, false)
+# reads:     IF A is an Assumption AND A is NOT valid AND B is in context of A THEN B is NOT
+#            valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?B gsn:valid ?old }
+INSERT { ?B gsn:valid false }
+WHERE {
+  ?A a gsn:Assumption ;
+     gsn:valid ?vA .
+  FILTER(STR(?vA) = "false")
+  ?B gsn:inContextOf ?A .
+  OPTIONAL { ?B gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}
