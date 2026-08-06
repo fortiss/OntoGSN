@@ -1,0 +1,106 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dc:description a owl:AnnotationProperty .
+
+dc:source a owl:AnnotationProperty .
+
+dc:title a owl:AnnotationProperty .
+
+gsn:consistentWith a owl:ObjectProperty,
+        owl:SymmetricProperty ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Assumption gsn:Context ) ] ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:Assumption gsn:Context ) ] .
+
+gsn:contract a owl:DatatypeProperty ;
+    rdfs:domain gsn:Module ;
+    rdfs:range xsd:boolean ;
+    owl:propertyDisjointWith gsn:undeveloped .
+
+gsn:coreOrExtension a owl:AnnotationProperty .
+
+gsn:public a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Assumption gsn:Context gsn:Goal gsn:Justification gsn:Solution ) ] ;
+    rdfs:range xsd:boolean .
+
+gsn:substitutedBy a owl:ObjectProperty ;
+    rdfs:domain gsn:Justification ;
+    rdfs:range [ a owl:Class ;
+            owl:intersectionOf ( gsn:Goal [ a owl:Restriction ;
+                        owl:hasValue true ;
+                        owl:onProperty gsn:away ] ) ] .
+
+gsn:toBeSupportedByContract a owl:DatatypeProperty ;
+    rdfs:domain gsn:Goal ;
+    rdfs:range xsd:boolean ;
+    owl:propertyDisjointWith gsn:undeveloped .
+
+gsn:viewType a owl:DatatypeProperty ;
+    rdfs:domain gsn:View ;
+    rdfs:range [ a rdfs:Datatype ;
+            owl:oneOf [ a rdf:List ;
+                    rdf:first "architecture" ;
+                    rdf:rest [ a rdf:List ;
+                            rdf:first "argument" ;
+                            rdf:rest () ] ] ] .
+
+<https://w3id.org/OntoGSN/ontology/modular> a owl:Ontology ;
+    dc:description "The skeletal Modular Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Declarations and logical axioms only - no rules, no prose."@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    dc:title "OntoGSN — Modular Extension"@en ;
+    owl:versionInfo "1.2.2" ;
+    gsn:coreOrExtension "Modular Extension"@en .
+
+gsn:GSNElement a owl:Class .
+
+gsn:View a owl:Class .
+
+gsn:away a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Assumption gsn:Context gsn:Goal gsn:Justification gsn:Solution ) ] ;
+    rdfs:range xsd:boolean .
+
+gsn:inContextOf a owl:ObjectProperty .
+
+gsn:supportedBy a owl:ObjectProperty .
+
+gsn:Argument a owl:Class .
+
+gsn:Solution a owl:Class .
+
+gsn:contains a owl:ObjectProperty .
+
+gsn:undeveloped a owl:DatatypeProperty .
+
+gsn:Justification a owl:Class .
+
+gsn:Assumption a owl:Class .
+
+gsn:Context a owl:Class .
+
+gsn:Goal a owl:Class .
+
+gsn:Module a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:Argument gsn:Module ) ] ;
+            owl:onProperty gsn:contains ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gsn:Module ;
+            owl:onProperty gsn:inContextOf ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gsn:Module ;
+            owl:onProperty gsn:supportedBy ],
+        [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass gsn:Argument ;
+            owl:onProperty gsn:contains ],
+        gsn:GSNElement .
+

@@ -1,0 +1,465 @@
+@prefix gsnprov: <https://w3id.org/OntoGSN/provenance#> .
+@prefix gsn:     <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnsh:   <https://w3id.org/OntoGSN/shapes#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix dc:      <http://purl.org/dc/elements/1.1/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/provenance> .
+
+<https://w3id.org/OntoGSN/provenance> rdf:type owl:Ontology ;
+    owl:imports <http://www.w3.org/ns/prov-o> ;
+    dc:title "OntoGSN Provenance"@en ;
+    dc:creator "Tomas Bueno Momčilović"@en ;
+    dc:publisher "https://www.fortiss.org/"@en ;
+    dc:description """Records why each axiom, rule and constraint of OntoGSN exists: which passage of
+the GSN Community Standard v3 it came from, what was decided, the reasoning, and what the artefact
+said at the time the decision was made. PROV-O supplies the backbone; this vocabulary adds only the
+terms PROV-O has no room for.
+
+This ontology describes https://w3id.org/OntoGSN/ontology and https://w3id.org/OntoGSN/shapes but is
+deliberately NOT imported by either of them: doing so would drag roughly two thousand provenance
+individuals into the ABox of every reasoner run over an assurance case."""@en ;
+    dc:source "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C"@en ;
+    vann:preferredNamespacePrefix "gsnprov" ;
+    owl:versionInfo "1.0.0" ;
+    rdfs:seeAlso <https://w3id.org/OntoGSN/ontology> , <https://w3id.org/OntoGSN/shapes> .
+
+
+#################################################################
+#    How an axiom is identified
+#################################################################
+#
+#  Two roles are kept apart, because conflating them is what broke the earlier attempts:
+#
+#    IDENTITY  - which axiom a record is *about*, stable across re-serialization.
+#                gsnprov:structuralKey, the blank-node-free (subject, predicate, object)
+#                key produced by tools/ttl_model.py and tools/shapes_model.py.
+#
+#    EVIDENCE  - what the axiom literally said when the decision was taken.
+#                gsnprov:statementText plus gsnprov:statementChecksum.
+#
+#  Verbatim text cannot serve as identity: whitespace, operand order and blank-node ids
+#  (_:genid83) all change on re-save, and a namespace move once invalidated every record.
+#  Structural keys survive all three.
+#
+#  gsnprov:aboutTerm and gsnprov:mentionsTerm are a THIRD, weaker thing: a direct IRI link
+#  into the ontology, for joining the two graphs in SPARQL. They are one-to-many and
+#  deliberately not granular - see their definitions below.
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  https://w3id.org/OntoGSN/provenance#DesignDecision
+gsnprov:DesignDecision rdf:type owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "design decision"@en ;
+    skos:definition "One recorded act of deciding how - or whether - to represent something in OntoGSN. It prov:used the source passages it was based on and prov:generated the statement it produced."@en ;
+    skos:note "Modelled as an Activity rather than an Entity so that a decision to represent nothing is still well-formed: it simply generated no statement. Roughly an eighth of all decisions are of that kind, and PROV-O has no notion of an entity that deliberately does not exist."@en ;
+    skos:scopeNote "The IRI local name is the workbook's stable uid (dd-0001). It never changes. gsnprov:positionKey holds the positional row_key, which does."@en .
+
+###  https://w3id.org/OntoGSN/provenance#RetiredDecision
+gsnprov:RetiredDecision rdf:type owl:Class ;
+    rdfs:subClassOf gsnprov:DesignDecision ;
+    rdfs:label "retired decision"@en ;
+    skos:definition "A design decision the ontology has since moved away from. It is retired rather than deleted, because the reasoning remains the record of a real decision."@en ;
+    skos:note "Membership of this class is the sole authority on whether a decision is retired; it is not derivable from whether the statement still resolves. Some retired decisions still describe a live axiom, because another decision now documents that axiom - gsnprov:retirementReason says so."@en .
+
+###  https://w3id.org/OntoGSN/provenance#SourcePassage
+gsnprov:SourcePassage rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "source passage"@en ;
+    skos:definition "A quoted passage of the GSN Community Standard v3, located by clause and page."@en ;
+    skos:note "Deduplicated: one passage commonly justifies several axioms, and one axiom commonly rests on several passages. Related to the standard by prov:specializationOf."@en .
+
+###  https://w3id.org/OntoGSN/provenance#Rationale
+gsnprov:Rationale rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "rationale"@en ;
+    skos:definition "The reasoning for including, excluding or reshaping something - the editorial commentary that neither the standard nor the ontology carries."@en ;
+    skos:note "A first-class node rather than a literal on the decision, because the same reasoning is reused across decisions and needs to be addressable and citable."@en .
+
+###  https://w3id.org/OntoGSN/provenance#StatementRecord
+gsnprov:StatementRecord rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "statement record"@en ;
+    skos:definition "What a decision produced in a formal language: an OWL axiom, a SWRL rule, or a SHACL constraint - held as verbatim text plus a checksum, and identified by a structural key."@en ;
+    skos:note "One record per decision that produced something. Records are NOT deduplicated by text: distinct axioms can share a rendering (dc:description and schema:description both render as 'description a AnnotationProperty'), and merging them would lose the distinction."@en .
+
+###  https://w3id.org/OntoGSN/provenance#FormalGraph
+gsnprov:FormalGraph rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "formal graph"@en ;
+    skos:definition "A released graph that statement records live in - the ontology or the shapes, at a stated version."@en .
+
+###  https://w3id.org/OntoGSN/provenance#File
+gsnprov:File rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "file"@en ;
+    skos:definition "A file in the repository, identified by its path and fingerprinted by its contents."@en ;
+    skos:note "Recorded so that the generated files can say what they were generated from, and by which script. A derived file with no generating activity is a file nobody knows how to rebuild."@en .
+
+###  https://w3id.org/OntoGSN/provenance#Requirement
+gsnprov:Requirement rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "requirement"@en ;
+    skos:definition "A requirement OntoGSN set itself before any of it was built."@en .
+
+###  https://w3id.org/OntoGSN/provenance#CompetencyQuestion
+gsnprov:CompetencyQuestion rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "competency question"@en ;
+    skos:definition "A question the ontology is supposed to be able to answer, stated from the point of view of a particular role."@en ;
+    skos:note "The test of whether the modelling was worth doing: a competency question with no query that answers it is a claim nobody has checked."@en .
+
+###  https://w3id.org/OntoGSN/provenance#Query
+gsnprov:Query rdf:type owl:Class ;
+    rdfs:subClassOf prov:Plan ;
+    rdfs:label "query"@en ;
+    skos:definition "A stored SPARQL query - a plan for getting an answer out of an assurance case."@en ;
+    skos:note "A Plan rather than a plain Entity, because that is what PROV-O calls a specification of how something is to be done."@en .
+
+###  https://w3id.org/OntoGSN/provenance#Formalism
+gsnprov:Formalism rdf:type owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "formalism"@en ;
+    skos:definition "The language a decision expressed itself in. Everything here is RDF underneath, so the useful distinction is the language layered on top of it."@en .
+
+###  https://w3id.org/OntoGSN/provenance#StandardPart
+gsnprov:StandardPart rdf:type owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "standard part"@en ;
+    skos:definition "A top-level division of the GSN Community Standard v3."@en .
+
+###  https://w3id.org/OntoGSN/provenance#StandardSection
+gsnprov:StandardSection rdf:type owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "standard section"@en ;
+    skos:definition "A section of the GSN Community Standard v3, or one of the two groupings that sit outside it (ontology-specific statements, preamble)."@en .
+
+
+#################################################################
+#    Object properties
+#################################################################
+
+###  https://w3id.org/OntoGSN/provenance#hasRationale
+gsnprov:hasRationale rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnprov:DesignDecision ;
+    rdfs:range gsnprov:Rationale ;
+    rdfs:label "has rationale"@en ;
+    skos:definition "The reasoning behind this decision."@en ;
+    skos:note "Attached to the decision, which is itself the mapping between a source passage and the statement it produced. That is what makes the rationale reachable from either end: from a statement, follow prov:qualifiedDerivation to prov:hadActivity; from a passage, follow the decisions that prov:used it."@en .
+
+###  https://w3id.org/OntoGSN/provenance#supersededBy
+gsnprov:supersededBy rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnprov:RetiredDecision ;
+    rdfs:range gsnprov:DesignDecision ;
+    rdfs:label "superseded by"@en ;
+    skos:definition "The decision that now carries what this one used to record."@en ;
+    skos:note "Asserted only where the retirement reason names a successor. Absence means the decision was dropped, not replaced."@en .
+
+###  https://w3id.org/OntoGSN/provenance#formalism
+gsnprov:formalism rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:DesignDecision ;
+    rdfs:range gsnprov:Formalism ;
+    rdfs:label "formalism"@en ;
+    skos:definition "The language this decision expressed itself in."@en ;
+    skos:note "On the decision rather than the statement, so that decisions producing no statement can still say which language they declined to work in."@en .
+
+###  https://w3id.org/OntoGSN/provenance#part
+gsnprov:part rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:DesignDecision ;
+    rdfs:range gsnprov:StandardPart ;
+    rdfs:label "part"@en .
+
+###  https://w3id.org/OntoGSN/provenance#section
+gsnprov:section rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:DesignDecision ;
+    rdfs:range gsnprov:StandardSection ;
+    rdfs:label "section"@en .
+
+###  https://w3id.org/OntoGSN/provenance#inGraph
+gsnprov:inGraph rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:StatementRecord ;
+    rdfs:range gsnprov:FormalGraph ;
+    rdfs:label "in graph"@en ;
+    skos:definition "The released graph this statement belongs to."@en .
+
+###  https://w3id.org/OntoGSN/provenance#aboutTerm
+gsnprov:aboutTerm rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnprov:StatementRecord ;
+    rdfs:label "about term"@en ;
+    skos:definition "The ontology or shapes term this statement is asserted about - the subject of its structural key."@en ;
+    skos:note "A direct IRI link into the described graph, for joining the two in SPARQL: 'every decision touching gsn:Goal'. It is deliberately coarse. It names a TERM, never a triple, so it is one-to-many and cannot distinguish two statements about the same subject. It is a convenience, NOT the identity mechanism - gsnprov:structuralKey is. Treat a mismatch as a hint to look, not as evidence of drift."@en ;
+    skos:scopeNote "Absent where the subject is anonymous, as it is for a general class axiom or a SWRL rule."@en .
+
+###  https://w3id.org/OntoGSN/provenance#mentionsTerm
+gsnprov:mentionsTerm rdf:type owl:ObjectProperty ;
+    rdfs:domain prov:Entity ;
+    rdfs:label "mentions term"@en ;
+    skos:definition "Every ontology or shapes term appearing anywhere in this statement or query."@en ;
+    skos:note "Best-effort and one-to-many, recovered by scanning text. Use it to find candidates - 'what might break if gsn:Solution changes' - never to prove content. The same caveats as gsnprov:aboutTerm apply, more strongly."@en ;
+    skos:scopeNote "Domain is prov:Entity rather than gsnprov:StatementRecord because stored queries name ontology terms too, and the same question is asked of them."@en .
+
+###  https://w3id.org/OntoGSN/provenance#answersQuestion
+gsnprov:answersQuestion rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnprov:Query ;
+    rdfs:range gsnprov:CompetencyQuestion ;
+    rdfs:label "answers question"@en ;
+    skos:definition "The competency question this query was written to answer."@en .
+
+
+#################################################################
+#    Datatype properties - the decision
+#################################################################
+
+###  https://w3id.org/OntoGSN/provenance#positionKey
+gsnprov:positionKey rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:DesignDecision ;
+    rdfs:range xsd:string ;
+    rdfs:label "position key"@en ;
+    skos:definition "Where this decision sits in the reading order of the standard (S04.R062 = section 4, row 62; S04.SH001 = its first shape)."@en ;
+    skos:note "Positional, not identifying. It is renumbered when statements are inserted, so nothing may be keyed on it. The stable identity is the IRI."@en .
+
+###  https://w3id.org/OntoGSN/provenance#naturalLanguage
+gsnprov:naturalLanguage rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:DesignDecision ;
+    rdfs:range xsd:string ;
+    rdfs:label "natural language"@en ;
+    skos:definition "What this decision says, in English, for a reader who does not read Turtle."@en ;
+    skos:note "Generated once from the statement by tools/nl.py, then STORED and never regenerated, so that wording improved by hand survives. Retired decisions are written in the past tense, since they describe something the ontology no longer has. It is prose about the ontology, not a competing claim - disagreements belong in the rationale."@en .
+
+###  https://w3id.org/OntoGSN/provenance#nlWrittenFor
+gsnprov:nlWrittenFor rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:DesignDecision ;
+    rdfs:range xsd:string ;
+    rdfs:label "prose written for"@en ;
+    skos:definition "The statement checksum the English sentence was written against."@en ;
+    skos:note "Kept apart from gsnprov:statementChecksum precisely so the two can disagree. When they do, the axiom changed after the sentence was written and the sentence needs rewriting by hand - it is not something a script should silently resolve."@en .
+
+###  https://w3id.org/OntoGSN/provenance#retirementReason
+gsnprov:retirementReason rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:RetiredDecision ;
+    rdfs:range xsd:string ;
+    rdfs:label "retirement reason"@en ;
+    skos:definition "Why this decision was retired, and where its content went."@en ;
+    skos:note "A human judgement, not recoverable by computation, and therefore stored rather than derived."@en .
+
+###  https://w3id.org/OntoGSN/provenance#noSourceRecorded
+gsnprov:noSourceRecorded rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:DesignDecision ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "no source recorded"@en ;
+    skos:definition "True where this decision was checked against the standard and found to rest on no passage of it."@en ;
+    skos:note "Distinguishes 'checked, there is none' from 'nobody has looked yet', which is the absence of both this flag and any source passage. Ontology-specific statements and SHACL constraints are the usual bearers."@en .
+
+###  https://w3id.org/OntoGSN/provenance#noRationaleRecorded
+gsnprov:noRationaleRecorded rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:DesignDecision ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "no rationale recorded"@en ;
+    skos:definition "True where this decision was judged to need no reasoning beyond the source passage itself."@en ;
+    skos:note "As with gsnprov:noSourceRecorded, this is the deliberate 'none', not the absent 'not yet written'."@en .
+
+
+#################################################################
+#    Datatype properties - the source passage
+#################################################################
+
+###  https://w3id.org/OntoGSN/provenance#quotedText
+gsnprov:quotedText rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:SourcePassage ;
+    rdfs:range xsd:string ;
+    rdfs:label "quoted text"@en ;
+    skos:definition "The passage, quoted verbatim from the standard."@en ;
+    skos:note "May concatenate several passages and a glossary entry, as the standard states one requirement in more than one place."@en .
+
+###  https://w3id.org/OntoGSN/provenance#clause
+gsnprov:clause rdf:type owl:DatatypeProperty ;
+    rdfs:domain gsnprov:SourcePassage ;
+    rdfs:range xsd:string ;
+    rdfs:label "clause"@en ;
+    skos:definition "The clause citation the passage carries, as part:clause - '0:4.3', '1:5.3.1'."@en ;
+    skos:note "Repeatable, and recovered from the quoted text rather than recorded separately."@en .
+
+###  https://w3id.org/OntoGSN/provenance#page
+gsnprov:page rdf:type owl:DatatypeProperty ;
+    rdfs:domain gsnprov:SourcePassage ;
+    rdfs:range xsd:string ;
+    rdfs:label "page"@en ;
+    skos:definition "A page of the standard the passage appears on."@en ;
+    skos:note "Repeatable, one value per page. gsnprov:pageRef holds the same information as it was originally written."@en .
+
+###  https://w3id.org/OntoGSN/provenance#pageRef
+gsnprov:pageRef rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:SourcePassage ;
+    rdfs:range xsd:string ;
+    rdfs:label "page reference"@en ;
+    skos:definition "The page reference exactly as written, separators and all."@en ;
+    skos:note "Redundant against gsnprov:page, and kept only so the human-readable workbook can be regenerated character-for-character. Query gsnprov:page instead."@en .
+
+
+#################################################################
+#    Datatype properties - the statement
+#################################################################
+
+###  https://w3id.org/OntoGSN/provenance#statementText
+gsnprov:statementText rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:StatementRecord ;
+    rdfs:range xsd:string ;
+    rdfs:label "statement text"@en ;
+    skos:definition "What the axiom said, verbatim, when the decision was taken."@en ;
+    skos:note "EVIDENCE, not identity. Rendered blank-node-free, so it survives re-serialization; it is still text, and text varies in ways that do not matter. Identify by gsnprov:structuralKey."@en .
+
+###  https://w3id.org/OntoGSN/provenance#statementChecksum
+gsnprov:statementChecksum rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:StatementRecord ;
+    rdfs:range xsd:string ;
+    rdfs:label "statement checksum"@en ;
+    skos:definition "Fingerprint of gsnprov:statementText - the first eight hex characters of its SHA-1."@en ;
+    skos:note "Short by design: it is read by people comparing two rows, not used as a cryptographic commitment."@en .
+
+###  https://w3id.org/OntoGSN/provenance#structuralKey
+gsnprov:structuralKey rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:StatementRecord ;
+    rdfs:range xsd:string ;
+    rdfs:label "structural key"@en ;
+    skos:definition "The identity of the axiom: its subject, predicate and object rendered structurally and without blank-node identifiers, as subject|predicate|object."@en ;
+    skos:note "THE identity mechanism. It is what lets a record keep pointing at the same axiom when the file is re-saved, reformatted, or its blank nodes renumbered. Produced by tools/ttl_model.py for the ontology and tools/shapes_model.py for the shapes."@en .
+
+###  https://w3id.org/OntoGSN/provenance#ruleName
+gsnprov:ruleName rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:StatementRecord ;
+    rdfs:range xsd:string ;
+    rdfs:label "rule name"@en ;
+    skos:definition "The SWRL rule's own name, taken from its rdfs:label in the ontology - 'Assumption Invalidation', 'Cross-Module Support'."@en ;
+    skos:note "This is the join key to OntoGSN SWRL Rules.xlsx, but to its 'Example label' column, NOT to the 'Name' column: that workbook numbers the rules S1 to S52 while the ontology names them descriptively, and nothing in the ontology carries the number."@en .
+
+###  https://w3id.org/OntoGSN/provenance#fileChecksum
+gsnprov:fileChecksum rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain prov:Entity ;
+    rdfs:range xsd:string ;
+    rdfs:label "file checksum"@en ;
+    skos:definition "SHA-256 of a file entity's bytes."@en .
+
+
+#################################################################
+#    Datatype properties - files, queries and requirements
+#################################################################
+
+###  https://w3id.org/OntoGSN/provenance#path
+gsnprov:path rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain prov:Entity ;
+    rdfs:range xsd:string ;
+    rdfs:label "path"@en ;
+    skos:definition "The file's path, relative to the repository root, with forward slashes."@en .
+
+###  https://w3id.org/OntoGSN/provenance#declaresNamespace
+gsnprov:declaresNamespace rdf:type owl:DatatypeProperty ;
+    rdfs:domain prov:Entity ;
+    rdfs:range xsd:string ;
+    rdfs:label "declares namespace"@en ;
+    skos:definition "A namespace this file binds a prefix to."@en ;
+    skos:note "Recorded so that a file naming the ontology under the wrong namespace can be found. A query that binds gsn: to something other than the ontology's own IRI silently returns nothing, which is the hardest kind of wrong to notice."@en .
+
+###  https://w3id.org/OntoGSN/provenance#declaredVersion
+gsnprov:declaredVersion rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain prov:Entity ;
+    rdfs:range xsd:string ;
+    rdfs:label "declared version"@en ;
+    skos:definition "The owl:versionInfo the file states for itself."@en ;
+    skos:note "Compared against the version of the file it was derived from; a derived file claiming an older version has not been rebuilt."@en .
+
+###  https://w3id.org/OntoGSN/provenance#requirementText
+gsnprov:requirementText rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:Requirement ;
+    rdfs:range xsd:string ;
+    rdfs:label "requirement text"@en .
+
+###  https://w3id.org/OntoGSN/provenance#questionText
+gsnprov:questionText rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:CompetencyQuestion ;
+    rdfs:range xsd:string ;
+    rdfs:label "question text"@en .
+
+###  https://w3id.org/OntoGSN/provenance#persona
+gsnprov:persona rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:CompetencyQuestion ;
+    rdfs:range xsd:string ;
+    rdfs:label "persona"@en ;
+    skos:definition "The role that asks this question - assurance engineer, domain expert, auditor."@en .
+
+###  https://w3id.org/OntoGSN/provenance#appliesTo
+gsnprov:appliesTo rdf:type owl:DatatypeProperty ;
+    rdfs:domain gsnprov:Requirement ;
+    rdfs:range xsd:string ;
+    rdfs:label "applies to"@en ;
+    skos:definition "What the requirement constrains - the ontology, the framework, the supporting tools."@en .
+
+
+#################################################################
+#    Controlled vocabularies
+#################################################################
+
+gsnprov:OWL   rdf:type gsnprov:Formalism ; skos:prefLabel "OWL" ;
+    skos:definition "An OWL 2 axiom."@en .
+gsnprov:SWRL  rdf:type gsnprov:Formalism ; skos:prefLabel "SWRL" ;
+    skos:definition "A SWRL inference rule."@en .
+gsnprov:SHACL rdf:type gsnprov:Formalism ; skos:prefLabel "SHACL" ;
+    skos:definition "A SHACL validation constraint."@en .
+gsnprov:RDF   rdf:type gsnprov:Formalism ; skos:prefLabel "RDF" ;
+    skos:definition "A namespace declaration - RDF plumbing rather than an axiom."@en .
+gsnprov:NoFormalism rdf:type gsnprov:Formalism ; skos:prefLabel "(none)" ;
+    skos:definition "A deliberate decision to represent nothing."@en ;
+    skos:note "Not the absence of a formalism but a decision about one, which is why it is a member of the vocabulary rather than a missing value."@en .
+
+gsnprov:part-0 rdf:type gsnprov:StandardPart ; skos:prefLabel "Part 0 etc." .
+gsnprov:part-1 rdf:type gsnprov:StandardPart ; skos:prefLabel "Part 1" .
+gsnprov:part-2 rdf:type gsnprov:StandardPart ; skos:prefLabel "Part 2" .
+
+gsnprov:sec-ontology-specific rdf:type gsnprov:StandardSection ;
+    skos:prefLabel "Ontology-Specific Statements" ; gsnprov:sectionCode "S01" .
+gsnprov:sec-preamble rdf:type gsnprov:StandardSection ;
+    skos:prefLabel "Preamble" ; gsnprov:sectionCode "S02" .
+gsnprov:sec-part0-glossary rdf:type gsnprov:StandardSection ;
+    skos:prefLabel "Part 0, Glossary & Annex" ; gsnprov:sectionCode "S03" .
+gsnprov:sec-core rdf:type gsnprov:StandardSection ;
+    skos:prefLabel "Core GSN" ; gsnprov:sectionCode "S04" .
+gsnprov:sec-pattern rdf:type gsnprov:StandardSection ;
+    skos:prefLabel "Argument Pattern Extension" ; gsnprov:sectionCode "S05" .
+gsnprov:sec-modular rdf:type gsnprov:StandardSection ;
+    skos:prefLabel "Modular Extension" ; gsnprov:sectionCode "S06" .
+gsnprov:sec-confidence rdf:type gsnprov:StandardSection ;
+    skos:prefLabel "Confidence Argument Extension" ; gsnprov:sectionCode "S07" .
+gsnprov:sec-dialectic rdf:type gsnprov:StandardSection ;
+    skos:prefLabel "Dialectic Extension" ; gsnprov:sectionCode "S08" .
+gsnprov:sec-part2 rdf:type gsnprov:StandardSection ;
+    skos:prefLabel "Part 2" ; gsnprov:sectionCode "S09" .
+
+###  https://w3id.org/OntoGSN/provenance#sectionCode
+gsnprov:sectionCode rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:StandardSection ;
+    rdfs:range xsd:string ;
+    rdfs:label "section code"@en ;
+    skos:definition "The section's prefix in a position key - S01 ... S09."@en .
+
+
+#################################################################
+#    The source document
+#################################################################
+
+###  https://w3id.org/OntoGSN/provenance#GSNCommunityStandardV3
+gsnprov:GSNCommunityStandardV3 rdf:type prov:Entity , prov:Plan ;
+    rdfs:label "GSN Community Standard, Version 3"@en ;
+    dc:identifier "SCSC-141C" ;
+    dc:creator "The Assurance Case Working Group (ACWG)"@en ;
+    dc:date "2021-05" ;
+    dc:publisher "Safety-Critical Systems Club"@en ;
+    rdfs:seeAlso <http://scsc.uk/SCSC-141C> ;
+    skos:definition "The normative source. Every OntoGSN term traces to a passage of it; the document itself is not redistributed in this repository."@en .

@@ -1,0 +1,86 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dc:description a owl:AnnotationProperty .
+
+dc:source a owl:AnnotationProperty .
+
+dc:title a owl:AnnotationProperty .
+
+gsn:coreOrExtension a owl:AnnotationProperty .
+
+<https://w3id.org/OntoGSN/ontology/confidence> a owl:Ontology ;
+    dc:description "The skeletal Confidence Argument Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Declarations and logical axioms only - no rules, no prose."@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    dc:title "OntoGSN — Confidence Argument Extension"@en ;
+    owl:versionInfo "1.2.2" ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en .
+
+rdf:object a owl:ObjectProperty .
+
+gsn:Context a owl:Class .
+
+gsn:Relationship a owl:Class .
+
+gsn:Solution a owl:Class .
+
+gsn:Strategy a owl:Class .
+
+gsn:argumentType a owl:DatatypeProperty ;
+    rdfs:domain gsn:Argument ;
+    rdfs:range [ a rdfs:Datatype ;
+            owl:oneOf [ a rdf:List ;
+                    rdf:first "confidence" ;
+                    rdf:rest [ a rdf:List ;
+                            rdf:first "dialectic" ;
+                            rdf:rest [ a rdf:List ;
+                                    rdf:first "risk" ;
+                                    rdf:rest () ] ] ] ] .
+
+gsn:assuranceClaimPoint a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:ArtefactReference gsn:RelationshipWithConfidence ) ] ;
+    rdfs:range xsd:boolean .
+
+schema:identifier a owl:DatatypeProperty .
+
+gsn:ArtefactReference a owl:Class .
+
+gsn:RelationshipWithConfidence a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:Context gsn:Solution gsn:Strategy ) ] ;
+            owl:onProperty rdf:object ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( gsn:Argument [ a owl:Restriction ;
+                                owl:hasValue "confidence" ;
+                                owl:onProperty gsn:argumentType ] ) ] ;
+            owl:onProperty gsn:associatedWith ],
+        [ a owl:Class ;
+            owl:intersectionOf ( [ a owl:Restriction ;
+                        owl:onProperty gsn:associatedWith ;
+                        owl:someValuesFrom gsn:Argument ] [ a owl:Restriction ;
+                        owl:onProperty gsn:assuranceClaimPoint ;
+                        owl:someValuesFrom xsd:boolean ] ) ],
+        [ a owl:Restriction ;
+            owl:onDataRange xsd:string ;
+            owl:onProperty schema:identifier ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onProperty schema:identifier ;
+            owl:someValuesFrom xsd:string ],
+        gsn:Relationship .
+
+gsn:associatedWith a owl:ObjectProperty ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:ArtefactReference gsn:RelationshipWithConfidence ) ] ;
+    rdfs:range gsn:Argument .
+
+gsn:Argument a owl:Class .
+

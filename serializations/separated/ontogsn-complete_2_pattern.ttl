@@ -1,361 +1,388 @@
-@prefix : <https://w3id.org/OntoGSN/ontology#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix swrl: <http://www.w3.org/2003/11/swrl#> .
 @prefix swrla: <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#> .
-@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
-@prefix schema: <http://schema.org/> .
-@base <https://w3id.org/OntoGSN/ontology#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-gsn:applicability rdf:type owl:AnnotationProperty ;
-                       rdfs:label "applicability"@en ;
-                       skos:definition "The applicability section should state under what circumstances the pattern can be applied, making clear the assumptions and principles underlying the pattern to avoid inappropriate application in a mismatched context. This section should record what contextual information is required in order to apply the pattern."@en ;
-                       gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                       rdfs:domain gsn:Pattern .
+cc:license a owl:AnnotationProperty .
 
-gsn:collaboration rdf:type owl:AnnotationProperty ;
-                       rdfs:label "collaboration"@en ;
-                       skos:definition "The collaboration section should describe how elements of the pattern work together to achieve the desired effect, particularly where there are links that are not readily apparent from the argument structure."@en ;
-                       gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                       rdfs:domain gsn:Pattern .
+dc:contributor a owl:AnnotationProperty .
 
-gsn:consequences rdf:type owl:AnnotationProperty ;
-                      rdfs:label "consequences"@en ;
-                      skos:definition "The consequences section should make clear what work remains after the pattern has been applied. This should highlight where further support to the argument is required, and assumptions that need to be discharged."@en ;
-                      gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                      rdfs:domain gsn:Pattern .
+dc:creator a owl:AnnotationProperty .
 
-gsn:examples rdf:type owl:AnnotationProperty ;
-                  rdfs:label "examples"@en ;
-                  skos:definition "It may be useful to provide example illustrations of the application of the pattern, particularly for more abstract patterns. Illustrations should include a typical case and can be supplemented with atypical cases where more than one example is provided."@en ;
-                  gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                  rdfs:domain gsn:Pattern .
+dc:description a owl:AnnotationProperty .
 
-gsn:implementation rdf:type owl:AnnotationProperty ;
-                        rdfs:label "implementation"@en ;
-                        skos:definition "The implementation section should communicate how the application of the pattern is carried out e.g. the order in which elements should be developed; communicate hints or techniques that may ease successful application; highlight common or recognised pitfalls with the application of the pattern; and record potential misinterpretation of the terms or concepts in the pattern."@en ;
-                        gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                        rdfs:domain gsn:Pattern .
+dc:identifier a owl:AnnotationProperty .
 
-gsn:intent rdf:type owl:AnnotationProperty ;
-                rdfs:label "intent"@en ;
-                skos:definition "The intent statement should state clearly what the pattern aims to achieve."@en ;
-                gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                rdfs:domain gsn:Pattern .
+dc:issued a owl:AnnotationProperty .
 
-gsn:knownUses rdf:type owl:AnnotationProperty ;
-                   rdfs:label "known uses"@en ;
-                   skos:definition "It may be useful to provide references to known applications of the pattern. These can serve as additional examples."@en ;
-                   gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                   rdfs:domain gsn:Pattern .
+dc:modified a owl:AnnotationProperty .
 
-gsn:motivation rdf:type owl:AnnotationProperty ;
-                    rdfs:label "motivation"@en ;
-                    skos:definition "The motivation statement can be used to state why the pattern was created. It could be expressed in terms of previous experiences e.g. as the abstraction of a successfully presented argument, or challenges addressed e.g. argument topics that are often incompletely or poorly addressed."@en ;
-                    gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                    rdfs:domain gsn:Pattern .
+dc:publisher a owl:AnnotationProperty .
 
-gsn:participants rdf:type owl:AnnotationProperty ;
-                      rdfs:label "participants"@en ;
-                      skos:definition "The participants section augments the structure by providing a description of each element. This can provide more complete descriptions, clarify the role of the element in the overall argument and emphasise the aspects that require development or instantiation."@en ;
-                      gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                      rdfs:domain gsn:Pattern .
+dc:source a owl:AnnotationProperty .
 
-gsn:structure rdf:type owl:AnnotationProperty ;
-                   rdfs:label "structure"@en ;
-                   skos:definition "The structure uses the structural and element abstraction notations to present the pattern, clearly indicating where the argument needs to be further developed or populated with details to instantiate the pattern for a specific case."@en ;
-                   gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                   rdfs:domain gsn:Pattern .
+dc:title a owl:AnnotationProperty .
 
-gsn:attachedTo rdf:type owl:ObjectProperty ;
-                    rdfs:domain gsn:InstantiationDataReference ;
-                    rdfs:range gsn:Template ;
-                    rdfs:label "attached to"@en ;
-                    gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                    gsn:renderedAs "dotted line" .
+terms:bibliographicCitation a owl:AnnotationProperty .
 
-gsn:instantiationOf rdf:type owl:ObjectProperty ;
-                         rdfs:domain [ rdf:type owl:Class ;
-                                       owl:unionOf ( gsn:Argument
-                                                     gsn:GSNElement
-                                                   )
-                                     ] ;
-                         rdfs:range gsn:Pattern ;
-                         rdfs:label "instantiation of"@en ;
-                         gsn:coreOrExtension "Argument Pattern Extension"@en .
+terms:created a owl:AnnotationProperty .
 
-gsn:relatedTo rdf:type owl:ObjectProperty ;
-                   rdfs:domain gsn:Pattern ;
-                   rdfs:range gsn:Pattern ;
-                   rdfs:label "related to"@en ;
-                   skos:definition "This section can be used to reference patterns that are related e.g. addressing the same intent in a different context."@en ;
-                   gsn:coreOrExtension "Argument Pattern Extension"@en .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
 
-gsn:choice rdf:type owl:DatatypeProperty ;
-                rdfs:domain gsn:Relationship ;
-                rdfs:range xsd:boolean ;
-                rdfs:label "choice"@en ;
-                skos:definition "A GSN choice can be used to denote possible alternatives in satisfying a relationship."@en ;
-                gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                gsn:renderedAs "solid diamond" .
+schema:disclaimer a owl:AnnotationProperty .
 
-gsn:final rdf:type owl:DatatypeProperty ;
-               rdfs:domain gsn:Argument ;
-               rdfs:range xsd:boolean ;
-               rdfs:label "final"@en ;
-               gsn:coreOrExtension "Argument Pattern Extension"@en .
+schema:url a owl:AnnotationProperty .
 
-gsn:maxCardinality rdf:type owl:DatatypeProperty ;
-                        rdfs:domain gsn:Relationship ;
-                        rdfs:range xsd:nonNegativeInteger ;
-                        rdfs:label "maximum cardinality"@en ;
-                        gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                        gsn:renderedAs "text" .
+schema:version a owl:AnnotationProperty .
 
-gsn:minCardinality rdf:type owl:DatatypeProperty ;
-                        rdfs:domain gsn:Relationship ;
-                        rdfs:range xsd:nonNegativeInteger ;
-                        rdfs:label "minimum cardinality"@en ;
-                        gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                        gsn:renderedAs "text" .
+swrla:isRuleEnabled a owl:AnnotationProperty .
 
-gsn:multiple rdf:type owl:DatatypeProperty ;
-                  rdfs:domain gsn:Relationship ;
-                  rdfs:range xsd:boolean ;
-                  rdfs:label "multiple"@en ;
-                  gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                  gsn:renderedAs "solid ball" .
+skos:definition a owl:AnnotationProperty .
 
-gsn:optional rdf:type owl:DatatypeProperty ;
-                  rdfs:domain gsn:Relationship ;
-                  rdfs:range xsd:boolean ;
-                  rdfs:label "optional"@en ;
-                  skos:definition "Optional instantiation means that the relationship and the argument below may or may not be instantiated."@en ;
-                  gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                  gsn:renderedAs "hollow ball"@en .
+gsn:Catalogue a owl:Class ;
+    rdfs:label "Catalogue"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gsn:Pattern ;
+            owl:onProperty gsn:contains ] ;
+    skos:definition "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:published rdf:type owl:DatatypeProperty ;
-                   rdfs:domain gsn:Argument ;
-                   rdfs:range xsd:boolean ;
-                   rdfs:label "published"@en ;
-                   gsn:coreOrExtension "Argument Pattern Extension"@en .
+gsn:FinalPatternInvalidation a swrl:Imp ;
+    rdfs:label "Final Pattern Invalidation" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:IndividualPropertyAtom ;
+                    swrl:argument1 gsn:B ;
+                    swrl:argument2 gsn:C ;
+                    swrl:propertyPredicate gsn:instantiationOf ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                            swrl:argument1 gsn:A ;
+                            swrl:argument2 true ;
+                            swrl:propertyPredicate gsn:final ] ;
+                    rdf:rest [ a swrl:AtomList ;
+                            rdf:first [ a swrl:ClassAtom ;
+                                    swrl:argument1 gsn:C ;
+                                    swrl:classPredicate gsn:Pattern ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:IndividualPropertyAtom ;
+                                            swrl:argument1 gsn:A ;
+                                            swrl:argument2 gsn:B ;
+                                            swrl:propertyPredicate gsn:contains ] ;
+                                    rdf:rest [ a swrl:AtomList ;
+                                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                    swrl:argument1 gsn:A ;
+                                                    swrl:argument2 gsn:C ;
+                                                    swrl:propertyPredicate gsn:contains ] ;
+                                            rdf:rest () ] ] ] ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsn:A ;
+                    swrl:argument2 false ;
+                    swrl:propertyPredicate gsn:valid ] ;
+            rdf:rest () ] ;
+    gsn:coreOrExtension "Argument Pattern Extension" .
 
-gsn:undeveloped rdf:type owl:DatatypeProperty ;
-                     rdfs:domain [ rdf:type owl:Class ;
-                                   owl:unionOf ( gsn:Goal
-                                                 gsn:Strategy
-                                               )
-                                 ] ;
-                     rdfs:range xsd:boolean ;
-                     rdfs:label "undeveloped"@en ;
-                     skos:definition "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
-                     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                     gsn:renderedAs "hollow diamond" .
+gsn:TemplateUndevelopedInvalidationA a swrl:Imp ;
+    rdfs:label "Template Undeveloped Invalidation (A)" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:ClassAtom ;
+                    swrl:argument1 gsn:A ;
+                    swrl:classPredicate gsn:Template ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                            swrl:argument1 gsn:R ;
+                            swrl:argument2 true ;
+                            swrl:propertyPredicate gsn:undeveloped ] ;
+                    rdf:rest [ a swrl:AtomList ;
+                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                    swrl:argument1 gsn:R ;
+                                    swrl:argument2 gsn:A ;
+                                    swrl:propertyPredicate rdf:subject ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                            swrl:argument1 gsn:A ;
+                                            swrl:argument2 true ;
+                                            swrl:propertyPredicate gsn:published ] ;
+                                    rdf:rest () ] ] ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsn:A ;
+                    swrl:argument2 false ;
+                    swrl:propertyPredicate gsn:valid ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                            swrl:argument1 gsn:R ;
+                            swrl:argument2 false ;
+                            swrl:propertyPredicate gsn:valid ] ;
+                    rdf:rest () ] ] ;
+    gsn:coreOrExtension "Argument Pattern Extension" .
 
-gsn:uninstantiated rdf:type owl:DatatypeProperty ;
-                        rdfs:domain gsn:GSNElement ;
-                        rdfs:range xsd:boolean ;
-                        rdfs:label "uninstantiated"@en ;
-                        gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                        gsn:renderedAs "hollow triangle" .
+gsn:TemplateUndevelopedInvalidationB a swrl:Imp ;
+    rdfs:label "Template Undeveloped Invalidation (B)" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:ClassAtom ;
+                    swrl:argument1 gsn:A ;
+                    swrl:classPredicate gsn:Template ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                            swrl:argument1 gsn:R ;
+                            swrl:argument2 true ;
+                            swrl:propertyPredicate gsn:undeveloped ] ;
+                    rdf:rest [ a swrl:AtomList ;
+                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                    swrl:argument1 gsn:R ;
+                                    swrl:argument2 gsn:B ;
+                                    swrl:propertyPredicate rdf:subject ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                            swrl:argument1 gsn:A ;
+                                            swrl:argument2 true ;
+                                            swrl:propertyPredicate gsn:published ] ;
+                                    rdf:rest [ a swrl:AtomList ;
+                                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                    swrl:argument1 gsn:A ;
+                                                    swrl:argument2 gsn:B ;
+                                                    swrl:propertyPredicate gsn:contains ] ;
+                                            rdf:rest () ] ] ] ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsn:A ;
+                    swrl:argument2 false ;
+                    swrl:propertyPredicate gsn:valid ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                            swrl:argument1 gsn:R ;
+                            swrl:argument2 false ;
+                            swrl:propertyPredicate gsn:valid ] ;
+                    rdf:rest () ] ] ;
+    gsn:coreOrExtension "Argument Pattern Extension" .
 
-gsn:Catalogue rdf:type owl:Class ;
-                   rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                     owl:onProperty gsn:contains ;
-                                     owl:allValuesFrom gsn:Pattern
-                                   ] ;
-                   rdfs:label "Catalogue"@en ;
-                   skos:definition "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
-                   gsn:coreOrExtension "Argument Pattern Extension"@en .
+gsn:applicability a owl:AnnotationProperty ;
+    rdfs:label "applicability"@en ;
+    rdfs:domain gsn:Pattern ;
+    skos:definition "The applicability section should state under what circumstances the pattern can be applied, making clear the assumptions and principles underlying the pattern to avoid inappropriate application in a mismatched context. This section should record what contextual information is required in order to apply the pattern."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:InstantiationDataReference rdf:type owl:Class ;
-                                    rdfs:label "Instantiation Data Reference"@en ;
-                                    skos:definition "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument." ;
-                                    gsn:coreOrExtension "Argument Pattern Extension"@en ;
-                                    gsn:renderedAs "hollow triangle" .
+gsn:attachedTo a owl:ObjectProperty ;
+    rdfs:label "attached to"@en ;
+    rdfs:domain gsn:InstantiationDataReference ;
+    rdfs:range gsn:Template ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "dotted line" .
 
-gsn:Pattern rdf:type owl:Class ;
-                 rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                   owl:onProperty schema:description ;
-                                   owl:someValuesFrom rdfs:Literal
-                                 ] ;
-                 rdfs:label "Pattern"@en ;
-                 gsn:coreOrExtension "Argument Pattern Extension"@en .
+gsn:choice a owl:DatatypeProperty ;
+    rdfs:label "choice"@en ;
+    rdfs:domain gsn:Relationship ;
+    rdfs:range xsd:boolean ;
+    skos:definition "A GSN choice can be used to denote possible alternatives in satisfying a relationship."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "solid diamond" .
 
+gsn:collaboration a owl:AnnotationProperty ;
+    rdfs:label "collaboration"@en ;
+    rdfs:domain gsn:Pattern ;
+    skos:definition "The collaboration section should describe how elements of the pattern work together to achieve the desired effect, particularly where there are links that are not readily apparent from the argument structure."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:Template rdf:type owl:Class ;
-                  rdfs:subClassOf gsn:Pattern ;
-                  rdfs:label "Template"@en ;
-                  skos:definition "A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development."@en ;
-                  gsn:coreOrExtension "Argument Pattern Extension"@en .
+gsn:consequences a owl:AnnotationProperty ;
+    rdfs:label "consequences"@en ;
+    rdfs:domain gsn:Pattern ;
+    skos:definition "The consequences section should make clear what work remains after the pattern has been applied. This should highlight where further support to the argument is required, and assumptions that need to be discharged."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:A rdf:type swrl:Variable .
-gsn:R rdf:type swrl:Variable .
-gsn:B rdf:type swrl:Variable .
-<urn:swrl:var#B> rdf:type swrl:Variable .
-<urn:swrl:var#C> rdf:type swrl:Variable .
-<urn:swrl:var#A> rdf:type swrl:Variable .
-gsn:C rdf:type swrl:Variable .
-gsn:P rdf:type swrl:Variable .
+gsn:coreOrExtension a owl:AnnotationProperty .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   gsn:coreOrExtension "Argument Pattern Extension" ;
-   rdfs:label "S20" ;
-   rdf:type swrl:Imp ;
-   swrl:body [ rdf:type swrl:AtomList ;
-               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate gsn:instantiationOf ;
-                           swrl:argument1 gsn:B ;
-                           swrl:argument2 gsn:C
-                         ] ;
-               rdf:rest [ rdf:type swrl:AtomList ;
-                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                                      swrl:propertyPredicate gsn:final ;
-                                      swrl:argument1 gsn:A ;
-                                      swrl:argument2 "true"^^xsd:boolean
-                                    ] ;
-                          rdf:rest [ rdf:type swrl:AtomList ;
-                                     rdf:first [ rdf:type swrl:ClassAtom ;
-                                                 swrl:classPredicate gsn:Pattern ;
-                                                 swrl:argument1 gsn:C
-                                               ] ;
-                                     rdf:rest [ rdf:type swrl:AtomList ;
-                                                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                            swrl:propertyPredicate gsn:contains ;
-                                                            swrl:argument1 gsn:A ;
-                                                            swrl:argument2 gsn:B
-                                                          ] ;
-                                                rdf:rest [ rdf:type swrl:AtomList ;
-                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                                       swrl:propertyPredicate gsn:contains ;
-                                                                       swrl:argument1 gsn:A ;
-                                                                       swrl:argument2 gsn:C
-                                                                     ] ;
-                                                           rdf:rest rdf:nil
-                                                         ]
-                                              ]
-                                   ]
-                        ]
-             ] ;
-   swrl:head [ rdf:type swrl:AtomList ;
-               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                           swrl:propertyPredicate gsn:valid ;
-                           swrl:argument1 gsn:A ;
-                           swrl:argument2 "false"^^xsd:boolean
-                         ] ;
-               rdf:rest rdf:nil
-             ]
- ] .
+gsn:examples a owl:AnnotationProperty ;
+    rdfs:label "examples"@en ;
+    rdfs:domain gsn:Pattern ;
+    skos:definition "It may be useful to provide example illustrations of the application of the pattern, particularly for more abstract patterns. Illustrations should include a typical case and can be supplemented with atypical cases where more than one example is provided."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   gsn:coreOrExtension "Argument Pattern Extension" ;
-   rdfs:label "S21" ;
-   rdf:type swrl:Imp ;
-   swrl:body [ rdf:type swrl:AtomList ;
-               rdf:first [ rdf:type swrl:ClassAtom ;
-                           swrl:classPredicate gsn:Template ;
-                           swrl:argument1 gsn:A
-                         ] ;
-               rdf:rest [ rdf:type swrl:AtomList ;
-                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                                      swrl:propertyPredicate gsn:undeveloped ;
-                                      swrl:argument1 gsn:R ;
-                                      swrl:argument2 "true"^^xsd:boolean
-                                    ] ;
-                          rdf:rest [ rdf:type swrl:AtomList ;
-                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                 swrl:propertyPredicate rdf:subject ;
-                                                 swrl:argument1 gsn:R ;
-                                                 swrl:argument2 gsn:A
-                                               ] ;
-                                     rdf:rest [ rdf:type swrl:AtomList ;
-                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                                                            swrl:propertyPredicate gsn:published ;
-                                                            swrl:argument1 gsn:A ;
-                                                            swrl:argument2 "true"^^xsd:boolean
-                                                          ] ;
-                                                rdf:rest rdf:nil
-                                              ]
-                                   ]
-                        ]
-             ] ;
-   swrl:head [ rdf:type swrl:AtomList ;
-               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                           swrl:propertyPredicate gsn:valid ;
-                           swrl:argument1 gsn:A ;
-                           swrl:argument2 "false"^^xsd:boolean
-                         ] ;
-               rdf:rest [ rdf:type swrl:AtomList ;
-                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                                      swrl:propertyPredicate gsn:valid ;
-                                      swrl:argument1 gsn:R ;
-                                      swrl:argument2 "false"^^xsd:boolean
-                                    ] ;
-                          rdf:rest rdf:nil
-                        ]
-             ]
- ] .
+gsn:implementation a owl:AnnotationProperty ;
+    rdfs:label "implementation"@en ;
+    rdfs:domain gsn:Pattern ;
+    skos:definition "The implementation section should communicate how the application of the pattern is carried out e.g. the order in which elements should be developed; communicate hints or techniques that may ease successful application; highlight common or recognised pitfalls with the application of the pattern; and record potential misinterpretation of the terms or concepts in the pattern."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   gsn:coreOrExtension "Argument Pattern Extension" ;
-   rdfs:label "S22" ;
-   rdf:type swrl:Imp ;
-   swrl:body [ rdf:type swrl:AtomList ;
-               rdf:first [ rdf:type swrl:ClassAtom ;
-                           swrl:classPredicate gsn:Template ;
-                           swrl:argument1 gsn:A
-                         ] ;
-               rdf:rest [ rdf:type swrl:AtomList ;
-                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                                      swrl:propertyPredicate gsn:undeveloped ;
-                                      swrl:argument1 gsn:R ;
-                                      swrl:argument2 "true"^^xsd:boolean
-                                    ] ;
-                          rdf:rest [ rdf:type swrl:AtomList ;
-                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                 swrl:propertyPredicate rdf:subject ;
-                                                 swrl:argument1 gsn:R ;
-                                                 swrl:argument2 gsn:B
-                                               ] ;
-                                     rdf:rest [ rdf:type swrl:AtomList ;
-                                                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                                                            swrl:propertyPredicate gsn:published ;
-                                                            swrl:argument1 gsn:A ;
-                                                            swrl:argument2 "true"^^xsd:boolean
-                                                          ] ;
-                                                rdf:rest [ rdf:type swrl:AtomList ;
-                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                                       swrl:propertyPredicate gsn:contains ;
-                                                                       swrl:argument1 gsn:A ;
-                                                                       swrl:argument2 gsn:B
-                                                                     ] ;
-                                                           rdf:rest rdf:nil
-                                                         ]
-                                              ]
-                                   ]
-                        ]
-             ] ;
-   swrl:head [ rdf:type swrl:AtomList ;
-               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                           swrl:propertyPredicate gsn:valid ;
-                           swrl:argument1 gsn:A ;
-                           swrl:argument2 "false"^^xsd:boolean
-                         ] ;
-               rdf:rest [ rdf:type swrl:AtomList ;
-                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                                      swrl:propertyPredicate gsn:valid ;
-                                      swrl:argument1 gsn:R ;
-                                      swrl:argument2 "false"^^xsd:boolean
-                                    ] ;
-                          rdf:rest rdf:nil
-                        ]
-             ]
- ] .
+gsn:intent a owl:AnnotationProperty ;
+    rdfs:label "intent"@en ;
+    rdfs:domain gsn:Pattern ;
+    skos:definition "The intent statement should state clearly what the pattern aims to achieve."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+gsn:knownUses a owl:AnnotationProperty ;
+    rdfs:label "known uses"@en ;
+    rdfs:domain gsn:Pattern ;
+    skos:definition "It may be useful to provide references to known applications of the pattern. These can serve as additional examples."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+gsn:maxCardinality a owl:DatatypeProperty ;
+    rdfs:label "maximum cardinality"@en ;
+    rdfs:domain gsn:Relationship ;
+    rdfs:range xsd:nonNegativeInteger ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "text" .
+
+gsn:minCardinality a owl:DatatypeProperty ;
+    rdfs:label "minimum cardinality"@en ;
+    rdfs:domain gsn:Relationship ;
+    rdfs:range xsd:nonNegativeInteger ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "text" .
+
+gsn:motivation a owl:AnnotationProperty ;
+    rdfs:label "motivation"@en ;
+    rdfs:domain gsn:Pattern ;
+    skos:definition "The motivation statement can be used to state why the pattern was created. It could be expressed in terms of previous experiences e.g. as the abstraction of a successfully presented argument, or challenges addressed e.g. argument topics that are often incompletely or poorly addressed."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+gsn:multiple a owl:DatatypeProperty ;
+    rdfs:label "multiple"@en ;
+    rdfs:domain gsn:Relationship ;
+    rdfs:range xsd:boolean ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "solid ball" .
+
+gsn:optional a owl:DatatypeProperty ;
+    rdfs:label "optional"@en ;
+    rdfs:domain gsn:Relationship ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Optional instantiation means that the relationship and the argument below may or may not be instantiated."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "hollow ball"@en .
+
+gsn:participants a owl:AnnotationProperty ;
+    rdfs:label "participants"@en ;
+    rdfs:domain gsn:Pattern ;
+    skos:definition "The participants section augments the structure by providing a description of each element. This can provide more complete descriptions, clarify the role of the element in the overall argument and emphasise the aspects that require development or instantiation."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+gsn:relatedTo a owl:ObjectProperty ;
+    rdfs:label "related to"@en ;
+    rdfs:domain gsn:Pattern ;
+    rdfs:range gsn:Pattern ;
+    skos:definition "This section can be used to reference patterns that are related e.g. addressing the same intent in a different context."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+gsn:renderedAs a owl:AnnotationProperty .
+
+gsn:structure a owl:AnnotationProperty ;
+    rdfs:label "structure"@en ;
+    rdfs:domain gsn:Pattern ;
+    skos:definition "The structure uses the structural and element abstraction notations to present the pattern, clearly indicating where the argument needs to be further developed or populated with details to instantiate the pattern for a specific case."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+gsn:uninstantiated a owl:DatatypeProperty ;
+    rdfs:label "uninstantiated"@en ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:range xsd:boolean ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "hollow triangle" .
+
+<https://w3id.org/OntoGSN/ontology/pattern> a owl:Ontology ;
+    cc:license "https://creativecommons.org/licenses/by/4.0/" ;
+    dc:contributor "Barbara Gallina, Dian Balta, Ingmar Kessler"@en ;
+    dc:creator "Tomas Bueno Momčilović"@en ;
+    dc:description "The complete Argument Pattern Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Includes the SWRL rules and every annotation."@en ;
+    dc:identifier "SCSC-141C" ;
+    dc:issued "2025-02-24"^^xsd:date ;
+    dc:modified "2026-08-05T00:00:00Z" ;
+    dc:publisher "https://www.fortiss.org/"@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    dc:title "OntoGSN — Argument Pattern Extension"@en ;
+    terms:bibliographicCitation "Bueno Momcilovic, T., Gallina, B., Kessler, I., Hendricks, J., & Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. Retrieved from https://fortiss.github.io/OntoGSN/" ;
+    terms:created "20th February 2025"@en ;
+    vann:preferredNamespacePrefix "gsn" ;
+    schema:disclaimer "[Disclaimer from the GSN Community Standard v3.0]: While the authors and the publishers have used reasonable endeavours to ensure that the information and guidance given in this work is correct, all parties must rely on their own skill and judgement when making use of this work and obtain professional or specialist advice before taking, or refraining from, any action on the basis of the content of this work. Neither the authors nor the publishers make any representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to such information and guidance for any purpose, and they will not be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever (including as a result of negligence) arising out of, or in connection with, the use of this work. The views and opinions expressed in this publication are those of the authors and do not necessarily reflect those of their employers, the SCSC1 or other organisations."@en ;
+    schema:url "https://w3id.org/OntoGSN/"^^xsd:anyURI ;
+    schema:version 3.0 ;
+    owl:versionInfo "1.2.2" ;
+    skos:definition "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+schema:description a owl:AnnotationProperty,
+        owl:DatatypeProperty .
+
+gsn:Goal a owl:Class .
+
+gsn:InstantiationDataReference a owl:Class ;
+    rdfs:label "Instantiation Data Reference"@en ;
+    skos:definition "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument." ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "hollow triangle" .
+
+gsn:Strategy a owl:Class .
+
+gsn:final a owl:DatatypeProperty ;
+    rdfs:label "final"@en ;
+    rdfs:domain gsn:Argument ;
+    rdfs:range xsd:boolean ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+gsn:instantiationOf a owl:ObjectProperty ;
+    rdfs:label "instantiation of"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:GSNElement ) ] ;
+    rdfs:range gsn:Pattern ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+rdf:subject a owl:ObjectProperty .
+
+gsn:GSNElement a owl:Class .
+
+gsn:published a owl:DatatypeProperty ;
+    rdfs:label "published"@en ;
+    rdfs:domain gsn:Argument ;
+    rdfs:range xsd:boolean ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+gsn:undeveloped a owl:DatatypeProperty ;
+    rdfs:label "undeveloped"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Goal gsn:Strategy ) ] ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "hollow diamond" .
+
+gsn:Argument a owl:Class .
+
+gsn:C a swrl:Variable .
+
+gsn:Template a owl:Class ;
+    rdfs:label "Template"@en ;
+    rdfs:subClassOf gsn:Pattern ;
+    skos:definition "A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
+gsn:B a swrl:Variable .
+
+gsn:contains a owl:ObjectProperty .
+
+gsn:Relationship a owl:Class .
+
+gsn:valid a owl:DatatypeProperty .
+
+gsn:R a swrl:Variable .
+
+gsn:A a swrl:Variable .
+
+gsn:Pattern a owl:Class ;
+    rdfs:label "Pattern"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty schema:description ;
+            owl:someValuesFrom rdfs:Literal ] ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+

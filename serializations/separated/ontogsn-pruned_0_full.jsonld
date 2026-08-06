@@ -1,599 +1,3813 @@
-[ {
-  "@id" : "_:genid1",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2002/07/owl#unionOf" : [ {
-    "@list" : [ {
-      "@id" : "https://w3id.org/OntoGSN/ontology#Goal"
-    }, {
-      "@id" : "https://w3id.org/OntoGSN/ontology#Strategy"
-    } ]
-  } ]
-}, {
-  "@id" : "_:genid11",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#statement"
-  } ],
-  "http://www.w3.org/2002/07/owl#someValuesFrom" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#string"
-  } ]
-}, {
-  "@id" : "_:genid12",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Axiom" ],
-  "http://www.w3.org/2002/07/owl#annotatedProperty" : [ {
-    "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedSource" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Assumption"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedTarget" : [ {
-    "@id" : "_:genid11"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "GSN assumptions provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase."
-  } ]
-}, {
-  "@id" : "_:genid13",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#contains"
-  } ],
-  "http://www.w3.org/2002/07/owl#someValuesFrom" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Artefact"
-  } ]
-}, {
-  "@id" : "_:genid14",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#statement"
-  } ],
-  "http://www.w3.org/2002/07/owl#someValuesFrom" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#string"
-  } ]
-}, {
-  "@id" : "_:genid15",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Axiom" ],
-  "http://www.w3.org/2002/07/owl#annotatedProperty" : [ {
-    "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedSource" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Context"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedTarget" : [ {
-    "@id" : "_:genid14"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "Two kinds of GSN context statement exist. Where a context statement draws attention to explanatory contextual information (such as the definition of some term), this information shall be stated briefly using complete sentences of a noun-phrase + verb-phrase structure. Where a context statement is a reference to an artefact of some kind, which informs the reasoning step, the context statement shall be expressed as a noun phrase."
-  } ]
-}, {
-  "@id" : "_:genid16",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "http://schema.org/identifier"
-  } ],
-  "http://www.w3.org/2002/07/owl#someValuesFrom" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#string"
-  } ]
-}, {
-  "@id" : "_:genid17",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#onDataRange" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#string"
-  } ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "http://schema.org/identifier"
-  } ],
-  "http://www.w3.org/2002/07/owl#qualifiedCardinality" : [ {
-    "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
-    "@value" : "1"
-  } ]
-}, {
-  "@id" : "_:genid18",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#inContextOf"
-  } ],
-  "http://www.w3.org/2002/07/owl#someValuesFrom" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Context"
-  } ]
-}, {
-  "@id" : "_:genid19",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#statement"
-  } ],
-  "http://www.w3.org/2002/07/owl#someValuesFrom" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#string"
-  } ]
-}, {
-  "@id" : "_:genid20",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Axiom" ],
-  "http://www.w3.org/2002/07/owl#annotatedProperty" : [ {
-    "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedSource" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Goal"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedTarget" : [ {
-    "@id" : "_:genid19"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "GSN goals document the claims made in the argument (i.e. premises and conclusions). Each goal shall contain a single goal statement, expressed as a proposition in the form of a noun phrase + verb-phrase sentence."
-  } ]
-}, {
-  "@id" : "_:genid21",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#statement"
-  } ],
-  "http://www.w3.org/2002/07/owl#someValuesFrom" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#string"
-  } ]
-}, {
-  "@id" : "_:genid22",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Axiom" ],
-  "http://www.w3.org/2002/07/owl#annotatedProperty" : [ {
-    "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedSource" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Justification"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedTarget" : [ {
-    "@id" : "_:genid21"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "GSN justifications provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase."
-  } ]
-}, {
-  "@id" : "_:genid23",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#allValuesFrom" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement"
-  } ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#object"
-  } ]
-}, {
-  "@id" : "_:genid24",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#statement"
-  } ],
-  "http://www.w3.org/2002/07/owl#someValuesFrom" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#string"
-  } ]
-}, {
-  "@id" : "_:genid25",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Axiom" ],
-  "http://www.w3.org/2002/07/owl#annotatedProperty" : [ {
-    "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedSource" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Solution"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedTarget" : [ {
-    "@id" : "_:genid24"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "GSN solutions make no claim, but are simply references to evidence items that provide support for a particular claim. They shall therefore be stated as noun-phrases."
-  } ]
-}, {
-  "@id" : "_:genid26",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#allValuesFrom" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Goal"
-  } ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#supportedBy"
-  } ]
-}, {
-  "@id" : "_:genid27",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Restriction" ],
-  "http://www.w3.org/2002/07/owl#onProperty" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#statement"
-  } ],
-  "http://www.w3.org/2002/07/owl#someValuesFrom" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#string"
-  } ]
-}, {
-  "@id" : "_:genid28",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Axiom" ],
-  "http://www.w3.org/2002/07/owl#annotatedProperty" : [ {
-    "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedSource" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Strategy"
-  } ],
-  "http://www.w3.org/2002/07/owl#annotatedTarget" : [ {
-    "@id" : "_:genid27"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "GSN strategy statements describe the reasoning that connects parent goals and their supporting goals, but the core claims and the structure connecting those claims remain unchanged. Strategy statements contain a brief description of the argument approach."
-  } ]
-}, {
-  "@id" : "_:genid4",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2002/07/owl#unionOf" : [ {
-    "@list" : [ {
-      "@id" : "https://w3id.org/OntoGSN/ontology#Goal"
-    }, {
-      "@id" : "https://w3id.org/OntoGSN/ontology#Strategy"
-    } ]
-  } ]
-}, {
-  "@id" : "_:genid7",
-  "@type" : [ "http://www.w3.org/2000/01/rdf-schema#Datatype" ],
-  "http://www.w3.org/2002/07/owl#oneOf" : [ {
-    "@list" : [ {
-      "@value" : "contextual"
-    }, {
-      "@value" : "evidential"
-    }, {
-      "@value" : "inferential"
-    } ]
-  } ]
-}, {
-  "@id" : "http://schema.org/identifier",
-  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ]
-}, {
-  "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ]
-}, {
-  "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#object",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ]
-}, {
-  "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ]
-}, {
-  "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#subject",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ]
-}, {
-  "@id" : "http://www.w3.org/2001/XMLSchema#date",
-  "@type" : [ "http://www.w3.org/2000/01/rdf-schema#Datatype" ]
-}, {
-  "@id" : "http://www.w3.org/2004/02/skos/core#altLabel",
-  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
-}, {
-  "@id" : "http://www.w3.org/2004/02/skos/core#definition",
-  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#Artefact",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "Artefact"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#altLabel" : [ {
-    "@language" : "en",
-    "@value" : "Evidence"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#ArtefactReference",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "Artefact Reference"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#Assumption",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "Assumption"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement"
-  }, {
-    "@id" : "_:genid11"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "An assumption, rendered as an oval with the letter 'A' at the top- or bottom-right, presents an intentionally unsubstantiated statement."
-  } ],
-  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
-    "@language" : "en",
-    "@value" : "oval"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#AssuranceCase",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "Assurance Case"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "_:genid13"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "A reasoned and compelling argument, supported by a body of evidence, that a system, service or organisation will operate as intended for a defined application in a defined environment."
-  }, {
-    "@language" : "en",
-    "@value" : "Arguments and evidence intended to demonstrate that a system meets its assurance requirements."
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#Context",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "Context"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#ArtefactReference"
-  }, {
-    "@id" : "_:genid14"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "A context, rendered as shown left, presents a contextual artefact. This can be a reference to contextual information, or a statement."
-  } ],
-  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
-    "@language" : "en",
-    "@value" : "rounded rectangle"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "GSN Element"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "_:genid16"
-  }, {
-    "@id" : "_:genid17"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#Goal",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "Goal"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement"
-  }, {
-    "@id" : "_:genid18"
-  }, {
-    "@id" : "_:genid19"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#altLabel" : [ {
-    "@language" : "en",
-    "@value" : "Claim"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "(Claim is) A proposition being asserted by the author that is a true or false statement."
-  }, {
-    "@language" : "en",
-    "@value" : "A goal, rendered as a rectangle, presents a claim forming part of the argument."
-  } ],
-  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
-    "@language" : "en",
-    "@value" : "rectangle"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#Justification",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "Justification"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement"
-  }, {
-    "@id" : "_:genid21"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "A justification, rendered as an oval with the letter 'J' at the top- or bottom-right, presents a statement of rationale."
-  } ],
-  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
-    "@language" : "en",
-    "@value" : "oval"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#Relationship",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "Relationship"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement"
-  }, {
-    "@id" : "_:genid23"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#Solution",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "Solution"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#ArtefactReference"
-  }, {
-    "@id" : "_:genid24"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "A solution, rendered as a circle, presents a reference to an evidence item."
-  } ],
-  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
-    "@language" : "en",
-    "@value" : "circle"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#Strategy",
-  "@type" : [ "http://www.w3.org/2002/07/owl#Class" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "Strategy"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#subClassOf" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement"
-  }, {
-    "@id" : "_:genid26"
-  }, {
-    "@id" : "_:genid27"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s)."
-  } ],
-  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
-    "@language" : "en",
-    "@value" : "parallelogram"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#contains",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "contains"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#inContextOf",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty", "http://www.w3.org/2002/07/owl#AsymmetricProperty", "http://www.w3.org/2002/07/owl#IrreflexiveProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "_:genid1"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "in context of"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "InContextOf, rendered as a line with a hollow arrowhead, declares a contextual relationship."
-  } ],
-  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
-    "@value" : "line with a hollow arrowhead"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#offDiagram",
-  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#GSNElement"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "off-diagram"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#refersTo",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#ArtefactReference"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "refers to"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Artefact"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#relationshipType",
-  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Relationship"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "relationship type"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "_:genid7"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information."
-  }, {
-    "@language" : "en",
-    "@value" : "SupportedBy relationships – represented by lines with solid arrowheads – indicate inferential or evidential relationships between elements. InContextOf relationships – represented as lines with hollow arrowheads – declare contextual relationships."
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#renderedAs",
-  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "rendered as"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#statement",
-  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "statement"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#string"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#structured",
-  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "structured"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "A particular kind of argument where the relationships between the asserted claims, and from the evidence to the claims, are explicitly represented."
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#supportedBy",
-  "@type" : [ "http://www.w3.org/2002/07/owl#ObjectProperty", "http://www.w3.org/2002/07/owl#AsymmetricProperty", "http://www.w3.org/2002/07/owl#IrreflexiveProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "_:genid4"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "supported by"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "SupportedBy, rendered as a line with a solid arrowhead, allows support relationships between elements to be documented."
-  } ],
-  "https://w3id.org/OntoGSN/ontology#renderedAs" : [ {
-    "@value" : "line with a solid arrowhead"
-  } ]
-}, {
-  "@id" : "https://w3id.org/OntoGSN/ontology#top",
-  "@type" : [ "http://www.w3.org/2002/07/owl#DatatypeProperty" ],
-  "http://www.w3.org/2000/01/rdf-schema#domain" : [ {
-    "@id" : "https://w3id.org/OntoGSN/ontology#Goal"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#label" : [ {
-    "@language" : "en",
-    "@value" : "top (goal)"
-  } ],
-  "http://www.w3.org/2000/01/rdf-schema#range" : [ {
-    "@id" : "http://www.w3.org/2001/XMLSchema#boolean"
-  } ],
-  "http://www.w3.org/2004/02/skos/core#definition" : [ {
-    "@language" : "en",
-    "@value" : "A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure."
-  }, {
-    "@language" : "en",
-    "@value" : "The top goal presents the overall claim asserted by the author and it is up to the reader to determine their belief that it is adequately supported."
-  } ]
-} ]
+[
+  {
+    "@id": "_:genid0001",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#AssuranceCase"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Module"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0006",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#inContextOf"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Context"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0007",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:genid0121"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#inContextOf"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0008",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Artefact"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0009",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0011",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0015",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#hasValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+        "@value": true
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#away"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0017",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:genid0025"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0020",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:genid0075"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#object"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0025",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Module"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0026",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0030",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Assumption"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Context"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0031",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:genid0008"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0033",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Artefact"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0036",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Assumption"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Context"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Justification"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Solution"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0039",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Assumption"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Context"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Justification"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Module"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0040",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "_:genid0120"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0041",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#oneOf": [
+      {
+        "@list": [
+          {
+            "@value": "confidence"
+          },
+          {
+            "@value": "dialectic"
+          },
+          {
+            "@value": "risk"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0043",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#associatedWith"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0046",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#statement"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0047",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:genid0092"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#subject"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0049",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0050",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#supportedBy"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0052",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Module"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#inContextOf"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0053",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:genid0040"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#associatedWith"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0054",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#oneOf": [
+      {
+        "@list": [
+          {
+            "@value": "architecture"
+          },
+          {
+            "@value": "argument"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0058",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#AssuranceCase"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0060",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#ArtefactReference"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0064",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:genid0165"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#inContextOf"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0067",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#statement"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0068",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onDataRange": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "http://schema.org/identifier"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0070",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0072",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0074",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:genid0072"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#challenges"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0075",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Context"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Solution"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0076",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Assumption"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Context"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0077",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#statement"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0082",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#assuranceClaimPoint"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0085",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "http://schema.org/identifier"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0086",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Solution"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0087",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#statement"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0089",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "_:genid0015"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0090",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0092",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Defeater"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0093",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Solution"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0094",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ],
+    "http://www.w3.org/2002/07/owl#oneOf": [
+      {
+        "@list": [
+          {
+            "@value": "contextual"
+          },
+          {
+            "@value": "evidential"
+          },
+          {
+            "@value": "inferential"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0098",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0100",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#ArtefactReference"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0102",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:genid0142"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#supportedBy"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0106",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#statement"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0115",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onDataRange": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "http://schema.org/identifier"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0116",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "_:genid0043"
+          },
+          {
+            "@id": "_:genid0082"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0117",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Module"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Solution"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0120",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#hasValue": [
+      {
+        "@value": "confidence"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#argumentType"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0121",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Assumption"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Context"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Justification"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Module"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0123",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#object"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0124",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Assumption"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Context"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Justification"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Solution"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0128",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0132",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Artefact"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Module"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0136",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#ArtefactReference"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0138",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "_:genid0171"
+          },
+          {
+            "@id": "_:genid0087"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0140",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0142",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Module"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Solution"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0145",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "http://schema.org/identifier"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0147",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Module"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#supportedBy"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0149",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#minQualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onClass": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0150",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "http://schema.org/description"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0151",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0155",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "_:genid0009"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#challenges"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0158",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#allValuesFrom": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0160",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onDataRange": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "http://schema.org/identifier"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#qualifiedCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0162",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#statement"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0165",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Assumption"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Context"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Justification"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Module"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0168",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "http://schema.org/identifier"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0169",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Restriction"
+    ],
+    "http://www.w3.org/2002/07/owl#onProperty": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#statement"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#someValuesFrom": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0171",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#intersectionOf": [
+      {
+        "@list": [
+          {
+            "@id": "_:genid0060"
+          },
+          {
+            "@id": "_:genid0151"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/elements/1.1/created",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/elements/1.1/description",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/elements/1.1/source",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/elements/1.1/title",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/abstract",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://schema.org/citation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://schema.org/description",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty",
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ]
+  },
+  {
+    "@id": "http://schema.org/identifier",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ]
+  },
+  {
+    "@id": "http://schema.org/license",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#object",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#subject",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/2001/XMLSchema#date",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Datatype"
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/2004/02/skos/core#altLabel",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/2004/02/skos/core#definition",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://www.w3.org/2004/02/skos/core#note",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Ontology"
+    ],
+    "http://purl.org/dc/elements/1.1/description": [
+      {
+        "@language": "en",
+        "@value": "The pruned ontology of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Excludes the SWRL rules; the term annotations are kept."
+      }
+    ],
+    "http://purl.org/dc/elements/1.1/source": [
+      {
+        "@value": "https://w3id.org/OntoGSN/ontology"
+      }
+    ],
+    "http://purl.org/dc/elements/1.1/title": [
+      {
+        "@language": "en",
+        "@value": "OntoGSN"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology/confidence"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology/core"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology/dialectic"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology/modular"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology/pattern"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionInfo": [
+      {
+        "@value": "1.2.2"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Argument",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Argument"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0085"
+      },
+      {
+        "@id": "_:genid0115"
+      },
+      {
+        "@id": "_:genid0128"
+      },
+      {
+        "@id": "_:genid0138"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information."
+      },
+      {
+        "@language": "en",
+        "@value": "A connected series of claims intended to establish an overall claim."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Artefact",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Artefact"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#altLabel": [
+      {
+        "@language": "en",
+        "@value": "Evidence"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#ArtefactReference",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Artefact Reference"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Assumption",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Assumption"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0106"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "An assumption, rendered as an oval with the letter 'A' at the top- or bottom-right, presents an intentionally unsubstantiated statement."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@language": "en",
+        "@value": "oval"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#AssuranceCase",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Assurance Case"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0031"
+      },
+      {
+        "@id": "_:genid0033"
+      },
+      {
+        "@id": "_:genid0098"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A reasoned and compelling argument, supported by a body of evidence, that a system, service or organisation will operate as intended for a defined application in a defined environment."
+      },
+      {
+        "@language": "en",
+        "@value": "Arguments and evidence intended to demonstrate that a system meets its assurance requirements."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Catalogue",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Catalogue"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0158"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Context",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Context"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0067"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#ArtefactReference"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A context, rendered as shown left, presents a contextual artefact. This can be a reference to contextual information, or a statement."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@language": "en",
+        "@value": "rounded rectangle"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Defeater",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Defeater"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0093"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#altLabel": [
+      {
+        "@language": "en",
+        "@value": "Dialectic Element"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@value": "The source of challenge being applied; can be directed at any part of an argument. A defeater (goal or solution) can challenge any element in a goal structure, e.g. goal, solution, strategy, context, assumption, justification."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#note": [
+      {
+        "@language": "en",
+        "@value": "Membership of this class is only meant to be inferred, not asserted! Please do not add individuals to this class manually (i.e., assertions)."
+      },
+      {
+        "@language": "en",
+        "@value": "The goal and solution statements should be clearly expressed such that the crux of the challenge is unequivocally communicated. Thus, the link between the part of the argument that is being challenged (target) and the dialectic element (source) is self-evident."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Dialectic Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#GSNElement",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "GSN Element"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0068"
+      },
+      {
+        "@id": "_:genid0145"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Goal",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Goal"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0006"
+      },
+      {
+        "@id": "_:genid0046"
+      },
+      {
+        "@id": "_:genid0064"
+      },
+      {
+        "@id": "_:genid0102"
+      },
+      {
+        "@id": "_:genid0155"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#altLabel": [
+      {
+        "@language": "en",
+        "@value": "Claim"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "(Claim is) A proposition being asserted by the author that is a true or false statement."
+      },
+      {
+        "@language": "en",
+        "@value": "A goal, rendered as a rectangle, presents a claim forming part of the argument."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@language": "en",
+        "@value": "rectangle"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#InstantiationDataReference",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Instantiation Data Reference"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@value": "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "hollow triangle"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Justification",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Justification"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0077"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A justification, rendered as an oval with the letter 'J' at the top- or bottom-right, presents a statement of rationale."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@language": "en",
+        "@value": "oval"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Module",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Module"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0017"
+      },
+      {
+        "@id": "_:genid0052"
+      },
+      {
+        "@id": "_:genid0147"
+      },
+      {
+        "@id": "_:genid0149"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Goal structures can be partitioned into separate, but interrelated, modules. This can allow the division of an overall goal structure into separate goal structures focusing on particular aspects of the overall argument. A module may contain one or more arguments and may contain other modules."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Modular Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "a rectangle with a second smaller rectangle adjoining at the top left"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Pattern",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0150"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Relationship",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Relationship"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0047"
+      },
+      {
+        "@id": "_:genid0123"
+      },
+      {
+        "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Relationship with Confidence"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0020"
+      },
+      {
+        "@id": "_:genid0053"
+      },
+      {
+        "@id": "_:genid0116"
+      },
+      {
+        "@id": "_:genid0160"
+      },
+      {
+        "@id": "_:genid0168"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#note": [
+      {
+        "@language": "en",
+        "@value": "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Confidence Argument Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Solution",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Solution"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0074"
+      },
+      {
+        "@id": "_:genid0162"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#ArtefactReference"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A solution, rendered as a circle, presents a reference to an evidence item."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@language": "en",
+        "@value": "circle"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Strategy",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Strategy"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "_:genid0007"
+      },
+      {
+        "@id": "_:genid0050"
+      },
+      {
+        "@id": "_:genid0169"
+      },
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s)."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@language": "en",
+        "@value": "parallelogram"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#Template",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "Template"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#View",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "View"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The argument view depicts the argument inside an individual module."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Modular Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#applicability",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "applicability"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The applicability section should state under what circumstances the pattern can be applied, making clear the assumptions and principles underlying the pattern to avoid inappropriate application in a mismatched context. This section should record what contextual information is required in order to apply the pattern."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#argumentType",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "argument type"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "_:genid0041"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Confidence Argument Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#associatedWith",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0100"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "associated with"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Confidence Argument Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#assuranceClaimPoint",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0136"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "assurance claim point"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Confidence Argument Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "solid square"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#attachedTo",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#InstantiationDataReference"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "attached to"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Template"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "dotted line"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#away",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://schema.org/description": [
+      {
+        "@language": "en",
+        "@value": "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0124"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "away"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "An away element reference repeats a claim or evidence presented in another argument module."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Modular Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "bisecting line in the lower half"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#challenges",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0086"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "challenges"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#note": [
+      {
+        "@language": "en",
+        "@value": "A challenge must be levied against the appropriate aspect of the goal structure."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Dialectic Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "dashed line with an open arrowhead"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#choice",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "choice"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A GSN choice can be used to denote possible alternatives in satisfying a relationship."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "solid diamond"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#collaboration",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "collaboration"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The collaboration section should describe how elements of the pattern work together to achieve the desired effect, particularly where there are links that are not readily apparent from the argument structure."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#consequences",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "consequences"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The consequences section should make clear what work remains after the pattern has been applied. This should highlight where further support to the argument is required, and assumptions that need to be discharged."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#consistentWith",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/2002/07/owl#SymmetricProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0076"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "consistent with"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "_:genid0030"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@value": "By making the relationship to the away goal the author is asserting not only the inference of support for the parent goal, but also that the context in which the away goal is declared is consistent with the context and assumptions in scope for the parent goal."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Modular Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#contains",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0001"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "contains"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "_:genid0132"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#contract",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Module"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "contract"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#propertyDisjointWith": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#undeveloped"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A contract module is a special type of module that controls the relationship between argument module interfaces using arguments to define how a goal in one module is supported by one or more goals in one or more other modules."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#note": [
+      {
+        "@language": "en",
+        "@value": "A contract may be described in textual form (e.g. as a table) or for more complex relationships may be described within a contract module using GSN."
+      },
+      {
+        "@language": "en",
+        "@value": "Contract modules can be used in the support relationship between modules to aid decoupling. The de-coupling by use of a contract permits argument module construction in cases where the eventual source of support for an argument is unknown at the time of authoring or can be changed for example through re-use or planned product improvement or reconfiguration."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Modular Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "a rectangle with two smaller rectangles (of equal size to each other) adjoining at the top left and bottom right"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#coreOrExtension",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "core or extension"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Indicator of the sourcing section in the GSN Community Standard v3."
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#defeated",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://schema.org/description": [
+      {
+        "@language": "en",
+        "@value": "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0140"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "defeated"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Dialectic Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "cross (‘X’) superimposed on a GSN element or relationship"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#examples",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "examples"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "It may be useful to provide example illustrations of the application of the pattern, particularly for more abstract patterns. Illustrations should include a typical case and can be supplemented with atypical cases where more than one example is provided."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#final",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "final"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#implementation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "implementation"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The implementation section should communicate how the application of the pattern is carried out e.g. the order in which elements should be developed; communicate hints or techniques that may ease successful application; highlight common or recognised pitfalls with the application of the pattern; and record potential misinterpretation of the terms or concepts in the pattern."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#inContextOf",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AsymmetricProperty",
+      "http://www.w3.org/2002/07/owl#IrreflexiveProperty",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0070"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "in context of"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "_:genid0039"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "InContextOf, rendered as a line with a hollow arrowhead, declares a contextual relationship."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "line with a hollow arrowhead"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#inDoubt",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0058"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "in doubt"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Dialectic Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#instantiationOf",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0090"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "instantiation of"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#intent",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "intent"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The intent statement should state clearly what the pattern aims to achieve."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#knownUses",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "known uses"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "It may be useful to provide references to known applications of the pattern. These can serve as additional examples."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#maxCardinality",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "maximum cardinality"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "text"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#minCardinality",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "minimum cardinality"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "text"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#motivation",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "motivation"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The motivation statement can be used to state why the pattern was created. It could be expressed in terms of previous experiences e.g. as the abstraction of a successfully presented argument, or challenges addressed e.g. argument topics that are often incompletely or poorly addressed."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#multiple",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "multiple"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "solid ball"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#offDiagram",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "off-diagram"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#optional",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "optional"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Optional instantiation means that the relationship and the argument below may or may not be instantiated."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@language": "en",
+        "@value": "hollow ball"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#participants",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "participants"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The participants section augments the structure by providing a description of each element. This can provide more complete descriptions, clarify the role of the element in the overall argument and emphasise the aspects that require development or instantiation."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#public",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0036"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "public"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Modular Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "miniature module symbol superimposed on an element at the top right"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#published",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "published"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#refersTo",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#ArtefactReference"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "refers to"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Artefact"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#relatedTo",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "related to"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "This section can be used to reference patterns that are related e.g. addressing the same intent in a different context."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#relationshipType",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "relationship type"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "_:genid0094"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information."
+      },
+      {
+        "@language": "en",
+        "@value": "SupportedBy relationships – represented by lines with solid arrowheads – indicate inferential or evidential relationships between elements. InContextOf relationships – represented as lines with hollow arrowheads – declare contextual relationships."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#renderedAs",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "rendered as"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#statement",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0011"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "statement"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#structure",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "structure"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "The structure uses the structural and element abstraction notations to present the pattern, clearly indicating where the argument needs to be further developed or populated with details to instantiate the pattern for a specific case."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#structured",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "structured"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A particular kind of argument where the relationships between the asserted claims, and from the evidence to the claims, are explicitly represented."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#substitutedBy",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Justification"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "substituted by"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "_:genid0089"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "There may be occasions when a goal or strategy requires fuller justification than can be provided within the confines of a GSN justification element. In such cases, an away goal can be substituted for the justification."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Modular Extension"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#supportedBy",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AsymmetricProperty",
+      "http://www.w3.org/2002/07/owl#IrreflexiveProperty",
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0026"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "supported by"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "_:genid0117"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "SupportedBy, rendered as a line with a solid arrowhead, allows support relationships between elements to be documented."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "line with a solid arrowhead"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#toBeSupportedByContract",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "to be supported by contract"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#propertyDisjointWith": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#undeveloped"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Modular Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "attached centrally immediately below the goal to which it relates"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#top",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "top (goal)"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure."
+      },
+      {
+        "@language": "en",
+        "@value": "The top goal presents the overall claim asserted by the author and it is up to the reader to determine their belief that it is adequately supported."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#true",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "true"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#undeveloped",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "_:genid0049"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "undeveloped"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "hollow diamond"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#uninstantiated",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "uninstantiated"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Argument Pattern Extension"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#renderedAs": [
+      {
+        "@value": "hollow triangle"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#valid",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "valid"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Core GSN"
+      }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/ontology#viewType",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#View"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "view type"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "_:genid0054"
+      }
+    ],
+    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
+      {
+        "@language": "en",
+        "@value": "Modular Extension"
+      }
+    ]
+  }
+]

@@ -32,18 +32,36 @@ python serializations/build.py            # regenerate
 python serializations/build.py --check    # verify they are current
 ```
 
+`serializations/separated/` holds the ontology cut by GSN section (`core`, `pattern`,
+`modular`, `confidence`, `dialectic`) and by scope (`complete` with the SWRL rules,
+`pruned` without them, `skeletal` without the prose either). Those 36 files are generated too:
+
+```bash
+python serializations/build_separated.py            # regenerate
+python serializations/build_separated.py --check    # verify they are current
+```
+
 The OWL/XML file (`ontogsn.owl`) is deprecated and no longer published; it required the OWL
 API, which is not part of this toolchain. Earlier versions remain in the version history.
 
 ## Design record
-`OntoGSN Design Document.xlsx` records **why** each axiom exists: the clause of the GSN
-Community Standard it came from, a natural-language statement of the axiom, the Turtle it
-corresponds to in `serializations/ontogsn.ttl`, and the rationale for including or excluding
-it. Decisions the ontology has since moved away from are retired to its `Archive` sheet rather
-than deleted, each with a recorded reason.
+`provenance/` records **why** each axiom exists: the clause of the GSN Community Standard it
+came from, a natural-language statement of the axiom, the Turtle it corresponds to in
+`serializations/ontogsn.ttl`, and the rationale for including or excluding it. It is a
+PROV-O-based graph in its own namespace, holding 937 decisions against 297 quoted passages
+of the standard. Decisions the ontology has since moved away from are retired rather than
+deleted, each with a recorded reason.
 
-It supersedes the Word and PDF versions of the design document, which are available in the
-version history of this repository.
+```bash
+python tools/prov_check.py          # has anything drifted?
+python tools/prov_to_workbook.py    # rebuild the readable spreadsheet
+```
+
+`provenance/Design Documentation.xlsx` is a generated, human-readable view of that graph.
+See [`provenance/README.md`](provenance/README.md) for the model and some example queries.
+
+It supersedes `OntoGSN Design Document.xlsx` and the Word and PDF versions before it, all of
+which remain in the version history of this repository.
 
 ## Dependencies
 Existing objects and properties are imported from the following foundational ontologies: Resource Description Framework Schema (RDFS), XML Schema Definition Language (XSD), Dublin-Core (DC), Schema.org, and Simple Knowledge Organization System (SKOS). Reasoning is based on the Semantic Web Rule Language (SWRL)  rules and OWL axioms, which can be executed with supported rule engines (e.g., Pellet or Drools).

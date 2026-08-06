@@ -1264,9 +1264,8 @@ gsn:R3 rdf:type swrl:Variable .
 
 gsn:P rdf:type swrl:Variable .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S40" ;
+gsn:ConfidenceRelationCreation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Confidence Relation Creation" ;
    gsn:coreOrExtension "Confidence Argument Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1304,12 +1303,10 @@ gsn:P rdf:type swrl:Variable .
                                     ] ;
                           rdf:rest rdf:nil
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S16" ;
+gsn:AssumptionFalsePropagation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Assumption False Propagation" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1340,12 +1337,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S1" ;
+gsn:AssumptionInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Assumption Invalidation" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1376,12 +1371,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S17" ;
+gsn:ContextInheritance swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Context Inheritance" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1418,12 +1411,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 <urn:swrl:var#A>
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S32" ;
+gsn:ContextConsistency swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Context Consistency" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1480,12 +1471,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 gsn:C2
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S9" ;
+gsn:TriGoalConflict swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Tri-Goal Conflict" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
@@ -1542,12 +1531,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S6" ;
+gsn:GoalTopFlag swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Goal Top Flag" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1578,12 +1565,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S8" ;
+gsn:ContradictoryGoalTruth swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Contradictory Goal Truth" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1621,12 +1606,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S5" ;
+gsn:GoalInference swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Goal Inference" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1664,12 +1647,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "inferential"
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S45" ;
+gsn:GoalConfidenceRelation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Goal Confidence Relation" ;
    gsn:coreOrExtension "Confidence Argument Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1782,12 +1763,10 @@ gsn:P rdf:type swrl:Variable .
                                               ]
                                    ]
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S44" ;
+gsn:SolutionConfidenceRelation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Solution Confidence Relation" ;
    gsn:coreOrExtension "Confidence Argument Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1900,12 +1879,10 @@ gsn:P rdf:type swrl:Variable .
                                               ]
                                    ]
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S49" ;
+gsn:UndevelopedDefeat swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Undeveloped Defeat" ;
    gsn:coreOrExtension "Dialectic Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1943,12 +1920,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "true"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S48" ;
+gsn:ChallengeDoubt swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Challenge Doubt" ;
    gsn:coreOrExtension "Dialectic Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -1979,12 +1954,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "true"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S38" ;
+gsn:PublicContextPropagation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Public Context Propagation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2015,12 +1988,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "true"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S51" ;
+gsn:ChallengeChainInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Challenge Chain Invalidation" ;
    gsn:coreOrExtension "Dialectic Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2141,12 +2112,10 @@ gsn:P rdf:type swrl:Variable .
                                               ]
                                    ]
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S43" ;
+gsn:GoalStrategyConfidence swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Goal-Strategy Confidence" ;
    gsn:coreOrExtension "Confidence Argument Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2251,12 +2220,10 @@ gsn:P rdf:type swrl:Variable .
                                               ]
                                    ]
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S42" ;
+gsn:StrategyConfidenceRelation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Strategy Confidence Relation" ;
    gsn:coreOrExtension "Confidence Argument Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2361,12 +2328,10 @@ gsn:P rdf:type swrl:Variable .
                                               ]
                                    ]
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S29" ;
+gsn:AwayGoalInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Away Goal Invalidation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2437,12 +2402,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S33" ;
+gsn:SubstitutionInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Substitution Invalidation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2507,12 +2470,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S24" ;
+gsn:CrossModuleAwayContext swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Cross-Module Away Context" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2564,12 +2525,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "true"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S23" ;
+gsn:CrossModuleAwaySupport swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Cross-Module Away Support" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2621,12 +2580,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "true"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S31" ;
+gsn:ContractRelationInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Contract Relation Invalidation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2685,12 +2642,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S25" ;
+gsn:DuplicateIdentifierInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Duplicate Identifier Invalidation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2750,12 +2705,10 @@ gsn:P rdf:type swrl:Variable .
                                     ] ;
                           rdf:rest rdf:nil
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S28" ;
+gsn:ContractSupportInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Contract Support Invalidation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2793,12 +2746,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S37" ;
+gsn:CircularModuleInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Circular Module Invalidation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2886,12 +2837,10 @@ gsn:P rdf:type swrl:Variable .
                                      rdf:rest rdf:nil
                                    ]
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S27" ;
+gsn:ContextContractInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Context Contract Invalidation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -2949,12 +2898,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S26" ;
+gsn:ContractViolationRelation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Contract Violation Relation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3012,12 +2959,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S30" ;
+gsn:ContractActivation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Contract Activation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3083,12 +3028,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "true"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S35" ;
+gsn:ModuleContextPropagation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Module Context Propagation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3140,12 +3083,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 gsn:M2
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S34" ;
+gsn:ModuleSupportPropagation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Module Support Propagation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3197,12 +3138,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 gsn:M2
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S36" ;
+gsn:CrossModuleSupport swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Cross-Module Support" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3247,12 +3186,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 gsn:M2
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S20" ;
+gsn:FinalPatternInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Final Pattern Invalidation" ;
    gsn:coreOrExtension "Argument Pattern Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3297,12 +3234,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S14" ;
+gsn:RelationFalsePropagation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Relation False Propagation" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3347,12 +3282,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S13" ;
+gsn:ConflictingSupportFalse swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Conflicting Support (False)" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3403,12 +3336,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S11" ;
+gsn:SolutionPropagationFalse swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Solution Propagation (False)" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3439,12 +3370,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S10" ;
+gsn:SolutionPropagationTrue swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Solution Propagation (True)" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3475,12 +3404,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "true"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S3" ;
+gsn:EvidentialRelation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Evidential Relation" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3518,12 +3445,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "evidential"
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S46" ;
+gsn:ChallengeDefeat swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Challenge Defeat" ;
    gsn:coreOrExtension "Dialectic Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3554,12 +3479,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "true"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S4" ;
+gsn:InferentialRelation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Inferential Relation" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3597,12 +3520,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "inferential"
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S21" ;
+gsn:TemplateUndevelopedInvalidationA swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Template Undeveloped Invalidation (A)" ;
    gsn:coreOrExtension "Argument Pattern Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3647,12 +3568,10 @@ gsn:P rdf:type swrl:Variable .
                                     ] ;
                           rdf:rest rdf:nil
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S22" ;
+gsn:TemplateUndevelopedInvalidationB swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Template Undeveloped Invalidation (B)" ;
    gsn:coreOrExtension "Argument Pattern Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3704,12 +3623,10 @@ gsn:P rdf:type swrl:Variable .
                                     ] ;
                           rdf:rest rdf:nil
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S2" ;
+gsn:ContextualRelation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Contextual Relation" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3741,12 +3658,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "contextual"
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S7" ;
+gsn:PredicateConflictInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Predicate Conflict Invalidation" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3834,12 +3749,10 @@ gsn:P rdf:type swrl:Variable .
                                      rdf:rest rdf:nil
                                    ]
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S52" ;
+gsn:DefeaterDeclaration swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Defeater Declaration" ;
    gsn:coreOrExtension "Dialectic Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3856,12 +3769,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument1 gsn:A
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S50" ;
+gsn:ChallengeRelationCreation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Challenge Relation Creation" ;
    gsn:coreOrExtension "Dialectic Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3900,12 +3811,10 @@ gsn:P rdf:type swrl:Variable .
                                      rdf:rest rdf:nil
                                    ]
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S39" ;
+gsn:PublicContractInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Public Contract Invalidation" ;
    gsn:coreOrExtension "Modular Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3937,12 +3846,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S19" ;
+gsn:ContextRelationCreation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Context Relation Creation" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -3981,12 +3888,10 @@ gsn:P rdf:type swrl:Variable .
                                      rdf:rest rdf:nil
                                    ]
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S18" ;
+gsn:SupportRelationCreation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Support Relation Creation" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -4025,12 +3930,10 @@ gsn:P rdf:type swrl:Variable .
                                      rdf:rest rdf:nil
                                    ]
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S12" ;
+gsn:MixedSupportInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Mixed Support Invalidation" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -4069,12 +3972,10 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S41" ;
+gsn:DuplicateNameInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Duplicate Name Invalidation" ;
    gsn:coreOrExtension "Confidence Argument Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -4122,12 +4023,10 @@ gsn:P rdf:type swrl:Variable .
                                     ] ;
                           rdf:rest rdf:nil
                         ]
-             ]
- ] .
+             ] .
 
-[ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:comment "" ;
-   rdfs:label "S47" ;
+gsn:DefeatedInvalidation swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Defeated Invalidation" ;
    gsn:coreOrExtension "Dialectic Extension" ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
@@ -4145,7 +4044,6 @@ gsn:P rdf:type swrl:Variable .
                            swrl:argument2 "false"^^xsd:boolean
                          ] ;
                rdf:rest rdf:nil
-             ]
- ] .
+             ] .
 
 ###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
