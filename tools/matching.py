@@ -200,6 +200,19 @@ def checksum(ttl):
     return hashlib.sha1((ttl or "").encode("utf-8")).hexdigest()[:8] if ttl else ""
 
 
+def file_checksum(path):
+    """SHA-256 of a text file's content, with line endings normalised.
+
+    Hashing the raw bytes makes the value depend on how git checked the file out: the
+    same commit hashes one way on Windows (CRLF) and another on Linux (LF), so a checksum
+    recorded on one platform reports the file as edited in place on the other. CI caught
+    exactly that on its first run. Normalising makes this a fingerprint of the content,
+    which is what it was always meant to be.
+    """
+    with open(path, "rb") as handle:
+        return hashlib.sha256(handle.read().replace(b"\r\n", b"\n")).hexdigest()
+
+
 def match_rows(rows, statements, rules):
     """Verify each row's recorded ttl_statement against the ontology.
 

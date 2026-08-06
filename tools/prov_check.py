@@ -100,8 +100,12 @@ def check_statements(graph, findings):
         moved = by_key.get(key or "", [])
         if moved:
             counts["changed"] = counts.get("changed", 0) + 1
+            # a rule is rendered as DL syntax and has no 'ttl'; reporting a changed rule
+            # used to raise KeyError, which is the one path this branch never took until
+            # a CRLF checkout made every rule look changed at once
+            now = moved[0].get("ttl") or moved[0].get("dl", "")
             findings.append(("statement-changed", position,
-                             f"recorded as {text[:60]!r}, now {moved[0]['ttl'][:60]!r}"))
+                             f"recorded as {text[:60]!r}, now {now[:60]!r}"))
         else:
             counts["unmatched"] = counts.get("unmatched", 0) + 1
             findings.append(("statement-unmatched", position,
@@ -134,8 +138,7 @@ def check_releases(graph, findings):
         if not os.path.exists(full):
             findings.append(("release-missing", path, "recorded as a release, but gone"))
             continue
-        with open(full, "rb") as handle:
-            actual = hashlib.sha256(handle.read()).hexdigest()
+        actual = matching.file_checksum(full)
         if actual != recorded:
             findings.append((
                 "release-edited-in-place", path,

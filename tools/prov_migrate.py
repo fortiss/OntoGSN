@@ -68,8 +68,8 @@ PREDICATE_RE = re.compile(r"\b([A-Za-z][A-Za-z0-9_]*)\s*\(")
 
 
 def sha256(path):
-    with open(path, "rb") as fh:
-        return hashlib.sha256(fh.read()).hexdigest()
+    """Content fingerprint, line-ending independent - see matching.file_checksum."""
+    return matching.file_checksum(path)
 
 
 def iso(timestamp):

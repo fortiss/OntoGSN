@@ -30,6 +30,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from openpyxl import load_workbook
 
+import matching
 import prov_ttl
 import ttl_model
 from prov_ttl import Lit
@@ -47,8 +48,8 @@ VERSION_RE = re.compile(r"owl:versionInfo\s+\"?([0-9][0-9.]*)\"?")
 
 
 def sha256(path):
-    with open(path, "rb") as fh:
-        return hashlib.sha256(fh.read()).hexdigest()
+    """Content fingerprint, line-ending independent - see matching.file_checksum."""
+    return matching.file_checksum(path)
 
 
 def slug(text):

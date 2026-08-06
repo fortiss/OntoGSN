@@ -1,0 +1,27 @@
+# Keep text files LF in the working tree, not only in the repository.
+#
+# Without this, a clone with core.autocrlf=true (the Windows default) gets CRLF on
+# checkout. That is usually harmless, but not here: the provenance graph stores multi-line
+# Turtle literals - a SWRL rule's statement text is "# <name>\n<rule>" - and a CRLF
+# checkout puts a stray \r inside the literal itself. The recorded text then no longer
+# equals the text ttl_model.py derives from the ontology, and every rule reports as
+# unmatched. The graph is fine; the checkout is what differs.
+#
+# It also keeps gsnprov:fileChecksum meaningful across platforms. tools/matching.py
+# normalises line endings before hashing as well, so the two are belt and braces.
+* text=auto eol=lf
+
+# Never touch these.
+*.xlsx  binary
+*.xls   binary
+*.docx  binary
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
