@@ -82,347 +82,1500 @@ gsnprov:req-R7
 
 
 #################################################################
-#    Competency questions (15)
+#    Competency questions (43)
 #    What the ontology has to be able to answer, and for whom.
 #################################################################
 
 gsnprov:cq-AE-01
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE–01"@en ;
+    rdfs:label "AE-01"@en ;
     gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "Which Goals or Strategies are affected by the Defeater “Jailbreak”?"@en .
+    gsnprov:questionText "What assurance cases are in the store, and what arguments does each contain?"@en .
 
 gsnprov:cq-AE-02
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE–02"@en ;
+    rdfs:label "AE-02"@en ;
     gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "Which Solution instances are flagged inDoubt=true?"@en .
+    gsnprov:questionText "How many elements of each GSN type does the case contain?"@en .
 
 gsnprov:cq-AE-03
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE–03"@en ;
+    rdfs:label "AE-03"@en ;
     gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "Which bottom-level Goals in the “Robustness” argument lack any supporting Solution?"@en .
+    gsnprov:questionText "What is the top goal of each argument - the claim everything else supports?"@en .
 
 gsnprov:cq-AE-04
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE–04"@en ;
+    rdfs:label "AE-04"@en ;
     gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "Which Solution items do not reference any Artefact?"@en .
+    gsnprov:questionText "What does the element with a given identifier say, and what is it linked to?"@en .
 
 gsnprov:cq-AE-05
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE–05"@en ;
+    rdfs:label "AE-05"@en ;
     gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "Which Solution instances were added more than 180 days ago?"@en .
+    gsnprov:questionText "What is the whole argument beneath a given goal?"@en .
 
-gsnprov:cq-DE-01
+gsnprov:cq-AE-06
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-01"@en ;
-    gsnprov:persona "Domain expert"@en ;
-    gsnprov:questionText "Which Goals mention “Benchmark” currently lack any associated Evidence?"@en .
+    rdfs:label "AE-06"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "What evidence ultimately supports a given goal?"@en .
 
-gsnprov:cq-DE-02
+gsnprov:cq-AE-07
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-02"@en ;
-    gsnprov:persona "Domain expert"@en ;
-    gsnprov:questionText "How can listed Artefacts be instantiated as Solutions using the template “Test against {attack prompt}”?"@en .
+    rdfs:label "AE-07"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "If a given artefact is withdrawn or superseded, which claims are affected?"@en .
 
-gsnprov:cq-DE-03
+gsnprov:cq-AE-08
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-03"@en ;
-    gsnprov:persona "Domain expert"@en ;
-    gsnprov:questionText "How can bottom-level Goals with “Perturbation Robustness” be attached to a new Artefact file every 30 days?"@en .
+    rdfs:label "AE-08"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "What context, assumptions and justifications are in scope for a given goal?"@en .
 
-gsnprov:cq-DE-04
+gsnprov:cq-AE-09
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-04"@en ;
-    gsnprov:persona "Domain expert"@en ;
-    gsnprov:questionText "How can the Goal “Attack Resistance” receive a Defeater once an Artefact with “adversarialSample” is created?"@en .
+    rdfs:label "AE-09"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "Which lines of argument are declared undeveloped, and are still undeveloped?"@en .
 
-gsnprov:cq-DE-05
+gsnprov:cq-AE-10
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-05"@en ;
-    gsnprov:persona "Domain expert"@en ;
-    gsnprov:questionText "Which Goals are in context of a Context that refers to the “GPT” Model?"@en .
+    rdfs:label "AE-10"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "Which goals have no support at all and are not admitted to be undeveloped?"@en .
+
+gsnprov:cq-AE-11
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AE-11"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "Which solutions cite no artefact - evidence claimed but not identified?"@en .
+
+gsnprov:cq-AE-12
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AE-12"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "Which artefacts predate a given date, and which claims still rest on them?"@en .
+
+gsnprov:cq-AE-13
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AE-13"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "How is a new, empty assurance case started?"@en .
+
+gsnprov:cq-AE-14
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AE-14"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "How is a sub-goal added beneath an existing goal or strategy?"@en .
+
+gsnprov:cq-AE-15
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AE-15"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "How is a strategy inserted between a goal and the sub-goals it already has?"@en .
+
+gsnprov:cq-AE-17
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AE-17"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "How is the wording of a claim, strategy or context corrected?"@en .
+
+gsnprov:cq-AE-23
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AE-23"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "How is an element removed without leaving dangling references to it?"@en .
+
+gsnprov:cq-AE-24
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AE-24"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "How is one support or context link removed, leaving both elements in place?"@en .
+
+gsnprov:cq-AE-25
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AE-25"@en ;
+    gsnprov:persona "Assurance engineer"@en ;
+    gsnprov:questionText "How are the conclusions written by queries/rules/ cleared before re-running them?"@en .
 
 gsnprov:cq-AU-01
     a gsnprov:CompetencyQuestion ;
     rdfs:label "AU-01"@en ;
     gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "AU–01 How can elements in the branch rooted at the Goal “Attack Resistance” be made invalid?"@en .
+    gsnprov:questionText "Which elements are not reachable from any top goal - present but unargued?"@en .
 
 gsnprov:cq-AU-02
     a gsnprov:CompetencyQuestion ;
     rdfs:label "AU-02"@en ;
     gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "AU–02 How can all bottom-level Goals, Solutions, and Artefacts under the Goal “Attack Resistance” be found?"@en .
+    gsnprov:questionText "What is the current status of every element - valid, true, in doubt, defeated?"@en .
 
 gsnprov:cq-AU-03
     a gsnprov:CompetencyQuestion ;
     rdfs:label "AU-03"@en ;
     gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "AU–03 Which elements with “Jailbreak” require a Defeater?"@en .
+    gsnprov:questionText "Which elements or relationships are currently invalid, in doubt or defeated?"@en .
 
 gsnprov:cq-AU-04
     a gsnprov:CompetencyQuestion ;
     rdfs:label "AU-04"@en ;
     gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "AU–04 How can elements connected to the valid Artefact “Benchmark-Dataset” be also marked as valid=true?"@en .
+    gsnprov:questionText "What challenges have been raised, against what, and by what kind of defeater?"@en .
 
 gsnprov:cq-AU-05
     a gsnprov:CompetencyQuestion ;
     rdfs:label "AU-05"@en ;
     gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "AU–05 Which Solutions are attached to a ConfidenceArgument containing a Goal with “Perplexity”?"@en .
+    gsnprov:questionText "Which claims above a challenged element lose support if the challenge stands?"@en .
+
+gsnprov:cq-AU-06
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AU-06"@en ;
+    gsnprov:persona "Auditor"@en ;
+    gsnprov:questionText "Do two distinct elements share a schema:identifier?"@en .
+
+gsnprov:cq-AU-07
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AU-07"@en ;
+    gsnprov:persona "Auditor"@en ;
+    gsnprov:questionText "Does any element support itself through a chain - a circular argument?"@en .
+
+gsnprov:cq-AU-08
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AU-08"@en ;
+    gsnprov:persona "Auditor"@en ;
+    gsnprov:questionText "How is a challenge recorded against part of the argument?"@en .
+
+gsnprov:cq-AU-09
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AU-09"@en ;
+    gsnprov:persona "Auditor"@en ;
+    gsnprov:questionText "How is a single element marked invalid?"@en .
+
+gsnprov:cq-AU-14
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AU-14"@en ;
+    gsnprov:persona "Auditor"@en ;
+    gsnprov:questionText "How is a challenge withdrawn, together with the doubt and defeat it caused?"@en .
+
+gsnprov:cq-AU-15
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "AU-15"@en ;
+    gsnprov:persona "Auditor"@en ;
+    gsnprov:questionText "How is a whole assurance case and everything under it removed?"@en .
+
+gsnprov:cq-DE-01
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-01"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "Where are the assurance claim points, and what confidence argument backs each?"@en .
+
+gsnprov:cq-DE-02
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-02"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "Which assurance claim points have no confidence argument behind them?"@en .
+
+gsnprov:cq-DE-03
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-03"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "Which modules depend on which, and through which elements?"@en .
+
+gsnprov:cq-DE-04
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-04"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "Which away elements are referenced, and does the module they come from exist?"@en .
+
+gsnprov:cq-DE-05
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-05"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "Which public elements sit inside a contract module, where they must not?"@en .
+
+gsnprov:cq-DE-06
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-06"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "Which elements instantiate which argument pattern, and is the pattern's own documentation complete?"@en .
+
+gsnprov:cq-DE-07
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-07"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "Which elements are still uninstantiated placeholders from a pattern?"@en .
+
+gsnprov:cq-DE-08
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-08"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "Which relationships carry pattern decorators - optional, multiple, cardinality?"@en .
+
+gsnprov:cq-DE-09
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-09"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "How is a context element added to a goal or strategy, pointing at an artefact?"@en .
+
+gsnprov:cq-DE-10
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-10"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "How is a new piece of evidence attached to a goal?"@en .
+
+gsnprov:cq-DE-11
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-11"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "How are artefacts already in the store turned into solutions in bulk?"@en .
+
+gsnprov:cq-DE-15
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-15"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "How is a solution repointed when its evidence is superseded by a new version?"@en .
+
+gsnprov:cq-DE-16
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "DE-16"@en ;
+    gsnprov:persona "Domain expert"@en ;
+    gsnprov:questionText "How are artefacts no solution or context cites any more cleared out?"@en .
 
 
 #################################################################
-#    Stored queries (18)
+#    Stored queries (94)
 #    gsnprov:declaresNamespace records what each file binds its prefixes to, which is
 #    how a query pointing at the wrong namespace becomes findable.
+#    
+#    The files under queries/rules/ are the SWRL rules as SPARQL. They answer no
+#    competency question; gsnprov:ruleName joins them to the rule in the ontology,
+#    which is the same key the SWRL workbook's 'Example label' column uses.
 #################################################################
 
-gsnprov:query-add-artefact-every-time
+gsnprov:query-create-assurance-case-skeleton
     a gsnprov:Query ;
-    rdfs:label "add_artefact_every_time.rq"@en ;
-    gsnprov:path "interface/queries/add_artefact_every_time.rq" ;
-    gsnprov:fileChecksum "21c61ee9df6733eff0406052f7fc06fba3eccb02a821b340ffce7495748a2e02" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2001/XMLSchema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Artefact ,
-        gsn:Goal ,
-        gsn:contains ,
-        gsn:refersTo ,
-        gsn:statement ;
-    gsnprov:answersQuestion gsnprov:cq-DE-03 .
-
-gsnprov:query-add-defeater-every-event
-    a gsnprov:Query ;
-    rdfs:label "add_defeater_every_event.rq"@en ;
-    gsnprov:path "interface/queries/add_defeater_every_event.rq" ;
-    gsnprov:fileChecksum "a33e909f9882f89098b1b6f4bde35c92e5ab9d5f1e4023e1cfba4a53782d8f8f" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Artefact ,
-        gsn:Defeater ,
-        gsn:challenges ,
-        gsn:statement ;
-    gsnprov:answersQuestion gsnprov:cq-DE-04 .
-
-gsnprov:query-add-defeater-to-element
-    a gsnprov:Query ;
-    rdfs:label "add_defeater_to_element.rq"@en ;
-    gsnprov:path "interface/queries/add_defeater_to_element.rq" ;
-    gsnprov:fileChecksum "fc2240cdbd551458e92d7352e5e98dd00ff2f6bdc8a37c880f87401542ff37ad" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Defeater ,
-        gsn:challenges ,
-        gsn:statement .
-
-gsnprov:query-add-evidence
-    a gsnprov:Query ;
-    rdfs:label "add_evidence.rq"@en ;
-    gsnprov:path "interface/queries/add_evidence.rq" ;
-    gsnprov:fileChecksum "9270fe2bce14c09d5248515c881f37e7e99bbcbd1dc018ecbd06c90868cb8659" ;
-    gsnprov:declaresNamespace "http://purl.org/dc/elements/1.1/" ,
-        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
-        "https://w3id.org/ontogsn/my_assurance_case#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Artefact ,
-        gsn:Solution ,
-        gsn:refersTo ,
-        gsn:statement ,
-        gsn:supportedBy .
-
-gsnprov:query-add-solutions-from-artefacts
-    a gsnprov:Query ;
-    rdfs:label "add_solutions_from_artefacts.rq"@en ;
-    gsnprov:path "interface/queries/add_solutions_from_artefacts.rq" ;
-    gsnprov:fileChecksum "a4e7db95b78b0b9514e337290599830e506c62b1b99708d2f9fafebe1c106c63" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Solution ,
-        gsn:refersTo ,
-        gsn:statement ;
-    gsnprov:answersQuestion gsnprov:cq-DE-02 .
-
-gsnprov:query-change-branch-to-invalid
-    a gsnprov:Query ;
-    rdfs:label "change_branch_to_invalid.rq"@en ;
-    gsnprov:path "interface/queries/change_branch_to_invalid.rq" ;
-    gsnprov:fileChecksum "a6ca3fbc86929bf6e072260f36605a1d1f3def4eaf7874f5a0c6478b159c9847" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Artefact ,
-        gsn:Goal ,
-        gsn:Solution ,
-        gsn:contains ,
-        gsn:refersTo ,
-        gsn:statement ,
-        gsn:supportedBy ,
-        gsn:valid ;
-    gsnprov:answersQuestion gsnprov:cq-AU-01 .
-
-gsnprov:query-change-links-to-valid
-    a gsnprov:Query ;
-    rdfs:label "change_links_to_valid.rq"@en ;
-    gsnprov:path "interface/queries/change_links_to_valid.rq" ;
-    gsnprov:fileChecksum "d878aafa91c1347164d5ffc3a1fa925e4ff8177cbbe6e9291e73ad11ff878f70" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Artefact ,
-        gsn:Goal ,
-        gsn:Solution ,
-        gsn:refersTo ,
-        gsn:statement ,
-        gsn:supportedBy ,
-        gsn:valid ;
-    gsnprov:answersQuestion gsnprov:cq-AU-04 .
-
-gsnprov:query-find-all-supported-goals
-    a gsnprov:Query ;
-    rdfs:label "find_all_supported_goals.rq"@en ;
-    gsnprov:path "interface/queries/find_all_supported_goals.rq" ;
-    gsnprov:fileChecksum "8fa6eb8a94989722b83716e6422dca2b21d1d80725a40b2c876bc1a34c84bee1" ;
-    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
-        "https://w3id.org/ontogsn/my_assurance_case#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Goal ,
-        gsn:supportedBy .
-
-gsnprov:query-find-all-supporting-evidence
-    a gsnprov:Query ;
-    rdfs:label "find_all_supporting_evidence.rq"@en ;
-    gsnprov:path "interface/queries/find_all_supporting_evidence.rq" ;
-    gsnprov:fileChecksum "22cc26d328b2f6fea1b61aa3d9e8dbad285171cccb22868a459f102d29238a4c" ;
-    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
-        "https://w3id.org/ontogsn/my_assurance_case#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Solution ,
-        gsn:supportedBy .
-
-gsnprov:query-find-challenged-elements
-    a gsnprov:Query ;
-    rdfs:label "find_challenged_elements.rq"@en ;
-    gsnprov:path "interface/queries/find_challenged_elements.rq" ;
-    gsnprov:fileChecksum "a76572e2f7eb74d97aebb9917f8f65dea407f1853da6b3ed95c782d905f25374" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "http://www.w3.org/2001/XMLSchema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Defeater ,
-        gsn:Goal ,
-        gsn:Strategy ,
-        gsn:challenges ,
-        gsn:statement ;
-    gsnprov:answersQuestion gsnprov:cq-AE-01 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-03 .
-
-gsnprov:query-find-elements-indoubt
-    a gsnprov:Query ;
-    rdfs:label "find_elements_indoubt.rq"@en ;
-    gsnprov:path "interface/queries/find_elements_indoubt.rq" ;
-    gsnprov:fileChecksum "aef9c7fc587d03a1b415cb7b8e16ff982f14903e6c6b1515b7e63992f796c76d" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "http://www.w3.org/2001/XMLSchema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:GSNElement ,
-        gsn:inDoubt ;
-    gsnprov:answersQuestion gsnprov:cq-AE-02 .
-
-gsnprov:query-find-goals-in-spec-context
-    a gsnprov:Query ;
-    rdfs:label "find_goals_in_spec_context.rq"@en ;
-    gsnprov:path "interface/queries/find_goals_in_spec_context.rq" ;
-    gsnprov:fileChecksum "10c9aa4f3d2e8a3f08c92db70ccc19708543f788bc99dfc5fff1c07ec04e0f31" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Context ,
-        gsn:refersTo ,
-        gsn:statement ;
-    gsnprov:answersQuestion gsnprov:cq-DE-05 .
-
-gsnprov:query-find-goals-missing-solutions
-    a gsnprov:Query ;
-    rdfs:label "find_goals_missing_solutions.rq"@en ;
-    gsnprov:path "interface/queries/find_goals_missing_solutions.rq" ;
-    gsnprov:fileChecksum "bb71b796b14108cba4b2fd62d4cf3a43faa19c68776385bcf079feb6c9f44a03" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "http://www.w3.org/2001/XMLSchema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
+    rdfs:label "create_assurance_case_skeleton.rq"@en ;
+    gsnprov:path "queries/create_assurance_case_skeleton.rq" ;
+    gsnprov:fileChecksum "61c5690704bdcf5d74512912416d9f0a11ff61cf2af7584bd16cd28f7ce4640f" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://example.org/my-assurance-case#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Argument ,
+        gsn:AssuranceCase ,
         gsn:Goal ,
-        gsn:Solution ,
+        gsn:argumentType ,
         gsn:contains ,
+        gsn:final ,
+        gsn:published ,
+        gsn:statement ,
+        gsn:structured ,
+        gsn:top ,
+        gsn:undeveloped ;
+    gsnprov:answersQuestion gsnprov:cq-AE-13 .
+
+gsnprov:query-create-challenge-to-element
+    a gsnprov:Query ;
+    rdfs:label "create_challenge_to_element.rq"@en ;
+    gsnprov:path "queries/create_challenge_to_element.rq" ;
+    gsnprov:fileChecksum "a6a547eefc63ce235991ea812f5c460af97ad64af45ecda3799a662f38948616" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Defeater ,
+        gsn:Goal ,
+        gsn:challenges ,
+        gsn:statement ,
+        gsn:undeveloped ;
+    gsnprov:answersQuestion gsnprov:cq-AU-08 .
+
+gsnprov:query-create-context-for-goal
+    a gsnprov:Query ;
+    rdfs:label "create_context_for_goal.rq"@en ;
+    gsnprov:path "queries/create_context_for_goal.rq" ;
+    gsnprov:fileChecksum "b7089236a4fad6645898f055d26f97badaac0af39ff0901d365a5e22ff932935" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Artefact ,
+        gsn:Context ,
+        gsn:inContextOf ,
+        gsn:refersTo ,
+        gsn:statement ;
+    gsnprov:answersQuestion gsnprov:cq-DE-09 .
+
+gsnprov:query-create-goal-under-parent
+    a gsnprov:Query ;
+    rdfs:label "create_goal_under_parent.rq"@en ;
+    gsnprov:path "queries/create_goal_under_parent.rq" ;
+    gsnprov:fileChecksum "b33c9e77c8044cc99a9c41b120523a7c60e553e59852ac2dcf664190a0ff9474" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:statement ,
+        gsn:supportedBy ,
+        gsn:top ,
+        gsn:undeveloped ;
+    gsnprov:answersQuestion gsnprov:cq-AE-14 .
+
+gsnprov:query-create-solution-with-artefact
+    a gsnprov:Query ;
+    rdfs:label "create_solution_with_artefact.rq"@en ;
+    gsnprov:path "queries/create_solution_with_artefact.rq" ;
+    gsnprov:fileChecksum "33b490db51c210754b1d9b9dab269750944b60accbfde4863562118d2bc41259" ;
+    gsnprov:declaresNamespace "http://purl.org/dc/terms/" ,
+        "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "http://www.w3.org/2001/XMLSchema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Artefact ,
+        gsn:Solution ,
+        gsn:refersTo ,
         gsn:statement ,
         gsn:supportedBy ;
+    gsnprov:answersQuestion gsnprov:cq-DE-10 .
+
+gsnprov:query-create-solutions-for-unreferenced-artefacts
+    a gsnprov:Query ;
+    rdfs:label "create_solutions_for_unreferenced_artefacts.rq"@en ;
+    gsnprov:path "queries/create_solutions_for_unreferenced_artefacts.rq" ;
+    gsnprov:fileChecksum "f921453ced62bf63f0b79a088ab3a427d62d3bf03aa8544e91a50dc4b2b2aae1" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Artefact ,
+        gsn:Solution ,
+        gsn:refersTo ,
+        gsn:statement ;
+    gsnprov:answersQuestion gsnprov:cq-DE-11 .
+
+gsnprov:query-create-strategy-between-goals
+    a gsnprov:Query ;
+    rdfs:label "create_strategy_between_goals.rq"@en ;
+    gsnprov:path "queries/create_strategy_between_goals.rq" ;
+    gsnprov:fileChecksum "4877f1a21dbfe4ed3487c6d2ba6caf7258c6cf3a4836485a0ef80d82eccf4c5b" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Strategy ,
+        gsn:statement ,
+        gsn:supportedBy ,
+        gsn:undeveloped ;
+    gsnprov:answersQuestion gsnprov:cq-AE-15 .
+
+gsnprov:query-delete-assurance-case
+    a gsnprov:Query ;
+    rdfs:label "delete_assurance_case.rq"@en ;
+    gsnprov:path "queries/delete_assurance_case.rq" ;
+    gsnprov:fileChecksum "76f42cebfaaff60896600938162f873a1b55d0f858d89f922f7154b31a7843a7" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Artefact ,
+        gsn:AssuranceCase ,
+        gsn:challenges ,
+        gsn:contains ,
+        gsn:inContextOf ,
+        gsn:supportedBy ;
+    gsnprov:answersQuestion gsnprov:cq-AU-15 .
+
+gsnprov:query-delete-challenge-and-its-effects
+    a gsnprov:Query ;
+    rdfs:label "delete_challenge_and_its_effects.rq"@en ;
+    gsnprov:path "queries/delete_challenge_and_its_effects.rq" ;
+    gsnprov:fileChecksum "55770cdf44ca9f4e3c5859488ef080e7aee97a76c5e0a617093080c48247dfd2" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:challenges ,
+        gsn:defeated ,
+        gsn:inDoubt ;
+    gsnprov:answersQuestion gsnprov:cq-AU-14 .
+
+gsnprov:query-delete-element-and-its-links
+    a gsnprov:Query ;
+    rdfs:label "delete_element_and_its_links.rq"@en ;
+    gsnprov:path "queries/delete_element_and_its_links.rq" ;
+    gsnprov:fileChecksum "ec6d3568beefc3805c6b77346aaf77e9ec1f9c4a07a38915fedf580c5a72dbe2" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:answersQuestion gsnprov:cq-AE-23 .
+
+gsnprov:query-delete-materialised-inferences
+    a gsnprov:Query ;
+    rdfs:label "delete_materialised_inferences.rq"@en ;
+    gsnprov:path "queries/delete_materialised_inferences.rq" ;
+    gsnprov:fileChecksum "91354f5be84e36858320758d81f9014b7f20778cbbed1e2a3954bc154dd899c0" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Defeater ,
+        gsn:away ,
+        gsn:consistentWith ,
+        gsn:contract ,
+        gsn:defeated ,
+        gsn:inDoubt ,
+        gsn:public ,
+        gsn:relationshipType ,
+        gsn:top ,
+        gsn:true ,
+        gsn:valid ;
+    gsnprov:answersQuestion gsnprov:cq-AE-25 .
+
+gsnprov:query-delete-support-link
+    a gsnprov:Query ;
+    rdfs:label "delete_support_link.rq"@en ;
+    gsnprov:path "queries/delete_support_link.rq" ;
+    gsnprov:fileChecksum "117cd7febade6620ac14faafb7c4dc07106e56c018a082f5d9611e88cee2ea09" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:supportedBy ;
+    gsnprov:answersQuestion gsnprov:cq-AE-24 .
+
+gsnprov:query-delete-unreferenced-artefacts
+    a gsnprov:Query ;
+    rdfs:label "delete_unreferenced_artefacts.rq"@en ;
+    gsnprov:path "queries/delete_unreferenced_artefacts.rq" ;
+    gsnprov:fileChecksum "745afdf03b860d0119e554052b050c811d8b828863e60ebda2a23641e9658917" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Artefact ,
+        gsn:refersTo ;
+    gsnprov:answersQuestion gsnprov:cq-DE-16 .
+
+gsnprov:query-read-assurance-case-inventory
+    a gsnprov:Query ;
+    rdfs:label "read_assurance_case_inventory.rq"@en ;
+    gsnprov:path "queries/read_assurance_case_inventory.rq" ;
+    gsnprov:fileChecksum "d15d4c10a6b5ab1f045ed5aa805c5fdbc69575f3f82c95ff78c72e6a5e64ea8b" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Argument ,
+        gsn:AssuranceCase ,
+        gsn:contains ,
+        gsn:statement ;
+    gsnprov:answersQuestion gsnprov:cq-AE-01 .
+
+gsnprov:query-read-assurance-claim-points
+    a gsnprov:Query ;
+    rdfs:label "read_assurance_claim_points.rq"@en ;
+    gsnprov:path "queries/read_assurance_claim_points.rq" ;
+    gsnprov:fileChecksum "5a08d5404be29d3abcb4a64075e774bcd4003bd77ff17aae8a1bb16ffa41bcc7" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:associatedWith ,
+        gsn:assuranceClaimPoint ,
+        gsn:statement ;
     gsnprov:answersQuestion gsnprov:cq-DE-01 .
 
-gsnprov:query-find-goals-solutions-artefacts
+gsnprov:query-read-away-elements
     a gsnprov:Query ;
-    rdfs:label "find_goals_solutions_artefacts.rq"@en ;
-    gsnprov:path "interface/queries/find_goals_solutions_artefacts.rq" ;
-    gsnprov:fileChecksum "ffcece3f763aff166f1f878661459b5719f3644363f7c2870dcc4a78265c60be" ;
+    rdfs:label "read_away_elements.rq"@en ;
+    gsnprov:path "queries/read_away_elements.rq" ;
+    gsnprov:fileChecksum "7a97b8fffd2d12b3b2f2adb6abfb3bf661c2e0d22d8bd30e183e5f8e08c605f3" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:away ,
+        gsn:contains ,
+        gsn:public ;
+    gsnprov:answersQuestion gsnprov:cq-DE-04 .
+
+gsnprov:query-read-case-summary-counts
+    a gsnprov:Query ;
+    rdfs:label "read_case_summary_counts.rq"@en ;
+    gsnprov:path "queries/read_case_summary_counts.rq" ;
+    gsnprov:fileChecksum "f800c7d265e44fec78ad4f3fdeeec64eaf431042040d2c979912762181ad64a1" ;
     gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Artefact ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:GSNElement ;
+    gsnprov:answersQuestion gsnprov:cq-AE-02 .
+
+gsnprov:query-read-challenges-and-their-targets
+    a gsnprov:Query ;
+    rdfs:label "read_challenges_and_their_targets.rq"@en ;
+    gsnprov:path "queries/read_challenges_and_their_targets.rq" ;
+    gsnprov:fileChecksum "1c3f2e70d7b33e203ca6c5478209a9a762701cd81c1253e94f6550e7eebe3286" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Defeater ,
         gsn:Goal ,
         gsn:Solution ,
-        gsn:contains ,
+        gsn:challenges ,
+        gsn:statement ;
+    gsnprov:answersQuestion gsnprov:cq-AU-04 .
+
+gsnprov:query-read-claim-points-without-confidence-argument
+    a gsnprov:Query ;
+    rdfs:label "read_claim_points_without_confidence_argument.rq"@en ;
+    gsnprov:path "queries/read_claim_points_without_confidence_argument.rq" ;
+    gsnprov:fileChecksum "baaefc376b29abd0c60e77d22e9f5e2dd430760792e4617d9b48bd1d0ec734d8" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:argumentType ,
+        gsn:associatedWith ,
+        gsn:assuranceClaimPoint ;
+    gsnprov:answersQuestion gsnprov:cq-DE-02 .
+
+gsnprov:query-read-context-in-scope-for-goal
+    a gsnprov:Query ;
+    rdfs:label "read_context_in_scope_for_goal.rq"@en ;
+    gsnprov:path "queries/read_context_in_scope_for_goal.rq" ;
+    gsnprov:fileChecksum "13c0897c07d0f06399ce50d594a3310b19313961358c8f0f8af1532e0b43fce5" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:GSNElement ,
+        gsn:inContextOf ,
+        gsn:statement ,
+        gsn:supportedBy ;
+    gsnprov:answersQuestion gsnprov:cq-AE-08 .
+
+gsnprov:query-read-duplicate-identifiers
+    a gsnprov:Query ;
+    rdfs:label "read_duplicate_identifiers.rq"@en ;
+    gsnprov:path "queries/read_duplicate_identifiers.rq" ;
+    gsnprov:fileChecksum "2845aadf4f6a5b22adc0f23217584d50c8ee1f79f9461d0a90260a0bf8d80354" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Argument ,
+        gsn:Artefact ,
+        gsn:AssuranceCase ,
+        gsn:GSNElement ,
+        gsn:Pattern ,
+        gsn:Relationship ;
+    gsnprov:answersQuestion gsnprov:cq-AU-06 .
+
+gsnprov:query-read-element-by-identifier
+    a gsnprov:Query ;
+    rdfs:label "read_element_by_identifier.rq"@en ;
+    gsnprov:path "queries/read_element_by_identifier.rq" ;
+    gsnprov:fileChecksum "1ae13294916f68eb4fa3a8b03311786be8879103675dc06f860ad8c47c5365ff" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:associatedWith ,
+        gsn:challenges ,
+        gsn:inContextOf ,
+        gsn:instantiationOf ,
+        gsn:refersTo ,
+        gsn:statement ,
+        gsn:substitutedBy ,
+        gsn:supportedBy ;
+    gsnprov:answersQuestion gsnprov:cq-AE-04 .
+
+gsnprov:query-read-element-status-flags
+    a gsnprov:Query ;
+    rdfs:label "read_element_status_flags.rq"@en ;
+    gsnprov:path "queries/read_element_status_flags.rq" ;
+    gsnprov:fileChecksum "9d5f2229e6667b72fd8b189ae7edeb74c12aafddb10b62edd03623c30d9cd976" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:defeated ,
+        gsn:inDoubt ,
+        gsn:true ,
+        gsn:valid ;
+    gsnprov:answersQuestion gsnprov:cq-AU-02 .
+
+gsnprov:query-read-elements-unreachable-from-top-goal
+    a gsnprov:Query ;
+    rdfs:label "read_elements_unreachable_from_top_goal.rq"@en ;
+    gsnprov:path "queries/read_elements_unreachable_from_top_goal.rq" ;
+    gsnprov:fileChecksum "390eaa70e107c13302d6d5ca2aa49c4939808c90933053f32e1188dbf6d2cb0c" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:GSNElement ,
+        gsn:Goal ,
+        gsn:inContextOf ,
+        gsn:refersTo ,
+        gsn:statement ,
+        gsn:supportedBy ,
+        gsn:top ;
+    gsnprov:answersQuestion gsnprov:cq-AU-01 .
+
+gsnprov:query-read-evidence-supporting-goal
+    a gsnprov:Query ;
+    rdfs:label "read_evidence_supporting_goal.rq"@en ;
+    gsnprov:path "queries/read_evidence_supporting_goal.rq" ;
+    gsnprov:fileChecksum "7a11b1bad688266b59d4a4659799d791cb0dacf54a6b8745e9625bd546820ab2" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
         gsn:refersTo ,
         gsn:statement ,
         gsn:supportedBy ;
-    gsnprov:answersQuestion gsnprov:cq-AU-02 .
+    gsnprov:answersQuestion gsnprov:cq-AE-06 .
 
-gsnprov:query-find-old-solutions
+gsnprov:query-read-goal-support-tree
     a gsnprov:Query ;
-    rdfs:label "find_old_solutions.rq"@en ;
-    gsnprov:path "interface/queries/find_old_solutions.rq" ;
-    gsnprov:fileChecksum "097a41a3bae13a9293956aa23fa0612d3c25cf025578b40837959fa2fe9cf688" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "http://www.w3.org/2001/XMLSchema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Solution ,
-        gsn:published ;
+    rdfs:label "read_goal_support_tree.rq"@en ;
+    gsnprov:path "queries/read_goal_support_tree.rq" ;
+    gsnprov:fileChecksum "3c0d35b25061d395757cc27d9072dc70a3a9177d31a3544577ed3a9031bf7bbb" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:statement ,
+        gsn:supportedBy ;
     gsnprov:answersQuestion gsnprov:cq-AE-05 .
 
-gsnprov:query-find-solutions-missing-artefact
+gsnprov:query-read-goals-affected-by-challenge
     a gsnprov:Query ;
-    rdfs:label "find_solutions_missing_artefact.rq"@en ;
-    gsnprov:path "interface/queries/find_solutions_missing_artefact.rq" ;
-    gsnprov:fileChecksum "93b3268d5a5c04e8e8d4f419a86302f0bfc10c0b319a17d2474ab9764c4523c0" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "http://www.w3.org/2001/XMLSchema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Solution ,
-        gsn:refersTo ;
-    gsnprov:answersQuestion gsnprov:cq-AE-04 .
-
-gsnprov:query-find-solutions-with-confidence
-    a gsnprov:Query ;
-    rdfs:label "find_solutions_with_confidence.rq"@en ;
-    gsnprov:path "interface/queries/find_solutions_with_confidence.rq" ;
-    gsnprov:fileChecksum "4c4be001fe4e58a9b09266e5a5fd7e81e63c0d3153fffd702c3b045c28852894" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
-    gsnprov:mentionsTerm gsn:Solution ,
-        gsn:attachedTo ,
-        gsn:refersTo ,
-        gsn:statement ;
+    rdfs:label "read_goals_affected_by_challenge.rq"@en ;
+    gsnprov:path "queries/read_goals_affected_by_challenge.rq" ;
+    gsnprov:fileChecksum "33500d5498b4a8d8673864cb938183c9db01890f9ac4d10bda4eb8bfda144626" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:Strategy ,
+        gsn:challenges ,
+        gsn:statement ,
+        gsn:supportedBy ;
     gsnprov:answersQuestion gsnprov:cq-AU-05 .
 
-gsnprov:query-find-spec-goals-missing-solutions
+gsnprov:query-read-goals-resting-on-artefact
     a gsnprov:Query ;
-    rdfs:label "find_spec_goals_missing_solutions.rq"@en ;
-    gsnprov:path "interface/queries/find_spec_goals_missing_solutions.rq" ;
-    gsnprov:fileChecksum "46f413c6f8d4ed7611c3409b71e37bbb5aadebd8c3f8d93e945ae05563a19b03" ;
-    gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
-        "https://w3id.org/ontogsn/ontology#" ;
+    rdfs:label "read_goals_resting_on_artefact.rq"@en ;
+    gsnprov:path "queries/read_goals_resting_on_artefact.rq" ;
+    gsnprov:fileChecksum "789fcffb493181787f398edaf21c5b02565c831a485a88df06c19e0365f37020" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Goal ,
         gsn:refersTo ,
+        gsn:statement ,
+        gsn:supportedBy ;
+    gsnprov:answersQuestion gsnprov:cq-AE-07 .
+
+gsnprov:query-read-goals-without-support
+    a gsnprov:Query ;
+    rdfs:label "read_goals_without_support.rq"@en ;
+    gsnprov:path "queries/read_goals_without_support.rq" ;
+    gsnprov:fileChecksum "77a6bd5f4438ddcf184602e7815a1a64287838f286b1d6ea0e88e714df972429" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:away ,
+        gsn:statement ,
+        gsn:supportedBy ,
+        gsn:toBeSupportedByContract ,
+        gsn:undeveloped ;
+    gsnprov:answersQuestion gsnprov:cq-AE-10 .
+
+gsnprov:query-read-invalid-elements
+    a gsnprov:Query ;
+    rdfs:label "read_invalid_elements.rq"@en ;
+    gsnprov:path "queries/read_invalid_elements.rq" ;
+    gsnprov:fileChecksum "0962946166b6958b17e042707dfd987a29647cfba63c7df2d763c8f6ac51edb1" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:defeated ,
+        gsn:inDoubt ,
+        gsn:statement ,
+        gsn:true ,
+        gsn:valid ;
+    gsnprov:answersQuestion gsnprov:cq-AU-03 .
+
+gsnprov:query-read-module-dependencies
+    a gsnprov:Query ;
+    rdfs:label "read_module_dependencies.rq"@en ;
+    gsnprov:path "queries/read_module_dependencies.rq" ;
+    gsnprov:fileChecksum "066507192edc45af100966784b3b000efea059f8dab017f762375139fd9974e5" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:contains ,
+        gsn:inContextOf ,
+        gsn:supportedBy ;
+    gsnprov:answersQuestion gsnprov:cq-DE-03 .
+
+gsnprov:query-read-pattern-instantiations
+    a gsnprov:Query ;
+    rdfs:label "read_pattern_instantiations.rq"@en ;
+    gsnprov:path "queries/read_pattern_instantiations.rq" ;
+    gsnprov:fileChecksum "cfb6f8aa9d187ced48cf286927ae54595a2d695b36a663370e675b158da6cebc" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Pattern ,
+        gsn:applicability ,
+        gsn:consequences ,
+        gsn:instantiationOf ,
+        gsn:intent ;
+    gsnprov:answersQuestion gsnprov:cq-DE-06 .
+
+gsnprov:query-read-public-elements-in-contract-modules
+    a gsnprov:Query ;
+    rdfs:label "read_public_elements_in_contract_modules.rq"@en ;
+    gsnprov:path "queries/read_public_elements_in_contract_modules.rq" ;
+    gsnprov:fileChecksum "0d1ffbacbc94247c328a1d4b84d0c925cf480ad9a94b5792e094155533bd6f52" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:contains ,
+        gsn:contract ,
+        gsn:public ;
+    gsnprov:answersQuestion gsnprov:cq-DE-05 .
+
+gsnprov:query-read-relationship-decorators
+    a gsnprov:Query ;
+    rdfs:label "read_relationship_decorators.rq"@en ;
+    gsnprov:path "queries/read_relationship_decorators.rq" ;
+    gsnprov:fileChecksum "2e3ca3fadfff9e535c82a0863d6739ba932dbe0a9ec4fe19b825e2e3421e6bd1" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Relationship ,
+        gsn:choice ,
+        gsn:maxCardinality ,
+        gsn:minCardinality ,
+        gsn:multiple ,
+        gsn:optional ;
+    gsnprov:answersQuestion gsnprov:cq-DE-08 .
+
+gsnprov:query-read-solutions-without-artefact
+    a gsnprov:Query ;
+    rdfs:label "read_solutions_without_artefact.rq"@en ;
+    gsnprov:path "queries/read_solutions_without_artefact.rq" ;
+    gsnprov:fileChecksum "a9112f64fda2b8ebc2986fcd141173f0e87a2bac285dd402af4664415f4f0972" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:refersTo ,
         gsn:statement ;
+    gsnprov:answersQuestion gsnprov:cq-AE-11 .
+
+gsnprov:query-read-stale-evidence
+    a gsnprov:Query ;
+    rdfs:label "read_stale_evidence.rq"@en ;
+    gsnprov:path "queries/read_stale_evidence.rq" ;
+    gsnprov:fileChecksum "57b059bca67aa9a7f35a21cab1c0be8747b3711e30be980738042087ca26b7fa" ;
+    gsnprov:declaresNamespace "http://purl.org/dc/terms/" ,
+        "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "http://www.w3.org/2001/XMLSchema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Artefact ,
+        gsn:Goal ,
+        gsn:refersTo ,
+        gsn:supportedBy ;
+    gsnprov:answersQuestion gsnprov:cq-AE-12 .
+
+gsnprov:query-read-support-cycles
+    a gsnprov:Query ;
+    rdfs:label "read_support_cycles.rq"@en ;
+    gsnprov:path "queries/read_support_cycles.rq" ;
+    gsnprov:fileChecksum "f136019dea91b9f3f034a8d2843ed1d28ad873265da6808d04d818b648e0f74f" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:supportedBy ;
+    gsnprov:answersQuestion gsnprov:cq-AU-07 .
+
+gsnprov:query-read-top-goals
+    a gsnprov:Query ;
+    rdfs:label "read_top_goals.rq"@en ;
+    gsnprov:path "queries/read_top_goals.rq" ;
+    gsnprov:fileChecksum "c4bcf7f6fe47959ed1428b9561ef4cd3592218a1f7861eb531f9745ff2636154" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:statement ,
+        gsn:supportedBy ,
+        gsn:top ;
     gsnprov:answersQuestion gsnprov:cq-AE-03 .
+
+gsnprov:query-read-undeveloped-elements
+    a gsnprov:Query ;
+    rdfs:label "read_undeveloped_elements.rq"@en ;
+    gsnprov:path "queries/read_undeveloped_elements.rq" ;
+    gsnprov:fileChecksum "10a8228871f2fa722755e06b10941cbbf578ff848617dcd885e65799ae34a6f5" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:statement ,
+        gsn:supportedBy ,
+        gsn:undeveloped ;
+    gsnprov:answersQuestion gsnprov:cq-AE-09 .
+
+gsnprov:query-read-uninstantiated-elements
+    a gsnprov:Query ;
+    rdfs:label "read_uninstantiated_elements.rq"@en ;
+    gsnprov:path "queries/read_uninstantiated_elements.rq" ;
+    gsnprov:fileChecksum "ffec39ff8501449389d43d6378cd8a9f748ba575e4fbc9874a55077469acee0a" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:instantiationOf ,
+        gsn:statement ,
+        gsn:uninstantiated ;
+    gsnprov:answersQuestion gsnprov:cq-DE-07 .
+
+gsnprov:query-rules-s01-assumption-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s01_assumption_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s01_assumption_invalidation.rq" ;
+    gsnprov:fileChecksum "c68a5497b161a2566d2cc29467a1b9c462f582e5517f6878278ff2dfe9e5f3e1" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Assumption ,
+        gsn:inContextOf ,
+        gsn:valid ;
+    gsnprov:ruleName "Assumption Invalidation" .
+
+gsnprov:query-rules-s02-contextual-relation
+    a gsnprov:Query ;
+    rdfs:label "rules/s02_contextual_relation.rq"@en ;
+    gsnprov:path "queries/rules/s02_contextual_relation.rq" ;
+    gsnprov:fileChecksum "44e2e3ae3803341ed59e5d9748defead46234c2d33bbac9b39bc0ac9b2cfcc47" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:inContextOf ,
+        gsn:relationshipType ;
+    gsnprov:ruleName "Contextual Relation" .
+
+gsnprov:query-rules-s03-evidential-relation
+    a gsnprov:Query ;
+    rdfs:label "rules/s03_evidential_relation.rq"@en ;
+    gsnprov:path "queries/rules/s03_evidential_relation.rq" ;
+    gsnprov:fileChecksum "136ca93ad4f8aee65664ad63ee4358a27f9ff578c7f62b94c01e45a8f557b799" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:relationshipType ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Evidential Relation" .
+
+gsnprov:query-rules-s04-inferential-relation
+    a gsnprov:Query ;
+    rdfs:label "rules/s04_inferential_relation.rq"@en ;
+    gsnprov:path "queries/rules/s04_inferential_relation.rq" ;
+    gsnprov:fileChecksum "70d11bb3e28c9343c21ea81c214e046922b57628ab2a2458e88f52e251de34bc" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Strategy ,
+        gsn:relationshipType ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Inferential Relation" .
+
+gsnprov:query-rules-s05-goal-inference
+    a gsnprov:Query ;
+    rdfs:label "rules/s05_goal_inference.rq"@en ;
+    gsnprov:path "queries/rules/s05_goal_inference.rq" ;
+    gsnprov:fileChecksum "ded354f840d46de207ecdea2c5e4705a5d45221f7254d9f80eed2d83e77ff2c7" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:relationshipType ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Goal Inference" .
+
+gsnprov:query-rules-s06-goal-top-flag
+    a gsnprov:Query ;
+    rdfs:label "rules/s06_goal_top_flag.rq"@en ;
+    gsnprov:path "queries/rules/s06_goal_top_flag.rq" ;
+    gsnprov:fileChecksum "2316882839d4f4e67e0c892c97984933ddffe4f4918ae1d2f6297a649d7b6c1a" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:supportedBy ,
+        gsn:top ;
+    gsnprov:ruleName "Goal Top Flag" .
+
+gsnprov:query-rules-s07-predicate-conflict-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s07_predicate_conflict_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s07_predicate_conflict_invalidation.rq" ;
+    gsnprov:fileChecksum "59d15530f0978c93f47252264aeb2912fb5730ae9b464bd795835e097d1f47d3" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:valid ;
+    gsnprov:ruleName "Predicate Conflict Invalidation" .
+
+gsnprov:query-rules-s08-contradictory-goal-truth
+    a gsnprov:Query ;
+    rdfs:label "rules/s08_contradictory_goal_truth.rq"@en ;
+    gsnprov:path "queries/rules/s08_contradictory_goal_truth.rq" ;
+    gsnprov:fileChecksum "be6df26573c3d9c4d348a15e28820187cb995d266427d0dc764443bdf97c7ee3" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:supportedBy ,
+        gsn:true ,
+        gsn:valid ;
+    gsnprov:ruleName "Contradictory Goal Truth" .
+
+gsnprov:query-rules-s09-tri-goal-conflict
+    a gsnprov:Query ;
+    rdfs:label "rules/s09_tri_goal_conflict.rq"@en ;
+    gsnprov:path "queries/rules/s09_tri_goal_conflict.rq" ;
+    gsnprov:fileChecksum "45b728fc15ab75cb139a050bcaf522e8d3ad8f45b15d324ef1df1c08b4f9eb99" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:supportedBy ,
+        gsn:true ,
+        gsn:valid ;
+    gsnprov:ruleName "Tri-Goal Conflict" .
+
+gsnprov:query-rules-s10-solution-propagation-true
+    a gsnprov:Query ;
+    rdfs:label "rules/s10_solution_propagation_true.rq"@en ;
+    gsnprov:path "queries/rules/s10_solution_propagation_true.rq" ;
+    gsnprov:fileChecksum "1aebc1da4776d124f74334a1e720e0190e97b713494721ad0084e55626e43c66" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:supportedBy ,
+        gsn:true ;
+    gsnprov:ruleName "Solution Propagation (True)" .
+
+gsnprov:query-rules-s11-solution-propagation-false
+    a gsnprov:Query ;
+    rdfs:label "rules/s11_solution_propagation_false.rq"@en ;
+    gsnprov:path "queries/rules/s11_solution_propagation_false.rq" ;
+    gsnprov:fileChecksum "9f719838865b7570129b57174c5756085d4a725e8b0fa84acf060118d602c888" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:supportedBy ,
+        gsn:true ;
+    gsnprov:ruleName "Solution Propagation (False)" .
+
+gsnprov:query-rules-s12-mixed-support-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s12_mixed_support_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s12_mixed_support_invalidation.rq" ;
+    gsnprov:fileChecksum "ce877d80c7823912c91c97d04c12d024d58129a2e00b9c8086df5a0c9a2a425c" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:supportedBy ,
+        gsn:valid ;
+    gsnprov:ruleName "Mixed Support Invalidation" .
+
+gsnprov:query-rules-s13-conflicting-support-false
+    a gsnprov:Query ;
+    rdfs:label "rules/s13_conflicting_support_false.rq"@en ;
+    gsnprov:path "queries/rules/s13_conflicting_support_false.rq" ;
+    gsnprov:fileChecksum "62ccf4ab4d87911d32b825184a2bac95bb90cb1aea18d37a32ad021217390443" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:supportedBy ,
+        gsn:true ;
+    gsnprov:ruleName "Conflicting Support (False)" .
+
+gsnprov:query-rules-s14-relation-false-propagation
+    a gsnprov:Query ;
+    rdfs:label "rules/s14_relation_false_propagation.rq"@en ;
+    gsnprov:path "queries/rules/s14_relation_false_propagation.rq" ;
+    gsnprov:fileChecksum "37b40fd510b7aa5b3770264939f60f3bfde092139178caf03940b6ce91ffa645" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Relationship ,
+        gsn:inContextOf ,
+        gsn:true ;
+    gsnprov:ruleName "Relation False Propagation" .
+
+gsnprov:query-rules-s16-assumption-false-propagation
+    a gsnprov:Query ;
+    rdfs:label "rules/s16_assumption_false_propagation.rq"@en ;
+    gsnprov:path "queries/rules/s16_assumption_false_propagation.rq" ;
+    gsnprov:fileChecksum "619637eeca98bf0e19a5e94f09aabacbfa7c5aa7693cdb3778aa502aadf9635e" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Assumption ,
+        gsn:inContextOf ,
+        gsn:true ;
+    gsnprov:ruleName "Assumption False Propagation" .
+
+gsnprov:query-rules-s17-context-inheritance
+    a gsnprov:Query ;
+    rdfs:label "rules/s17_context_inheritance.rq"@en ;
+    gsnprov:path "queries/rules/s17_context_inheritance.rq" ;
+    gsnprov:fileChecksum "3938d52ca10ae2e4f4e5e83047b85a6905c1dfadcf009578cbb3a923b4ebb43d" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Assumption ,
+        gsn:Goal ,
+        gsn:inContextOf ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Context Inheritance" .
+
+gsnprov:query-rules-s18-support-relation-creation
+    a gsnprov:Query ;
+    rdfs:label "rules/s18_support_relation_creation.rq"@en ;
+    gsnprov:path "queries/rules/s18_support_relation_creation.rq" ;
+    gsnprov:fileChecksum "7023c77fc6a796afa6f54ec298ec608df45ace1cbc61875bb4695361106a123e" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Relationship ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Support Relation Creation" .
+
+gsnprov:query-rules-s19-context-relation-creation
+    a gsnprov:Query ;
+    rdfs:label "rules/s19_context_relation_creation.rq"@en ;
+    gsnprov:path "queries/rules/s19_context_relation_creation.rq" ;
+    gsnprov:fileChecksum "73e9e703ab28d602e74fe9cbe4b737c977128ceda17cb7fbc78d0b3b48f2d8d5" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Relationship ,
+        gsn:inContextOf ;
+    gsnprov:ruleName "Context Relation Creation" .
+
+gsnprov:query-rules-s20-final-pattern-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s20_final_pattern_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s20_final_pattern_invalidation.rq" ;
+    gsnprov:fileChecksum "c9052a30731006d77faca56571b38bdc6328152f674ec6bdbb06b126eac046d0" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Pattern ,
+        gsn:contains ,
+        gsn:final ,
+        gsn:instantiationOf ,
+        gsn:valid ;
+    gsnprov:ruleName "Final Pattern Invalidation" .
+
+gsnprov:query-rules-s21-template-undeveloped-invalidation-a
+    a gsnprov:Query ;
+    rdfs:label "rules/s21_template_undeveloped_invalidation_a.rq"@en ;
+    gsnprov:path "queries/rules/s21_template_undeveloped_invalidation_a.rq" ;
+    gsnprov:fileChecksum "00dd085415a8aaabf70717a800ee4012d2921d6cd536cca21320553f52202e28" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Template ,
+        gsn:published ,
+        gsn:undeveloped ,
+        gsn:valid ;
+    gsnprov:ruleName "Template Undeveloped Invalidation (A)" .
+
+gsnprov:query-rules-s22-template-undeveloped-invalidation-b
+    a gsnprov:Query ;
+    rdfs:label "rules/s22_template_undeveloped_invalidation_b.rq"@en ;
+    gsnprov:path "queries/rules/s22_template_undeveloped_invalidation_b.rq" ;
+    gsnprov:fileChecksum "e43d8162d6b0b5be2a08f81d2ffcd181613baf50542d97f2529faab3ec7d196e" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Template ,
+        gsn:contains ,
+        gsn:published ,
+        gsn:undeveloped ,
+        gsn:valid ;
+    gsnprov:ruleName "Template Undeveloped Invalidation (B)" .
+
+gsnprov:query-rules-s23-cross-module-away-support
+    a gsnprov:Query ;
+    rdfs:label "rules/s23_cross_module_away_support.rq"@en ;
+    gsnprov:path "queries/rules/s23_cross_module_away_support.rq" ;
+    gsnprov:fileChecksum "ba3fe5e205719475394be5d18f93e4f886341fbbcac29498c85dc7cc1570456b" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:away ,
+        gsn:contains ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Cross-Module Away Support" .
+
+gsnprov:query-rules-s24-cross-module-away-context
+    a gsnprov:Query ;
+    rdfs:label "rules/s24_cross_module_away_context.rq"@en ;
+    gsnprov:path "queries/rules/s24_cross_module_away_context.rq" ;
+    gsnprov:fileChecksum "caa016924b02d34caedb685ebfa7a1f71e0d04c78fa477e24e7fe44f5256f1df" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:away ,
+        gsn:contains ,
+        gsn:inContextOf ;
+    gsnprov:ruleName "Cross-Module Away Context" .
+
+gsnprov:query-rules-s25-duplicate-identifier-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s25_duplicate_identifier_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s25_duplicate_identifier_invalidation.rq" ;
+    gsnprov:fileChecksum "986e76c044feee584b67d5473abca7b71938d23c9f4952ac001eaaf56a99b945" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:contains ,
+        gsn:valid ;
+    gsnprov:ruleName "Duplicate Identifier Invalidation" .
+
+gsnprov:query-rules-s26-contract-violation-relation
+    a gsnprov:Query ;
+    rdfs:label "rules/s26_contract_violation_relation.rq"@en ;
+    gsnprov:path "queries/rules/s26_contract_violation_relation.rq" ;
+    gsnprov:fileChecksum "caa4d463d13b9fb5a9b46e1facd5e5a46b2453c4af53fc2a5c3127b0f124641f" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:contains ,
+        gsn:contract ,
+        gsn:supportedBy ,
+        gsn:valid ;
+    gsnprov:ruleName "Contract Violation Relation" .
+
+gsnprov:query-rules-s27-context-contract-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s27_context_contract_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s27_context_contract_invalidation.rq" ;
+    gsnprov:fileChecksum "01eec777a46bbad39fad8849442b6b1e84eb6c542b71792b281f8cf38c9e9703" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:contains ,
+        gsn:contract ,
+        gsn:inContextOf ,
+        gsn:valid ;
+    gsnprov:ruleName "Context Contract Invalidation" .
+
+gsnprov:query-rules-s28-contract-support-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s28_contract_support_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s28_contract_support_invalidation.rq" ;
+    gsnprov:fileChecksum "847d2e1b3184f7de1763dd15cdd8ac3fdb01446400bc7a4e343e45ac5c8c5907" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:contains ,
+        gsn:contract ,
+        gsn:toBeSupportedByContract ,
+        gsn:valid ;
+    gsnprov:ruleName "Contract Support Invalidation" .
+
+gsnprov:query-rules-s29-away-goal-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s29_away_goal_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s29_away_goal_invalidation.rq" ;
+    gsnprov:fileChecksum "ea5b38c02aa41988f402b63b59f6875514651f232bebba3650bdf62b877af243" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:Module ,
+        gsn:away ,
+        gsn:contains ,
+        gsn:supportedBy ,
+        gsn:valid ;
+    gsnprov:ruleName "Away Goal Invalidation" .
+
+gsnprov:query-rules-s30-contract-activation
+    a gsnprov:Query ;
+    rdfs:label "rules/s30_contract_activation.rq"@en ;
+    gsnprov:path "queries/rules/s30_contract_activation.rq" ;
+    gsnprov:fileChecksum "efcc03654ddcab97edd9edc54f7429b8a34964a67f52a1777d532e31e96211e5" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:away ,
+        gsn:contains ,
+        gsn:contract ,
+        gsn:supportedBy ,
+        gsn:toBeSupportedByContract ;
+    gsnprov:ruleName "Contract Activation" .
+
+gsnprov:query-rules-s31-contract-relation-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s31_contract_relation_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s31_contract_relation_invalidation.rq" ;
+    gsnprov:fileChecksum "3a6122e2e86aae79b85d644fce2e00c8bcd38063c31abfceafa0c901f828f200" ;
+    gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:contains ,
+        gsn:supportedBy ,
+        gsn:toBeSupportedByContract ,
+        gsn:valid ;
+    gsnprov:ruleName "Contract Relation Invalidation" .
+
+gsnprov:query-rules-s32-context-consistency
+    a gsnprov:Query ;
+    rdfs:label "rules/s32_context_consistency.rq"@en ;
+    gsnprov:path "queries/rules/s32_context_consistency.rq" ;
+    gsnprov:fileChecksum "f556f5a729d6c3980671fc3e1ae83333c38f8a2152c4fe171eb29d1db3e40211" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Context ,
+        gsn:Goal ,
+        gsn:away ,
+        gsn:consistentWith ,
+        gsn:inContextOf ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Context Consistency" .
+
+gsnprov:query-rules-s33-substitution-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s33_substitution_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s33_substitution_invalidation.rq" ;
+    gsnprov:fileChecksum "b7e1ebb388492457196d4c41e5d3bbf6b9f0f6af3748759d82e059e23d26b343" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Justification ,
+        gsn:Module ,
+        gsn:contains ,
+        gsn:inContextOf ,
+        gsn:substitutedBy ,
+        gsn:valid ;
+    gsnprov:ruleName "Substitution Invalidation" .
+
+gsnprov:query-rules-s34-module-support-propagation
+    a gsnprov:Query ;
+    rdfs:label "rules/s34_module_support_propagation.rq"@en ;
+    gsnprov:path "queries/rules/s34_module_support_propagation.rq" ;
+    gsnprov:fileChecksum "8312bde027288bd3d5f06485a91ae0ad52e1823acf2beebb6a8ee13d7b3c738f" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:contains ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Module Support Propagation" .
+
+gsnprov:query-rules-s35-module-context-propagation
+    a gsnprov:Query ;
+    rdfs:label "rules/s35_module_context_propagation.rq"@en ;
+    gsnprov:path "queries/rules/s35_module_context_propagation.rq" ;
+    gsnprov:fileChecksum "70d9a58dd580ce9e8506f7d751a89529b2bfd7ea2dd7d31da53e347e7f5a3a93" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:contains ,
+        gsn:inContextOf ;
+    gsnprov:ruleName "Module Context Propagation" .
+
+gsnprov:query-rules-s36-cross-module-support
+    a gsnprov:Query ;
+    rdfs:label "rules/s36_cross_module_support.rq"@en ;
+    gsnprov:path "queries/rules/s36_cross_module_support.rq" ;
+    gsnprov:fileChecksum "5bfde35e8b4c939c1b3646fc5caa08f67b8bbdac2afb3053c303aea6145bff83" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:contains ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Cross-Module Support" .
+
+gsnprov:query-rules-s37-circular-module-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s37_circular_module_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s37_circular_module_invalidation.rq" ;
+    gsnprov:fileChecksum "d700dde2e37024d81d0fd8d7e601f90f92295d71d17496fb4d0e0f6c5533a229" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:supportedBy ,
+        gsn:valid ;
+    gsnprov:ruleName "Circular Module Invalidation" .
+
+gsnprov:query-rules-s38-public-context-propagation
+    a gsnprov:Query ;
+    rdfs:label "rules/s38_public_context_propagation.rq"@en ;
+    gsnprov:path "queries/rules/s38_public_context_propagation.rq" ;
+    gsnprov:fileChecksum "a45b82184ba34d5ce299d0ed932ca2f63ac38213d546dd25765c4a5c3b4c6849" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:inContextOf ,
+        gsn:public ;
+    gsnprov:ruleName "Public Context Propagation" .
+
+gsnprov:query-rules-s39-public-contract-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s39_public_contract_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s39_public_contract_invalidation.rq" ;
+    gsnprov:fileChecksum "edbe6c690f8d958bebda1c344fad43af4c9cec64337d73249d8900fb6009bf45" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:contains ,
+        gsn:contract ,
+        gsn:public ,
+        gsn:valid ;
+    gsnprov:ruleName "Public Contract Invalidation" .
+
+gsnprov:query-rules-s40-confidence-relation-creation
+    a gsnprov:Query ;
+    rdfs:label "rules/s40_confidence_relation_creation.rq"@en ;
+    gsnprov:path "queries/rules/s40_confidence_relation_creation.rq" ;
+    gsnprov:fileChecksum "b21744a5f3f6b00384c98c181e346f9fe2a4f8cad9a3d7da50816bd73050ec06" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:ArtefactReference ,
+        gsn:RelationshipWithConfidence ,
+        gsn:assuranceClaimPoint ;
+    gsnprov:ruleName "Confidence Relation Creation" .
+
+gsnprov:query-rules-s41-duplicate-name-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s41_duplicate_name_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s41_duplicate_name_invalidation.rq" ;
+    gsnprov:fileChecksum "5b588c776933e76d5768cda6f41f424989e2991b1669702eb9e107be91e6cc58" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:valid ;
+    gsnprov:ruleName "Duplicate Name Invalidation" .
+
+gsnprov:query-rules-s42-strategy-confidence-relation
+    a gsnprov:Query ;
+    rdfs:label "rules/s42_strategy_confidence_relation.rq"@en ;
+    gsnprov:path "queries/rules/s42_strategy_confidence_relation.rq" ;
+    gsnprov:fileChecksum "e6b557e0da9eecfbb72e2296490cef927127e4f2777a0b3c7ac5ee8b1701b211" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:RelationshipWithConfidence ,
+        gsn:Strategy ,
+        gsn:associatedWith ,
+        gsn:assuranceClaimPoint ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Strategy Confidence Relation" .
+
+gsnprov:query-rules-s43-goal-strategy-confidence
+    a gsnprov:Query ;
+    rdfs:label "rules/s43_goal_strategy_confidence.rq"@en ;
+    gsnprov:path "queries/rules/s43_goal_strategy_confidence.rq" ;
+    gsnprov:fileChecksum "e2a8ae83d4c0142946811f914be5f186625c41b43d693493aa3f65a6320733c6" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:RelationshipWithConfidence ,
+        gsn:Strategy ,
+        gsn:associatedWith ,
+        gsn:assuranceClaimPoint ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Goal-Strategy Confidence" .
+
+gsnprov:query-rules-s44-solution-confidence-relation
+    a gsnprov:Query ;
+    rdfs:label "rules/s44_solution_confidence_relation.rq"@en ;
+    gsnprov:path "queries/rules/s44_solution_confidence_relation.rq" ;
+    gsnprov:fileChecksum "1b11a179e0e2ede02487bdc39da43181ed1d5c5846e73fab11898f55d0f1b29b" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:RelationshipWithConfidence ,
+        gsn:Solution ,
+        gsn:associatedWith ,
+        gsn:assuranceClaimPoint ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Solution Confidence Relation" .
+
+gsnprov:query-rules-s45-goal-confidence-relation
+    a gsnprov:Query ;
+    rdfs:label "rules/s45_goal_confidence_relation.rq"@en ;
+    gsnprov:path "queries/rules/s45_goal_confidence_relation.rq" ;
+    gsnprov:fileChecksum "0052c2d2ea938aa8dcb1bd01db0c42347e800e1b4a357613697ffc38d482c6f0" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:RelationshipWithConfidence ,
+        gsn:associatedWith ,
+        gsn:assuranceClaimPoint ,
+        gsn:supportedBy ;
+    gsnprov:ruleName "Goal Confidence Relation" .
+
+gsnprov:query-rules-s46-challenge-defeat
+    a gsnprov:Query ;
+    rdfs:label "rules/s46_challenge_defeat.rq"@en ;
+    gsnprov:path "queries/rules/s46_challenge_defeat.rq" ;
+    gsnprov:fileChecksum "0a7f4bf2607a40887e01e3d92d28bf68cb73d991d4a87b04420ea014b5e39ec0" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:challenges ,
+        gsn:defeated ,
+        gsn:valid ;
+    gsnprov:ruleName "Challenge Defeat" .
+
+gsnprov:query-rules-s47-defeated-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s47_defeated_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s47_defeated_invalidation.rq" ;
+    gsnprov:fileChecksum "6f77396ae7f820b378ceb4e6ccf74fa3024219daa5015316e787b2fffe1db35c" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:defeated ,
+        gsn:valid ;
+    gsnprov:ruleName "Defeated Invalidation" .
+
+gsnprov:query-rules-s48-challenge-doubt
+    a gsnprov:Query ;
+    rdfs:label "rules/s48_challenge_doubt.rq"@en ;
+    gsnprov:path "queries/rules/s48_challenge_doubt.rq" ;
+    gsnprov:fileChecksum "bbc230404c06f0b0969a234f9204945d9982f505e72535a0078835620289ef1a" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:challenges ,
+        gsn:inDoubt ,
+        gsn:true ;
+    gsnprov:ruleName "Challenge Doubt" .
+
+gsnprov:query-rules-s49-undeveloped-defeat
+    a gsnprov:Query ;
+    rdfs:label "rules/s49_undeveloped_defeat.rq"@en ;
+    gsnprov:path "queries/rules/s49_undeveloped_defeat.rq" ;
+    gsnprov:fileChecksum "0fdcbb5cfe29b42d66747c4fa35d10fd3e0a7eb7102bf47903cc91f8bd43d2d5" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:challenges ,
+        gsn:defeated ,
+        gsn:inDoubt ,
+        gsn:undeveloped ;
+    gsnprov:ruleName "Undeveloped Defeat" .
+
+gsnprov:query-rules-s50-challenge-relation-creation
+    a gsnprov:Query ;
+    rdfs:label "rules/s50_challenge_relation_creation.rq"@en ;
+    gsnprov:path "queries/rules/s50_challenge_relation_creation.rq" ;
+    gsnprov:fileChecksum "e8afcee5e69fc37bf72d9644d184a84b67a652982ac8c24b1b35d58adf76cc94" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Relationship ,
+        gsn:challenges ;
+    gsnprov:ruleName "Challenge Relation Creation" .
+
+gsnprov:query-rules-s51-challenge-chain-invalidation
+    a gsnprov:Query ;
+    rdfs:label "rules/s51_challenge_chain_invalidation.rq"@en ;
+    gsnprov:path "queries/rules/s51_challenge_chain_invalidation.rq" ;
+    gsnprov:fileChecksum "771d1a20a7dd846ee28a3a3c632f67cc62a426f802b7bf94ff0a05e07a4e6f22" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:Strategy ,
+        gsn:challenges ,
+        gsn:supportedBy ,
+        gsn:valid ;
+    gsnprov:ruleName "Challenge Chain Invalidation" .
+
+gsnprov:query-rules-s52-defeater-declaration
+    a gsnprov:Query ;
+    rdfs:label "rules/s52_defeater_declaration.rq"@en ;
+    gsnprov:path "queries/rules/s52_defeater_declaration.rq" ;
+    gsnprov:fileChecksum "dbeeb2e321f40ed231e79f121e82dad4149808829fa6060e383a98e60307a6e4" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Defeater ,
+        gsn:challenges ;
+    gsnprov:ruleName "Defeater Declaration" .
+
+gsnprov:query-update-element-statement
+    a gsnprov:Query ;
+    rdfs:label "update_element_statement.rq"@en ;
+    gsnprov:path "queries/update_element_statement.rq" ;
+    gsnprov:fileChecksum "fe1b75390c9a193df11afa6b0d7c5b67fe5c4149bcc3a2e994cc4f72ea3cbdad" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:statement ;
+    gsnprov:answersQuestion gsnprov:cq-AE-17 .
+
+gsnprov:query-update-mark-element-invalid
+    a gsnprov:Query ;
+    rdfs:label "update_mark_element_invalid.rq"@en ;
+    gsnprov:path "queries/update_mark_element_invalid.rq" ;
+    gsnprov:fileChecksum "1da9462b0f0d346a6a7e621332d403fe35670dcc51c0d8725f4fc620c420f285" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:valid ;
+    gsnprov:answersQuestion gsnprov:cq-AU-09 .
+
+gsnprov:query-update-retarget-solution-to-new-artefact
+    a gsnprov:Query ;
+    rdfs:label "update_retarget_solution_to_new_artefact.rq"@en ;
+    gsnprov:path "queries/update_retarget_solution_to_new_artefact.rq" ;
+    gsnprov:fileChecksum "247ed83a20e426564d8d3b143ce7352ea58944ca54a45e03db90777399c1fa28" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Artefact ,
+        gsn:Solution ,
+        gsn:refersTo ;
+    gsnprov:answersQuestion gsnprov:cq-DE-15 .
 
 
 #################################################################

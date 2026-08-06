@@ -13,11 +13,10 @@ The point is to make the chains explicit and therefore checkable:
     requirement -> competency question -> query -> the ontology terms it names
     ontogsn.ttl -> build.py -> ontogsn.rdf, ontogsn.jsonld
 
-Both chains are currently broken in ways that are invisible until you look: every stored
-query binds gsn: to a namespace the ontology does not use, and the per-section slices under
-serializations/separated/ have no build script and state an older version than the ontology
-they were sliced from. Neither is fixed here - they are recorded, so tools/prov_check.py
-can report them.
+The query chain is what this caught first: every stored query used to bind gsn: to a
+namespace the ontology does not use, which returns nothing at all and says nothing about
+it. The queries were rewritten; tools/query_check.py now refuses that and several related
+mistakes on every run, and records the result alongside what this script writes.
 """
 import argparse
 import glob
@@ -38,7 +37,7 @@ from prov_ttl import Lit
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(REPO, "provenance", "ontogsn-provenance-augmentations.ttl")
 CQ_WORKBOOK = os.path.join(REPO, "OntoGSN Competency Questions.xlsx")
-QUERY_DIR = os.path.join(REPO, "interface", "queries")
+QUERY_DIR = os.path.join(REPO, "queries")
 
 ONTOLOGY_NS = "https://w3id.org/OntoGSN/ontology#"
 SHAPES_NS = "https://w3id.org/OntoGSN/shapes#"
@@ -137,14 +136,17 @@ def main():
             by_query.setdefault(target, []).append(iri)
 
     # --- stored queries -------------------------------------------------------------
-    paths = sorted(glob.glob(os.path.join(QUERY_DIR, "*.rq")))
+    paths = sorted(glob.glob(os.path.join(QUERY_DIR, "**", "*.rq"), recursive=True))
     blocks.append(prov_ttl.header(
         f"Stored queries ({len(paths)})",
         "gsnprov:declaresNamespace records what each file binds its prefixes to, which is\n"
-        "how a query pointing at the wrong namespace becomes findable."))
+        "how a query pointing at the wrong namespace becomes findable.\n\n"
+        "The files under queries/rules/ are the SWRL rules as SPARQL. They answer no\n"
+        "competency question; gsnprov:ruleName joins them to the rule in the ontology,\n"
+        "which is the same key the SWRL workbook's 'Example label' column uses."))
     unanswered = dict(by_query)
     for path in paths:
-        name = os.path.basename(path)
+        name = os.path.relpath(path, QUERY_DIR).replace(os.sep, "/")
         with open(path, encoding="utf-8", errors="replace") as fh:
             body = fh.read()
         namespaces = sorted({uri for _, uri in PREFIX_RE.findall(body)})
@@ -159,6 +161,9 @@ def main():
             pairs.append(("gsnprov:declaresNamespace", [Lit(n) for n in namespaces]))
         if mentions:
             pairs.append(("gsnprov:mentionsTerm", mentions))
+        rule = re.search(r"(?m)^#\s+name:\s+(.*)$", body)
+        if name.startswith("rules/") and rule:
+            pairs.append(("gsnprov:ruleName", [Lit(rule.group(1).strip())]))
         for question in by_query.get(name, []):
             pairs.append(("gsnprov:answersQuestion", [question]))
         unanswered.pop(name, None)
