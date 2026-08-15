@@ -9,6 +9,7 @@
 # with the rule number to keep the blocks apart and out of the example case's way.
 
 @prefix rc:     <https://w3id.org/OntoGSN/example/rules#> .
+@prefix ex:     <https://w3id.org/OntoGSN/example#> .
 @prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
 @prefix owl:    <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -99,7 +100,10 @@ rc:G12invalid a gsn:Goal ; schema:identifier "S12-Ginvalid" ;
     gsn:statement "The timing analysis was completed." ; gsn:valid false .
 
 
-###  S13  Conflicting Support (False) - one solution holds, the other does not
+###  S11  mixed support - one solution holds, the other does not
+###  This was the S13 trigger. S13 was retired in 1.2.3 as subsumed by S11, which reaches the
+###  same conclusion from the failing solution alone. The block is kept because mixed support
+###  is the case S10's guard turns on, and it is the one that used to make the rule set loop.
 
 rc:G13 a gsn:Goal ; schema:identifier "S13-G" ;
     gsn:statement "The detection threshold is correctly configured." ;
@@ -158,9 +162,15 @@ rc:R22 a gsn:Relationship ; schema:identifier "S22-R" ;
 
 rc:M26contract a gsn:Module ; schema:identifier "S26-Mcontract" ;
     gsn:statement "A contract module whose content reaches into another module directly." ;
-    gsn:contract true ; gsn:contains rc:G26 , rc:G27 .
+    gsn:contract true ; gsn:contains rc:Arg26contract .
+rc:Arg26contract a gsn:Argument ; schema:identifier "S26-Argcontract" ;
+    gsn:statement "Argument of the contract module." ;
+    gsn:contains rc:G26 , rc:G27 .
 rc:M26other a gsn:Module ; schema:identifier "S26-Mother" ;
     gsn:statement "The module reached into." ; gsn:contract false ;
+    gsn:contains rc:Arg26other .
+rc:Arg26other a gsn:Argument ; schema:identifier "S26-Argother" ;
+    gsn:statement "Argument of the module reached into." ;
     gsn:contains rc:G26target .
 rc:G26target a gsn:Goal ; schema:identifier "S26-Gtarget" ;
     gsn:statement "The supplied component meets its published envelope." .
@@ -182,7 +192,9 @@ rc:R27 a gsn:Relationship ; schema:identifier "S27-R" ;
 
 rc:M28 a gsn:Module ; schema:identifier "S28-M" ;
     gsn:statement "A contract module containing a claim that itself awaits a contract." ;
-    gsn:contract true ; gsn:contains rc:G28 .
+    gsn:contract true ; gsn:contains rc:Arg28 .
+rc:Arg28 a gsn:Argument ; schema:identifier "S28-Arg" ;
+    gsn:statement "Argument of the contract module awaiting a contract." ; gsn:contains rc:G28 .
 rc:G28 a gsn:Goal ; schema:identifier "S28-G" ;
     gsn:statement "Timing is discharged elsewhere." ;
     gsn:toBeSupportedByContract true .
@@ -191,9 +203,13 @@ rc:G28 a gsn:Goal ; schema:identifier "S28-G" ;
 ###  S29  Away Goal Invalidation - an away goal supported directly across modules
 
 rc:M29a a gsn:Module ; schema:identifier "S29-Ma" ;
-    gsn:statement "The module holding the away reference." ; gsn:contains rc:G29away .
+    gsn:statement "The module holding the away reference." ; gsn:contains rc:Arg29a .
+rc:Arg29a a gsn:Argument ; schema:identifier "S29-Arga" ;
+    gsn:statement "Argument holding the away reference." ; gsn:contains rc:G29away .
 rc:M29b a gsn:Module ; schema:identifier "S29-Mb" ;
-    gsn:statement "The module holding the original." ; gsn:contains rc:G29home .
+    gsn:statement "The module holding the original." ; gsn:contains rc:Arg29b .
+rc:Arg29b a gsn:Argument ; schema:identifier "S29-Argb" ;
+    gsn:statement "Argument holding the original." ; gsn:contains rc:G29home .
 rc:G29away a gsn:Goal ; schema:identifier "S29-Gaway" ;
     gsn:statement "The platform meets its published latency bound." ;
     gsn:away true ; gsn:supportedBy rc:G29home .
@@ -206,9 +222,13 @@ rc:R29 a gsn:Relationship ; schema:identifier "S29-R" ;
 ###  S30  Contract Activation - an away claim awaiting a contract from another module
 
 rc:M30a a gsn:Module ; schema:identifier "S30-Ma" ;
-    gsn:statement "The module making the demand." ; gsn:contains rc:G30 .
+    gsn:statement "The module making the demand." ; gsn:contains rc:Arg30a .
+rc:Arg30a a gsn:Argument ; schema:identifier "S30-Arga" ;
+    gsn:statement "Argument making the demand." ; gsn:contains rc:G30 .
 rc:M30b a gsn:Module ; schema:identifier "S30-Mb" ;
-    gsn:statement "The module that becomes a contract module." ; gsn:contains rc:G30supplier .
+    gsn:statement "The module that becomes a contract module." ; gsn:contains rc:Arg30b .
+rc:Arg30b a gsn:Argument ; schema:identifier "S30-Argb" ;
+    gsn:statement "Argument of the supplying module." ; gsn:contains rc:G30supplier .
 rc:G30 a gsn:Goal ; schema:identifier "S30-G" ;
     gsn:statement "The demand is discharged by the supplier." ;
     gsn:away true ; gsn:toBeSupportedByContract true ;
@@ -221,6 +241,9 @@ rc:G30supplier a gsn:Goal ; schema:identifier "S30-Gsupplier" ;
 
 rc:M31 a gsn:Module ; schema:identifier "S31-M" ;
     gsn:statement "One module holding both ends of a link that should cross a contract." ;
+    gsn:contains rc:Arg31 .
+rc:Arg31 a gsn:Argument ; schema:identifier "S31-Arg" ;
+    gsn:statement "Argument holding both ends of the link." ;
     gsn:contains rc:G31 , rc:G31support .
 rc:G31 a gsn:Goal ; schema:identifier "S31-G" ;
     gsn:statement "Timing is discharged by contract." ;
@@ -249,11 +272,23 @@ rc:C32remote a gsn:Context ; schema:identifier "S32-Cremote" ;
 ###  S37  Circular Module Invalidation - three modules resting on each other
 
 rc:M37a a gsn:Module ; schema:identifier "S37-Ma" ;
-    gsn:statement "First module in the cycle." ; gsn:supportedBy rc:M37b .
+    gsn:statement "First module in the cycle." ; gsn:supportedBy rc:M37b ;
+    gsn:contains rc:Arg37a .
+rc:Arg37a a gsn:Argument ; schema:identifier "S37-Arga" ;
+    gsn:statement "Argument of the first module in the cycle." ; gsn:contains rc:G37a .
+rc:G37a a gsn:Goal ; schema:identifier "S37-Ga" ; gsn:statement "First claim in the cycle." .
 rc:M37b a gsn:Module ; schema:identifier "S37-Mb" ;
-    gsn:statement "Second module in the cycle." ; gsn:supportedBy rc:M37c .
+    gsn:statement "Second module in the cycle." ; gsn:supportedBy rc:M37c ;
+    gsn:contains rc:Arg37b .
+rc:Arg37b a gsn:Argument ; schema:identifier "S37-Argb" ;
+    gsn:statement "Argument of the second module in the cycle." ; gsn:contains rc:G37b .
+rc:G37b a gsn:Goal ; schema:identifier "S37-Gb" ; gsn:statement "Second claim in the cycle." .
 rc:M37c a gsn:Module ; schema:identifier "S37-Mc" ;
-    gsn:statement "Third module in the cycle." ; gsn:supportedBy rc:M37a .
+    gsn:statement "Third module in the cycle." ; gsn:supportedBy rc:M37a ;
+    gsn:contains rc:Arg37c .
+rc:Arg37c a gsn:Argument ; schema:identifier "S37-Argc" ;
+    gsn:statement "Argument of the third module in the cycle." ; gsn:contains rc:G37c .
+rc:G37c a gsn:Goal ; schema:identifier "S37-Gc" ; gsn:statement "Third claim in the cycle." .
 
 
 ###  S43  Goal-Strategy Confidence - a claim point below a strategy, propagated upwards
@@ -307,14 +342,126 @@ rc:R45 a gsn:RelationshipWithConfidence ; schema:identifier "S45-R" ;
     gsn:assuranceClaimPoint true ; gsn:associatedWith rc:ConfArg45 .
 
 
-###  S51  Challenge Chain Invalidation - a challenge levied at a support link itself
+###  S51  Challenge Chain Invalidation - a challenge levied at one of several support links
+###  The parent has two supporting goals, so the inference is composite and the challenge below
+###  reaches only part of it. That is the situation 1:6.3.12 says requires a strategy.
 
 rc:G51parent a gsn:Goal ; schema:identifier "S51-Gparent" ;
-    gsn:statement "The mitigation is effective." ; gsn:supportedBy rc:G51child .
+    gsn:statement "The mitigation is effective." ;
+    gsn:supportedBy rc:G51child , rc:G51sibling .
 rc:G51child a gsn:Goal ; schema:identifier "S51-Gchild" ;
     gsn:statement "The mitigation was tested." .
+rc:G51sibling a gsn:Goal ; schema:identifier "S51-Gsibling" ;
+    gsn:statement "The mitigation is deployed on every affected unit." .
 rc:R51 a gsn:Relationship ; schema:identifier "S51-R" ;
     rdf:subject rc:G51parent ; rdf:predicate gsn:supportedBy ; rdf:object rc:G51child .
 rc:D51 a gsn:Goal ; schema:identifier "S51-D" ;
     gsn:statement "Testing the mitigation does not establish that it is effective." ;
     gsn:true true ; gsn:challenges rc:R51 .
+
+
+###  S54  Nested Module Membership - a module inside a module
+
+rc:M54outer a gsn:Module ; schema:identifier "S54-Mouter" ;
+    gsn:statement "The enclosing module." ;
+    gsn:contains rc:M54inner , rc:Arg54outer .
+rc:Arg54outer a gsn:Argument ; schema:identifier "S54-Argouter" ;
+    gsn:statement "Argument of the enclosing module." ;
+    gsn:contains rc:G54outer .
+rc:G54outer a gsn:Goal ; schema:identifier "S54-Gouter" ;
+    gsn:statement "The enclosing claim." .
+rc:M54inner a gsn:Module ; schema:identifier "S54-Minner" ;
+    gsn:statement "The nested module." ;
+    gsn:contains rc:Arg54inner .
+rc:Arg54inner a gsn:Argument ; schema:identifier "S54-Arginner" ;
+    gsn:statement "Argument of the nested module." ;
+    gsn:contains rc:G54inner .
+rc:G54inner a gsn:Goal ; schema:identifier "S54-Ginner" ;
+    gsn:statement "The nested claim." .
+
+# S54's premise, given so it can be exercised alone. The outer memberships are deliberately
+# absent: deriving them is what S53 and S54 are being tested for.
+rc:G54inner gsn:inModule rc:M54inner .
+
+
+#################################################################
+#    Module membership, given rather than authored
+#
+#    gsn:inModule is derived: rule S53 reads it off Module -> Argument -> element, and S54
+#    carries it up through nested modules. Every other rule of the Modular Extension consumes
+#    it in a single atom.
+#
+#    tools/query_check.py verifies each rule against a fresh store, so a rule whose premise
+#    another rule derives would never fire and would look broken. These are the facts S53 and
+#    S54 produce from the two fixtures, stated here so that the fourteen rules that depend on
+#    them can each be exercised alone. tools/run_rules.py derives the same set for itself and
+#    adds nothing, which is the check that this block has not drifted.
+#################################################################
+
+
+ex:A1 gsn:inModule ex:M1 .
+ex:C1 gsn:inModule ex:M1 .
+ex:C2 gsn:inModule ex:M1 .
+ex:G1 gsn:inModule ex:M1 .
+ex:G1_1 gsn:inModule ex:M1 .
+ex:G1_2 gsn:inModule ex:M1 .
+ex:G1_3 gsn:inModule ex:M1 .
+ex:J1 gsn:inModule ex:M1 .
+ex:Sn1 gsn:inModule ex:M1 .
+ex:Sn2 gsn:inModule ex:M1 .
+ex:Sn3 gsn:inModule ex:M1 .
+ex:St1 gsn:inModule ex:M1 .
+
+ex:C3 gsn:inModule ex:M2 .
+ex:G2 gsn:inModule ex:M2 .
+ex:Sn4 gsn:inModule ex:M2 .
+
+ex:G3 gsn:inModule ex:M3 .
+
+ex:D1 gsn:inModule ex:M4 .
+ex:D2 gsn:inModule ex:M4 .
+ex:Orphan1 gsn:inModule ex:M4 .
+ex:X1 gsn:inModule ex:M4 .
+ex:X2 gsn:inModule ex:M4 .
+
+rc:G26 gsn:inModule rc:M26contract .
+rc:G27 gsn:inModule rc:M26contract .
+
+rc:G26target gsn:inModule rc:M26other .
+
+rc:G28 gsn:inModule rc:M28 .
+
+rc:G29away gsn:inModule rc:M29a .
+
+rc:G29home gsn:inModule rc:M29b .
+
+rc:G30 gsn:inModule rc:M30a .
+
+rc:G30supplier gsn:inModule rc:M30b .
+
+rc:G31 gsn:inModule rc:M31 .
+rc:G31support gsn:inModule rc:M31 .
+
+rc:G37a gsn:inModule rc:M37a .
+
+rc:G37b gsn:inModule rc:M37b .
+
+rc:G37c gsn:inModule rc:M37c .
+
+
+
+
+###  S41  Duplicate Name Invalidation - the same identifier in two different arguments
+###  S25 cannot reach this: it only looks within one module. Identifiers are unique within an
+###  argument, and an element of a nested argument is expected to carry a qualified identifier
+###  built from its argument's prefix. Two bare "G-1"s in different arguments are that
+###  qualification not having been done.
+
+rc:Arg41a a gsn:Argument ; schema:identifier "S41-Arga" ;
+    gsn:statement "First argument." ; gsn:contains rc:G41a .
+rc:Arg41b a gsn:Argument ; schema:identifier "S41-Argb" ;
+    gsn:statement "Second argument." ; gsn:contains rc:G41b .
+rc:G41a a gsn:Goal ; schema:identifier "G-1" ;
+    gsn:statement "A claim in the first argument." .
+rc:G41b a gsn:Goal ; schema:identifier "G-1" ;
+    gsn:statement "An unrelated claim in the second argument, sharing an identifier." .

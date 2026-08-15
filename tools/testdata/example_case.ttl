@@ -53,27 +53,29 @@ ex:ConfArg1 a gsn:Argument ;
     gsn:argumentType "confidence" ;
     gsn:structured true .
 
+# A module contains arguments and other modules, never elements directly; the elements are
+# reached through the argument. gsn:inModule, derived by rules S52 and S53, is the one-hop
+# form of that traversal.
 ex:M1 a gsn:Module ;
     schema:identifier "M1" ;
     rdfs:label "Perception module"@en ;
     gsn:statement "The argument for the perception subsystem itself." ;
     gsn:contract false ;
-    gsn:contains ex:Arg1 , ex:G1 , ex:G1_1 , ex:G1_2 , ex:G1_3 , ex:St1 ,
-                 ex:C1 , ex:C2 , ex:A1 , ex:J1 , ex:Sn1 , ex:Sn2 , ex:Sn3 .
+    gsn:contains ex:Arg1 .
 
 ex:M2 a gsn:Module ;
     schema:identifier "M2" ;
     rdfs:label "Sensor platform module"@en ;
     gsn:statement "The argument for the sensor platform the perception subsystem runs on." ;
     gsn:contract false ;
-    gsn:contains ex:Arg2 , ex:G2 , ex:C3 , ex:Sn4 .
+    gsn:contains ex:Arg2 .
 
 ex:M3 a gsn:Module ;
     schema:identifier "M3" ;
     rdfs:label "Perception / platform contract"@en ;
     gsn:statement "The contract between the perception argument and the platform argument." ;
     gsn:contract true ;
-    gsn:contains ex:Arg3 , ex:G3 .
+    gsn:contains ex:Arg3 .
 
 ex:Arg2 a gsn:Argument ;
     schema:identifier "Arg2" ;
@@ -140,7 +142,10 @@ ex:G1_3 a gsn:Goal ;
     gsn:statement "Sensor degradation is detected within the allocated fault detection interval." ;
     gsn:top false ;
     gsn:valid true ;
-    gsn:undeveloped true ;
+    # not gsn:undeveloped true: the two are owl:propertyDisjointWith, and in GSN the
+    # to-be-supported-by-contract decorator replaces the undeveloped diamond rather than
+    # accompanying it
+    gsn:undeveloped false ;
     gsn:toBeSupportedByContract true ;
     gsn:instantiationOf ex:P1 ;
     gsn:uninstantiated true ;
@@ -330,7 +335,18 @@ ex:IDR1 a gsn:InstantiationDataReference ;
     rdfs:label "Sensor register"@en ;
     gsn:attachedTo ex:T1 .
 
+# The instantiation-data triangle attaches to the element the template argument sits below,
+# not only to the template as a whole. IDR1 above is the whole-template case; this is the
+# per-element one, and it is the case gsn:attachedTo's range has to admit.
+ex:IDR2 a gsn:InstantiationDataReference ;
+    schema:identifier "IDR2" ;
+    rdfs:label "Detection interval for the named sensor"@en ;
+    gsn:attachedTo ex:G1_1 .
+
 # Relationship decorators: the pattern's support is optional and may be repeated.
+# The cardinalities here are written as a bare 1 and 4, which is what a person types and
+# what parses as xsd:integer. R_G1_2_Sn3 below carries the canonical xsd:nonNegativeInteger
+# form of the same thing, so the shape is tested against both spellings.
 ex:R_St1_G1_3 a gsn:Relationship ;
     schema:identifier "R-St1-G1.3" ;
     rdf:subject ex:St1 ;
@@ -342,6 +358,9 @@ ex:R_St1_G1_3 a gsn:Relationship ;
     gsn:minCardinality 1 ;
     gsn:maxCardinality 4 ;
     gsn:valid true .
+
+ex:R_G1_2_Sn3 gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    gsn:maxCardinality "2"^^xsd:nonNegativeInteger .
 
 
 ex:R_G1_2_Sn3 a gsn:Relationship ;
@@ -435,7 +454,7 @@ ex:M4 a gsn:Module ;
     rdfs:label "Quarantine module"@en ;
     gsn:statement "Holds material that has not been reconciled with the main argument." ;
     gsn:contract false ;
-    gsn:contains ex:Arg4 , ex:D1 , ex:D2 , ex:X1 , ex:X2 , ex:Orphan1 .
+    gsn:contains ex:Arg4 .
 
 ex:Arg4 a gsn:Argument ;
     schema:identifier "Arg4" ;
