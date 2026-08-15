@@ -22,7 +22,6 @@ from rdflib import Graph, Namespace, RDF
 from rdflib.namespace import OWL
 
 import matching
-import prov_migrate
 import shapes_model
 import ttl_model
 
@@ -67,7 +66,7 @@ def check_statements(graph, findings):
         by_text.setdefault(prefix + rule["dl"], []).append(rule)
     by_key = {}
     for record in inventory + rules:
-        by_key.setdefault(prov_migrate.structural_key(record), []).append(record)
+        by_key.setdefault(matching.structural_key(record), []).append(record)
 
     used, counts = set(), {}
     for statement in graph.subjects(RDF.type, P.StatementRecord):
@@ -218,7 +217,7 @@ def main():
 
     graph = load()
     if not len(graph):
-        sys.exit("no provenance graph found - run tools/prov_migrate.py first")
+        sys.exit(f"no provenance graph found in {PROV_DIR}")
 
     findings = []
     decisions = (len(set(graph.subjects(RDF.type, P.DesignDecision))) +

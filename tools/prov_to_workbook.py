@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 """Generate the human-readable design documentation from the provenance graph.
 
-    python tools/prov_to_workbook.py                  # write provenance/Design Documentation.xlsx
-    python tools/prov_to_workbook.py --verify         # also diff it against the old workbook
+    python tools/prov_to_workbook.py     # write provenance/Design Documentation.xlsx
 
 The provenance Turtle is the source of truth; this workbook is a view of it, for people
 who would rather read a spreadsheet than a graph. Nothing reads it back.
-
-`--verify` compares the generated sheet against 'OntoGSN Design Document.xlsx' cell by
-cell. It exists to prove the migration lost nothing before the old file is deleted, and it
-is expected to report zero differences.
 """
 import argparse
 import os
@@ -99,54 +94,9 @@ def rows_from(graph):
     return live, archived
 
 
-def compare(generated, original):
-    """-> list of (row_key, column, generated value, original value)."""
-    from openpyxl import load_workbook
-
-    def sheet(path, name):
-        book = load_workbook(path, data_only=True)
-        if name not in book.sheetnames:
-            return {}, []
-        work = book[name]
-        header = [c.value for c in work[1]]
-        out = {}
-        for values in work.iter_rows(min_row=2, values_only=True):
-            if not any(values):
-                continue
-            row = {h: ("" if v is None else str(v))
-                   for h, v in zip(header, values) if h}
-            out[row["uid"]] = row
-        return out, header
-
-    problems = []
-    for name in (workbook_io.LIVE_SHEET, workbook_io.ARCHIVE_SHEET):
-        new, header = sheet(generated, name)
-        old, old_header = sheet(original, name)
-        if header != old_header:
-            problems.append(("-", "HEADER", str(header), str(old_header)))
-        for uid in sorted(set(old) | set(new)):
-            if uid not in new:
-                problems.append((uid, name, "MISSING", "present"))
-                continue
-            if uid not in old:
-                problems.append((uid, name, "present", "MISSING"))
-                continue
-            for column in old_header:
-                if not column:
-                    continue
-                a, b = new[uid].get(column, ""), old[uid].get(column, "")
-                if a != b:
-                    problems.append((uid, column, a, b))
-    return problems
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
-    ap.add_argument("--verify", action="store_true",
-                    help="diff the result against OntoGSN Design Document.xlsx")
-    ap.add_argument("--against", default=workbook_io.WORKBOOK)
-    ap.add_argument("--show", type=int, default=20)
     args = ap.parse_args()
 
     graph = load()
@@ -160,27 +110,6 @@ def main():
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     workbook_io.write(args.out, live, archived, orphans)
     print(f"wrote {args.out} ({os.path.getsize(args.out):,} bytes)")
-
-    if not args.verify:
-        return
-    if not os.path.exists(args.against):
-        # the workbook this was migrated from has been removed, which was the point
-        print(f"\nnothing to verify against: {os.path.basename(args.against)} is gone. "
-              f"The provenance graph is now the only record.")
-        return
-    problems = compare(args.out, args.against)
-    if not problems:
-        print(f"\nverified against {os.path.basename(args.against)}: "
-              f"{len(live) + len(archived)} rows, no differences")
-        return
-    print(f"\n{len(problems)} differences against {os.path.basename(args.against)}:")
-    for uid, column, new, old in problems[:args.show]:
-        print(f"  {uid}  {column}")
-        print(f"     generated: {new[:110]!r}")
-        print(f"     original : {old[:110]!r}")
-    if len(problems) > args.show:
-        print(f"  ... and {len(problems) - args.show} more")
-    sys.exit(1)
 
 
 if __name__ == "__main__":

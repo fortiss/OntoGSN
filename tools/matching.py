@@ -284,8 +284,44 @@ def match_rows(rows, statements, rules):
 
 
 def load_and_match(rows, ttl_path=None):
-    """The workbook documents both the ontology and the SHACL shapes derived from it,
+    """The record documents both the ontology and the SHACL shapes derived from it,
     so a row may point at either graph."""
     _, statements, rules = ttl_model.inventory(ttl_path)
     _, shapes = shapes_model.inventory()
     return match_rows(rows, statements + shapes, rules)
+
+
+# --- identity -----------------------------------------------------------------
+# Matching above answers "which record does this rendering describe?". The two below
+# answer "what do I call that record, and which terms does it name?" - the identity a
+# provenance decision stores, and the IRIs it links to. prov_add.py and prov_check.py
+# both need them, so they live here rather than in either.
+
+QNAME_RE = re.compile(r"\b(gsn|gsnsh):([A-Za-z][A-Za-z0-9_]*)")
+PREDICATE_RE = re.compile(r"\b([A-Za-z][A-Za-z0-9_]*)\s*\(")
+
+
+def structural_key(record):
+    """The blank-node-free identity of whatever a decision points at.
+
+    Three shapes, because the three inventories key differently: an axiom by subject /
+    predicate / object, a SHACL unit by shape / kind / discriminator, and a rule by its
+    name (S1 ... S52), which is unique across the rule set.
+    """
+    if "dl" in record:
+        return "rule|" + (record.get("label") or record["dl"][:40])
+    return "|".join(str(part) for part in record["key"])
+
+
+def terms_in(text, known):
+    """Every ontology or shapes term the statement names.
+
+    Turtle spells them with a prefix; SWRL's DL syntax does not, so bare predicate names
+    are admitted only when the ontology actually declares them - otherwise every variable
+    and built-in would be reported as a term.
+    """
+    found = {f"{prefix}:{local}" for prefix, local in QNAME_RE.findall(text)}
+    for name in PREDICATE_RE.findall(text):
+        if name in known:
+            found.add("gsn:" + name)
+    return sorted(found)

@@ -1,0 +1,20 @@
+# Exact versions the checks are known to pass with.
+#
+#     pip install -r tools/requirements.txt -c tools/constraints.txt
+#
+# requirements.txt says what is needed and stays readable; this file says which build was
+# verified. The distinction matters here more than in most repositories: check_all.py
+# compares generated files byte for byte, so a serializer that changes its whitespace or
+# its ordering makes a derived file look stale when nothing about the ontology moved. Left
+# unpinned, an upstream release could turn CI red for a reason that has nothing to do with
+# the change under review.
+#
+# To move to newer versions: bump them here, regenerate, and commit the result. If a
+# derived file changes, that is the serializer talking, and it belongs in its own commit.
+rdflib==7.1.3
+pyparsing==3.1.1
+openpyxl==3.1.5
+et-xmlfile==1.1.0
+pyoxigraph==0.5.9
+pyshacl==0.30.0
+owlready2==0.47

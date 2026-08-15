@@ -57,8 +57,10 @@ CHECKS = [
      "gating": False,
      # the record describes the ontology, the shapes and the stored queries, so a change
      # to any of them can invalidate it
+     # "provenance/" also covers 'Competency Questions.xlsx', which lives there and is
+     # the input prov_augment.py reads
      "triggers": ("provenance/", "serializations/ontogsn.ttl", "shapes/",
-                  "queries/", "OntoGSN Competency Questions.xlsx")},
+                  "queries/")},
 ]
 
 

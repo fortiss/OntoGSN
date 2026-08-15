@@ -1,17 +1,15 @@
 # -*- coding: utf-8 -*-
-"""Read and write 'OntoGSN Design Document.xlsx' with consistent columns and styling.
+"""One definition of the design workbook's columns and styling.
 
-Shared by build_workbook.py (bootstrap) and archive_rows.py (ongoing maintenance) so
-the workbook has exactly one layout definition.
+Used by prov_to_workbook.py to write provenance/Design Documentation.xlsx. The layout
+outlives the workbook it was first written for: the hand-maintained
+'OntoGSN Design Document.xlsx' was retired once the provenance graph became the source
+of truth, and the sheet is now generated from that graph, keeping the same columns so a
+reader who knew the old file still recognises this one.
 """
-import os
-
-from openpyxl import Workbook, load_workbook
+from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
-
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-WORKBOOK = os.path.join(REPO, "OntoGSN Design Document.xlsx")
 
 LIVE_SHEET = "All rows"
 ARCHIVE_SHEET = "Archive"
@@ -36,28 +34,6 @@ WIDTH = {"uid": 10, "row_key": 12, "part": 13, "section": 20, "language": 10,
 
 HEADER_FONT = Font(color="FFFFFF", bold=True, size=10)
 BODY_FONT = Font(size=9)
-
-
-def read(path=WORKBOOK):
-    """-> (live rows, archived rows) as lists of dicts, in sheet order."""
-    wb = load_workbook(path, data_only=True)
-    out = {}
-    for name in (LIVE_SHEET, ARCHIVE_SHEET):
-        rows = []
-        if name in wb.sheetnames:
-            ws = wb[name]
-            header = [c.value for c in ws[1]]
-            for values in ws.iter_rows(min_row=2, values_only=True):
-                if not any(values):
-                    continue
-                row = {h: ("" if v is None else str(v))
-                       for h, v in zip(header, values) if h}
-                # which sheet a row sits on is the authority on whether it is retired;
-                # struck_through only records the original Word formatting
-                row["_archived"] = (name == ARCHIVE_SHEET)
-                rows.append(row)
-        out[name] = rows
-    return out[LIVE_SHEET], out[ARCHIVE_SHEET]
 
 
 def _sheet(wb, title, rows, columns, header_colour):

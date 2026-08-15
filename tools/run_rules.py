@@ -72,7 +72,7 @@ def main():
     try:
         import pyoxigraph
     except ImportError:
-        sys.exit("pyoxigraph is not installed - pip install -r requirements.txt")
+        sys.exit("pyoxigraph is not installed - pip install -r tools/requirements.txt")
 
     inputs = args.inputs or sorted(glob.glob(os.path.join(TESTDATA, "*.ttl")))
     if not inputs:
@@ -149,7 +149,9 @@ def main():
 
     if args.out:
         with io.open(args.out, "wb") as fh:
-            store.dump(fh, format=pyoxigraph.RdfFormat.TURTLE)
+            # from_graph is required: a Store is a dataset, and Turtle cannot carry one
+            store.dump(fh, format=pyoxigraph.RdfFormat.TURTLE,
+                       from_graph=pyoxigraph.DefaultGraph())
         print(f"\nwrote {args.out}")
 
 

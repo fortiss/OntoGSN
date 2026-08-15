@@ -30,7 +30,6 @@ from rdflib.namespace import SKOS
 import matching
 import nl
 import prov_check
-import prov_migrate
 import prov_ttl
 import shapes_model
 import ttl_model
@@ -83,6 +82,14 @@ def orphans():
     return graph, out
 
 
+def release_node(graph, path):
+    """The gsnprov:FormalGraph recording the file at path, as a prefixed name."""
+    for node in graph.subjects(RDF.type, P.FormalGraph):
+        if str(graph.value(node, P.path)) == path:
+            return "gsnprov:" + str(node).rsplit("#", 1)[-1]
+    raise SystemExit("no release node recorded for " + path)
+
+
 def draft(graph, record, labels, uid, position, section_iri, part_iri, known):
     text = record.get("ttl") or ("# " + record["label"] + "\n" + record["dl"]
                                  if record.get("label") else record.get("dl", ""))
@@ -115,22 +122,25 @@ def draft(graph, record, labels, uid, position, section_iri, part_iri, known):
              ("gsnprov:nlWrittenFor", [Lit(matching.checksum(text))]),
              ("prov:generated", [statement])]
 
-    in_graph = "gsnprov:shapes-1.0.0" if text.startswith("gsnsh:") else \
-               "gsnprov:ontology-1.2.2"
+    # Looked up, not hardcoded. The release node carries its version in its IRI, so it is
+    # renamed at every release; a literal here goes stale silently and points new records at
+    # a graph that no longer exists.
+    in_graph = release_node(graph, "shapes/ontogsn-shapes_0_full.ttl"
+                            if text.startswith("gsnsh:") else "serializations/ontogsn.ttl")
     st_pairs = [("a", ["gsnprov:StatementRecord"]),
                 ("prov:wasGeneratedBy", [decision]),
                 ("gsnprov:inGraph", [in_graph]),
                 ("gsnprov:statementText", [Lit(text)]),
                 ("gsnprov:statementChecksum", [Lit(matching.checksum(text))]),
                 ("gsnprov:structuralKey",
-                 [Lit(prov_migrate.structural_key(record))])]
+                 [Lit(matching.structural_key(record))])]
     if is_rule and record.get("label"):
         st_pairs.append(("gsnprov:ruleName", [Lit(record["label"])]))
     if is_shape:
         st_pairs.append(("gsnprov:aboutTerm", [record["shape"]]))
     elif not is_rule and isinstance(record.get("s"), ttl_model.URIRef):
         st_pairs.append(("gsnprov:aboutTerm", [ttl_model.qname(record["s"])]))
-    mentions = prov_migrate.terms_in(text, known)
+    mentions = matching.terms_in(text, known)
     if mentions:
         st_pairs.append(("gsnprov:mentionsTerm", mentions))
 

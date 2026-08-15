@@ -11,7 +11,14 @@ adding a query or rebuilding a serialization.
 The point is to make the chains explicit and therefore checkable:
 
     requirement -> competency question -> query -> the ontology terms it names
+                                               -> the axioms it rests on or translates
     ontogsn.ttl -> build.py -> ontogsn.rdf, ontogsn.jsonld
+
+The second query chain reaches into the hand-maintained record: a query points at the
+StatementRecord of an axiom, and that record carries the design decision, the rationale
+and the passage of the standard behind it. So this script reads
+ontogsn-provenance-data.ttl as well as the repository - it cannot point at a decision
+without knowing which decisions exist.
 
 The query chain is what this caught first: every stored query used to bind gsn: to a
 namespace the ontology does not use, which returns nothing at all and says nothing about
@@ -36,8 +43,15 @@ from prov_ttl import Lit
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(REPO, "provenance", "ontogsn-provenance-augmentations.ttl")
-CQ_WORKBOOK = os.path.join(REPO, "OntoGSN Competency Questions.xlsx")
+RECORD = os.path.join(REPO, "provenance", "ontogsn-provenance-data.ttl")
+CQ_WORKBOOK = os.path.join(REPO, "provenance", "Competency Questions.xlsx")
 QUERY_DIR = os.path.join(REPO, "queries")
+
+PROV_NS = "https://w3id.org/OntoGSN/provenance#"
+# the structural keys that declare a term to exist, as opposed to constraining one that
+# already does - see statement_index
+DECLARING = ("Class", "ObjectProperty", "DatatypeProperty", "AnnotationProperty",
+             "Datatype")
 
 ONTOLOGY_NS = "https://w3id.org/OntoGSN/ontology#"
 SHAPES_NS = "https://w3id.org/OntoGSN/shapes#"
@@ -68,8 +82,12 @@ def file_block(iri, path, extra=()):
 
 
 def declared_version(path):
+    # The whole file, not a fixed window. owl:versionInfo sits wherever the ontology header
+    # happens to put it, and adding one prefix line was enough to push it past a 4000-character
+    # read - at which point every slice was reported as stale against an ontology of "unknown"
+    # version, which reads as a real finding and is not one.
     with open(path, encoding="utf-8", errors="replace") as fh:
-        match = VERSION_RE.search(fh.read(4000))
+        match = VERSION_RE.search(fh.read())
     return match.group(1) if match else None
 
 
@@ -79,6 +97,41 @@ def read_sheet(book, name):
     return [{h: ("" if v is None else str(v).strip())
              for h, v in zip(header, values) if h}
             for values in work.iter_rows(min_row=2, values_only=True) if any(values)]
+
+
+def statement_index():
+    """The record, indexed the two ways a query needs to reach into it.
+
+    -> (rule name -> statement, term -> [statements declaring it])
+
+    Both are looked up in the hand-maintained record rather than recomputed from the
+    ontology, because the point of the link is to reach a design decision. A statement
+    record is what carries one; the axiom in ontogsn.ttl does not.
+
+    The declaring axiom is the one that says a term exists at all - 'Goal a Class',
+    'supportedBy a ObjectProperty'. Everything else said about a term constrains
+    something already declared, and a query does not rest on those the same way: it
+    rests on the term being a thing it can ask about.
+    """
+    from rdflib import Graph, Namespace
+
+    P = Namespace(PROV_NS)
+    graph = Graph()
+    graph.parse(RECORD, format="turtle")
+
+    def qname(iri):
+        return "gsnprov:" + str(iri)[len(PROV_NS):]
+
+    by_rule = {str(name): qname(st) for st, name in graph.subject_objects(P.ruleName)}
+
+    by_term = {}
+    for st, key in graph.subject_objects(P.structuralKey):
+        parts = str(key).split("|")
+        if len(parts) == 3 and parts[1] == "a" and parts[2] in DECLARING:
+            by_term.setdefault(parts[0], []).append(qname(st))
+    # two ontology terms can share a rendering, so a term may resolve to more than one
+    # record; sorted, because this file has to come out the same way twice
+    return by_rule, {term: sorted(set(sts)) for term, sts in by_term.items()}
 
 
 def main():
@@ -137,14 +190,22 @@ def main():
 
     # --- stored queries -------------------------------------------------------------
     paths = sorted(glob.glob(os.path.join(QUERY_DIR, "**", "*.rq"), recursive=True))
+    by_rule, by_term = statement_index()
     blocks.append(prov_ttl.header(
         f"Stored queries ({len(paths)})",
         "gsnprov:declaresNamespace records what each file binds its prefixes to, which is\n"
         "how a query pointing at the wrong namespace becomes findable.\n\n"
-        "The files under queries/rules/ are the SWRL rules as SPARQL. They answer no\n"
-        "competency question; gsnprov:ruleName joins them to the rule in the ontology,\n"
-        "which is the same key the SWRL workbook's 'Example label' column uses."))
+        "gsnprov:queryText holds the query verbatim, so the record says what was asked at\n"
+        "a given version without the file having to still exist. gsnprov:fileChecksum is\n"
+        "what detects that it changed.\n\n"
+        "Two links reach back into the ontology, and they are not the same strength.\n"
+        "gsnprov:translatesStatement is an exact correspondence: the files under\n"
+        "queries/rules/ ARE the SWRL rules, re-expressed for a store with no reasoner, and\n"
+        "the join is the rule's name. gsnprov:restsOnStatement is weaker and derived: the\n"
+        "axiom declaring each gsn: term the query names. Either way the target is a\n"
+        "StatementRecord, so one hop further reaches why that axiom exists at all."))
     unanswered = dict(by_query)
+    unjoined = []
     for path in paths:
         name = os.path.relpath(path, QUERY_DIR).replace(os.sep, "/")
         with open(path, encoding="utf-8", errors="replace") as fh:
@@ -155,6 +216,7 @@ def main():
                            if local in known})
         pairs = [("a", ["gsnprov:Query"]),
                  ("rdfs:label", [Lit(name, lang="en")]),
+                 ("gsnprov:formalism", ["gsnprov:SPARQL"]),
                  ("gsnprov:path", [Lit(rel(path))]),
                  ("gsnprov:fileChecksum", [Lit(sha256(path))])]
         if namespaces:
@@ -163,9 +225,21 @@ def main():
             pairs.append(("gsnprov:mentionsTerm", mentions))
         rule = re.search(r"(?m)^#\s+name:\s+(.*)$", body)
         if name.startswith("rules/") and rule:
-            pairs.append(("gsnprov:ruleName", [Lit(rule.group(1).strip())]))
+            rule_name = rule.group(1).strip()
+            pairs.append(("gsnprov:ruleName", [Lit(rule_name)]))
+            # the rule this file carries out, as the ontology states it. Missing only if
+            # the rule was renamed on one side and not the other, which is worth seeing.
+            if rule_name in by_rule:
+                pairs.append(("gsnprov:translatesStatement", [by_rule[rule_name]]))
+            else:
+                unjoined.append((name, rule_name))
+        rests = sorted({st for term in mentions
+                        for st in by_term.get(term.split(":", 1)[1], [])})
+        if rests:
+            pairs.append(("gsnprov:restsOnStatement", rests))
         for question in by_query.get(name, []):
             pairs.append(("gsnprov:answersQuestion", [question]))
+        pairs.append(("gsnprov:queryText", [Lit(body)]))
         unanswered.pop(name, None)
         blocks.append((f"gsnprov:query-{slug(name[:-3])}", pairs))
 
@@ -287,6 +361,13 @@ def main():
               f"not exist:")
         for name, who in sorted(unanswered.items()):
             print(f"  {name}  (cited by {', '.join(w.split(':')[-1] for w in who)})")
+    if unjoined:
+        # a rule with no record is either a rule nobody documented or a rename that
+        # happened on one side only. Both need a person, so say so rather than dropping
+        # the link silently.
+        print(f"\n{len(unjoined)} rule queries name a rule with no statement record:")
+        for name, rule_name in sorted(unjoined):
+            print(f"  {name}  ->  {rule_name!r}")
     print(f"\nwrote {args.out} ({os.path.getsize(args.out):,} bytes)")
 
 

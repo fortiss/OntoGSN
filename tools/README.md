@@ -4,7 +4,7 @@ Keeps the ontology, the shapes, the derived serializations and the provenance re
 honest against each other.
 
 ```bash
-pip install -r requirements.txt
+pip install -r tools/requirements.txt -c tools/constraints.txt
 python tools/check_all.py            # is everything current and consistent?
 python tools/check_all.py --strict   # exit 1 if any derived file is out of date
 ```
@@ -47,6 +47,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `shapes/ontogsn-shapes_[1-5]*.ttl` | the five SHACL sections |
 | `provenance/ontogsn-provenance.ttl` | the provenance vocabulary |
 | `provenance/ontogsn-provenance-data.ttl` | **the design record** — ~36,000 words of quoted standard passages, rationale and prose that exist nowhere else |
+| `provenance/Competency Questions.xlsx` | the questions `queries/` answers |
 | `queries/*.rq` | the stored CRUD queries, one per competency question |
 | `queries/rules/*.rq` | the 51 SWRL rules as SPARQL updates |
 | `tools/testdata/*.ttl` | the example ABox, and one trigger per rule |
@@ -56,7 +57,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `serializations/ontogsn.{rdf,jsonld}` | `ontogsn.ttl` | `serializations/build.py` |
 | `serializations/separated/*` (36 files) | `ontogsn.ttl` | `serializations/build_separated.py` |
 | `shapes/ontogsn-shapes_0_full.ttl` | the five sections | `shapes/build_full.py` |
-| `provenance/ontogsn-provenance-augmentations.ttl` | the repo | `tools/prov_augment.py` |
+| `provenance/ontogsn-provenance-augmentations.ttl` | the repo, and the record it links into | `tools/prov_augment.py` |
 | `provenance/ontogsn-provenance-queries.ttl` | `queries/`, the ontology, the fixture | `tools/query_check.py` |
 | `provenance/Design Documentation.xlsx` | the provenance graph | `tools/prov_to_workbook.py` |
 
@@ -74,11 +75,11 @@ prov_add.py        draft a decision for an axiom nobody has documented
 prov_retire.py     retire a decision, or bring it back
 prov_augment.py    rebuild the requirements / questions / queries / build-chain graph
 prov_to_workbook.py  rebuild the readable spreadsheet
-prov_migrate.py    the one-off import from the old workbook. ALREADY RUN.
 prov_ttl.py        deterministic Turtle writer (rdflib's ordering is not stable)
 ttl_model.py       ontogsn.ttl -> a flat inventory of statements and rules
 shapes_model.py    shapes/*.ttl -> a flat inventory of constraints
-matching.py        normalisation, checksums, and which formalism a statement is in
+matching.py        normalisation, checksums, structural keys, and which formalism a
+                   statement is in
 nl.py              a statement -> an English sentence
 past_tense.py      recasts a sentence as history, for a retired decision
 workbook_io.py     one definition of the spreadsheet's columns and styling

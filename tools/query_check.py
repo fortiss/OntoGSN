@@ -429,7 +429,7 @@ def main():
             pyoxigraph = engine_module
             engine = f"pyoxigraph {pyoxigraph.__version__}"
         except ImportError:
-            sys.exit("pyoxigraph is not installed - pip install -r requirements.txt")
+            sys.exit("pyoxigraph is not installed - pip install -r tools/requirements.txt")
 
     reused = 0
     for query in queries:

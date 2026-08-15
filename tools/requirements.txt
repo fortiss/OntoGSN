@@ -1,0 +1,16 @@
+# Everything the maintenance tooling in tools/ and the build scripts need.
+#   pip install -r tools/requirements.txt -c tools/constraints.txt
+#
+# constraints.txt pins the exact versions the checks are known to pass with. Install
+# without it and you get whatever is current, which is fine for using the ontology and
+# risky for regenerating it - see the note in that file.
+rdflib>=7.0
+openpyxl>=3.1
+pyoxigraph>=0.4          # the SPARQL engine tools/query_check.py runs queries/ against
+pyshacl>=0.25            # validates tools/testdata/ against shapes/ (tools/shacl_check.py)
+
+# Only tools/reasoner_check.py needs this, and only it needs a JVM on the PATH: it runs the
+# ontology's SWRL rules through HermiT and compares the result with the SPARQL translations
+# in queries/rules/. Every other check here is pure Python. Install it separately if you do
+# not want the Java dependency - check_all.py does not call it.
+owlready2>=0.46

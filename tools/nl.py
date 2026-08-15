@@ -351,7 +351,7 @@ def labels_of(graph):
 
 
 def rule_sentence(dl, labels):
-    """SWRL in DL syntax -> 'IF … THEN …', matching the style of OntoGSN SWRL Rules.xlsx."""
+    """SWRL in DL syntax -> 'IF … THEN …', the style the rules are described in."""
     def atom(text):
         m = re.match(r"^([\w:]+)\((.+)\)$", text.strip())
         if not m:
