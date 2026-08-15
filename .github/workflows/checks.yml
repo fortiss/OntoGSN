@@ -20,7 +20,10 @@ jobs:
           python-version: '3.12'
           cache: pip
 
-      - run: pip install -r requirements.txt
+      # -c pins the exact versions the derived files were generated with. Without it a new
+      # rdflib could reorder its Turtle output and fail the build for a reason that has
+      # nothing to do with the commit under review.
+      - run: pip install -r tools/requirements.txt -c tools/constraints.txt
 
       # --strict fails the build when a derived file is stale, or when a stored query has
       # not been verified against what is committed. The provenance report runs but does
