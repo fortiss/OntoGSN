@@ -175,11 +175,11 @@ gsnprov:supersededBy rdf:type owl:ObjectProperty ;
 
 ###  https://w3id.org/OntoGSN/provenance#formalism
 gsnprov:formalism rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
-    rdfs:domain gsnprov:DesignDecision ;
     rdfs:range gsnprov:Formalism ;
     rdfs:label "formalism"@en ;
-    skos:definition "The language this decision expressed itself in."@en ;
-    skos:note "On the decision rather than the statement, so that decisions producing no statement can still say which language they declined to work in."@en .
+    skos:definition "The language a decision expressed itself in, or a stored query is written in."@en ;
+    skos:note "On the decision rather than the statement, so that decisions producing no statement can still say which language they declined to work in."@en ;
+    skos:note "Carries no rdfs:domain. It applies to a gsnprov:DesignDecision and to a gsnprov:Query, and those two have nothing in common worth naming - a query is a plan, a decision is an activity. Asserting either one as the domain would make a reasoner type the other as it, which is worse than saying nothing: rdfs:domain licenses an inference, it does not impose a constraint. The intended domain is stated here, and shapes/ is where it would be enforced if it ever needed to be."@en .
 
 ###  https://w3id.org/OntoGSN/provenance#part
 gsnprov:part rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
@@ -222,6 +222,25 @@ gsnprov:answersQuestion rdf:type owl:ObjectProperty ;
     rdfs:range gsnprov:CompetencyQuestion ;
     rdfs:label "answers question"@en ;
     skos:definition "The competency question this query was written to answer."@en .
+
+###  https://w3id.org/OntoGSN/provenance#translatesStatement
+gsnprov:translatesStatement rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnprov:Query ;
+    rdfs:range gsnprov:StatementRecord ;
+    rdfs:label "translates statement"@en ;
+    skos:definition "The axiom of the ontology this query is a re-expression of in SPARQL - for the rule queries, the SWRL rule they carry out."@en ;
+    skos:note "An exact correspondence, not an approximation: one stored update per SWRL rule, joined on the rule's name. It is what makes the two formalisms comparable - the SWRL rule is what the ontology says, the SPARQL update is what a store with no reasoner can run, and this says they are meant to be the same thing. A query that translates a statement inherits that statement's design decision, and with it the passage of the standard behind the rule."@en ;
+    skos:scopeNote "Asserted only where a query re-expresses an axiom. The CRUD queries translate nothing - they ask questions of a case rather than restate what GSN is - and use gsnprov:restsOnStatement instead."@en .
+
+###  https://w3id.org/OntoGSN/provenance#restsOnStatement
+gsnprov:restsOnStatement rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnprov:Query ;
+    rdfs:range gsnprov:StatementRecord ;
+    rdfs:label "rests on statement"@en ;
+    skos:definition "An axiom that has to hold for this query to be answerable - the axiom declaring a term the query uses."@en ;
+    skos:note "Weaker than gsnprov:translatesStatement and derived rather than curated: for every gsn: term the query names, the axiom that declares that term to be a class or a property. It answers 'which part of the ontology is this query standing on, and why does that part exist?' in one hop, because the declaring axiom carries the design decision, the rationale and the passage of the standard."@en ;
+    skos:note "It is deliberately the DECLARATION and not every axiom about the term. A query naming gsn:Goal rests on 'Goal is a class'; it does not rest on every restriction ever written about goals, and linking it to all of them would produce a few thousand edges that say nothing."@en ;
+    skos:note "One term may resolve to more than one declaring record, where two ontology terms share a rendering - dc:description and schema:description both read as 'description a AnnotationProperty'. Both are asserted, since the query rests on whichever the store resolves."@en .
 
 
 #################################################################
@@ -326,6 +345,14 @@ gsnprov:statementText rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
     skos:definition "What the axiom said, verbatim, when the decision was taken."@en ;
     skos:note "EVIDENCE, not identity. Rendered blank-node-free, so it survives re-serialization; it is still text, and text varies in ways that do not matter. Identify by gsnprov:structuralKey."@en .
 
+###  https://w3id.org/OntoGSN/provenance#queryText
+gsnprov:queryText rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsnprov:Query ;
+    rdfs:range xsd:string ;
+    rdfs:label "query text"@en ;
+    skos:definition "The stored query verbatim, header comments and all, as the file held it."@en ;
+    skos:note "The counterpart of gsnprov:statementText, and evidence in the same way: it records what the query said, never which query it is. Identity is gsnprov:path; change is detected by gsnprov:fileChecksum. Held verbatim - including the header, which carries the competency question and the expected outcome - so the record answers what a query asked at a given version without the file having to still exist."@en .
+
 ###  https://w3id.org/OntoGSN/provenance#statementChecksum
 gsnprov:statementChecksum rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain gsnprov:StatementRecord ;
@@ -348,7 +375,7 @@ gsnprov:ruleName rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:range xsd:string ;
     rdfs:label "rule name"@en ;
     skos:definition "The SWRL rule's own name, taken from its rdfs:label in the ontology - 'Assumption Invalidation', 'Cross-Module Support'."@en ;
-    skos:note "This is the join key to OntoGSN SWRL Rules.xlsx, but to its 'Example label' column, NOT to the 'Name' column: that workbook numbers the rules S1 to S52 while the ontology names them descriptively, and nothing in the ontology carries the number."@en .
+    skos:note "The descriptive name is the only identifier a rule carries in the ontology: nothing there records the S1 to S52 numbering the rules were catalogued under. That numbering survives in the file names of queries/rules/, so a rule is joined to its SPARQL translation by name, never by number."@en .
 
 ###  https://w3id.org/OntoGSN/provenance#fileChecksum
 gsnprov:fileChecksum rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
@@ -502,6 +529,9 @@ gsnprov:SHACL rdf:type gsnprov:Formalism ; skos:prefLabel "SHACL" ;
     skos:definition "A SHACL validation constraint."@en .
 gsnprov:RDF   rdf:type gsnprov:Formalism ; skos:prefLabel "RDF" ;
     skos:definition "A namespace declaration - RDF plumbing rather than an axiom."@en .
+gsnprov:SPARQL rdf:type gsnprov:Formalism ; skos:prefLabel "SPARQL" ;
+    skos:definition "A stored SPARQL query or update."@en ;
+    skos:note "The odd one out, and deliberately so. The other formalisms say what an axiom of the ontology is written in; this one says what a query over an assurance case is written in. A query states nothing about GSN - it asks something of a case - so it carries no source passage and generates no statement. It is a member of this vocabulary because a query is still a thing written in a language, and because it lets 'what is written in SPARQL?' be asked the same way as 'what is written in SWRL?'."@en .
 gsnprov:NoFormalism rdf:type gsnprov:Formalism ; skos:prefLabel "(none)" ;
     skos:definition "A deliberate decision to represent nothing."@en ;
     skos:note "Not the absence of a formalism but a decision about one, which is why it is a member of the vocabulary rather than a missing value."@en .
