@@ -1,6 +1,7 @@
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnswrl: <https://w3id.org/OntoGSN/swrl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -61,83 +62,88 @@ gsn:ChallengeChainInvalidation a swrl:Imp ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
             rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsn:D ;
-                    swrl:argument2 gsn:R ;
+                    swrl:argument1 gsnswrl:D ;
+                    swrl:argument2 gsnswrl:R ;
                     swrl:propertyPredicate gsn:challenges ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:IndividualPropertyAtom ;
-                            swrl:argument1 gsn:R ;
-                            swrl:argument2 gsn:G3 ;
+                            swrl:argument1 gsnswrl:R ;
+                            swrl:argument2 gsnswrl:G3 ;
                             swrl:propertyPredicate rdf:subject ] ;
                     rdf:rest [ a swrl:AtomList ;
                             rdf:first [ a swrl:IndividualPropertyAtom ;
-                                    swrl:argument1 gsn:R ;
-                                    swrl:argument2 gsn:G1 ;
+                                    swrl:argument1 gsnswrl:R ;
+                                    swrl:argument2 gsnswrl:G1 ;
                                     swrl:propertyPredicate rdf:object ] ;
                             rdf:rest [ a swrl:AtomList ;
                                     rdf:first [ a swrl:ClassAtom ;
-                                            swrl:argument1 gsn:G1 ;
+                                            swrl:argument1 gsnswrl:G1 ;
                                             swrl:classPredicate gsn:Goal ] ;
                                     rdf:rest [ a swrl:AtomList ;
                                             rdf:first [ a swrl:ClassAtom ;
-                                                    swrl:argument1 gsn:G3 ;
+                                                    swrl:argument1 gsnswrl:G3 ;
                                                     swrl:classPredicate gsn:Goal ] ;
                                             rdf:rest [ a swrl:AtomList ;
                                                     rdf:first [ a swrl:BuiltinAtom ;
-                                                            swrl:arguments ( gsn:G3 gsn:S ) ;
+                                                            swrl:arguments ( gsnswrl:G3 gsnswrl:S ) ;
                                                             swrl:builtin <http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing> ] ;
                                                     rdf:rest [ a swrl:AtomList ;
                                                             rdf:first [ a swrl:ClassAtom ;
-                                                                    swrl:argument1 gsn:G2 ;
+                                                                    swrl:argument1 gsnswrl:G2 ;
                                                                     swrl:classPredicate gsn:Goal ] ;
                                                             rdf:rest [ a swrl:AtomList ;
                                                                     rdf:first [ a swrl:IndividualPropertyAtom ;
-                                                                            swrl:argument1 gsn:G3 ;
-                                                                            swrl:argument2 gsn:G1 ;
+                                                                            swrl:argument1 gsnswrl:G3 ;
+                                                                            swrl:argument2 gsnswrl:G1 ;
                                                                             swrl:propertyPredicate gsn:supportedBy ] ;
                                                                     rdf:rest [ a swrl:AtomList ;
-                                                                            rdf:first [ a swrl:BuiltinAtom ;
-                                                                                    swrl:arguments ( gsn:G1 gsn:G2 ) ;
-                                                                                    swrl:builtin swrlb:notEqual ] ;
-                                                                            rdf:rest () ] ] ] ] ] ] ] ] ] ;
+                                                                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                                                    swrl:argument1 gsnswrl:G3 ;
+                                                                                    swrl:argument2 gsnswrl:G2 ;
+                                                                                    swrl:propertyPredicate gsn:supportedBy ] ;
+                                                                            rdf:rest [ a swrl:AtomList ;
+                                                                                    rdf:first [ a swrl:BuiltinAtom ;
+                                                                                            swrl:arguments ( gsnswrl:G1 gsnswrl:G2 ) ;
+                                                                                            swrl:builtin swrlb:notEqual ] ;
+                                                                                    rdf:rest () ] ] ] ] ] ] ] ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsn:S ;
-                    swrl:argument2 gsn:G2 ;
+                    swrl:argument1 gsnswrl:S ;
+                    swrl:argument2 gsnswrl:G2 ;
                     swrl:propertyPredicate gsn:supportedBy ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:IndividualPropertyAtom ;
-                            swrl:argument1 gsn:G3 ;
-                            swrl:argument2 gsn:S ;
+                            swrl:argument1 gsnswrl:G3 ;
+                            swrl:argument2 gsnswrl:S ;
                             swrl:propertyPredicate gsn:supportedBy ] ;
                     rdf:rest [ a swrl:AtomList ;
                             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                    swrl:argument1 gsn:D ;
+                                    swrl:argument1 gsnswrl:D ;
                                     swrl:argument2 false ;
                                     swrl:propertyPredicate gsn:valid ] ;
                             rdf:rest [ a swrl:AtomList ;
                                     rdf:first [ a swrl:IndividualPropertyAtom ;
-                                            swrl:argument1 gsn:S ;
-                                            swrl:argument2 gsn:G1 ;
+                                            swrl:argument1 gsnswrl:S ;
+                                            swrl:argument2 gsnswrl:G1 ;
                                             swrl:propertyPredicate gsn:supportedBy ] ;
                                     rdf:rest [ a swrl:AtomList ;
                                             rdf:first [ a swrl:IndividualPropertyAtom ;
-                                                    swrl:argument1 gsn:D ;
-                                                    swrl:argument2 gsn:S ;
+                                                    swrl:argument1 gsnswrl:D ;
+                                                    swrl:argument2 gsnswrl:S ;
                                                     swrl:propertyPredicate gsn:challenges ] ;
                                             rdf:rest [ a swrl:AtomList ;
                                                     rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                                            swrl:argument1 gsn:S ;
+                                                            swrl:argument1 gsnswrl:S ;
                                                             swrl:argument2 false ;
                                                             swrl:propertyPredicate gsn:valid ] ;
                                                     rdf:rest [ a swrl:AtomList ;
                                                             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                                                    swrl:argument1 gsn:R ;
+                                                                    swrl:argument1 gsnswrl:R ;
                                                                     swrl:argument2 false ;
                                                                     swrl:propertyPredicate gsn:valid ] ;
                                                             rdf:rest [ a swrl:AtomList ;
                                                                     rdf:first [ a swrl:ClassAtom ;
-                                                                            swrl:argument1 gsn:S ;
+                                                                            swrl:argument1 gsnswrl:S ;
                                                                             swrl:classPredicate gsn:Strategy ] ;
                                                                     rdf:rest () ] ] ] ] ] ] ] ] ;
     gsn:coreOrExtension "Dialectic Extension" .
@@ -147,22 +153,22 @@ gsn:ChallengeDefeat a swrl:Imp ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsn:S ;
+                    swrl:argument1 gsnswrl:S ;
                     swrl:argument2 true ;
                     swrl:propertyPredicate gsn:valid ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:IndividualPropertyAtom ;
-                            swrl:argument1 gsn:S ;
-                            swrl:argument2 gsn:E ;
+                            swrl:argument1 gsnswrl:S ;
+                            swrl:argument2 gsnswrl:E ;
                             swrl:propertyPredicate gsn:challenges ] ;
                     rdf:rest [ a swrl:AtomList ;
                             rdf:first [ a swrl:ClassAtom ;
-                                    swrl:argument1 gsn:S ;
+                                    swrl:argument1 gsnswrl:S ;
                                     swrl:classPredicate gsn:Solution ] ;
                             rdf:rest () ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsn:E ;
+                    swrl:argument1 gsnswrl:E ;
                     swrl:argument2 true ;
                     swrl:propertyPredicate gsn:defeated ] ;
             rdf:rest () ] ;
@@ -173,22 +179,22 @@ gsn:ChallengeDoubt a swrl:Imp ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
             rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsn:G ;
-                    swrl:argument2 gsn:E ;
+                    swrl:argument1 gsnswrl:G ;
+                    swrl:argument2 gsnswrl:E ;
                     swrl:propertyPredicate gsn:challenges ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                            swrl:argument1 gsn:G ;
+                            swrl:argument1 gsnswrl:G ;
                             swrl:argument2 true ;
                             swrl:propertyPredicate gsn:true ] ;
                     rdf:rest [ a swrl:AtomList ;
                             rdf:first [ a swrl:ClassAtom ;
-                                    swrl:argument1 gsn:G ;
+                                    swrl:argument1 gsnswrl:G ;
                                     swrl:classPredicate gsn:Goal ] ;
                             rdf:rest () ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsn:E ;
+                    swrl:argument1 gsnswrl:E ;
                     swrl:argument2 true ;
                     swrl:propertyPredicate gsn:inDoubt ] ;
             rdf:rest () ] ;
@@ -199,29 +205,34 @@ gsn:ChallengeRelationCreation a swrl:Imp ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
             rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsn:A ;
-                    swrl:argument2 gsn:B ;
+                    swrl:argument1 gsnswrl:A ;
+                    swrl:argument2 gsnswrl:B ;
                     swrl:propertyPredicate gsn:challenges ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:BuiltinAtom ;
-                            swrl:arguments ( gsn:B gsn:R ) ;
+                            swrl:arguments ( gsnswrl:B gsnswrl:R ) ;
                             swrl:builtin <http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing> ] ;
                     rdf:rest () ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsn:R ;
-                    swrl:argument2 gsn:A ;
+                    swrl:argument1 gsnswrl:R ;
+                    swrl:argument2 gsnswrl:A ;
                     swrl:propertyPredicate rdf:subject ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:ClassAtom ;
-                            swrl:argument1 gsn:R ;
+                            swrl:argument1 gsnswrl:R ;
                             swrl:classPredicate gsn:Relationship ] ;
                     rdf:rest [ a swrl:AtomList ;
                             rdf:first [ a swrl:IndividualPropertyAtom ;
-                                    swrl:argument1 gsn:R ;
-                                    swrl:argument2 gsn:B ;
+                                    swrl:argument1 gsnswrl:R ;
+                                    swrl:argument2 gsnswrl:B ;
                                     swrl:propertyPredicate rdf:object ] ;
-                            rdf:rest () ] ] ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                            swrl:argument1 gsnswrl:R ;
+                                            swrl:argument2 "dialectic" ;
+                                            swrl:propertyPredicate gsn:relationshipType ] ;
+                                    rdf:rest () ] ] ] ] ;
     gsn:coreOrExtension "Dialectic Extension" .
 
 gsn:DefeatedInvalidation a swrl:Imp ;
@@ -229,13 +240,13 @@ gsn:DefeatedInvalidation a swrl:Imp ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsn:E ;
+                    swrl:argument1 gsnswrl:E ;
                     swrl:argument2 true ;
                     swrl:propertyPredicate gsn:defeated ] ;
             rdf:rest () ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsn:E ;
+                    swrl:argument1 gsnswrl:E ;
                     swrl:argument2 false ;
                     swrl:propertyPredicate gsn:valid ] ;
             rdf:rest () ] ;
@@ -246,13 +257,13 @@ gsn:DefeaterDeclaration a swrl:Imp ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
             rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsn:A ;
-                    swrl:argument2 gsn:B ;
+                    swrl:argument1 gsnswrl:A ;
+                    swrl:argument2 gsnswrl:B ;
                     swrl:propertyPredicate gsn:challenges ] ;
             rdf:rest () ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:ClassAtom ;
-                    swrl:argument1 gsn:A ;
+                    swrl:argument1 gsnswrl:A ;
                     swrl:classPredicate gsn:Defeater ] ;
             rdf:rest () ] ;
     gsn:coreOrExtension "Dialectic Extension" .
@@ -262,27 +273,27 @@ gsn:UndevelopedDefeat a swrl:Imp ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsn:G ;
+                    swrl:argument1 gsnswrl:G ;
                     swrl:argument2 false ;
                     swrl:propertyPredicate gsn:undeveloped ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:IndividualPropertyAtom ;
-                            swrl:argument1 gsn:G ;
-                            swrl:argument2 gsn:E ;
+                            swrl:argument1 gsnswrl:G ;
+                            swrl:argument2 gsnswrl:E ;
                             swrl:propertyPredicate gsn:challenges ] ;
                     rdf:rest [ a swrl:AtomList ;
                             rdf:first [ a swrl:ClassAtom ;
-                                    swrl:argument1 gsn:G ;
+                                    swrl:argument1 gsnswrl:G ;
                                     swrl:classPredicate gsn:Goal ] ;
                             rdf:rest [ a swrl:AtomList ;
                                     rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                            swrl:argument1 gsn:E ;
+                                            swrl:argument1 gsnswrl:E ;
                                             swrl:argument2 true ;
                                             swrl:propertyPredicate gsn:inDoubt ] ;
                                     rdf:rest () ] ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsn:E ;
+                    swrl:argument1 gsnswrl:E ;
                     swrl:argument2 true ;
                     swrl:propertyPredicate gsn:defeated ] ;
             rdf:rest () ] ;
@@ -309,7 +320,7 @@ gsn:renderedAs a owl:AnnotationProperty .
     schema:disclaimer "[Disclaimer from the GSN Community Standard v3.0]: While the authors and the publishers have used reasonable endeavours to ensure that the information and guidance given in this work is correct, all parties must rely on their own skill and judgement when making use of this work and obtain professional or specialist advice before taking, or refraining from, any action on the basis of the content of this work. Neither the authors nor the publishers make any representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to such information and guidance for any purpose, and they will not be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever (including as a result of negligence) arising out of, or in connection with, the use of this work. The views and opinions expressed in this publication are those of the authors and do not necessarily reflect those of their employers, the SCSC1 or other organisations."@en ;
     schema:url "https://w3id.org/OntoGSN/"^^xsd:anyURI ;
     schema:version 3.0 ;
-    owl:versionInfo "1.2.2" ;
+    owl:versionInfo "1.2.3" ;
     skos:definition "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."@en ;
     gsn:coreOrExtension "Dialectic Extension"@en .
 
@@ -327,6 +338,8 @@ gsn:Defeater a owl:Class ;
 
 gsn:Strategy a owl:Class .
 
+gsn:relationshipType a owl:DatatypeProperty .
+
 gsn:true a owl:DatatypeProperty .
 
 gsn:undeveloped a owl:DatatypeProperty .
@@ -342,10 +355,6 @@ gsn:inDoubt a owl:DatatypeProperty ;
     rdfs:range xsd:boolean ;
     skos:definition "The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt."@en ;
     gsn:coreOrExtension "Dialectic Extension"@en .
-
-gsn:D a swrl:Variable .
-
-gsn:G2 a swrl:Variable .
 
 gsn:GSNElement a owl:Class .
 
@@ -363,19 +372,23 @@ gsn:defeated a owl:DatatypeProperty ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
     gsn:renderedAs "cross (‘X’) superimposed on a GSN element or relationship" .
 
-gsn:A a swrl:Variable .
+gsnswrl:D a swrl:Variable .
 
-gsn:B a swrl:Variable .
+gsnswrl:A a swrl:Variable .
+
+gsnswrl:B a swrl:Variable .
+
+gsnswrl:G2 a swrl:Variable .
 
 gsn:supportedBy a owl:ObjectProperty .
 
-gsn:G1 a swrl:Variable .
-
-gsn:G3 a swrl:Variable .
-
 gsn:valid a owl:DatatypeProperty .
 
-gsn:G a swrl:Variable .
+gsnswrl:G1 a swrl:Variable .
+
+gsnswrl:G a swrl:Variable .
+
+gsnswrl:G3 a swrl:Variable .
 
 gsn:Goal a owl:Class .
 
@@ -389,9 +402,9 @@ gsn:challenges a owl:ObjectProperty ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
     gsn:renderedAs "dashed line with an open arrowhead" .
 
-gsn:R a swrl:Variable .
+gsnswrl:E a swrl:Variable .
 
-gsn:E a swrl:Variable .
+gsnswrl:R a swrl:Variable .
 
-gsn:S a swrl:Variable .
+gsnswrl:S a swrl:Variable .
 

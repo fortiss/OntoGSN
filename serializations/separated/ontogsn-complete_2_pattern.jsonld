@@ -2,16 +2,21 @@
   {
     "@id": "_:genid0002",
     "@type": [
-      "http://www.w3.org/2003/11/swrl#AtomList"
+      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
     ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+    "http://www.w3.org/2003/11/swrl#argument1": [
       {
-        "@id": "_:genid0008"
+        "@id": "https://w3id.org/OntoGSN/swrl#B"
       }
     ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+    "http://www.w3.org/2003/11/swrl#argument2": [
       {
-        "@list": []
+        "@id": "https://w3id.org/OntoGSN/swrl#C"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#instantiationOf"
       }
     ]
   },
@@ -22,83 +27,7 @@
     ],
     "http://www.w3.org/2003/11/swrl#argument1": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#argument2": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
-        "@value": false
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#valid"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0004",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#AtomList"
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
-      {
-        "@id": "_:genid0022"
-      }
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
-      {
-        "@id": "_:genid0002"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0005",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#AtomList"
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
-      {
-        "@id": "_:genid0018"
-      }
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
-      {
-        "@id": "_:genid0041"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0006",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
-    ],
-    "http://www.w3.org/2003/11/swrl#argument1": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#R"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#argument2": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
-        "@value": false
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#valid"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0007",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
-    ],
-    "http://www.w3.org/2003/11/swrl#argument1": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#R"
+        "@id": "https://w3id.org/OntoGSN/swrl#R"
       }
     ],
     "http://www.w3.org/2003/11/swrl#argument2": [
@@ -114,163 +43,105 @@
     ]
   },
   {
-    "@id": "_:genid0008",
+    "@id": "_:genid0004",
     "@type": [
-      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
+      "http://www.w3.org/2003/11/swrl#ClassAtom"
     ],
     "http://www.w3.org/2003/11/swrl#argument1": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
+        "@id": "https://w3id.org/OntoGSN/swrl#C"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#classPredicate": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0005",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
+    ],
+    "http://www.w3.org/2003/11/swrl#argument1": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
       }
     ],
     "http://www.w3.org/2003/11/swrl#argument2": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#C"
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+        "@value": true
       }
     ],
     "http://www.w3.org/2003/11/swrl#propertyPredicate": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+        "@id": "https://w3id.org/OntoGSN/ontology#final"
       }
     ]
   },
   {
-    "@id": "_:genid0009",
+    "@id": "_:genid0006",
     "@type": [
       "http://www.w3.org/2003/11/swrl#AtomList"
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
       {
-        "@id": "_:genid0016"
+        "@id": "_:genid0052"
       }
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
       {
-        "@id": "_:genid0019"
+        "@list": []
       }
     ]
   },
   {
-    "@id": "_:genid0010",
+    "@id": "_:genid0007",
     "@type": [
       "http://www.w3.org/2003/11/swrl#AtomList"
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
       {
-        "@id": "_:genid0040"
+        "@id": "_:genid0025"
       }
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
       {
-        "@id": "_:genid0023"
+        "@id": "_:genid0028"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0008",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
+    ],
+    "http://www.w3.org/2003/11/swrl#argument1": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#R"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#argument2": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+        "@value": true
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#undeveloped"
       }
     ]
   },
   {
     "@id": "_:genid0011",
     "@type": [
-      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
-    ],
-    "http://www.w3.org/2003/11/swrl#argument1": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#B"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#argument2": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#C"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#instantiationOf"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0012",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2002/07/owl#unionOf": [
-      {
-        "@list": [
-          {
-            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
-          },
-          {
-            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0013",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
-    ],
-    "http://www.w3.org/2003/11/swrl#argument1": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#argument2": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#B"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#contains"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0014",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
-    ],
-    "http://www.w3.org/2003/11/swrl#argument1": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#R"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#argument2": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#B"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
-      {
-        "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#subject"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0015",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#AtomList"
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
-      {
-        "@id": "_:genid0030"
-      }
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
-      {
-        "@id": "_:genid0020"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0016",
-    "@type": [
       "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
     ],
     "http://www.w3.org/2003/11/swrl#argument1": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
       }
     ],
     "http://www.w3.org/2003/11/swrl#argument2": [
@@ -286,18 +157,89 @@
     ]
   },
   {
-    "@id": "_:genid0017",
+    "@id": "_:genid0012",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Template"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0013",
     "@type": [
       "http://www.w3.org/2003/11/swrl#AtomList"
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
       {
-        "@id": "_:genid0011"
+        "@id": "_:genid0047"
       }
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
       {
-        "@id": "_:genid0010"
+        "@id": "_:genid0040"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0014",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#AtomList"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+      {
+        "@id": "_:genid0034"
+      }
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+      {
+        "@id": "_:genid0024"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0015",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#AtomList"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+      {
+        "@id": "_:genid0004"
+      }
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+      {
+        "@id": "_:genid0007"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0016",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
+    ],
+    "http://www.w3.org/2003/11/swrl#argument1": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#argument2": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#B"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
       }
     ]
   },
@@ -308,7 +250,7 @@
     ],
     "http://www.w3.org/2003/11/swrl#argument1": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
       }
     ],
     "http://www.w3.org/2003/11/swrl#argument2": [
@@ -330,7 +272,136 @@
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
       {
+        "@id": "_:genid0018"
+      }
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+      {
+        "@id": "_:genid0027"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0021",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
+    ],
+    "http://www.w3.org/2003/11/swrl#argument1": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#argument2": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#C"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0022",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
+    ],
+    "http://www.w3.org/2003/11/swrl#argument1": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#R"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#argument2": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
+      {
+        "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#subject"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0023",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#AtomList"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+      {
+        "@id": "_:genid0011"
+      }
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+      {
         "@id": "_:genid0006"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0024",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#AtomList"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+      {
+        "@id": "_:genid0008"
+      }
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+      {
+        "@id": "_:genid0036"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0025",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
+    ],
+    "http://www.w3.org/2003/11/swrl#argument1": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#argument2": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#B"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0026",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0027",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#AtomList"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+      {
+        "@id": "_:genid0016"
       }
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
@@ -340,23 +411,45 @@
     ]
   },
   {
-    "@id": "_:genid0020",
+    "@id": "_:genid0028",
     "@type": [
       "http://www.w3.org/2003/11/swrl#AtomList"
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
       {
-        "@id": "_:genid0044"
+        "@id": "_:genid0021"
       }
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
       {
-        "@id": "_:genid0024"
+        "@list": []
       }
     ]
   },
   {
-    "@id": "_:genid0021",
+    "@id": "_:genid0029",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
+    ],
+    "http://www.w3.org/2003/11/swrl#argument1": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#R"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#argument2": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+        "@value": false
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#valid"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0030",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
@@ -374,66 +467,77 @@
     ]
   },
   {
-    "@id": "_:genid0022",
+    "@id": "_:genid0032",
     "@type": [
-      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
+      "http://www.w3.org/2003/11/swrl#AtomList"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+      {
+        "@id": "_:genid0044"
+      }
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+      {
+        "@id": "_:genid0019"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0034",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#ClassAtom"
     ],
     "http://www.w3.org/2003/11/swrl#argument1": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
       }
     ],
-    "http://www.w3.org/2003/11/swrl#argument2": [
+    "http://www.w3.org/2003/11/swrl#classPredicate": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#B"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#contains"
+        "@id": "https://w3id.org/OntoGSN/ontology#Template"
       }
     ]
   },
   {
-    "@id": "_:genid0023",
+    "@id": "_:genid0035",
     "@type": [
       "http://www.w3.org/2003/11/swrl#AtomList"
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
       {
-        "@id": "_:genid0028"
+        "@id": "_:genid0042"
       }
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
       {
-        "@id": "_:genid0004"
+        "@list": []
       }
     ]
   },
   {
-    "@id": "_:genid0024",
+    "@id": "_:genid0036",
     "@type": [
       "http://www.w3.org/2003/11/swrl#AtomList"
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
       {
-        "@id": "_:genid0045"
+        "@id": "_:genid0022"
       }
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
       {
-        "@id": "_:genid0029"
+        "@id": "_:genid0035"
       }
     ]
   },
   {
-    "@id": "_:genid0025",
+    "@id": "_:genid0037",
     "@type": [
       "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
     ],
     "http://www.w3.org/2003/11/swrl#argument1": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#R"
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
       }
     ],
     "http://www.w3.org/2003/11/swrl#argument2": [
@@ -449,87 +553,29 @@
     ]
   },
   {
-    "@id": "_:genid0026",
+    "@id": "_:genid0039",
     "@type": [
-      "http://www.w3.org/2003/11/swrl#ClassAtom"
+      "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
     ],
     "http://www.w3.org/2003/11/swrl#argument1": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
       }
     ],
-    "http://www.w3.org/2003/11/swrl#classPredicate": [
+    "http://www.w3.org/2003/11/swrl#argument2": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#Template"
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+        "@value": false
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#valid"
       }
     ]
   },
   {
-    "@id": "_:genid0027",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#AtomList"
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
-      {
-        "@id": "_:genid0037"
-      }
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
-      {
-        "@list": []
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0028",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#ClassAtom"
-    ],
-    "http://www.w3.org/2003/11/swrl#argument1": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#C"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#classPredicate": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0029",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#AtomList"
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
-      {
-        "@id": "_:genid0036"
-      }
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
-      {
-        "@list": []
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0030",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#ClassAtom"
-    ],
-    "http://www.w3.org/2003/11/swrl#argument1": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#classPredicate": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#Template"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0032",
+    "@id": "_:genid0040",
     "@type": [
       "http://www.w3.org/2003/11/swrl#AtomList"
     ],
@@ -540,50 +586,18 @@
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
       {
-        "@id": "_:genid0043"
+        "@id": "_:genid0032"
       }
     ]
   },
   {
-    "@id": "_:genid0034",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#AtomList"
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
-      {
-        "@id": "_:genid0026"
-      }
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
-      {
-        "@id": "_:genid0046"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0035",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#AtomList"
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
-      {
-        "@id": "_:genid0014"
-      }
-    ],
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
-      {
-        "@id": "_:genid0005"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0036",
+    "@id": "_:genid0042",
     "@type": [
       "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
     ],
     "http://www.w3.org/2003/11/swrl#argument1": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
       }
     ],
     "http://www.w3.org/2003/11/swrl#argument2": [
@@ -599,29 +613,7 @@
     ]
   },
   {
-    "@id": "_:genid0037",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
-    ],
-    "http://www.w3.org/2003/11/swrl#argument1": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#argument2": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
-        "@value": false
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#valid"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0038",
+    "@id": "_:genid0043",
     "@type": [
       "http://www.w3.org/2002/07/owl#Restriction"
     ],
@@ -637,45 +629,97 @@
     ]
   },
   {
-    "@id": "_:genid0040",
+    "@id": "_:genid0044",
     "@type": [
-      "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
+      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
     ],
     "http://www.w3.org/2003/11/swrl#argument1": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
+        "@id": "https://w3id.org/OntoGSN/swrl#R"
       }
     ],
     "http://www.w3.org/2003/11/swrl#argument2": [
       {
-        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
-        "@value": true
+        "@id": "https://w3id.org/OntoGSN/swrl#B"
       }
     ],
     "http://www.w3.org/2003/11/swrl#propertyPredicate": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#final"
+        "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#subject"
       }
     ]
   },
   {
-    "@id": "_:genid0041",
+    "@id": "_:genid0045",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0047",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#ClassAtom"
+    ],
+    "http://www.w3.org/2003/11/swrl#argument1": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#A"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#classPredicate": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#Template"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0049",
     "@type": [
       "http://www.w3.org/2003/11/swrl#AtomList"
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
       {
-        "@id": "_:genid0013"
+        "@id": "_:genid0005"
       }
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
       {
-        "@list": []
+        "@id": "_:genid0015"
       }
     ]
   },
   {
-    "@id": "_:genid0042",
+    "@id": "_:genid0050",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#AtomList"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+      {
+        "@id": "_:genid0002"
+      }
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+      {
+        "@id": "_:genid0049"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0051",
     "@type": [
       "http://www.w3.org/2002/07/owl#Restriction"
     ],
@@ -691,13 +735,69 @@
     ]
   },
   {
-    "@id": "_:genid0043",
+    "@id": "_:genid0052",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
+    ],
+    "http://www.w3.org/2003/11/swrl#argument1": [
+      {
+        "@id": "https://w3id.org/OntoGSN/swrl#R"
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#argument2": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
+        "@value": false
+      }
+    ],
+    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology#valid"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0053",
     "@type": [
       "http://www.w3.org/2003/11/swrl#AtomList"
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
       {
-        "@id": "_:genid0025"
+        "@id": "_:genid0037"
+      }
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+      {
+        "@id": "_:genid0055"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0054",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0055",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#AtomList"
+    ],
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+      {
+        "@id": "_:genid0029"
       }
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
@@ -707,61 +807,18 @@
     ]
   },
   {
-    "@id": "_:genid0044",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
-    ],
-    "http://www.w3.org/2003/11/swrl#argument1": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#R"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#argument2": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#boolean",
-        "@value": true
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#undeveloped"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0045",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
-    ],
-    "http://www.w3.org/2003/11/swrl#argument1": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#R"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#argument2": [
-      {
-        "@id": "https://w3id.org/OntoGSN/ontology#A"
-      }
-    ],
-    "http://www.w3.org/2003/11/swrl#propertyPredicate": [
-      {
-        "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#subject"
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0046",
+    "@id": "_:genid0056",
     "@type": [
       "http://www.w3.org/2003/11/swrl#AtomList"
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
       {
-        "@id": "_:genid0007"
+        "@id": "_:genid0039"
       }
     ],
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
       {
-        "@id": "_:genid0035"
+        "@list": []
       }
     ]
   },
@@ -887,27 +944,9 @@
     ]
   },
   {
-    "@id": "https://w3id.org/OntoGSN/ontology#A",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#Variable"
-    ]
-  },
-  {
     "@id": "https://w3id.org/OntoGSN/ontology#Argument",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
-    ]
-  },
-  {
-    "@id": "https://w3id.org/OntoGSN/ontology#B",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#Variable"
-    ]
-  },
-  {
-    "@id": "https://w3id.org/OntoGSN/ontology#C",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#Variable"
     ]
   },
   {
@@ -923,7 +962,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "_:genid0042"
+        "@id": "_:genid0051"
       }
     ],
     "http://www.w3.org/2004/02/skos/core#definition": [
@@ -957,12 +996,12 @@
     ],
     "http://www.w3.org/2003/11/swrl#body": [
       {
-        "@id": "_:genid0017"
+        "@id": "_:genid0050"
       }
     ],
     "http://www.w3.org/2003/11/swrl#head": [
       {
-        "@id": "_:genid0027"
+        "@id": "_:genid0056"
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
@@ -1024,7 +1063,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "_:genid0038"
+        "@id": "_:genid0043"
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
@@ -1032,12 +1071,6 @@
         "@language": "en",
         "@value": "Argument Pattern Extension"
       }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/OntoGSN/ontology#R",
-    "@type": [
-      "http://www.w3.org/2003/11/swrl#Variable"
     ]
   },
   {
@@ -1099,12 +1132,12 @@
     ],
     "http://www.w3.org/2003/11/swrl#body": [
       {
-        "@id": "_:genid0015"
+        "@id": "_:genid0014"
       }
     ],
     "http://www.w3.org/2003/11/swrl#head": [
       {
-        "@id": "_:genid0032"
+        "@id": "_:genid0053"
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
@@ -1131,12 +1164,12 @@
     ],
     "http://www.w3.org/2003/11/swrl#body": [
       {
-        "@id": "_:genid0034"
+        "@id": "_:genid0013"
       }
     ],
     "http://www.w3.org/2003/11/swrl#head": [
       {
-        "@id": "_:genid0009"
+        "@id": "_:genid0023"
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
@@ -1192,7 +1225,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#Template"
+        "@id": "_:genid0012"
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
@@ -1352,7 +1385,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+        "@id": "_:genid0026"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
@@ -1409,7 +1442,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "_:genid0021"
+        "@id": "_:genid0030"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
@@ -1692,7 +1725,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+        "@id": "_:genid0054"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
@@ -1789,7 +1822,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "_:genid0012"
+        "@id": "_:genid0045"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
@@ -1957,7 +1990,7 @@
     ],
     "http://www.w3.org/2002/07/owl#versionInfo": [
       {
-        "@value": "1.2.2"
+        "@value": "1.2.3"
       }
     ],
     "http://www.w3.org/2004/02/skos/core#definition": [
@@ -1971,6 +2004,30 @@
         "@language": "en",
         "@value": "Argument Pattern Extension"
       }
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/swrl#A",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#Variable"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/swrl#B",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#Variable"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/swrl#C",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#Variable"
+    ]
+  },
+  {
+    "@id": "https://w3id.org/OntoGSN/swrl#R",
+    "@type": [
+      "http://www.w3.org/2003/11/swrl#Variable"
     ]
   }
 ]

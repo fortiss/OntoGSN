@@ -22,7 +22,8 @@ gsn:applicability a owl:AnnotationProperty ;
 
 gsn:attachedTo a owl:ObjectProperty ;
     rdfs:domain gsn:InstantiationDataReference ;
-    rdfs:range gsn:Template .
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:GSNElement gsn:Template ) ] .
 
 gsn:choice a owl:DatatypeProperty ;
     rdfs:domain gsn:Relationship ;
@@ -40,7 +41,8 @@ gsn:examples a owl:AnnotationProperty ;
     rdfs:domain gsn:Pattern .
 
 gsn:final a owl:DatatypeProperty ;
-    rdfs:domain gsn:Argument ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean .
 
 gsn:implementation a owl:AnnotationProperty ;
@@ -80,7 +82,8 @@ gsn:participants a owl:AnnotationProperty ;
     rdfs:domain gsn:Pattern .
 
 gsn:published a owl:DatatypeProperty ;
-    rdfs:domain gsn:Argument ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean .
 
 gsn:relatedTo a owl:ObjectProperty ;
@@ -92,7 +95,7 @@ gsn:structure a owl:AnnotationProperty ;
 
 gsn:undeveloped a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Strategy ) ] ;
+            owl:unionOf ( gsn:Goal gsn:Relationship gsn:Strategy ) ] ;
     rdfs:range xsd:boolean .
 
 gsn:uninstantiated a owl:DatatypeProperty ;
@@ -103,7 +106,7 @@ gsn:uninstantiated a owl:DatatypeProperty ;
     dc:description "The skeletal Argument Pattern Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Declarations and logical axioms only - no rules, no prose."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Argument Pattern Extension"@en ;
-    owl:versionInfo "1.2.2" ;
+    owl:versionInfo "1.2.3" ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 schema:description a owl:AnnotationProperty,
@@ -120,9 +123,9 @@ gsn:Template a owl:Class ;
 
 gsn:contains a owl:ObjectProperty .
 
-gsn:GSNElement a owl:Class .
-
 gsn:Argument a owl:Class .
+
+gsn:GSNElement a owl:Class .
 
 gsn:Relationship a owl:Class .
 

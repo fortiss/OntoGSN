@@ -51,10 +51,12 @@ gsn:relationshipType a owl:DatatypeProperty ;
             owl:oneOf [ a rdf:List ;
                     rdf:first "contextual" ;
                     rdf:rest [ a rdf:List ;
-                            rdf:first "evidential" ;
+                            rdf:first "dialectic" ;
                             rdf:rest [ a rdf:List ;
-                                    rdf:first "inferential" ;
-                                    rdf:rest () ] ] ] ] ;
+                                    rdf:first "evidential" ;
+                                    rdf:rest [ a rdf:List ;
+                                            rdf:first "inferential" ;
+                                            rdf:rest () ] ] ] ] ] ;
     skos:definition "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information."@en,
         "SupportedBy relationships – represented by lines with solid arrowheads – indicate inferential or evidential relationships between elements. InContextOf relationships – represented as lines with hollow arrowheads – declare contextual relationships."@en ;
     gsn:coreOrExtension "Core GSN"@en .
@@ -80,13 +82,15 @@ gsn:top a owl:DatatypeProperty ;
 
 gsn:true a owl:DatatypeProperty ;
     rdfs:label "true"@en ;
-    rdfs:domain gsn:GSNElement ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
     rdfs:range xsd:boolean ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:valid a owl:DatatypeProperty ;
     rdfs:label "valid"@en ;
-    rdfs:domain gsn:GSNElement ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:GSNElement gsn:Pattern gsn:Relationship ) ] ;
     rdfs:range xsd:boolean ;
     gsn:coreOrExtension "Core GSN"@en .
 
@@ -94,7 +98,7 @@ gsn:valid a owl:DatatypeProperty ;
     dc:description "The pruned Core GSN section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Excludes the SWRL rules; the term annotations are kept."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Core GSN"@en ;
-    owl:versionInfo "1.2.2" ;
+    owl:versionInfo "1.2.3" ;
     gsn:coreOrExtension "Core GSN"@en .
 
 rdf:Statement a owl:Class .
@@ -102,6 +106,8 @@ rdf:Statement a owl:Class .
 rdf:object a owl:ObjectProperty .
 
 rdf:subject a owl:ObjectProperty .
+
+gsn:Defeater a owl:Class .
 
 gsn:AssuranceCase a owl:Class ;
     rdfs:label "Assurance Case"@en ;
@@ -118,8 +124,6 @@ gsn:AssuranceCase a owl:Class ;
     skos:definition "A reasoned and compelling argument, supported by a body of evidence, that a system, service or organisation will operate as intended for a defined application in a defined environment."@en,
         "Arguments and evidence intended to demonstrate that a system meets its assurance requirements."@en ;
     gsn:coreOrExtension "Core GSN"@en .
-
-gsn:Defeater a owl:Class .
 
 gsn:Solution a owl:Class ;
     rdfs:label "Solution"@en ;
@@ -169,18 +173,6 @@ gsn:Justification a owl:Class ;
     gsn:coreOrExtension "Core GSN"@en ;
     gsn:renderedAs "oval"@en .
 
-gsn:Relationship a owl:Class ;
-    rdfs:label "Relationship"@en ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom [ a owl:Class ;
-                    owl:unionOf ( gsn:Defeater gsn:Goal gsn:Strategy ) ] ;
-            owl:onProperty rdf:subject ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom gsn:GSNElement ;
-            owl:onProperty rdf:object ],
-        rdf:Statement ;
-    gsn:coreOrExtension "Core GSN"@en .
-
 gsn:inContextOf a owl:AsymmetricProperty,
         owl:IrreflexiveProperty,
         owl:ObjectProperty ;
@@ -215,6 +207,8 @@ gsn:Context a owl:Class ;
     gsn:coreOrExtension "Core GSN"@en ;
     gsn:renderedAs "rounded rectangle"@en .
 
+gsn:Pattern a owl:Class .
+
 gsn:Strategy a owl:Class ;
     rdfs:label "Strategy"@en ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -232,6 +226,27 @@ gsn:Strategy a owl:Class ;
     gsn:coreOrExtension "Core GSN"@en ;
     gsn:renderedAs "parallelogram"@en .
 
+gsn:Relationship a owl:Class ;
+    rdfs:label "Relationship"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:Defeater gsn:Goal gsn:Module gsn:Pattern gsn:Strategy ) ] ;
+            owl:onProperty rdf:subject ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
+            owl:onProperty rdf:object ],
+        rdf:Statement ;
+    gsn:coreOrExtension "Core GSN"@en .
+
+gsn:contains a owl:ObjectProperty ;
+    rdfs:label "contains"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Module gsn:Pattern ) ] ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:Artefact gsn:Module ) ] ;
+    gsn:coreOrExtension "Core GSN"@en .
+
 gsn:Argument a owl:Class ;
     rdfs:label "Argument"@en ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -242,7 +257,8 @@ gsn:Argument a owl:Class ;
             owl:onProperty schema:identifier ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gsn:GSNElement ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:GSNElement gsn:Pattern ) ] ;
             owl:onProperty gsn:contains ],
         [ a owl:Class ;
             owl:unionOf ( [ a owl:Class ;
@@ -257,20 +273,10 @@ gsn:Argument a owl:Class ;
         "A connected series of claims intended to establish an overall claim."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
-gsn:contains a owl:ObjectProperty ;
-    rdfs:label "contains"@en ;
-    rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Module ) ] ;
-    rdfs:range [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:Artefact gsn:Module ) ] ;
-    gsn:coreOrExtension "Core GSN"@en .
-
-gsn:Module a owl:Class .
-
 gsn:statement a owl:DatatypeProperty ;
     rdfs:label "statement"@en ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:GSNElement ) ] ;
+            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:GSNElement ) ] ;
     rdfs:range xsd:string ;
     gsn:coreOrExtension "Core GSN"@en .
 
@@ -300,6 +306,8 @@ gsn:Goal a owl:Class ;
         "A goal, rendered as a rectangle, presents a claim forming part of the argument."@en ;
     gsn:coreOrExtension "Core GSN"@en ;
     gsn:renderedAs "rectangle"@en .
+
+gsn:Module a owl:Class .
 
 gsn:GSNElement a owl:Class ;
     rdfs:label "GSN Element"@en ;

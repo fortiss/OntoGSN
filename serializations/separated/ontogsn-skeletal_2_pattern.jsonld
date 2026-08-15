@@ -1,6 +1,6 @@
 [
   {
-    "@id": "_:genid0002",
+    "@id": "_:genid0004",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
@@ -8,17 +8,35 @@
       {
         "@list": [
           {
-            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+            "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
           },
           {
-            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
+            "@id": "https://w3id.org/OntoGSN/ontology#Template"
           }
         ]
       }
     ]
   },
   {
-    "@id": "_:genid0003",
+    "@id": "_:genid0007",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0008",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
@@ -36,7 +54,7 @@
     ]
   },
   {
-    "@id": "_:genid0006",
+    "@id": "_:genid0013",
     "@type": [
       "http://www.w3.org/2002/07/owl#Restriction"
     ],
@@ -52,7 +70,28 @@
     ]
   },
   {
-    "@id": "_:genid0008",
+    "@id": "_:genid0014",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0017",
     "@type": [
       "http://www.w3.org/2002/07/owl#Restriction"
     ],
@@ -64,6 +103,24 @@
     "http://www.w3.org/2002/07/owl#onProperty": [
       {
         "@id": "https://w3id.org/OntoGSN/ontology#contains"
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0018",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Pattern"
+          }
+        ]
       }
     ]
   },
@@ -105,7 +162,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "_:genid0008"
+        "@id": "_:genid0017"
       }
     ]
   },
@@ -134,7 +191,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "_:genid0006"
+        "@id": "_:genid0013"
       }
     ]
   },
@@ -184,7 +241,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#Template"
+        "@id": "_:genid0004"
       }
     ]
   },
@@ -256,7 +313,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+        "@id": "_:genid0007"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
@@ -283,7 +340,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "_:genid0003"
+        "@id": "_:genid0008"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
@@ -407,7 +464,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#Argument"
+        "@id": "_:genid0018"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
@@ -450,7 +507,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "_:genid0002"
+        "@id": "_:genid0014"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
@@ -499,7 +556,7 @@
     ],
     "http://www.w3.org/2002/07/owl#versionInfo": [
       {
-        "@value": "1.2.2"
+        "@value": "1.2.3"
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [

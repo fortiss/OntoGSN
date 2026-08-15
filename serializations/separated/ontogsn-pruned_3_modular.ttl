@@ -43,6 +43,14 @@ gsn:contract a owl:DatatypeProperty ;
 
 gsn:coreOrExtension a owl:AnnotationProperty .
 
+gsn:inModule a owl:ObjectProperty ;
+    rdfs:label "in module"@en ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:range gsn:Module ;
+    skos:definition "The module an element belongs to, whether the element sits in an argument the module contains or in a module nested inside it."@en ;
+    skos:note "Inferred, never authored. A module contains arguments and other modules, so the module an element belongs to is always reached in two steps or more. This property names the result of that traversal so that the rules of the Modular Extension can state it in one atom. It is derived by the Module Membership and Nested Module Membership rules."@en ;
+    gsn:coreOrExtension "Modular Extension"@en .
+
 gsn:public a owl:DatatypeProperty ;
     rdfs:label "public"@en ;
     rdfs:domain [ a owl:Class ;
@@ -87,10 +95,8 @@ gsn:viewType a owl:DatatypeProperty ;
     dc:description "The pruned Modular Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Excludes the SWRL rules; the term annotations are kept."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Modular Extension"@en ;
-    owl:versionInfo "1.2.2" ;
+    owl:versionInfo "1.2.3" ;
     gsn:coreOrExtension "Modular Extension"@en .
-
-gsn:GSNElement a owl:Class .
 
 gsn:View a owl:Class ;
     rdfs:label "View"@en ;
@@ -112,6 +118,8 @@ gsn:inContextOf a owl:ObjectProperty .
 gsn:supportedBy a owl:ObjectProperty .
 
 gsn:Argument a owl:Class .
+
+gsn:GSNElement a owl:Class .
 
 gsn:Solution a owl:Class .
 

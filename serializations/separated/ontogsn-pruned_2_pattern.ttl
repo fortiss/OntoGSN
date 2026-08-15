@@ -32,7 +32,8 @@ gsn:applicability a owl:AnnotationProperty ;
 gsn:attachedTo a owl:ObjectProperty ;
     rdfs:label "attached to"@en ;
     rdfs:domain gsn:InstantiationDataReference ;
-    rdfs:range gsn:Template ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:GSNElement gsn:Template ) ] ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "dotted line" .
 
@@ -66,7 +67,8 @@ gsn:examples a owl:AnnotationProperty ;
 
 gsn:final a owl:DatatypeProperty ;
     rdfs:label "final"@en ;
-    rdfs:domain gsn:Argument ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
@@ -138,7 +140,8 @@ gsn:participants a owl:AnnotationProperty ;
 
 gsn:published a owl:DatatypeProperty ;
     rdfs:label "published"@en ;
-    rdfs:domain gsn:Argument ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
@@ -160,7 +163,7 @@ gsn:structure a owl:AnnotationProperty ;
 gsn:undeveloped a owl:DatatypeProperty ;
     rdfs:label "undeveloped"@en ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Strategy ) ] ;
+            owl:unionOf ( gsn:Goal gsn:Relationship gsn:Strategy ) ] ;
     rdfs:range xsd:boolean ;
     skos:definition "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
@@ -177,7 +180,7 @@ gsn:uninstantiated a owl:DatatypeProperty ;
     dc:description "The pruned Argument Pattern Extension section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Excludes the SWRL rules; the term annotations are kept."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Argument Pattern Extension"@en ;
-    owl:versionInfo "1.2.2" ;
+    owl:versionInfo "1.2.3" ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 schema:description a owl:AnnotationProperty,
@@ -201,9 +204,9 @@ gsn:Template a owl:Class ;
 
 gsn:contains a owl:ObjectProperty .
 
-gsn:GSNElement a owl:Class .
-
 gsn:Argument a owl:Class .
+
+gsn:GSNElement a owl:Class .
 
 gsn:Relationship a owl:Class .
 

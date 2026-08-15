@@ -32,7 +32,7 @@ xsd:date a rdfs:Datatype .
         <https://w3id.org/OntoGSN/ontology/dialectic>,
         <https://w3id.org/OntoGSN/ontology/modular>,
         <https://w3id.org/OntoGSN/ontology/pattern> ;
-    owl:versionInfo "1.2.2" .
+    owl:versionInfo "1.2.3" .
 
 gsn:Catalogue a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -44,7 +44,8 @@ gsn:applicability a owl:AnnotationProperty ;
 
 gsn:attachedTo a owl:ObjectProperty ;
     rdfs:domain gsn:InstantiationDataReference ;
-    rdfs:range gsn:Template .
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:GSNElement gsn:Template ) ] .
 
 gsn:choice a owl:DatatypeProperty ;
     rdfs:domain gsn:Relationship ;
@@ -79,7 +80,8 @@ gsn:examples a owl:AnnotationProperty ;
     rdfs:domain gsn:Pattern .
 
 gsn:final a owl:DatatypeProperty ;
-    rdfs:domain gsn:Argument ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean .
 
 gsn:implementation a owl:AnnotationProperty ;
@@ -89,6 +91,10 @@ gsn:inDoubt a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:AssuranceCase gsn:GSNElement gsn:Relationship ) ] ;
     rdfs:range xsd:boolean .
+
+gsn:inModule a owl:ObjectProperty ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:range gsn:Module .
 
 gsn:instantiationOf a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
@@ -133,7 +139,8 @@ gsn:public a owl:DatatypeProperty ;
     rdfs:range xsd:boolean .
 
 gsn:published a owl:DatatypeProperty ;
-    rdfs:domain gsn:Argument ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean .
 
 gsn:refersTo a owl:ObjectProperty ;
@@ -150,10 +157,12 @@ gsn:relationshipType a owl:DatatypeProperty ;
             owl:oneOf [ a rdf:List ;
                     rdf:first "contextual" ;
                     rdf:rest [ a rdf:List ;
-                            rdf:first "evidential" ;
+                            rdf:first "dialectic" ;
                             rdf:rest [ a rdf:List ;
-                                    rdf:first "inferential" ;
-                                    rdf:rest () ] ] ] ] .
+                                    rdf:first "evidential" ;
+                                    rdf:rest [ a rdf:List ;
+                                            rdf:first "inferential" ;
+                                            rdf:rest () ] ] ] ] ] .
 
 gsn:renderedAs a owl:AnnotationProperty .
 
@@ -181,7 +190,8 @@ gsn:top a owl:DatatypeProperty ;
     rdfs:range xsd:boolean .
 
 gsn:true a owl:DatatypeProperty ;
-    rdfs:domain gsn:GSNElement ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
     rdfs:range xsd:boolean .
 
 gsn:uninstantiated a owl:DatatypeProperty ;
@@ -189,7 +199,8 @@ gsn:uninstantiated a owl:DatatypeProperty ;
     rdfs:range xsd:boolean .
 
 gsn:valid a owl:DatatypeProperty ;
-    rdfs:domain gsn:GSNElement ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:GSNElement gsn:Pattern gsn:Relationship ) ] ;
     rdfs:range xsd:boolean .
 
 gsn:viewType a owl:DatatypeProperty ;
@@ -242,29 +253,17 @@ gsn:away a owl:DatatypeProperty ;
 
 rdf:object a owl:ObjectProperty .
 
-gsn:AssuranceCase a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom [ a owl:Class ;
-                    owl:unionOf ( gsn:Argument gsn:Artefact ) ] ;
-            owl:onProperty gsn:contains ],
-        [ a owl:Restriction ;
-            owl:onProperty gsn:contains ;
-            owl:someValuesFrom gsn:Artefact ],
-        [ a owl:Restriction ;
-            owl:onProperty gsn:contains ;
-            owl:someValuesFrom gsn:Argument ] .
-
 gsn:RelationshipWithConfidence a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom [ a owl:Class ;
-                    owl:unionOf ( gsn:Context gsn:Solution gsn:Strategy ) ] ;
-            owl:onProperty rdf:object ],
-        [ a owl:Restriction ;
             owl:allValuesFrom [ a owl:Class ;
                     owl:intersectionOf ( gsn:Argument [ a owl:Restriction ;
                                 owl:hasValue "confidence" ;
                                 owl:onProperty gsn:argumentType ] ) ] ;
             owl:onProperty gsn:associatedWith ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:Context gsn:Goal gsn:Solution gsn:Strategy ) ] ;
+            owl:onProperty rdf:object ],
         [ a owl:Class ;
             owl:intersectionOf ( [ a owl:Restriction ;
                         owl:onProperty gsn:associatedWith ;
@@ -292,8 +291,20 @@ gsn:challenges a owl:ObjectProperty ;
 
 gsn:undeveloped a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Strategy ) ] ;
+            owl:unionOf ( gsn:Goal gsn:Relationship gsn:Strategy ) ] ;
     rdfs:range xsd:boolean .
+
+gsn:AssuranceCase a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:Argument gsn:Artefact ) ] ;
+            owl:onProperty gsn:contains ],
+        [ a owl:Restriction ;
+            owl:onProperty gsn:contains ;
+            owl:someValuesFrom gsn:Artefact ],
+        [ a owl:Restriction ;
+            owl:onProperty gsn:contains ;
+            owl:someValuesFrom gsn:Argument ] .
 
 gsn:supportedBy a owl:AsymmetricProperty,
         owl:IrreflexiveProperty,
@@ -355,7 +366,7 @@ gsn:Strategy a owl:Class ;
 
 gsn:statement a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:GSNElement ) ] ;
+            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:GSNElement ) ] ;
     rdfs:range xsd:string .
 
 gsn:Context a owl:Class ;
@@ -366,7 +377,7 @@ gsn:Context a owl:Class ;
 
 gsn:contains a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Module ) ] ;
+            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Module gsn:Pattern ) ] ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:Artefact gsn:Module ) ] .
 
@@ -390,10 +401,11 @@ gsn:Module a owl:Class ;
 gsn:Relationship a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom [ a owl:Class ;
-                    owl:unionOf ( gsn:Defeater gsn:Goal gsn:Strategy ) ] ;
+                    owl:unionOf ( gsn:Defeater gsn:Goal gsn:Module gsn:Pattern gsn:Strategy ) ] ;
             owl:onProperty rdf:subject ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gsn:GSNElement ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
             owl:onProperty rdf:object ],
         rdf:Statement .
 
@@ -406,7 +418,8 @@ gsn:Argument a owl:Class ;
             owl:onProperty schema:identifier ;
             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
         [ a owl:Restriction ;
-            owl:allValuesFrom gsn:GSNElement ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:GSNElement gsn:Pattern ) ] ;
             owl:onProperty gsn:contains ],
         [ a owl:Class ;
             owl:unionOf ( [ a owl:Class ;
@@ -439,11 +452,6 @@ gsn:Goal a owl:Class ;
             owl:onProperty gsn:challenges ],
         gsn:GSNElement .
 
-gsn:Pattern a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:onProperty schema:description ;
-            owl:someValuesFrom rdfs:Literal ] .
-
 gsn:GSNElement a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onDataRange xsd:string ;
@@ -452,4 +460,9 @@ gsn:GSNElement a owl:Class ;
         [ a owl:Restriction ;
             owl:onProperty schema:identifier ;
             owl:someValuesFrom xsd:string ] .
+
+gsn:Pattern a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:onProperty schema:description ;
+            owl:someValuesFrom rdfs:Literal ] .
 

@@ -1,6 +1,7 @@
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnswrl: <https://w3id.org/OntoGSN/swrl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -61,32 +62,32 @@ gsn:FinalPatternInvalidation a swrl:Imp ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
             rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsn:B ;
-                    swrl:argument2 gsn:C ;
+                    swrl:argument1 gsnswrl:B ;
+                    swrl:argument2 gsnswrl:C ;
                     swrl:propertyPredicate gsn:instantiationOf ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                            swrl:argument1 gsn:A ;
+                            swrl:argument1 gsnswrl:A ;
                             swrl:argument2 true ;
                             swrl:propertyPredicate gsn:final ] ;
                     rdf:rest [ a swrl:AtomList ;
                             rdf:first [ a swrl:ClassAtom ;
-                                    swrl:argument1 gsn:C ;
+                                    swrl:argument1 gsnswrl:C ;
                                     swrl:classPredicate gsn:Pattern ] ;
                             rdf:rest [ a swrl:AtomList ;
                                     rdf:first [ a swrl:IndividualPropertyAtom ;
-                                            swrl:argument1 gsn:A ;
-                                            swrl:argument2 gsn:B ;
+                                            swrl:argument1 gsnswrl:A ;
+                                            swrl:argument2 gsnswrl:B ;
                                             swrl:propertyPredicate gsn:contains ] ;
                                     rdf:rest [ a swrl:AtomList ;
                                             rdf:first [ a swrl:IndividualPropertyAtom ;
-                                                    swrl:argument1 gsn:A ;
-                                                    swrl:argument2 gsn:C ;
+                                                    swrl:argument1 gsnswrl:A ;
+                                                    swrl:argument2 gsnswrl:C ;
                                                     swrl:propertyPredicate gsn:contains ] ;
                                             rdf:rest () ] ] ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsn:A ;
+                    swrl:argument1 gsnswrl:A ;
                     swrl:argument2 false ;
                     swrl:propertyPredicate gsn:valid ] ;
             rdf:rest () ] ;
@@ -97,32 +98,32 @@ gsn:TemplateUndevelopedInvalidationA a swrl:Imp ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
             rdf:first [ a swrl:ClassAtom ;
-                    swrl:argument1 gsn:A ;
+                    swrl:argument1 gsnswrl:A ;
                     swrl:classPredicate gsn:Template ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                            swrl:argument1 gsn:R ;
+                            swrl:argument1 gsnswrl:R ;
                             swrl:argument2 true ;
                             swrl:propertyPredicate gsn:undeveloped ] ;
                     rdf:rest [ a swrl:AtomList ;
                             rdf:first [ a swrl:IndividualPropertyAtom ;
-                                    swrl:argument1 gsn:R ;
-                                    swrl:argument2 gsn:A ;
+                                    swrl:argument1 gsnswrl:R ;
+                                    swrl:argument2 gsnswrl:A ;
                                     swrl:propertyPredicate rdf:subject ] ;
                             rdf:rest [ a swrl:AtomList ;
                                     rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                            swrl:argument1 gsn:A ;
+                                            swrl:argument1 gsnswrl:A ;
                                             swrl:argument2 true ;
                                             swrl:propertyPredicate gsn:published ] ;
                                     rdf:rest () ] ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsn:A ;
+                    swrl:argument1 gsnswrl:A ;
                     swrl:argument2 false ;
                     swrl:propertyPredicate gsn:valid ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                            swrl:argument1 gsn:R ;
+                            swrl:argument1 gsnswrl:R ;
                             swrl:argument2 false ;
                             swrl:propertyPredicate gsn:valid ] ;
                     rdf:rest () ] ] ;
@@ -133,37 +134,37 @@ gsn:TemplateUndevelopedInvalidationB a swrl:Imp ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
             rdf:first [ a swrl:ClassAtom ;
-                    swrl:argument1 gsn:A ;
+                    swrl:argument1 gsnswrl:A ;
                     swrl:classPredicate gsn:Template ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                            swrl:argument1 gsn:R ;
+                            swrl:argument1 gsnswrl:R ;
                             swrl:argument2 true ;
                             swrl:propertyPredicate gsn:undeveloped ] ;
                     rdf:rest [ a swrl:AtomList ;
                             rdf:first [ a swrl:IndividualPropertyAtom ;
-                                    swrl:argument1 gsn:R ;
-                                    swrl:argument2 gsn:B ;
+                                    swrl:argument1 gsnswrl:R ;
+                                    swrl:argument2 gsnswrl:B ;
                                     swrl:propertyPredicate rdf:subject ] ;
                             rdf:rest [ a swrl:AtomList ;
                                     rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                            swrl:argument1 gsn:A ;
+                                            swrl:argument1 gsnswrl:A ;
                                             swrl:argument2 true ;
                                             swrl:propertyPredicate gsn:published ] ;
                                     rdf:rest [ a swrl:AtomList ;
                                             rdf:first [ a swrl:IndividualPropertyAtom ;
-                                                    swrl:argument1 gsn:A ;
-                                                    swrl:argument2 gsn:B ;
+                                                    swrl:argument1 gsnswrl:A ;
+                                                    swrl:argument2 gsnswrl:B ;
                                                     swrl:propertyPredicate gsn:contains ] ;
                                             rdf:rest () ] ] ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsn:A ;
+                    swrl:argument1 gsnswrl:A ;
                     swrl:argument2 false ;
                     swrl:propertyPredicate gsn:valid ] ;
             rdf:rest [ a swrl:AtomList ;
                     rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                            swrl:argument1 gsn:R ;
+                            swrl:argument1 gsnswrl:R ;
                             swrl:argument2 false ;
                             swrl:propertyPredicate gsn:valid ] ;
                     rdf:rest () ] ] ;
@@ -178,7 +179,8 @@ gsn:applicability a owl:AnnotationProperty ;
 gsn:attachedTo a owl:ObjectProperty ;
     rdfs:label "attached to"@en ;
     rdfs:domain gsn:InstantiationDataReference ;
-    rdfs:range gsn:Template ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:GSNElement gsn:Template ) ] ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "dotted line" .
 
@@ -308,7 +310,7 @@ gsn:uninstantiated a owl:DatatypeProperty ;
     schema:disclaimer "[Disclaimer from the GSN Community Standard v3.0]: While the authors and the publishers have used reasonable endeavours to ensure that the information and guidance given in this work is correct, all parties must rely on their own skill and judgement when making use of this work and obtain professional or specialist advice before taking, or refraining from, any action on the basis of the content of this work. Neither the authors nor the publishers make any representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to such information and guidance for any purpose, and they will not be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever (including as a result of negligence) arising out of, or in connection with, the use of this work. The views and opinions expressed in this publication are those of the authors and do not necessarily reflect those of their employers, the SCSC1 or other organisations."@en ;
     schema:url "https://w3id.org/OntoGSN/"^^xsd:anyURI ;
     schema:version 3.0 ;
-    owl:versionInfo "1.2.2" ;
+    owl:versionInfo "1.2.3" ;
     skos:definition "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
@@ -327,7 +329,8 @@ gsn:Strategy a owl:Class .
 
 gsn:final a owl:DatatypeProperty ;
     rdfs:label "final"@en ;
-    rdfs:domain gsn:Argument ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
@@ -340,18 +343,17 @@ gsn:instantiationOf a owl:ObjectProperty ;
 
 rdf:subject a owl:ObjectProperty .
 
-gsn:GSNElement a owl:Class .
-
 gsn:published a owl:DatatypeProperty ;
     rdfs:label "published"@en ;
-    rdfs:domain gsn:Argument ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 gsn:undeveloped a owl:DatatypeProperty ;
     rdfs:label "undeveloped"@en ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Strategy ) ] ;
+            owl:unionOf ( gsn:Goal gsn:Relationship gsn:Strategy ) ] ;
     rdfs:range xsd:boolean ;
     skos:definition "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
@@ -359,7 +361,7 @@ gsn:undeveloped a owl:DatatypeProperty ;
 
 gsn:Argument a owl:Class .
 
-gsn:C a swrl:Variable .
+gsn:GSNElement a owl:Class .
 
 gsn:Template a owl:Class ;
     rdfs:label "Template"@en ;
@@ -367,17 +369,19 @@ gsn:Template a owl:Class ;
     skos:definition "A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:B a swrl:Variable .
+gsnswrl:C a swrl:Variable .
 
 gsn:contains a owl:ObjectProperty .
 
-gsn:Relationship a owl:Class .
+gsnswrl:B a swrl:Variable .
 
 gsn:valid a owl:DatatypeProperty .
 
-gsn:R a swrl:Variable .
+gsn:Relationship a owl:Class .
 
-gsn:A a swrl:Variable .
+gsnswrl:R a swrl:Variable .
+
+gsnswrl:A a swrl:Variable .
 
 gsn:Pattern a owl:Class ;
     rdfs:label "Pattern"@en ;
