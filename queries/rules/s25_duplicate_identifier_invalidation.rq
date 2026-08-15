@@ -3,7 +3,7 @@
 # section:   Modular Extension
 # operation: rule
 # expect:    insert
-# swrl:      contains(?M, ?B) ^ contains(?M, ?A) ^ schema:identifier(?A, ?ID) ^ Module(?M) ^
+# swrl:      'in module'(?B, ?M) ^ 'in module'(?A, ?M) ^ schema:identifier(?A, ?ID) ^ Module(?M) ^
 #            swrlb:notEqual(?A, ?B) ^ schema:identifier(?B, ?ID) -> valid(?A, false) ^ valid(?B,
 #            false)
 # reads:     IF Module M contains both A and B AND A and B share the same schema identifier ID
@@ -15,8 +15,8 @@ PREFIX schema: <http://schema.org/>
 DELETE { ?target gsn:valid ?old }
 INSERT { ?target gsn:valid false }
 WHERE {
-  ?M a gsn:Module ;
-     gsn:contains ?A , ?B .
+  ?A gsn:inModule ?M .
+  ?B gsn:inModule ?M .
   ?A schema:identifier ?id .
   ?B schema:identifier ?id .
   FILTER(?A != ?B)

@@ -15,8 +15,8 @@ PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 DELETE { ?J gsn:valid ?old }
 INSERT { ?J gsn:valid false }
 WHERE {
-  ?M1 a gsn:Module ; gsn:contains ?J .
-  ?M2 a gsn:Module ; gsn:contains ?G .
+  ?J gsn:inModule ?M1 .
+  ?G gsn:inModule ?M2 .
   FILTER(?M1 != ?M2)
   ?J a gsn:Justification ;
      gsn:substitutedBy ?G .

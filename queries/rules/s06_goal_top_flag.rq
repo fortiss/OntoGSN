@@ -3,19 +3,19 @@
 # section:   Core GSN
 # operation: rule
 # expect:    change
-# swrl:      'supported by'(?X, ?A) ^ 'supported by'(?A, ?B) ^ Goal(?A) -> 'top (goal)'(?A,
-#            false)
-# reads:     IF X is supported by A AND A is supported by B AND A is a Goal THEN A is NOT a top-
-#            level goal
+# swrl:      'supported by'(?X, ?A) ^ Goal(?A) -> 'top (goal)'(?A, false)
+# reads:     IF X is supported by A AND A is a Goal THEN A is NOT a top-level goal
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
+# ?X is a Goal or a Strategy without saying so: those are the rdfs:domain of gsn:supportedBy.
+# A strategy parent counts, which is the whole point - a goal reached through a strategy is
+# not the pinnacle claim, and the earlier form of this rule missed every one of them.
 DELETE { ?A gsn:top ?old }
 INSERT { ?A gsn:top false }
 WHERE {
   ?A a gsn:Goal .
   ?X gsn:supportedBy ?A .
-  ?A gsn:supportedBy ?B .
   OPTIONAL { ?A gsn:top ?old }
   FILTER(!BOUND(?old) || STR(?old) != "false")
 }

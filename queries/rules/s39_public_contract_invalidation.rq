@@ -3,7 +3,7 @@
 # section:   Modular Extension
 # operation: rule
 # expect:    insert
-# swrl:      contract(?C, true) ^ public(?E, true) ^ contains(?C, ?E) -> valid(?E, false)
+# swrl:      contract(?C, true) ^ public(?E, true) ^ 'in module'(?E, ?C) -> valid(?E, false)
 # reads:     IF C is a contract AND E is public AND C contains E THEN E is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
@@ -11,8 +11,8 @@ PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 DELETE { ?E gsn:valid ?old }
 INSERT { ?E gsn:valid false }
 WHERE {
-  ?C gsn:contract ?contract ;
-     gsn:contains ?E .
+  ?C gsn:contract ?contract .
+  ?E gsn:inModule ?C .
   FILTER(STR(?contract) = "true")
   ?E gsn:public ?public .
   FILTER(STR(?public) = "true")

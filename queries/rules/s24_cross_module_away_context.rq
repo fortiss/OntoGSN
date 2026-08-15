@@ -3,7 +3,7 @@
 # section:   Modular Extension
 # operation: rule
 # expect:    insert
-# swrl:      contains(?M, ?A) ^ contains(?N, ?B) ^ Module(?N) ^ 'in context of'(?A, ?B) ^
+# swrl:      'in module'(?A, ?M) ^ 'in module'(?B, ?N) ^ Module(?N) ^ 'in context of'(?A, ?B) ^
 #            Module(?M) ^ swrlb:notEqual(?M, ?N) -> away(?B, true)
 # reads:     IF Module M contains A AND Module N contains B AND A is in context of B AND M and N
 #            are distinct Modules THEN B is away (in another Module)
@@ -13,8 +13,8 @@ PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 DELETE { ?B gsn:away ?old }
 INSERT { ?B gsn:away true }
 WHERE {
-  ?M a gsn:Module ; gsn:contains ?A .
-  ?N a gsn:Module ; gsn:contains ?B .
+  ?A gsn:inModule ?M .
+  ?B gsn:inModule ?N .
   FILTER(?M != ?N)
   ?A gsn:inContextOf ?B .
   OPTIONAL { ?B gsn:away ?old }

@@ -1,0 +1,23 @@
+# rule:      S54
+# name:      Nested Module Membership
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      Module(?M) ^ contains(?M, ?N) ^ Module(?N) ^ 'in module'(?E, ?N) ->
+#            'in module'(?E, ?M)
+# reads:     IF M is a Module AND M contains Module N AND E is in module N THEN E is also in
+#            module M
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+# A module may contain other modules, so membership carries upward. Applied to a fixpoint by
+# tools/run_rules.py this reaches any depth of nesting; on its own it advances one level, which
+# is why its trigger in rule_cases.ttl states the inner membership S53 would otherwise derive.
+INSERT { ?E gsn:inModule ?M }
+WHERE {
+  ?M a gsn:Module ;
+     gsn:contains ?N .
+  ?N a gsn:Module .
+  ?E gsn:inModule ?N .
+  FILTER NOT EXISTS { ?E gsn:inModule ?M }
+}

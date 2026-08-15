@@ -5,10 +5,10 @@
 # expect:    insert
 # swrl:      'assurance claim point'(?A, true) ^ 'Artefact Reference'(?A) ^
 #            swrlx:makeOWLThing(?A, ?R) -> 'Relationship with Confidence'(?R) ^ rdf:subject(?R,
-#            ?A)
+#            ?A) ^ 'assurance claim point'(?R, true)
 # reads:     IF A is an Artefact Reference marked as an assurance claim point AND we introduce a
 #            reified confidence Relationship R for A THEN R is a Relationship with Confidence
-#            whose subject is A
+#            whose subject is A and which is itself an assurance claim point
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -18,7 +18,8 @@ PREFIX schema: <http://schema.org/>
 INSERT {
   ?R a gsn:RelationshipWithConfidence ;
      schema:identifier ?relationshipId ;
-     rdf:subject ?A .
+     rdf:subject ?A ;
+     gsn:assuranceClaimPoint true .
 }
 WHERE {
   ?A a/rdfs:subClassOf* gsn:ArtefactReference ;

@@ -4,7 +4,15 @@
 # operation: rule
 # expect:    insert
 # swrl:      Solution(?A) ^ 'supported by'(?B, ?A) ^ true(?A, true) -> true(?B, true)
-# reads:     IF A is a Solution AND B is supported by A AND A is true THEN B becomes true
+# reads:     IF A is a Solution AND B is supported by A AND A is true AND no other solution
+#            supporting B is untrue or undetermined AND no assumption B sits in the context of
+#            is untrue THEN B becomes true
+# note:      THE GUARD BELOW IS NOT IN THE SWRL. Support in GSN is a composition: a claim
+#            follows only when everything supporting it holds. Expressing "and nothing else
+#            supporting it fails" needs negation as failure, which SWRL does not have, so the
+#            source rule states the positive half and this translation adds the guard. See
+#            NOTES-tbox-corrections.md, Part C. Without it S10 and S11/S13/S16 alternate
+#            forever on any claim with mixed support.
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -15,6 +23,20 @@ WHERE {
      gsn:true ?tA .
   FILTER(STR(?tA) = "true")
   ?B gsn:supportedBy ?A .
+
+  # no sibling solution that is untrue, or that has no truth value yet
+  FILTER NOT EXISTS {
+    ?B gsn:supportedBy ?other .
+    ?other a gsn:Solution .
+    FILTER NOT EXISTS { ?other gsn:true ?tOther . FILTER(STR(?tOther) = "true") }
+  }
+  # and nothing S16 would turn false underneath us
+  FILTER NOT EXISTS {
+    ?B gsn:inContextOf ?asm .
+    ?asm a gsn:Assumption ; gsn:true ?tAsm .
+    FILTER(STR(?tAsm) = "false")
+  }
+
   OPTIONAL { ?B gsn:true ?old }
   FILTER(!BOUND(?old) || STR(?old) != "true")
 }

@@ -18,7 +18,7 @@ WHERE {
   FILTER(STR(?away) = "true")
   OPTIONAL {
     ?home a gsn:Module ;
-          gsn:contains ?element ;
+          gsn:contains+ ?element ;
           schema:identifier ?homeModuleId .
   }
   BIND(EXISTS { ?element gsn:public ?p . FILTER(STR(?p) = "true") } AS ?public)

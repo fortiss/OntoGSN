@@ -3,7 +3,7 @@
 # section:   Modular Extension
 # operation: rule
 # expect:    insert
-# swrl:      Module(?M1) ^ Module(?M2) ^ 'supported by'(?E1, ?E2) ^ contains(?M1, ?E1) ^
+# swrl:      Module(?M1) ^ Module(?M2) ^ 'supported by'(?E1, ?E2) ^ 'in module'(?E1, ?M1) ^
 #            contains(?M2, ?E2) ^ swrlb:notEqual(?M1, ?M2) -> 'supported by'(?M1, ?M2)
 # reads:     IF M1 and M2 are Modules AND E1 in M1 is supported by E2 in M2 AND M1 and M2 are
 #            distinct THEN M1 is supported by M2
@@ -12,8 +12,8 @@ PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
 INSERT { ?M1 gsn:supportedBy ?M2 }
 WHERE {
-  ?M1 a gsn:Module ; gsn:contains ?E1 .
-  ?M2 a gsn:Module ; gsn:contains ?E2 .
+  ?E1 gsn:inModule ?M1 .
+  ?E2 gsn:inModule ?M2 .
   FILTER(?M1 != ?M2)
   ?E1 gsn:supportedBy ?E2 .
   FILTER NOT EXISTS { ?M1 gsn:supportedBy ?M2 }

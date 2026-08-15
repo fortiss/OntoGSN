@@ -4,7 +4,7 @@
 # operation: rule
 # expect:    insert
 # swrl:      'in context of'(?A, ?M1) ^ rdf:object(?R, ?M1) ^ Module(?M1) ^ Module(?M2) ^
-#            contains(?M2, ?A) ^ rdf:subject(?R, ?A) ^ contract(?M2, true) -> valid(?R, false)
+#            'in module'(?A, ?M2) ^ rdf:subject(?R, ?A) ^ contract(?M2, true) -> valid(?R, false)
 # reads:     IF A is in context of Module M1 AND Relationship R has object M1 AND M1 and M2 are
 #            Modules AND M2 contains A AND R has subject A AND M2 is under contract THEN R is NOT
 #            valid
@@ -17,8 +17,8 @@ INSERT { ?R gsn:valid false }
 WHERE {
   ?M1 a gsn:Module .
   ?M2 a gsn:Module ;
-      gsn:contains ?A ;
       gsn:contract ?contract .
+  ?A gsn:inModule ?M2 .
   FILTER(STR(?contract) = "true")
   ?A gsn:inContextOf ?M1 .
   ?R rdf:subject ?A ;

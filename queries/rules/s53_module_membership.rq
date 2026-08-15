@@ -1,0 +1,25 @@
+# rule:      S53
+# name:      Module Membership
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      Module(?M) ^ contains(?M, ?Arg) ^ Argument(?Arg) ^ contains(?Arg, ?E) ^
+#            GSNElement(?E) -> 'in module'(?E, ?M)
+# reads:     IF M is a Module AND M contains Argument Arg AND Arg contains GSN element E THEN E
+#            is in module M
+
+PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# A module contains arguments and other modules, never elements directly, so the module an
+# element belongs to is always two steps away. Every rule of the Modular Extension needs that
+# traversal, so it is derived once here and stated in one atom everywhere else.
+INSERT { ?E gsn:inModule ?M }
+WHERE {
+  ?M a gsn:Module ;
+     gsn:contains ?Arg .
+  ?Arg a gsn:Argument ;
+       gsn:contains ?E .
+  ?E a/rdfs:subClassOf* gsn:GSNElement .
+  FILTER NOT EXISTS { ?E gsn:inModule ?M }
+}

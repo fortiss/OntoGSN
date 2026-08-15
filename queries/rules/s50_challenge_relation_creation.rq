@@ -4,9 +4,9 @@
 # operation: rule
 # expect:    insert
 # swrl:      challenges(?A, ?B) ^ swrlx:makeOWLThing(?B, ?R) -> rdf:subject(?R, ?A) ^
-#            Relationship(?R) ^ rdf:object(?R, ?B)
+#            Relationship(?R) ^ rdf:object(?R, ?B) ^ 'relationship type'(?R, dialectic)
 # reads:     IF A challenges B AND we reify this challenge as a Relationship R THEN R is a
-#            reified Relationship with subject A and object B
+#            reified Relationship with subject A, object B and the dialectic type
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -17,7 +17,8 @@ INSERT {
      schema:identifier ?relationshipId ;
      rdf:subject ?A ;
      rdf:predicate gsn:challenges ;
-     rdf:object ?B .
+     rdf:object ?B ;
+     gsn:relationshipType "dialectic" .
 }
 WHERE {
   ?A gsn:challenges ?B ;

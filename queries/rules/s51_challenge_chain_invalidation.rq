@@ -5,14 +5,19 @@
 # expect:    insert
 # swrl:      challenges(?D, ?R) ^ rdf:subject(?R, ?G3) ^ rdf:object(?R, ?G1) ^ Goal(?G1) ^
 #            Goal(?G3) ^ swrlx:makeOWLThing(?G3, ?S) ^ Goal(?G2) ^ 'supported by'(?G3, ?G1) ^
-#            swrlb:notEqual(?G1, ?G2) -> 'supported by'(?S, ?G2) ^ 'supported by'(?G3, ?S) ^
-#            valid(?D, false) ^ 'supported by'(?S, ?G1) ^ challenges(?D, ?S) ^ valid(?S, false) ^
-#            valid(?R, false) ^ Strategy(?S)
+#            'supported by'(?G3, ?G2) ^ swrlb:notEqual(?G1, ?G2) -> 'supported by'(?S, ?G2) ^
+#            'supported by'(?G3, ?S) ^ valid(?D, false) ^ 'supported by'(?S, ?G1) ^
+#            challenges(?D, ?S) ^ valid(?S, false) ^ valid(?R, false) ^ Strategy(?S)
 # reads:     IF Defeater D challenges Relationship R between Goals G3 (subject) and G1 (object)
-#            AND G1 and G3 are Goals AND we introduce a Strategy S for G3 and another Goal G2
-#            distinct from G1 AND G3 is supported by G1 THEN Strategy S is supported by G1 and G2
-#            AND G3 is supported by S AND D now challenges S AND D, S and R are all marked NOT
-#            valid
+#            AND G3 is ALSO supported by a second Goal G2 distinct from G1 AND we introduce a
+#            Strategy S for G3 THEN Strategy S is supported by G1 and G2 AND G3 is supported by S
+#            AND D now challenges S AND D, S and R are all marked NOT valid
+#
+# The inference between a goal and its supporting goals is indivisible, so a challenge aimed at
+# one SupportedBy link where the goal has several is not a challenge that can be made; the
+# standard says such a challenge requires a strategy to be inserted (1:6.3.12, page 54). ?G2 is
+# therefore a sibling supporter of ?G3, not any goal in the store. Without the supportedBy(?G3,
+# ?G2) atom it was unconstrained, and the rule attached the new strategy to every other goal.
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -40,6 +45,7 @@ WHERE {
   ?G3 a gsn:Goal ;
       gsn:supportedBy ?G1 ;
       schema:identifier ?idG3 .
+  ?G3 gsn:supportedBy ?G2 .
   ?G2 a gsn:Goal .
   FILTER(?G1 != ?G2)
   BIND(CONCAT("St-", ?idG3, "-rebutted") AS ?strategyId)

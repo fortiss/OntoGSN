@@ -12,8 +12,8 @@ PREFIX schema: <http://schema.org/>
 
 SELECT DISTINCT ?fromModuleId ?kind ?toModuleId ?viaFromId ?viaToId
 WHERE {
-  ?from a gsn:Module ; schema:identifier ?fromModuleId ; gsn:contains ?viaFrom .
-  ?to   a gsn:Module ; schema:identifier ?toModuleId   ; gsn:contains ?viaTo .
+  ?from a gsn:Module ; schema:identifier ?fromModuleId ; gsn:contains+ ?viaFrom .
+  ?to   a gsn:Module ; schema:identifier ?toModuleId   ; gsn:contains+ ?viaTo .
   FILTER(?from != ?to)
   ?viaFrom schema:identifier ?viaFromId .
   ?viaTo   schema:identifier ?viaToId .

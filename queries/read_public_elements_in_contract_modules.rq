@@ -13,7 +13,7 @@ PREFIX schema: <http://schema.org/>
 SELECT ?moduleId ?elementId ?type
 WHERE {
   ?module gsn:contract ?contract ;
-          gsn:contains ?element ;
+          gsn:contains+ ?element ;
           schema:identifier ?moduleId .
   FILTER(STR(?contract) = "true")
   ?element gsn:public ?public ;

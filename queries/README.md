@@ -3,10 +3,11 @@
 CRUD SPARQL for a graph database holding an assurance case built on
 [`serializations/ontogsn.ttl`](../serializations/ontogsn.ttl). One file per competency
 question; the question itself is in the file's header, and the same set is tabulated in
-`OntoGSN Competency Questions.xlsx`.
+[`provenance/Competency Questions.xlsx`](../provenance/Competency%20Questions.xlsx).
 
-[`rules/`](rules/) holds all 51 SWRL rules from `OntoGSN SWRL Rules.xlsx` as SPARQL
-updates, for stores with no reasoner attached.
+[`rules/`](rules/) holds all 51 SWRL rules of
+[`serializations/ontogsn.ttl`](../serializations/ontogsn.ttl) as SPARQL updates, for stores
+with no reasoner attached.
 
 ## Using them
 

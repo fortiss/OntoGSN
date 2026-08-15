@@ -4,7 +4,7 @@
 # operation: rule
 # expect:    insert
 # swrl:      rdf:subject(?R, ?G1) ^ Module(?M1) ^ Goal(?G1) ^ rdf:object(?R, ?G2) ^ Module(?M2) ^
-#            'supported by'(?G1, ?G2) ^ away(?G1, true) ^ contains(?M1, ?G1) ^ contains(?M2, ?G2)
+#            'supported by'(?G1, ?G2) ^ away(?G1, true) ^ 'in module'(?G1, ?M1) ^ 'in module'(?G2, ?M2)
 #            -> valid(?R, false)
 # reads:     IF Relationship R links Goal G1 to Goal G2 AND M1 and M2 are Modules AND G1 is a
 #            Goal contained in M1 AND G2 is a Goal contained in M2 AND G1 is away and supported
@@ -22,8 +22,8 @@ WHERE {
   FILTER(STR(?away) = "true")
   ?R rdf:subject ?G1 ;
      rdf:object ?G2 .
-  ?M1 a gsn:Module ; gsn:contains ?G1 .
-  ?M2 a gsn:Module ; gsn:contains ?G2 .
+  ?G1 gsn:inModule ?M1 .
+  ?G2 gsn:inModule ?M2 .
   OPTIONAL { ?R gsn:valid ?old }
   FILTER(!BOUND(?old) || STR(?old) != "false")
 }
