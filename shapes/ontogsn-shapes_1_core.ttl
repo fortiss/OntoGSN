@@ -51,9 +51,9 @@ gsnsh:ArgumentShape rdf:type sh:NodeShape ;
     ] ;
     sh:property [
         sh:path gsn:contains ;
-        sh:class gsn:GSNElement ;
+        sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Pattern ] ) ;
         sh:name "contains" ;
-        sh:message "An argument may only contain GSN elements."@en ;
+        sh:message "An argument may only contain GSN elements and the patterns it instantiates."@en ;
         sh:severity sh:Violation ;
     ] .
 
@@ -214,17 +214,19 @@ gsnsh:RelationshipShape rdf:type sh:NodeShape ;
     sh:property [
         sh:path rdf:subject ;
         sh:or ( [ sh:class gsn:Goal ]
+                [ sh:class gsn:Module ]
+                [ sh:class gsn:Pattern ]
                 [ sh:class gsn:Solution ]
                 [ sh:class gsn:Strategy ] ) ;
         sh:name "subject" ;
-        sh:message "The source of a relationship must be a goal, a strategy or a solution."@en ;
+        sh:message "The source of a relationship must be a goal, a strategy, a solution, a module or a pattern."@en ;
         sh:severity sh:Violation ;
     ] ;
     sh:property [
         sh:path rdf:object ;
-        sh:class gsn:GSNElement ;
+        sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
         sh:name "object" ;
-        sh:message "The target of a relationship must be a GSN element."@en ;
+        sh:message "The target of a relationship must be a GSN element or another relationship."@en ;
         sh:severity sh:Violation ;
     ] ;
     sh:property [
@@ -323,8 +325,9 @@ gsnsh:ContainsPropertyShape rdf:type sh:NodeShape ;
     sh:or ( [ sh:class gsn:Argument ]
             [ sh:class gsn:AssuranceCase ]
             [ sh:class gsn:Module ]
+            [ sh:class gsn:Pattern ]
             [ sh:class gsn:Catalogue ] ) ;
-    sh:message "Only an argument, an assurance case, a module or a catalogue may contain other elements."@en ;
+    sh:message "Only an argument, an assurance case, a module, a pattern or a catalogue may contain other elements."@en ;
     sh:severity sh:Violation .
 
 
@@ -422,10 +425,10 @@ gsnsh:RelationshipTypePropertyShape rdf:type sh:NodeShape ;
     sh:property [
         sh:path gsn:relationshipType ;
         sh:name "relationship type" ;
-        sh:in ( "contextual" "evidential" "inferential" ) ;
+        sh:in ( "contextual" "dialectic" "evidential" "inferential" ) ;
         sh:maxCount 1 ;
-        sh:description "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information."@en ;
-        sh:message "A relationship type must be exactly one of \"contextual\", \"evidential\" or \"inferential\"."@en ;
+        sh:description "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information. A dialectic relationship is a challenge directed at a claim, an item of evidence or another relationship."@en ;
+        sh:message "A relationship type must be exactly one of \"contextual\", \"dialectic\", \"evidential\" or \"inferential\"."@en ;
     ] .
 
 
@@ -434,8 +437,8 @@ gsnsh:StatementPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:statement"@en ;
     sh:targetSubjectsOf gsn:statement ;
     gsn:coreOrExtension "Core GSN"@en ;
-    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:GSNElement ] ) ;
-    sh:message "Only an argument or a GSN element may carry a statement."@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:AssuranceCase ] [ sh:class gsn:GSNElement ] ) ;
+    sh:message "Only an assurance case, an argument or a GSN element may carry a statement."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:statement ;
@@ -494,8 +497,8 @@ gsnsh:TruePropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:true"@en ;
     sh:targetSubjectsOf gsn:true ;
     gsn:coreOrExtension "Core GSN"@en ;
-    sh:class gsn:GSNElement ;
-    sh:message "Only a GSN element may be marked as true."@en ;
+    sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
+    sh:message "Only a GSN element or a relationship may be marked as true."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:true ;
@@ -511,8 +514,9 @@ gsnsh:ValidPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:valid"@en ;
     sh:targetSubjectsOf gsn:valid ;
     gsn:coreOrExtension "Core GSN"@en ;
-    sh:class gsn:GSNElement ;
-    sh:message "Only a GSN element may be marked as valid."@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:GSNElement ]
+            [ sh:class gsn:Pattern ] [ sh:class gsn:Relationship ] ) ;
+    sh:message "Only an argument, a pattern, a GSN element or a relationship may be marked as valid."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:valid ;
@@ -540,30 +544,32 @@ gsnsh:IdentifierPropertyShape rdf:type sh:NodeShape ;
 ###  Goal and not (inverse supportedBy some Goal) EquivalentTo top value true
 gsnsh:TopGoalHasNoParentShape rdf:type sh:NodeShape ;
     rdfs:label "Top goal has no supported parent goal"@en ;
-    rdfs:comment "From the general class axiom: ( Goal and not (inverse gsn:supportedBy some Goal) ) EquivalentTo ( gsn:top value true )."@en ;
+    rdfs:comment "From the general class axiom: ( Goal and not (inverse gsn:supportedBy some (Goal or Strategy)) ) EquivalentTo ( gsn:top value true ). A strategy counts as a parent: a goal reached through a strategy is not the pinnacle claim, and reading the axiom over goals alone made every strategy-parented goal a top goal."@en ;
     sh:targetClass gsn:Goal ;
     gsn:coreOrExtension "Core GSN"@en ;
     sh:or (
         [ sh:not [ sh:property [ sh:path gsn:top ; sh:name "top (goal)" ; sh:hasValue true ] ] ]
         [ sh:property [ sh:path [ sh:inversePath gsn:supportedBy ] ;
-                        sh:qualifiedValueShape [ sh:class gsn:Goal ] ;
+                        sh:qualifiedValueShape [ sh:or ( [ sh:class gsn:Goal ]
+                                                         [ sh:class gsn:Strategy ] ) ] ;
                         sh:qualifiedMaxCount 0 ] ]
     ) ;
-    sh:message "A goal marked as a top goal must not itself be supporting another goal; the top goal presents the pinnacle claim in the argument."@en ;
+    sh:message "A goal marked as a top goal must not itself be supporting another goal or strategy; the top goal presents the pinnacle claim in the argument."@en ;
     sh:severity sh:Violation .
 
 gsnsh:UnparentedGoalIsTopShape rdf:type sh:NodeShape ;
     rdfs:label "Goal without a parent goal is a top goal"@en ;
-    rdfs:comment "The converse direction of the general class axiom: a gsn:Goal that does not support any other gsn:Goal is a top goal and should be asserted as such."@en ;
+    rdfs:comment "The converse direction of the general class axiom: a gsn:Goal that does not support any other gsn:Goal or gsn:Strategy is a top goal and should be asserted as such."@en ;
     sh:targetClass gsn:Goal ;
     gsn:coreOrExtension "Core GSN"@en ;
     sh:or (
         [ sh:property [ sh:path gsn:top ; sh:name "top (goal)" ; sh:hasValue true ] ]
         [ sh:property [ sh:path [ sh:inversePath gsn:supportedBy ] ;
-                        sh:qualifiedValueShape [ sh:class gsn:Goal ] ;
+                        sh:qualifiedValueShape [ sh:or ( [ sh:class gsn:Goal ]
+                                                         [ sh:class gsn:Strategy ] ) ] ;
                         sh:qualifiedMinCount 1 ] ]
     ) ;
-    sh:message "A goal that is not supporting any other goal is a top goal and should be marked as one."@en ;
+    sh:message "A goal that is not supporting any other goal or strategy is a top goal and should be marked as one."@en ;
     sh:severity sh:Warning .
 
 

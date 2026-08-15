@@ -89,9 +89,9 @@ gsnsh:ArgumentShape rdf:type sh:NodeShape ;
     ] ;
     sh:property [
         sh:path gsn:contains ;
-        sh:class gsn:GSNElement ;
+        sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Pattern ] ) ;
         sh:name "contains" ;
-        sh:message "An argument may only contain GSN elements."@en ;
+        sh:message "An argument may only contain GSN elements and the patterns it instantiates."@en ;
         sh:severity sh:Violation ;
     ] .
 
@@ -252,17 +252,19 @@ gsnsh:RelationshipShape rdf:type sh:NodeShape ;
     sh:property [
         sh:path rdf:subject ;
         sh:or ( [ sh:class gsn:Goal ]
+                [ sh:class gsn:Module ]
+                [ sh:class gsn:Pattern ]
                 [ sh:class gsn:Solution ]
                 [ sh:class gsn:Strategy ] ) ;
         sh:name "subject" ;
-        sh:message "The source of a relationship must be a goal, a strategy or a solution."@en ;
+        sh:message "The source of a relationship must be a goal, a strategy, a solution, a module or a pattern."@en ;
         sh:severity sh:Violation ;
     ] ;
     sh:property [
         sh:path rdf:object ;
-        sh:class gsn:GSNElement ;
+        sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
         sh:name "object" ;
-        sh:message "The target of a relationship must be a GSN element."@en ;
+        sh:message "The target of a relationship must be a GSN element or another relationship."@en ;
         sh:severity sh:Violation ;
     ] ;
     sh:property [
@@ -361,8 +363,9 @@ gsnsh:ContainsPropertyShape rdf:type sh:NodeShape ;
     sh:or ( [ sh:class gsn:Argument ]
             [ sh:class gsn:AssuranceCase ]
             [ sh:class gsn:Module ]
+            [ sh:class gsn:Pattern ]
             [ sh:class gsn:Catalogue ] ) ;
-    sh:message "Only an argument, an assurance case, a module or a catalogue may contain other elements."@en ;
+    sh:message "Only an argument, an assurance case, a module, a pattern or a catalogue may contain other elements."@en ;
     sh:severity sh:Violation .
 
 
@@ -460,10 +463,10 @@ gsnsh:RelationshipTypePropertyShape rdf:type sh:NodeShape ;
     sh:property [
         sh:path gsn:relationshipType ;
         sh:name "relationship type" ;
-        sh:in ( "contextual" "evidential" "inferential" ) ;
+        sh:in ( "contextual" "dialectic" "evidential" "inferential" ) ;
         sh:maxCount 1 ;
-        sh:description "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information."@en ;
-        sh:message "A relationship type must be exactly one of \"contextual\", \"evidential\" or \"inferential\"."@en ;
+        sh:description "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information. A dialectic relationship is a challenge directed at a claim, an item of evidence or another relationship."@en ;
+        sh:message "A relationship type must be exactly one of \"contextual\", \"dialectic\", \"evidential\" or \"inferential\"."@en ;
     ] .
 
 
@@ -472,8 +475,8 @@ gsnsh:StatementPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:statement"@en ;
     sh:targetSubjectsOf gsn:statement ;
     gsn:coreOrExtension "Core GSN"@en ;
-    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:GSNElement ] ) ;
-    sh:message "Only an argument or a GSN element may carry a statement."@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:AssuranceCase ] [ sh:class gsn:GSNElement ] ) ;
+    sh:message "Only an assurance case, an argument or a GSN element may carry a statement."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:statement ;
@@ -532,8 +535,8 @@ gsnsh:TruePropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:true"@en ;
     sh:targetSubjectsOf gsn:true ;
     gsn:coreOrExtension "Core GSN"@en ;
-    sh:class gsn:GSNElement ;
-    sh:message "Only a GSN element may be marked as true."@en ;
+    sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
+    sh:message "Only a GSN element or a relationship may be marked as true."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:true ;
@@ -549,8 +552,9 @@ gsnsh:ValidPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:valid"@en ;
     sh:targetSubjectsOf gsn:valid ;
     gsn:coreOrExtension "Core GSN"@en ;
-    sh:class gsn:GSNElement ;
-    sh:message "Only a GSN element may be marked as valid."@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:GSNElement ]
+            [ sh:class gsn:Pattern ] [ sh:class gsn:Relationship ] ) ;
+    sh:message "Only an argument, a pattern, a GSN element or a relationship may be marked as valid."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:valid ;
@@ -578,30 +582,32 @@ gsnsh:IdentifierPropertyShape rdf:type sh:NodeShape ;
 ###  Goal and not (inverse supportedBy some Goal) EquivalentTo top value true
 gsnsh:TopGoalHasNoParentShape rdf:type sh:NodeShape ;
     rdfs:label "Top goal has no supported parent goal"@en ;
-    rdfs:comment "From the general class axiom: ( Goal and not (inverse gsn:supportedBy some Goal) ) EquivalentTo ( gsn:top value true )."@en ;
+    rdfs:comment "From the general class axiom: ( Goal and not (inverse gsn:supportedBy some (Goal or Strategy)) ) EquivalentTo ( gsn:top value true ). A strategy counts as a parent: a goal reached through a strategy is not the pinnacle claim, and reading the axiom over goals alone made every strategy-parented goal a top goal."@en ;
     sh:targetClass gsn:Goal ;
     gsn:coreOrExtension "Core GSN"@en ;
     sh:or (
         [ sh:not [ sh:property [ sh:path gsn:top ; sh:name "top (goal)" ; sh:hasValue true ] ] ]
         [ sh:property [ sh:path [ sh:inversePath gsn:supportedBy ] ;
-                        sh:qualifiedValueShape [ sh:class gsn:Goal ] ;
+                        sh:qualifiedValueShape [ sh:or ( [ sh:class gsn:Goal ]
+                                                         [ sh:class gsn:Strategy ] ) ] ;
                         sh:qualifiedMaxCount 0 ] ]
     ) ;
-    sh:message "A goal marked as a top goal must not itself be supporting another goal; the top goal presents the pinnacle claim in the argument."@en ;
+    sh:message "A goal marked as a top goal must not itself be supporting another goal or strategy; the top goal presents the pinnacle claim in the argument."@en ;
     sh:severity sh:Violation .
 
 gsnsh:UnparentedGoalIsTopShape rdf:type sh:NodeShape ;
     rdfs:label "Goal without a parent goal is a top goal"@en ;
-    rdfs:comment "The converse direction of the general class axiom: a gsn:Goal that does not support any other gsn:Goal is a top goal and should be asserted as such."@en ;
+    rdfs:comment "The converse direction of the general class axiom: a gsn:Goal that does not support any other gsn:Goal or gsn:Strategy is a top goal and should be asserted as such."@en ;
     sh:targetClass gsn:Goal ;
     gsn:coreOrExtension "Core GSN"@en ;
     sh:or (
         [ sh:property [ sh:path gsn:top ; sh:name "top (goal)" ; sh:hasValue true ] ]
         [ sh:property [ sh:path [ sh:inversePath gsn:supportedBy ] ;
-                        sh:qualifiedValueShape [ sh:class gsn:Goal ] ;
+                        sh:qualifiedValueShape [ sh:or ( [ sh:class gsn:Goal ]
+                                                         [ sh:class gsn:Strategy ] ) ] ;
                         sh:qualifiedMinCount 1 ] ]
     ) ;
-    sh:message "A goal that is not supporting any other goal is a top goal and should be marked as one."@en ;
+    sh:message "A goal that is not supporting any other goal or strategy is a top goal and should be marked as one."@en ;
     sh:severity sh:Warning .
 
 
@@ -761,10 +767,10 @@ gsnsh:InstantiationDataReferenceShape rdf:type sh:NodeShape ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     sh:property [
         sh:path gsn:attachedTo ;
-        sh:class gsn:Template ;
+        sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Template ] ) ;
         sh:minCount 1 ;
         sh:name "attached to" ;
-        sh:message "An instantiation data reference must be attached to at least one template."@en ;
+        sh:message "Instantiation data must be attached to a template or to an element of one."@en ;
         sh:severity sh:Violation ;
     ] .
 
@@ -866,8 +872,8 @@ gsnsh:AttachedToRangePropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:attachedTo — range"@en ;
     sh:targetObjectsOf gsn:attachedTo ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:class gsn:Template ;
-    sh:message "An instantiation data reference must be attached to a template."@en ;
+    sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Template ] ) ;
+    sh:message "Instantiation data must be attached to a template or to an element of one."@en ;
     sh:severity sh:Violation .
 
 
@@ -930,8 +936,8 @@ gsnsh:FinalPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:final"@en ;
     sh:targetSubjectsOf gsn:final ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:class gsn:Argument ;
-    sh:message "Only an argument may be marked as final."@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:Pattern ] ) ;
+    sh:message "Only an argument or a pattern may be marked as final."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:final ;
@@ -950,10 +956,17 @@ gsnsh:CardinalityPropertyShape rdf:type sh:NodeShape ;
     sh:class gsn:Relationship ;
     sh:message "Only a relationship may have a minimum cardinality."@en ;
     sh:severity sh:Violation ;
+    # Widening. The ontology's range is xsd:nonNegativeInteger and stays that way, but the
+    # shape cannot require that exact datatype IRI. A hand-written 1 is xsd:integer by
+    # Turtle's rules, and pyoxigraph - the engine queries/ and queries/rules/ are executed
+    # against - normalises every derived integer type to xsd:integer on load, so even a
+    # correctly typed literal arrives here as one. Non-negativity is what the axiom is
+    # actually about, so it is checked directly with sh:minInclusive.
     sh:property [
         sh:path gsn:minCardinality ;
         sh:name "minimum cardinality" ;
-        sh:datatype xsd:nonNegativeInteger ;
+        sh:or ( [ sh:datatype xsd:nonNegativeInteger ] [ sh:datatype xsd:integer ] ) ;
+        sh:minInclusive 0 ;
         sh:maxCount 1 ;
         sh:message "A minimum cardinality must be a single whole number that is not negative."@en ;
     ] ;
@@ -971,10 +984,12 @@ gsnsh:MaxCardinalityPropertyShape rdf:type sh:NodeShape ;
     sh:class gsn:Relationship ;
     sh:message "Only a relationship may have a maximum cardinality."@en ;
     sh:severity sh:Violation ;
+    # Widened for the same reason as gsn:minCardinality above.
     sh:property [
         sh:path gsn:maxCardinality ;
         sh:name "maximum cardinality" ;
-        sh:datatype xsd:nonNegativeInteger ;
+        sh:or ( [ sh:datatype xsd:nonNegativeInteger ] [ sh:datatype xsd:integer ] ) ;
+        sh:minInclusive 0 ;
         sh:maxCount 1 ;
         sh:message "A maximum cardinality must be a single whole number that is not negative."@en ;
     ] .
@@ -1020,8 +1035,8 @@ gsnsh:PublishedPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:published"@en ;
     sh:targetSubjectsOf gsn:published ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:class gsn:Argument ;
-    sh:message "Only an argument may be marked as published."@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:Pattern ] ) ;
+    sh:message "Only an argument or a pattern may be marked as published."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:published ;
@@ -1037,8 +1052,8 @@ gsnsh:UndevelopedPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:undeveloped"@en ;
     sh:targetSubjectsOf gsn:undeveloped ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Strategy ] ) ;
-    sh:message "Only a goal or a strategy may be marked as undeveloped."@en ;
+    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Relationship ] [ sh:class gsn:Strategy ] ) ;
+    sh:message "Only a goal, a strategy or a relationship may be marked as undeveloped."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:undeveloped ;
@@ -1406,10 +1421,11 @@ gsnsh:RelationshipWithConfidenceShape rdf:type sh:NodeShape ;
     sh:property [
         sh:path rdf:object ;
         sh:or ( [ sh:class gsn:Context ]
+                [ sh:class gsn:Goal ]
                 [ sh:class gsn:Solution ]
                 [ sh:class gsn:Strategy ] ) ;
         sh:name "object" ;
-        sh:message "The target of a relationship with confidence must be a context, a solution or a strategy."@en ;
+        sh:message "The target of a relationship with confidence must be a context, a goal, a solution or a strategy."@en ;
         sh:severity sh:Violation ;
     ] ;
     sh:property [
@@ -1425,13 +1441,17 @@ gsnsh:RelationshipWithConfidenceShape rdf:type sh:NodeShape ;
         sh:message "A relationship with confidence may only be associated with a confidence argument."@en ;
         sh:severity sh:Violation ;
     ] ;
+    # Warning, not Violation. Rule S40 reifies a claim point as soon as an element is flagged as
+    # one, and nothing in its premises binds the confidence argument, so the relationship it
+    # creates is a stub for a person to complete. An incomplete stub is unfinished rather than
+    # wrong. The shape above still rejects an association with the wrong kind of argument.
     sh:property [
         sh:path gsn:associatedWith ;
         sh:qualifiedValueShape [ sh:class gsn:Argument ] ;
         sh:qualifiedMinCount 1 ;
         sh:name "associated with" ;
-        sh:message "A relationship with confidence must be associated with at least one argument."@en ;
-        sh:severity sh:Violation ;
+        sh:message "A relationship with confidence should be associated with a confidence argument; this one names none yet."@en ;
+        sh:severity sh:Warning ;
     ] ;
     sh:property [
         sh:path gsn:assuranceClaimPoint ;

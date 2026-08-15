@@ -80,10 +80,10 @@ gsnsh:InstantiationDataReferenceShape rdf:type sh:NodeShape ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     sh:property [
         sh:path gsn:attachedTo ;
-        sh:class gsn:Template ;
+        sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Template ] ) ;
         sh:minCount 1 ;
         sh:name "attached to" ;
-        sh:message "An instantiation data reference must be attached to at least one template."@en ;
+        sh:message "Instantiation data must be attached to a template or to an element of one."@en ;
         sh:severity sh:Violation ;
     ] .
 
@@ -185,8 +185,8 @@ gsnsh:AttachedToRangePropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:attachedTo — range"@en ;
     sh:targetObjectsOf gsn:attachedTo ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:class gsn:Template ;
-    sh:message "An instantiation data reference must be attached to a template."@en ;
+    sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Template ] ) ;
+    sh:message "Instantiation data must be attached to a template or to an element of one."@en ;
     sh:severity sh:Violation .
 
 
@@ -249,8 +249,8 @@ gsnsh:FinalPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:final"@en ;
     sh:targetSubjectsOf gsn:final ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:class gsn:Argument ;
-    sh:message "Only an argument may be marked as final."@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:Pattern ] ) ;
+    sh:message "Only an argument or a pattern may be marked as final."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:final ;
@@ -269,10 +269,17 @@ gsnsh:CardinalityPropertyShape rdf:type sh:NodeShape ;
     sh:class gsn:Relationship ;
     sh:message "Only a relationship may have a minimum cardinality."@en ;
     sh:severity sh:Violation ;
+    # Widening. The ontology's range is xsd:nonNegativeInteger and stays that way, but the
+    # shape cannot require that exact datatype IRI. A hand-written 1 is xsd:integer by
+    # Turtle's rules, and pyoxigraph - the engine queries/ and queries/rules/ are executed
+    # against - normalises every derived integer type to xsd:integer on load, so even a
+    # correctly typed literal arrives here as one. Non-negativity is what the axiom is
+    # actually about, so it is checked directly with sh:minInclusive.
     sh:property [
         sh:path gsn:minCardinality ;
         sh:name "minimum cardinality" ;
-        sh:datatype xsd:nonNegativeInteger ;
+        sh:or ( [ sh:datatype xsd:nonNegativeInteger ] [ sh:datatype xsd:integer ] ) ;
+        sh:minInclusive 0 ;
         sh:maxCount 1 ;
         sh:message "A minimum cardinality must be a single whole number that is not negative."@en ;
     ] ;
@@ -290,10 +297,12 @@ gsnsh:MaxCardinalityPropertyShape rdf:type sh:NodeShape ;
     sh:class gsn:Relationship ;
     sh:message "Only a relationship may have a maximum cardinality."@en ;
     sh:severity sh:Violation ;
+    # Widened for the same reason as gsn:minCardinality above.
     sh:property [
         sh:path gsn:maxCardinality ;
         sh:name "maximum cardinality" ;
-        sh:datatype xsd:nonNegativeInteger ;
+        sh:or ( [ sh:datatype xsd:nonNegativeInteger ] [ sh:datatype xsd:integer ] ) ;
+        sh:minInclusive 0 ;
         sh:maxCount 1 ;
         sh:message "A maximum cardinality must be a single whole number that is not negative."@en ;
     ] .
@@ -339,8 +348,8 @@ gsnsh:PublishedPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:published"@en ;
     sh:targetSubjectsOf gsn:published ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:class gsn:Argument ;
-    sh:message "Only an argument may be marked as published."@en ;
+    sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:Pattern ] ) ;
+    sh:message "Only an argument or a pattern may be marked as published."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:published ;
@@ -356,8 +365,8 @@ gsnsh:UndevelopedPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:undeveloped"@en ;
     sh:targetSubjectsOf gsn:undeveloped ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Strategy ] ) ;
-    sh:message "Only a goal or a strategy may be marked as undeveloped."@en ;
+    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Relationship ] [ sh:class gsn:Strategy ] ) ;
+    sh:message "Only a goal, a strategy or a relationship may be marked as undeveloped."@en ;
     sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:undeveloped ;

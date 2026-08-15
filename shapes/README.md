@@ -8,15 +8,17 @@ Every shape carries `gsn:coreOrExtension`, exactly as the ontology terms do, so 
 
 The shapes carry no editorial comments. Why a constraint is written the way it is —
 including the cases where a shape deliberately departs from the ontology — is recorded in
-`OntoGSN Design Document.xlsx`, one row per constraint. Each row holds the constraint's
-Turtle, its message in plain English, and the reasoning.
+[`provenance/ontogsn-provenance-data.ttl`](../provenance/ontogsn-provenance-data.ttl), one
+design decision per constraint, holding the constraint's Turtle, the passage of the
+standard behind it, and the reasoning. `provenance/Design Documentation.xlsx` is the same
+record as a spreadsheet, generated from it.
 
-Shape rows carry the same `part` and `section` as the ontology terms they validate — all five
-sections sit in Part 1 of the GSN Community Standard — and are keyed `…​.SH###`, so a section's
-axioms and its shapes sort together (`S04.R135` then `S04.SH001`).
+Shape records carry the same `part` and `section` as the ontology terms they validate — all
+five sections sit in Part 1 of the GSN Community Standard — and are keyed `…​.SH###`, so a
+section's axioms and its shapes sort together (`S04.R135` then `S04.SH001`).
 
-`#` comments in these files are section headings only. Prose belongs in the workbook, so the
-executable shape stays executable.
+`#` comments in these files are section headings only. Prose belongs in the provenance
+record, so the executable shape stays executable.
 
 ## Files
 
