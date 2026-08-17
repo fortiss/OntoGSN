@@ -15,7 +15,7 @@
     dc:description "SHACL shapes derived from the Core GSN section of the OntoGSN ontology (https://w3id.org/OntoGSN/ontology)."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     gsn:coreOrExtension "Core GSN"@en ;
-    owl:versionInfo "1.0.0" .
+    owl:versionInfo "1.0.1" .
 
 
 #################################################################
@@ -319,7 +319,7 @@ gsnsh:StrategyShape rdf:type sh:NodeShape ;
 ###  gsn:contains
 gsnsh:ContainsPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:contains — domain"@en ;
-    rdfs:comment "The declared rdfs:range of gsn:contains (Argument, Artefact, Module) is narrower than the class-level owl:allValuesFrom axioms that use it (e.g. gsn:Argument contains only gsn:GSNElement, gsn:Catalogue contains only gsn:Pattern). The range is therefore validated per containing class rather than globally. gsn:Catalogue is added to the domain here for the same reason."@en ;
+    rdfs:comment "The class-level owl:allValuesFrom axioms on gsn:contains are each narrower than its declared rdfs:range, and narrower in different directions: gsn:Argument contains only a GSN element or a pattern, gsn:AssuranceCase only an argument or an artefact, gsn:Catalogue only a pattern. What a container may hold therefore depends on the container, and is validated per containing class rather than by one global range shape."@en ;
     sh:targetSubjectsOf gsn:contains ;
     gsn:coreOrExtension "Core GSN"@en ;
     sh:or ( [ sh:class gsn:Argument ]
@@ -360,8 +360,9 @@ gsnsh:RefersToPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:refersTo — domain"@en ;
     sh:targetSubjectsOf gsn:refersTo ;
     gsn:coreOrExtension "Core GSN"@en ;
-    sh:class gsn:ArtefactReference ;
-    sh:message "Only an artefact reference may refer to an artefact."@en ;
+    sh:or ( [ sh:class gsn:ArtefactReference ]
+            [ sh:class gsn:InstantiationDataReference ] ) ;
+    sh:message "Only an artefact reference or an instantiation data reference may refer to an artefact."@en ;
     sh:severity sh:Violation .
 
 gsnsh:RefersToRangePropertyShape rdf:type sh:NodeShape ;

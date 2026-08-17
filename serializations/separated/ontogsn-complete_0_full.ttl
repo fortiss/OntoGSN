@@ -71,7 +71,7 @@ skos:note a owl:AnnotationProperty .
     dc:description "The complete ontology of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Includes the SWRL rules and every annotation."@en ;
     dc:identifier "SCSC-141C" ;
     dc:issued "2025-02-24"^^xsd:date ;
-    dc:modified "2026-08-05T00:00:00Z" ;
+    dc:modified "2026-08-17T00:00:00Z" ;
     dc:publisher "https://www.fortiss.org/"@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN"@en ;
@@ -86,7 +86,7 @@ skos:note a owl:AnnotationProperty .
         <https://w3id.org/OntoGSN/ontology/dialectic>,
         <https://w3id.org/OntoGSN/ontology/modular>,
         <https://w3id.org/OntoGSN/ontology/pattern> ;
-    owl:versionInfo "1.2.3" ;
+    owl:versionInfo "1.2.4" ;
     skos:definition "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."@en .
 
 gsn:AssumptionFalsePropagation a swrl:Imp ;
@@ -194,14 +194,6 @@ gsn:AwayGoalInvalidation a swrl:Imp ;
                     swrl:propertyPredicate gsn:valid ] ;
             rdf:rest () ] ;
     gsn:coreOrExtension "Modular Extension" .
-
-gsn:Catalogue a owl:Class ;
-    rdfs:label "Catalogue"@en ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gsn:Pattern ;
-            owl:onProperty gsn:contains ] ;
-    skos:definition "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
-    gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 gsn:ChallengeChainInvalidation a swrl:Imp ;
     rdfs:label "Challenge Chain Invalidation" ;
@@ -2304,7 +2296,8 @@ gsn:participants a owl:AnnotationProperty ;
 
 gsn:refersTo a owl:ObjectProperty ;
     rdfs:label "refers to"@en ;
-    rdfs:domain gsn:ArtefactReference ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:ArtefactReference gsn:InstantiationDataReference ) ] ;
     rdfs:range gsn:Artefact ;
     gsn:coreOrExtension "Core GSN"@en .
 
@@ -2355,11 +2348,13 @@ schema:description a owl:AnnotationProperty,
 
 rdf:Statement a owl:Class .
 
-gsn:InstantiationDataReference a owl:Class ;
-    rdfs:label "Instantiation Data Reference"@en ;
-    skos:definition "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument." ;
-    gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    gsn:renderedAs "hollow triangle" .
+gsn:Catalogue a owl:Class ;
+    rdfs:label "Catalogue"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gsn:Pattern ;
+            owl:onProperty gsn:contains ] ;
+    skos:definition "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 gsn:View a owl:Class ;
     rdfs:label "View"@en ;
@@ -2424,6 +2419,12 @@ gsn:Defeater a owl:Class ;
     skos:note "Membership of this class is only meant to be inferred, not asserted! Please do not add individuals to this class manually (i.e., assertions)."@en,
         "The goal and solution statements should be clearly expressed such that the crux of the challenge is unequivocally communicated. Thus, the link between the part of the argument that is being challenged (target) and the dialectic element (source) is self-evident."@en ;
     gsn:coreOrExtension "Dialectic Extension"@en .
+
+gsn:InstantiationDataReference a owl:Class ;
+    rdfs:label "Instantiation Data Reference"@en ;
+    skos:definition "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument." ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "hollow triangle" .
 
 gsn:inDoubt a owl:DatatypeProperty ;
     rdfs:label "in doubt"@en ;
@@ -2731,7 +2732,7 @@ gsn:Argument a owl:Class ;
             owl:allValuesFrom [ a owl:Class ;
                     owl:unionOf ( gsn:GSNElement gsn:Pattern ) ] ;
             owl:onProperty gsn:contains ],
-        _:genid0910 ;
+        _:genid0915 ;
     skos:definition "A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information."@en,
         "A connected series of claims intended to establish an overall claim."@en ;
     gsn:coreOrExtension "Core GSN"@en .
@@ -2781,6 +2782,8 @@ gsnswrl:S a swrl:Variable .
 
 gsnswrl:G a swrl:Variable .
 
+gsnswrl:C a swrl:Variable .
+
 gsn:GSNElement a owl:Class ;
     rdfs:label "GSN Element"@en ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -2799,14 +2802,12 @@ gsn:Pattern a owl:Class ;
             owl:someValuesFrom rdfs:Literal ] ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsnswrl:C a swrl:Variable .
-
 gsn:contains a owl:ObjectProperty ;
     rdfs:label "contains"@en ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Module gsn:Pattern ) ] ;
+            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Catalogue gsn:Module gsn:Pattern ) ] ;
     rdfs:range [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:Artefact gsn:Module ) ] ;
+            owl:unionOf ( gsn:Argument gsn:Artefact gsn:GSNElement gsn:Pattern ) ] ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsnswrl:M a swrl:Variable .
@@ -2907,7 +2908,7 @@ gsnswrl:A a swrl:Variable .
 [] a owl:Axiom ;
     owl:annotatedProperty rdfs:subClassOf ;
     owl:annotatedSource gsn:Argument ;
-    owl:annotatedTarget _:genid0910 ;
+    owl:annotatedTarget _:genid0915 ;
     skos:definition "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
     gsn:coreOrExtension "Confidence Argument Extension" .
 
@@ -2920,17 +2921,17 @@ _:genid0179 rdf:first [ a owl:Restriction ;
             owl:someValuesFrom gsn:ArtefactReference ] ;
     rdf:rest ( _:genid0079 ) .
 
-_:genid0423 rdf:first [ a owl:Restriction ;
+_:genid0429 rdf:first [ a owl:Restriction ;
             owl:onProperty gsn:statement ;
             owl:someValuesFrom xsd:string ] ;
     rdf:rest () .
 
-_:genid0621 a owl:Class ;
+_:genid0627 a owl:Class ;
     owl:intersectionOf _:genid0179 .
 
-_:genid0679 rdf:first _:genid0621 ;
-    rdf:rest _:genid0423 .
+_:genid0685 rdf:first _:genid0627 ;
+    rdf:rest _:genid0429 .
 
-_:genid0910 a owl:Class ;
-    owl:unionOf _:genid0679 .
+_:genid0915 a owl:Class ;
+    owl:unionOf _:genid0685 .
 

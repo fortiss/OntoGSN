@@ -52,7 +52,7 @@ HEADER = '''@prefix sh:     <http://www.w3.org/ns/shacl#> .
     dc:title "OntoGSN SHACL Shapes"@en ;
     dc:description "SHACL shapes for validating assurance-case data expressed with the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape is annotated with gsn:coreOrExtension, so the graph can be sliced back into its GSN Community Standard v3 sections."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionInfo "1.0.1" ;
     owl:imports <https://w3id.org/OntoGSN/shapes/core> ,
                 <https://w3id.org/OntoGSN/shapes/pattern> ,
                 <https://w3id.org/OntoGSN/shapes/modular> ,

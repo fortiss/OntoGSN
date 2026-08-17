@@ -40,7 +40,8 @@ gsn:offDiagram a owl:DatatypeProperty ;
 
 gsn:refersTo a owl:ObjectProperty ;
     rdfs:label "refers to"@en ;
-    rdfs:domain gsn:ArtefactReference ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:ArtefactReference gsn:InstantiationDataReference ) ] ;
     rdfs:range gsn:Artefact ;
     gsn:coreOrExtension "Core GSN"@en .
 
@@ -98,7 +99,7 @@ gsn:valid a owl:DatatypeProperty ;
     dc:description "The pruned Core GSN section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Excludes the SWRL rules; the term annotations are kept."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Core GSN"@en ;
-    owl:versionInfo "1.2.3" ;
+    owl:versionInfo "1.2.4" ;
     gsn:coreOrExtension "Core GSN"@en .
 
 rdf:Statement a owl:Class .
@@ -107,7 +108,11 @@ rdf:object a owl:ObjectProperty .
 
 rdf:subject a owl:ObjectProperty .
 
+gsn:Catalogue a owl:Class .
+
 gsn:Defeater a owl:Class .
+
+gsn:InstantiationDataReference a owl:Class .
 
 gsn:AssuranceCase a owl:Class ;
     rdfs:label "Assurance Case"@en ;
@@ -242,9 +247,9 @@ gsn:Relationship a owl:Class ;
 gsn:contains a owl:ObjectProperty ;
     rdfs:label "contains"@en ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Module gsn:Pattern ) ] ;
+            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Catalogue gsn:Module gsn:Pattern ) ] ;
     rdfs:range [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:Artefact gsn:Module ) ] ;
+            owl:unionOf ( gsn:Argument gsn:Artefact gsn:GSNElement gsn:Pattern ) ] ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Argument a owl:Class ;
@@ -272,6 +277,8 @@ gsn:Argument a owl:Class ;
     skos:definition "A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information."@en,
         "A connected series of claims intended to establish an overall claim."@en ;
     gsn:coreOrExtension "Core GSN"@en .
+
+gsn:Module a owl:Class .
 
 gsn:statement a owl:DatatypeProperty ;
     rdfs:label "statement"@en ;
@@ -306,8 +313,6 @@ gsn:Goal a owl:Class ;
         "A goal, rendered as a rectangle, presents a claim forming part of the argument."@en ;
     gsn:coreOrExtension "Core GSN"@en ;
     gsn:renderedAs "rectangle"@en .
-
-gsn:Module a owl:Class .
 
 gsn:GSNElement a owl:Class ;
     rdfs:label "GSN Element"@en ;

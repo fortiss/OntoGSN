@@ -32,12 +32,7 @@ xsd:date a rdfs:Datatype .
         <https://w3id.org/OntoGSN/ontology/dialectic>,
         <https://w3id.org/OntoGSN/ontology/modular>,
         <https://w3id.org/OntoGSN/ontology/pattern> ;
-    owl:versionInfo "1.2.3" .
-
-gsn:Catalogue a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gsn:Pattern ;
-            owl:onProperty gsn:contains ] .
+    owl:versionInfo "1.2.4" .
 
 gsn:applicability a owl:AnnotationProperty ;
     rdfs:domain gsn:Pattern .
@@ -144,7 +139,8 @@ gsn:published a owl:DatatypeProperty ;
     rdfs:range xsd:boolean .
 
 gsn:refersTo a owl:ObjectProperty ;
-    rdfs:domain gsn:ArtefactReference ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:ArtefactReference gsn:InstantiationDataReference ) ] ;
     rdfs:range gsn:Artefact .
 
 gsn:relatedTo a owl:ObjectProperty ;
@@ -219,11 +215,14 @@ rdf:Statement a owl:Class .
 
 rdf:subject a owl:ObjectProperty .
 
+gsn:Catalogue a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gsn:Pattern ;
+            owl:onProperty gsn:contains ] .
+
 gsn:Defeater a owl:Class ;
     rdfs:subClassOf [ a owl:Class ;
             owl:unionOf ( gsn:Goal gsn:Solution ) ] .
-
-gsn:InstantiationDataReference a owl:Class .
 
 gsn:Template a owl:Class ;
     rdfs:subClassOf gsn:Pattern .
@@ -252,6 +251,8 @@ gsn:away a owl:DatatypeProperty ;
     rdfs:range xsd:boolean .
 
 rdf:object a owl:ObjectProperty .
+
+gsn:InstantiationDataReference a owl:Class .
 
 gsn:RelationshipWithConfidence a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -377,9 +378,9 @@ gsn:Context a owl:Class ;
 
 gsn:contains a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Module gsn:Pattern ) ] ;
+            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Catalogue gsn:Module gsn:Pattern ) ] ;
     rdfs:range [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:Artefact gsn:Module ) ] .
+            owl:unionOf ( gsn:Argument gsn:Artefact gsn:GSNElement gsn:Pattern ) ] .
 
 gsn:Module a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;

@@ -39,15 +39,7 @@ skos:note a owl:AnnotationProperty .
         <https://w3id.org/OntoGSN/ontology/dialectic>,
         <https://w3id.org/OntoGSN/ontology/modular>,
         <https://w3id.org/OntoGSN/ontology/pattern> ;
-    owl:versionInfo "1.2.3" .
-
-gsn:Catalogue a owl:Class ;
-    rdfs:label "Catalogue"@en ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom gsn:Pattern ;
-            owl:onProperty gsn:contains ] ;
-    skos:definition "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
-    gsn:coreOrExtension "Argument Pattern Extension"@en .
+    owl:versionInfo "1.2.4" .
 
 gsn:applicability a owl:AnnotationProperty ;
     rdfs:label "applicability"@en ;
@@ -237,7 +229,8 @@ gsn:published a owl:DatatypeProperty ;
 
 gsn:refersTo a owl:ObjectProperty ;
     rdfs:label "refers to"@en ;
-    rdfs:domain gsn:ArtefactReference ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:ArtefactReference gsn:InstantiationDataReference ) ] ;
     rdfs:range gsn:Artefact ;
     gsn:coreOrExtension "Core GSN"@en .
 
@@ -347,6 +340,14 @@ rdf:Statement a owl:Class .
 
 rdf:subject a owl:ObjectProperty .
 
+gsn:Catalogue a owl:Class ;
+    rdfs:label "Catalogue"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom gsn:Pattern ;
+            owl:onProperty gsn:contains ] ;
+    skos:definition "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en .
+
 gsn:Defeater a owl:Class ;
     rdfs:label "Defeater"@en ;
     rdfs:subClassOf [ a owl:Class ;
@@ -356,12 +357,6 @@ gsn:Defeater a owl:Class ;
     skos:note "Membership of this class is only meant to be inferred, not asserted! Please do not add individuals to this class manually (i.e., assertions)."@en,
         "The goal and solution statements should be clearly expressed such that the crux of the challenge is unequivocally communicated. Thus, the link between the part of the argument that is being challenged (target) and the dialectic element (source) is self-evident."@en ;
     gsn:coreOrExtension "Dialectic Extension"@en .
-
-gsn:InstantiationDataReference a owl:Class ;
-    rdfs:label "Instantiation Data Reference"@en ;
-    skos:definition "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument." ;
-    gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    gsn:renderedAs "hollow triangle" .
 
 gsn:Template a owl:Class ;
     rdfs:label "Template"@en ;
@@ -407,6 +402,12 @@ gsn:away a owl:DatatypeProperty ;
     gsn:renderedAs "bisecting line in the lower half" .
 
 rdf:object a owl:ObjectProperty .
+
+gsn:InstantiationDataReference a owl:Class ;
+    rdfs:label "Instantiation Data Reference"@en ;
+    skos:definition "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument." ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:renderedAs "hollow triangle" .
 
 gsn:RelationshipWithConfidence a owl:Class ;
     rdfs:label "Relationship with Confidence"@en ;
@@ -586,9 +587,9 @@ gsn:Context a owl:Class ;
 gsn:contains a owl:ObjectProperty ;
     rdfs:label "contains"@en ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Module gsn:Pattern ) ] ;
+            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Catalogue gsn:Module gsn:Pattern ) ] ;
     rdfs:range [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:Artefact gsn:Module ) ] ;
+            owl:unionOf ( gsn:Argument gsn:Artefact gsn:GSNElement gsn:Pattern ) ] ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Module a owl:Class ;

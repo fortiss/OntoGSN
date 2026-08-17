@@ -30,7 +30,8 @@ gsn:offDiagram a owl:DatatypeProperty ;
     rdfs:range xsd:boolean .
 
 gsn:refersTo a owl:ObjectProperty ;
-    rdfs:domain gsn:ArtefactReference ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:ArtefactReference gsn:InstantiationDataReference ) ] ;
     rdfs:range gsn:Artefact .
 
 gsn:relationshipType a owl:DatatypeProperty ;
@@ -70,7 +71,7 @@ gsn:valid a owl:DatatypeProperty ;
     dc:description "The skeletal Core GSN section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Declarations and logical axioms only - no rules, no prose."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Core GSN"@en ;
-    owl:versionInfo "1.2.3" ;
+    owl:versionInfo "1.2.4" ;
     gsn:coreOrExtension "Core GSN"@en .
 
 rdf:Statement a owl:Class .
@@ -79,7 +80,11 @@ rdf:object a owl:ObjectProperty .
 
 rdf:subject a owl:ObjectProperty .
 
+gsn:Catalogue a owl:Class .
+
 gsn:Defeater a owl:Class .
+
+gsn:InstantiationDataReference a owl:Class .
 
 gsn:AssuranceCase a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -174,9 +179,9 @@ gsn:Relationship a owl:Class ;
 
 gsn:contains a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Module gsn:Pattern ) ] ;
+            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Catalogue gsn:Module gsn:Pattern ) ] ;
     rdfs:range [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:Artefact gsn:Module ) ] .
+            owl:unionOf ( gsn:Argument gsn:Artefact gsn:GSNElement gsn:Pattern ) ] .
 
 gsn:Argument a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -199,6 +204,8 @@ gsn:Argument a owl:Class ;
                                     owl:someValuesFrom gsn:Goal ] ) ] [ a owl:Restriction ;
                         owl:onProperty gsn:statement ;
                         owl:someValuesFrom xsd:string ] ) ] .
+
+gsn:Module a owl:Class .
 
 gsn:statement a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
@@ -225,8 +232,6 @@ gsn:Goal a owl:Class ;
                     owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
             owl:onProperty gsn:challenges ],
         gsn:GSNElement .
-
-gsn:Module a owl:Class .
 
 gsn:GSNElement a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
