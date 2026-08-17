@@ -1,0 +1,64 @@
+@prefix bad:    <https://example.org/bad#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnaug: <https://w3id.org/OntoGSN/augmentation#> .
+@prefix schema: <http://schema.org/> .
+
+#  Deliberately wrong. Every node here must be reported by exactly the shape named above it;
+#  a shape that stops firing on this file has stopped constraining anything.
+
+#  IssueShape - an issue is about exactly one thing
+bad:I-two-targets a gsnaug:Issue ; schema:identifier "IB1" ;
+    gsnaug:issueType gsnaug:clarify ;
+    gsnaug:raisedAgainst bad:G1 , bad:G2 .
+
+#  IssueShape - an issue must carry a type
+bad:I-untyped a gsnaug:Issue ; schema:identifier "IB2" ;
+    gsnaug:raisedAgainst bad:G1 .
+
+#  IssueShape - and it must be one of the three
+bad:I-bogus-type a gsnaug:Issue ; schema:identifier "IB3" ;
+    gsnaug:issueType bad:escalate ;
+    gsnaug:raisedAgainst bad:G1 .
+
+#  IssueSupersessionShape - nothing supersedes itself
+bad:I-self a gsnaug:Issue ; schema:identifier "IB4" ;
+    gsnaug:issueType gsnaug:revise ;
+    gsnaug:raisedAgainst bad:G1 ;
+    gsnaug:supersedes bad:I-self .
+
+#  AnswerShape - an answer closes exactly one issue
+bad:A-no-issue a gsnaug:Clarification .
+
+#  AnswerAgreementShape - a Revision cannot answer a clarify issue
+bad:I-clarify a gsnaug:Issue ; schema:identifier "IB5" ;
+    gsnaug:issueType gsnaug:clarify ;
+    gsnaug:raisedAgainst bad:G1 .
+bad:A-mismatched a gsnaug:Revision ; gsnaug:answers bad:I-clarify .
+
+#  ArtefactShape - the ranges are not decorative
+bad:artefact a gsn:Artefact ;
+    gsnaug:storedIn      bad:a-person ;
+    gsnaug:generatedWith bad:a-person ;
+    gsnaug:verifiedWith  bad:a-person .
+
+#  SolutionProvenanceShape (warning) - provenance belongs on the artefact
+bad:Sn1 a gsn:Solution ; schema:identifier "SnB1" ;
+    gsnaug:generatedWith bad:some-script .
+
+#  TopContextAgreementShape - the context and the property name different systems
+bad:G1 a gsn:Goal ; schema:identifier "GB1" ; gsn:top true ;
+    gsn:statement "A claim about one system." ;
+    gsn:inContextOf bad:C-object ;
+    gsnaug:assures bad:system-b .
+
+bad:C-object a gsnaug:TopObjectContext ; schema:identifier "CB1" ;
+    gsn:statement "System A." ;
+    gsn:refersTo bad:system-a .
+
+#  G2 carries no top-level context at all. TopContextCompletenessShape would report it, and is
+#  shipped sh:deactivated, so nothing should.
+bad:G2 a gsn:Goal ; schema:identifier "GB2" ; gsn:top true ;
+    gsn:statement "A top goal with no top-level context." .
+
+bad:system-a a gsn:Artefact .
+bad:system-b a gsn:Artefact .

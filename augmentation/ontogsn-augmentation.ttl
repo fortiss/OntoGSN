@@ -1,0 +1,695 @@
+@prefix gsnaug:     <https://w3id.org/OntoGSN/augmentation#> .
+@prefix gsnaugswrl: <https://w3id.org/OntoGSN/augmentation/swrl#> .
+@prefix gsn:        <https://w3id.org/OntoGSN/ontology#> .
+@prefix prov:       <http://www.w3.org/ns/prov#> .
+@prefix cc:         <http://creativecommons.org/ns#> .
+@prefix dc:         <http://purl.org/dc/elements/1.1/> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema:     <http://schema.org/> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix swrl:       <http://www.w3.org/2003/11/swrl#> .
+@prefix swrla:      <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#> .
+@prefix terms:      <http://purl.org/dc/terms/> .
+@prefix vann:       <http://purl.org/vocab/vann/> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/augmentation> .
+
+
+<https://w3id.org/OntoGSN/augmentation> rdf:type owl:Ontology ;
+    owl:imports <https://w3id.org/OntoGSN/ontology> ,
+                <http://www.w3.org/ns/prov-o> ;
+    cc:license "https://creativecommons.org/licenses/by/4.0/" ;
+    dc:title "OntoGSN Augmentation"@en ;
+    dc:creator "Tomas Bueno Momčilović"@en ;
+    dc:publisher "https://www.fortiss.org/"@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    dc:description """Terms for linking a GSN assurance case to things GSN deliberately does not model: the people
+and roles behind an element, the tool that produced a piece of evidence and where it is kept, the
+review issues raised against the case, and the regulatory requirement a claim answers to.
+
+Three groups do the work. Evidence provenance hangs off gsn:Artefact rather than gsn:Solution,
+because the storage location, the generating tool and the verification script are facts about the
+file and not about the node in the diagram; a query reaches them through the gsn:refersTo the
+solution already has. Roles say who owns, reviews and is assured by what. Issues record a reviewer's
+ask - clarify, revise or resolve - as an individual, so that rounds can be counted and an ask can be
+superseded or answered.
+
+An issue is not a status flag. gsn:inDoubt and gsn:defeated are states of an element; an issue is
+the request to move the element off one, and only two of the nine combinations of issue type and
+target produce a defeater at all. The rest are legitimate asks that leave the argument's truth
+values untouched.
+
+Nothing in OntoGSN imports this file, and this file restates no gsn: domain or range."""@en ;
+    terms:created "2026-08-17"^^xsd:date ;
+    vann:preferredNamespacePrefix "gsnaug" ;
+    vann:preferredNamespaceUri "https://w3id.org/OntoGSN/augmentation#" ;
+    owl:versionInfo "0.1.0" ;
+    gsnaug:augmentedOntoGSNVersion "1.2.4" ;
+    skos:note """The augmented-version annotation scopes everything below. Two axioms in particular were written
+against OntoGSN 1.2.4 and would not hold before it: gsnaug:instantiatedFrom assumes an
+InstantiationDataReference may carry gsn:refersTo, and rule A2/A3 assume gsn:challenges reaches the
+class of target the rule matches. Re-check this file whenever that version string moves."""@en .
+
+
+gsnaug:augmentedOntoGSNVersion rdf:type owl:AnnotationProperty ;
+    rdfs:label "augmented OntoGSN version"@en ;
+    rdfs:comment "The version of OntoGSN this augmentation was written against."@en .
+
+
+#################################################################
+#    The one axiom with a gsn: term as its subject
+#
+#    Asserted here and never in serializations/ontogsn.ttl. OntoGSN is a faithful rendering of the
+#    GSN Community Standard v3, and a claim about PROV-O is not a claim the standard makes; keeping
+#    it here also means a GSN-only consumer never pulls PROV into its closure. Same call, and the
+#    same reasoning, as the two gsn: axioms in alignments/gsnalign.ttl.
+#
+#    It is load-bearing rather than decorative: without it the three PROV subproperties below have
+#    a domain of gsn:Artefact and superproperties whose domain is prov:Entity, so nothing an
+#    artefact carries would be visible to a PROV-aware consumer.
+#################################################################
+
+gsn:Artefact rdfs:subClassOf prov:Entity .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  Issues and answers
+
+gsnaug:Issue rdf:type owl:Class ;
+    rdfs:label "Issue"@en ;
+    skos:altLabel "Request"@en ;
+    skos:definition "An ask raised by a reviewer against something in an assurance case: clarify it, revise it, or resolve it."@en ;
+    skos:note """An issue is the ask, not the state of what it targets. It persists after being raised: it is open,
+it may be relayed or superseded, and it is closed by a gsnaug:Answer. Modelling it as an individual
+rather than as a flag is what makes 'how many rounds has this claim taken' a countable question."""@en .
+
+gsnaug:Answer rdf:type owl:Class ;
+    rdfs:label "Answer"@en ;
+    skos:definition "The response that closes an issue."@en ;
+    skos:note "Superclass only. Instantiate one of the three subclasses, which say what kind of ask was answered."@en .
+
+gsnaug:Clarification rdf:type owl:Class ;
+    rdfs:subClassOf gsnaug:Answer ;
+    rdfs:label "Clarification"@en ;
+    skos:definition "The answer to a clarify issue: a comment that explains the element without changing it."@en .
+
+gsnaug:Revision rdf:type owl:Class ;
+    rdfs:subClassOf gsnaug:Answer ;
+    rdfs:label "Revision"@en ;
+    skos:definition "The answer to a revise issue: the record that the element was changed."@en .
+
+gsnaug:Resolution rdf:type owl:Class ;
+    rdfs:subClassOf gsnaug:Answer ;
+    rdfs:label "Resolution"@en ;
+    skos:definition "The answer to a resolve issue: the record that the defeat was addressed."@en .
+
+
+###  Evidence mechanisms and storage
+#
+#  Deliberately without a superclass and without further structure. They exist so that a domain
+#  ontology can subclass them - sw:Script rdfs:subClassOf gsnaug:EvidenceGenerationMechanism - or
+#  declare individuals directly. Saying more here would be prescribing an implementation.
+
+gsnaug:EvidenceGenerationMechanism rdf:type owl:Class ;
+    rdfs:label "Evidence Generation Mechanism"@en ;
+    skos:definition "A mechanism - a process, a script, a command - that can or should be used to generate a piece of evidence."@en ;
+    skos:note "Naming the mechanism is also a signal to whoever maintains it: an artefact generated by a known script should not be edited by hand, and one whose mechanism is missing is a candidate for automation."@en .
+
+gsnaug:EvidenceRetrievalMechanism rdf:type owl:Class ;
+    rdfs:label "Evidence Retrieval Mechanism"@en ;
+    skos:definition "A mechanism - a process, a script, a query, a command - that can or should be used to retrieve a piece of evidence."@en .
+
+gsnaug:EvidenceVerificationMechanism rdf:type owl:Class ;
+    rdfs:label "Evidence Verification Mechanism"@en ;
+    skos:definition "A mechanism - a process, a script, a rule, a command - that can or should be used to verify the truth or appropriateness of a piece of evidence."@en .
+
+gsnaug:StorageSystem rdf:type owl:Class ;
+    rdfs:label "Storage System"@en ;
+    skos:definition "Where an artefact lives: a repository, a document store, a drive."@en .
+
+
+###  Top-level contexts
+
+gsnaug:TopSubjectContext rdf:type owl:Class ;
+    rdfs:subClassOf gsn:Context ;
+    rdfs:label "Top Subject Context"@en ;
+    skos:definition "The context of a top goal that names the property being assured - what is claimed."@en ;
+    skos:note "A GSN-only tool sees an ordinary gsn:Context and renders it as one. Declaring a top-level context is GSN best practice but not normative, which is why gsnaug:assures and gsnaug:requiredBy exist alongside these classes rather than depending on them."@en .
+
+gsnaug:TopObjectContext rdf:type owl:Class ;
+    rdfs:subClassOf gsn:Context ;
+    rdfs:label "Top Object Context"@en ;
+    skos:definition "The context of a top goal that names the system the property is claimed of - what it is claimed about."@en .
+
+
+#################################################################
+#    Issue types
+#
+#    A SKOS scheme rather than three subclasses of gsnaug:Issue. A fourth kind of ask is then a
+#    concept, which deprecates, merges and maps, rather than a class in a released ontology.
+#################################################################
+
+gsnaug:IssueTypeScheme rdf:type skos:ConceptScheme ;
+    rdfs:label "Issue types"@en ;
+    skos:prefLabel "Issue types"@en ;
+    skos:hasTopConcept gsnaug:clarify , gsnaug:revise , gsnaug:resolve .
+
+gsnaug:clarify rdf:type skos:Concept ;
+    skos:inScheme gsnaug:IssueTypeScheme ;
+    skos:topConceptOf gsnaug:IssueTypeScheme ;
+    skos:prefLabel "clarify"@en ;
+    skos:definition "The target is unclear to the reviewer. Not necessarily invalid - only difficult to interpret."@en ;
+    skos:scopeNote "Nothing is inferred. A clarify issue never becomes a defeater and never moves a truth value, whatever it targets."@en .
+
+gsnaug:revise rdf:type skos:Concept ;
+    skos:inScheme gsnaug:IssueTypeScheme ;
+    skos:topConceptOf gsnaug:IssueTypeScheme ;
+    skos:prefLabel "revise"@en ;
+    skos:definition "The target is invalid according to the reviewer and must be revised."@en ;
+    skos:scopeNote "Becomes a challenge, and so puts the target gsn:inDoubt, only when the target is a gsn:Goal or a gsn:Solution. Against a context, an assumption or a justification it is a remark about how well that element is expressed, which is not a claim about the argument."@en .
+
+gsnaug:resolve rdf:type skos:Concept ;
+    skos:inScheme gsnaug:IssueTypeScheme ;
+    skos:topConceptOf gsnaug:IssueTypeScheme ;
+    skos:prefLabel "resolve"@en ;
+    skos:definition "The target is defeated and must be resolved before the next review."@en ;
+    skos:scopeNote "Becomes a challenge, and so defeats the target, only when the target is a gsn:Goal or a gsn:Solution. Same reasoning as gsnaug:revise."@en .
+
+
+#################################################################
+#    Object properties - the artefact
+#
+#    All six hang off gsn:Artefact, never gsn:Solution. A solution is the GSN element that
+#    references an artefact; the path, the storage location, the generating tool and the
+#    verification script are facts about the file. A query reaches them from the argument through
+#    the gsn:refersTo the solution already carries:
+#
+#        ?claim gsn:supportedBy/gsn:refersTo ?artefact . ?artefact gsnaug:generatedWith ?tool .
+#################################################################
+
+gsnaug:storedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range gsnaug:StorageSystem ;
+    rdfs:label "stored in"@en ;
+    skos:definition "Where the artefact is kept."@en .
+
+gsnaug:retrievableWith rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range gsnaug:EvidenceRetrievalMechanism ;
+    rdfs:label "retrievable with"@en ;
+    skos:definition "How the artefact can be fetched again."@en ;
+    skos:note "Has no PROV counterpart and is minted outright. PROV records what happened; this describes future access."@en .
+
+gsnaug:generatedBy rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasAttributedTo ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range prov:Agent ;
+    rdfs:label "generated by"@en ;
+    skos:definition "The person who produced the artefact."@en ;
+    skos:note "A subproperty rather than bare prov:wasAttributedTo, so that the author and the tool stay distinguishable while a PROV-aware consumer still traverses both."@en .
+
+gsnaug:generatedWith rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasAttributedTo ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range gsnaug:EvidenceGenerationMechanism ;
+    rdfs:label "generated with"@en ;
+    skos:definition "The tool or script that produced the artefact."@en ;
+    skos:note "The mechanism is treated as an agent rather than as a prov:Activity. The orthodox PROV route - wasGeneratedBy to an Activity, prov:used to the tool - is three hops for one fact and needs an activity individual that nobody has. Revisit if the provenance of a particular generation run is ever wanted, rather than of the artefact."@en .
+
+gsnaug:generatedFrom rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasDerivedFrom ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range prov:Entity ;
+    rdfs:label "generated from"@en ;
+    skos:definition "The system or dataset the artefact was drawn from."@en .
+
+gsnaug:verifiedWith rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range gsnaug:EvidenceVerificationMechanism ;
+    rdfs:label "verified with"@en ;
+    skos:definition "What checks the truth or appropriateness of the artefact."@en ;
+    skos:note "The mechanism that ran, which is provenance. Distinct from a shape or a rule that decides whether a claim holds, which is a definition."@en .
+
+
+#################################################################
+#    Object properties - roles
+#################################################################
+
+gsnaug:assures rdf:type owl:ObjectProperty ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Argument
+                                gsn:AssuranceCase
+                                gsn:Goal
+                              )
+                ] ;
+    rdfs:label "assures"@en ;
+    skos:definition "The system, service or organisation this argument is about."@en ;
+    skos:note "Says in one triple what a top-level context says in a diagram. GSN recommends but does not require such a context, so a conforming case may omit it; this property carries the fact either way. Where both are present, rule A5 derives this one from the context, and a shape checks that they agree."@en .
+
+gsnaug:assuredBy rdf:type owl:ObjectProperty ;
+    owl:inverseOf gsnaug:assures ;
+    rdfs:label "assured by"@en ;
+    skos:definition "The argument or case that assures this system."@en ;
+    skos:note "The inverse exists so that a domain ontology can point inward without write access to the case graph, and so that two competing cases can claim the same system."@en .
+
+gsnaug:owns rdf:type owl:ObjectProperty ;
+    rdfs:range gsn:GSNElement ;
+    rdfs:label "owns"@en ;
+    skos:definition "The agent who stands behind an element - who owns its validity or truth."@en .
+
+gsnaug:ownedBy rdf:type owl:ObjectProperty ;
+    owl:inverseOf gsnaug:owns ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:label "owned by"@en ;
+    skos:definition "The agent who stands behind this element."@en .
+
+gsnaug:reviews rdf:type owl:ObjectProperty ;
+    rdfs:range [ rdf:type owl:Class ;
+                 owl:unionOf ( gsn:Artefact
+                               gsn:GSNElement
+                             )
+               ] ;
+    rdfs:label "reviews"@en ;
+    skos:definition "The agent who checked an element or an artefact."@en .
+
+gsnaug:reviewedBy rdf:type owl:ObjectProperty ;
+    owl:inverseOf gsnaug:reviews ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Artefact
+                                gsn:GSNElement
+                              )
+                ] ;
+    rdfs:label "reviewed by"@en ;
+    skos:definition "The agent who checked this element or artefact."@en .
+
+
+#################################################################
+#    Object properties - issues
+#################################################################
+
+gsnaug:raisedAgainst rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Issue ;
+    rdfs:label "raised against"@en ;
+    skos:definition "What the issue is about."@en ;
+    skos:note """Deliberately without an rdfs:range. A reviewer may raise an issue against anything in the case -
+a goal, a solution, a context, a reified relationship, an artefact, the case itself. Narrowing the
+range would either reject legitimate asks or, since range is generative rather than restrictive,
+silently retype whatever an issue happened to point at.
+
+What the target is still matters, but it matters to the rules rather than to the vocabulary: only a
+revise or resolve issue against a gsn:Goal or a gsn:Solution becomes a defeater."""@en .
+
+gsnaug:issueType rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Issue ;
+    rdfs:range skos:Concept ;
+    rdfs:label "issue type"@en ;
+    skos:definition "Which of the three asks this issue is: clarify, revise or resolve."@en .
+
+gsnaug:answers rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Answer ;
+    rdfs:range gsnaug:Issue ;
+    rdfs:label "answers"@en ;
+    skos:definition "The issue this answer closes."@en .
+
+gsnaug:supersedes rdf:type owl:ObjectProperty ,
+                           owl:IrreflexiveProperty ;
+    rdfs:domain gsnaug:Issue ;
+    rdfs:range gsnaug:Issue ;
+    rdfs:label "supersedes"@en ;
+    skos:definition "A later ask that displaces a still-pending one."@en .
+
+
+#################################################################
+#    Object properties - structure and the generic pair
+#################################################################
+
+gsnaug:instantiatedFrom rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:label "instantiated from"@en ;
+    skos:definition "The row of instantiation data that produced this element."@en ;
+    skos:note "Completes the pattern-instantiation loop. gsn:attachedTo points from the instantiation data reference to the element it governs, and since OntoGSN 1.2.4 gsn:refersTo points from that reference to the data itself; this says which row of that data produced which element."@en .
+
+gsnaug:requiredBy rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:label "required by"@en ;
+    skos:definition "The requirement, regulatory statement or obligation that this element answers to."@en ;
+    skos:note "Close in intent to dcterms:conformsTo, and kept separate because conformance is a claim about an artefact meeting a standard, while this records where a claim in the argument came from. What sits at the far end belongs to the user's domain ontology; this file supplies the link and not the taxonomy."@en .
+
+gsnaug:linksTo rdf:type owl:ObjectProperty ;
+    rdfs:label "links to"@en ;
+    skos:definition "A link from anything to anything, for reaching a term in another ontology that no other property here covers."@en ;
+    skos:note "Deliberately without domain or range, and deliberately not a superproperty of anything else in this file. Its whole purpose is to presume nothing about what sits at either end; giving it relatives would import their typing into the generic case."@en .
+
+gsnaug:tag rdf:type owl:DatatypeProperty ;
+    rdfs:label "tag"@en ;
+    skos:definition "An informal keyword for grouping or filtering anything."@en ;
+    skos:note "Informal on purpose. If a set of tags starts carrying meaning, that is the signal to model it, not to formalise the tag."@en .
+
+
+#################################################################
+#    SWRL rules
+#
+#    A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express
+#    'a Goal or a Solution' in one rule.
+#
+#    What these rules do NOT do is as deliberate as what they do. A clarify issue infers nothing,
+#    whatever it targets. A revise or resolve issue against a context, an assumption, a
+#    justification, a strategy or a relationship also infers nothing: the ask is recorded and
+#    queryable, but it is a remark about how well an element is expressed, not a claim about the
+#    argument, and it must not move gsn:inDoubt or gsn:defeated.
+#
+#    Where a rule does fire, OntoGSN's own dialectic rules take it from there: S52 types anything
+#    that challenges as a gsn:Defeater, and S48 derives gsn:inDoubt from a true goal that
+#    challenges. Only gsn:defeated has to be asserted here, because S46 derives it from a valid
+#    gsn:Solution and an issue is an ask rather than evidence.
+#################################################################
+
+gsnaugswrl:I  rdf:type swrl:Variable .
+gsnaugswrl:E  rdf:type swrl:Variable .
+gsnaugswrl:G  rdf:type swrl:Variable .
+gsnaugswrl:C  rdf:type swrl:Variable .
+gsnaugswrl:S  rdf:type swrl:Variable .
+gsnaugswrl:R  rdf:type swrl:Variable .
+
+
+###  A2a
+gsnaug:ReviseIssueChallengesGoal swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Revise Issue Challenges Goal" ;
+   rdfs:comment "IF Issue I is of type revise AND is raised against Goal E THEN I is a goal that challenges E, and is true"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsnaug:Issue ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsnaug:issueType ;
+                                      swrl:argument1 gsnaugswrl:I ;
+                                      swrl:argument2 gsnaug:revise
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsnaug:raisedAgainst ;
+                                                 swrl:argument1 gsnaugswrl:I ;
+                                                 swrl:argument2 gsnaugswrl:E
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsn:Goal ;
+                                                            swrl:argument1 gsnaugswrl:E
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Goal ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:true ;
+                                      swrl:argument1 gsnaugswrl:I ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:challenges ;
+                                                 swrl:argument1 gsnaugswrl:I ;
+                                                 swrl:argument2 gsnaugswrl:E
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] .
+
+
+###  A2b
+gsnaug:ReviseIssueChallengesSolution swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Revise Issue Challenges Solution" ;
+   rdfs:comment "IF Issue I is of type revise AND is raised against Solution E THEN I is a goal that challenges E, and is true"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsnaug:Issue ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsnaug:issueType ;
+                                      swrl:argument1 gsnaugswrl:I ;
+                                      swrl:argument2 gsnaug:revise
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsnaug:raisedAgainst ;
+                                                 swrl:argument1 gsnaugswrl:I ;
+                                                 swrl:argument2 gsnaugswrl:E
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsn:Solution ;
+                                                            swrl:argument1 gsnaugswrl:E
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Goal ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:true ;
+                                      swrl:argument1 gsnaugswrl:I ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:challenges ;
+                                                 swrl:argument1 gsnaugswrl:I ;
+                                                 swrl:argument2 gsnaugswrl:E
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] .
+
+
+###  A3a
+gsnaug:ResolveIssueDefeatsGoal swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Resolve Issue Defeats Goal" ;
+   rdfs:comment "IF Issue I is of type resolve AND is raised against Goal E THEN I is a goal that challenges E, and E is defeated"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsnaug:Issue ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsnaug:issueType ;
+                                      swrl:argument1 gsnaugswrl:I ;
+                                      swrl:argument2 gsnaug:resolve
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsnaug:raisedAgainst ;
+                                                 swrl:argument1 gsnaugswrl:I ;
+                                                 swrl:argument2 gsnaugswrl:E
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsn:Goal ;
+                                                            swrl:argument1 gsnaugswrl:E
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Goal ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsn:challenges ;
+                                      swrl:argument1 gsnaugswrl:I ;
+                                      swrl:argument2 gsnaugswrl:E
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:defeated ;
+                                                 swrl:argument1 gsnaugswrl:E ;
+                                                 swrl:argument2 "true"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] .
+
+
+###  A3b
+gsnaug:ResolveIssueDefeatsSolution swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Resolve Issue Defeats Solution" ;
+   rdfs:comment "IF Issue I is of type resolve AND is raised against Solution E THEN I is a goal that challenges E, and E is defeated"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsnaug:Issue ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsnaug:issueType ;
+                                      swrl:argument1 gsnaugswrl:I ;
+                                      swrl:argument2 gsnaug:resolve
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsnaug:raisedAgainst ;
+                                                 swrl:argument1 gsnaugswrl:I ;
+                                                 swrl:argument2 gsnaugswrl:E
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsn:Solution ;
+                                                            swrl:argument1 gsnaugswrl:E
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Goal ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsn:challenges ;
+                                      swrl:argument1 gsnaugswrl:I ;
+                                      swrl:argument2 gsnaugswrl:E
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:defeated ;
+                                                 swrl:argument1 gsnaugswrl:E ;
+                                                 swrl:argument2 "true"^^xsd:boolean
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] .
+
+
+###  A5a
+gsnaug:TopObjectContextAssurance swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Top Object Context Assurance" ;
+   rdfs:comment "IF top Goal G is in the context of Top Object Context C AND C refers to S THEN G assures S"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Goal ;
+                           swrl:argument1 gsnaugswrl:G
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:top ;
+                                      swrl:argument1 gsnaugswrl:G ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:inContextOf ;
+                                                 swrl:argument1 gsnaugswrl:G ;
+                                                 swrl:argument2 gsnaugswrl:C
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsnaug:TopObjectContext ;
+                                                            swrl:argument1 gsnaugswrl:C
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate gsn:refersTo ;
+                                                                       swrl:argument1 gsnaugswrl:C ;
+                                                                       swrl:argument2 gsnaugswrl:S
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsnaug:assures ;
+                           swrl:argument1 gsnaugswrl:G ;
+                           swrl:argument2 gsnaugswrl:S
+                         ] ;
+               rdf:rest rdf:nil
+             ] .
+
+
+###  A5b
+gsnaug:TopSubjectContextRequirement swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Top Subject Context Requirement" ;
+   rdfs:comment "IF top Goal G is in the context of Top Subject Context C AND C refers to R THEN G is required by R"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Goal ;
+                           swrl:argument1 gsnaugswrl:G
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:top ;
+                                      swrl:argument1 gsnaugswrl:G ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:inContextOf ;
+                                                 swrl:argument1 gsnaugswrl:G ;
+                                                 swrl:argument2 gsnaugswrl:C
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsnaug:TopSubjectContext ;
+                                                            swrl:argument1 gsnaugswrl:C
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate gsn:refersTo ;
+                                                                       swrl:argument1 gsnaugswrl:C ;
+                                                                       swrl:argument2 gsnaugswrl:R
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsnaug:requiredBy ;
+                           swrl:argument1 gsnaugswrl:G ;
+                           swrl:argument2 gsnaugswrl:R
+                         ] ;
+               rdf:rest rdf:nil
+             ] .

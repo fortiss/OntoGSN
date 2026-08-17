@@ -1,0 +1,66 @@
+@prefix ex:     <https://example.org/case#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnaug: <https://w3id.org/OntoGSN/augmentation#> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix schema: <http://schema.org/> .
+
+#  A minimal case exercising every branch of the augmentation rules: one top goal with both
+#  top-level contexts, one solution, one artefact carrying the full provenance set, and four
+#  issues covering the combinations that do and do not become defeaters.
+
+ex:G1 a gsn:Goal ; schema:identifier "G1" ; gsn:top true ;
+    gsn:statement "The IT system is compliant with the applicable regulation." ;
+    gsn:inContextOf ex:C-subject , ex:C-object ;
+    gsn:supportedBy ex:Sn1 .
+
+ex:C-subject a gsnaug:TopSubjectContext ; schema:identifier "C1" ;
+    gsn:statement "Compliance as defined by the regulation." ;
+    gsn:refersTo ex:regulation .
+
+ex:C-object a gsnaug:TopObjectContext ; schema:identifier "C2" ;
+    gsn:statement "The company IT system." ;
+    gsn:refersTo ex:it-system .
+
+ex:Sn1 a gsn:Solution ; schema:identifier "Sn1" ;
+    gsn:statement "Access log for the reporting period." ;
+    gsn:refersTo ex:access-log .
+
+ex:regulation a gsn:Artefact .
+ex:it-system  a gsn:Artefact .
+
+ex:access-log a gsn:Artefact ;
+    gsnaug:storedIn        ex:evidence-store ;
+    gsnaug:retrievableWith ex:log-query ;
+    gsnaug:generatedBy     ex:dev-anna ;
+    gsnaug:generatedWith   ex:logging-function ;
+    gsnaug:generatedFrom   ex:it-system ;
+    gsnaug:verifiedWith    ex:retention-rule .
+
+ex:evidence-store   a gsnaug:StorageSystem .
+ex:log-query        a gsnaug:EvidenceRetrievalMechanism .
+ex:logging-function a gsnaug:EvidenceGenerationMechanism .
+ex:retention-rule   a gsnaug:EvidenceVerificationMechanism .
+ex:dev-anna         a prov:Agent .
+
+#  I1  clarify against a goal      -> nothing inferred; clarify never defeats
+#  I2  revise  against a context   -> nothing inferred; the target is not a claim
+#  I3  revise  against a solution  -> challenge, and Sn1 goes in doubt
+#  I4  resolve against a goal      -> challenge, and G1 is defeated
+
+ex:I1 a gsnaug:Issue ; schema:identifier "I1" ;
+    gsnaug:issueType gsnaug:clarify ;
+    gsnaug:raisedAgainst ex:G1 .
+
+ex:I2 a gsnaug:Issue ; schema:identifier "I2" ;
+    gsnaug:issueType gsnaug:revise ;
+    gsnaug:raisedAgainst ex:C-object .
+
+ex:I3 a gsnaug:Issue ; schema:identifier "I3" ;
+    gsnaug:issueType gsnaug:revise ;
+    gsnaug:raisedAgainst ex:Sn1 .
+
+ex:I4 a gsnaug:Issue ; schema:identifier "I4" ;
+    gsnaug:issueType gsnaug:resolve ;
+    gsnaug:raisedAgainst ex:G1 .
+
+ex:A1 a gsnaug:Revision ; gsnaug:answers ex:I3 .

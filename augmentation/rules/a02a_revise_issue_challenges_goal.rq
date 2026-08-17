@@ -1,0 +1,23 @@
+# rule:      A2a
+# name:      Revise Issue Challenges Goal
+# section:   Augmentation
+# operation: rule
+# expect:    insert
+# swrl:      Issue(?I) ^ issueType(?I, revise) ^ raisedAgainst(?I, ?E) ^ Goal(?E) -> Goal(?I) ^ true(?I, true) ^ challenges(?I, ?E)
+# reads:     IF Issue I is of type revise AND is raised against Goal E THEN I is a true goal that challenges E
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
+
+INSERT {
+  ?I a gsn:Goal ;
+     gsn:true true ;
+     gsn:challenges ?E .
+}
+WHERE {
+  ?I a gsnaug:Issue ;
+     gsnaug:issueType gsnaug:revise ;
+     gsnaug:raisedAgainst ?E .
+  ?E a gsn:Goal .
+  FILTER NOT EXISTS { ?I gsn:challenges ?E }
+}

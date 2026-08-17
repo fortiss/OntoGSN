@@ -1,0 +1,21 @@
+# rule:      A5a
+# name:      Top Object Context Assurance
+# section:   Augmentation
+# operation: rule
+# expect:    insert
+# swrl:      Goal(?G) ^ top(?G, true) ^ inContextOf(?G, ?C) ^ TopObjectContext(?C) ^ refersTo(?C, ?S) -> assures(?G, ?S)
+# reads:     IF top Goal G is in the context of Top Object Context C AND C refers to S THEN G assures S
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
+
+INSERT { ?G gsnaug:assures ?S }
+WHERE {
+  ?G a gsn:Goal ;
+     gsn:top ?top ;
+     gsn:inContextOf ?C .
+  FILTER(STR(?top) = "true")
+  ?C a gsnaug:TopObjectContext ;
+     gsn:refersTo ?S .
+  FILTER NOT EXISTS { ?G gsnaug:assures ?S }
+}

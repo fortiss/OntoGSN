@@ -1,0 +1,266 @@
+@prefix gsnaugsh: <https://w3id.org/OntoGSN/augmentation/shapes#> .
+@prefix gsnaug:   <https://w3id.org/OntoGSN/augmentation#> .
+@prefix gsn:      <https://w3id.org/OntoGSN/ontology#> .
+@prefix prov:     <http://www.w3.org/ns/prov#> .
+@prefix sh:       <http://www.w3.org/ns/shacl#> .
+@prefix dc:       <http://purl.org/dc/elements/1.1/> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/augmentation/shapes> .
+
+
+<https://w3id.org/OntoGSN/augmentation/shapes> rdf:type owl:Ontology ;
+    dc:title "OntoGSN Augmentation SHACL Shapes"@en ;
+    dc:description """Constraints for the OntoGSN Augmentation vocabulary (https://w3id.org/OntoGSN/augmentation).
+
+The division of labour is the one the augmentation's own stability rules set out: OWL describes,
+SHACL constrains. gsnaug:raisedAgainst carries no rdfs:range because a reviewer may raise an issue
+against anything in a case and because range is generative rather than restrictive - so what is
+checked here is arity, not type. Where a range does exist in the OWL it is repeated as a shape,
+because an rdfs:range infers a type rather than rejecting a wrong one."""@en ;
+    dc:source "https://w3id.org/OntoGSN/augmentation" ;
+    owl:versionInfo "0.1.0" .
+
+
+<https://w3id.org/OntoGSN/augmentation/shapes> sh:declare [
+        sh:prefix "gsn" ;
+        sh:namespace "https://w3id.org/OntoGSN/ontology#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "gsnaug" ;
+        sh:namespace "https://w3id.org/OntoGSN/augmentation#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "rdf" ;
+        sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+    ] .
+
+
+#################################################################
+#    Issues
+#################################################################
+
+###  gsnaug:Issue
+gsnaugsh:IssueShape rdf:type sh:NodeShape ;
+    rdfs:label "Issue shape"@en ;
+    sh:targetClass gsnaug:Issue ;
+    sh:property [
+        sh:path gsnaug:raisedAgainst ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:name "raised against" ;
+        sh:description "An issue is about exactly one thing. There is deliberately no class constraint: a reviewer may raise an issue against a goal, a solution, a context, a reified relationship, an artefact or the case itself."@en ;
+        sh:message "An issue must be raised against exactly one thing."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:issueType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( gsnaug:clarify gsnaug:revise gsnaug:resolve ) ;
+        sh:name "issue type" ;
+        sh:message "An issue must carry exactly one type: gsnaug:clarify, gsnaug:revise or gsnaug:resolve."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:supersedes ;
+        sh:class gsnaug:Issue ;
+        sh:name "supersedes" ;
+        sh:message "An issue may only supersede another issue."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+###  gsnaug:Issue - an issue may not supersede itself
+gsnaugsh:IssueSupersessionShape rdf:type sh:NodeShape ;
+    rdfs:label "Issue self-supersession shape"@en ;
+    rdfs:comment "gsnaug:supersedes is declared owl:IrreflexiveProperty, which makes a self-superseding issue an OWL inconsistency rather than a reported problem. A reasoner is not always in the loop, so it is also checked here."@en ;
+    sh:targetClass gsnaug:Issue ;
+    sh:sparql [
+        sh:message "An issue cannot supersede itself."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
+        sh:select """
+            SELECT $this WHERE { $this gsnaug:supersedes $this . }
+        """ ;
+    ] ;
+    sh:severity sh:Violation .
+
+
+#################################################################
+#    Answers
+#################################################################
+
+###  gsnaug:Answer
+gsnaugsh:AnswerShape rdf:type sh:NodeShape ;
+    rdfs:label "Answer shape"@en ;
+    sh:targetClass gsnaug:Answer ;
+    sh:property [
+        sh:path gsnaug:answers ;
+        sh:class gsnaug:Issue ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "answers" ;
+        sh:message "An answer must close exactly one issue."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+###  gsnaug:Answer - the answer class has to match the issue type
+gsnaugsh:AnswerAgreementShape rdf:type sh:NodeShape ;
+    rdfs:label "Answer agreement shape"@en ;
+    rdfs:comment "A gsnaug:Revision answers a revise issue, a gsnaug:Clarification a clarify issue, a gsnaug:Resolution a resolve issue. Written as one constraint rather than three shapes, so the pairing is stated in one place. Not a VALUES table, which SHACL-SPARQL forbids in a constraint, and not a UNION either: a filter inside a UNION branch cannot see a variable bound in the enclosing group, so the three tests are one flat disjunction."@en ;
+    sh:targetClass gsnaug:Answer ;
+    sh:sparql [
+        sh:message "The kind of answer does not match the kind of issue it closes: a Clarification answers a clarify issue, a Revision a revise issue, and a Resolution a resolve issue."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
+        sh:select """
+            SELECT $this ?issue WHERE {
+                $this gsnaug:answers ?issue ;
+                      rdf:type ?answerClass .
+                ?issue gsnaug:issueType ?type .
+                FILTER (   ( ?answerClass = gsnaug:Clarification && ?type != gsnaug:clarify )
+                        || ( ?answerClass = gsnaug:Revision      && ?type != gsnaug:revise  )
+                        || ( ?answerClass = gsnaug:Resolution    && ?type != gsnaug:resolve ) )
+            }
+        """ ;
+    ] ;
+    sh:severity sh:Violation .
+
+
+#################################################################
+#    Artefact provenance
+#
+#    Every range below is also an rdfs:range in the OWL. Repeated here because rdfs:range infers
+#    the type rather than rejecting the wrong one: without these shapes, pointing gsnaug:storedIn
+#    at a person makes the person a gsnaug:StorageSystem and nothing complains.
+#################################################################
+
+###  gsn:Artefact
+gsnaugsh:ArtefactShape rdf:type sh:NodeShape ;
+    rdfs:label "Artefact augmentation shape"@en ;
+    sh:targetClass gsn:Artefact ;
+    sh:property [
+        sh:path gsnaug:storedIn ;
+        sh:class gsnaug:StorageSystem ;
+        sh:name "stored in" ;
+        sh:message "An artefact may only be stored in a storage system."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:retrievableWith ;
+        sh:class gsnaug:EvidenceRetrievalMechanism ;
+        sh:name "retrievable with" ;
+        sh:message "An artefact may only be retrievable with an evidence retrieval mechanism."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:generatedWith ;
+        sh:class gsnaug:EvidenceGenerationMechanism ;
+        sh:name "generated with" ;
+        sh:message "An artefact may only be generated with an evidence generation mechanism."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:verifiedWith ;
+        sh:class gsnaug:EvidenceVerificationMechanism ;
+        sh:name "verified with" ;
+        sh:message "An artefact may only be verified with an evidence verification mechanism."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:generatedBy ;
+        sh:class prov:Agent ;
+        sh:name "generated by" ;
+        sh:description "The person. The tool goes on gsnaug:generatedWith."@en ;
+        sh:message "An artefact may only be generated by an agent."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+###  gsn:Solution - the provenance belongs on the artefact, not on the reference to it
+gsnaugsh:SolutionProvenanceShape rdf:type sh:NodeShape ;
+    rdfs:label "Solution provenance placement shape"@en ;
+    rdfs:comment "A solution is the GSN element that references an artefact; the storage location, the generating tool and the verification script are facts about the file. Hanging them on the solution splits the same fact across two nodes, and every query in this vocabulary reads them from the artefact."@en ;
+    sh:targetClass gsn:Solution ;
+    sh:property [
+        sh:path [ sh:alternativePath ( gsnaug:storedIn
+                                       gsnaug:retrievableWith
+                                       gsnaug:generatedBy
+                                       gsnaug:generatedWith
+                                       gsnaug:generatedFrom
+                                       gsnaug:verifiedWith ) ] ;
+        sh:maxCount 0 ;
+        sh:name "evidence provenance" ;
+        sh:message "Evidence provenance belongs on the artefact, not on the solution that references it. Move this to the gsn:Artefact reached by gsn:refersTo."@en ;
+        sh:severity sh:Warning ;
+    ] .
+
+
+#################################################################
+#    Roles
+#################################################################
+
+gsnaugsh:OwnershipShape rdf:type sh:NodeShape ;
+    rdfs:label "Ownership shape"@en ;
+    sh:targetSubjectsOf gsnaug:ownedBy ;
+    sh:property [
+        sh:path gsnaug:ownedBy ;
+        sh:nodeKind sh:IRI ;
+        sh:name "owned by" ;
+        sh:message "The owner of an element must be named, not a blank node - accountability that cannot be cited is not accountability."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+#################################################################
+#    Top-level contexts
+#################################################################
+
+###  Where both the context and the property are present, they must agree
+gsnaugsh:TopContextAgreementShape rdf:type sh:NodeShape ;
+    rdfs:label "Top context agreement shape"@en ;
+    rdfs:comment "gsnaug:assures says in a triple what a top object context says in a diagram, and rule A5 derives the first from the second. If both are asserted independently and disagree, one of them is stale."@en ;
+    sh:targetClass gsn:Goal ;
+    sh:sparql [
+        sh:message "This top goal names one system in its top object context and a different one in gsnaug:assures."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
+        sh:select """
+            SELECT $this ?fromContext ?fromProperty WHERE {
+                $this gsn:top ?top .
+                FILTER (STR(?top) = "true")
+                $this gsn:inContextOf ?context .
+                ?context rdf:type gsnaug:TopObjectContext ;
+                         gsn:refersTo ?fromContext .
+                $this gsnaug:assures ?fromProperty .
+                FILTER (?fromContext != ?fromProperty)
+            }
+        """ ;
+    ] ;
+    sh:severity sh:Violation .
+
+###  Every argument's top goal declares both top-level contexts
+#
+#    Shipped switched off. GSN recommends a top-level context but does not require one, so a case
+#    that omits it is conforming and this shape would report every such case. A project that has
+#    decided to require them removes sh:deactivated; that is a house rule, not a fact about GSN.
+gsnaugsh:TopContextCompletenessShape rdf:type sh:NodeShape ;
+    rdfs:label "Top context completeness shape"@en ;
+    rdfs:comment "Opt-in. Remove sh:deactivated to require that every top goal names both what is claimed and what it is claimed of."@en ;
+    sh:deactivated true ;
+    sh:targetClass gsn:Goal ;
+    sh:sparql [
+        sh:message "This top goal does not carry both a top subject context, naming the property being assured, and a top object context, naming the system it is assured of."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
+        sh:select """
+            SELECT $this WHERE {
+                $this gsn:top ?top .
+                FILTER (STR(?top) = "true")
+                FILTER NOT EXISTS {
+                    $this gsn:inContextOf ?subject .
+                    ?subject rdf:type gsnaug:TopSubjectContext .
+                    $this gsn:inContextOf ?object .
+                    ?object rdf:type gsnaug:TopObjectContext .
+                }
+            }
+        """ ;
+    ] ;
+    sh:severity sh:Violation .
