@@ -15,7 +15,6 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from rdflib import Graph, Namespace, RDF
 from rdflib.namespace import SKOS
 
-import matching
 import workbook_io
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,24 +23,49 @@ TBOX = os.path.join(PROV_DIR, "ontogsn-provenance.ttl")
 DATA = os.path.join(PROV_DIR, "ontogsn-provenance-data.ttl")
 OUT = os.path.join(PROV_DIR, "Design Documentation.xlsx")
 
+# Three records, three vocabularies. They share the gsnprov: backbone and are read into one
+# graph each rather than one graph together, because each numbers its decisions from dd-0001
+# and merging them would collide. The label goes into the sheet's first column, so a reader
+# filtering on it sees one vocabulary at a time.
+RECORDS = [
+    ("OntoGSN", DATA),
+    ("OntoGSN augmentation", os.path.join(REPO, "augmentation",
+                                          "ontogsn-augmentation-provenance.ttl")),
+    ("OntoGSN alignment", os.path.join(REPO, "alignments", "gsnalign-provenance.ttl")),
+]
+
 P = Namespace("https://w3id.org/OntoGSN/provenance#")
 PROV = Namespace("http://www.w3.org/ns/prov#")
 
-SRC = "Item in GSN Community Standard"
-PG = "Page(s)"
+SRC = "Item in source"
+PG = "Page(s) / locator"
 RSN = "Reason(s) for in-/exclusion"
 NL = "Item in Natural Language"
 TTL = "Item in OntoGSN TTL"
 NONE = "(none)"
 
 
-def load():
-    """The vocabulary and the record, in one graph - the concept labels live in the
+def load(data=DATA):
+    """The vocabulary and one record, in one graph - the concept labels live in the
     vocabulary, and rdflib does not follow owl:imports."""
     graph = Graph()
     graph.parse(TBOX, format="turtle")
-    graph.parse(DATA, format="turtle")
+    graph.parse(data, format="turtle")
     return graph
+
+
+def locator(graph, passage):
+    """Where the passage is. The core record cites the standard and gives a page; the
+    augmentation and the alignment cite specifications, rules and a process model, and each
+    declares its own locator property in its own namespace. Matched on the local name so
+    this does not have to know either of them."""
+    page = text(graph, passage, P.pageRef)
+    if page:
+        return page
+    for predicate, value in graph.predicate_objects(passage):
+        if str(predicate).rsplit("#", 1)[-1] == "locator":
+            return str(value)
+    return ""
 
 
 def text(graph, subject, predicate):
@@ -53,7 +77,7 @@ def label(graph, node):
     return "" if node is None else str(graph.value(node, SKOS.prefLabel) or "")
 
 
-def rows_from(graph):
+def rows_from(graph, which="OntoGSN"):
     """-> (live rows, archived rows), each a dict keyed by workbook column."""
     live, archived = [], []
     # a retired decision is typed only as the subclass, and this graph is not reasoned over
@@ -69,13 +93,14 @@ def rows_from(graph):
         no_reason = graph.value(decision, P.noRationaleRecorded)
 
         row = {
+            "graph": which,
             "uid": str(decision).rsplit("#dd-", 1)[-1],
             "row_key": text(graph, decision, P.positionKey),
             "part": label(graph, graph.value(decision, P.part)),
             "section": label(graph, graph.value(decision, P.section)),
             "language": label(graph, graph.value(decision, P.formalism)),
             SRC: NONE if no_source else text(graph, passage, P.quotedText),
-            PG: NONE if no_source else text(graph, passage, P.pageRef),
+            PG: NONE if no_source else locator(graph, passage),
             NL: text(graph, decision, P.naturalLanguage),
             RSN: NONE if no_reason else text(graph, rationale, P.rationaleText),
             TTL: text(graph, statement, P.statementText),
@@ -88,9 +113,11 @@ def rows_from(graph):
         else:
             live.append(row)
 
-    # the sheets read in the standard's order, which is what the position key encodes
-    live.sort(key=lambda r: r["row_key"])
-    archived.sort(key=lambda r: r["row_key"])
+    # the sheets read in the standard's order, which is what the position key encodes.
+    # The augmentation and the alignment have no position key - neither is organised by
+    # a passage of the standard - so those rows fall back to the decision number.
+    live.sort(key=lambda r: (r["row_key"] or r["uid"]))
+    archived.sort(key=lambda r: (r["row_key"] or r["uid"]))
     return live, archived
 
 
@@ -99,16 +126,19 @@ def main():
     ap.add_argument("--out", default=OUT)
     args = ap.parse_args()
 
-    graph = load()
-    live, archived = rows_from(graph)
+    live, archived = [], []
+    for which, path in RECORDS:
+        if not os.path.exists(path):
+            print(f"  {which:22} missing, skipped ({os.path.relpath(path, REPO)})")
+            continue
+        rows, retired = rows_from(load(path), which)
+        live += rows
+        archived += retired
+        print(f"  {which:22} {len(rows):4} live + {len(retired):3} retired")
     print(f"{len(live)} live + {len(archived)} retired decisions")
 
-    _, orphans = matching.load_and_match(
-        [dict(r, _archived=False) for r in live] +
-        [dict(r, _archived=True) for r in archived])
-
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    workbook_io.write(args.out, live, archived, orphans)
+    workbook_io.write(args.out, live, archived)
     print(f"wrote {args.out} ({os.path.getsize(args.out):,} bytes)")
 
 
