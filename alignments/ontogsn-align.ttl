@@ -1,0 +1,270 @@
+@prefix gsnalign: <https://w3id.org/OntoGSN/alignment#> .
+@prefix gsn:      <https://w3id.org/OntoGSN/ontology#> .
+@prefix argo:     <http://www.github/argumentsontology/> .
+@prefix argoh:    <http://www.github/argumentsontology#> .
+@prefix cc:       <http://creativecommons.org/ns#> .
+@prefix dc:       <http://purl.org/dc/elements/1.1/> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+@prefix terms:    <http://purl.org/dc/terms/> .
+@prefix vann:     <http://purl.org/vocab/vann/> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/alignment> .
+
+#################################################################
+#    Two ARGO prefixes, deliberately
+#################################################################
+#
+#  ARGO declares its base as http://www.github/argumentsontology/ (slash) and mints every
+#  term there EXCEPT complexargument, which lives at http://www.github/argumentsontology#
+#  (hash). Writing argo:complexargument would silently produce a different, undefined term.
+#  argoh: exists solely so that one class can be named correctly.
+#
+#  Neither host resolves. ARGO is vendored at vendor/argo.ttl and mapped by
+#  catalog-v001.xml; see README.md.
+
+
+<https://w3id.org/OntoGSN/alignment> rdf:type owl:Ontology ;
+    owl:imports <https://w3id.org/OntoGSN/ontology> ,
+                <http://www.github/argumentsontology/> ;
+    cc:license "https://creativecommons.org/licenses/by/4.0/" ;
+    dc:title "OntoGSN Alignments"@en ;
+    dc:creator "Tomas Bueno Momčilović"@en ;
+    dc:publisher "https://www.fortiss.org/"@en ;
+    dc:description """A nominal alignment between OntoGSN and the Arguments Ontology (ArgO/ARGO).
+
+Neither aligned ontology is modified. Every axiom below lives in this graph, including the two
+that have a gsn: term as their subject: OntoGSN is a faithful rendering of the GSN Community
+Standard v3 and nothing about ARGO belongs in it.
+
+The alignment is three layers. Layer 1 is two sub-property axioms into ARGO relations that carry
+no domain, range or characteristics and appear nowhere in ARGO's own axiomatisation - they entail
+nothing and cannot be violated. Layer 2 is SKOS documentation, which does not entail at all.
+Layer 3 introduces three bridge classes and eight bridge properties for the correspondences that
+have no direct expression, chiefly the GSN inference step, which exists in a goal structure as an
+implicit fan-in rather than as an individual.
+
+Known limitation at this version: gsn:Solution is deliberately unmapped, so a step supported only
+by evidence carries no ARGO premises. See NOTES-argo.md, consequence C1."""@en ;
+    dc:source "Beverley, J., Otte, J. N., Franda, F., Guillon, J.-B., Donohue, B., Ruttenberg, A., & Schreiber, Y. ArgO: Arguments Ontology."@en ;
+    terms:created "2026-08-16"^^xsd:date ;
+    vann:preferredNamespacePrefix "gsnalign" ;
+    owl:versionInfo "0.1.0" ;
+    gsnalign:alignedOntoGSNVersion "1.2.3" ;
+    gsnalign:alignedARGOVersion "ArgO v.4 development release; git 59dd512f58cf, 2025-12-03" ;
+    skos:note """The two aligned-version annotations scope everything in this file. An alignment is only
+valid against the versions it was written for: ARGO is a development release and OntoGSN is
+pre-1.3, so either may move a term underneath this graph without warning. Re-check the alignment
+whenever either version string changes."""@en ;
+    rdfs:seeAlso <https://w3id.org/OntoGSN/ontology> , <https://w3id.org/OntoGSN/alignment/provenance> .
+
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  https://w3id.org/OntoGSN/alignment#alignedOntoGSNVersion
+gsnalign:alignedOntoGSNVersion rdf:type owl:AnnotationProperty ;
+    rdfs:label "aligned OntoGSN version"@en ;
+    skos:definition "The owl:versionInfo of the OntoGSN release this alignment was written against."@en .
+
+###  https://w3id.org/OntoGSN/alignment#alignedARGOVersion
+gsnalign:alignedARGOVersion rdf:type owl:AnnotationProperty ;
+    rdfs:label "aligned ARGO version"@en ;
+    skos:definition "The version of ARGO this alignment was written against. ARGO's own owl:versionInfo names a development release without a number, so the git commit of the vendored copy is given alongside it."@en .
+
+###  https://w3id.org/OntoGSN/alignment#layer
+gsnalign:layer rdf:type owl:AnnotationProperty ;
+    rdfs:label "alignment layer"@en ;
+    skos:definition "Which of the three layers a term or axiom belongs to: 'direct assertion', 'documentation' or 'bridge'."@en ;
+    skos:scopeNote "Layer 1 entails nothing because the ARGO properties involved are inert. Layer 2 entails nothing by construction. Only layer 3 does any work."@en .
+
+
+#################################################################
+#    Layer 1 - direct assertions
+#################################################################
+#
+#  Both target ARGO properties are label-only: no rdfs:domain, no rdfs:range, no property
+#  characteristics, no skos:definition, and zero occurrences in 'ARGO Axioms REVISED.txt'.
+#  They exist to be extended. Nothing is entailed and nothing can be contradicted.
+#
+#  Subject is a gsn: term but the axiom is asserted HERE, never in serializations/ontogsn.ttl.
+
+gsn:supportedBy rdfs:subPropertyOf argo:isSupportedBy .
+
+[] rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:supportedBy ;
+   owl:annotatedProperty rdfs:subPropertyOf ;
+   owl:annotatedTarget argo:isSupportedBy ;
+   gsnalign:layer "direct assertion" ;
+   skos:note "Lossy but not false. gsn:supportedBy also covers Goal supportedBy Module, a modular-decomposition edge rather than an evidential one; GSN separates these with gsn:relationshipType and ARGO cannot. Since argo:isSupportedBy is undefined, the conflation asserts nothing untrue."@en .
+
+gsn:challenges rdfs:subPropertyOf argo:opposes .
+
+[] rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:challenges ;
+   owl:annotatedProperty rdfs:subPropertyOf ;
+   owl:annotatedTarget argo:opposes ;
+   gsnalign:layer "direct assertion" ;
+   skos:note "ARGO's paper describes opposes as holding between sentence contents across arguments; the OWL declares no domain or range, so a GSN element-to-element challenge is within its letter. The finer ARGO relations - contradicts, undermines - are derivable from the class of the challenged element rather than asserted here."@en .
+
+
+#################################################################
+#    Layer 2 - documentation
+#################################################################
+#
+#  Non-entailing. Recorded so the correspondences are discoverable without a reasoner.
+#  SKOS mapping properties carry rdfs:domain skos:Concept, so these pun the classes as
+#  individuals. Harmless in OWL 2 DL and contained by keeping the axioms in this graph.
+
+gsn:Argument   skos:closeMatch   argoh:complexargument .
+gsn:Goal       skos:relatedMatch argo:statement .
+gsn:Assumption skos:closeMatch   argo:supposition .
+
+[] rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Argument ;
+   owl:annotatedProperty skos:closeMatch ;
+   owl:annotatedTarget argoh:complexargument ;
+   gsnalign:layer "documentation" ;
+   skos:note "Conservative. Extensionally gsn:Argument is the broader of the two: a goal structure with two top goals corresponds to two ARGO complex arguments, each concluding one top goal and omitting the other, which may overlap where the two subtrees share elements. ARGO permits that - its arguments are wholes with parts and are not required to be mereologically disjoint."@en .
+
+[] rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Goal ;
+   owl:annotatedProperty skos:relatedMatch ;
+   owl:annotatedTarget argo:statement ;
+   gsnalign:layer "documentation" ;
+   skos:note "Deliberately the weakest of the SKOS predicates. A Goal carries a statement; it is not one. gsnalign:expressesContent does the real work."@en .
+
+[] rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Assumption ;
+   owl:annotatedProperty skos:closeMatch ;
+   owl:annotatedTarget argo:supposition ;
+   gsnalign:layer "documentation" ;
+   skos:note "Holds only under a commitment GSN itself does not make: that assumptions reached by gsn:inContextOf are inputs to the inference. An ARGO supposition is additionally discharged, which a GSN assumption never is. Adopting the ARGO view is therefore stricter than GSN requires."@en .
+
+###  Not a match, and worth saying so explicitly.
+gsn:Strategy owl:disjointWith argo:actofinferring .
+
+[] rdf:type owl:Axiom ;
+   owl:annotatedSource gsn:Strategy ;
+   owl:annotatedProperty owl:disjointWith ;
+   owl:annotatedTarget argo:actofinferring ;
+   gsnalign:layer "documentation" ;
+   skos:note "Already entailed by BFO - argo:actofinferring is a process, and a Strategy is a continuant with an identifier, a statement and decorators. Asserted anyway because equating the two is the first mapping most readers reach for. A Strategy describes an inference; use gsnalign:describedByStrategy."@en .
+
+
+#################################################################
+#    Layer 3 - bridge classes
+#################################################################
+
+###  https://w3id.org/OntoGSN/alignment#InferenceStep
+gsnalign:InferenceStep rdf:type owl:Class ;
+    rdfs:subClassOf argo:argument ;
+    rdfs:label "inference step"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "One step of GSN reasoning, viewed as an ARGO argument: a parent goal together with the elements that support it."@en ;
+    skos:note "Minted one per parent goal, not one per gsn:Relationship. A relationship is a single edge, whereas a step with three supporting goals needs one individual holding all three premises."@en ;
+    skos:scopeNote "Where a gsn:Strategy sits between the goals the fan-in is two hops - Goal supportedBy Strategy supportedBy Goal - and where it does not it is one. Both collapse to the same step."@en .
+
+###  https://w3id.org/OntoGSN/alignment#CaseArgument
+gsnalign:CaseArgument rdf:type owl:Class ;
+    rdfs:subClassOf argoh:complexargument ;
+    rdfs:label "case argument"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "The subtree of a GSN argument beneath one top goal, viewed as an ARGO complex argument."@en ;
+    skos:note "Minted one per top goal rather than one per gsn:Argument. ARGO requires exactly one conclusion; GSN permits more than one top goal in a structure. Anchoring on the top goal satisfies the cardinality by construction instead of colliding with it."@en ;
+    skos:scopeNote "Only the maximal complex argument is materialised. Every intermediate subtree is also a complex argument in ARGO's terms, but nothing needs them as individuals."@en .
+
+###  https://w3id.org/OntoGSN/alignment#ElementContent
+gsnalign:ElementContent rdf:type owl:Class ;
+    rdfs:subClassOf argo:sentencecontent ;
+    rdfs:label "element content"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "The proposition carried by a GSN element's statement, as distinct from the element itself."@en ;
+    skos:note "Minted one per distinct statement string, not one per element. GSN away elements repeat a claim from another module as a separate individual, while ARGO sentence contents are identical across bearers by construction; keying on the string makes the two agree."@en ;
+    skos:scopeNote "Mint per statement, never per element class. gsn:Context and gsn:Solution are polymorphic - each covers both a proposition and a bare artefact reference - and a reference has no propositional content to carry."@en .
+
+
+#################################################################
+#    Layer 3 - bridge properties
+#################################################################
+
+###  https://w3id.org/OntoGSN/alignment#expressesContent
+gsnalign:expressesContent rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:range gsnalign:ElementContent ;
+    rdfs:label "expresses content"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "Relates a GSN element to the proposition its statement expresses."@en ;
+    skos:note "The node-to-content join. Every content mapping routes through it. Not functional: two elements with the same statement share one content."@en .
+
+###  https://w3id.org/OntoGSN/alignment#concludes
+gsnalign:concludes rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf argo:hasConclusion ;
+    rdfs:domain gsnalign:InferenceStep ;
+    rdfs:range gsnalign:ElementContent ;
+    rdfs:label "concludes"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "Relates an inference step to the content of the goal it establishes."@en ;
+    skos:note "Asserted at one level only. ARGO declares conclusionIn functional, which its own axiomatisation contradicts; asserting a conclusion for both a step and the enclosing case argument would force the two to be owl:sameAs."@en .
+
+###  https://w3id.org/OntoGSN/alignment#stepPremise
+gsnalign:stepPremise rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf argo:hasPremise ;
+    rdfs:domain gsnalign:InferenceStep ;
+    rdfs:range gsnalign:ElementContent ;
+    rdfs:label "step premise"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "Relates an inference step to the content of a goal supporting it."@en ;
+    skos:note "Goals only. gsn:Solution is unmapped at this version, so a step supported solely by evidence has no premise filler. ARGO's requirement is existential, so this is not an inconsistency, but an ARGO query for the premises of a case will return claims and never evidence."@en .
+
+###  https://w3id.org/OntoGSN/alignment#stepOf
+gsnalign:stepOf rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf argo:properContinuantPartOf ;
+    rdfs:domain gsnalign:InferenceStep ;
+    rdfs:range gsnalign:CaseArgument ;
+    rdfs:label "step of"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "Relates an inference step to the case argument it is part of."@en ;
+    skos:note "Carries ARGO's complex-argument mereology without further assertion: a complex argument is anything with a simple argument as proper part."@en .
+
+###  https://w3id.org/OntoGSN/alignment#describedByStrategy
+gsnalign:describedByStrategy rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnalign:InferenceStep ;
+    rdfs:range gsn:Strategy ;
+    rdfs:label "described by strategy"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "Relates an inference step to the GSN strategy that describes it, where one is present."@en ;
+    skos:note "The correct treatment of a strategy. A strategy is a continuant that describes reasoning; the reasoning itself is an occurrent. Equating gsn:Strategy with argo:actofinferring crosses BFO's continuant/occurrent divide."@en .
+
+###  https://w3id.org/OntoGSN/alignment#undercuts
+gsnalign:undercuts rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf argo:opposes ;
+    rdfs:domain gsnalign:ElementContent ;
+    rdfs:range gsnalign:InferenceStep ;
+    rdfs:label "undercuts"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "Relates the content of a challenging element to an inference step whose reasoning it attacks, rather than to any claim the step uses."@en ;
+    skos:note "The one place GSN is more expressive than ARGO. ARGO's undermines targets premises and contradicts targets conclusions; neither targets the inference. Declared as a sub-property of the undefined argo:opposes, which extends ARGO rather than redefining it."@en .
+
+###  https://w3id.org/OntoGSN/alignment#forGoal
+gsnalign:forGoal rdf:type owl:ObjectProperty ,
+                          owl:FunctionalProperty ;
+    rdfs:domain gsnalign:InferenceStep ;
+    rdfs:range gsn:Goal ;
+    rdfs:label "for goal"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "Relates an inference step to the parent goal it was minted from."@en ;
+    skos:note "Needed to get from a GSN node to its ARGO counterpart. The route through expressesContent will not do it: content is keyed on the statement string, so two goals with identical text share one content and the path becomes ambiguous."@en .
+
+###  https://w3id.org/OntoGSN/alignment#forTopGoal
+gsnalign:forTopGoal rdf:type owl:ObjectProperty ,
+                             owl:FunctionalProperty ;
+    rdfs:domain gsnalign:CaseArgument ;
+    rdfs:range gsn:Goal ;
+    rdfs:label "for top goal"@en ;
+    gsnalign:layer "bridge" ;
+    skos:definition "Relates a case argument to the top goal it was minted from."@en ;
+    skos:note "Same reason as gsnalign:forGoal. The range is any gsn:Goal, not only one carrying gsn:top true, because top-goal status is a boolean decorator rather than a class."@en .

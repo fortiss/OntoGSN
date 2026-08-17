@@ -1,0 +1,671 @@
+@prefix gsnalignprov: <https://w3id.org/OntoGSN/alignment/provenance#> .
+@prefix gsnalign:     <https://w3id.org/OntoGSN/alignment#> .
+@prefix gsnprov:      <https://w3id.org/OntoGSN/provenance#> .
+@prefix gsn:          <https://w3id.org/OntoGSN/ontology#> .
+@prefix argo:         <http://www.github/argumentsontology/> .
+@prefix argoh:        <http://www.github/argumentsontology#> .
+@prefix prov:         <http://www.w3.org/ns/prov#> .
+@prefix dc:           <http://purl.org/dc/elements/1.1/> .
+@prefix owl:          <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:          <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:         <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:         <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann:         <http://purl.org/vocab/vann/> .
+@prefix xsd:          <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/alignment/provenance> .
+
+<https://w3id.org/OntoGSN/alignment/provenance> rdf:type owl:Ontology ;
+    owl:imports <https://w3id.org/OntoGSN/provenance> ;
+    dc:title "OntoGSN Alignments - the record"@en ;
+    dc:creator "Tomas Bueno Momčilović"@en ;
+    dc:publisher "https://www.fortiss.org/"@en ;
+    dc:description """Why each axiom of https://w3id.org/OntoGSN/alignment exists, and why the correspondences
+that were considered and rejected are absent.
+
+The gsnprov: vocabulary supplies the backbone, so the SPARQL in provenance/README.md works over
+this record unchanged. Four terms are added below because gsnprov:SourcePassage and its
+properties are scoped by definition to the GSN Community Standard v3, and the sources here are
+ARGO's ontology, its first-order axiomatisation and its paper.
+
+Not read by tools/prov_check.py, which validates an explicit list of three files in provenance/.
+Statement records here therefore carry no gsnprov:structuralKey: nothing recomputes it, and a key
+nothing checks is a key that silently rots."""@en ;
+    vann:preferredNamespacePrefix "gsnalignprov" ;
+    owl:versionInfo "0.1.0" ;
+    rdfs:seeAlso <https://w3id.org/OntoGSN/alignment> , <https://w3id.org/OntoGSN/provenance> .
+
+
+#################################################################
+#    Local vocabulary
+#    Four terms. Everything else is reused from gsnprov:.
+#################################################################
+
+gsnalignprov:CitedArtefact rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "cited artefact"@en ;
+    skos:definition "A whole document or graph that this alignment rests on."@en ;
+    skos:note "Distinct from gsnprov:GSNCommunityStandardV3, which is the single artefact the OntoGSN record cites. An alignment rests on at least two."@en .
+
+gsnalignprov:CitedPassage rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "cited passage"@en ;
+    skos:definition "A quoted extract of a cited artefact, located within it."@en ;
+    skos:note "Not gsnprov:SourcePassage: that class is defined as a passage of the GSN Community Standard v3, and gsnprov:quotedText, gsnprov:clause and gsnprov:pageRef all declare it as their domain. Reusing them here would type ARGO's text as part of the GSN standard."@en .
+
+gsnalignprov:passageText rdf:type owl:DatatypeProperty ;
+    rdfs:domain gsnalignprov:CitedPassage ;
+    rdfs:range xsd:string ;
+    rdfs:label "passage text"@en ;
+    skos:definition "The extract, verbatim."@en .
+
+gsnalignprov:locator rdf:type owl:DatatypeProperty ;
+    rdfs:domain gsnalignprov:CitedPassage ;
+    rdfs:range xsd:string ;
+    rdfs:label "locator"@en ;
+    skos:definition "Where the extract sits in its artefact: line range for a graph, section for a paper."@en ;
+    skos:note "A line range is evidence, not identity - it moves when the file is re-saved. The passage text is what identifies the extract."@en .
+
+
+#################################################################
+#    The graphs this record describes
+#    Checksums are of the files as they stood when the record was taken.
+#################################################################
+
+gsnalignprov:alignment-0.1.0
+    a gsnprov:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/alignment> ;
+    rdfs:label "OntoGSN Alignments 0.1.0"@en ;
+    owl:versionInfo "0.1.0" ;
+    gsnprov:path "alignments/gsnalign.ttl" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/alignment#" ;
+    gsnprov:fileChecksum "5d8cfd07c1650d829235fab6fa14e359dd8a7b5347c77af40fc8b240372cd6f5" ;
+    prov:generatedAtTime "2026-08-16T09:57:13Z"^^xsd:dateTime .
+
+gsnalignprov:argo-59dd512f
+    a gsnprov:FormalGraph , gsnalignprov:CitedArtefact ;
+    prov:specializationOf <http://www.github/argumentsontology/> ;
+    rdfs:label "ArgO v.4 development release, vendored"@en ;
+    gsnprov:declaredVersion "Arguments Ontology (ArgO) v.4 -- development release" ;
+    gsnprov:path "alignments/vendor/argo.ttl" ;
+    gsnprov:declaresNamespace "http://www.github/argumentsontology/" ;
+    gsnprov:fileChecksum "854d18decc38b0e6f6d7da4faebf7ed9352e3ee6a95ecc9de1fbf6914915432f" ;
+    skos:note "Byte-identical to NCOR-Organization/Argument-Ontology at commit 59dd512f58cf (2025-12-03); git blob 340166f4372ca7277243347351dfccf132b79a47. Vendored because the declared base IRI http://www.github/... is not a resolvable host."@en ;
+    prov:generatedAtTime "2026-08-16T09:57:13Z"^^xsd:dateTime .
+
+#  gsnprov:ontology-1.2.3 is declared in provenance/ontogsn-provenance-data.ttl and referenced
+#  here rather than restated, so that loading both files joins them on one node. Its recorded
+#  checksum 24c6476c... still matches serializations/ontogsn.ttl as of this record.
+
+gsnalignprov:ArgOPaper
+    a gsnalignprov:CitedArtefact ;
+    rdfs:label "ArgO: Arguments Ontology (paper)"@en ;
+    dc:creator "John Beverley, J. Neil Otte, Francesco Franda, Jean-Baptiste Guillon, Brian Donohue, Alan Ruttenberg, Yonatan Schreiber"@en ;
+    skos:note "The design rationale for ARGO. Cited where the ontology file records a decision without explaining it, and for the two extensions ARGO recommends but does not implement."@en .
+
+gsnalignprov:ArgOAxioms
+    a gsnalignprov:CitedArtefact ;
+    rdfs:label "ARGO Axioms REVISED.txt"@en ;
+    gsnprov:path "Axioms/ARGO Axioms REVISED.txt (upstream; not vendored)" ;
+    skos:note "ARGO's first-order axiomatisation, 401 lines, Prover9 syntax. The relations are ternary and time-indexed here, which the OWL serialisation flattens; two findings in this record turn on the difference."@en .
+
+
+#################################################################
+#    Cited passages
+#################################################################
+
+gsnalignprov:src-0001
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:argo-59dd512f ;
+    gsnalignprov:locator "argo.ttl:143-146" ;
+    gsnalignprov:passageText """:isSupportedBy rdf:type owl:ObjectProperty ;
+               owl:inverseOf :supports ;
+               rdfs:label "is supported by"@en .""" .
+
+gsnalignprov:src-0002
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:argo-59dd512f ;
+    gsnalignprov:locator "argo.ttl:172-174" ;
+    gsnalignprov:passageText """:opposes rdf:type owl:ObjectProperty ;
+         rdfs:label "opposes"@en .""" .
+
+gsnalignprov:src-0003
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:ArgOAxioms ;
+    gsnalignprov:locator "search for 'opposes', 'undermines', 'contradicts', 'negates', 'isSupportedBy'" ;
+    gsnalignprov:passageText "(no occurrences - the opposition family and the support family are absent from ARGO's first-order axiomatisation entirely)" .
+
+gsnalignprov:src-0004
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:argo-59dd512f ;
+    gsnalignprov:locator "argo.ttl:301-308" ;
+    gsnalignprov:passageText """[ rdf:type owl:Restriction ;
+  owl:onProperty :hasConclusion ;
+  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+  owl:onClass :sentencecontent ] ;
+skos:definition "An information content entity that has at least one premise or supposition and exactly one conclusion."@en""" .
+
+gsnalignprov:src-0005
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnprov:GSNCommunityStandardV3 ;
+    gsnalignprov:locator "ontogsn.ttl:698-699, quoting the standard" ;
+    gsnalignprov:passageText "A GSN Goal that presents the pinnacle claim in an argument. It is 'top' in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure." .
+
+gsnalignprov:src-0006
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:argo-59dd512f ;
+    gsnalignprov:locator "argo.ttl:232-239" ;
+    gsnalignprov:passageText "An argument with at least one argument as a proper continuant part, and which has only arguments as continuant parts. [minted at http://www.github/argumentsontology#complexargument - hash, not slash]" .
+
+gsnalignprov:src-0007
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:argo-59dd512f ;
+    gsnalignprov:locator "argo.ttl:371-375" ;
+    gsnalignprov:passageText "A sentence content that is affirmed or accepted input to and output of distinct acts of inferring in distinct arguments that are proper continuant parts of a complex argument." .
+
+gsnalignprov:src-0008
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:argo-59dd512f ;
+    gsnalignprov:locator "argo.ttl:349-358" ;
+    gsnalignprov:passageText """An information content entity representing the propositional meaning of a sentence.
+Examples: "2+2 =5", "Close the door!", "Is the present King of France bald?", "The man walked into the bar." """ .
+
+gsnalignprov:src-0009
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:argo-59dd512f ;
+    gsnalignprov:locator "argo.ttl:327-332, 274-280" ;
+    gsnalignprov:passageText """:languageact rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;  # process
+             skos:definition "A process involving the intentional use of language."@en .
+:actofinferring rdfs:subClassOf :languageact .""" .
+
+gsnalignprov:src-0010
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnprov:GSNCommunityStandardV3 ;
+    gsnalignprov:locator "ontogsn.ttl:1174, quoting the standard" ;
+    gsnalignprov:passageText "GSN solutions make no claim, but are simply references to evidence items that provide support for a particular claim. They shall therefore be stated as noun-phrases." .
+
+gsnalignprov:src-0011
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:argo-59dd512f ;
+    gsnalignprov:locator "argo.ttl:335-339, 251-256" ;
+    gsnalignprov:passageText """:premise skos:definition "A sentence content that is affirmed input to an act of inferring."@en .
+:actofaffirming skos:definition "A language act in which an agent believes a sentence content is either true or false based on evidence and within rationality constraints."@en .""" .
+
+gsnalignprov:src-0012
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:argo-59dd512f ;
+    gsnalignprov:locator "argo.ttl:378-382, 210-218" ;
+    gsnalignprov:passageText """:supposition skos:definition "A sentence content that is accepted input to an act of inferring."@en .
+:suppositionIn skos:definition "A relation between a sentence content and an argument, where the sentence content is accepted but not affirmed and serves as input to an act of inferring within the argument."@en .""" .
+
+gsnalignprov:src-0013
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:ArgOPaper ;
+    gsnalignprov:locator "section 'Extensions: Argument Schemes, Truth, Probability, Validity'" ;
+    gsnalignprov:passageText "We therefore advise that ArgO may accommodate evaluations of sentence contents by adding a subclass of the BFO class Process, which we here call Act of Evaluation. [...] evaluations of statements are treated as information content entities, rather than as qualities of statements carrying unintuitive ontological commitments." .
+
+gsnalignprov:src-0014
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:argo-59dd512f ;
+    gsnalignprov:locator "argo.ttl:49-57" ;
+    gsnalignprov:passageText """:conclusionIn rdf:type owl:ObjectProperty ;
+              owl:inverseOf :hasConclusion ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain :sentencecontent ;
+              rdfs:range :argument .""" .
+
+gsnalignprov:src-0015
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:ArgOAxioms ;
+    gsnalignprov:locator "section 'CLASS CONSTRAINT AXIOMS'" ;
+    gsnalignprov:passageText """all x all y all t((ComplexArgument(y) & conclusionIn(x,y,t))-> exists z(Argument(z) & properContinuantPartOfAt(z,y,t) & conclusionIn(x,z,t))).
+%The conclusion of a complex argument must be the conclusion of one of the complex arguments's proper parts""" .
+
+gsnalignprov:src-0016
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnalignprov:ArgOPaper ;
+    gsnalignprov:locator "section 'ArgO: An Arguments Ontology'" ;
+    gsnalignprov:passageText "ArgO [is] a small ontology of arguments designed to meet the constraints we have described and to be readily adopted and extended by others." .
+
+gsnalignprov:src-0017
+    a gsnalignprov:CitedPassage ;
+    prov:specializationOf gsnprov:GSNCommunityStandardV3 ;
+    gsnalignprov:locator "ontogsn.ttl:1197, quoting the standard" ;
+    gsnalignprov:passageText "A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s)." .
+
+
+#################################################################
+#    Rationales
+#################################################################
+
+gsnalignprov:why-0001 a gsnprov:Rationale ; gsnprov:rationaleText
+    "An alignment is only valid against the versions it was written for. ARGO is a development release and OntoGSN is pre-1.3, so either can move a term underneath this graph. Recording both version strings on the ontology header makes the scope of every axiom below explicit, and makes staleness detectable by string comparison rather than by re-deriving the analysis."@en .
+
+gsnalignprov:why-0002 a gsnprov:Rationale ; gsnprov:rationaleText
+    "The target ARGO property carries no domain, no range, no characteristics and no definition, and appears nowhere in ARGO's first-order axiomatisation. It is a placeholder its authors left to be extended. A sub-property axiom into it therefore entails nothing and cannot contradict anything, which makes it the cheapest honest way to state a correspondence."@en .
+
+gsnalignprov:why-0003 a gsnprov:Rationale ; gsnprov:rationaleText
+    "OntoGSN is a faithful rendering of the GSN Community Standard v3 and is the source of truth for it. An axiom whose subject is a gsn: term still belongs in the alignment graph, because it is a claim about ARGO rather than a claim the standard makes. Keeping it here also means a GSN-only consumer never loads BFO."@en .
+
+gsnalignprov:why-0004 a gsnprov:Rationale ; gsnprov:rationaleText
+    "SKOS mapping properties do not entail, which is the point: the correspondence is recorded for a reader without committing a reasoner. Their rdfs:domain is skos:Concept, so applying them to OWL classes puns those classes as individuals; harmless in OWL 2 DL, and contained by keeping the axioms out of both aligned ontologies."@en .
+
+gsnalignprov:why-0005 a gsnprov:Rationale ; gsnprov:rationaleText
+    "Extensionally the GSN class is the broader of the two. A goal structure with two top goals corresponds to two ARGO complex arguments, one per top goal, each omitting the other; where the two subtrees share elements the arguments overlap, which ARGO permits since its arguments are wholes with parts rather than disjoint aggregates. closeMatch is the conservative reading and avoids asserting a direction the extensions do not clearly support."@en .
+
+gsnalignprov:why-0006 a gsnprov:Rationale ; gsnprov:rationaleText
+    "A goal carries a statement; it is not one. The goal is a node with an identifier, decorators and a string, while an ARGO statement is the meaning that string expresses. relatedMatch is the weakest available predicate and is the honest one here; the load is carried by gsnalign:expressesContent."@en .
+
+gsnalignprov:why-0007 a gsnprov:Rationale ; gsnprov:rationaleText
+    "The closest pair in the two ontologies, and still not an equality. An ARGO supposition is an input to an act of inferring and is typically discharged; a GSN assumption hangs off a contextual relation and is never discharged. The mapping holds only if contextual inputs are taken to feed the inference - a commitment GSN does not make. Adopting the ARGO view is stricter than GSN requires, which is acceptable: the strictness is opt-in with the alignment."@en .
+
+gsnalignprov:why-0008 a gsnprov:Rationale ; gsnprov:rationaleText
+    "A strategy is a continuant that describes reasoning; an act of inferring is the reasoning, an occurrent. BFO makes the two disjoint, so the axiom adds nothing a reasoner could not derive. It is asserted anyway because equating them is the first mapping most readers reach for, and an explicit disjointness is a better warning than a comment."@en .
+
+gsnalignprov:why-0009 a gsnprov:Rationale ; gsnprov:rationaleText
+    "A GSN inference step exists only as an implicit fan-in - a parent goal and whatever supports it - with no individual to carry it. ARGO's premise and conclusion relations need one. Minting per parent goal rather than per relationship is forced by arity: a relationship is a single edge, and a step with three supporting goals needs one individual holding three premises."@en .
+
+gsnalignprov:why-0010 a gsnprov:Rationale ; gsnprov:rationaleText
+    "Anchoring the complex argument on the top goal rather than on the gsn:Argument satisfies ARGO's exactly-one-conclusion requirement by construction. Anchoring on the gsn:Argument would collide with it whenever a structure has more than one top goal, and the collision is silent: with no explicit difference between the two conclusions, a reasoner merges them rather than reporting an error."@en .
+
+gsnalignprov:why-0011 a gsnprov:Rationale ; gsnprov:rationaleText
+    "Content is keyed on the statement string rather than on the element. GSN away elements repeat a claim from another module as a separate individual, whereas ARGO sentence contents are generically dependent continuants and are identical across bearers. Keying on the string is what makes the two identity criteria agree."@en .
+
+gsnalignprov:why-0012 a gsnprov:Rationale ; gsnprov:rationaleText
+    "ARGO declares conclusionIn functional while its own first-order axiomatisation requires the conclusion of a complex argument to also be the conclusion of one of its proper parts. Asserting a conclusion at both the step and the case level would therefore force the two arguments to be identical. Asserting it at one level only sidesteps a defect in ARGO without depending on it being fixed."@en .
+
+gsnalignprov:why-0013 a gsnprov:Rationale ; gsnprov:rationaleText
+    "The route from a GSN node to its ARGO counterpart cannot run through content: content is shared by every element with the same statement text, so the path is ambiguous wherever two goals are worded identically. An explicit functional link from the minted individual back to the goal it came from is the only unambiguous anchor."@en .
+
+gsnalignprov:why-0014 a gsnprov:Rationale ; gsnprov:rationaleText
+    "GSN distinguishes rebut, undermine and undercut by what is targeted; ARGO distinguishes them by relation name, and has no relation that targets an inference. A sub-property of the undefined argo:opposes extends ARGO in the direction its authors left open, rather than redefining a term they had committed to."@en .
+
+gsnalignprov:why-0015 a gsnprov:Rationale ; gsnprov:rationaleText
+    "The GSN standard is explicit that a solution makes no claim and is stated as a noun phrase. An ARGO premise must be affirmed, and affirming requires believing something true or false, which a noun phrase cannot be. Bridging the gap means minting the claim the evidence implicitly asserts - a claim the case author never wrote. For a nominal alignment that is not worth the authoring cost, and inventing claims on an author's behalf is the wrong default in an assurance case."@en .
+
+gsnalignprov:why-0016 a gsnprov:Rationale ; gsnprov:rationaleText
+    "ARGO's requirements on arguments are existential restrictions, so under open-world semantics asserting that something is an argument entails that a creation act exists without requiring one to be named. Minting occurrent individuals would add four nodes per inference step to satisfy a requirement already satisfied. They become worth building only if the occurrent side is queried, or if case-content provenance is ever wired to PROV-O."@en .
+
+gsnalignprov:why-0017 a gsnprov:Rationale ; gsnprov:rationaleText
+    "ARGO argues against attaching truth values to information entities and recommends an Act of Evaluation process instead. There is consequently no ARGO term for OntoGSN's boolean decorators to map onto, and reproducing ARGO's recommended shape means a process individual, an input and a nominal measurement for every flag on every element. Out of proportion to a nominal alignment; the boolean layer is simply omitted."@en .
+
+gsnalignprov:why-0018 a gsnprov:Rationale ; gsnprov:rationaleText
+    "ARGO is deliberately small and scoped to arguments as such. Packaging, notation, modularity and evidence artefacts are outside it by design, so the absence of a counterpart is not a misalignment and inventing one would put terms in ARGO's namespace-space that its authors chose not to have."@en .
+
+gsnalignprov:why-0019 a gsnprov:Rationale ; gsnprov:rationaleText
+    "ARGO mints complexargument at a hash IRI while every other term sits under its slash base. Writing the term against the declared base produces a different, undefined IRI and no error. Two prefixes make the discrepancy visible at the top of the file rather than hidden inside one axiom."@en .
+
+gsnalignprov:why-0020 a gsnprov:Rationale ; gsnprov:rationaleText
+    "The derivation rules that populate the bridge classes are specified but not implemented. Writing them would mean a rules directory under alignments/, and the shape of the first rule - how a two-hop fan-in through a strategy collapses with a one-hop fan-in - is better settled against a fixture than guessed. The TBox is useful on its own as the statement of what the correspondence is."@en .
+
+
+#################################################################
+#    Decisions that produced an axiom
+#################################################################
+
+gsnalignprov:dd-0001
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "The alignment records which version of each aligned ontology it was written against."@en ;
+    prov:used gsnalignprov:src-0016 ;
+    gsnprov:hasRationale gsnalignprov:why-0001 ;
+    prov:generated gsnalignprov:st-0001 .
+
+gsnalignprov:st-0001
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0001 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText """gsnalign:alignedOntoGSNVersion "1.2.3" ; gsnalign:alignedARGOVersion "ArgO v.4 development release; git 59dd512f58cf, 2025-12-03" .""" ;
+    gsnprov:aboutTerm gsnalign:alignedOntoGSNVersion ;
+    gsnprov:mentionsTerm gsnalign:alignedARGOVersion .
+
+gsnalignprov:dd-0002
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:RDF ;
+    gsnprov:naturalLanguage "ARGO is referenced through two prefixes, because one of its classes is minted at a hash IRI and the rest at a slash IRI."@en ;
+    prov:used gsnalignprov:src-0006 ;
+    gsnprov:hasRationale gsnalignprov:why-0019 ;
+    prov:generated gsnalignprov:st-0002 .
+
+gsnalignprov:st-0002
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0002 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText """@prefix argo: <http://www.github/argumentsontology/> . @prefix argoh: <http://www.github/argumentsontology#> .""" .
+
+gsnalignprov:dd-0003
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "GSN's support relation is a sub-property of ARGO's."@en ;
+    prov:used gsnalignprov:src-0001 , gsnalignprov:src-0003 ;
+    gsnprov:hasRationale gsnalignprov:why-0002 , gsnalignprov:why-0003 ;
+    prov:generated gsnalignprov:st-0003 .
+
+gsnalignprov:st-0003
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0003 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsn:supportedBy rdfs:subPropertyOf argo:isSupportedBy ." ;
+    gsnprov:aboutTerm gsn:supportedBy ;
+    prov:wasDerivedFrom gsnalignprov:src-0001 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsnalignprov:src-0001 ; prov:hadActivity gsnalignprov:dd-0003 ] .
+
+gsnalignprov:dd-0004
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "GSN's challenge relation is a sub-property of ARGO's opposition relation."@en ;
+    prov:used gsnalignprov:src-0002 , gsnalignprov:src-0003 ;
+    gsnprov:hasRationale gsnalignprov:why-0002 , gsnalignprov:why-0003 ;
+    prov:generated gsnalignprov:st-0004 .
+
+gsnalignprov:st-0004
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0004 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsn:challenges rdfs:subPropertyOf argo:opposes ." ;
+    gsnprov:aboutTerm gsn:challenges ;
+    prov:wasDerivedFrom gsnalignprov:src-0002 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsnalignprov:src-0002 ; prov:hadActivity gsnalignprov:dd-0004 ] .
+
+gsnalignprov:dd-0005
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:RDF ;
+    gsnprov:naturalLanguage "A GSN argument is documented as a close match for an ARGO complex argument."@en ;
+    prov:used gsnalignprov:src-0006 , gsnalignprov:src-0005 ;
+    gsnprov:hasRationale gsnalignprov:why-0004 , gsnalignprov:why-0005 ;
+    prov:generated gsnalignprov:st-0005 .
+
+gsnalignprov:st-0005
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0005 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsn:Argument skos:closeMatch argoh:complexargument ." ;
+    gsnprov:aboutTerm gsn:Argument ;
+    prov:wasDerivedFrom gsnalignprov:src-0006 .
+
+gsnalignprov:dd-0006
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:RDF ;
+    gsnprov:naturalLanguage "A GSN goal is documented as related to, but not equal to, an ARGO statement."@en ;
+    prov:used gsnalignprov:src-0008 ;
+    gsnprov:hasRationale gsnalignprov:why-0004 , gsnalignprov:why-0006 ;
+    prov:generated gsnalignprov:st-0006 .
+
+gsnalignprov:st-0006
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0006 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsn:Goal skos:relatedMatch argo:statement ." ;
+    gsnprov:aboutTerm gsn:Goal .
+
+gsnalignprov:dd-0007
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:RDF ;
+    gsnprov:naturalLanguage "A GSN assumption is documented as a close match for an ARGO supposition."@en ;
+    prov:used gsnalignprov:src-0012 ;
+    gsnprov:hasRationale gsnalignprov:why-0004 , gsnalignprov:why-0007 ;
+    prov:generated gsnalignprov:st-0007 .
+
+gsnalignprov:st-0007
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0007 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsn:Assumption skos:closeMatch argo:supposition ." ;
+    gsnprov:aboutTerm gsn:Assumption ;
+    prov:wasDerivedFrom gsnalignprov:src-0012 .
+
+gsnalignprov:dd-0008
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "A GSN strategy is asserted to be disjoint from an ARGO act of inferring."@en ;
+    prov:used gsnalignprov:src-0009 , gsnalignprov:src-0017 ;
+    gsnprov:hasRationale gsnalignprov:why-0008 ;
+    prov:generated gsnalignprov:st-0008 .
+
+gsnalignprov:st-0008
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0008 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsn:Strategy owl:disjointWith argo:actofinferring ." ;
+    gsnprov:aboutTerm gsn:Strategy ;
+    prov:wasDerivedFrom gsnalignprov:src-0009 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsnalignprov:src-0009 ; prov:hadActivity gsnalignprov:dd-0008 ] .
+
+gsnalignprov:dd-0009
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "A GSN inference step is introduced as a bridge class and declared an ARGO argument."@en ;
+    prov:used gsnalignprov:src-0004 , gsnalignprov:src-0007 ;
+    gsnprov:hasRationale gsnalignprov:why-0009 ;
+    prov:generated gsnalignprov:st-0009 .
+
+gsnalignprov:st-0009
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0009 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsnalign:InferenceStep rdfs:subClassOf argo:argument ." ;
+    gsnprov:aboutTerm gsnalign:InferenceStep .
+
+gsnalignprov:dd-0010
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "The subtree beneath one top goal is introduced as a bridge class and declared an ARGO complex argument."@en ;
+    prov:used gsnalignprov:src-0004 , gsnalignprov:src-0005 , gsnalignprov:src-0006 ;
+    gsnprov:hasRationale gsnalignprov:why-0010 ;
+    prov:generated gsnalignprov:st-0010 .
+
+gsnalignprov:st-0010
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0010 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsnalign:CaseArgument rdfs:subClassOf argoh:complexargument ." ;
+    gsnprov:aboutTerm gsnalign:CaseArgument ;
+    prov:wasDerivedFrom gsnalignprov:src-0005 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsnalignprov:src-0005 ; prov:hadActivity gsnalignprov:dd-0010 ] .
+
+gsnalignprov:dd-0011
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "The proposition a GSN element carries is introduced as a bridge class and declared an ARGO sentence content."@en ;
+    prov:used gsnalignprov:src-0008 ;
+    gsnprov:hasRationale gsnalignprov:why-0011 ;
+    prov:generated gsnalignprov:st-0011 .
+
+gsnalignprov:st-0011
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0011 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsnalign:ElementContent rdfs:subClassOf argo:sentencecontent ." ;
+    gsnprov:aboutTerm gsnalign:ElementContent ;
+    prov:wasDerivedFrom gsnalignprov:src-0008 .
+
+gsnalignprov:dd-0012
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "A property joins a GSN element to the proposition its statement expresses."@en ;
+    prov:used gsnalignprov:src-0008 ;
+    gsnprov:hasRationale gsnalignprov:why-0011 ;
+    prov:generated gsnalignprov:st-0012 .
+
+gsnalignprov:st-0012
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0012 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsnalign:expressesContent rdfs:domain gsn:GSNElement ; rdfs:range gsnalign:ElementContent ." ;
+    gsnprov:aboutTerm gsnalign:expressesContent ;
+    gsnprov:mentionsTerm gsn:GSNElement .
+
+gsnalignprov:dd-0013
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "A step's conclusion is asserted through a sub-property of ARGO's, at the step level only."@en ;
+    prov:used gsnalignprov:src-0014 , gsnalignprov:src-0015 ;
+    gsnprov:hasRationale gsnalignprov:why-0012 ;
+    prov:generated gsnalignprov:st-0013 .
+
+gsnalignprov:st-0013
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0013 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsnalign:concludes rdfs:subPropertyOf argo:hasConclusion ." ;
+    gsnprov:aboutTerm gsnalign:concludes ;
+    prov:wasDerivedFrom gsnalignprov:src-0015 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsnalignprov:src-0015 ; prov:hadActivity gsnalignprov:dd-0013 ] .
+
+gsnalignprov:dd-0014
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "A step's premises are asserted through a sub-property of ARGO's."@en ;
+    prov:used gsnalignprov:src-0011 ;
+    gsnprov:hasRationale gsnalignprov:why-0009 ;
+    prov:generated gsnalignprov:st-0014 .
+
+gsnalignprov:st-0014
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0014 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsnalign:stepPremise rdfs:subPropertyOf argo:hasPremise ." ;
+    gsnprov:aboutTerm gsnalign:stepPremise .
+
+gsnalignprov:dd-0015
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "A step is a proper part of the case argument it belongs to."@en ;
+    prov:used gsnalignprov:src-0006 ;
+    gsnprov:hasRationale gsnalignprov:why-0010 ;
+    prov:generated gsnalignprov:st-0015 .
+
+gsnalignprov:st-0015
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0015 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsnalign:stepOf rdfs:subPropertyOf argo:properContinuantPartOf ." ;
+    gsnprov:aboutTerm gsnalign:stepOf .
+
+gsnalignprov:dd-0016
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "A strategy is linked to the step it describes, rather than identified with the inference."@en ;
+    prov:used gsnalignprov:src-0009 , gsnalignprov:src-0017 ;
+    gsnprov:hasRationale gsnalignprov:why-0008 ;
+    prov:generated gsnalignprov:st-0016 .
+
+gsnalignprov:st-0016
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0016 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsnalign:describedByStrategy rdfs:domain gsnalign:InferenceStep ; rdfs:range gsn:Strategy ." ;
+    gsnprov:aboutTerm gsnalign:describedByStrategy ;
+    gsnprov:mentionsTerm gsn:Strategy ;
+    prov:wasDerivedFrom gsnalignprov:src-0017 .
+
+gsnalignprov:dd-0017
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "Challenging the reasoning rather than a claim is expressed as a sub-property of ARGO's opposition relation, targeting a step."@en ;
+    prov:used gsnalignprov:src-0002 , gsnalignprov:src-0003 ;
+    gsnprov:hasRationale gsnalignprov:why-0014 ;
+    prov:generated gsnalignprov:st-0017 .
+
+gsnalignprov:st-0017
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0017 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsnalign:undercuts rdfs:subPropertyOf argo:opposes ; rdfs:range gsnalign:InferenceStep ." ;
+    gsnprov:aboutTerm gsnalign:undercuts .
+
+gsnalignprov:dd-0018
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "Each minted individual keeps a functional link back to the goal it was minted from."@en ;
+    gsnprov:noSourceRecorded true ;
+    gsnprov:hasRationale gsnalignprov:why-0013 ;
+    prov:generated gsnalignprov:st-0018 .
+
+gsnalignprov:st-0018
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnalignprov:dd-0018 ;
+    gsnprov:inGraph gsnalignprov:alignment-0.1.0 ;
+    gsnprov:statementText "gsnalign:forGoal a owl:FunctionalProperty ; rdfs:range gsn:Goal . gsnalign:forTopGoal a owl:FunctionalProperty ; rdfs:range gsn:Goal ." ;
+    gsnprov:aboutTerm gsnalign:forGoal ;
+    gsnprov:mentionsTerm gsnalign:forTopGoal , gsn:Goal .
+
+
+#################################################################
+#    Decisions to represent nothing
+#    Each of these is a correspondence that was considered and rejected. They generate no
+#    statement; the reasoning is the record.
+#################################################################
+
+gsnalignprov:dd-0019
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:NoFormalism ;
+    gsnprov:naturalLanguage "A GSN solution is not mapped to an ARGO premise, and is left unmapped entirely."@en ;
+    prov:used gsnalignprov:src-0010 , gsnalignprov:src-0011 ;
+    gsnprov:hasRationale gsnalignprov:why-0015 ;
+    skos:note "Consequence: a step supported only by evidence carries no ARGO premise. ARGO's requirement is existential, so this is not an inconsistency, but an ARGO query for the premises of a case returns claims and never evidence. Recorded as C1 in NOTES-argo.md."@en .
+
+gsnalignprov:dd-0020
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:NoFormalism ;
+    gsnprov:naturalLanguage "The claim implicit in a solution's noun phrase is not minted as a bridge class."@en ;
+    prov:used gsnalignprov:src-0010 ;
+    gsnprov:hasRationale gsnalignprov:why-0015 ;
+    gsnprov:supersededBy gsnalignprov:dd-0019 .
+
+gsnalignprov:dd-0021
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:NoFormalism ;
+    gsnprov:naturalLanguage "No occurrent individuals are minted: neither the act of inferring behind a step nor the act of argument creation behind a case."@en ;
+    prov:used gsnalignprov:src-0009 ;
+    gsnprov:hasRationale gsnalignprov:why-0016 .
+
+gsnalignprov:dd-0022
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:NoFormalism ;
+    gsnprov:naturalLanguage "OntoGSN's boolean status decorators are not mapped to ARGO."@en ;
+    prov:used gsnalignprov:src-0013 ;
+    gsnprov:hasRationale gsnalignprov:why-0017 ;
+    skos:note "Applies to gsn:true, gsn:valid, gsn:defeated and gsn:inDoubt. ARGO has 24 fewer datatype properties than OntoGSN for a reason: it has none at all."@en ;
+    gsnprov:mentionsTerm gsn:true , gsn:valid , gsn:defeated , gsn:inDoubt .
+
+gsnalignprov:dd-0023
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:NoFormalism ;
+    gsnprov:naturalLanguage "gsn:Argument is not declared a subclass of argo:argument, in either direction."@en ;
+    prov:used gsnalignprov:src-0004 , gsnalignprov:src-0005 ;
+    gsnprov:hasRationale gsnalignprov:why-0010 ;
+    skos:note "Forward, it collides with ARGO's exactly-one-conclusion restriction wherever a structure has more than one top goal, and does so silently by merging the two conclusions. Backward, it is false as a universal - an argument in a legal brief is not a GSN argument - and would impose GSN's mandatory single identifier on every ARGO argument. gsnalign:CaseArgument replaces both."@en ;
+    gsnprov:mentionsTerm gsn:Argument .
+
+gsnalignprov:dd-0024
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:NoFormalism ;
+    gsnprov:naturalLanguage "gsn:Justification is left unmapped."@en ;
+    gsnprov:noSourceRecorded true ;
+    gsnprov:hasRationale gsnalignprov:why-0018 ;
+    skos:note "A justification is a Toulmin warrant - rationale for the inference rather than a premise of it. ARGO's paper argues explicitly against the Toulmin model, so there is nothing to map onto, and modelling it as a premise would change what the case says."@en ;
+    gsnprov:mentionsTerm gsn:Justification .
+
+gsnalignprov:dd-0025
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:NoFormalism ;
+    gsnprov:naturalLanguage "GSN's packaging and notation classes are left unmapped."@en ;
+    prov:used gsnalignprov:src-0016 ;
+    gsnprov:hasRationale gsnalignprov:why-0018 ;
+    skos:note "Covers AssuranceCase, Artefact, Module, View, Catalogue, Pattern, Template, InstantiationDataReference, away elements, contracts and assurance claim points. Worth noting that ARGO's paper recommends treating argument schemes as instances of a class under ICE, which is the shape gsn:Pattern and gsn:instantiationOf already have - but the agreement is methodological and there is no ARGO term to point at."@en ;
+    gsnprov:mentionsTerm gsn:AssuranceCase , gsn:Artefact , gsn:Module , gsn:Pattern .
+
+gsnalignprov:dd-0026
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:NoFormalism ;
+    gsnprov:naturalLanguage "No SHACL shapes are written for the alignment layer."@en ;
+    gsnprov:noSourceRecorded true ;
+    gsnprov:noRationaleRecorded true .
+
+gsnalignprov:dd-0027
+    a gsnprov:DesignDecision ;
+    gsnprov:formalism gsnprov:NoFormalism ;
+    gsnprov:naturalLanguage "The derivation rules that would populate the bridge classes are specified but not implemented."@en ;
+    gsnprov:noSourceRecorded true ;
+    gsnprov:hasRationale gsnalignprov:why-0020 ;
+    skos:note "The nine rules are tabulated in NOTES-argo.md section 7. Without them the alignment is a TBox only: it states what the correspondence is, and mints nothing."@en .

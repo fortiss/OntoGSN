@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Maps ARGO's ontology IRI to the vendored copy.
+
+  ARGO declares its base as http://www.github/argumentsontology/ , which is not a resolvable
+  host, so gsnalign.ttl's owl:imports cannot be followed over the network. Tools that honour
+  an OWLAPI catalogue (Protege, ROBOT, the OWL API itself) will find the local file through
+  this mapping. Tools that ignore owl:imports altogether - rdflib among them - are unaffected.
+
+  Do not edit vendor/argo.ttl. It is byte-identical to upstream so that a diff against a later
+  release is meaningful; git blob 340166f4372ca7277243347351dfccf132b79a47.
+-->
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="ARGO vendored" name="http://www.github/argumentsontology/" uri="vendor/argo.ttl"/>
+</catalog>
