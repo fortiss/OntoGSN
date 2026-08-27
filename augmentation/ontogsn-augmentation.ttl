@@ -29,6 +29,10 @@
 and roles behind an element, the tool that produced a piece of evidence and where it is kept, the
 review issues raised against the case, and the regulatory requirement a claim answers to.
 
+Every link names what sits at its far end: a gsnaug:System is what a case assures, a
+gsnaug:Requirement is what a claim answers to, a gsnaug:Role is what an agent holds, and a
+gsnaug:ArtefactElement is the part of an artefact an element was instantiated from.
+
 Three groups do the work. Evidence provenance hangs off gsn:Artefact rather than gsn:Solution,
 because the storage location, the generating tool and the verification script are facts about the
 file and not about the node in the diagram; a query reaches them through the gsn:refersTo the
@@ -45,7 +49,7 @@ Nothing in OntoGSN imports this file, and this file restates no gsn: domain or r
     terms:created "2026-08-17"^^xsd:date ;
     vann:preferredNamespacePrefix "gsnaug" ;
     vann:preferredNamespaceUri "https://w3id.org/OntoGSN/augmentation#" ;
-    owl:versionInfo "0.1.0" ;
+    owl:versionInfo "0.2.0" ;
     gsnaug:augmentedOntoGSNVersion "1.2.4" ;
     skos:note """The augmented-version annotation scopes everything below. Two axioms in particular were written
 against OntoGSN 1.2.4 and would not hold before it: gsnaug:instantiatedFrom assumes an
@@ -60,15 +64,6 @@ gsnaug:augmentedOntoGSNVersion rdf:type owl:AnnotationProperty ;
 
 #################################################################
 #    The one axiom with a gsn: term as its subject
-#
-#    Asserted here and never in serializations/ontogsn.ttl. OntoGSN is a faithful rendering of the
-#    GSN Community Standard v3, and a claim about PROV-O is not a claim the standard makes; keeping
-#    it here also means a GSN-only consumer never pulls PROV into its closure. Same call, and the
-#    same reasoning, as the two gsn: axioms in alignments/gsnalign.ttl.
-#
-#    It is load-bearing rather than decorative: without it the three PROV subproperties below have
-#    a domain of gsn:Artefact and superproperties whose domain is prov:Entity, so nothing an
-#    artefact carries would be visible to a PROV-aware consumer.
 #################################################################
 
 gsn:Artefact rdfs:subClassOf prov:Entity .
@@ -109,11 +104,16 @@ gsnaug:Resolution rdf:type owl:Class ;
     skos:definition "The answer to a resolve issue: the record that the defeat was addressed."@en .
 
 
+###  Audit cycles
+
+gsnaug:AuditCycle rdf:type owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "Audit Cycle"@en ;
+    skos:definition "One round of review, from the moment it opens to the moment its report is issued."@en ;
+    skos:note "Start and end are prov:startedAtTime and prov:endedAtTime, which apply because an audit cycle is a prov:Activity. An issue carries its own date with dcterms:created."@en .
+
+
 ###  Evidence mechanisms and storage
-#
-#  Deliberately without a superclass and without further structure. They exist so that a domain
-#  ontology can subclass them - sw:Script rdfs:subClassOf gsnaug:EvidenceGenerationMechanism - or
-#  declare individuals directly. Saying more here would be prescribing an implementation.
 
 gsnaug:EvidenceGenerationMechanism rdf:type owl:Class ;
     rdfs:label "Evidence Generation Mechanism"@en ;
@@ -133,25 +133,34 @@ gsnaug:StorageSystem rdf:type owl:Class ;
     skos:definition "Where an artefact lives: a repository, a document store, a drive."@en .
 
 
-###  Top-level contexts
+###  What the links point at
 
-gsnaug:TopSubjectContext rdf:type owl:Class ;
-    rdfs:subClassOf gsn:Context ;
-    rdfs:label "Top Subject Context"@en ;
-    skos:definition "The context of a top goal that names the property being assured - what is claimed."@en ;
-    skos:note "A GSN-only tool sees an ordinary gsn:Context and renders it as one. Declaring a top-level context is GSN best practice but not normative, which is why gsnaug:assures and gsnaug:requiredBy exist alongside these classes rather than depending on them."@en .
+gsnaug:System rdf:type owl:Class ;
+    rdfs:label "System"@en ;
+    skos:altLabel "Assured system"@en ;
+    skos:definition "The system, service or organisation an assurance case is about."@en ;
+    skos:scopeNote "Names the far end of gsnaug:assures and nothing more. The taxonomy of systems belongs to the user's domain ontology; a domain class whose instances an argument assures is a gsnaug:System by inference."@en .
 
-gsnaug:TopObjectContext rdf:type owl:Class ;
-    rdfs:subClassOf gsn:Context ;
-    rdfs:label "Top Object Context"@en ;
-    skos:definition "The context of a top goal that names the system the property is claimed of - what it is claimed about."@en .
+gsnaug:Requirement rdf:type owl:Class ;
+    rdfs:label "Requirement"@en ;
+    skos:altLabel "Obligation"@en ;
+    skos:definition "A requirement, regulatory statement or obligation that an element of the case answers to."@en ;
+    skos:scopeNote "Distinct from gsnprov:Requirement, which records what OntoGSN itself set out to do. Same word, different subject."@en .
+
+gsnaug:Role rdf:type owl:Class ;
+    rdfs:label "Role"@en ;
+    skos:definition "A role an agent holds in the review process: developer, process owner, compliance officer, auditor."@en ;
+    skos:scopeNote "The role, not the person. One agent may hold several, and a role outlives whoever holds it."@en .
+
+gsnaug:ArtefactElement rdf:type owl:Class ;
+    rdfs:label "Artefact Element"@en ;
+    skos:altLabel "Artefact part"@en ;
+    skos:definition "A part of an artefact identified in its own right: a row of a control catalogue, a clause of a regulation, a section of a report."@en ;
+    skos:scopeNote "Neither a gsn:GSNElement nor a gsn:Artefact. It is a part of one, reached from the artefact by gsnaug:containsElement."@en .
 
 
 #################################################################
 #    Issue types
-#
-#    A SKOS scheme rather than three subclasses of gsnaug:Issue. A fourth kind of ask is then a
-#    concept, which deprecates, merges and maps, rather than a class in a released ontology.
 #################################################################
 
 gsnaug:IssueTypeScheme rdf:type skos:ConceptScheme ;
@@ -182,14 +191,36 @@ gsnaug:resolve rdf:type skos:Concept ;
 
 
 #################################################################
+#    Issue outcomes
+#################################################################
+
+gsnaug:IssueOutcomeScheme rdf:type skos:ConceptScheme ;
+    rdfs:label "Issue outcomes"@en ;
+    skos:prefLabel "Issue outcomes"@en ;
+    skos:hasTopConcept gsnaug:cannotAnswer , gsnaug:declined , gsnaug:infeasible .
+
+gsnaug:cannotAnswer rdf:type skos:Concept ;
+    skos:inScheme gsnaug:IssueOutcomeScheme ;
+    skos:topConceptOf gsnaug:IssueOutcomeScheme ;
+    skos:prefLabel "cannot answer"@en ;
+    skos:definition "The holder does not know the answer, which is what sends the ask onward instead of back."@en ;
+    skos:scopeNote "Not a refusal and not a negative answer. The ask is still live; it is the holder who has changed."@en .
+
+gsnaug:declined rdf:type skos:Concept ;
+    skos:inScheme gsnaug:IssueOutcomeScheme ;
+    skos:topConceptOf gsnaug:IssueOutcomeScheme ;
+    skos:prefLabel "declined"@en ;
+    skos:definition "The holder can act on the ask and refuses to."@en .
+
+gsnaug:infeasible rdf:type skos:Concept ;
+    skos:inScheme gsnaug:IssueOutcomeScheme ;
+    skos:topConceptOf gsnaug:IssueOutcomeScheme ;
+    skos:prefLabel "infeasible"@en ;
+    skos:definition "The ask cannot be met at all: the evidence cannot be produced, or the defeat cannot be resolved."@en .
+
+
+#################################################################
 #    Object properties - the artefact
-#
-#    All six hang off gsn:Artefact, never gsn:Solution. A solution is the GSN element that
-#    references an artefact; the path, the storage location, the generating tool and the
-#    verification script are facts about the file. A query reaches them from the argument through
-#    the gsn:refersTo the solution already carries:
-#
-#        ?claim gsn:supportedBy/gsn:refersTo ?artefact . ?artefact gsnaug:generatedWith ?tool .
 #################################################################
 
 gsnaug:storedIn rdf:type owl:ObjectProperty ;
@@ -235,6 +266,21 @@ gsnaug:verifiedWith rdf:type owl:ObjectProperty ;
     skos:definition "What checks the truth or appropriateness of the artefact."@en ;
     skos:note "The mechanism that ran, which is provenance. Distinct from a shape or a rule that decides whether a claim holds, which is a definition."@en .
 
+gsnaug:containsElement rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range gsnaug:ArtefactElement ;
+    rdfs:label "contains element"@en ;
+    skos:definition "A part of the artefact identified in its own right - the row, clause or section a claim was drawn from."@en ;
+    skos:note "The counterpart of gsnaug:instantiatedFrom, read from the file rather than from the element. gsn:contains is not reused: neither gsn:Artefact nor gsnaug:ArtefactElement is in its domain or range, and both are generative, so the reuse would retype the artefact and the part alike."@en .
+
+gsnaug:revisionOf rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasRevisionOf ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range gsn:Artefact ;
+    rdfs:label "revision of"@en ;
+    skos:definition "The earlier version of the artefact that this one replaces."@en ;
+    skos:note "Artefacts only. A gsn:GSNElement is not a prov:Entity here, so a reworded claim is not a revision in this sense; that is element versioning, which this file does not model."@en .
+
 
 #################################################################
 #    Object properties - roles
@@ -247,17 +293,26 @@ gsnaug:assures rdf:type owl:ObjectProperty ;
                                 gsn:Goal
                               )
                 ] ;
+    rdfs:range gsnaug:System ;
     rdfs:label "assures"@en ;
     skos:definition "The system, service or organisation this argument is about."@en ;
-    skos:note "Says in one triple what a top-level context says in a diagram. GSN recommends but does not require such a context, so a conforming case may omit it; this property carries the fact either way. Where both are present, rule A5 derives this one from the context, and a shape checks that they agree."@en .
+    skos:note "Says in one triple what a top-level context says in a diagram. GSN recommends but does not require such a context, so a conforming case may omit it; this property carries the fact either way."@en .
 
 gsnaug:assuredBy rdf:type owl:ObjectProperty ;
     owl:inverseOf gsnaug:assures ;
+    rdfs:domain gsnaug:System ;
+    rdfs:range [ rdf:type owl:Class ;
+                 owl:unionOf ( gsn:Argument
+                               gsn:AssuranceCase
+                               gsn:Goal
+                             )
+               ] ;
     rdfs:label "assured by"@en ;
     skos:definition "The argument or case that assures this system."@en ;
     skos:note "The inverse exists so that a domain ontology can point inward without write access to the case graph, and so that two competing cases can claim the same system."@en .
 
 gsnaug:owns rdf:type owl:ObjectProperty ;
+    rdfs:domain prov:Agent ;
     rdfs:range gsn:GSNElement ;
     rdfs:label "owns"@en ;
     skos:definition "The agent who stands behind an element - who owns its validity or truth."@en .
@@ -265,10 +320,12 @@ gsnaug:owns rdf:type owl:ObjectProperty ;
 gsnaug:ownedBy rdf:type owl:ObjectProperty ;
     owl:inverseOf gsnaug:owns ;
     rdfs:domain gsn:GSNElement ;
+    rdfs:range prov:Agent ;
     rdfs:label "owned by"@en ;
     skos:definition "The agent who stands behind this element."@en .
 
 gsnaug:reviews rdf:type owl:ObjectProperty ;
+    rdfs:domain prov:Agent ;
     rdfs:range [ rdf:type owl:Class ;
                  owl:unionOf ( gsn:Artefact
                                gsn:GSNElement
@@ -284,8 +341,16 @@ gsnaug:reviewedBy rdf:type owl:ObjectProperty ;
                                 gsn:GSNElement
                               )
                 ] ;
+    rdfs:range prov:Agent ;
     rdfs:label "reviewed by"@en ;
     skos:definition "The agent who checked this element or artefact."@en .
+
+gsnaug:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain prov:Agent ;
+    rdfs:range gsnaug:Role ;
+    rdfs:label "has role"@en ;
+    skos:definition "A role the agent holds in the review process."@en ;
+    skos:note "Not functional. One agent may hold several roles, and which roles an agent holds changes between audit cycles."@en .
 
 
 #################################################################
@@ -294,15 +359,27 @@ gsnaug:reviewedBy rdf:type owl:ObjectProperty ;
 
 gsnaug:raisedAgainst rdf:type owl:ObjectProperty ;
     rdfs:domain gsnaug:Issue ;
+    rdfs:range [ rdf:type owl:Class ;
+                 owl:unionOf ( gsn:Argument
+                               gsn:Artefact
+                               gsn:AssuranceCase
+                               gsn:GSNElement
+                               gsn:Pattern
+                               gsn:Relationship
+                             )
+               ] ;
     rdfs:label "raised against"@en ;
     skos:definition "What the issue is about."@en ;
-    skos:note """Deliberately without an rdfs:range. A reviewer may raise an issue against anything in the case -
-a goal, a solution, a context, a reified relationship, an artefact, the case itself. Narrowing the
-range would either reject legitimate asks or, since range is generative rather than restrictive,
-silently retype whatever an issue happened to point at.
+    skos:note """The union is everything in a case a reviewer can point at: the case itself, an argument, any GSN
+element - a goal, a solution, a context - a reified relationship, an artefact, or the pattern the
+argument was instantiated from. gsn:Catalogue and gsn:InstantiationDataReference are outside it; add
+them if a review ever targets one.
 
-What the target is still matters, but it matters to the rules rather than to the vocabulary: only a
-revise or resolve issue against a gsn:Goal or a gsn:Solution becomes a defeater."""@en .
+Range is generative rather than restrictive, so the union does not reject a target outside it - it
+retypes it. gsnaugsh:IssueShape rejects it instead.
+
+What the target is still matters to the rules as well as to the vocabulary: only a revise or resolve
+issue against a gsn:Goal or a gsn:Solution becomes a defeater."""@en .
 
 gsnaug:issueType rdf:type owl:ObjectProperty ;
     rdfs:domain gsnaug:Issue ;
@@ -323,6 +400,41 @@ gsnaug:supersedes rdf:type owl:ObjectProperty ,
     rdfs:label "supersedes"@en ;
     skos:definition "A later ask that displaces a still-pending one."@en .
 
+gsnaug:raisedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Issue ;
+    rdfs:range prov:Agent ;
+    rdfs:label "raised by"@en ;
+    skos:definition "The agent who raised the issue."@en ;
+    skos:note "Distinct from gsnaug:ownedBy, which says who stands behind a GSN element. The raiser of an ask does not change; who has to answer it does."@en .
+
+gsnaug:heldBy rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Issue ;
+    rdfs:range prov:Agent ;
+    rdfs:label "held by"@en ;
+    skos:definition "The agent the issue rests with: whoever has to answer it now."@en ;
+    skos:note "One issue per relay hop, chained with gsnaug:supersedes, rather than one issue whose holder is overwritten. An overwritten holder leaves no trace of the hops, and the number of escalations is a count of them."@en .
+
+gsnaug:issueOutcome rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Issue ;
+    rdfs:range skos:Concept ;
+    rdfs:label "issue outcome"@en ;
+    skos:definition "How the issue ended, in the cases where it ended without being answered."@en ;
+    skos:note "An issue closed by a gsnaug:Answer carries no outcome, and an issue with neither is still open. The three are mutually exclusive readings of the same slot."@en .
+
+gsnaug:raisedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Issue ;
+    rdfs:range gsnaug:AuditCycle ;
+    rdfs:label "raised in"@en ;
+    skos:definition "The audit cycle the issue was raised in."@en ;
+    skos:note "What makes 'what was left unresolved at the last audit' answerable. An ask outlives the cycle that raised it, so the cycle is recorded rather than inferred from a date."@en .
+
+gsnaug:coveredIn rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:AssuranceCase ;
+    rdfs:range gsnaug:AuditCycle ;
+    rdfs:label "covered in"@en ;
+    skos:definition "An audit cycle that reviewed this case."@en ;
+    skos:note "Not functional: a case is reviewed round after round. gsnaug:raisedIn scopes a single ask to a round; this scopes the whole case, and answers which rounds a case has been through without going by way of its issues."@en .
+
 
 #################################################################
 #    Object properties - structure and the generic pair
@@ -330,15 +442,17 @@ gsnaug:supersedes rdf:type owl:ObjectProperty ,
 
 gsnaug:instantiatedFrom rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:GSNElement ;
+    rdfs:range gsnaug:ArtefactElement ;
     rdfs:label "instantiated from"@en ;
-    skos:definition "The row of instantiation data that produced this element."@en ;
-    skos:note "Completes the pattern-instantiation loop. gsn:attachedTo points from the instantiation data reference to the element it governs, and since OntoGSN 1.2.4 gsn:refersTo points from that reference to the data itself; this says which row of that data produced which element."@en .
+    skos:definition "The part of an artefact that produced this element."@en ;
+    skos:note "Completes the pattern-instantiation loop. gsn:attachedTo points from the instantiation data reference to the element it governs, and since OntoGSN 1.2.4 gsn:refersTo points from that reference to the artefact holding the data; this says which part of that artefact produced which element. The artefact reaches the same part by gsnaug:containsElement."@en .
 
 gsnaug:requiredBy rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:GSNElement ;
+    rdfs:range gsnaug:Requirement ;
     rdfs:label "required by"@en ;
     skos:definition "The requirement, regulatory statement or obligation that this element answers to."@en ;
-    skos:note "Close in intent to dcterms:conformsTo, and kept separate because conformance is a claim about an artefact meeting a standard, while this records where a claim in the argument came from. What sits at the far end belongs to the user's domain ontology; this file supplies the link and not the taxonomy."@en .
+    skos:note "Close in intent to dcterms:conformsTo, and kept separate because conformance is a claim about an artefact meeting a standard, while this records where a claim in the argument came from. gsnaug:Requirement names the far end; its taxonomy still belongs to the user's domain ontology."@en .
 
 gsnaug:linksTo rdf:type owl:ObjectProperty ;
     rdfs:label "links to"@en ;
@@ -352,29 +466,35 @@ gsnaug:tag rdf:type owl:DatatypeProperty ;
 
 
 #################################################################
+#    Data properties
+#################################################################
+
+gsnaug:automated rdf:type owl:DatatypeProperty ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsnaug:EvidenceGenerationMechanism
+                                gsnaug:EvidenceRetrievalMechanism
+                                gsnaug:EvidenceVerificationMechanism
+                              )
+                ] ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "automated"@en ;
+    skos:definition "Whether the mechanism runs without a person."@en ;
+    skos:note "False records an assessment that the mechanism is manual; no mechanism at all records that none has been assessed. 'Automation was tried and does not work' and 'nobody has looked' are different answers, and this is what separates them."@en .
+
+gsnaug:accepted rdf:type owl:DatatypeProperty ;
+    rdfs:domain gsnaug:Answer ;
+    rdfs:range xsd:boolean ;
+    rdfs:label "accepted"@en ;
+    skos:definition "Whether the agent who raised the issue accepted this answer."@en ;
+    skos:note "Several answers may address one issue. An answer that is not accepted leaves the issue open, which is how a round of answering is distinguished from a close."@en .
+
+
+#################################################################
 #    SWRL rules
-#
-#    A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express
-#    'a Goal or a Solution' in one rule.
-#
-#    What these rules do NOT do is as deliberate as what they do. A clarify issue infers nothing,
-#    whatever it targets. A revise or resolve issue against a context, an assumption, a
-#    justification, a strategy or a relationship also infers nothing: the ask is recorded and
-#    queryable, but it is a remark about how well an element is expressed, not a claim about the
-#    argument, and it must not move gsn:inDoubt or gsn:defeated.
-#
-#    Where a rule does fire, OntoGSN's own dialectic rules take it from there: S52 types anything
-#    that challenges as a gsn:Defeater, and S48 derives gsn:inDoubt from a true goal that
-#    challenges. Only gsn:defeated has to be asserted here, because S46 derives it from a valid
-#    gsn:Solution and an issue is an ask rather than evidence.
 #################################################################
 
 gsnaugswrl:I  rdf:type swrl:Variable .
 gsnaugswrl:E  rdf:type swrl:Variable .
-gsnaugswrl:G  rdf:type swrl:Variable .
-gsnaugswrl:C  rdf:type swrl:Variable .
-gsnaugswrl:S  rdf:type swrl:Variable .
-gsnaugswrl:R  rdf:type swrl:Variable .
 
 
 ###  A2a
@@ -594,102 +714,4 @@ gsnaug:ResolveIssueDefeatsSolution swrla:isRuleEnabled "true"^^xsd:boolean ;
                                      rdf:rest rdf:nil
                                    ]
                         ]
-             ] .
-
-
-###  A5a
-gsnaug:TopObjectContextAssurance swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:label "Top Object Context Assurance" ;
-   rdfs:comment "IF top Goal G is in the context of Top Object Context C AND C refers to S THEN G assures S"@en ;
-   rdf:type swrl:Imp ;
-   swrl:body [ rdf:type swrl:AtomList ;
-               rdf:first [ rdf:type swrl:ClassAtom ;
-                           swrl:classPredicate gsn:Goal ;
-                           swrl:argument1 gsnaugswrl:G
-                         ] ;
-               rdf:rest [ rdf:type swrl:AtomList ;
-                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                                      swrl:propertyPredicate gsn:top ;
-                                      swrl:argument1 gsnaugswrl:G ;
-                                      swrl:argument2 "true"^^xsd:boolean
-                                    ] ;
-                          rdf:rest [ rdf:type swrl:AtomList ;
-                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                 swrl:propertyPredicate gsn:inContextOf ;
-                                                 swrl:argument1 gsnaugswrl:G ;
-                                                 swrl:argument2 gsnaugswrl:C
-                                               ] ;
-                                     rdf:rest [ rdf:type swrl:AtomList ;
-                                                rdf:first [ rdf:type swrl:ClassAtom ;
-                                                            swrl:classPredicate gsnaug:TopObjectContext ;
-                                                            swrl:argument1 gsnaugswrl:C
-                                                          ] ;
-                                                rdf:rest [ rdf:type swrl:AtomList ;
-                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                                       swrl:propertyPredicate gsn:refersTo ;
-                                                                       swrl:argument1 gsnaugswrl:C ;
-                                                                       swrl:argument2 gsnaugswrl:S
-                                                                     ] ;
-                                                           rdf:rest rdf:nil
-                                                         ]
-                                              ]
-                                   ]
-                        ]
-             ] ;
-   swrl:head [ rdf:type swrl:AtomList ;
-               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate gsnaug:assures ;
-                           swrl:argument1 gsnaugswrl:G ;
-                           swrl:argument2 gsnaugswrl:S
-                         ] ;
-               rdf:rest rdf:nil
-             ] .
-
-
-###  A5b
-gsnaug:TopSubjectContextRequirement swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:label "Top Subject Context Requirement" ;
-   rdfs:comment "IF top Goal G is in the context of Top Subject Context C AND C refers to R THEN G is required by R"@en ;
-   rdf:type swrl:Imp ;
-   swrl:body [ rdf:type swrl:AtomList ;
-               rdf:first [ rdf:type swrl:ClassAtom ;
-                           swrl:classPredicate gsn:Goal ;
-                           swrl:argument1 gsnaugswrl:G
-                         ] ;
-               rdf:rest [ rdf:type swrl:AtomList ;
-                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
-                                      swrl:propertyPredicate gsn:top ;
-                                      swrl:argument1 gsnaugswrl:G ;
-                                      swrl:argument2 "true"^^xsd:boolean
-                                    ] ;
-                          rdf:rest [ rdf:type swrl:AtomList ;
-                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                 swrl:propertyPredicate gsn:inContextOf ;
-                                                 swrl:argument1 gsnaugswrl:G ;
-                                                 swrl:argument2 gsnaugswrl:C
-                                               ] ;
-                                     rdf:rest [ rdf:type swrl:AtomList ;
-                                                rdf:first [ rdf:type swrl:ClassAtom ;
-                                                            swrl:classPredicate gsnaug:TopSubjectContext ;
-                                                            swrl:argument1 gsnaugswrl:C
-                                                          ] ;
-                                                rdf:rest [ rdf:type swrl:AtomList ;
-                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                                       swrl:propertyPredicate gsn:refersTo ;
-                                                                       swrl:argument1 gsnaugswrl:C ;
-                                                                       swrl:argument2 gsnaugswrl:R
-                                                                     ] ;
-                                                           rdf:rest rdf:nil
-                                                         ]
-                                              ]
-                                   ]
-                        ]
-             ] ;
-   swrl:head [ rdf:type swrl:AtomList ;
-               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate gsnaug:requiredBy ;
-                           swrl:argument1 gsnaugswrl:G ;
-                           swrl:argument2 gsnaugswrl:R
-                         ] ;
-               rdf:rest rdf:nil
              ] .

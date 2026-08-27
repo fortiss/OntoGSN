@@ -74,7 +74,7 @@ for rule in rules:
             atoms += 1
             node = ontology.value(node, RDF.rest)
     print(f"  {str(label):38} {atoms} atoms")
-check(len(rules) == 6, f"{len(rules)} SWRL rules", f"expected 6 SWRL rules, found {len(rules)}")
+check(len(rules) == 4, f"{len(rules)} SWRL rules", f"expected 4 SWRL rules, found {len(rules)}")
 
 # Each SWRL rule needs a SPARQL twin, so the two never drift.
 sparql_rules = sorted(glob.glob(os.path.join(AUG_RULES, "*.rq")))
@@ -120,6 +120,11 @@ EX = Namespace("https://example.org/case#")
 expected = [
     ("revise on a solution challenges it",  (EX.I3, GSN.challenges, EX.Sn1), True),
     ("resolve on a goal challenges it",     (EX.I4, GSN.challenges, EX.G1), True),
+    # I4 and I7 both resolve against G1. Both must become challenges: a rule that writes the
+    # defeat and the challenge in one guarded operation drops whichever of the two the store
+    # returns second, and which one that is varies from run to run.
+    ("a second resolve on the same goal challenges it too",
+                                            (EX.I7, GSN.challenges, EX.G1), True),
     ("clarify challenges nothing",          (EX.I1, GSN.challenges, None), False),
     ("revise on a context challenges nothing", (EX.I2, GSN.challenges, None), False),
     ("challenger is inferred a Defeater",   (EX.I3, RDF.type, GSN.Defeater), True),
@@ -127,8 +132,8 @@ expected = [
     ("solution under a revise issue is in doubt", (EX.Sn1, GSN.inDoubt, Literal(True)), True),
     ("goal under a resolve issue is defeated",    (EX.G1, GSN.defeated, Literal(True)), True),
     ("context under a revise issue is untouched", (EX["C-object"], GSN.inDoubt, None), False),
-    ("top object context yields assures",   (EX.G1, AUG.assures, EX["it-system"]), True),
-    ("top subject context yields requiredBy", (EX.G1, AUG.requiredBy, EX.regulation), True),
+    ("the case names the system it assures", (EX.G1, AUG.assures, EX["it-system"]), True),
+    ("the case names what requires it",      (EX.G1, AUG.requiredBy, EX.regulation), True),
 ]
 for name, triple, wanted in expected:
     found = (triple in data) if triple[2] is not None else bool(list(data.triples(triple)))
@@ -163,6 +168,7 @@ head("shapes reject what they are meant to reject")
 
 # A shape that never fires constrains nothing, so each one is made to fire once.
 violations = Graph()
+violations.parse(CORE, format="turtle")
 violations.parse(ONTOLOGY, format="turtle")
 violations.parse(os.path.join(HERE, "testdata", "example_violations.ttl"), format="turtle")
 _, report, _ = validate(violations, shacl_graph=shapes, advanced=True, inference="none")
@@ -182,14 +188,22 @@ must_report = [
     ("a Revision answering a clarify issue", BAD["A-mismatched"]),
     ("an artefact stored in a person",       BAD["artefact"]),
     ("provenance hung on a solution",        BAD["Sn1"]),
-    ("a context and assures that disagree",  BAD["G1"]),
+    ("a goal assuring something that is not a system", BAD["G1"]),
+    ("an element required by, instantiated from and owned by the wrong kinds of thing",
+                                             BAD["G2"]),
+    ("an owner, reviewer and role-holder that is not an agent", BAD["not-an-agent"]),
+    ("something other than a case covered in an audit cycle",   BAD["case-1"]),
+    ("an issue raised against something outside the case",      BAD["I-off-target"]),
+    ("an outcome outside the three",         BAD["I-bogus-outcome"]),
+    ("an issue held by two agents at once",  BAD["I-two-holders"]),
+    ("an audit cycle that is not one, and a raiser that is not an agent", BAD["I-bad-cycle"]),
+    ("an issue closed by an outcome and an accepted answer", BAD["I-both-endings"]),
+    ("an acceptance that is not a boolean",  BAD["A-bad-accepted"]),
+    ("an artefact revising a person",        BAD["artefact-revision"]),
+    ("a mechanism automated by a word",      BAD["mechanism"]),
 ]
 for name, node in must_report:
     check(str(node) in focus_nodes, f"reported: {name}", f"NOT reported: {name}")
-
-check(str(BAD["G2"]) not in focus_nodes,
-      "a top goal with no top-level context is not reported (the shape ships deactivated)",
-      "TopContextCompletenessShape fired despite sh:deactivated")
 
 head("result")
 if failures:

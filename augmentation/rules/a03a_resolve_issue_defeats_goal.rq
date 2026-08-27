@@ -10,11 +10,7 @@ PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
 
 DELETE { ?E gsn:defeated ?old }
-INSERT {
-  ?I a gsn:Goal ;
-     gsn:challenges ?E .
-  ?E gsn:defeated true .
-}
+INSERT { ?E gsn:defeated true }
 WHERE {
   ?I a gsnaug:Issue ;
      gsnaug:issueType gsnaug:resolve ;
@@ -22,4 +18,19 @@ WHERE {
   ?E a gsn:Goal .
   OPTIONAL { ?E gsn:defeated ?old }
   FILTER(!BOUND(?old) || STR(?old) != "true")
+} ;
+
+# A second operation, not a second rule. Written separately because the guard above is on the
+# target and this one is on the pair: one issue's challenge must not suppress another's when
+# both are raised against the same element.
+INSERT {
+  ?I a gsn:Goal ;
+     gsn:challenges ?E .
+}
+WHERE {
+  ?I a gsnaug:Issue ;
+     gsnaug:issueType gsnaug:resolve ;
+     gsnaug:raisedAgainst ?E .
+  ?E a gsn:Goal .
+  FILTER NOT EXISTS { ?I gsn:challenges ?E }
 }

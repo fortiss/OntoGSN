@@ -37,28 +37,82 @@ bad:A-mismatched a gsnaug:Revision ; gsnaug:answers bad:I-clarify .
 
 #  ArtefactShape - the ranges are not decorative
 bad:artefact a gsn:Artefact ;
-    gsnaug:storedIn      bad:a-person ;
-    gsnaug:generatedWith bad:a-person ;
-    gsnaug:verifiedWith  bad:a-person .
+    gsnaug:storedIn        bad:a-person ;
+    gsnaug:generatedWith   bad:a-person ;
+    gsnaug:verifiedWith    bad:a-person ;
+    gsnaug:containsElement bad:a-person .
 
 #  SolutionProvenanceShape (warning) - provenance belongs on the artefact
 bad:Sn1 a gsn:Solution ; schema:identifier "SnB1" ;
     gsnaug:generatedWith bad:some-script .
 
-#  TopContextAgreementShape - the context and the property name different systems
+#  AssuranceScopeShape - what a case assures is a gsnaug:System, not an artefact. This is the
+#  exact mistake the old top object context made, by reaching the system through gsn:refersTo.
 bad:G1 a gsn:Goal ; schema:identifier "GB1" ; gsn:top true ;
     gsn:statement "A claim about one system." ;
-    gsn:inContextOf bad:C-object ;
     gsnaug:assures bad:system-b .
 
-bad:C-object a gsnaug:TopObjectContext ; schema:identifier "CB1" ;
-    gsn:statement "System A." ;
-    gsn:refersTo bad:system-a .
-
-#  G2 carries no top-level context at all. TopContextCompletenessShape would report it, and is
-#  shipped sh:deactivated, so nothing should.
-bad:G2 a gsn:Goal ; schema:identifier "GB2" ; gsn:top true ;
-    gsn:statement "A top goal with no top-level context." .
-
-bad:system-a a gsn:Artefact .
 bad:system-b a gsn:Artefact .
+
+#  ElementLinkShape - a requirement is not a person, a row of a catalogue is not a person, and
+#  the owner of an element is an agent.
+bad:G2 a gsn:Goal ; schema:identifier "GB2" ; gsn:top true ;
+    gsn:statement "A top goal wired to the wrong things." ;
+    gsnaug:requiredBy       bad:a-person ;
+    gsnaug:instantiatedFrom bad:a-person ;
+    gsnaug:ownedBy          bad:not-an-agent .
+
+#  AgentShape - whoever owns, reviews or holds a role is an agent, and a role is a gsnaug:Role
+bad:not-an-agent gsnaug:owns    bad:G1 ;
+    gsnaug:reviews bad:artefact ;
+    gsnaug:hasRole bad:a-person .
+
+#  AuditCoverageShape - a case is covered in an audit cycle; an ask is scoped with raisedIn
+bad:case-1 a gsn:Goal ; schema:identifier "ACB1" ;
+    gsnaug:coveredIn bad:last-spring .
+
+#  IssueShape - an issue is raised against something in a case, not against a bare note
+bad:I-off-target a gsnaug:Issue ; schema:identifier "IB10" ;
+    gsnaug:issueType gsnaug:clarify ;
+    gsnaug:raisedAgainst bad:a-sticky-note .
+
+#  IssueShape - an outcome must be one of the three
+bad:I-bogus-outcome a gsnaug:Issue ; schema:identifier "IB6" ;
+    gsnaug:issueType gsnaug:resolve ;
+    gsnaug:raisedAgainst bad:G1 ;
+    gsnaug:issueOutcome bad:postponed .
+
+#  IssueShape - an ask rests with one holder at a time; a second hop is a new issue
+bad:I-two-holders a gsnaug:Issue ; schema:identifier "IB7" ;
+    gsnaug:issueType gsnaug:clarify ;
+    gsnaug:raisedAgainst bad:G1 ;
+    gsnaug:heldBy bad:a-person , bad:another-person .
+
+#  IssueShape - an audit cycle is a gsnaug:AuditCycle, and a raiser is an agent
+bad:I-bad-cycle a gsnaug:Issue ; schema:identifier "IB8" ;
+    gsnaug:issueType gsnaug:clarify ;
+    gsnaug:raisedAgainst bad:G1 ;
+    gsnaug:raisedIn bad:last-spring ;
+    gsnaug:raisedBy bad:nobody-in-particular .
+
+#  IssueClosureShape - an outcome and an accepted answer close the same ask twice
+bad:I-both-endings a gsnaug:Issue ; schema:identifier "IB9" ;
+    gsnaug:issueType gsnaug:resolve ;
+    gsnaug:raisedAgainst bad:G1 ;
+    gsnaug:issueOutcome gsnaug:declined .
+bad:A-also-answered a gsnaug:Resolution ;
+    gsnaug:answers bad:I-both-endings ;
+    gsnaug:accepted true .
+
+#  AnswerShape - whether an answer was accepted is a boolean
+bad:A-bad-accepted a gsnaug:Clarification ;
+    gsnaug:answers bad:I-clarify ;
+    gsnaug:accepted "maybe" .
+
+#  ArtefactShape - an artefact is a revision of another artefact, not of a person
+bad:artefact-revision a gsn:Artefact ;
+    gsnaug:revisionOf bad:a-person .
+
+#  MechanismAutomationShape - automated is a boolean, not a word
+bad:mechanism a gsnaug:EvidenceGenerationMechanism ;
+    gsnaug:automated "yes" .

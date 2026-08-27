@@ -17,12 +17,15 @@
     dc:description """Constraints for the OntoGSN Augmentation vocabulary (https://w3id.org/OntoGSN/augmentation).
 
 The division of labour is the one the augmentation's own stability rules set out: OWL describes,
-SHACL constrains. gsnaug:raisedAgainst carries no rdfs:range because a reviewer may raise an issue
-against anything in a case and because range is generative rather than restrictive - so what is
-checked here is arity, not type. Where a range does exist in the OWL it is repeated as a shape,
-because an rdfs:range infers a type rather than rejecting a wrong one."""@en ;
+SHACL constrains. Every rdfs:range in the vocabulary is repeated here as a shape, because an
+rdfs:range infers a type rather than rejecting a wrong one: a value outside the range is silently
+retyped by a reasoner and reported by nothing. The shapes are what reject it.
+
+That applies twice over to gsnaug:raisedAgainst, whose range is a six-way union covering everything
+in a case a reviewer can point at. The union is wide enough to be worth stating and wide enough that
+a target outside it is almost certainly a mistake."""@en ;
     dc:source "https://w3id.org/OntoGSN/augmentation" ;
-    owl:versionInfo "0.1.0" .
+    owl:versionInfo "0.2.0" .
 
 
 <https://w3id.org/OntoGSN/augmentation/shapes> sh:declare [
@@ -50,9 +53,15 @@ gsnaugsh:IssueShape rdf:type sh:NodeShape ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
+        sh:or ( [ sh:class gsn:Argument ]
+                [ sh:class gsn:Artefact ]
+                [ sh:class gsn:AssuranceCase ]
+                [ sh:class gsn:GSNElement ]
+                [ sh:class gsn:Pattern ]
+                [ sh:class gsn:Relationship ] ) ;
         sh:name "raised against" ;
-        sh:description "An issue is about exactly one thing. There is deliberately no class constraint: a reviewer may raise an issue against a goal, a solution, a context, a reified relationship, an artefact or the case itself."@en ;
-        sh:message "An issue must be raised against exactly one thing."@en ;
+        sh:description "An issue is about exactly one thing, and that thing is part of a case: an argument, an artefact, the case itself, any GSN element, a pattern, or a reified relationship."@en ;
+        sh:message "An issue must be raised against exactly one thing, and that thing must be an argument, an artefact, an assurance case, a GSN element, a pattern or a reified relationship."@en ;
         sh:severity sh:Violation ;
     ] ;
     sh:property [
@@ -70,7 +79,58 @@ gsnaugsh:IssueShape rdf:type sh:NodeShape ;
         sh:name "supersedes" ;
         sh:message "An issue may only supersede another issue."@en ;
         sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:issueOutcome ;
+        sh:maxCount 1 ;
+        sh:in ( gsnaug:cannotAnswer gsnaug:declined gsnaug:infeasible ) ;
+        sh:name "issue outcome" ;
+        sh:message "An issue ends in at most one outcome: gsnaug:cannotAnswer, gsnaug:declined or gsnaug:infeasible."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:raisedIn ;
+        sh:class gsnaug:AuditCycle ;
+        sh:maxCount 1 ;
+        sh:name "raised in" ;
+        sh:message "An issue belongs to at most one audit cycle, and that value must be a gsnaug:AuditCycle."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:raisedBy ;
+        sh:class prov:Agent ;
+        sh:maxCount 1 ;
+        sh:name "raised by" ;
+        sh:message "An issue is raised by at most one agent."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:heldBy ;
+        sh:class prov:Agent ;
+        sh:maxCount 1 ;
+        sh:name "held by" ;
+        sh:description "One holder at a time. A further hop is a new issue that supersedes this one, which is what keeps the relay countable."@en ;
+        sh:message "An issue rests with at most one agent at a time."@en ;
+        sh:severity sh:Violation ;
     ] .
+
+###  gsnaug:Issue - an outcome and an answer are two ways of closing, not both
+gsnaugsh:IssueClosureShape rdf:type sh:NodeShape ;
+    rdfs:label "Issue closure shape"@en ;
+    rdfs:comment "gsnaug:answers closes an ask positively and gsnaug:issueOutcome ends it without an answer. An issue carrying an outcome and an answer the raiser accepted has been closed twice, in two contradictory ways, and one of the two is stale."@en ;
+    sh:targetClass gsnaug:Issue ;
+    sh:sparql [
+        sh:message "This issue is closed twice over: it carries an outcome and an accepted answer."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
+        sh:select """
+            SELECT $this ?answer WHERE {
+                $this gsnaug:issueOutcome ?outcome .
+                ?answer gsnaug:answers $this ;
+                        gsnaug:accepted true .
+            }
+        """ ;
+    ] ;
+    sh:severity sh:Violation .
 
 ###  gsnaug:Issue - an issue may not supersede itself
 gsnaugsh:IssueSupersessionShape rdf:type sh:NodeShape ;
@@ -103,6 +163,15 @@ gsnaugsh:AnswerShape rdf:type sh:NodeShape ;
         sh:name "answers" ;
         sh:message "An answer must close exactly one issue."@en ;
         sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:accepted ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:name "accepted" ;
+        sh:description "Whether the agent who raised the issue took this answer. Absent means nobody has said."@en ;
+        sh:message "Whether an answer was accepted is a single boolean."@en ;
+        sh:severity sh:Violation ;
     ] .
 
 ###  gsnaug:Answer - the answer class has to match the issue type
@@ -129,10 +198,6 @@ gsnaugsh:AnswerAgreementShape rdf:type sh:NodeShape ;
 
 #################################################################
 #    Artefact provenance
-#
-#    Every range below is also an rdfs:range in the OWL. Repeated here because rdfs:range infers
-#    the type rather than rejecting the wrong one: without these shapes, pointing gsnaug:storedIn
-#    at a person makes the person a gsnaug:StorageSystem and nothing complains.
 #################################################################
 
 ###  gsn:Artefact
@@ -174,6 +239,22 @@ gsnaugsh:ArtefactShape rdf:type sh:NodeShape ;
         sh:description "The person. The tool goes on gsnaug:generatedWith."@en ;
         sh:message "An artefact may only be generated by an agent."@en ;
         sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:containsElement ;
+        sh:class gsnaug:ArtefactElement ;
+        sh:name "contains element" ;
+        sh:description "The rows, clauses or sections of the artefact that an element may be instantiated from."@en ;
+        sh:message "An artefact may only contain artefact elements."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:revisionOf ;
+        sh:class gsn:Artefact ;
+        sh:name "revision of" ;
+        sh:description "Artefact versions only. A reworded claim is element versioning, which this vocabulary does not model."@en ;
+        sh:message "An artefact may only be a revision of another artefact."@en ;
+        sh:severity sh:Violation ;
     ] .
 
 ###  gsn:Solution - the provenance belongs on the artefact, not on the reference to it
@@ -196,6 +277,25 @@ gsnaugsh:SolutionProvenanceShape rdf:type sh:NodeShape ;
 
 
 #################################################################
+#    Mechanisms
+#################################################################
+
+###  Whether a mechanism runs without a person is a single boolean
+gsnaugsh:MechanismAutomationShape rdf:type sh:NodeShape ;
+    rdfs:label "Mechanism automation shape"@en ;
+    rdfs:comment "Targeted at whatever carries the property rather than at the three mechanism classes, so that a value on the wrong kind of node is still checked for shape. False is an assessment that the mechanism is manual; absent means none has been made."@en ;
+    sh:targetSubjectsOf gsnaug:automated ;
+    sh:property [
+        sh:path gsnaug:automated ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:name "automated" ;
+        sh:message "Whether a mechanism is automated is a single boolean."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+
+#################################################################
 #    Roles
 #################################################################
 
@@ -212,55 +312,98 @@ gsnaugsh:OwnershipShape rdf:type sh:NodeShape ;
 
 
 #################################################################
-#    Top-level contexts
+#    Agents
 #################################################################
 
-###  Where both the context and the property are present, they must agree
-gsnaugsh:TopContextAgreementShape rdf:type sh:NodeShape ;
-    rdfs:label "Top context agreement shape"@en ;
-    rdfs:comment "gsnaug:assures says in a triple what a top object context says in a diagram, and rule A5 derives the first from the second. If both are asserted independently and disagree, one of them is stale."@en ;
-    sh:targetClass gsn:Goal ;
-    sh:sparql [
-        sh:message "This top goal names one system in its top object context and a different one in gsnaug:assures."@en ;
-        sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
-        sh:select """
-            SELECT $this ?fromContext ?fromProperty WHERE {
-                $this gsn:top ?top .
-                FILTER (STR(?top) = "true")
-                $this gsn:inContextOf ?context .
-                ?context rdf:type gsnaug:TopObjectContext ;
-                         gsn:refersTo ?fromContext .
-                $this gsnaug:assures ?fromProperty .
-                FILTER (?fromContext != ?fromProperty)
-            }
-        """ ;
+###  Whoever owns, reviews or holds a role is an agent, and each of the three
+###  points somewhere specific
+gsnaugsh:AgentShape rdf:type sh:NodeShape ;
+    rdfs:label "Agent shape"@en ;
+    rdfs:comment "Targeted at whatever carries the property rather than at prov:Agent, so that a subject the vocabulary would merely retype is reported instead."@en ;
+    sh:targetSubjectsOf gsnaug:owns , gsnaug:reviews , gsnaug:hasRole ;
+    sh:class prov:Agent ;
+    sh:message "Only an agent owns an element, reviews one, or holds a role."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsnaug:owns ;
+        sh:class gsn:GSNElement ;
+        sh:name "owns" ;
+        sh:message "An agent owns a GSN element. Ownership of the artefact behind a solution is not modelled."@en ;
+        sh:severity sh:Violation ;
     ] ;
-    sh:severity sh:Violation .
+    sh:property [
+        sh:path gsnaug:reviews ;
+        sh:or ( [ sh:class gsn:Artefact ] [ sh:class gsn:GSNElement ] ) ;
+        sh:name "reviews" ;
+        sh:message "An agent reviews a GSN element or an artefact."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:hasRole ;
+        sh:class gsnaug:Role ;
+        sh:name "has role" ;
+        sh:description "Several are allowed. One agent may be both the owner of a control and the officer who signs it off."@en ;
+        sh:message "An agent holds a gsnaug:Role."@en ;
+        sh:severity sh:Violation ;
+    ] .
 
-###  Every argument's top goal declares both top-level contexts
-#
-#    Shipped switched off. GSN recommends a top-level context but does not require one, so a case
-#    that omits it is conforming and this shape would report every such case. A project that has
-#    decided to require them removes sh:deactivated; that is a house rule, not a fact about GSN.
-gsnaugsh:TopContextCompletenessShape rdf:type sh:NodeShape ;
-    rdfs:label "Top context completeness shape"@en ;
-    rdfs:comment "Opt-in. Remove sh:deactivated to require that every top goal names both what is claimed and what it is claimed of."@en ;
-    sh:deactivated true ;
-    sh:targetClass gsn:Goal ;
-    sh:sparql [
-        sh:message "This top goal does not carry both a top subject context, naming the property being assured, and a top object context, naming the system it is assured of."@en ;
-        sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
-        sh:select """
-            SELECT $this WHERE {
-                $this gsn:top ?top .
-                FILTER (STR(?top) = "true")
-                FILTER NOT EXISTS {
-                    $this gsn:inContextOf ?subject .
-                    ?subject rdf:type gsnaug:TopSubjectContext .
-                    $this gsn:inContextOf ?object .
-                    ?object rdf:type gsnaug:TopObjectContext .
-                }
-            }
-        """ ;
+
+#################################################################
+#    What the links point at
+#################################################################
+
+###  What a case assures is a system
+gsnaugsh:AssuranceScopeShape rdf:type sh:NodeShape ;
+    rdfs:label "Assurance scope shape"@en ;
+    rdfs:comment "gsnaug:assures replaced the top object context, which used to reach the system through gsn:refersTo and so typed it a gsn:Artefact. Naming the far end is the point of the change, and this is what makes the naming stick."@en ;
+    sh:targetSubjectsOf gsnaug:assures ;
+    sh:property [
+        sh:path gsnaug:assures ;
+        sh:class gsnaug:System ;
+        sh:name "assures" ;
+        sh:message "What an argument assures is a gsnaug:System - the system, service or organisation the case is about."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+###  gsn:GSNElement - where an element came from, and who stands behind it
+gsnaugsh:ElementLinkShape rdf:type sh:NodeShape ;
+    rdfs:label "Element link shape"@en ;
+    sh:targetClass gsn:GSNElement ;
+    sh:property [
+        sh:path gsnaug:requiredBy ;
+        sh:class gsnaug:Requirement ;
+        sh:name "required by" ;
+        sh:description "The obligation the element answers to. Its taxonomy belongs to the user's domain ontology; that it is a gsnaug:Requirement does not."@en ;
+        sh:message "What an element is required by is a gsnaug:Requirement."@en ;
+        sh:severity sh:Violation ;
     ] ;
-    sh:severity sh:Violation .
+    sh:property [
+        sh:path gsnaug:instantiatedFrom ;
+        sh:class gsnaug:ArtefactElement ;
+        sh:name "instantiated from" ;
+        sh:message "An element is instantiated from a gsnaug:ArtefactElement - the row, clause or section of an artefact, not the whole artefact."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:ownedBy ;
+        sh:class prov:Agent ;
+        sh:name "owned by" ;
+        sh:message "The owner of an element is an agent."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+###  gsn:AssuranceCase - the rounds a case has been through
+gsnaugsh:AuditCoverageShape rdf:type sh:NodeShape ;
+    rdfs:label "Audit coverage shape"@en ;
+    rdfs:comment "Targeted at whatever carries gsnaug:coveredIn, so that a subject which is not a case is reported rather than retyped. Several values are expected: a case under review for three years carries three."@en ;
+    sh:targetSubjectsOf gsnaug:coveredIn ;
+    sh:class gsn:AssuranceCase ;
+    sh:message "Only an assurance case is covered in an audit cycle. A single ask is scoped with gsnaug:raisedIn."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsnaug:coveredIn ;
+        sh:class gsnaug:AuditCycle ;
+        sh:name "covered in" ;
+        sh:message "A case is covered in a gsnaug:AuditCycle."@en ;
+        sh:severity sh:Violation ;
+    ] .

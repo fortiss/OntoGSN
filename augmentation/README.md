@@ -9,8 +9,8 @@ domain or range.
 
 | File | Role |
 | :--- | :--- |
-| `ontogsn-augmentation.ttl` | the vocabulary. 11 classes, 20 properties, 3 SKOS concepts, 6 SWRL rules |
-| `ontogsn-augmentation-shapes.ttl` | 9 SHACL shapes, one of them shipped switched off |
+| `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 4 SWRL rules |
+| `ontogsn-augmentation-shapes.ttl` | 13 SHACL shapes |
 | `rules/*.rq` | a SPARQL twin of each SWRL rule, runnable without a reasoner |
 | `testdata/example_issues.ttl` | a minimal case exercising every rule branch |
 | `testdata/example_violations.ttl` | a deliberately wrong case, one node per shape |
@@ -27,12 +27,23 @@ never sees this directory — the augmentation cannot break the core checks.
 
 | Group | Terms | Idea |
 | :--- | :--- | :--- |
-| **Artefact provenance** | `storedIn`, `retrievableWith`, `generatedBy`, `generatedWith`, `generatedFrom`, `verifiedWith` | how a piece of evidence came to be, and how to get it again |
-| **Roles** | `assures`/`assuredBy`, `owns`/`ownedBy`, `reviews`/`reviewedBy` | who stands behind what |
-| **Issues** | `Issue`, `Answer` and its three subclasses, `raisedAgainst`, `issueType`, `answers`, `supersedes` | what a reviewer asked for, and whether it has been closed |
+| **Artefact provenance** | `storedIn`, `retrievableWith`, `generatedBy`, `generatedWith`, `generatedFrom`, `verifiedWith`, `revisionOf`, `containsElement` | how a piece of evidence came to be, and how to get it again |
+| **Roles** | `assures`/`assuredBy`, `owns`/`ownedBy`, `reviews`/`reviewedBy`, `hasRole` | who stands behind what |
+| **Issues** | `Issue`, `Answer` and its three subclasses, `raisedAgainst`, `issueType`, `answers`, `supersedes`, `raisedIn`, `coveredIn` | what a reviewer asked for, and whether it has been closed |
 
-Plus four link properties — `instantiatedFrom`, `requiredBy`, `linksTo`, `tag` — and two context
-subclasses, `TopSubjectContext` and `TopObjectContext`.
+Plus four link properties — `instantiatedFrom`, `requiredBy`, `linksTo`, `tag`.
+
+Every link names what sits at its far end:
+
+| Class | Reached by | Is |
+| :--- | :--- | :--- |
+| `System` | `assures` | the system, service or organisation the case is about |
+| `Requirement` | `requiredBy` | the regulation or obligation an element answers to |
+| `Role` | `hasRole` | what an agent is in the review process |
+| `ArtefactElement` | `instantiatedFrom`, `containsElement` | the row, clause or section of an artefact a claim was drawn from |
+
+None of the four carries a taxonomy. They name the far end so a shape can check it; what a system or
+a requirement *is* still belongs to the user's domain ontology.
 
 ## Three decisions worth knowing before reading the file
 
@@ -53,10 +64,16 @@ data is not wrong so much as in the wrong place.
 issue is the request to move an element off one. Modelling the ask as an individual is what makes
 "how many rounds has this claim taken" countable, and what lets an ask be superseded or answered.
 
-**`gsnaug:raisedAgainst` has no `rdfs:range`.** A reviewer may raise an issue against anything in a
-case. Narrowing the range would either reject legitimate asks or — since range is generative rather
-than restrictive — silently retype whatever the issue happened to point at. What the target *is*
-still matters, but to the rules rather than to the vocabulary.
+**A range names, it does not reject.** `rdfs:range` is generative: a value outside it is not
+refused, it is retyped. So every range in the vocabulary is repeated as a SHACL shape, and the shape
+is what rejects a wrong value. `gsnaug:raisedAgainst` is the case that matters most — its range is a
+six-way union covering everything in a case a reviewer can point at (`Argument`, `Artefact`,
+`AssuranceCase`, `GSNElement`, `Pattern`, `Relationship`), wide enough to be worth stating and wide
+enough that a target outside it is almost certainly a mistake. `gsn:Catalogue` and
+`gsn:InstantiationDataReference` are deliberately outside it.
+
+What the target *is* also still matters to the rules: only a `revise` or `resolve` issue against a
+`Goal` or a `Solution` becomes a defeater.
 
 ## What the rules do, and what they refuse to do
 
@@ -81,8 +98,6 @@ challenges. Only `gsn:defeated` has to be asserted here, because **S46** derives
 | :--- | :--- |
 | `A2a` / `A2b` | a revise issue against a goal / a solution becomes a true goal challenging it |
 | `A3a` / `A3b` | a resolve issue against a goal / a solution becomes a goal challenging it, and defeats it |
-| `A5a` | a top goal whose top object context refers to a system `gsnaug:assures` that system |
-| `A5b` | a top goal whose top subject context refers to a requirement is `gsnaug:requiredBy` it |
 
 A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express "a goal **or** a
 solution" in one rule.
@@ -115,16 +130,21 @@ Asserted here and never in `serializations/ontogsn.ttl` — same call, for the s
 `gsn:Artefact` under superproperties whose domain is `prov:Entity`, and a PROV-aware consumer sees
 nothing.
 
-## The deactivated shape
+## No top-level context subclasses
 
-`TopContextCompletenessShape` requires every top goal to carry both a `TopSubjectContext`, naming
-what is claimed, and a `TopObjectContext`, naming what it is claimed of. It ships
-`sh:deactivated true`.
+An earlier version of this vocabulary carried `TopSubjectContext` and `TopObjectContext`, two
+subclasses of `gsn:Context` marking the context that names what is claimed and the one that names
+what it is claimed of, with rules `A5a`/`A5b` deriving `assures` and `requiredBy` from them.
 
-Declaring a top-level context is GSN best practice but **not normative**, so a case that omits one is
-conforming and this shape would report it. A project that has decided to require them removes the
-`sh:deactivated`. That is a house rule, not a fact about GSN — which is also why `gsnaug:assures` and
-`gsnaug:requiredBy` exist alongside the two classes rather than depending on them.
+Both classes and both rules are gone. `gsnaug:assures` and `gsnaug:requiredBy` say the same thing
+directly, and they work for a case that draws no top-level context at all — which is a conforming
+case, since declaring one is GSN best practice but **not normative**. Two ways of saying one fact
+also needed a shape to check that they agreed, and the derivation reached the system through
+`gsn:refersTo`, whose range is `gsn:Artefact`, so the system a case was about ended up typed as a
+piece of evidence. Naming the far ends fixed that as well.
+
+A case that marks its top-level contexts in a diagram loses nothing: the contexts are still ordinary
+`gsn:Context` elements, and what they mean is now asserted on the goal.
 
 ## Namespaces
 

@@ -1,32 +1,41 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix ex:     <https://example.org/case#> .
 @prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
 @prefix gsnaug: <https://w3id.org/OntoGSN/augmentation#> .
 @prefix prov:   <http://www.w3.org/ns/prov#> .
 @prefix schema: <http://schema.org/> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 
-#  A minimal case exercising every branch of the augmentation rules: one top goal with both
-#  top-level contexts, one solution, one artefact carrying the full provenance set, and four
-#  issues covering the combinations that do and do not become defeaters.
+#  A minimal case exercising every branch of the augmentation rules: one top goal that names
+#  what it assures and what requires it, one solution, one artefact carrying the full provenance
+#  set, and four issues covering the combinations that do and do not become defeaters.
+
+ex:case-1 a gsn:AssuranceCase ; schema:identifier "AC1" ;
+    gsn:statement "The company IT system is compliant." ;
+    gsnaug:coveredIn ex:audit-2025 , ex:audit-2026 .
 
 ex:G1 a gsn:Goal ; schema:identifier "G1" ; gsn:top true ;
     gsn:statement "The IT system is compliant with the applicable regulation." ;
     gsn:inContextOf ex:C-subject , ex:C-object ;
+    gsnaug:assures    ex:it-system ;
+    gsnaug:requiredBy ex:regulation ;
     gsn:supportedBy ex:Sn1 .
 
-ex:C-subject a gsnaug:TopSubjectContext ; schema:identifier "C1" ;
-    gsn:statement "Compliance as defined by the regulation." ;
-    gsn:refersTo ex:regulation .
+#  Ordinary contexts. What the case is about and what requires it are carried by gsnaug:assures
+#  and gsnaug:requiredBy, which a case that declares no top-level context can state just as well.
 
-ex:C-object a gsnaug:TopObjectContext ; schema:identifier "C2" ;
-    gsn:statement "The company IT system." ;
-    gsn:refersTo ex:it-system .
+ex:C-subject a gsn:Context ; schema:identifier "C1" ;
+    gsn:statement "Compliance as defined by the regulation." .
+
+ex:C-object a gsn:Context ; schema:identifier "C2" ;
+    gsn:statement "The company IT system." .
 
 ex:Sn1 a gsn:Solution ; schema:identifier "Sn1" ;
     gsn:statement "Access log for the reporting period." ;
     gsn:refersTo ex:access-log .
 
-ex:regulation a gsn:Artefact .
-ex:it-system  a gsn:Artefact .
+ex:regulation a gsnaug:Requirement .
+ex:it-system  a gsnaug:System .
 
 ex:access-log a gsn:Artefact ;
     gsnaug:storedIn        ex:evidence-store ;
@@ -63,4 +72,143 @@ ex:I4 a gsnaug:Issue ; schema:identifier "I4" ;
     gsnaug:issueType gsnaug:resolve ;
     gsnaug:raisedAgainst ex:G1 .
 
-ex:A1 a gsnaug:Revision ; gsnaug:answers ex:I3 .
+ex:A1 a gsnaug:Revision ; gsnaug:answers ex:I3 ; gsnaug:accepted false ;
+    schema:description "The log was regenerated for the full period." .
+
+
+#  ---------------------------------------------------------------------------------------
+#  The deviations: two audit rounds, four roles, a clarification relayed twice, a declined
+#  resolution, an infeasible one, a rejected answer, a revised artefact and a manual channel.
+#  ---------------------------------------------------------------------------------------
+
+ex:audit-2025 a gsnaug:AuditCycle ; schema:identifier "AUDIT-2025" ;
+    prov:startedAtTime "2025-01-13T09:00:00"^^xsd:dateTime ;
+    prov:endedAtTime   "2025-03-28T17:00:00"^^xsd:dateTime .
+
+ex:audit-2026 a gsnaug:AuditCycle ; schema:identifier "AUDIT-2026" ;
+    prov:startedAtTime "2026-01-12T09:00:00"^^xsd:dateTime ;
+    prov:endedAtTime   "2026-03-31T17:00:00"^^xsd:dateTime .
+
+ex:auditor-bo   a prov:Agent ; gsnaug:hasRole ex:role-auditor .
+ex:officer-cara a prov:Agent ; gsnaug:hasRole ex:role-officer .
+ex:owner-dan    a prov:Agent ; gsnaug:hasRole ex:role-process-owner .
+ex:dev-anna     gsnaug:hasRole ex:role-developer .
+
+ex:role-auditor       a gsnaug:Role ; schema:name "Auditor" .
+ex:role-officer       a gsnaug:Role ; schema:name "Compliance Officer" .
+ex:role-process-owner a gsnaug:Role ; schema:name "Process Owner" .
+ex:role-developer     a gsnaug:Role ; schema:name "Developer" .
+
+#  One agent owns a context and one reviews an artefact, so the two role properties are
+#  exercised in the direction that carries the domain as well as the one that carries the range.
+
+ex:officer-cara gsnaug:owns    ex:C-object .
+ex:officer-cara gsnaug:reviews ex:access-log .
+
+ex:G1  gsnaug:ownedBy ex:officer-cara ;
+       gsn:supportedBy ex:Sn2 .
+ex:Sn1 gsnaug:ownedBy ex:dev-anna .
+
+#  I1 could not be answered by the officer, I5 could not be answered by the owner, and I6
+#  reached the developer, who answered it. Three issues, two escalations, one chain.
+
+ex:I1 gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:officer-cara ;
+      gsnaug:raisedIn ex:audit-2026 ; gsnaug:issueOutcome gsnaug:cannotAnswer ;
+      dcterms:created "2026-02-02"^^xsd:date ;
+      schema:description "Which reporting period does this claim cover?" .
+
+ex:I5 a gsnaug:Issue ; schema:identifier "I5" ;
+    gsnaug:issueType gsnaug:clarify ;
+    gsnaug:raisedAgainst ex:G1 ;
+    gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:owner-dan ;
+    gsnaug:raisedIn ex:audit-2026 ; gsnaug:supersedes ex:I1 ;
+    gsnaug:issueOutcome gsnaug:cannotAnswer ;
+    dcterms:created "2026-02-05"^^xsd:date .
+
+ex:I6 a gsnaug:Issue ; schema:identifier "I6" ;
+    gsnaug:issueType gsnaug:clarify ;
+    gsnaug:raisedAgainst ex:G1 ;
+    gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:dev-anna ;
+    gsnaug:raisedIn ex:audit-2026 ; gsnaug:supersedes ex:I5 ;
+    dcterms:created "2026-02-07"^^xsd:date .
+
+ex:A2 a gsnaug:Clarification ; gsnaug:answers ex:I6 ; gsnaug:accepted true ;
+    schema:description "The period is the 2025 calendar year." .
+
+#  I4 was raised in the previous round and is still open. I7 was declined; I8 records that the
+#  evidence behind Sn1 cannot be produced at all.
+
+ex:I4 gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:dev-anna ;
+      gsnaug:raisedIn ex:audit-2025 ;
+      dcterms:created "2025-03-02"^^xsd:date .
+
+ex:I2 gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:officer-cara ;
+      gsnaug:raisedIn ex:audit-2026 .
+
+ex:I3 gsnaug:raisedBy ex:officer-cara ; gsnaug:heldBy ex:dev-anna ;
+      gsnaug:raisedIn ex:audit-2026 .
+
+ex:I7 a gsnaug:Issue ; schema:identifier "I7" ;
+    gsnaug:issueType gsnaug:resolve ;
+    gsnaug:raisedAgainst ex:G1 ;
+    gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:officer-cara ;
+    gsnaug:raisedIn ex:audit-2026 ; gsnaug:issueOutcome gsnaug:declined ;
+    dcterms:created "2026-03-02"^^xsd:date .
+
+ex:I8 a gsnaug:Issue ; schema:identifier "I8" ;
+    gsnaug:issueType gsnaug:resolve ;
+    gsnaug:raisedAgainst ex:Sn1 ;
+    gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:dev-anna ;
+    gsnaug:raisedIn ex:audit-2026 ; gsnaug:issueOutcome gsnaug:infeasible ;
+    dcterms:created "2026-03-05"^^xsd:date .
+
+#  Mechanisms say whether a person is in the loop; the retention rule is checked by hand and
+#  the interview is the non-digital channel.
+
+ex:logging-function gsnaug:automated true .
+ex:log-query        gsnaug:automated true .
+ex:retention-rule   gsnaug:automated false .
+
+ex:Sn2 a gsn:Solution ; schema:identifier "Sn2" ;
+    gsn:statement "Interview record with the process owner." ;
+    gsn:refersTo ex:interview-note ;
+    gsnaug:ownedBy ex:owner-dan .
+
+ex:interview-note a gsn:Artefact ;
+    gsnaug:retrievableWith ex:interview ;
+    gsnaug:generatedBy     ex:owner-dan .
+
+ex:interview a gsnaug:EvidenceRetrievalMechanism ; gsnaug:automated false .
+
+ex:access-log-v2 a gsn:Artefact ;
+    gsnaug:revisionOf     ex:access-log ;
+    gsnaug:generatedBy    ex:dev-anna ;
+    gsnaug:generatedWith  ex:logging-function .
+
+#  One ask still open, one control still to be developed, and the row of the control catalogue
+#  the top goal was instantiated from.
+
+ex:I9 a gsnaug:Issue ; schema:identifier "I9" ;
+    gsnaug:issueType gsnaug:clarify ;
+    gsnaug:raisedAgainst ex:Sn2 ;
+    gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:owner-dan ;
+    gsnaug:raisedIn ex:audit-2026 ;
+    dcterms:created "2026-03-09"^^xsd:date ;
+    schema:description "Who was interviewed, and when?" .
+
+ex:G2 a gsn:Goal ; schema:identifier "G2" ;
+    gsn:statement "Access to the reporting system is reviewed quarterly." ;
+    gsn:undeveloped true ;
+    gsnaug:ownedBy ex:officer-cara .
+
+ex:G1 gsn:supportedBy ex:G2 ;
+      gsnaug:instantiatedFrom ex:ctrl-row-7 .
+
+ex:IDR1 a gsn:InstantiationDataReference ; schema:identifier "IDR1" ;
+    gsn:attachedTo ex:G1 ;
+    gsn:refersTo   ex:control-catalogue .
+
+ex:control-catalogue a gsn:Artefact ;
+    gsnaug:containsElement ex:ctrl-row-7 .
+
+ex:ctrl-row-7 a gsnaug:ArtefactElement ; schema:name "Control 7" .
