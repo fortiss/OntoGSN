@@ -1,0 +1,1725 @@
+#  FinComp regulatory compliance assurance case - an OntoGSN TEMPLATE
+#
+#  Generated from : FinComp Assurance Case.drawio (draw.io, 4 pages)
+#  Vocabulary     : serializations/ontogsn.ttl only - no augmentation, no alignment
+#
+#  Every element below is a placeholder. [Organization], <year>, <software>, <category>,
+#  <ctrl_id>, <req_id>, <evid_id> and <issue_id> are the instantiation parameters; the
+#  cardinality and multiplicity decorators on the relationships say how many times each
+#  subtree is repeated when the template is instantiated. That is what makes this a
+#  gsn:Template rather than an instantiated argument: "a template argument ... uses the core
+#  GSN and argument pattern extension to construct an argument structure which requires no
+#  further development", only instantiation.
+#
+#  ---------------------------------------------------------------------------------------
+#  How the diagram maps onto the ontology
+#  ---------------------------------------------------------------------------------------
+#
+#  DRAWN                                 WRITTEN AS
+#  rectangle                             gsn:Goal
+#  parallelogram                         gsn:Strategy
+#  rounded rectangle                     gsn:Context
+#  circle                                gsn:Solution
+#  line, solid arrowhead                 gsn:supportedBy   + reified gsn:Relationship
+#  line, hollow arrowhead                gsn:inContextOf   + reified gsn:Relationship
+#  dashed line, open arrowhead           gsn:challenges    + reified gsn:Relationship
+#  dotted line to a labelled triangle    gsn:attachedTo, from a gsn:InstantiationDataReference
+#  small hollow triangle under a box     gsn:uninstantiated true
+#  hollow ball on a line                 gsn:optional true
+#  solid ball on a line                  gsn:multiple true, with the "1..N" text as
+#                                        gsn:minCardinality / gsn:maxCardinality
+#  page                                  gsn:Module + gsn:Argument, and a gsn:View
+#  layer "Contents" / "Defeaters"        the module's risk / dialectic argument
+#  goal box over a module box            an away goal: gsn:away true, gsn:public true
+#
+#  ---------------------------------------------------------------------------------------
+#  Decisions the diagram does not make for you
+#  ---------------------------------------------------------------------------------------
+#
+#  1. IDENTIFIERS. The three audit pages reuse the same local identifiers (G1, G1.1, C1, S1).
+#     schema:identifier has to be unique - rules S25 and S41 invalidate both parties to a
+#     clash - so each is qualified with its module: "JAP:G1.1.X". That is the convention the
+#     diagram itself uses on the "Full" page, where the away goals read "JAP:G1". The three
+#     elements drawn on that page keep their bare identifiers (G0, S0, C1).
+#
+#  2. AWAY GOALS. The "Full" page draws JAP:G1, BAIT:G1 and AML:G1 as away goals - a goal box
+#     with a module box beneath it. An away goal repeats a claim declared elsewhere, so each is
+#     ONE individual here: the top goal of the module named beneath it, marked gsn:away and
+#     gsn:public. Rule S23 derives gsn:away from exactly this arrangement, so writing it out
+#     agrees with what the rules would infer.
+#
+#  3. TEMPLATE ARGUMENTS. Each argument is typed both gsn:Argument and gsn:Template. The GSN
+#     Community Standard calls the thing a "template argument", and OntoGSN keeps gsn:Pattern
+#     apart from gsn:Argument without declaring them disjoint - rule S21 reifies a relationship
+#     whose rdf:subject is a Template, which only makes sense if a template is an argument. The
+#     Template side is what carries schema:description and gsn:intent; the Argument side is what
+#     lets gsn:AssuranceCase and gsn:Module contain it, both of which admit only arguments.
+#     None is published, so rules S21 and S22 leave them alone.
+#
+#  4. fc:M_Root IS NOT DRAWN as a module box. It stands for the "Full" page, so that the
+#     support running from S0 into the three audit modules is a cross-module link the modular
+#     extension can see.
+#
+#  5. TOP GOALS. gsn:top is computed, never chosen. A goal is top when no goal or strategy OF
+#     ITS OWN MODULE supports it and it challenges nothing - the pinnacle claim of an argument,
+#     not of the whole store - which is what rule S06 and gsnsh:TopGoalHasNoParentShape enforce.
+#     That makes four: G0, and the top goal of each audit module. The three module top goals
+#     keep their standing even though S0 reaches them, because S0 sits in another module; and
+#     the challenge goals are excluded even though nothing supports them, because nothing
+#     supports a defeater by construction.
+#
+#  6. STATEMENTS ARE TRANSCRIBED, NOT EDITED. Every gsn:statement is the text of its box as
+#     drawn, including the diagram's own wording and its missing full stops; only draw.io's
+#     markup and its soft hyphens have been removed. The statements on the modules and the
+#     arguments, and every schema:description, gsn:intent and gsn:applicability, are the one
+#     thing here that is authored rather than transcribed - the diagram has nowhere to put them.
+#     fc:Arg_Root is a template on the strength of [Organization] alone: the "Full" page carries
+#     that placeholder but no <parameters> and no decorators.
+#
+#  7. WHAT IS DELIBERATELY ABSENT. gsn:valid, gsn:true, gsn:defeated and gsn:inDoubt are not
+#     asserted: the diagram draws no defeated crosses and a template has nothing to be true of
+#     yet. They are what rules S46 to S51 derive once the challenges are instantiated. Nothing
+#     is typed gsn:Defeater either - that class is inferred by rule S52, never asserted. No
+#     element is gsn:undeveloped: the diagram draws no undeveloped diamonds.
+
+@prefix fc:     <https://w3id.org/OntoGSN/example/fincomp#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/OntoGSN/example/fincomp> a owl:Ontology ;
+    rdfs:label "FinComp regulatory compliance assurance case (template)"@en ;
+    rdfs:comment """A GSN template assurance case for an organisation audited against IT General
+Controls, BAIT and Anti-Money Laundering requirements, written with the OntoGSN ontology alone."""@en ;
+    owl:imports <https://w3id.org/OntoGSN/ontology> .
+
+
+###############################################################################
+#    The case
+###############################################################################
+
+fc:AC1 a gsn:AssuranceCase ;
+    schema:identifier "AC1" ;
+    rdfs:label "FinComp regulatory compliance assurance case (template)"@en ;
+    gsn:statement "The [Organization]'s IT system is compliant with all regulatory requirements." ;
+    gsn:contains fc:Arg_Root ,
+                 fc:Arg_JAP ,
+                 fc:Arg_JAP_Issues ,
+                 fc:Arg_BAIT ,
+                 fc:Arg_BAIT_Issues ,
+                 fc:Arg_AML ,
+                 fc:Arg_AML_Issues ,
+                 fc:JAP_Ev1 ,
+                 fc:JAP_Ev2 ,
+                 fc:JAP_Ev3 ,
+                 fc:JAP_Ev4 ,
+                 fc:JAP_Ev5 ,
+                 fc:JAP_Ev6 ,
+                 fc:JAP_Ev7 ,
+                 fc:BAIT_Ev1 ,
+                 fc:BAIT_Ev2 ,
+                 fc:BAIT_Ev3 ,
+                 fc:BAIT_Ev4 ,
+                 fc:BAIT_Ev5 ,
+                 fc:AML_Ev1 ,
+                 fc:AML_Ev2 ,
+                 fc:AML_Ev3 ,
+                 fc:AML_Ev4 ,
+                 fc:AML_Ev5 .
+
+
+###############################################################################
+#    Modules and template arguments
+###############################################################################
+
+#  One module per draw.io page. A module contains arguments, never elements directly:
+#  gsn:Module restricts gsn:contains to arguments and modules, so a module's elements
+#  are reached one hop further, through the argument. gsn:inModule - the one-hop form of
+#  that traversal - is derived by rules S53 and S54 and is never authored.
+#
+#  Each page's two layers become two arguments of the same module, because
+#  gsn:argumentType admits one value: the "Contents" layer is the risk argument and the
+#  "Defeaters" layer the dialectic one. Keeping both in one module matters - were they
+#  separate modules, rule S23 would mark every element supported across the layer
+#  boundary as an away element, which is not what the diagram draws.
+
+fc:M_Root a gsn:Module ;
+    schema:identifier "M-Root" ;
+    rdfs:label "Regulatory compliance module"@en ;
+    gsn:statement "The module that ties the three end-of-year audit modules together into the overall regulatory compliance claim." ;
+    gsn:contract false ;
+    gsn:contains fc:Arg_Root .
+
+fc:Arg_Root a gsn:Argument , gsn:Template ;
+    schema:identifier "Arg-Root" ;
+    rdfs:label "Regulatory compliance argument"@en ;
+    schema:description "The top-level argument of the case: compliance with all regulatory requirements is argued over the end-of-year audits, one module per regulation. The audit modules are reached as away goals."@en ;
+    gsn:intent "Establish that an organisation’s IT system is compliant with every regulation it is audited against, by decomposing over the audits."@en ;
+    gsn:applicability "Applies to an organisation each of whose regulatory obligations is discharged by a recurring external audit, one module per regulation."@en ;
+    gsn:statement "Argument over all end-of-year audits." ;
+    gsn:argumentType "risk" ;
+    gsn:structured true ;
+    gsn:published false ;
+    gsn:final false ;
+    gsn:contains fc:Root_G0 ,
+                 fc:Root_C1 ,
+                 fc:Root_S0 .
+
+
+fc:M_JAP a gsn:Module ;
+    schema:identifier "M-JAP" ;
+    rdfs:label "Module JAP"@en ;
+    gsn:statement "The IT General Controls argument, evidenced by the end-of-year audits (Jahresabschlussprüfung)." ;
+    gsn:contract false ;
+    gsn:contains fc:Arg_JAP , fc:Arg_JAP_Issues .
+
+fc:Arg_JAP a gsn:Argument , gsn:Template ;
+    schema:identifier "Arg-JAP" ;
+    rdfs:label "JAP audit argument"@en ;
+    schema:description "Argues IT General Controls compliance from the end-of-year audits: one claim per audited year, then per audited software, then per ITGC category and control, evidenced by the auditor’s control files. A second branch carries the controls that apply to the IT system as a whole rather than to a single piece of software."@en ;
+    gsn:intent "Establish ITGC compliance for an organisation from the evidence its end-of-year audits produce, without fixing the number of years, systems or controls in advance."@en ;
+    gsn:applicability "Applies where the auditor issues a per-year control catalogue covering the IT General Controls, broken down by audited software, and where some of those controls apply to the IT system as a whole rather than to one system."@en ;
+    gsn:statement "Argument from end-of-year auditing (JAP)." ;
+    gsn:argumentType "risk" ;
+    gsn:structured true ;
+    gsn:published false ;
+    gsn:final false ;
+    gsn:contains fc:JAP_G1 ,
+                 fc:JAP_C1 ,
+                 fc:JAP_S1 ,
+                 fc:JAP_C2 ,
+                 fc:JAP_G1_1 ,
+                 fc:JAP_C1_1 ,
+                 fc:JAP_G1_1_X ,
+                 fc:JAP_C1_1_X ,
+                 fc:JAP_S1_1_X_1 ,
+                 fc:JAP_G1_1_X_Y ,
+                 fc:JAP_C1_1_X_Y ,
+                 fc:JAP_C1_1_X_1_N_M ,
+                 fc:JAP_S1_1_X_Y ,
+                 fc:JAP_C1_1_X_Y_Z ,
+                 fc:JAP_G1_1_X_1_N ,
+                 fc:JAP_G1_1_X_1_N_M ,
+                 fc:JAP_G1_1_X_Y_Z ,
+                 fc:JAP_C1_1_X_Y_W ,
+                 fc:JAP_Sn1_1_X_1_N_M ,
+                 fc:JAP_G1_1_X_Y_W ,
+                 fc:JAP_Sn1_1_X_Y_W .
+
+fc:Arg_JAP_Issues a gsn:Argument , gsn:Template ;
+    schema:identifier "Arg-JAP-Issues" ;
+    rdfs:label "JAP issues argument"@en ;
+    schema:description "The dialectic half of the JAP template: for every control claim and every control file, a challenge stands ready to be instantiated from the auditor’s comments, and a remediation branch claims each raised issue has been addressed."@en ;
+    gsn:intent "Record the auditor’s objections as challenges rather than leaving them outside the argument, and claim their resolution where it has been shown."@en ;
+    gsn:applicability "Applies where the auditor records objections against named controls or named evidence files, and where the organisation tracks each objection through to a resolution it can evidence."@en ;
+    gsn:statement "The issues auditors have raised against the JAP argument, and the claims that each has since been addressed." ;
+    gsn:argumentType "dialectic" ;
+    gsn:structured true ;
+    gsn:published false ;
+    gsn:final false ;
+    gsn:contains fc:JAP_G1_1_X_Y2 ,
+                 fc:JAP_C1_1_X_Y2_Z2 ,
+                 fc:JAP_G1_1_X_Y2_Z2 ,
+                 fc:JAP_Sn1_1_X_Y2_Z2 ,
+                 fc:JAP_G1_1_X_1_N_M_I ,
+                 fc:JAP_G1_1_X_1_N_M_D ,
+                 fc:JAP_G1_1_X_Y_W_I ,
+                 fc:JAP_Sn1_1_X_1_N_M_D ,
+                 fc:JAP_G1_1_X_Y_W_D ,
+                 fc:JAP_Sn1_1_X_Y_W_D .
+
+
+fc:M_BAIT a gsn:Module ;
+    schema:identifier "M-BAIT" ;
+    rdfs:label "Module BAIT"@en ;
+    gsn:statement "The Bankaufsichtliche Anforderungen an die IT argument, evidenced by the end-of-year BAIT audits." ;
+    gsn:contract false ;
+    gsn:contains fc:Arg_BAIT , fc:Arg_BAIT_Issues .
+
+fc:Arg_BAIT a gsn:Argument , gsn:Template ;
+    schema:identifier "Arg-BAIT" ;
+    rdfs:label "BAIT audit argument"@en ;
+    schema:description "Argues BAIT compliance from the end-of-year audits: one claim per audited year, then one per BAIT requirement, evidenced by the auditor’s requirement files."@en ;
+    gsn:intent "Establish BAIT compliance for an organisation from the evidence its end-of-year audits produce, without fixing the number of years or requirements in advance."@en ;
+    gsn:applicability "Applies where the auditor issues a per-year requirement catalogue for the BAIT requirements, with one file of evidence per requirement."@en ;
+    gsn:statement "Argument from end-of-year BAIT auditing." ;
+    gsn:argumentType "risk" ;
+    gsn:structured true ;
+    gsn:published false ;
+    gsn:final false ;
+    gsn:contains fc:BAIT_G1 ,
+                 fc:BAIT_C1 ,
+                 fc:BAIT_S1 ,
+                 fc:BAIT_C2 ,
+                 fc:BAIT_G1_1 ,
+                 fc:BAIT_C1_1 ,
+                 fc:BAIT_G1_1_X ,
+                 fc:BAIT_C1_1_X ,
+                 fc:BAIT_G1_1_X_Y ,
+                 fc:BAIT_C1_1_X_Y ,
+                 fc:BAIT_Sn1_1_X_Y .
+
+fc:Arg_BAIT_Issues a gsn:Argument , gsn:Template ;
+    schema:identifier "Arg-BAIT-Issues" ;
+    rdfs:label "BAIT issues argument"@en ;
+    schema:description "The dialectic half of the BAIT template: a challenge per requirement claim and per requirement file, and a remediation branch claiming each raised issue has been addressed."@en ;
+    gsn:intent "Record the auditor’s objections as challenges rather than leaving them outside the argument, and claim their resolution where it has been shown."@en ;
+    gsn:applicability "Applies where the auditor records objections against named controls or named evidence files, and where the organisation tracks each objection through to a resolution it can evidence."@en ;
+    gsn:statement "The issues auditors have raised against the BAIT argument, and the claims that each has since been addressed." ;
+    gsn:argumentType "dialectic" ;
+    gsn:structured true ;
+    gsn:published false ;
+    gsn:final false ;
+    gsn:contains fc:BAIT_G1_1_X_Y2 ,
+                 fc:BAIT_G1_1_X_Y_I ,
+                 fc:BAIT_C1_1_X_Y2_Z2 ,
+                 fc:BAIT_G1_1_X_Y2_Z2 ,
+                 fc:BAIT_G1_1_X_Y_D ,
+                 fc:BAIT_Sn1_1_X_Y2_Z2 ,
+                 fc:BAIT_Sn1_1_X_Y_D .
+
+
+fc:M_AML a gsn:Module ;
+    schema:identifier "M-AML" ;
+    rdfs:label "Module AML"@en ;
+    gsn:statement "The Anti-Money Laundering argument, evidenced by the end-of-year AML audits." ;
+    gsn:contract false ;
+    gsn:contains fc:Arg_AML , fc:Arg_AML_Issues .
+
+fc:Arg_AML a gsn:Argument , gsn:Template ;
+    schema:identifier "Arg-AML" ;
+    rdfs:label "AML audit argument"@en ;
+    schema:description "Argues AML compliance from the end-of-year audits: one claim per audited year, then one per AML requirement, evidenced by the auditor’s requirement files."@en ;
+    gsn:intent "Establish AML compliance for an organisation from the evidence its end-of-year audits produce, without fixing the number of years or requirements in advance."@en ;
+    gsn:applicability "Applies where the auditor issues a per-year requirement catalogue for the Anti-Money Laundering requirements, with one file of evidence per requirement."@en ;
+    gsn:statement "Argument from end-of-year AML auditing." ;
+    gsn:argumentType "risk" ;
+    gsn:structured true ;
+    gsn:published false ;
+    gsn:final false ;
+    gsn:contains fc:AML_G1 ,
+                 fc:AML_C1 ,
+                 fc:AML_S1 ,
+                 fc:AML_C2 ,
+                 fc:AML_G1_1 ,
+                 fc:AML_C1_1 ,
+                 fc:AML_G1_1_X ,
+                 fc:AML_C1_1_X ,
+                 fc:AML_G1_1_X_Y ,
+                 fc:AML_C1_1_X_Y ,
+                 fc:AML_Sn1_1_X_Y .
+
+fc:Arg_AML_Issues a gsn:Argument , gsn:Template ;
+    schema:identifier "Arg-AML-Issues" ;
+    rdfs:label "AML issues argument"@en ;
+    schema:description "The dialectic half of the AML template: a challenge per requirement claim and per requirement file, and a remediation branch claiming each raised issue has been addressed."@en ;
+    gsn:intent "Record the auditor’s objections as challenges rather than leaving them outside the argument, and claim their resolution where it has been shown."@en ;
+    gsn:applicability "Applies where the auditor records objections against named controls or named evidence files, and where the organisation tracks each objection through to a resolution it can evidence."@en ;
+    gsn:statement "The issues auditors have raised against the AML argument, and the claims that each has since been addressed." ;
+    gsn:argumentType "dialectic" ;
+    gsn:structured true ;
+    gsn:published false ;
+    gsn:final false ;
+    gsn:contains fc:AML_G1_1_X_Y2 ,
+                 fc:AML_G1_1_X_Y_I ,
+                 fc:AML_C1_1_X_Y2_Z2 ,
+                 fc:AML_G1_1_X_Y2_Z2 ,
+                 fc:AML_G1_1_X_Y_D ,
+                 fc:AML_Sn1_1_X_Y2_Z2 ,
+                 fc:AML_Sn1_1_X_Y_D .
+
+
+#  The architecture view draws the top strategy reaching into the three audit modules.
+#  Rule S34 derives the module-level dependency from that, reading the module of each
+#  end off the gsn:inModule that S53 derives; it is written out here because the module
+#  dependency is what the architecture view is for. Asserting it changes nothing: run
+#  the rules and S34 finds these three already present.
+fc:M_Root gsn:supportedBy fc:M_JAP , fc:M_BAIT , fc:M_AML .
+
+
+###############################################################################
+#    Top level - draw.io page "Full"
+###############################################################################
+
+fc:Root_G0 a gsn:Goal ;
+    schema:identifier "G0" ;
+    rdfs:label "Goal G0"@en ;
+    gsn:statement "[Organization]'s IT system is compliant with all regulatory requirements" ;
+    gsn:top true ;
+    gsn:supportedBy fc:Root_S0 ;
+    gsn:inContextOf fc:Root_C1 .
+
+fc:Root_C1 a gsn:Context ;
+    schema:identifier "C1" ;
+    rdfs:label "Context C1"@en ;
+    gsn:statement "[Organization]'s IT system description" .
+
+fc:Root_S0 a gsn:Strategy ;
+    schema:identifier "S0" ;
+    rdfs:label "Strategy S0"@en ;
+    gsn:statement "Argument over all end-of-year audits" ;
+    gsn:supportedBy fc:JAP_G1 , fc:AML_G1 , fc:BAIT_G1 .
+
+
+#  Top level: the drawn relationships, reified so that the pattern decorators have
+#  somewhere to sit. The identifiers are the ones rules S18, S19 and S50 mint.
+
+fc:R_G0_inContextOf_C1 a gsn:Relationship ;
+    schema:identifier "R-G0-inContextOf-C1" ;
+    rdf:subject fc:Root_G0 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:Root_C1 ;
+    gsn:relationshipType "contextual" .
+
+fc:R_G0_supportedBy_S0 a gsn:Relationship ;
+    schema:identifier "R-G0-supportedBy-S0" ;
+    rdf:subject fc:Root_G0 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:Root_S0 ;
+    gsn:relationshipType "inferential" .
+
+fc:R_S0_supportedBy_JAP_G1 a gsn:Relationship ;
+    schema:identifier "R-S0-supportedBy-JAP:G1" ;
+    rdf:subject fc:Root_S0 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_G1 ;
+    gsn:relationshipType "inferential" .
+
+fc:R_S0_supportedBy_BAIT_G1 a gsn:Relationship ;
+    schema:identifier "R-S0-supportedBy-BAIT:G1" ;
+    rdf:subject fc:Root_S0 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_G1 ;
+    gsn:relationshipType "inferential" .
+
+fc:R_S0_supportedBy_AML_G1 a gsn:Relationship ;
+    schema:identifier "R-S0-supportedBy-AML:G1" ;
+    rdf:subject fc:Root_S0 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_G1 ;
+    gsn:relationshipType "inferential" .
+
+
+###############################################################################
+#    Module JAP - draw.io page "JAP"
+###############################################################################
+
+fc:JAP_G1 a gsn:Goal ;
+    schema:identifier "JAP:G1" ;
+    rdfs:label "Goal JAP:G1"@en ;
+    gsn:statement "The [Organization]'s IT system is compliant with the IT General Controls requirements" ;
+    gsn:top true ;
+    gsn:away true ;
+    gsn:public true ;
+    gsn:supportedBy fc:JAP_S1 ;
+    gsn:inContextOf fc:JAP_C1 .
+
+fc:JAP_C1 a gsn:Context ;
+    schema:identifier "JAP:C1" ;
+    rdfs:label "Context JAP:C1"@en ;
+    gsn:statement "IT General Controls (ITGC) requirements" .
+
+fc:JAP_S1 a gsn:Strategy ;
+    schema:identifier "JAP:S1" ;
+    rdfs:label "Strategy JAP:S1"@en ;
+    gsn:statement "Argument from end-of-year auditing (JAP)" ;
+    gsn:supportedBy fc:JAP_G1_1 ;
+    gsn:inContextOf fc:JAP_C2 .
+
+fc:JAP_C2 a gsn:Context ;
+    schema:identifier "JAP:C2" ;
+    rdfs:label "Context JAP:C2"@en ;
+    gsn:statement "End-of-year audits (Jahresabschlussprüfung)" .
+
+fc:JAP_G1_1 a gsn:Goal ;
+    schema:identifier "JAP:G1.1" ;
+    rdfs:label "Goal JAP:G1.1"@en ;
+    gsn:statement "[Organization]'s IT system successfully passed all JAP audits to date" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_G1_1_X ;
+    gsn:inContextOf fc:JAP_C1_1 .
+
+fc:JAP_C1_1 a gsn:Context ;
+    schema:identifier "JAP:C1.1" ;
+    rdfs:label "Context JAP:C1.1"@en ;
+    gsn:statement "Overview of JAP audits" .
+
+fc:JAP_G1_1_X a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X" ;
+    rdfs:label "Goal JAP:G1.1.X"@en ;
+    gsn:statement "[Organization]'s IT system successfully passed the <year> JAP audit" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_G1_1_X_Y , fc:JAP_S1_1_X_1 , fc:JAP_G1_1_X_Y2 ;
+    gsn:inContextOf fc:JAP_C1_1_X .
+
+fc:JAP_C1_1_X a gsn:Context ;
+    schema:identifier "JAP:C1.1.X" ;
+    rdfs:label "Context JAP:C1.1.X"@en ;
+    gsn:statement "<year> JAP audit metadata" ;
+    gsn:uninstantiated true .
+
+fc:JAP_S1_1_X_1 a gsn:Strategy ;
+    schema:identifier "JAP:S1.1.X.1" ;
+    rdfs:label "Strategy JAP:S1.1.X.1"@en ;
+    gsn:statement "Argument over the ITGC categories of controls relevant to [Organization]'s IT system" ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_G1_1_X_1_N .
+
+fc:JAP_G1_1_X_Y2 a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.Y2" ;
+    rdfs:label "Goal JAP:G1.1.X.Y2"@en ;
+    gsn:statement "All outstanding issues that auditors have raised have been adequately addressed" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_G1_1_X_Y2_Z2 .
+
+fc:JAP_G1_1_X_Y a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.Y" ;
+    rdfs:label "Goal JAP:G1.1.X.Y"@en ;
+    gsn:statement "<software> successfully passed the <year> JAP audit" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_S1_1_X_Y ;
+    gsn:inContextOf fc:JAP_C1_1_X_Y .
+
+fc:JAP_C1_1_X_Y a gsn:Context ;
+    schema:identifier "JAP:C1.1.X.Y" ;
+    rdfs:label "Context JAP:C1.1.X.Y"@en ;
+    gsn:statement "<software> description and metadata" ;
+    gsn:uninstantiated true .
+
+fc:JAP_C1_1_X_1_N_M a gsn:Context ;
+    schema:identifier "JAP:C1.1.X.1.N.M" ;
+    rdfs:label "Context JAP:C1.1.X.1.N.M"@en ;
+    gsn:statement "<category><ctrl_id> Requirement Description" ;
+    gsn:uninstantiated true .
+
+fc:JAP_S1_1_X_Y a gsn:Strategy ;
+    schema:identifier "JAP:S1.1.X.Y" ;
+    rdfs:label "Strategy JAP:S1.1.X.Y"@en ;
+    gsn:statement "Argument over the ITGC categories of controls relevant to <software>" ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_G1_1_X_Y_Z .
+
+fc:JAP_C1_1_X_Y_Z a gsn:Context ;
+    schema:identifier "JAP:C1.1.X.Y.Z" ;
+    rdfs:label "Context JAP:C1.1.X.Y.Z"@en ;
+    gsn:statement "Description of the ITGC <category>" ;
+    gsn:uninstantiated true .
+
+fc:JAP_C1_1_X_Y2_Z2 a gsn:Context ;
+    schema:identifier "JAP:C1.1.X.Y2.Z2" ;
+    rdfs:label "Context JAP:C1.1.X.Y2.Z2"@en ;
+    gsn:statement "Issue <issue_id> metadata" ;
+    gsn:uninstantiated true .
+
+fc:JAP_G1_1_X_Y2_Z2 a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.Y2.Z2" ;
+    rdfs:label "Goal JAP:G1.1.X.Y2.Z2"@en ;
+    gsn:statement "Issue <issue_id> has been adequately addressed" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_Sn1_1_X_Y2_Z2 ;
+    gsn:inContextOf fc:JAP_C1_1_X_Y2_Z2 ;
+    gsn:challenges fc:JAP_Sn1_1_X_1_N_M_D , fc:JAP_Sn1_1_X_Y_W_D .
+
+fc:JAP_G1_1_X_1_N a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.1.N" ;
+    rdfs:label "Goal JAP:G1.1.X.1.N"@en ;
+    gsn:statement "[Organization]'s IT system adequately implements the <category> controls in the <year> JAP audit" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_G1_1_X_1_N_M .
+
+fc:JAP_Sn1_1_X_Y2_Z2 a gsn:Solution ;
+    schema:identifier "JAP:Sn1.1.X.Y2.Z2" ;
+    rdfs:label "Solution JAP:Sn1.1.X.Y2.Z2"@en ;
+    gsn:statement "<issue_id> Logs" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:JAP_Ev1 .
+
+fc:JAP_G1_1_X_1_N_M_I a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.1.N.M.I" ;
+    rdfs:label "Goal JAP:G1.1.X.1.N.M.I"@en ;
+    gsn:statement "Issues have been raised with system-wide implementation of <category><ctrl_id>" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_Sn1_1_X_1_N_M_D ;
+    gsn:challenges fc:JAP_G1_1_X_1_N_M .
+
+fc:JAP_G1_1_X_1_N_M a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.1.N.M" ;
+    rdfs:label "Goal JAP:G1.1.X.1.N.M"@en ;
+    gsn:statement "[Organization]'s IT system adequately implements the <category> <ctrl_id> in the <year> JAP audit" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_Sn1_1_X_1_N_M ;
+    gsn:inContextOf fc:JAP_C1_1_X_1_N_M .
+
+fc:JAP_G1_1_X_Y_Z a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.Y.Z" ;
+    rdfs:label "Goal JAP:G1.1.X.Y.Z"@en ;
+    gsn:statement "<software> adequately implements the <category> controls in the <year> JAP audit" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_G1_1_X_Y_W ;
+    gsn:inContextOf fc:JAP_C1_1_X_Y_Z .
+
+fc:JAP_C1_1_X_Y_W a gsn:Context ;
+    schema:identifier "JAP:C1.1.X.Y.W" ;
+    rdfs:label "Context JAP:C1.1.X.Y.W"@en ;
+    gsn:statement "<category><ctrl_id> Requirement Description" ;
+    gsn:uninstantiated true .
+
+fc:JAP_G1_1_X_1_N_M_D a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.1.N.M.D" ;
+    rdfs:label "Goal JAP:G1.1.X.1.N.M.D"@en ;
+    gsn:statement "Issue have been raised with [<software==general> <category> <ctrl_id> <evid_id>] file" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_Sn1_1_X_1_N_M_D ;
+    gsn:challenges fc:JAP_Sn1_1_X_1_N_M .
+
+fc:JAP_Sn1_1_X_1_N_M a gsn:Solution ;
+    schema:identifier "JAP:Sn1.1.X.1.N.M" ;
+    rdfs:label "Solution JAP:Sn1.1.X.1.N.M"@en ;
+    gsn:statement "[<software==general> <category> <ctrl_id> <evid_id>] File" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:JAP_Ev2 .
+
+fc:JAP_G1_1_X_Y_W a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.Y.W" ;
+    rdfs:label "Goal JAP:G1.1.X.Y.W"@en ;
+    gsn:statement "<software> adequately implements the <category> <ctrl_id> in the <year> JAP audit" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_Sn1_1_X_Y_W ;
+    gsn:inContextOf fc:JAP_C1_1_X_Y_W .
+
+fc:JAP_G1_1_X_Y_W_I a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.Y.W.I" ;
+    rdfs:label "Goal JAP:G1.1.X.Y.W.I"@en ;
+    gsn:statement "Issues have been raised with <software> implementation of <category><ctrl_id>" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_Sn1_1_X_Y_W_D ;
+    gsn:challenges fc:JAP_G1_1_X_Y_W .
+
+fc:JAP_Sn1_1_X_1_N_M_D a gsn:Solution ;
+    schema:identifier "JAP:Sn1.1.X.1.N.M.D" ;
+    rdfs:label "Solution JAP:Sn1.1.X.1.N.M.D"@en ;
+    gsn:statement "<issue_id> comment" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:JAP_Ev3 .
+
+fc:JAP_Sn1_1_X_Y_W a gsn:Solution ;
+    schema:identifier "JAP:Sn1.1.X.Y.W" ;
+    rdfs:label "Solution JAP:Sn1.1.X.Y.W"@en ;
+    gsn:statement "[<software> <category> <ctrl_id> <evid_id>] File" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:JAP_Ev4 .
+
+fc:JAP_G1_1_X_Y_W_D a gsn:Goal ;
+    schema:identifier "JAP:G1.1.X.Y.W.D" ;
+    rdfs:label "Goal JAP:G1.1.X.Y.W.D"@en ;
+    gsn:statement "Issue have been raised with [<software> <category> <ctrl_id> <evid_id>] file" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:JAP_Sn1_1_X_Y_W_D ;
+    gsn:challenges fc:JAP_Sn1_1_X_Y_W .
+
+fc:JAP_Sn1_1_X_Y_W_D a gsn:Solution ;
+    schema:identifier "JAP:Sn1.1.X.Y.W.D" ;
+    rdfs:label "Solution JAP:Sn1.1.X.Y.W.D"@en ;
+    gsn:statement "<issue_id> comment" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:JAP_Ev3 .
+
+
+#  Module JAP: the drawn relationships, reified so that the pattern decorators have
+#  somewhere to sit. The identifiers are the ones rules S18, S19 and S50 mint.
+
+fc:R_JAP_G1_inContextOf_JAP_C1 a gsn:Relationship ;
+    schema:identifier "R-JAP:G1-inContextOf-JAP:C1" ;
+    rdf:subject fc:JAP_G1 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:JAP_C1 ;
+    gsn:relationshipType "contextual" .
+
+fc:R_JAP_G1_supportedBy_JAP_S1 a gsn:Relationship ;
+    schema:identifier "R-JAP:G1-supportedBy-JAP:S1" ;
+    rdf:subject fc:JAP_G1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_S1 ;
+    gsn:relationshipType "inferential" .
+
+fc:R_JAP_S1_inContextOf_JAP_C2 a gsn:Relationship ;
+    schema:identifier "R-JAP:S1-inContextOf-JAP:C2" ;
+    rdf:subject fc:JAP_S1 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:JAP_C2 ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_JAP_S1_supportedBy_JAP_G1_1 a gsn:Relationship ;
+    schema:identifier "R-JAP:S1-supportedBy-JAP:G1.1" ;
+    rdf:subject fc:JAP_S1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_G1_1 ;
+    gsn:relationshipType "inferential" .
+
+fc:R_JAP_G1_1_inContextOf_JAP_C1_1 a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1-inContextOf-JAP:C1.1" ;
+    rdf:subject fc:JAP_G1_1 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:JAP_C1_1 ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_JAP_G1_1_supportedBy_JAP_G1_1_X a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1-supportedBy-JAP:G1.1.X" ;
+    rdf:subject fc:JAP_G1_1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_G1_1_X ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N years\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_inContextOf_JAP_C1_1_X a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X-inContextOf-JAP:C1.1.X" ;
+    rdf:subject fc:JAP_G1_1_X ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:JAP_C1_1_X ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_JAP_G1_1_X_supportedBy_JAP_S1_1_X_1 a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X-supportedBy-JAP:S1.1.X.1" ;
+    rdf:subject fc:JAP_G1_1_X ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_S1_1_X_1 ;
+    gsn:relationshipType "inferential" .
+
+fc:R_JAP_G1_1_X_supportedBy_JAP_G1_1_X_Y2 a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X-supportedBy-JAP:G1.1.X.Y2" ;
+    rdf:subject fc:JAP_G1_1_X ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_G1_1_X_Y2 ;
+    gsn:relationshipType "inferential" ;
+    gsn:optional true .
+
+fc:R_JAP_G1_1_X_supportedBy_JAP_G1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X-supportedBy-JAP:G1.1.X.Y" ;
+    rdf:subject fc:JAP_G1_1_X ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_G1_1_X_Y ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N software\" in the diagram."@en .
+
+fc:R_JAP_S1_1_X_1_supportedBy_JAP_G1_1_X_1_N a gsn:Relationship ;
+    schema:identifier "R-JAP:S1.1.X.1-supportedBy-JAP:G1.1.X.1.N" ;
+    rdf:subject fc:JAP_S1_1_X_1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_G1_1_X_1_N ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    gsn:maxCardinality "2"^^xsd:nonNegativeInteger .
+
+fc:R_JAP_G1_1_X_Y2_supportedBy_JAP_G1_1_X_Y2_Z2 a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y2-supportedBy-JAP:G1.1.X.Y2.Z2" ;
+    rdf:subject fc:JAP_G1_1_X_Y2 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_G1_1_X_Y2_Z2 ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_Y_inContextOf_JAP_C1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y-inContextOf-JAP:C1.1.X.Y" ;
+    rdf:subject fc:JAP_G1_1_X_Y ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:JAP_C1_1_X_Y ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_JAP_G1_1_X_Y_supportedBy_JAP_S1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y-supportedBy-JAP:S1.1.X.Y" ;
+    rdf:subject fc:JAP_G1_1_X_Y ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_S1_1_X_Y ;
+    gsn:relationshipType "inferential" .
+
+fc:R_JAP_S1_1_X_Y_supportedBy_JAP_G1_1_X_Y_Z a gsn:Relationship ;
+    schema:identifier "R-JAP:S1.1.X.Y-supportedBy-JAP:G1.1.X.Y.Z" ;
+    rdf:subject fc:JAP_S1_1_X_Y ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_G1_1_X_Y_Z ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    gsn:maxCardinality "2"^^xsd:nonNegativeInteger .
+
+fc:R_JAP_G1_1_X_Y2_Z2_inContextOf_JAP_C1_1_X_Y2_Z2 a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y2.Z2-inContextOf-JAP:C1.1.X.Y2.Z2" ;
+    rdf:subject fc:JAP_G1_1_X_Y2_Z2 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:JAP_C1_1_X_Y2_Z2 ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_JAP_G1_1_X_Y2_Z2_supportedBy_JAP_Sn1_1_X_Y2_Z2 a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y2.Z2-supportedBy-JAP:Sn1.1.X.Y2.Z2" ;
+    rdf:subject fc:JAP_G1_1_X_Y2_Z2 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_Sn1_1_X_Y2_Z2 ;
+    gsn:relationshipType "evidential" .
+
+fc:R_JAP_G1_1_X_Y2_Z2_challenges_JAP_Sn1_1_X_1_N_M_D a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y2.Z2-challenges-JAP:Sn1.1.X.1.N.M.D" ;
+    rdf:subject fc:JAP_G1_1_X_Y2_Z2 ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:JAP_Sn1_1_X_1_N_M_D ;
+    gsn:relationshipType "dialectic" .
+
+fc:R_JAP_G1_1_X_Y2_Z2_challenges_JAP_Sn1_1_X_Y_W_D a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y2.Z2-challenges-JAP:Sn1.1.X.Y.W.D" ;
+    rdf:subject fc:JAP_G1_1_X_Y2_Z2 ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:JAP_Sn1_1_X_Y_W_D ;
+    gsn:relationshipType "dialectic" .
+
+fc:R_JAP_G1_1_X_1_N_supportedBy_JAP_G1_1_X_1_N_M a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.1.N-supportedBy-JAP:G1.1.X.1.N.M" ;
+    rdf:subject fc:JAP_G1_1_X_1_N ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_G1_1_X_1_N_M ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N controls\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_1_N_M_I_challenges_JAP_G1_1_X_1_N_M a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.1.N.M.I-challenges-JAP:G1.1.X.1.N.M" ;
+    rdf:subject fc:JAP_G1_1_X_1_N_M_I ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:JAP_G1_1_X_1_N_M ;
+    gsn:relationshipType "dialectic" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_1_N_M_I_supportedBy_JAP_Sn1_1_X_1_N_M_D a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.1.N.M.I-supportedBy-JAP:Sn1.1.X.1.N.M.D" ;
+    rdf:subject fc:JAP_G1_1_X_1_N_M_I ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_Sn1_1_X_1_N_M_D ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N issues\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_1_N_M_inContextOf_JAP_C1_1_X_1_N_M a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.1.N.M-inContextOf-JAP:C1.1.X.1.N.M" ;
+    rdf:subject fc:JAP_G1_1_X_1_N_M ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:JAP_C1_1_X_1_N_M ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_JAP_G1_1_X_1_N_M_supportedBy_JAP_Sn1_1_X_1_N_M a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.1.N.M-supportedBy-JAP:Sn1.1.X.1.N.M" ;
+    rdf:subject fc:JAP_G1_1_X_1_N_M ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_Sn1_1_X_1_N_M ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N files\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_Y_Z_inContextOf_JAP_C1_1_X_Y_Z a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y.Z-inContextOf-JAP:C1.1.X.Y.Z" ;
+    rdf:subject fc:JAP_G1_1_X_Y_Z ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:JAP_C1_1_X_Y_Z ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_JAP_G1_1_X_Y_Z_supportedBy_JAP_G1_1_X_Y_W a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y.Z-supportedBy-JAP:G1.1.X.Y.W" ;
+    rdf:subject fc:JAP_G1_1_X_Y_Z ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_G1_1_X_Y_W ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N controls\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_1_N_M_D_challenges_JAP_Sn1_1_X_1_N_M a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.1.N.M.D-challenges-JAP:Sn1.1.X.1.N.M" ;
+    rdf:subject fc:JAP_G1_1_X_1_N_M_D ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:JAP_Sn1_1_X_1_N_M ;
+    gsn:relationshipType "dialectic" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_1_N_M_D_supportedBy_JAP_Sn1_1_X_1_N_M_D a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.1.N.M.D-supportedBy-JAP:Sn1.1.X.1.N.M.D" ;
+    rdf:subject fc:JAP_G1_1_X_1_N_M_D ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_Sn1_1_X_1_N_M_D ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N issues\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_Y_W_inContextOf_JAP_C1_1_X_Y_W a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y.W-inContextOf-JAP:C1.1.X.Y.W" ;
+    rdf:subject fc:JAP_G1_1_X_Y_W ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:JAP_C1_1_X_Y_W ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_JAP_G1_1_X_Y_W_supportedBy_JAP_Sn1_1_X_Y_W a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y.W-supportedBy-JAP:Sn1.1.X.Y.W" ;
+    rdf:subject fc:JAP_G1_1_X_Y_W ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_Sn1_1_X_Y_W ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N files\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_Y_W_I_challenges_JAP_G1_1_X_Y_W a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y.W.I-challenges-JAP:G1.1.X.Y.W" ;
+    rdf:subject fc:JAP_G1_1_X_Y_W_I ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:JAP_G1_1_X_Y_W ;
+    gsn:relationshipType "dialectic" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_Y_W_I_supportedBy_JAP_Sn1_1_X_Y_W_D a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y.W.I-supportedBy-JAP:Sn1.1.X.Y.W.D" ;
+    rdf:subject fc:JAP_G1_1_X_Y_W_I ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_Sn1_1_X_Y_W_D ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N issues\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_Y_W_D_challenges_JAP_Sn1_1_X_Y_W a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y.W.D-challenges-JAP:Sn1.1.X.Y.W" ;
+    rdf:subject fc:JAP_G1_1_X_Y_W_D ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:JAP_Sn1_1_X_Y_W ;
+    gsn:relationshipType "dialectic" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_JAP_G1_1_X_Y_W_D_supportedBy_JAP_Sn1_1_X_Y_W_D a gsn:Relationship ;
+    schema:identifier "R-JAP:G1.1.X.Y.W.D-supportedBy-JAP:Sn1.1.X.Y.W.D" ;
+    rdf:subject fc:JAP_G1_1_X_Y_W_D ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:JAP_Sn1_1_X_Y_W_D ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N issues\" in the diagram."@en .
+
+
+#  Module JAP: instantiation data - the labelled triangles, each attached by a dotted
+#  line to the element whose subtree it fills in.
+
+fc:JAP_IDR1 a gsn:InstantiationDataReference ;
+    schema:identifier "JAP:IDR1" ;
+    rdfs:label "<Anforderungskatalog_IT Applications_Kontrollen<year>.xlsx>"@en ;
+    gsn:refersTo fc:JAP_Ev5 ;
+    gsn:attachedTo fc:JAP_G1_1_X .
+
+fc:JAP_IDR2 a gsn:InstantiationDataReference ;
+    schema:identifier "JAP:IDR2" ;
+    rdfs:label "<Azure DevOps URL><Anforderungskatalog_IT Applications_Kontrollen<year>_[response].xlsx>"@en ;
+    gsn:refersTo fc:JAP_Ev6 ;
+    gsn:attachedTo fc:JAP_G1_1_X_Y2 .
+
+fc:JAP_IDR3 a gsn:InstantiationDataReference ;
+    schema:identifier "JAP:IDR3" ;
+    rdfs:label "<Anforderungskatalog_IT Applications_Kontrollen<year>_comms.xlsx>"@en ;
+    gsn:refersTo fc:JAP_Ev7 ;
+    gsn:attachedTo fc:JAP_G1_1_X_1_N_M_D , fc:JAP_G1_1_X_1_N_M_I .
+
+fc:JAP_IDR4 a gsn:InstantiationDataReference ;
+    schema:identifier "JAP:IDR4" ;
+    rdfs:label "<Anforderungskatalog_IT Applications_Kontrollen<year>_comms.xlsx>"@en ;
+    gsn:refersTo fc:JAP_Ev7 ;
+    gsn:attachedTo fc:JAP_G1_1_X_Y_W_I , fc:JAP_G1_1_X_Y_W_D .
+
+
+#  Module JAP: the evidence items the solutions and the instantiation data point at.
+#  Every name is a placeholder; instantiating the template replaces it with the
+#  identifier of a real file.
+
+fc:JAP_Ev1 a gsn:Artefact ;
+    schema:identifier "JAP:Ev1" ;
+    rdfs:label "<issue_id> Logs"@en .
+
+fc:JAP_Ev2 a gsn:Artefact ;
+    schema:identifier "JAP:Ev2" ;
+    rdfs:label "[<software==general> <category> <ctrl_id> <evid_id>] File"@en .
+
+fc:JAP_Ev3 a gsn:Artefact ;
+    schema:identifier "JAP:Ev3" ;
+    rdfs:label "<issue_id> comment"@en .
+
+fc:JAP_Ev4 a gsn:Artefact ;
+    schema:identifier "JAP:Ev4" ;
+    rdfs:label "[<software> <category> <ctrl_id> <evid_id>] File"@en .
+
+fc:JAP_Ev5 a gsn:Artefact ;
+    schema:identifier "JAP:Ev5" ;
+    rdfs:label "<Anforderungskatalog_IT Applications_Kontrollen<year>.xlsx>"@en .
+
+fc:JAP_Ev6 a gsn:Artefact ;
+    schema:identifier "JAP:Ev6" ;
+    rdfs:label "<Azure DevOps URL><Anforderungskatalog_IT Applications_Kontrollen<year>_[response].xlsx>"@en .
+
+fc:JAP_Ev7 a gsn:Artefact ;
+    schema:identifier "JAP:Ev7" ;
+    rdfs:label "<Anforderungskatalog_IT Applications_Kontrollen<year>_comms.xlsx>"@en .
+
+
+###############################################################################
+#    Module BAIT - draw.io page "BAIT"
+###############################################################################
+
+fc:BAIT_G1 a gsn:Goal ;
+    schema:identifier "BAIT:G1" ;
+    rdfs:label "Goal BAIT:G1"@en ;
+    gsn:statement "The [Organization]'s IT system is compliant with the BAIT requirements" ;
+    gsn:top true ;
+    gsn:away true ;
+    gsn:public true ;
+    gsn:supportedBy fc:BAIT_S1 ;
+    gsn:inContextOf fc:BAIT_C1 .
+
+fc:BAIT_C1 a gsn:Context ;
+    schema:identifier "BAIT:C1" ;
+    rdfs:label "Context BAIT:C1"@en ;
+    gsn:statement "Bankaufsichtliche Anforderungen an die IT (BAIT) requirements" .
+
+fc:BAIT_S1 a gsn:Strategy ;
+    schema:identifier "BAIT:S1" ;
+    rdfs:label "Strategy BAIT:S1"@en ;
+    gsn:statement "Argument from end-of-year BAIT auditing" ;
+    gsn:supportedBy fc:BAIT_G1_1 ;
+    gsn:inContextOf fc:BAIT_C2 .
+
+fc:BAIT_C2 a gsn:Context ;
+    schema:identifier "BAIT:C2" ;
+    rdfs:label "Context BAIT:C2"@en ;
+    gsn:statement "End-of-year BAIT audits" .
+
+fc:BAIT_G1_1 a gsn:Goal ;
+    schema:identifier "BAIT:G1.1" ;
+    rdfs:label "Goal BAIT:G1.1"@en ;
+    gsn:statement "[Organization]'s IT system successfully passed all BAIT audits to date" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:BAIT_G1_1_X ;
+    gsn:inContextOf fc:BAIT_C1_1 .
+
+fc:BAIT_C1_1 a gsn:Context ;
+    schema:identifier "BAIT:C1.1" ;
+    rdfs:label "Context BAIT:C1.1"@en ;
+    gsn:statement "Overview of BAIT audits" .
+
+fc:BAIT_G1_1_X a gsn:Goal ;
+    schema:identifier "BAIT:G1.1.X" ;
+    rdfs:label "Goal BAIT:G1.1.X"@en ;
+    gsn:statement "[Organization]'s IT system successfully passed the <year> BAIT audit" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:BAIT_G1_1_X_Y , fc:BAIT_G1_1_X_Y2 ;
+    gsn:inContextOf fc:BAIT_C1_1_X .
+
+fc:BAIT_C1_1_X a gsn:Context ;
+    schema:identifier "BAIT:C1.1.X" ;
+    rdfs:label "Context BAIT:C1.1.X"@en ;
+    gsn:statement "<year> BAIT audit metadata" ;
+    gsn:uninstantiated true .
+
+fc:BAIT_G1_1_X_Y2 a gsn:Goal ;
+    schema:identifier "BAIT:G1.1.X.Y2" ;
+    rdfs:label "Goal BAIT:G1.1.X.Y2"@en ;
+    gsn:statement "All outstanding issues that auditors have raised have been adequately addressed" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:BAIT_G1_1_X_Y2_Z2 .
+
+fc:BAIT_G1_1_X_Y_I a gsn:Goal ;
+    schema:identifier "BAIT:G1.1.X.Y.I" ;
+    rdfs:label "Goal BAIT:G1.1.X.Y.I"@en ;
+    gsn:statement "Issues have been raised with the implementation of <req_id>" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:BAIT_Sn1_1_X_Y_D ;
+    gsn:challenges fc:BAIT_G1_1_X_Y .
+
+fc:BAIT_G1_1_X_Y a gsn:Goal ;
+    schema:identifier "BAIT:G1.1.X.Y" ;
+    rdfs:label "Goal BAIT:G1.1.X.Y"@en ;
+    gsn:statement "[Organization]'s IT system satisfies the <req_id> requirement for <year>" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:BAIT_Sn1_1_X_Y ;
+    gsn:inContextOf fc:BAIT_C1_1_X_Y .
+
+fc:BAIT_C1_1_X_Y a gsn:Context ;
+    schema:identifier "BAIT:C1.1.X.Y" ;
+    rdfs:label "Context BAIT:C1.1.X.Y"@en ;
+    gsn:statement "<req_id> Description and Requirement" ;
+    gsn:uninstantiated true .
+
+fc:BAIT_C1_1_X_Y2_Z2 a gsn:Context ;
+    schema:identifier "BAIT:C1.1.X.Y2.Z2" ;
+    rdfs:label "Context BAIT:C1.1.X.Y2.Z2"@en ;
+    gsn:statement "Issue <issue_id> metadata" ;
+    gsn:uninstantiated true .
+
+fc:BAIT_G1_1_X_Y2_Z2 a gsn:Goal ;
+    schema:identifier "BAIT:G1.1.X.Y2.Z2" ;
+    rdfs:label "Goal BAIT:G1.1.X.Y2.Z2"@en ;
+    gsn:statement "Issue <issue_id> has been adequately addressed" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:BAIT_Sn1_1_X_Y2_Z2 ;
+    gsn:inContextOf fc:BAIT_C1_1_X_Y2_Z2 ;
+    gsn:challenges fc:BAIT_Sn1_1_X_Y_D .
+
+fc:BAIT_Sn1_1_X_Y a gsn:Solution ;
+    schema:identifier "BAIT:Sn1.1.X.Y" ;
+    rdfs:label "Solution BAIT:Sn1.1.X.Y"@en ;
+    gsn:statement "[<year> <req_id> <evid_id>] File" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:BAIT_Ev1 .
+
+fc:BAIT_G1_1_X_Y_D a gsn:Goal ;
+    schema:identifier "BAIT:G1.1.X.Y.D" ;
+    rdfs:label "Goal BAIT:G1.1.X.Y.D"@en ;
+    gsn:statement "Issue have been raised with [<year> <req_id> <evid_id>] file" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:BAIT_Sn1_1_X_Y_D ;
+    gsn:challenges fc:BAIT_Sn1_1_X_Y .
+
+fc:BAIT_Sn1_1_X_Y2_Z2 a gsn:Solution ;
+    schema:identifier "BAIT:Sn1.1.X.Y2.Z2" ;
+    rdfs:label "Solution BAIT:Sn1.1.X.Y2.Z2"@en ;
+    gsn:statement "<issue_id> Logs" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:BAIT_Ev2 .
+
+fc:BAIT_Sn1_1_X_Y_D a gsn:Solution ;
+    schema:identifier "BAIT:Sn1.1.X.Y.D" ;
+    rdfs:label "Solution BAIT:Sn1.1.X.Y.D"@en ;
+    gsn:statement "<issue_id> comment" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:BAIT_Ev3 .
+
+
+#  Module BAIT: the drawn relationships, reified so that the pattern decorators have
+#  somewhere to sit. The identifiers are the ones rules S18, S19 and S50 mint.
+
+fc:R_BAIT_G1_inContextOf_BAIT_C1 a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1-inContextOf-BAIT:C1" ;
+    rdf:subject fc:BAIT_G1 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:BAIT_C1 ;
+    gsn:relationshipType "contextual" .
+
+fc:R_BAIT_G1_supportedBy_BAIT_S1 a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1-supportedBy-BAIT:S1" ;
+    rdf:subject fc:BAIT_G1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_S1 ;
+    gsn:relationshipType "inferential" .
+
+fc:R_BAIT_S1_inContextOf_BAIT_C2 a gsn:Relationship ;
+    schema:identifier "R-BAIT:S1-inContextOf-BAIT:C2" ;
+    rdf:subject fc:BAIT_S1 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:BAIT_C2 ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_BAIT_S1_supportedBy_BAIT_G1_1 a gsn:Relationship ;
+    schema:identifier "R-BAIT:S1-supportedBy-BAIT:G1.1" ;
+    rdf:subject fc:BAIT_S1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_G1_1 ;
+    gsn:relationshipType "inferential" .
+
+fc:R_BAIT_G1_1_inContextOf_BAIT_C1_1 a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1-inContextOf-BAIT:C1.1" ;
+    rdf:subject fc:BAIT_G1_1 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:BAIT_C1_1 ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_BAIT_G1_1_supportedBy_BAIT_G1_1_X a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1-supportedBy-BAIT:G1.1.X" ;
+    rdf:subject fc:BAIT_G1_1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_G1_1_X ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N years\" in the diagram."@en .
+
+fc:R_BAIT_G1_1_X_inContextOf_BAIT_C1_1_X a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X-inContextOf-BAIT:C1.1.X" ;
+    rdf:subject fc:BAIT_G1_1_X ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:BAIT_C1_1_X ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_BAIT_G1_1_X_supportedBy_BAIT_G1_1_X_Y2 a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X-supportedBy-BAIT:G1.1.X.Y2" ;
+    rdf:subject fc:BAIT_G1_1_X ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_G1_1_X_Y2 ;
+    gsn:relationshipType "inferential" ;
+    gsn:optional true .
+
+fc:R_BAIT_G1_1_X_supportedBy_BAIT_G1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X-supportedBy-BAIT:G1.1.X.Y" ;
+    rdf:subject fc:BAIT_G1_1_X ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_G1_1_X_Y ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N reqs\" in the diagram."@en .
+
+fc:R_BAIT_G1_1_X_Y2_supportedBy_BAIT_G1_1_X_Y2_Z2 a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X.Y2-supportedBy-BAIT:G1.1.X.Y2.Z2" ;
+    rdf:subject fc:BAIT_G1_1_X_Y2 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_G1_1_X_Y2_Z2 ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_BAIT_G1_1_X_Y_I_challenges_BAIT_G1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X.Y.I-challenges-BAIT:G1.1.X.Y" ;
+    rdf:subject fc:BAIT_G1_1_X_Y_I ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:BAIT_G1_1_X_Y ;
+    gsn:relationshipType "dialectic" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_BAIT_G1_1_X_Y_I_supportedBy_BAIT_Sn1_1_X_Y_D a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X.Y.I-supportedBy-BAIT:Sn1.1.X.Y.D" ;
+    rdf:subject fc:BAIT_G1_1_X_Y_I ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_Sn1_1_X_Y_D ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N issues\" in the diagram."@en .
+
+fc:R_BAIT_G1_1_X_Y_inContextOf_BAIT_C1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X.Y-inContextOf-BAIT:C1.1.X.Y" ;
+    rdf:subject fc:BAIT_G1_1_X_Y ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:BAIT_C1_1_X_Y ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_BAIT_G1_1_X_Y_supportedBy_BAIT_Sn1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X.Y-supportedBy-BAIT:Sn1.1.X.Y" ;
+    rdf:subject fc:BAIT_G1_1_X_Y ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_Sn1_1_X_Y ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N files\" in the diagram."@en .
+
+fc:R_BAIT_G1_1_X_Y2_Z2_inContextOf_BAIT_C1_1_X_Y2_Z2 a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X.Y2.Z2-inContextOf-BAIT:C1.1.X.Y2.Z2" ;
+    rdf:subject fc:BAIT_G1_1_X_Y2_Z2 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:BAIT_C1_1_X_Y2_Z2 ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_BAIT_G1_1_X_Y2_Z2_supportedBy_BAIT_Sn1_1_X_Y2_Z2 a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X.Y2.Z2-supportedBy-BAIT:Sn1.1.X.Y2.Z2" ;
+    rdf:subject fc:BAIT_G1_1_X_Y2_Z2 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_Sn1_1_X_Y2_Z2 ;
+    gsn:relationshipType "evidential" .
+
+fc:R_BAIT_G1_1_X_Y2_Z2_challenges_BAIT_Sn1_1_X_Y_D a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X.Y2.Z2-challenges-BAIT:Sn1.1.X.Y.D" ;
+    rdf:subject fc:BAIT_G1_1_X_Y2_Z2 ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:BAIT_Sn1_1_X_Y_D ;
+    gsn:relationshipType "dialectic" .
+
+fc:R_BAIT_G1_1_X_Y_D_challenges_BAIT_Sn1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X.Y.D-challenges-BAIT:Sn1.1.X.Y" ;
+    rdf:subject fc:BAIT_G1_1_X_Y_D ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:BAIT_Sn1_1_X_Y ;
+    gsn:relationshipType "dialectic" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_BAIT_G1_1_X_Y_D_supportedBy_BAIT_Sn1_1_X_Y_D a gsn:Relationship ;
+    schema:identifier "R-BAIT:G1.1.X.Y.D-supportedBy-BAIT:Sn1.1.X.Y.D" ;
+    rdf:subject fc:BAIT_G1_1_X_Y_D ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:BAIT_Sn1_1_X_Y_D ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N issues\" in the diagram."@en .
+
+
+#  Module BAIT: instantiation data - the labelled triangles, each attached by a dotted
+#  line to the element whose subtree it fills in.
+
+fc:BAIT_IDR1 a gsn:InstantiationDataReference ;
+    schema:identifier "BAIT:IDR1" ;
+    rdfs:label "<BAIT_Anforderungskatalog_ [Organization]_<year>.xlsx>"@en ;
+    gsn:refersTo fc:BAIT_Ev4 ;
+    gsn:attachedTo fc:BAIT_G1_1_X .
+
+fc:BAIT_IDR2 a gsn:InstantiationDataReference ;
+    schema:identifier "BAIT:IDR2" ;
+    rdfs:label "<Azure DevOps URL> <BAIT_Anforderungskatalog_ [Organization]_<year>_[response].xlsx>"@en ;
+    gsn:refersTo fc:BAIT_Ev5 ;
+    gsn:attachedTo fc:BAIT_G1_1_X_Y2 .
+
+
+#  Module BAIT: the evidence items the solutions and the instantiation data point at.
+#  Every name is a placeholder; instantiating the template replaces it with the
+#  identifier of a real file.
+
+fc:BAIT_Ev1 a gsn:Artefact ;
+    schema:identifier "BAIT:Ev1" ;
+    rdfs:label "[<year> <req_id> <evid_id>] File"@en .
+
+fc:BAIT_Ev2 a gsn:Artefact ;
+    schema:identifier "BAIT:Ev2" ;
+    rdfs:label "<issue_id> Logs"@en .
+
+fc:BAIT_Ev3 a gsn:Artefact ;
+    schema:identifier "BAIT:Ev3" ;
+    rdfs:label "<issue_id> comment"@en .
+
+fc:BAIT_Ev4 a gsn:Artefact ;
+    schema:identifier "BAIT:Ev4" ;
+    rdfs:label "<BAIT_Anforderungskatalog_ [Organization]_<year>.xlsx>"@en .
+
+fc:BAIT_Ev5 a gsn:Artefact ;
+    schema:identifier "BAIT:Ev5" ;
+    rdfs:label "<Azure DevOps URL> <BAIT_Anforderungskatalog_ [Organization]_<year>_[response].xlsx>"@en .
+
+
+###############################################################################
+#    Module AML - draw.io page "AML"
+###############################################################################
+
+fc:AML_G1 a gsn:Goal ;
+    schema:identifier "AML:G1" ;
+    rdfs:label "Goal AML:G1"@en ;
+    gsn:statement "The [Organization]'s IT system is compliant with the AML requirements" ;
+    gsn:top true ;
+    gsn:away true ;
+    gsn:public true ;
+    gsn:supportedBy fc:AML_S1 ;
+    gsn:inContextOf fc:AML_C1 .
+
+fc:AML_C1 a gsn:Context ;
+    schema:identifier "AML:C1" ;
+    rdfs:label "Context AML:C1"@en ;
+    gsn:statement "Anti-Money Laundering (AML) requirements" .
+
+fc:AML_S1 a gsn:Strategy ;
+    schema:identifier "AML:S1" ;
+    rdfs:label "Strategy AML:S1"@en ;
+    gsn:statement "Argument from end-of-year AML auditing" ;
+    gsn:supportedBy fc:AML_G1_1 ;
+    gsn:inContextOf fc:AML_C2 .
+
+fc:AML_C2 a gsn:Context ;
+    schema:identifier "AML:C2" ;
+    rdfs:label "Context AML:C2"@en ;
+    gsn:statement "End-of-year AML audits" .
+
+fc:AML_G1_1 a gsn:Goal ;
+    schema:identifier "AML:G1.1" ;
+    rdfs:label "Goal AML:G1.1"@en ;
+    gsn:statement "[Organization]'s IT system successfully passed all AML audits to date" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:AML_G1_1_X ;
+    gsn:inContextOf fc:AML_C1_1 .
+
+fc:AML_C1_1 a gsn:Context ;
+    schema:identifier "AML:C1.1" ;
+    rdfs:label "Context AML:C1.1"@en ;
+    gsn:statement "Overview of AML audits" .
+
+fc:AML_G1_1_X a gsn:Goal ;
+    schema:identifier "AML:G1.1.X" ;
+    rdfs:label "Goal AML:G1.1.X"@en ;
+    gsn:statement "[Organization]'s IT system successfully passed the <year> AML audit" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:AML_G1_1_X_Y , fc:AML_G1_1_X_Y2 ;
+    gsn:inContextOf fc:AML_C1_1_X .
+
+fc:AML_C1_1_X a gsn:Context ;
+    schema:identifier "AML:C1.1.X" ;
+    rdfs:label "Context AML:C1.1.X"@en ;
+    gsn:statement "<year> AML audit metadata" ;
+    gsn:uninstantiated true .
+
+fc:AML_G1_1_X_Y2 a gsn:Goal ;
+    schema:identifier "AML:G1.1.X.Y2" ;
+    rdfs:label "Goal AML:G1.1.X.Y2"@en ;
+    gsn:statement "All outstanding issues that auditors have raised have been adequately addressed" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:AML_G1_1_X_Y2_Z2 .
+
+fc:AML_G1_1_X_Y_I a gsn:Goal ;
+    schema:identifier "AML:G1.1.X.Y.I" ;
+    rdfs:label "Goal AML:G1.1.X.Y.I"@en ;
+    gsn:statement "Issues have been raised with the implementation of <req_id>" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:AML_Sn1_1_X_Y_D ;
+    gsn:challenges fc:AML_G1_1_X_Y .
+
+fc:AML_G1_1_X_Y a gsn:Goal ;
+    schema:identifier "AML:G1.1.X.Y" ;
+    rdfs:label "Goal AML:G1.1.X.Y"@en ;
+    gsn:statement "[Organization]'s IT system satisfies the <req_id> requirement for <year>" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:AML_Sn1_1_X_Y ;
+    gsn:inContextOf fc:AML_C1_1_X_Y .
+
+fc:AML_C1_1_X_Y a gsn:Context ;
+    schema:identifier "AML:C1.1.X.Y" ;
+    rdfs:label "Context AML:C1.1.X.Y"@en ;
+    gsn:statement "<req_id> Description and Requirement" ;
+    gsn:uninstantiated true .
+
+fc:AML_C1_1_X_Y2_Z2 a gsn:Context ;
+    schema:identifier "AML:C1.1.X.Y2.Z2" ;
+    rdfs:label "Context AML:C1.1.X.Y2.Z2"@en ;
+    gsn:statement "Issue <issue_id> metadata" ;
+    gsn:uninstantiated true .
+
+fc:AML_G1_1_X_Y2_Z2 a gsn:Goal ;
+    schema:identifier "AML:G1.1.X.Y2.Z2" ;
+    rdfs:label "Goal AML:G1.1.X.Y2.Z2"@en ;
+    gsn:statement "Issue <issue_id> has been adequately addressed" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:AML_Sn1_1_X_Y2_Z2 ;
+    gsn:inContextOf fc:AML_C1_1_X_Y2_Z2 ;
+    gsn:challenges fc:AML_Sn1_1_X_Y_D .
+
+fc:AML_Sn1_1_X_Y a gsn:Solution ;
+    schema:identifier "AML:Sn1.1.X.Y" ;
+    rdfs:label "Solution AML:Sn1.1.X.Y"@en ;
+    gsn:statement "[<year> <req_id> <evid_id>] File" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:AML_Ev1 .
+
+fc:AML_G1_1_X_Y_D a gsn:Goal ;
+    schema:identifier "AML:G1.1.X.Y.D" ;
+    rdfs:label "Goal AML:G1.1.X.Y.D"@en ;
+    gsn:statement "Issue have been raised with [<year> <req_id> <evid_id>] file" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy fc:AML_Sn1_1_X_Y_D ;
+    gsn:challenges fc:AML_Sn1_1_X_Y .
+
+fc:AML_Sn1_1_X_Y2_Z2 a gsn:Solution ;
+    schema:identifier "AML:Sn1.1.X.Y2.Z2" ;
+    rdfs:label "Solution AML:Sn1.1.X.Y2.Z2"@en ;
+    gsn:statement "<issue_id> Logs" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:AML_Ev2 .
+
+fc:AML_Sn1_1_X_Y_D a gsn:Solution ;
+    schema:identifier "AML:Sn1.1.X.Y.D" ;
+    rdfs:label "Solution AML:Sn1.1.X.Y.D"@en ;
+    gsn:statement "<issue_id> comment" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo fc:AML_Ev3 .
+
+
+#  Module AML: the drawn relationships, reified so that the pattern decorators have
+#  somewhere to sit. The identifiers are the ones rules S18, S19 and S50 mint.
+
+fc:R_AML_G1_inContextOf_AML_C1 a gsn:Relationship ;
+    schema:identifier "R-AML:G1-inContextOf-AML:C1" ;
+    rdf:subject fc:AML_G1 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:AML_C1 ;
+    gsn:relationshipType "contextual" .
+
+fc:R_AML_G1_supportedBy_AML_S1 a gsn:Relationship ;
+    schema:identifier "R-AML:G1-supportedBy-AML:S1" ;
+    rdf:subject fc:AML_G1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_S1 ;
+    gsn:relationshipType "inferential" .
+
+fc:R_AML_S1_inContextOf_AML_C2 a gsn:Relationship ;
+    schema:identifier "R-AML:S1-inContextOf-AML:C2" ;
+    rdf:subject fc:AML_S1 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:AML_C2 ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_AML_S1_supportedBy_AML_G1_1 a gsn:Relationship ;
+    schema:identifier "R-AML:S1-supportedBy-AML:G1.1" ;
+    rdf:subject fc:AML_S1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_G1_1 ;
+    gsn:relationshipType "inferential" .
+
+fc:R_AML_G1_1_inContextOf_AML_C1_1 a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1-inContextOf-AML:C1.1" ;
+    rdf:subject fc:AML_G1_1 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:AML_C1_1 ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_AML_G1_1_supportedBy_AML_G1_1_X a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1-supportedBy-AML:G1.1.X" ;
+    rdf:subject fc:AML_G1_1 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_G1_1_X ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N years\" in the diagram."@en .
+
+fc:R_AML_G1_1_X_inContextOf_AML_C1_1_X a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X-inContextOf-AML:C1.1.X" ;
+    rdf:subject fc:AML_G1_1_X ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:AML_C1_1_X ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_AML_G1_1_X_supportedBy_AML_G1_1_X_Y2 a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X-supportedBy-AML:G1.1.X.Y2" ;
+    rdf:subject fc:AML_G1_1_X ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_G1_1_X_Y2 ;
+    gsn:relationshipType "inferential" ;
+    gsn:optional true .
+
+fc:R_AML_G1_1_X_supportedBy_AML_G1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X-supportedBy-AML:G1.1.X.Y" ;
+    rdf:subject fc:AML_G1_1_X ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_G1_1_X_Y ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N reqs\" in the diagram."@en .
+
+fc:R_AML_G1_1_X_Y2_supportedBy_AML_G1_1_X_Y2_Z2 a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X.Y2-supportedBy-AML:G1.1.X.Y2.Z2" ;
+    rdf:subject fc:AML_G1_1_X_Y2 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_G1_1_X_Y2_Z2 ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_AML_G1_1_X_Y_I_challenges_AML_G1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X.Y.I-challenges-AML:G1.1.X.Y" ;
+    rdf:subject fc:AML_G1_1_X_Y_I ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:AML_G1_1_X_Y ;
+    gsn:relationshipType "dialectic" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_AML_G1_1_X_Y_I_supportedBy_AML_Sn1_1_X_Y_D a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X.Y.I-supportedBy-AML:Sn1.1.X.Y.D" ;
+    rdf:subject fc:AML_G1_1_X_Y_I ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_Sn1_1_X_Y_D ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N issues\" in the diagram."@en .
+
+fc:R_AML_G1_1_X_Y_inContextOf_AML_C1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X.Y-inContextOf-AML:C1.1.X.Y" ;
+    rdf:subject fc:AML_G1_1_X_Y ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:AML_C1_1_X_Y ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_AML_G1_1_X_Y_supportedBy_AML_Sn1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X.Y-supportedBy-AML:Sn1.1.X.Y" ;
+    rdf:subject fc:AML_G1_1_X_Y ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_Sn1_1_X_Y ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N files\" in the diagram."@en .
+
+fc:R_AML_G1_1_X_Y2_Z2_inContextOf_AML_C1_1_X_Y2_Z2 a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X.Y2.Z2-inContextOf-AML:C1.1.X.Y2.Z2" ;
+    rdf:subject fc:AML_G1_1_X_Y2_Z2 ;
+    rdf:predicate gsn:inContextOf ;
+    rdf:object fc:AML_C1_1_X_Y2_Z2 ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true .
+
+fc:R_AML_G1_1_X_Y2_Z2_supportedBy_AML_Sn1_1_X_Y2_Z2 a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X.Y2.Z2-supportedBy-AML:Sn1.1.X.Y2.Z2" ;
+    rdf:subject fc:AML_G1_1_X_Y2_Z2 ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_Sn1_1_X_Y2_Z2 ;
+    gsn:relationshipType "evidential" .
+
+fc:R_AML_G1_1_X_Y2_Z2_challenges_AML_Sn1_1_X_Y_D a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X.Y2.Z2-challenges-AML:Sn1.1.X.Y.D" ;
+    rdf:subject fc:AML_G1_1_X_Y2_Z2 ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:AML_Sn1_1_X_Y_D ;
+    gsn:relationshipType "dialectic" .
+
+fc:R_AML_G1_1_X_Y_D_challenges_AML_Sn1_1_X_Y a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X.Y.D-challenges-AML:Sn1.1.X.Y" ;
+    rdf:subject fc:AML_G1_1_X_Y_D ;
+    rdf:predicate gsn:challenges ;
+    rdf:object fc:AML_Sn1_1_X_Y ;
+    gsn:relationshipType "dialectic" ;
+    gsn:multiple true ;
+    gsn:minCardinality "0"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"0..N issues\" in the diagram."@en .
+
+fc:R_AML_G1_1_X_Y_D_supportedBy_AML_Sn1_1_X_Y_D a gsn:Relationship ;
+    schema:identifier "R-AML:G1.1.X.Y.D-supportedBy-AML:Sn1.1.X.Y.D" ;
+    rdf:subject fc:AML_G1_1_X_Y_D ;
+    rdf:predicate gsn:supportedBy ;
+    rdf:object fc:AML_Sn1_1_X_Y_D ;
+    gsn:relationshipType "evidential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "Labelled \"1..N issues\" in the diagram."@en .
+
+
+#  Module AML: instantiation data - the labelled triangles, each attached by a dotted
+#  line to the element whose subtree it fills in.
+
+fc:AML_IDR1 a gsn:InstantiationDataReference ;
+    schema:identifier "AML:IDR1" ;
+    rdfs:label "<[Auditor]_AML_Prüfung_ <year>.xlsx>"@en ;
+    gsn:refersTo fc:AML_Ev4 ;
+    gsn:attachedTo fc:AML_G1_1_X .
+
+fc:AML_IDR2 a gsn:InstantiationDataReference ;
+    schema:identifier "AML:IDR2" ;
+    rdfs:label "<Azure DevOps URL> <[Auditor]_AML_Prüfung_ <year>_[response].xlsx>"@en ;
+    gsn:refersTo fc:AML_Ev5 ;
+    gsn:attachedTo fc:AML_G1_1_X_Y2 .
+
+
+#  Module AML: the evidence items the solutions and the instantiation data point at.
+#  Every name is a placeholder; instantiating the template replaces it with the
+#  identifier of a real file.
+
+fc:AML_Ev1 a gsn:Artefact ;
+    schema:identifier "AML:Ev1" ;
+    rdfs:label "[<year> <req_id> <evid_id>] File"@en .
+
+fc:AML_Ev2 a gsn:Artefact ;
+    schema:identifier "AML:Ev2" ;
+    rdfs:label "<issue_id> Logs"@en .
+
+fc:AML_Ev3 a gsn:Artefact ;
+    schema:identifier "AML:Ev3" ;
+    rdfs:label "<issue_id> comment"@en .
+
+fc:AML_Ev4 a gsn:Artefact ;
+    schema:identifier "AML:Ev4" ;
+    rdfs:label "<[Auditor]_AML_Prüfung_ <year>.xlsx>"@en .
+
+fc:AML_Ev5 a gsn:Artefact ;
+    schema:identifier "AML:Ev5" ;
+    rdfs:label "<Azure DevOps URL> <[Auditor]_AML_Prüfung_ <year>_[response].xlsx>"@en .
+
+
+###############################################################################
+#    Views - the four pages of the diagram
+###############################################################################
+
+#  OntoGSN carries gsn:View for the Modular Extension's notion of a view, but no
+#  property whose range is gsn:View, so a view cannot be attached to the module it
+#  depicts. These four record the pages the case was drawn on; the module each one
+#  shows is named in its label only.
+
+fc:V_Root a gsn:View ;
+    rdfs:label "Architecture view - draw.io page \"Full\""@en ;
+    gsn:viewType "architecture" .
+
+fc:V_JAP a gsn:View ;
+    rdfs:label "Argument view - draw.io page \"JAP\""@en ;
+    gsn:viewType "argument" .
+
+fc:V_BAIT a gsn:View ;
+    rdfs:label "Argument view - draw.io page \"BAIT\""@en ;
+    gsn:viewType "argument" .
+
+fc:V_AML a gsn:View ;
+    rdfs:label "Argument view - draw.io page \"AML\""@en ;
+    gsn:viewType "argument" .
+
