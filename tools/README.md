@@ -47,7 +47,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `shapes/ontogsn-shapes_[1-5]*.ttl` | the five SHACL sections |
 | `provenance/ontogsn-provenance.ttl` | the provenance vocabulary |
 | `provenance/ontogsn-provenance-data.ttl` | **the design record** — ~36,000 words of quoted standard passages, rationale and prose that exist nowhere else |
-| `provenance/Competency Questions.xlsx` | the questions `queries/` answers |
+| `provenance/Competency Questions.xlsx` | the questions `queries/` and `augmentation/queries/` answer |
 | `queries/*.rq` | the stored CRUD queries, one per competency question |
 | `queries/rules/*.rq` | the 51 SWRL rules as SPARQL updates |
 | `tools/testdata/*.ttl` | the example ABox, and one trigger per rule |

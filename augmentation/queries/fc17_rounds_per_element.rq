@@ -1,0 +1,20 @@
+# id:        CQ-59
+# role:      Auditor
+# operation: read
+# question:  How many rounds has this element taken, and of which kind?
+# expect:    rows
+#
+# One issue per round is what makes this a COUNT. A flag on the target would report one.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?targetId ?type (COUNT(DISTINCT ?issue) AS ?rounds)
+WHERE {
+  ?issue a gsnaug:Issue ;
+         gsnaug:raisedAgainst ?target ;
+         gsnaug:issueType ?type .
+  ?target schema:identifier ?targetId .
+}
+GROUP BY ?targetId ?type
+ORDER BY DESC(?rounds) ?targetId

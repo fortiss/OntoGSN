@@ -18,7 +18,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from rdflib import Graph, Namespace, RDF
+from rdflib import Graph, Namespace, RDF, RDFS
 from rdflib.namespace import OWL
 
 import matching
@@ -35,7 +35,11 @@ PROV = Namespace("http://www.w3.org/ns/prov#")
 
 ONTOLOGY_NS = "https://w3id.org/OntoGSN/ontology#"
 SHAPES_NS = "https://w3id.org/OntoGSN/shapes#"
-KNOWN_NS = {ONTOLOGY_NS, SHAPES_NS}
+AUGMENTATION_NS = "https://w3id.org/OntoGSN/augmentation#"
+AUGMENTATION_SHAPES_NS = "https://w3id.org/OntoGSN/augmentation/shapes#"
+# a query under augmentation/queries/ can be about the augmentation alone and name no
+# gsn: term at all, which is still an OntoGSN namespace
+KNOWN_NS = {ONTOLOGY_NS, SHAPES_NS, AUGMENTATION_NS, AUGMENTATION_SHAPES_NS}
 
 
 def load():
@@ -176,7 +180,8 @@ def check_queries(graph, findings):
     for question in graph.subjects(RDF.type, P.CompetencyQuestion):
         if question not in answered:
             findings.append(("unanswered-question",
-                             value(graph, question, P.persona) or "-",
+                             value(graph, question, P.role)
+                             or value(graph, question, RDFS.label) or "-",
                              f"{value(graph, question, P.questionText)!r:.70} "
                              "has no query"))
     return total

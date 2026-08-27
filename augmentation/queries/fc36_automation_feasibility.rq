@@ -1,0 +1,28 @@
+# id:        CQ-78
+# role:      Developer
+# operation: read
+# question:  Which evidence can be generated automatically, and which has been assessed as manual?
+# expect:    rows
+#
+# No mechanism at all means nobody has looked; a mechanism flagged false means automation was
+# assessed and rejected. The two are different answers.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?mechanism ?assessment
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  OPTIONAL {
+    ?artefact gsnaug:generatedWith ?mechanism .
+    OPTIONAL { ?mechanism gsnaug:automated ?automated }
+  }
+  BIND( IF(!BOUND(?mechanism),  "not assessed",
+        IF(!BOUND(?automated),  "mechanism named, not flagged",
+        IF(?automated,          "automated",
+                                "assessed: manual"))) AS ?assessment )
+}
+ORDER BY ?solutionId

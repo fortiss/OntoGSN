@@ -1,0 +1,29 @@
+# id:        CQ-56
+# role:      Auditor
+# operation: read
+# question:  Which elements have an open clarification against them?
+# expect:    rows
+#
+# Open means neither ended by an outcome nor closed by an answer the raiser accepted. An answer
+# marked accepted false leaves the ask open, which is what sends it round again.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?issueId ?targetId ?holder ?description
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:clarify ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL { ?issue gsnaug:heldBy ?holder }
+  OPTIONAL { ?issue schema:description ?description }
+  FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
+  FILTER NOT EXISTS {
+    ?answer gsnaug:answers ?issue .
+    FILTER NOT EXISTS { ?answer gsnaug:accepted false }
+  }
+}
+ORDER BY ?issueId

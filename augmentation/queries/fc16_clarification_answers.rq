@@ -1,0 +1,18 @@
+# id:        CQ-58
+# role:      Auditor
+# operation: read
+# question:  What answered a clarification, and which ask did it close?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?answer ?issueId ?description ?accepted
+WHERE {
+  ?answer a gsnaug:Clarification ;
+          gsnaug:answers ?issue .
+  ?issue schema:identifier ?issueId .
+  OPTIONAL { ?answer schema:description ?description }
+  OPTIONAL { ?answer gsnaug:accepted ?accepted }
+}
+ORDER BY ?issueId

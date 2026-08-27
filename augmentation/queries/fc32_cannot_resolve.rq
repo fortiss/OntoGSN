@@ -1,0 +1,21 @@
+# id:        CQ-74
+# role:      Auditor
+# operation: read
+# question:  Which issue cannot be resolved at all, as opposed to not yet resolved?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?issueId ?targetId ?outcome ?holder
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:resolve ;
+         gsnaug:issueOutcome ?outcome ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL { ?issue gsnaug:heldBy ?holder }
+  FILTER ( ?outcome IN ( gsnaug:declined, gsnaug:infeasible ) )
+}
+ORDER BY ?issueId

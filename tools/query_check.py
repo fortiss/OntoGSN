@@ -67,7 +67,7 @@ CHECKER_VERSION = "1"
 
 OPERATIONS = ("create", "read", "update", "delete", "rule")
 EXPECTATIONS = {"rows", "empty", "insert", "delete", "change", "none"}
-HEADER_FIELDS = ("id", "persona", "operation", "question", "expect")
+HEADER_FIELDS = ("id", "operation", "question", "expect")
 RULE_HEADER_FIELDS = ("rule", "name", "section", "operation", "expect", "swrl")
 
 PREFIX_RE = re.compile(r"(?m)^\s*PREFIX\s+(\w*):\s*<([^>]+)>")

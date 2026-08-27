@@ -82,271 +82,373 @@ gsnprov:req-R7
 
 
 #################################################################
-#    Competency questions (43)
+#    Competency questions (65)
 #    What the ontology has to be able to answer, and for whom.
 #################################################################
 
-gsnprov:cq-AE-01
+gsnprov:cq-CQ-01
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-01"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
+    rdfs:label "CQ-01"@en ;
     gsnprov:questionText "What assurance cases are in the store, and what arguments does each contain?"@en .
 
-gsnprov:cq-AE-02
+gsnprov:cq-CQ-02
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-02"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "How many elements of each GSN type does the case contain?"@en .
-
-gsnprov:cq-AE-03
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-03"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "What is the top goal of each argument - the claim everything else supports?"@en .
-
-gsnprov:cq-AE-04
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-04"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "What does the element with a given identifier say, and what is it linked to?"@en .
-
-gsnprov:cq-AE-05
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-05"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "What is the whole argument beneath a given goal?"@en .
-
-gsnprov:cq-AE-06
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-06"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "What evidence ultimately supports a given goal?"@en .
-
-gsnprov:cq-AE-07
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-07"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "If a given artefact is withdrawn or superseded, which claims are affected?"@en .
-
-gsnprov:cq-AE-08
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-08"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "What context, assumptions and justifications are in scope for a given goal?"@en .
-
-gsnprov:cq-AE-09
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-09"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "Which lines of argument are declared undeveloped, and are still undeveloped?"@en .
-
-gsnprov:cq-AE-10
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-10"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "Which goals have no support at all and are not admitted to be undeveloped?"@en .
-
-gsnprov:cq-AE-11
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-11"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "Which solutions cite no artefact - evidence claimed but not identified?"@en .
-
-gsnprov:cq-AE-12
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-12"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "Which artefacts predate a given date, and which claims still rest on them?"@en .
-
-gsnprov:cq-AE-13
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-13"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "How is a new, empty assurance case started?"@en .
-
-gsnprov:cq-AE-14
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-14"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "How is a sub-goal added beneath an existing goal or strategy?"@en .
-
-gsnprov:cq-AE-15
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-15"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "How is a strategy inserted between a goal and the sub-goals it already has?"@en .
-
-gsnprov:cq-AE-17
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-17"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "How is the wording of a claim, strategy or context corrected?"@en .
-
-gsnprov:cq-AE-23
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-23"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "How is an element removed without leaving dangling references to it?"@en .
-
-gsnprov:cq-AE-24
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-24"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "How is one support or context link removed, leaving both elements in place?"@en .
-
-gsnprov:cq-AE-25
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AE-25"@en ;
-    gsnprov:persona "Assurance engineer"@en ;
-    gsnprov:questionText "How are the conclusions written by queries/rules/ cleared before re-running them?"@en .
-
-gsnprov:cq-AU-01
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-01"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "Which elements are not reachable from any top goal - present but unargued?"@en .
-
-gsnprov:cq-AU-02
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-02"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "What is the current status of every element - valid, true, in doubt, defeated?"@en .
-
-gsnprov:cq-AU-03
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-03"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "Which elements or relationships are currently invalid, in doubt or defeated?"@en .
-
-gsnprov:cq-AU-04
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-04"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "What challenges have been raised, against what, and by what kind of defeater?"@en .
-
-gsnprov:cq-AU-05
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-05"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "Which claims above a challenged element lose support if the challenge stands?"@en .
-
-gsnprov:cq-AU-06
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-06"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "Do two distinct elements share a schema:identifier?"@en .
-
-gsnprov:cq-AU-07
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-07"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "Does any element support itself through a chain - a circular argument?"@en .
-
-gsnprov:cq-AU-08
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-08"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "How is a challenge recorded against part of the argument?"@en .
-
-gsnprov:cq-AU-09
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-09"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "How is a single element marked invalid?"@en .
-
-gsnprov:cq-AU-14
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-14"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "How is a challenge withdrawn, together with the doubt and defeat it caused?"@en .
-
-gsnprov:cq-AU-15
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "AU-15"@en ;
-    gsnprov:persona "Auditor"@en ;
-    gsnprov:questionText "How is a whole assurance case and everything under it removed?"@en .
-
-gsnprov:cq-DE-01
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-01"@en ;
-    gsnprov:persona "Domain expert"@en ;
+    rdfs:label "CQ-02"@en ;
     gsnprov:questionText "Where are the assurance claim points, and what confidence argument backs each?"@en .
 
-gsnprov:cq-DE-02
+gsnprov:cq-CQ-03
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-02"@en ;
-    gsnprov:persona "Domain expert"@en ;
-    gsnprov:questionText "Which assurance claim points have no confidence argument behind them?"@en .
-
-gsnprov:cq-DE-03
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-03"@en ;
-    gsnprov:persona "Domain expert"@en ;
-    gsnprov:questionText "Which modules depend on which, and through which elements?"@en .
-
-gsnprov:cq-DE-04
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-04"@en ;
-    gsnprov:persona "Domain expert"@en ;
+    rdfs:label "CQ-03"@en ;
     gsnprov:questionText "Which away elements are referenced, and does the module they come from exist?"@en .
 
-gsnprov:cq-DE-05
+gsnprov:cq-CQ-04
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-05"@en ;
-    gsnprov:persona "Domain expert"@en ;
+    rdfs:label "CQ-04"@en ;
+    gsnprov:questionText "How many elements of each GSN type does the case contain?"@en .
+
+gsnprov:cq-CQ-06
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-06"@en ;
+    gsnprov:questionText "Which assurance claim points have no confidence argument behind them?"@en .
+
+gsnprov:cq-CQ-08
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-08"@en ;
+    gsnprov:questionText "Do two distinct elements share a schema:identifier?"@en .
+
+gsnprov:cq-CQ-09
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-09"@en ;
+    gsnprov:questionText "What does the element with a given identifier say, and what is it linked to?"@en .
+
+gsnprov:cq-CQ-11
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-11"@en ;
+    gsnprov:questionText "Which elements are not reachable from any top goal - present but unargued?"@en .
+
+gsnprov:cq-CQ-18
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-18"@en ;
+    gsnprov:questionText "Which modules depend on which, and through which elements?"@en .
+
+gsnprov:cq-CQ-20
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-20"@en ;
     gsnprov:questionText "Which public elements sit inside a contract module, where they must not?"@en .
 
-gsnprov:cq-DE-06
+gsnprov:cq-CQ-21
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-06"@en ;
-    gsnprov:persona "Domain expert"@en ;
-    gsnprov:questionText "Which elements instantiate which argument pattern, and is the pattern's own documentation complete?"@en .
-
-gsnprov:cq-DE-07
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-07"@en ;
-    gsnprov:persona "Domain expert"@en ;
-    gsnprov:questionText "Which elements are still uninstantiated placeholders from a pattern?"@en .
-
-gsnprov:cq-DE-08
-    a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-08"@en ;
-    gsnprov:persona "Domain expert"@en ;
+    rdfs:label "CQ-21"@en ;
     gsnprov:questionText "Which relationships carry pattern decorators - optional, multiple, cardinality?"@en .
 
-gsnprov:cq-DE-09
+gsnprov:cq-CQ-23
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-09"@en ;
-    gsnprov:persona "Domain expert"@en ;
+    rdfs:label "CQ-23"@en ;
+    gsnprov:questionText "Which artefacts predate a given date, and which claims still rest on them?"@en .
+
+gsnprov:cq-CQ-24
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-24"@en ;
+    gsnprov:questionText "Does any element support itself through a chain - a circular argument?"@en .
+
+gsnprov:cq-CQ-25
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-25"@en ;
+    gsnprov:questionText "What is the top goal of each argument - the claim everything else supports?"@en .
+
+gsnprov:cq-CQ-28
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-28"@en ;
+    gsnprov:questionText "How is a new, empty assurance case started?"@en .
+
+gsnprov:cq-CQ-29
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-29"@en ;
+    gsnprov:questionText "How is a challenge recorded against part of the argument?"@en .
+
+gsnprov:cq-CQ-30
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-30"@en ;
     gsnprov:questionText "How is a context element added to a goal or strategy, pointing at an artefact?"@en .
 
-gsnprov:cq-DE-10
+gsnprov:cq-CQ-31
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-10"@en ;
-    gsnprov:persona "Domain expert"@en ;
+    rdfs:label "CQ-31"@en ;
+    gsnprov:questionText "How is a sub-goal added beneath an existing goal or strategy?"@en .
+
+gsnprov:cq-CQ-32
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-32"@en ;
     gsnprov:questionText "How is a new piece of evidence attached to a goal?"@en .
 
-gsnprov:cq-DE-11
+gsnprov:cq-CQ-33
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-11"@en ;
-    gsnprov:persona "Domain expert"@en ;
+    rdfs:label "CQ-33"@en ;
     gsnprov:questionText "How are artefacts already in the store turned into solutions in bulk?"@en .
 
-gsnprov:cq-DE-15
+gsnprov:cq-CQ-34
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-15"@en ;
-    gsnprov:persona "Domain expert"@en ;
+    rdfs:label "CQ-34"@en ;
+    gsnprov:questionText "How is a strategy inserted between a goal and the sub-goals it already has?"@en .
+
+gsnprov:cq-CQ-35
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-35"@en ;
+    gsnprov:questionText "How is the wording of a claim, strategy or context corrected?"@en .
+
+gsnprov:cq-CQ-36
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-36"@en ;
+    gsnprov:questionText "How is a single element marked invalid?"@en .
+
+gsnprov:cq-CQ-37
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-37"@en ;
     gsnprov:questionText "How is a solution repointed when its evidence is superseded by a new version?"@en .
 
-gsnprov:cq-DE-16
+gsnprov:cq-CQ-38
     a gsnprov:CompetencyQuestion ;
-    rdfs:label "DE-16"@en ;
-    gsnprov:persona "Domain expert"@en ;
+    rdfs:label "CQ-38"@en ;
+    gsnprov:questionText "How is a whole assurance case and everything under it removed?"@en .
+
+gsnprov:cq-CQ-39
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-39"@en ;
+    gsnprov:questionText "How is a challenge withdrawn, together with the doubt and defeat it caused?"@en .
+
+gsnprov:cq-CQ-40
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-40"@en ;
+    gsnprov:questionText "How is an element removed without leaving dangling references to it?"@en .
+
+gsnprov:cq-CQ-41
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-41"@en ;
+    gsnprov:questionText "How are the conclusions written by queries/rules/ cleared before re-running them?"@en .
+
+gsnprov:cq-CQ-42
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-42"@en ;
+    gsnprov:questionText "How is one support or context link removed, leaving both elements in place?"@en .
+
+gsnprov:cq-CQ-43
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-43"@en ;
     gsnprov:questionText "How are artefacts no solution or context cites any more cleared out?"@en .
+
+gsnprov:cq-CQ-44
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-44"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "What law or requirement source does the case answer to?"@en .
+
+gsnprov:cq-CQ-45
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-45"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "What system and organisation is this case about?"@en .
+
+gsnprov:cq-CQ-46
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-46"@en ;
+    gsnprov:role "Compliance Officer"@en ;
+    gsnprov:questionText "Which low-level claims need development for each system?"@en .
+
+gsnprov:cq-CQ-47
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-47"@en ;
+    gsnprov:role "Compliance Officer"@en ;
+    gsnprov:questionText "What controls exist, under which claim, and with what wording?"@en .
+
+gsnprov:cq-CQ-48
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-48"@en ;
+    gsnprov:role "Compliance Officer"@en ;
+    gsnprov:questionText "Which controls still await evidence?"@en .
+
+gsnprov:cq-CQ-49
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-49"@en ;
+    gsnprov:role "Developer"@en ;
+    gsnprov:questionText "Where is the requested evidence kept and how is it fetched?"@en .
+
+gsnprov:cq-CQ-50
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-50"@en ;
+    gsnprov:role "Developer"@en ;
+    gsnprov:questionText "Does the evidence exist yet, and how was it produced - by whom, with what, from what?"@en .
+
+gsnprov:cq-CQ-51
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-51"@en ;
+    gsnprov:role "Process/Software Owner"@en ;
+    gsnprov:questionText "Which evidence has been provided?"@en .
+
+gsnprov:cq-CQ-52
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-52"@en ;
+    gsnprov:role "Process/Software Owner"@en ;
+    gsnprov:questionText "Was this evidence verified - by whom, with what mechanism, and did it pass?"@en .
+
+gsnprov:cq-CQ-53
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-53"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "Which controls are ready for review?"@en .
+
+gsnprov:cq-CQ-54
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-54"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "Which controls and evidence have already been positively validated?"@en .
+
+gsnprov:cq-CQ-55
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-55"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "Is the case fully compliant?"@en .
+
+gsnprov:cq-CQ-56
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-56"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "Which elements have an open clarification against them?"@en .
+
+gsnprov:cq-CQ-57
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-57"@en ;
+    gsnprov:role "Process/Software Owner"@en ;
+    gsnprov:questionText "Who can answer for this element - its owner, or the author of its evidence?"@en .
+
+gsnprov:cq-CQ-58
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-58"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "What answered a clarification, and which ask did it close?"@en .
+
+gsnprov:cq-CQ-59
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-59"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "How many rounds has this element taken, and of which kind?"@en .
+
+gsnprov:cq-CQ-60
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-60"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "Which pending ask was displaced by a newer one?"@en .
+
+gsnprov:cq-CQ-61
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-61"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "Who currently holds a relayed ask - where is it stuck?"@en .
+
+gsnprov:cq-CQ-62
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-62"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "How many times was an ask escalated because the holder could not answer?"@en .
+
+gsnprov:cq-CQ-63
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-63"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "Which elements are currently in doubt and why?"@en .
+
+gsnprov:cq-CQ-64
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-64"@en ;
+    gsnprov:role "Compliance Officer"@en ;
+    gsnprov:questionText "What has to be revised, and by whom?"@en .
+
+gsnprov:cq-CQ-65
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-65"@en ;
+    gsnprov:role "Compliance Officer"@en ;
+    gsnprov:questionText "How many revision rounds, and which revision closed which ask?"@en .
+
+gsnprov:cq-CQ-66
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-66"@en ;
+    gsnprov:role "Developer"@en ;
+    gsnprov:questionText "What did a revision actually change - which artefact replaced which?"@en .
+
+gsnprov:cq-CQ-67
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-67"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "Which claims were determined to be insufficient by the report?"@en .
+
+gsnprov:cq-CQ-68
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-68"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "What was left unresolved at the last audit, and what is due by the next one?"@en .
+
+gsnprov:cq-CQ-69
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-69"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "Was a resolution implemented, declined, or infeasible?"@en .
+
+gsnprov:cq-CQ-70
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-70"@en ;
+    gsnprov:role "Developer"@en ;
+    gsnprov:questionText "Which evidence needs to be generated manually?"@en .
+
+gsnprov:cq-CQ-71
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-71"@en ;
+    gsnprov:role "Developer"@en ;
+    gsnprov:questionText "Which evidence is generated automatically, and how or where from can it be retrieved?"@en .
+
+gsnprov:cq-CQ-72
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-72"@en ;
+    gsnprov:role "Process/Software Owner"@en ;
+    gsnprov:questionText "Which evidence needs an alternative provision mechanism - an interview, a call, paper?"@en .
+
+gsnprov:cq-CQ-73
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-73"@en ;
+    gsnprov:role "Developer"@en ;
+    gsnprov:questionText "Which evidence cannot be produced at all, as opposed to not yet produced?"@en .
+
+gsnprov:cq-CQ-74
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-74"@en ;
+    gsnprov:role "Auditor"@en ;
+    gsnprov:questionText "Which issue cannot be resolved at all, as opposed to not yet resolved?"@en .
+
+gsnprov:cq-CQ-75
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-75"@en ;
+    gsnprov:role "Compliance Officer"@en ;
+    gsnprov:questionText "How is the interpretation instantiated into claims and evidence?"@en .
+
+gsnprov:cq-CQ-76
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-76"@en ;
+    gsnprov:role "Compliance Officer"@en ;
+    gsnprov:questionText "Who is responsible for retrieving the evidence for a particular system?"@en .
+
+gsnprov:cq-CQ-77
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-77"@en ;
+    gsnprov:role "Developer"@en ;
+    gsnprov:questionText "Which artefacts need changing, and who owns the change?"@en .
+
+gsnprov:cq-CQ-78
+    a gsnprov:CompetencyQuestion ;
+    rdfs:label "CQ-78"@en ;
+    gsnprov:role "Developer"@en ;
+    gsnprov:questionText "Which evidence can be generated automatically, and which has been assessed as manual?"@en .
 
 
 #################################################################
-#    Stored queries (95)
+#    Stored queries (124)
 #    gsnprov:declaresNamespace records what each file binds its prefixes to, which is
 #    how a query pointing at the wrong namespace becomes findable.
 #    
@@ -362,12 +464,1112 @@ gsnprov:cq-DE-16
 #    StatementRecord, so one hop further reaches why that axiom exists at all.
 #################################################################
 
+gsnprov:query-augmentation-queries-fc01-requirement-source
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc01_requirement_source.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc01_requirement_source.rq" ;
+    gsnprov:fileChecksum "613bfc2cafc07c8bf3289eb756857500e1f9fedfb239344f5d5c8ecd5c71293c" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-44 ;
+    gsnprov:queryText """# id:        CQ-44
+# role:      Auditor
+# operation: read
+# question:  What law or requirement source does the case answer to?
+# expect:    rows
+#
+# Any element may answer to a requirement, not only the top goal: a control claim usually names
+# the clause it implements. A case that names none reads through CQ-07 instead, which returns
+# every context in scope without saying which of them is the requirement.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?elementId ?source
+WHERE {
+  ?element gsnaug:requiredBy ?source .
+  OPTIONAL { ?element schema:identifier ?elementId }
+}
+ORDER BY ?elementId ?source
+""" .
+
+gsnprov:query-augmentation-queries-fc02-assured-system
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc02_assured_system.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc02_assured_system.rq" ;
+    gsnprov:fileChecksum "e806043db229bd89d64ed0f07b7fedb2b597e9dab039888d358b06536e882530" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-45 ;
+    gsnprov:queryText """# id:        CQ-45
+# role:      Auditor
+# operation: read
+# question:  What system and organisation is this case about?
+# expect:    rows
+#
+# The subject is an argument, an assurance case or a goal - the three granularities at which a
+# reader would say the case is about something.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?subjectId ?system
+WHERE {
+  ?subject gsnaug:assures ?system .
+  OPTIONAL { ?subject schema:identifier ?subjectId }
+}
+ORDER BY ?subjectId ?system
+""" .
+
+gsnprov:query-augmentation-queries-fc03-undeveloped-claims-for-system
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc03_undeveloped_claims_for_system.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc03_undeveloped_claims_for_system.rq" ;
+    gsnprov:fileChecksum "9a2f5d1a47a97f94b204cd8d40c1425ee3ddbbcaff2d09aa00c7d201407db500" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:inContextOf ,
+        gsn:statement ,
+        gsn:supportedBy ,
+        gsn:undeveloped ;
+    gsnprov:restsOnStatement gsnprov:st-0161 ,
+        gsnprov:st-0200 ,
+        gsnprov:st-0207 ,
+        gsnprov:st-0218 ,
+        gsnprov:st-0265 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-46 ;
+    gsnprov:queryText """# id:        CQ-46
+# role:      Compliance Officer
+# operation: read
+# question:  Which low-level claims need development for each system?
+# expect:    rows
+#
+# The inverse-path walk does the context inheritance in the query, so the answer does not depend
+# on S17 having been run first.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT DISTINCT ?goalId ?statement ?contextStatement
+WHERE {
+  VALUES ?system { "IT system" }                    # PARAMETER
+
+  ?goal a gsn:Goal ;
+        schema:identifier ?goalId ;
+        gsn:undeveloped true .
+  OPTIONAL { ?goal gsn:statement ?statement }
+
+  ?goal (^gsn:supportedBy)* ?ancestor .
+  ?ancestor gsn:inContextOf ?context .
+  ?context gsn:statement ?contextStatement .
+  FILTER ( CONTAINS(LCASE(?contextStatement), LCASE(?system)) )
+}
+ORDER BY ?goalId
+""" .
+
+gsnprov:query-augmentation-queries-fc07-evidence-location
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc07_evidence_location.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc07_evidence_location.rq" ;
+    gsnprov:fileChecksum "a90a0950a38884929a40ac42adac81d8e222c56b1a8efd53b5f3071bfe17135f" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:refersTo ;
+    gsnprov:restsOnStatement gsnprov:st-0175 ,
+        gsnprov:st-0289 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-49 ;
+    gsnprov:queryText """# id:        CQ-49
+# role:      Developer
+# operation: read
+# question:  Where is the requested evidence kept and how is it fetched?
+# expect:    rows
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?storage ?retrieval ?automated
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  OPTIONAL { ?artefact gsnaug:storedIn ?storage }
+  OPTIONAL {
+    ?artefact gsnaug:retrievableWith ?retrieval .
+    OPTIONAL { ?retrieval gsnaug:automated ?automated }
+  }
+}
+ORDER BY ?solutionId
+""" .
+
+gsnprov:query-augmentation-queries-fc08-evidence-production
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc08_evidence_production.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc08_evidence_production.rq" ;
+    gsnprov:fileChecksum "1952ca8d5d24f60c84cd1a5eaf48f2f7301a3d4406fe62085fbe1e633a6855a2" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:refersTo ;
+    gsnprov:restsOnStatement gsnprov:st-0175 ,
+        gsnprov:st-0289 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-50 ;
+    gsnprov:queryText """# id:        CQ-50
+# role:      Developer
+# operation: read
+# question:  Does the evidence exist yet, and how was it produced - by whom, with what, from what?
+# expect:    rows
+#
+# A solution with no artefact is evidence that does not exist yet, so the artefact is optional.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?author ?mechanism ?source
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId .
+  OPTIONAL {
+    ?solution gsn:refersTo ?artefact .
+    OPTIONAL { ?artefact gsnaug:generatedBy   ?author }
+    OPTIONAL { ?artefact gsnaug:generatedWith ?mechanism }
+    OPTIONAL { ?artefact gsnaug:generatedFrom ?source }
+  }
+}
+ORDER BY ?solutionId
+""" .
+
+gsnprov:query-augmentation-queries-fc10-evidence-verification
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc10_evidence_verification.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc10_evidence_verification.rq" ;
+    gsnprov:fileChecksum "7c7ca56b191fd4d09296f8e19208e4777fadb245f93539d8282f585f5457e0d5" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:refersTo ,
+        gsn:valid ;
+    gsnprov:restsOnStatement gsnprov:st-0114 ,
+        gsnprov:st-0175 ,
+        gsnprov:st-0289 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-52 ;
+    gsnprov:queryText """# id:        CQ-52
+# role:      Process/Software Owner
+# operation: read
+# question:  Was this evidence verified - by whom, with what mechanism, and did it pass?
+# expect:    rows
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?mechanism ?reviewer ?valid
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  OPTIONAL { ?artefact gsnaug:verifiedWith ?mechanism }
+  OPTIONAL { ?artefact gsnaug:reviewedBy   ?reviewer }
+  OPTIONAL { ?solution gsn:valid ?valid }
+}
+ORDER BY ?solutionId
+""" .
+
+gsnprov:query-augmentation-queries-fc11-controls-ready-for-review
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc11_controls_ready_for_review.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc11_controls_ready_for_review.rq" ;
+    gsnprov:fileChecksum "cb4037bd18bc1fcf2a84fbd1ade2f042ced516596c143ac31b6bbbb3dfa4d806" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:Solution ,
+        gsn:refersTo ,
+        gsn:supportedBy ,
+        gsn:undeveloped ;
+    gsnprov:restsOnStatement gsnprov:st-0161 ,
+        gsnprov:st-0175 ,
+        gsnprov:st-0200 ,
+        gsnprov:st-0207 ,
+        gsnprov:st-0289 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-53 ;
+    gsnprov:queryText """# id:        CQ-53
+# role:      Auditor
+# operation: read
+# question:  Which controls are ready for review?
+# expect:    rows
+#
+# Ready means developed and backed by an artefact. Whether it passed is CQ-54; what is still
+# missing is CQ-26 and CQ-16.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?goalId ?solutionId ?artefact
+WHERE {
+  ?goal a gsn:Goal ;
+        schema:identifier ?goalId ;
+        gsn:supportedBy ?solution .
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  FILTER NOT EXISTS { ?goal     gsn:undeveloped true }
+  FILTER NOT EXISTS { ?solution gsn:undeveloped true }
+}
+ORDER BY ?goalId ?solutionId
+""" .
+
+gsnprov:query-augmentation-queries-fc13-case-compliance
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc13_case_compliance.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc13_case_compliance.rq" ;
+    gsnprov:fileChecksum "26c1ac10e2b7999f9524bdf2250bc418633aba04993e682fe2c942bb519dab96" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:defeated ,
+        gsn:inDoubt ;
+    gsnprov:restsOnStatement gsnprov:st-0699 ,
+        gsnprov:st-0731 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-55 ;
+    gsnprov:queryText """# id:        CQ-55
+# role:      Auditor
+# operation: read
+# question:  Is the case fully compliant?
+# expect:    rows
+#
+# Compliant is all three counts at zero. The status is derived on every run rather than stored,
+# so it cannot go stale; the price is that it cannot be reproduced for a past report entry.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+
+SELECT ?openIssues ?defeated ?inDoubt
+WHERE {
+  {
+    SELECT (COUNT(DISTINCT ?issue) AS ?openIssues)
+    WHERE {
+      ?issue a gsnaug:Issue .
+      FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
+      FILTER NOT EXISTS {
+        ?answer gsnaug:answers ?issue .
+        FILTER NOT EXISTS { ?answer gsnaug:accepted false }
+      }
+    }
+  }
+  { SELECT (COUNT(DISTINCT ?e) AS ?defeated) WHERE { ?e gsn:defeated true } }
+  { SELECT (COUNT(DISTINCT ?d) AS ?inDoubt)  WHERE { ?d gsn:inDoubt  true } }
+}
+""" .
+
+gsnprov:query-augmentation-queries-fc14-open-clarifications
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc14_open_clarifications.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc14_open_clarifications.rq" ;
+    gsnprov:fileChecksum "dfdeed5ff048d72198e83a3f0abe40a83456061192dc9e7b30b6891c51579b83" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-56 ;
+    gsnprov:queryText """# id:        CQ-56
+# role:      Auditor
+# operation: read
+# question:  Which elements have an open clarification against them?
+# expect:    rows
+#
+# Open means neither ended by an outcome nor closed by an answer the raiser accepted. An answer
+# marked accepted false leaves the ask open, which is what sends it round again.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?issueId ?targetId ?holder ?description
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:clarify ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL { ?issue gsnaug:heldBy ?holder }
+  OPTIONAL { ?issue schema:description ?description }
+  FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
+  FILTER NOT EXISTS {
+    ?answer gsnaug:answers ?issue .
+    FILTER NOT EXISTS { ?answer gsnaug:accepted false }
+  }
+}
+ORDER BY ?issueId
+""" .
+
+gsnprov:query-augmentation-queries-fc15-who-answers-for-element
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc15_who_answers_for_element.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc15_who_answers_for_element.rq" ;
+    gsnprov:fileChecksum "bbe67cbd29a910db9178e31e73313daae411d3e3b28abbba342ff401d2e40bf7" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:refersTo ;
+    gsnprov:restsOnStatement gsnprov:st-0289 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-57 ;
+    gsnprov:queryText """# id:        CQ-57
+# role:      Process/Software Owner
+# operation: read
+# question:  Who can answer for this element - its owner, or the author of its evidence?
+# expect:    rows
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?elementId ?owner ?author
+WHERE {
+  ?element schema:identifier ?elementId .
+  OPTIONAL { ?element gsnaug:ownedBy ?owner }
+  OPTIONAL {
+    ?element gsn:refersTo ?artefact .
+    ?artefact gsnaug:generatedBy ?author
+  }
+  FILTER ( BOUND(?owner) || BOUND(?author) )
+}
+ORDER BY ?elementId
+""" .
+
+gsnprov:query-augmentation-queries-fc16-clarification-answers
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc16_clarification_answers.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc16_clarification_answers.rq" ;
+    gsnprov:fileChecksum "5fd60c96741206dfa44ed53a2045a9b5d2b50a24ac27ef6c1232c65d9d78c1c6" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-58 ;
+    gsnprov:queryText """# id:        CQ-58
+# role:      Auditor
+# operation: read
+# question:  What answered a clarification, and which ask did it close?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?answer ?issueId ?description ?accepted
+WHERE {
+  ?answer a gsnaug:Clarification ;
+          gsnaug:answers ?issue .
+  ?issue schema:identifier ?issueId .
+  OPTIONAL { ?answer schema:description ?description }
+  OPTIONAL { ?answer gsnaug:accepted ?accepted }
+}
+ORDER BY ?issueId
+""" .
+
+gsnprov:query-augmentation-queries-fc17-rounds-per-element
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc17_rounds_per_element.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc17_rounds_per_element.rq" ;
+    gsnprov:fileChecksum "bea2d09322bf380b7587c778f04ccbfc5306efd95763a1a9b4ba74ca029eb939" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-59 ;
+    gsnprov:queryText """# id:        CQ-59
+# role:      Auditor
+# operation: read
+# question:  How many rounds has this element taken, and of which kind?
+# expect:    rows
+#
+# One issue per round is what makes this a COUNT. A flag on the target would report one.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?targetId ?type (COUNT(DISTINCT ?issue) AS ?rounds)
+WHERE {
+  ?issue a gsnaug:Issue ;
+         gsnaug:raisedAgainst ?target ;
+         gsnaug:issueType ?type .
+  ?target schema:identifier ?targetId .
+}
+GROUP BY ?targetId ?type
+ORDER BY DESC(?rounds) ?targetId
+""" .
+
+gsnprov:query-augmentation-queries-fc18-superseded-asks
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc18_superseded_asks.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc18_superseded_asks.rq" ;
+    gsnprov:fileChecksum "8b0b361fe8d6d8ce38d08aaaeea6eb0342f682e25b6cb3279a5d89e462a80720" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-60 ;
+    gsnprov:queryText """# id:        CQ-60
+# role:      Auditor
+# operation: read
+# question:  Which pending ask was displaced by a newer one?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?newerId ?olderId ?outcome ?holder
+WHERE {
+  ?newer gsnaug:supersedes ?older ;
+         schema:identifier ?newerId .
+  ?older schema:identifier ?olderId .
+  OPTIONAL { ?older gsnaug:issueOutcome ?outcome }
+  OPTIONAL { ?newer gsnaug:heldBy ?holder }
+}
+ORDER BY ?olderId
+""" .
+
+gsnprov:query-augmentation-queries-fc19-who-holds-the-ask
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc19_who_holds_the_ask.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc19_who_holds_the_ask.rq" ;
+    gsnprov:fileChecksum "c1fb56d7a8d549f9353a5d3ebf89e6f61567d1e4b72177a2bd173b3d0669d4eb" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-61 ;
+    gsnprov:queryText """# id:        CQ-61
+# role:      Auditor
+# operation: read
+# question:  Who currently holds a relayed ask - where is it stuck?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?issueId ?holder ?raiser ?targetId
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:heldBy ?holder ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL { ?issue gsnaug:raisedBy ?raiser }
+  FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
+  FILTER NOT EXISTS {
+    ?answer gsnaug:answers ?issue .
+    FILTER NOT EXISTS { ?answer gsnaug:accepted false }
+  }
+}
+ORDER BY ?issueId
+""" .
+
+gsnprov:query-augmentation-queries-fc20-escalation-count
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc20_escalation_count.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc20_escalation_count.rq" ;
+    gsnprov:fileChecksum "f5d5dcbafb2492b19280059910a11250b82b894d617dc96ddab1f43a0f4a4581" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-62 ;
+    gsnprov:queryText """# id:        CQ-62
+# role:      Auditor
+# operation: read
+# question:  How many times was an ask escalated because the holder could not answer?
+# expect:    rows
+#
+# An escalation is a hop whose predecessor was closed as cannot-answer, counted from the first
+# ask in the chain - the one that supersedes nothing.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?originalId (COUNT(DISTINCT ?later) AS ?escalations)
+WHERE {
+  ?original a gsnaug:Issue ;
+            schema:identifier ?originalId .
+  FILTER NOT EXISTS { ?original gsnaug:supersedes ?earlier }
+
+  ?later gsnaug:supersedes+ ?original ;
+         gsnaug:supersedes ?predecessor .
+  ?predecessor gsnaug:issueOutcome gsnaug:cannotAnswer .
+}
+GROUP BY ?originalId
+ORDER BY DESC(?escalations)
+""" .
+
+gsnprov:query-augmentation-queries-fc22-what-to-revise
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc22_what_to_revise.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc22_what_to_revise.rq" ;
+    gsnprov:fileChecksum "1458aaebd0722a11c764f04545d3603c68d367150708a157645069046d02683f" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:Solution ;
+    gsnprov:restsOnStatement gsnprov:st-0161 ,
+        gsnprov:st-0175 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-64 ;
+    gsnprov:queryText """# id:        CQ-64
+# role:      Compliance Officer
+# operation: read
+# question:  What has to be revised, and by whom?
+# expect:    rows
+#
+# The class of the target says whether the claim or the evidence is at fault. A revise issue
+# against a context is a remark about wording and is deliberately not returned here.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?issueId ?targetId ?targetKind ?owner ?description
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:revise ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId ;
+          a ?targetKind .
+  VALUES ?targetKind { gsn:Goal gsn:Solution }
+  OPTIONAL { ?target gsnaug:ownedBy ?owner }
+  OPTIONAL { ?issue schema:description ?description }
+}
+ORDER BY ?issueId
+""" .
+
+gsnprov:query-augmentation-queries-fc23-revision-rounds
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc23_revision_rounds.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc23_revision_rounds.rq" ;
+    gsnprov:fileChecksum "1d09f2fce27406eefeb647a6539b3d2533519065b8f33dfd6fb3de3213874272" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-65 ;
+    gsnprov:queryText """# id:        CQ-65
+# role:      Compliance Officer
+# operation: read
+# question:  How many revision rounds, and which revision closed which ask?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?targetId (COUNT(DISTINCT ?issue) AS ?rounds)
+       (GROUP_CONCAT(DISTINCT STR(?answer); separator=", ") AS ?revisions)
+WHERE {
+  ?issue a gsnaug:Issue ;
+         gsnaug:issueType gsnaug:revise ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL {
+    ?answer a gsnaug:Revision ;
+            gsnaug:answers ?issue
+  }
+}
+GROUP BY ?targetId
+ORDER BY DESC(?rounds)
+""" .
+
+gsnprov:query-augmentation-queries-fc24-revision-diff
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc24_revision_diff.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc24_revision_diff.rq" ;
+    gsnprov:fileChecksum "bbbf2fd3f34812b85c44a3e70265af9381b1424fdc9c7593f2161fdb25fc784e" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:refersTo ;
+    gsnprov:restsOnStatement gsnprov:st-0289 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-66 ;
+    gsnprov:queryText """# id:        CQ-66
+# role:      Developer
+# operation: read
+# question:  What did a revision actually change - which artefact replaced which?
+# expect:    rows
+#
+# Artefact versions only. A reworded claim is not a revision in this sense.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?newer ?older ?mechanism ?issueId
+WHERE {
+  ?newer gsnaug:revisionOf ?older .
+  OPTIONAL { ?newer gsnaug:generatedWith ?mechanism }
+  OPTIONAL {
+    ?solution gsn:refersTo ?older .
+    ?issue gsnaug:raisedAgainst ?solution ;
+           gsnaug:issueType gsnaug:revise ;
+           schema:identifier ?issueId
+  }
+}
+ORDER BY ?newer
+""" .
+
+gsnprov:query-augmentation-queries-fc26-unresolved-at-audit
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc26_unresolved_at_audit.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc26_unresolved_at_audit.rq" ;
+    gsnprov:fileChecksum "bf597b3c87d1f788e1ad3679bdc5a42e66fe70d40d184e37fed0e0281a280dd9" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/ns/prov#" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-68 ;
+    gsnprov:queryText """# id:        CQ-68
+# role:      Auditor
+# operation: read
+# question:  What was left unresolved at the last audit, and what is due by the next one?
+# expect:    rows
+#
+# Scoped by cycle rather than by date, because two audits may overlap in time and the question
+# asked is always which round.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+
+SELECT ?cycleId ?issueId ?targetId ?outcome ?opened
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:resolve ;
+         gsnaug:raisedIn ?cycle ;
+         gsnaug:raisedAgainst ?target .
+  ?cycle schema:identifier ?cycleId .
+  ?target schema:identifier ?targetId .
+  OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
+  OPTIONAL { ?cycle prov:startedAtTime ?opened }
+  FILTER NOT EXISTS {
+    ?answer gsnaug:answers ?issue .
+    FILTER NOT EXISTS { ?answer gsnaug:accepted false }
+  }
+}
+ORDER BY ?cycleId ?issueId
+""" .
+
+gsnprov:query-augmentation-queries-fc27-resolution-state
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc27_resolution_state.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc27_resolution_state.rq" ;
+    gsnprov:fileChecksum "68532e5f2ef35bb4e6d6060b6ecb47fd941da07d460eadfad9681eda697ff6b0" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-69 ;
+    gsnprov:queryText """# id:        CQ-69
+# role:      Auditor
+# operation: read
+# question:  Was a resolution implemented, declined, or infeasible?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?issueId ?targetId ?state
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:resolve ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
+  OPTIONAL {
+    ?answer a gsnaug:Resolution ;
+            gsnaug:answers ?issue
+  }
+  BIND( IF(BOUND(?answer), "implemented",
+        IF(BOUND(?outcome), STRAFTER(STR(?outcome), "#"), "open")) AS ?state )
+}
+ORDER BY ?issueId
+""" .
+
+gsnprov:query-augmentation-queries-fc28-manual-evidence
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc28_manual_evidence.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc28_manual_evidence.rq" ;
+    gsnprov:fileChecksum "bf666727ba643822fa84bfcd6d93ee7fc834e7ab3821abc55373235a3cad3a1c" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:refersTo ;
+    gsnprov:restsOnStatement gsnprov:st-0175 ,
+        gsnprov:st-0289 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-70 ;
+    gsnprov:queryText """# id:        CQ-70
+# role:      Developer
+# operation: read
+# question:  Which evidence needs to be generated manually?
+# expect:    rows
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?mechanism ?automated
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  OPTIONAL {
+    ?artefact gsnaug:generatedWith ?mechanism .
+    OPTIONAL { ?mechanism gsnaug:automated ?automated }
+  }
+  FILTER ( !BOUND(?mechanism) || !BOUND(?automated) || ?automated = false )
+}
+ORDER BY ?solutionId
+""" .
+
+gsnprov:query-augmentation-queries-fc29-automated-evidence
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc29_automated_evidence.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc29_automated_evidence.rq" ;
+    gsnprov:fileChecksum "20b2cf4d152ad135206acb9bb8bede9a8f2d4bb5b0df992dc0f7afd912d29215" ;
+    gsnprov:declaresNamespace "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-71 ;
+    gsnprov:queryText """# id:        CQ-71
+# role:      Developer
+# operation: read
+# question:  Which evidence is generated automatically, and how or where from can it be retrieved?
+# expect:    rows
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+
+SELECT ?artefact ?mechanism ?source ?storage ?retrieval
+WHERE {
+  ?artefact gsnaug:generatedWith ?mechanism .
+  ?mechanism gsnaug:automated true .
+  OPTIONAL { ?artefact gsnaug:generatedFrom  ?source }
+  OPTIONAL { ?artefact gsnaug:storedIn       ?storage }
+  OPTIONAL { ?artefact gsnaug:retrievableWith ?retrieval }
+}
+ORDER BY ?artefact
+""" .
+
+gsnprov:query-augmentation-queries-fc30-alternative-provision
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc30_alternative_provision.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc30_alternative_provision.rq" ;
+    gsnprov:fileChecksum "bf69f97a81d297c8774535869e1bdc4048cc405fb359dbbc55e54ee961d56ca1" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:refersTo ;
+    gsnprov:restsOnStatement gsnprov:st-0175 ,
+        gsnprov:st-0289 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-72 ;
+    gsnprov:queryText """# id:        CQ-72
+# role:      Process/Software Owner
+# operation: read
+# question:  Which evidence needs an alternative provision mechanism - an interview, a call, paper?
+# expect:    rows
+#
+# Which mechanism it is - interview, paper, call - is a subclass of gsnaug:EvidenceRetrievalMechanism
+# in the domain ontology; this returns the ones a person has to run.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?retrieval ?automated
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  OPTIONAL {
+    ?artefact gsnaug:retrievableWith ?retrieval .
+    OPTIONAL { ?retrieval gsnaug:automated ?automated }
+  }
+  FILTER ( !BOUND(?retrieval) || !BOUND(?automated) || ?automated = false )
+}
+ORDER BY ?solutionId
+""" .
+
+gsnprov:query-augmentation-queries-fc31-evidence-cannot-be-produced
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc31_evidence_cannot_be_produced.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc31_evidence_cannot_be_produced.rq" ;
+    gsnprov:fileChecksum "287e94f6c1ad04e099bdc9bd4a7521a1bf2babffcdd7b9cb785b19822d7747bd" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:mentionsTerm gsn:undeveloped ,
+        gsn:uninstantiated ;
+    gsnprov:restsOnStatement gsnprov:st-0200 ,
+        gsnprov:st-0358 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-73 ;
+    gsnprov:queryText """# id:        CQ-73
+# role:      Developer
+# operation: read
+# question:  Which evidence cannot be produced at all, as opposed to not yet produced?
+# expect:    rows
+#
+# Not yet produced is gsn:undeveloped and gsn:uninstantiated, which CQ-26 and CQ-27 report.
+# Cannot be produced is an ask closed as infeasible, which is a different answer.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?targetId ?issueId ?cycleId
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueOutcome gsnaug:infeasible ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL {
+    ?issue gsnaug:raisedIn ?cycle .
+    ?cycle schema:identifier ?cycleId
+  }
+}
+ORDER BY ?targetId
+""" .
+
+gsnprov:query-augmentation-queries-fc32-cannot-resolve
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc32_cannot_resolve.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc32_cannot_resolve.rq" ;
+    gsnprov:fileChecksum "302355090d69d9b23430225a8975ccb6c47ac80814e77f7d24d59a7bad89d0d2" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-74 ;
+    gsnprov:queryText """# id:        CQ-74
+# role:      Auditor
+# operation: read
+# question:  Which issue cannot be resolved at all, as opposed to not yet resolved?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?issueId ?targetId ?outcome ?holder
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:resolve ;
+         gsnaug:issueOutcome ?outcome ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL { ?issue gsnaug:heldBy ?holder }
+  FILTER ( ?outcome IN ( gsnaug:declined, gsnaug:infeasible ) )
+}
+ORDER BY ?issueId
+""" .
+
+gsnprov:query-augmentation-queries-fc33-instantiated-elements
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc33_instantiated_elements.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc33_instantiated_elements.rq" ;
+    gsnprov:fileChecksum "3c5c78b0ba8477f430b8cdf65c5fe7a049fdba7f2f058f5719922ffc3145491a" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:InstantiationDataReference ,
+        gsn:Solution ,
+        gsn:attachedTo ,
+        gsn:refersTo ;
+    gsnprov:restsOnStatement gsnprov:st-0161 ,
+        gsnprov:st-0175 ,
+        gsnprov:st-0289 ,
+        gsnprov:st-0456 ,
+        gsnprov:st-0462 ,
+        gsnprov:st-0463 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-75 ;
+    gsnprov:queryText """# id:        CQ-75
+# role:      Compliance Officer
+# operation: read
+# question:  How is the interpretation instantiated into claims and evidence?
+# expect:    rows
+#
+# The reference says which data governs the subtree; gsnaug:instantiatedFrom says which row of it
+# produced this element.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?elementId ?kind ?data ?row
+WHERE {
+  ?reference a gsn:InstantiationDataReference ;
+             gsn:attachedTo ?element .
+  ?element schema:identifier ?elementId ;
+           a ?kind .
+  VALUES ?kind { gsn:Goal gsn:Solution }
+  OPTIONAL { ?reference gsn:refersTo ?data }
+  OPTIONAL { ?element gsnaug:instantiatedFrom ?row }
+}
+ORDER BY ?elementId
+""" .
+
+gsnprov:query-augmentation-queries-fc34-who-retrieves-evidence
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc34_who_retrieves_evidence.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc34_who_retrieves_evidence.rq" ;
+    gsnprov:fileChecksum "52c599061645f893691388c4c022e89da10283c72d05e5b6701b80b5e0a10aaf" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:refersTo ,
+        gsn:supportedBy ;
+    gsnprov:restsOnStatement gsnprov:st-0175 ,
+        gsnprov:st-0207 ,
+        gsnprov:st-0289 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-76 ;
+    gsnprov:queryText """# id:        CQ-76
+# role:      Compliance Officer
+# operation: read
+# question:  Who is responsible for retrieving the evidence for a particular system?
+# expect:    rows
+#
+# gsnaug:assures is asserted, not derived. It names a gsnaug:System directly, so the answer does
+# not depend on how - or whether - the case draws its top-level context.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?system ?solutionId ?owner ?author
+WHERE {
+  ?goal gsnaug:assures ?system .
+  ?goal gsn:supportedBy* ?descendant .
+  ?descendant a gsn:Solution ;
+              schema:identifier ?solutionId .
+  OPTIONAL { ?descendant gsnaug:ownedBy ?owner }
+  OPTIONAL {
+    ?descendant gsn:refersTo ?artefact .
+    ?artefact gsnaug:generatedBy ?author
+  }
+}
+ORDER BY ?system ?solutionId
+""" .
+
+gsnprov:query-augmentation-queries-fc35-artefacts-to-change
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc35_artefacts_to_change.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc35_artefacts_to_change.rq" ;
+    gsnprov:fileChecksum "e89a580b48ba45bc8675d710e860b3d8ef2da76a93a8f7a02fb3dc3c7707b788" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:defeated ,
+        gsn:refersTo ,
+        gsn:supportedBy ;
+    gsnprov:restsOnStatement gsnprov:st-0175 ,
+        gsnprov:st-0207 ,
+        gsnprov:st-0289 ,
+        gsnprov:st-0699 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-77 ;
+    gsnprov:queryText """# id:        CQ-77
+# role:      Developer
+# operation: read
+# question:  Which artefacts need changing, and who owns the change?
+# expect:    rows
+#
+# The last column is the impact of the change, which CQ-15 answers in full for a given artefact.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?owner ?author ?alsoRestingOnIt
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:defeated true ;
+            gsn:refersTo ?artefact .
+  OPTIONAL { ?solution gsnaug:ownedBy ?owner }
+  OPTIONAL { ?artefact gsnaug:generatedBy ?author }
+  OPTIONAL {
+    ?otherSolution gsn:refersTo ?artefact .
+    ?claim gsn:supportedBy ?otherSolution ;
+           schema:identifier ?alsoRestingOnIt
+  }
+}
+ORDER BY ?solutionId
+""" .
+
+gsnprov:query-augmentation-queries-fc36-automation-feasibility
+    a gsnprov:Query ;
+    rdfs:label "augmentation/queries/fc36_automation_feasibility.rq"@en ;
+    gsnprov:formalism gsnprov:SPARQL ;
+    gsnprov:path "augmentation/queries/fc36_automation_feasibility.rq" ;
+    gsnprov:fileChecksum "9817ed9644f22dd997e0e2d4a529d9f806bc92e8f182273b3a2b98195eb83585" ;
+    gsnprov:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsnprov:mentionsTerm gsn:Solution ,
+        gsn:refersTo ;
+    gsnprov:restsOnStatement gsnprov:st-0175 ,
+        gsnprov:st-0289 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-78 ;
+    gsnprov:queryText """# id:        CQ-78
+# role:      Developer
+# operation: read
+# question:  Which evidence can be generated automatically, and which has been assessed as manual?
+# expect:    rows
+#
+# No mechanism at all means nobody has looked; a mechanism flagged false means automation was
+# assessed and rejected. The two are different answers.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?mechanism ?assessment
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  OPTIONAL {
+    ?artefact gsnaug:generatedWith ?mechanism .
+    OPTIONAL { ?mechanism gsnaug:automated ?automated }
+  }
+  BIND( IF(!BOUND(?mechanism),  "not assessed",
+        IF(!BOUND(?automated),  "mechanism named, not flagged",
+        IF(?automated,          "automated",
+                                "assessed: manual"))) AS ?assessment )
+}
+ORDER BY ?solutionId
+""" .
+
 gsnprov:query-create-assurance-case-skeleton
     a gsnprov:Query ;
     rdfs:label "create_assurance_case_skeleton.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/create_assurance_case_skeleton.rq" ;
-    gsnprov:fileChecksum "61c5690704bdcf5d74512912416d9f0a11ff61cf2af7584bd16cd28f7ce4640f" ;
+    gsnprov:fileChecksum "99fe96c7562077dc87a8e58131a464b386ca5eaa4a264ec372fe4e7c9ce56b53" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://example.org/my-assurance-case#" ,
@@ -394,9 +1596,8 @@ gsnprov:query-create-assurance-case-skeleton
         gsnprov:st-0444 ,
         gsnprov:st-0474 ,
         gsnprov:st-0640 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-13 ;
-    gsnprov:queryText """# id:        AE-13
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-28 ;
+    gsnprov:queryText """# id:        CQ-28
 # operation: create
 # question:  How is a new, empty assurance case started?
 # expect:    insert
@@ -440,7 +1641,7 @@ gsnprov:query-create-challenge-to-element
     rdfs:label "create_challenge_to_element.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/create_challenge_to_element.rq" ;
-    gsnprov:fileChecksum "a6a547eefc63ce235991ea812f5c460af97ad64af45ecda3799a662f38948616" ;
+    gsnprov:fileChecksum "9ecdaa6b9abd7310973e4c4e31e6f1930e94c572371b073a4431ec61b37dfe24" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -455,9 +1656,8 @@ gsnprov:query-create-challenge-to-element
         gsnprov:st-0696 ,
         gsnprov:st-0740 ,
         gsnprov:st-0760 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-08 ;
-    gsnprov:queryText """# id:        AU-08
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-29 ;
+    gsnprov:queryText """# id:        CQ-29
 # operation: create
 # question:  How is a challenge recorded against part of the argument?
 # expect:    insert
@@ -495,7 +1695,7 @@ gsnprov:query-create-context-for-goal
     rdfs:label "create_context_for_goal.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/create_context_for_goal.rq" ;
-    gsnprov:fileChecksum "b7089236a4fad6645898f055d26f97badaac0af39ff0901d365a5e22ff932935" ;
+    gsnprov:fileChecksum "25305ea9b02f68914c2b8c42b6b3e8346df9123a572d3f5dfcf6ff71babdcb2a" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -509,9 +1709,8 @@ gsnprov:query-create-context-for-goal
         gsnprov:st-0218 ,
         gsnprov:st-0265 ,
         gsnprov:st-0289 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-09 ;
-    gsnprov:queryText """# id:        DE-09
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-30 ;
+    gsnprov:queryText """# id:        CQ-30
 # operation: create
 # question:  How is a context element added to a goal or strategy, pointing at an artefact?
 # expect:    insert
@@ -546,7 +1745,7 @@ gsnprov:query-create-goal-under-parent
     rdfs:label "create_goal_under_parent.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/create_goal_under_parent.rq" ;
-    gsnprov:fileChecksum "b33c9e77c8044cc99a9c41b120523a7c60e553e59852ac2dcf664190a0ff9474" ;
+    gsnprov:fileChecksum "3a7e7e1d22a180c5af67bb4c25cd9d0edc866fda20b2c1df3482efdea68ff3a7" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -560,9 +1759,8 @@ gsnprov:query-create-goal-under-parent
         gsnprov:st-0200 ,
         gsnprov:st-0207 ,
         gsnprov:st-0265 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-14 ;
-    gsnprov:queryText """# id:        AE-14
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-31 ;
+    gsnprov:queryText """# id:        CQ-31
 # operation: create
 # question:  How is a sub-goal added beneath an existing goal or strategy?
 # expect:    insert
@@ -599,7 +1797,7 @@ gsnprov:query-create-solution-with-artefact
     rdfs:label "create_solution_with_artefact.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/create_solution_with_artefact.rq" ;
-    gsnprov:fileChecksum "33b490db51c210754b1d9b9dab269750944b60accbfde4863562118d2bc41259" ;
+    gsnprov:fileChecksum "66c5f770e616e3857d1c28332a5377b63d2570f441bf5c15d8eea3cadb3cc50f" ;
     gsnprov:declaresNamespace "http://purl.org/dc/terms/" ,
         "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
@@ -615,9 +1813,8 @@ gsnprov:query-create-solution-with-artefact
         gsnprov:st-0207 ,
         gsnprov:st-0265 ,
         gsnprov:st-0289 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-10 ;
-    gsnprov:queryText """# id:        DE-10
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-32 ;
+    gsnprov:queryText """# id:        CQ-32
 # operation: create
 # question:  How is a new piece of evidence attached to a goal?
 # expect:    insert
@@ -661,7 +1858,7 @@ gsnprov:query-create-solutions-for-unreferenced-artefacts
     rdfs:label "create_solutions_for_unreferenced_artefacts.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/create_solutions_for_unreferenced_artefacts.rq" ;
-    gsnprov:fileChecksum "f921453ced62bf63f0b79a088ab3a427d62d3bf03aa8544e91a50dc4b2b2aae1" ;
+    gsnprov:fileChecksum "92851d627daf4938cb6f24150e2c8ad6a3c34db63231003009712c89ec589776" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -673,9 +1870,8 @@ gsnprov:query-create-solutions-for-unreferenced-artefacts
         gsnprov:st-0175 ,
         gsnprov:st-0265 ,
         gsnprov:st-0289 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-11 ;
-    gsnprov:queryText """# id:        DE-11
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-33 ;
+    gsnprov:queryText """# id:        CQ-33
 # operation: create
 # question:  How are artefacts already in the store turned into solutions in bulk?
 # expect:    insert
@@ -715,7 +1911,7 @@ gsnprov:query-create-strategy-between-goals
     rdfs:label "create_strategy_between_goals.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/create_strategy_between_goals.rq" ;
-    gsnprov:fileChecksum "4877f1a21dbfe4ed3487c6d2ba6caf7258c6cf3a4836485a0ef80d82eccf4c5b" ;
+    gsnprov:fileChecksum "7c789447d74acb77fffb07656e2da2e92bfa4d3c650d0e871f85835d2b782776" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -727,9 +1923,8 @@ gsnprov:query-create-strategy-between-goals
         gsnprov:st-0200 ,
         gsnprov:st-0207 ,
         gsnprov:st-0265 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-15 ;
-    gsnprov:queryText """# id:        AE-15
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-34 ;
+    gsnprov:queryText """# id:        CQ-34
 # operation: create
 # question:  How is a strategy inserted between a goal and the sub-goals it already has?
 # expect:    change
@@ -770,7 +1965,7 @@ gsnprov:query-delete-assurance-case
     rdfs:label "delete_assurance_case.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/delete_assurance_case.rq" ;
-    gsnprov:fileChecksum "76f42cebfaaff60896600938162f873a1b55d0f858d89f922f7154b31a7843a7" ;
+    gsnprov:fileChecksum "444ee763c1ae3f5d3b019eea266e843f539df40af41cd360317d1e80652e3454" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Artefact ,
@@ -786,9 +1981,8 @@ gsnprov:query-delete-assurance-case
         gsnprov:st-0474 ,
         gsnprov:st-0696 ,
         gsnprov:st-0740 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-15 ;
-    gsnprov:queryText """# id:        AU-15
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-38 ;
+    gsnprov:queryText """# id:        CQ-38
 # operation: delete
 # question:  How is a whole assurance case and everything under it removed?
 # expect:    delete
@@ -823,7 +2017,7 @@ gsnprov:query-delete-challenge-and-its-effects
     rdfs:label "delete_challenge_and_its_effects.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/delete_challenge_and_its_effects.rq" ;
-    gsnprov:fileChecksum "55770cdf44ca9f4e3c5859488ef080e7aee97a76c5e0a617093080c48247dfd2" ;
+    gsnprov:fileChecksum "3248e8f70f1a0fc69c5e0ee3f9ce1db854a6cc0b324562a13497504b9b1c614d" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -834,9 +2028,8 @@ gsnprov:query-delete-challenge-and-its-effects
         gsnprov:st-0699 ,
         gsnprov:st-0731 ,
         gsnprov:st-0740 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-14 ;
-    gsnprov:queryText """# id:        AU-14
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-39 ;
+    gsnprov:queryText """# id:        CQ-39
 # operation: delete
 # question:  How is a challenge withdrawn, together with the doubt and defeat it caused?
 # expect:    delete
@@ -879,13 +2072,12 @@ gsnprov:query-delete-element-and-its-links
     rdfs:label "delete_element_and_its_links.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/delete_element_and_its_links.rq" ;
-    gsnprov:fileChecksum "ec6d3568beefc3805c6b77346aaf77e9ec1f9c4a07a38915fedf580c5a72dbe2" ;
+    gsnprov:fileChecksum "aaa56b36759483509e238e594c89017d77ad5367c95fca14d0e446e31cf5cfbf" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
-    gsnprov:answersQuestion gsnprov:cq-AE-23 ;
-    gsnprov:queryText """# id:        AE-23
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-40 ;
+    gsnprov:queryText """# id:        CQ-40
 # operation: delete
 # question:  How is an element removed without leaving dangling references to it?
 # expect:    delete
@@ -921,7 +2113,7 @@ gsnprov:query-delete-materialised-inferences
     rdfs:label "delete_materialised_inferences.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/delete_materialised_inferences.rq" ;
-    gsnprov:fileChecksum "91354f5be84e36858320758d81f9014b7f20778cbbed1e2a3954bc154dd899c0" ;
+    gsnprov:fileChecksum "7dc8f0bcf9b63788527a1a744b74af5886f19814fefd107c7d2d94ee4b94318c" ;
     gsnprov:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Defeater ,
@@ -946,9 +2138,8 @@ gsnprov:query-delete-materialised-inferences
         gsnprov:st-0699 ,
         gsnprov:st-0731 ,
         gsnprov:st-0760 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-25 ;
-    gsnprov:queryText """# id:        AE-25
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-41 ;
+    gsnprov:queryText """# id:        CQ-41
 # operation: delete
 # question:  How are the conclusions written by queries/rules/ cleared before re-running them?
 # expect:    delete
@@ -988,15 +2179,14 @@ gsnprov:query-delete-support-link
     rdfs:label "delete_support_link.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/delete_support_link.rq" ;
-    gsnprov:fileChecksum "117cd7febade6620ac14faafb7c4dc07106e56c018a082f5d9611e88cee2ea09" ;
+    gsnprov:fileChecksum "0416f4d84351725f716521677b455fb5343e9c6b0f88b987bc26ce979cf3ba6c" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:supportedBy ;
     gsnprov:restsOnStatement gsnprov:st-0207 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-24 ;
-    gsnprov:queryText """# id:        AE-24
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-42 ;
+    gsnprov:queryText """# id:        CQ-42
 # operation: delete
 # question:  How is one support or context link removed, leaving both elements in place?
 # expect:    delete
@@ -1032,15 +2222,14 @@ gsnprov:query-delete-unreferenced-artefacts
     rdfs:label "delete_unreferenced_artefacts.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/delete_unreferenced_artefacts.rq" ;
-    gsnprov:fileChecksum "745afdf03b860d0119e554052b050c811d8b828863e60ebda2a23641e9658917" ;
+    gsnprov:fileChecksum "ecfbe561c95d89139bdf90f61683681b4bfa65c9aa44c3aba7a47b22b534c040" ;
     gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Artefact ,
         gsn:refersTo ;
     gsnprov:restsOnStatement gsnprov:st-0111 ,
         gsnprov:st-0289 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-16 ;
-    gsnprov:queryText """# id:        DE-16
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-43 ;
+    gsnprov:queryText """# id:        CQ-43
 # operation: delete
 # question:  How are artefacts no solution or context cites any more cleared out?
 # expect:    delete
@@ -1070,7 +2259,7 @@ gsnprov:query-read-assurance-case-inventory
     rdfs:label "read_assurance_case_inventory.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_assurance_case_inventory.rq" ;
-    gsnprov:fileChecksum "d15d4c10a6b5ab1f045ed5aa805c5fdbc69575f3f82c95ff78c72e6a5e64ea8b" ;
+    gsnprov:fileChecksum "2f59a0919c604d195396dd58797947023cf2e40f040ed2a4527b00f26e5e737a" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1082,9 +2271,8 @@ gsnprov:query-read-assurance-case-inventory
         gsnprov:st-0085 ,
         gsnprov:st-0265 ,
         gsnprov:st-0474 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-01 ;
-    gsnprov:queryText """# id:        AE-01
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-01 ;
+    gsnprov:queryText """# id:        CQ-01
 # operation: read
 # question:  What assurance cases are in the store, and what arguments does each contain?
 # expect:    rows
@@ -1115,7 +2303,7 @@ gsnprov:query-read-assurance-claim-points
     rdfs:label "read_assurance_claim_points.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_assurance_claim_points.rq" ;
-    gsnprov:fileChecksum "5a08d5404be29d3abcb4a64075e774bcd4003bd77ff17aae8a1bb16ffa41bcc7" ;
+    gsnprov:fileChecksum "b6b8ea7624ad201071feb9436e1625bf752ecf13a05fbbbc1b20eaf5ce490bc7" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1125,9 +2313,8 @@ gsnprov:query-read-assurance-claim-points
     gsnprov:restsOnStatement gsnprov:st-0265 ,
         gsnprov:st-0635 ,
         gsnprov:st-0658 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-01 ;
-    gsnprov:queryText """# id:        DE-01
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-02 ;
+    gsnprov:queryText """# id:        CQ-02
 # operation: read
 # question:  Where are the assurance claim points, and what confidence argument backs each?
 # expect:    rows
@@ -1157,7 +2344,7 @@ gsnprov:query-read-away-elements
     rdfs:label "read_away_elements.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_away_elements.rq" ;
-    gsnprov:fileChecksum "b34439fbe9841f43b92e9ffa2290ed83dcd378b326dd98c0908a956365064d0a" ;
+    gsnprov:fileChecksum "ed83828a1994547893bad1f18f35f7139c61133bb21e3ffdcb05a2a99fd18bad" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Module ,
@@ -1168,9 +2355,8 @@ gsnprov:query-read-away-elements
         gsnprov:st-0474 ,
         gsnprov:st-0490 ,
         gsnprov:st-0534 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-04 ;
-    gsnprov:queryText """# id:        DE-04
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-03 ;
+    gsnprov:queryText """# id:        CQ-03
 # operation: read
 # question:  Which away elements are referenced, and does the module they come from exist?
 # expect:    rows
@@ -1202,14 +2388,13 @@ gsnprov:query-read-case-summary-counts
     rdfs:label "read_case_summary_counts.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_case_summary_counts.rq" ;
-    gsnprov:fileChecksum "f800c7d265e44fec78ad4f3fdeeec64eaf431042040d2c979912762181ad64a1" ;
+    gsnprov:fileChecksum "83e367a79bafed47fc4c678a116cef186e8bce7cf566aba82c29ae20f1fb4ba0" ;
     gsnprov:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:GSNElement ;
     gsnprov:restsOnStatement gsnprov:st-0132 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-02 ;
-    gsnprov:queryText """# id:        AE-02
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-04 ;
+    gsnprov:queryText """# id:        CQ-04
 # operation: read
 # question:  How many elements of each GSN type does the case contain?
 # expect:    rows
@@ -1234,7 +2419,7 @@ gsnprov:query-read-challenges-and-their-targets
     rdfs:label "read_challenges_and_their_targets.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_challenges_and_their_targets.rq" ;
-    gsnprov:fileChecksum "1c3f2e70d7b33e203ca6c5478209a9a762701cd81c1253e94f6550e7eebe3286" ;
+    gsnprov:fileChecksum "230d55b9f4a3f4e5124a52fa306af604a00fde65535fdc58aec7322e5999e5d1" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Defeater ,
@@ -1248,9 +2433,8 @@ gsnprov:query-read-challenges-and-their-targets
         gsnprov:st-0696 ,
         gsnprov:st-0740 ,
         gsnprov:st-0760 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-04 ;
-    gsnprov:queryText """# id:        AU-04
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-63 ;
+    gsnprov:queryText """# id:        CQ-05
 # operation: read
 # question:  What challenges have been raised, against what, and by what kind of defeater?
 # expect:    rows
@@ -1281,7 +2465,7 @@ gsnprov:query-read-claim-points-without-confidence-argument
     rdfs:label "read_claim_points_without_confidence_argument.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_claim_points_without_confidence_argument.rq" ;
-    gsnprov:fileChecksum "baaefc376b29abd0c60e77d22e9f5e2dd430760792e4617d9b48bd1d0ec734d8" ;
+    gsnprov:fileChecksum "471a118c45f8bc641f08e337f6692c785a05a0b80eedda99953956d9d5cbac47" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1291,9 +2475,8 @@ gsnprov:query-read-claim-points-without-confidence-argument
     gsnprov:restsOnStatement gsnprov:st-0635 ,
         gsnprov:st-0640 ,
         gsnprov:st-0658 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-02 ;
-    gsnprov:queryText """# id:        DE-02
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-06 ;
+    gsnprov:queryText """# id:        CQ-06
 # operation: read
 # question:  Which assurance claim points have no confidence argument behind them?
 # expect:    rows
@@ -1326,7 +2509,7 @@ gsnprov:query-read-context-in-scope-for-goal
     rdfs:label "read_context_in_scope_for_goal.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_context_in_scope_for_goal.rq" ;
-    gsnprov:fileChecksum "13c0897c07d0f06399ce50d594a3310b19313961358c8f0f8af1532e0b43fce5" ;
+    gsnprov:fileChecksum "4608835e631e66d96c5c2d70139a3c57bdcb0c65f0c1b1aedcac83980958319e" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1338,9 +2521,10 @@ gsnprov:query-read-context-in-scope-for-goal
         gsnprov:st-0207 ,
         gsnprov:st-0218 ,
         gsnprov:st-0265 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-08 ;
-    gsnprov:queryText """# id:        AE-08
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-44 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-45 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-46 ;
+    gsnprov:queryText """# id:        CQ-07
 # operation: read
 # question:  What context, assumptions and justifications are in scope for a given goal?
 # expect:    rows
@@ -1374,7 +2558,7 @@ gsnprov:query-read-duplicate-identifiers
     rdfs:label "read_duplicate_identifiers.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_duplicate_identifiers.rq" ;
-    gsnprov:fileChecksum "2845aadf4f6a5b22adc0f23217584d50c8ee1f79f9461d0a90260a0bf8d80354" ;
+    gsnprov:fileChecksum "e4877600a29008497c46ad7528f8d38f20d9e2d392907d53af064ec140501079" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1390,9 +2574,8 @@ gsnprov:query-read-duplicate-identifiers
         gsnprov:st-0132 ,
         gsnprov:st-0291 ,
         gsnprov:st-0369 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-06 ;
-    gsnprov:queryText """# id:        AU-06
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-08 ;
+    gsnprov:queryText """# id:        CQ-08
 # operation: read
 # question:  Do two distinct elements share a schema:identifier?
 # expect:    rows
@@ -1421,7 +2604,7 @@ gsnprov:query-read-element-by-identifier
     rdfs:label "read_element_by_identifier.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_element_by_identifier.rq" ;
-    gsnprov:fileChecksum "1ae13294916f68eb4fa3a8b03311786be8879103675dc06f860ad8c47c5365ff" ;
+    gsnprov:fileChecksum "665b5562757baf278d6632c8de9521066b33ded437130f6f8708e5e0e9e38397" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1442,9 +2625,8 @@ gsnprov:query-read-element-by-identifier
         gsnprov:st-0658 ,
         gsnprov:st-0696 ,
         gsnprov:st-0740 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-04 ;
-    gsnprov:queryText """# id:        AE-04
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-09 ;
+    gsnprov:queryText """# id:        CQ-09
 # operation: read
 # question:  What does the element with a given identifier say, and what is it linked to?
 # expect:    rows
@@ -1479,7 +2661,7 @@ gsnprov:query-read-element-status-flags
     rdfs:label "read_element_status_flags.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_element_status_flags.rq" ;
-    gsnprov:fileChecksum "9d5f2229e6667b72fd8b189ae7edeb74c12aafddb10b62edd03623c30d9cd976" ;
+    gsnprov:fileChecksum "1f5c76ac39a52f90207843d019b52c9d1f8ac2531c25d28b6a989cdfa144cde8" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:defeated ,
@@ -1490,9 +2672,9 @@ gsnprov:query-read-element-status-flags
         gsnprov:st-0234 ,
         gsnprov:st-0699 ,
         gsnprov:st-0731 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-02 ;
-    gsnprov:queryText """# id:        AU-02
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-54 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-67 ;
+    gsnprov:queryText """# id:        CQ-10
 # operation: read
 # question:  What is the current status of every element - valid, true, in doubt, defeated?
 # expect:    rows
@@ -1517,7 +2699,7 @@ gsnprov:query-read-elements-unreachable-from-top-goal
     rdfs:label "read_elements_unreachable_from_top_goal.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_elements_unreachable_from_top_goal.rq" ;
-    gsnprov:fileChecksum "390eaa70e107c13302d6d5ca2aa49c4939808c90933053f32e1188dbf6d2cb0c" ;
+    gsnprov:fileChecksum "33caeb3a5a6ba6b0b02733f9c4a8034d7cd41535edd6c9b716e6f82a79e59edc" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1535,9 +2717,8 @@ gsnprov:query-read-elements-unreachable-from-top-goal
         gsnprov:st-0218 ,
         gsnprov:st-0265 ,
         gsnprov:st-0289 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-01 ;
-    gsnprov:queryText """# id:        AU-01
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-11 ;
+    gsnprov:queryText """# id:        CQ-11
 # operation: read
 # question:  Which elements are not reachable from any top goal - present but unargued?
 # expect:    rows
@@ -1571,7 +2752,7 @@ gsnprov:query-read-evidence-supporting-goal
     rdfs:label "read_evidence_supporting_goal.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_evidence_supporting_goal.rq" ;
-    gsnprov:fileChecksum "7a11b1bad688266b59d4a4659799d791cb0dacf54a6b8745e9625bd546820ab2" ;
+    gsnprov:fileChecksum "f5add6cda83ba879c298b56f8e1d95cf40247564a68b72b98313eea44fe92a58" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1583,9 +2764,8 @@ gsnprov:query-read-evidence-supporting-goal
         gsnprov:st-0207 ,
         gsnprov:st-0265 ,
         gsnprov:st-0289 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-06 ;
-    gsnprov:queryText """# id:        AE-06
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-51 ;
+    gsnprov:queryText """# id:        CQ-12
 # operation: read
 # question:  What evidence ultimately supports a given goal?
 # expect:    rows
@@ -1620,16 +2800,15 @@ gsnprov:query-read-goal-support-tree
     rdfs:label "read_goal_support_tree.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_goal_support_tree.rq" ;
-    gsnprov:fileChecksum "3c0d35b25061d395757cc27d9072dc70a3a9177d31a3544577ed3a9031bf7bbb" ;
+    gsnprov:fileChecksum "9d9dc8c5968292ba00c14b18c96064a868c50c4bcd34289b22edb21fd7031caa" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:statement ,
         gsn:supportedBy ;
     gsnprov:restsOnStatement gsnprov:st-0207 ,
         gsnprov:st-0265 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-05 ;
-    gsnprov:queryText """# id:        AE-05
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-47 ;
+    gsnprov:queryText """# id:        CQ-13
 # operation: read
 # question:  What is the whole argument beneath a given goal?
 # expect:    rows
@@ -1667,7 +2846,7 @@ gsnprov:query-read-goals-affected-by-challenge
     rdfs:label "read_goals_affected_by_challenge.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_goals_affected_by_challenge.rq" ;
-    gsnprov:fileChecksum "33500d5498b4a8d8673864cb938183c9db01890f9ac4d10bda4eb8bfda144626" ;
+    gsnprov:fileChecksum "5416f069e4c972b3e8e218f861cf7ec7e9e2e780b7a359b1cc0a78412f193923" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Goal ,
@@ -1681,9 +2860,8 @@ gsnprov:query-read-goals-affected-by-challenge
         gsnprov:st-0265 ,
         gsnprov:st-0696 ,
         gsnprov:st-0740 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-05 ;
-    gsnprov:queryText """# id:        AU-05
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-63 ;
+    gsnprov:queryText """# id:        CQ-14
 # operation: read
 # question:  Which claims above a challenged element lose support if the challenge stands?
 # expect:    rows
@@ -1712,7 +2890,7 @@ gsnprov:query-read-goals-resting-on-artefact
     rdfs:label "read_goals_resting_on_artefact.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_goals_resting_on_artefact.rq" ;
-    gsnprov:fileChecksum "789fcffb493181787f398edaf21c5b02565c831a485a88df06c19e0365f37020" ;
+    gsnprov:fileChecksum "31dad7722729a2ee585e5393d75ebec3903ca8a35ff136c714b8e883db17d98d" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Goal ,
@@ -1723,9 +2901,8 @@ gsnprov:query-read-goals-resting-on-artefact
         gsnprov:st-0207 ,
         gsnprov:st-0265 ,
         gsnprov:st-0289 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-07 ;
-    gsnprov:queryText """# id:        AE-07
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-77 ;
+    gsnprov:queryText """# id:        CQ-15
 # operation: read
 # question:  If a given artefact is withdrawn or superseded, which claims are affected?
 # expect:    rows
@@ -1755,7 +2932,7 @@ gsnprov:query-read-goals-without-support
     rdfs:label "read_goals_without_support.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_goals_without_support.rq" ;
-    gsnprov:fileChecksum "77a6bd5f4438ddcf184602e7815a1a64287838f286b1d6ea0e88e714df972429" ;
+    gsnprov:fileChecksum "0fb730490c0b533ecb77bbf85d3b986fc7763f768190076e7ef7f5b0a9e54e60" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Goal ,
@@ -1770,9 +2947,9 @@ gsnprov:query-read-goals-without-support
         gsnprov:st-0265 ,
         gsnprov:st-0490 ,
         gsnprov:st-0542 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-10 ;
-    gsnprov:queryText """# id:        AE-10
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-46 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-48 ;
+    gsnprov:queryText """# id:        CQ-16
 # operation: read
 # question:  Which goals have no support at all and are not admitted to be undeveloped?
 # expect:    rows
@@ -1802,7 +2979,7 @@ gsnprov:query-read-invalid-elements
     rdfs:label "read_invalid_elements.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_invalid_elements.rq" ;
-    gsnprov:fileChecksum "0962946166b6958b17e042707dfd987a29647cfba63c7df2d763c8f6ac51edb1" ;
+    gsnprov:fileChecksum "03b4c76fd1e749ef9a44d4886bb4ce178fe466406d079bb0b7de800f29dd52e0" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:defeated ,
@@ -1815,9 +2992,9 @@ gsnprov:query-read-invalid-elements
         gsnprov:st-0265 ,
         gsnprov:st-0699 ,
         gsnprov:st-0731 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-03 ;
-    gsnprov:queryText """# id:        AU-03
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-54 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-67 ;
+    gsnprov:queryText """# id:        CQ-17
 # operation: read
 # question:  Which elements or relationships are currently invalid, in doubt or defeated?
 # expect:    rows
@@ -1853,7 +3030,7 @@ gsnprov:query-read-module-dependencies
     rdfs:label "read_module_dependencies.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_module_dependencies.rq" ;
-    gsnprov:fileChecksum "8b682abe7d556bc0c94072fe01ea9fa06cd515a3afe75c485dc974bbf13c8e16" ;
+    gsnprov:fileChecksum "ab7348099f64abe9d2bcd827e009bc50440cd5cd86cd7480fc74196dc5bbc06d" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Module ,
@@ -1864,9 +3041,8 @@ gsnprov:query-read-module-dependencies
         gsnprov:st-0218 ,
         gsnprov:st-0469 ,
         gsnprov:st-0474 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-03 ;
-    gsnprov:queryText """# id:        DE-03
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-18 ;
+    gsnprov:queryText """# id:        CQ-18
 # operation: read
 # question:  Which modules depend on which, and through which elements?
 # expect:    rows
@@ -1900,7 +3076,7 @@ gsnprov:query-read-pattern-instantiations
     rdfs:label "read_pattern_instantiations.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_pattern_instantiations.rq" ;
-    gsnprov:fileChecksum "cfb6f8aa9d187ced48cf286927ae54595a2d695b36a663370e675b158da6cebc" ;
+    gsnprov:fileChecksum "99bb0072389050021722288ead795489c9cbf5a8749497fed6b0df94e7be1973" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1914,9 +3090,8 @@ gsnprov:query-read-pattern-instantiations
         gsnprov:st-0382 ,
         gsnprov:st-0407 ,
         gsnprov:st-0412 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-06 ;
-    gsnprov:queryText """# id:        DE-06
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-75 ;
+    gsnprov:queryText """# id:        CQ-19
 # operation: read
 # question:  Which elements instantiate which argument pattern, and is the pattern's own
 #            documentation complete?
@@ -1950,7 +3125,7 @@ gsnprov:query-read-public-elements-in-contract-modules
     rdfs:label "read_public_elements_in_contract_modules.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_public_elements_in_contract_modules.rq" ;
-    gsnprov:fileChecksum "a038a05d2c4317f2c52e26553e6cc80d22b66e5ee0c0353fed15806fcb833934" ;
+    gsnprov:fileChecksum "c50bf6532d81502e06248f087f7060711f663bc5e740ddf5a8b493f8ac59431c" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:contains ,
@@ -1959,9 +3134,8 @@ gsnprov:query-read-public-elements-in-contract-modules
     gsnprov:restsOnStatement gsnprov:st-0474 ,
         gsnprov:st-0525 ,
         gsnprov:st-0534 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-05 ;
-    gsnprov:queryText """# id:        DE-05
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-20 ;
+    gsnprov:queryText """# id:        CQ-20
 # operation: read
 # question:  Which public elements sit inside a contract module, where they must not?
 # expect:    rows
@@ -1991,7 +3165,7 @@ gsnprov:query-read-relationship-decorators
     rdfs:label "read_relationship_decorators.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_relationship_decorators.rq" ;
-    gsnprov:fileChecksum "2e3ca3fadfff9e535c82a0863d6739ba932dbe0a9ec4fe19b825e2e3421e6bd1" ;
+    gsnprov:fileChecksum "1d4a8fd283db36e9fe6bfc76594f398facd6783f068cffd92386f2aae23aa7fb" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
@@ -2009,9 +3183,8 @@ gsnprov:query-read-relationship-decorators
         gsnprov:st-0336 ,
         gsnprov:st-0340 ,
         gsnprov:st-0353 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-08 ;
-    gsnprov:queryText """# id:        DE-08
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-21 ;
+    gsnprov:queryText """# id:        CQ-21
 # operation: read
 # question:  Which relationships carry pattern decorators - optional, multiple, cardinality?
 # expect:    rows
@@ -2046,7 +3219,7 @@ gsnprov:query-read-solutions-without-artefact
     rdfs:label "read_solutions_without_artefact.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_solutions_without_artefact.rq" ;
-    gsnprov:fileChecksum "a9112f64fda2b8ebc2986fcd141173f0e87a2bac285dd402af4664415f4f0972" ;
+    gsnprov:fileChecksum "9153b986a67079d7673790e1a5d80c6b211c3e5d73425aece6b77d7699a15924" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Solution ,
@@ -2055,9 +3228,9 @@ gsnprov:query-read-solutions-without-artefact
     gsnprov:restsOnStatement gsnprov:st-0175 ,
         gsnprov:st-0265 ,
         gsnprov:st-0289 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-11 ;
-    gsnprov:queryText """# id:        AE-11
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-48 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-51 ;
+    gsnprov:queryText """# id:        CQ-22
 # operation: read
 # question:  Which solutions cite no artefact - evidence claimed but not identified?
 # expect:    rows
@@ -2080,7 +3253,7 @@ gsnprov:query-read-stale-evidence
     rdfs:label "read_stale_evidence.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_stale_evidence.rq" ;
-    gsnprov:fileChecksum "57b059bca67aa9a7f35a21cab1c0be8747b3711e30be980738042087ca26b7fa" ;
+    gsnprov:fileChecksum "5a30c0d76ec94ad1424e205c9e72bbe278acd49496044564d97b3cce655d4e78" ;
     gsnprov:declaresNamespace "http://purl.org/dc/terms/" ,
         "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
@@ -2094,9 +3267,8 @@ gsnprov:query-read-stale-evidence
         gsnprov:st-0161 ,
         gsnprov:st-0207 ,
         gsnprov:st-0289 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-12 ;
-    gsnprov:queryText """# id:        AE-12
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-23 ;
+    gsnprov:queryText """# id:        CQ-23
 # operation: read
 # question:  Which artefacts predate a given date, and which claims still rest on them?
 # expect:    rows
@@ -2137,14 +3309,13 @@ gsnprov:query-read-support-cycles
     rdfs:label "read_support_cycles.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_support_cycles.rq" ;
-    gsnprov:fileChecksum "f136019dea91b9f3f034a8d2843ed1d28ad873265da6808d04d818b648e0f74f" ;
+    gsnprov:fileChecksum "44a990e8ba2dc1566333c02caf9a47f55048e15e147feedf93361e3dd9a68e8f" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:supportedBy ;
     gsnprov:restsOnStatement gsnprov:st-0207 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-07 ;
-    gsnprov:queryText """# id:        AU-07
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-24 ;
+    gsnprov:queryText """# id:        CQ-24
 # operation: read
 # question:  Does any element support itself through a chain - a circular argument?
 # expect:    rows
@@ -2172,7 +3343,7 @@ gsnprov:query-read-top-goals
     rdfs:label "read_top_goals.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_top_goals.rq" ;
-    gsnprov:fileChecksum "c4bcf7f6fe47959ed1428b9561ef4cd3592218a1f7861eb531f9745ff2636154" ;
+    gsnprov:fileChecksum "6bfd41458019a2d218a2029403362f6152e81c0a4055bbd2e8b8ff31966d2eba" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Goal ,
@@ -2183,9 +3354,8 @@ gsnprov:query-read-top-goals
         gsnprov:st-0161 ,
         gsnprov:st-0207 ,
         gsnprov:st-0265 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-03 ;
-    gsnprov:queryText """# id:        AE-03
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-25 ;
+    gsnprov:queryText """# id:        CQ-25
 # operation: read
 # question:  What is the top goal of each argument - the claim everything else supports?
 # expect:    rows
@@ -2213,7 +3383,7 @@ gsnprov:query-read-undeveloped-elements
     rdfs:label "read_undeveloped_elements.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_undeveloped_elements.rq" ;
-    gsnprov:fileChecksum "10a8228871f2fa722755e06b10941cbbf578ff848617dcd885e65799ae34a6f5" ;
+    gsnprov:fileChecksum "7641554bc40a94a8311abb4182b500e5f4073c0d316f95b26374d24940f78f43" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:statement ,
@@ -2222,9 +3392,9 @@ gsnprov:query-read-undeveloped-elements
     gsnprov:restsOnStatement gsnprov:st-0200 ,
         gsnprov:st-0207 ,
         gsnprov:st-0265 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-09 ;
-    gsnprov:queryText """# id:        AE-09
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-46 ;
+    gsnprov:answersQuestion gsnprov:cq-CQ-53 ;
+    gsnprov:queryText """# id:        CQ-26
 # operation: read
 # question:  Which lines of argument are declared undeveloped, and are still undeveloped?
 # expect:    rows
@@ -2252,7 +3422,7 @@ gsnprov:query-read-uninstantiated-elements
     rdfs:label "read_uninstantiated_elements.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/read_uninstantiated_elements.rq" ;
-    gsnprov:fileChecksum "ffec39ff8501449389d43d6378cd8a9f748ba575e4fbc9874a55077469acee0a" ;
+    gsnprov:fileChecksum "c49b4655a01f2e1744e5ab50b3a61a58acd37743cb1d6c4b20184746ce4ae4cc" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:instantiationOf ,
@@ -2261,9 +3431,8 @@ gsnprov:query-read-uninstantiated-elements
     gsnprov:restsOnStatement gsnprov:st-0265 ,
         gsnprov:st-0305 ,
         gsnprov:st-0358 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-07 ;
-    gsnprov:queryText """# id:        DE-07
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-48 ;
+    gsnprov:queryText """# id:        CQ-27
 # operation: read
 # question:  Which elements are still uninstantiated placeholders from a pattern?
 # expect:    rows
@@ -2492,34 +3661,64 @@ gsnprov:query-rules-s06-goal-top-flag
     rdfs:label "rules/s06_goal_top_flag.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/rules/s06_goal_top_flag.rq" ;
-    gsnprov:fileChecksum "bf4590cc4304b79963b6e3253f7702aef03e4f86a550d730037beef19ccfa99e" ;
+    gsnprov:fileChecksum "092563c3216778aaad4d3856dd9f20488cdfa3aba0f9cddc952d3a12f6fca0b2" ;
     gsnprov:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Goal ,
+        gsn:Module ,
+        gsn:challenges ,
+        gsn:contains ,
+        gsn:inModule ,
         gsn:supportedBy ,
         gsn:top ;
     gsnprov:ruleName "Goal Top Flag" ;
     gsnprov:translatesStatement gsnprov:st-0148 ;
     gsnprov:restsOnStatement gsnprov:st-0144 ,
         gsnprov:st-0161 ,
-        gsnprov:st-0207 ;
+        gsnprov:st-0207 ,
+        gsnprov:st-0469 ,
+        gsnprov:st-0474 ,
+        gsnprov:st-0696 ,
+        gsnprov:st-0740 ,
+        gsnprov:st-0944 ;
     gsnprov:queryText """# rule:      S6
 # name:      Goal Top Flag
 # section:   Core GSN
 # operation: rule
 # expect:    change
 # swrl:      'supported by'(?X, ?A) ^ Goal(?A) -> 'top (goal)'(?A, false)
-# reads:     IF X is supported by A AND A is a Goal THEN A is NOT a top-level goal
+# reads:     IF X is supported by A AND A is a Goal AND X is in scope for A THEN A is NOT a
+#            top-level goal; likewise IF A challenges anything THEN A is NOT a top-level goal
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
 # ?X is a Goal or a Strategy without saying so: those are the rdfs:domain of gsn:supportedBy.
 # A strategy parent counts, which is the whole point - a goal reached through a strategy is
 # not the pinnacle claim, and the earlier form of this rule missed every one of them.
+#
+# A parent counts only when it is IN SCOPE. The top goal is the pinnacle claim of an
+# argument, not of the whole store, so an away goal reached from another module stays the top
+# goal of its own module: a parent is discounted exactly when some module holds the parent and
+# not the goal. Written as containment rather than gsn:inModule so that the rule does not
+# depend on S53 and S54 having run first. With no modules in the graph nothing is ever
+# discounted, which is the unscoped reading this rule used to have.
+#
+# A goal that challenges something is never a top goal either. It is the root of a dialectic
+# structure, not the overall claim the author is asserting, and nothing supports it precisely
+# because it is levied against the argument rather than part of it.
 DELETE { ?A gsn:top ?old }
 INSERT { ?A gsn:top false }
 WHERE {
   ?A a gsn:Goal .
-  ?X gsn:supportedBy ?A .
+  {
+    ?X gsn:supportedBy ?A .
+    FILTER NOT EXISTS {
+      ?M a gsn:Module .
+      ?M gsn:contains+ ?X .
+      FILTER NOT EXISTS { ?M gsn:contains+ ?A }
+    }
+  }
+  UNION
+  { ?A gsn:challenges ?target }
   OPTIONAL { ?A gsn:top ?old }
   FILTER(!BOUND(?old) || STR(?old) != "false")
 }
@@ -4695,14 +5894,13 @@ gsnprov:query-update-element-statement
     rdfs:label "update_element_statement.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/update_element_statement.rq" ;
-    gsnprov:fileChecksum "fe1b75390c9a193df11afa6b0d7c5b67fe5c4149bcc3a2e994cc4f72ea3cbdad" ;
+    gsnprov:fileChecksum "c177ba4cecde245cfbb8048e48d263d23dfff6a154d12255aa12bd110ffe194c" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:statement ;
     gsnprov:restsOnStatement gsnprov:st-0265 ;
-    gsnprov:answersQuestion gsnprov:cq-AE-17 ;
-    gsnprov:queryText """# id:        AE-17
-# persona:   Assurance engineer
+    gsnprov:answersQuestion gsnprov:cq-CQ-35 ;
+    gsnprov:queryText """# id:        CQ-35
 # operation: update
 # question:  How is the wording of a claim, strategy or context corrected?
 # expect:    change
@@ -4729,14 +5927,13 @@ gsnprov:query-update-mark-element-invalid
     rdfs:label "update_mark_element_invalid.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/update_mark_element_invalid.rq" ;
-    gsnprov:fileChecksum "1da9462b0f0d346a6a7e621332d403fe35670dcc51c0d8725f4fc620c420f285" ;
+    gsnprov:fileChecksum "02906314d29470cc5b70107fdc6fa598671a3e9b184ced793dd3c2274ffa82a4" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:valid ;
     gsnprov:restsOnStatement gsnprov:st-0114 ;
-    gsnprov:answersQuestion gsnprov:cq-AU-09 ;
-    gsnprov:queryText """# id:        AU-09
-# persona:   Auditor
+    gsnprov:answersQuestion gsnprov:cq-CQ-36 ;
+    gsnprov:queryText """# id:        CQ-36
 # operation: update
 # question:  How is a single element marked invalid?
 # expect:    change
@@ -4762,7 +5959,7 @@ gsnprov:query-update-retarget-solution-to-new-artefact
     rdfs:label "update_retarget_solution_to_new_artefact.rq"@en ;
     gsnprov:formalism gsnprov:SPARQL ;
     gsnprov:path "queries/update_retarget_solution_to_new_artefact.rq" ;
-    gsnprov:fileChecksum "247ed83a20e426564d8d3b143ce7352ea58944ca54a45e03db90777399c1fa28" ;
+    gsnprov:fileChecksum "32ca5229a5433bb3b2ee52c587f9afb54ec6a19b9c29f177ead266ce122edf00" ;
     gsnprov:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsnprov:mentionsTerm gsn:Artefact ,
@@ -4771,9 +5968,8 @@ gsnprov:query-update-retarget-solution-to-new-artefact
     gsnprov:restsOnStatement gsnprov:st-0111 ,
         gsnprov:st-0175 ,
         gsnprov:st-0289 ;
-    gsnprov:answersQuestion gsnprov:cq-DE-15 ;
-    gsnprov:queryText """# id:        DE-15
-# persona:   Domain expert
+    gsnprov:answersQuestion gsnprov:cq-CQ-37 ;
+    gsnprov:queryText """# id:        CQ-37
 # operation: update
 # question:  How is a solution repointed when its evidence is superseded by a new version?
 # expect:    change
@@ -4810,14 +6006,14 @@ WHERE {
 gsnprov:file-ontogsn-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/ontogsn.ttl" ;
-    gsnprov:fileChecksum "24c6476c423f353f8390ad4e2f3d644c89d0773d3e3e3f74e1cf6ddcc683a3eb" ;
-    gsnprov:declaredVersion "1.2.3" ;
+    gsnprov:fileChecksum "5b4514ce55df1dd4393d0a22ff76af51469cdcee2bd78f7d8f717f0b99668927" ;
+    gsnprov:declaredVersion "1.2.4" ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> .
 
 gsnprov:file-ontogsn-rdf
     a gsnprov:File ;
     gsnprov:path "serializations/ontogsn.rdf" ;
-    gsnprov:fileChecksum "a967bed11f0a44f1cbf936da5fd76df56b66a2124b9d0604445112d61f53eff0" ;
+    gsnprov:fileChecksum "66ed5d740c525d190fe4d95a1186d038f9c88c18b2203fa8529c16d127800a02" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-serializations .
@@ -4825,7 +6021,7 @@ gsnprov:file-ontogsn-rdf
 gsnprov:file-ontogsn-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/ontogsn.jsonld" ;
-    gsnprov:fileChecksum "e3032b0f7a69ba3eee6a32094ad2612b58f0155455852b94dae3586b475bd455" ;
+    gsnprov:fileChecksum "b826db8f06aecb9624de8a85f74ebacf518706920c1adf2b6a1bfb5ca52e1e21" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-serializations .
@@ -4847,43 +6043,43 @@ gsnprov:agent-build-py
 gsnprov:file-ontogsn-shapes-1-core
     a gsnprov:File ;
     gsnprov:path "shapes/ontogsn-shapes_1_core.ttl" ;
-    gsnprov:fileChecksum "3d1c00fd93c8bc333147ea9939feba72c08ba409514817509aed55818d82c3dd" ;
-    gsnprov:declaredVersion "1.0.0" ;
+    gsnprov:fileChecksum "ea0053e2c7ffa113e0ebd8b35bfcc7b65debcd5161a3dcdecd4f6c7605683edf" ;
+    gsnprov:declaredVersion "1.0.2" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl .
 
 gsnprov:file-ontogsn-shapes-2-pattern
     a gsnprov:File ;
     gsnprov:path "shapes/ontogsn-shapes_2_pattern.ttl" ;
-    gsnprov:fileChecksum "655ee2a4b1acf108c3552f1e5bea6f842ebe84bbb3fb01e505ac4493bc444ef1" ;
-    gsnprov:declaredVersion "1.0.0" ;
+    gsnprov:fileChecksum "2475664e68b7f3aa555f57c4fb7b75fb6a3175be3fb5a0eb9350bcaeef6b2c0c" ;
+    gsnprov:declaredVersion "1.0.2" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl .
 
 gsnprov:file-ontogsn-shapes-3-modular
     a gsnprov:File ;
     gsnprov:path "shapes/ontogsn-shapes_3_modular.ttl" ;
-    gsnprov:fileChecksum "964fb027e0afc4254f2a578e607325c67151ba612b304932c2166a991e33f764" ;
-    gsnprov:declaredVersion "1.0.0" ;
+    gsnprov:fileChecksum "8d7bcaa0b0b665134538f05a151555748b8dc2e698953c50d78af81357b171c4" ;
+    gsnprov:declaredVersion "1.0.2" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl .
 
 gsnprov:file-ontogsn-shapes-4-confidence
     a gsnprov:File ;
     gsnprov:path "shapes/ontogsn-shapes_4_confidence.ttl" ;
-    gsnprov:fileChecksum "66a2e17fc958833083d6fbf55f67a5c3c1a6d78ad38523b015963278beefe058" ;
-    gsnprov:declaredVersion "1.0.0" ;
+    gsnprov:fileChecksum "c93412e88db18a035af2cc20e86de74d74794db85ed81ee51f2f41bb5152d4c7" ;
+    gsnprov:declaredVersion "1.0.2" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl .
 
 gsnprov:file-ontogsn-shapes-5-dialectic
     a gsnprov:File ;
     gsnprov:path "shapes/ontogsn-shapes_5_dialectic.ttl" ;
-    gsnprov:fileChecksum "6c6dd3b833459f79c32447dd994a95fd2ccdcd1974b8c56d558cc221b5937744" ;
-    gsnprov:declaredVersion "1.0.0" ;
+    gsnprov:fileChecksum "050f7d999db43844dca5b88d83ea228972fccd90bc3fa5e8b0fe156acab4ce95" ;
+    gsnprov:declaredVersion "1.0.2" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl .
 
 gsnprov:file-ontogsn-shapes-0-full
     a gsnprov:File ;
     gsnprov:path "shapes/ontogsn-shapes_0_full.ttl" ;
-    gsnprov:fileChecksum "c57cb617f06905ec148e396fa16247cfe655131ac857ba4cf8a24ff89145050d" ;
-    gsnprov:declaredVersion "1.0.0" ;
+    gsnprov:fileChecksum "70285bfe7c04489bb0f1ff4b1c800fdf6a3c5ed870da5b96d5dc646ce291fa9f" ;
+    gsnprov:declaredVersion "1.0.2" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-shapes-1-core ,
         gsnprov:file-ontogsn-shapes-2-pattern ,
         gsnprov:file-ontogsn-shapes-3-modular ,
@@ -4911,7 +6107,7 @@ gsnprov:agent-build-full-py
 gsnprov:file-ontogsn-complete-0-full-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_0_full.jsonld" ;
-    gsnprov:fileChecksum "0c968a689d84873059537109a5ee84e51d2afef56ecfb2a25ae52ed0c5aac807" ;
+    gsnprov:fileChecksum "c569edf5f99c879e74f47d19e290d6852a67b0132d65be1b450d2a24c78a80d8" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -4919,16 +6115,16 @@ gsnprov:file-ontogsn-complete-0-full-jsonld
 gsnprov:file-ontogsn-complete-0-full-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_0_full.ttl" ;
-    gsnprov:fileChecksum "a218046add2f78ff1810c60f511f12cf329e41d6cc5fb2b3cd4bc93a9ffdc40a" ;
+    gsnprov:fileChecksum "d02c7c90a43f429e5286eb2d144df694b556c927d65fc7359ed9458c9133f8d6" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-complete-1-core-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_1_core.jsonld" ;
-    gsnprov:fileChecksum "216ae6e14340a0eb702afb466d34b055fcc009ff5dd9b6306f484787125eac43" ;
+    gsnprov:fileChecksum "ab1608b4f2e2852ea0c6c58a75c442c17e4c0b158b7961664ea1aefd7935f145" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -4936,16 +6132,16 @@ gsnprov:file-ontogsn-complete-1-core-jsonld
 gsnprov:file-ontogsn-complete-1-core-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_1_core.ttl" ;
-    gsnprov:fileChecksum "07fa6fbf5cccb2b87af7a4bcba35819c466fe0646cf9ee8a5e61573ab291b87b" ;
+    gsnprov:fileChecksum "eaea54233a2c05c3cda3ec25fcd87ae8f0a66778b0c498efb7e1b4e30d903360" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-complete-2-pattern-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_2_pattern.jsonld" ;
-    gsnprov:fileChecksum "3a9e7a4ca4d056d1fadc974c8edf437f731210b6e4fe5fe393ba1093b0c5f380" ;
+    gsnprov:fileChecksum "e604aa49a7c3ff5966c7eab25d9b48aa2f8a1f0fdc0c0baa84aaaa24bbbd3d4d" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -4953,16 +6149,16 @@ gsnprov:file-ontogsn-complete-2-pattern-jsonld
 gsnprov:file-ontogsn-complete-2-pattern-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_2_pattern.ttl" ;
-    gsnprov:fileChecksum "76c3119d5de43a73d4eb9bc59c5a57e7d4e5b049b8aa33198f2abceb282c4553" ;
+    gsnprov:fileChecksum "cd3613538c2955990da06e214c2b863428c5ccb0d77fa6c6b3745b9810e997da" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-complete-3-modular-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_3_modular.jsonld" ;
-    gsnprov:fileChecksum "012aeb67b060a3bb26522e4cb3814afe0ea629dca71d1d8f4b8116a457c2dcbc" ;
+    gsnprov:fileChecksum "78d6ebc66a2e2c488863f6794653110f7fd994b708ef043a078452e5a9478ebf" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -4970,16 +6166,16 @@ gsnprov:file-ontogsn-complete-3-modular-jsonld
 gsnprov:file-ontogsn-complete-3-modular-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_3_modular.ttl" ;
-    gsnprov:fileChecksum "cdf3c1d4eef1d7ba67049921a4a5dd437ee1994a01f9196eb314a40e6e87213d" ;
+    gsnprov:fileChecksum "77a289b8f54c981eb3f9e170e97c39c37464f65c7753b99cb913027c895899d0" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-complete-4-confidence-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_4_confidence.jsonld" ;
-    gsnprov:fileChecksum "db4a17b7b235055a9d5737419919062303d11c909531c0e5b4bff692231fa306" ;
+    gsnprov:fileChecksum "d1e21ff21184d414d2bc9e9d46c567552132736fd000411f619201d51f04486c" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -4987,16 +6183,16 @@ gsnprov:file-ontogsn-complete-4-confidence-jsonld
 gsnprov:file-ontogsn-complete-4-confidence-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_4_confidence.ttl" ;
-    gsnprov:fileChecksum "d646a11c92f69f150676146cfeed1821185d0494ce3ea094816ded442aa21c6f" ;
+    gsnprov:fileChecksum "cce3d1b3ad7910908cac267502fe129bfd0af1535a023505eb815d750a4bc423" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-complete-5-dialectic-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_5_dialectic.jsonld" ;
-    gsnprov:fileChecksum "536a469dd661da9a7a47510c1fc942f13a24603c2be0f0b8f99757f04821c010" ;
+    gsnprov:fileChecksum "cf040a24b9b2d57c0df67403f6833397644e8b3ffb1e6d652bdfa0f601e6d65f" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5004,16 +6200,16 @@ gsnprov:file-ontogsn-complete-5-dialectic-jsonld
 gsnprov:file-ontogsn-complete-5-dialectic-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-complete_5_dialectic.ttl" ;
-    gsnprov:fileChecksum "64edcb5696239b24719dd1b9556282c5261c740e1ecaf7592b7b507362593cb7" ;
+    gsnprov:fileChecksum "747eb5ed94d11eb1e4420766cf3331f9d22896cff657d76e215826c1753b5c3a" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-pruned-0-full-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_0_full.jsonld" ;
-    gsnprov:fileChecksum "3a170fadbf2b6381ec0cadede201242b859eb09974bbf22b66e9a71f712a97bc" ;
+    gsnprov:fileChecksum "6cf617a8c9e0c8312041454843baad818c5ac060a459372dae79d4a8684092fe" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5021,16 +6217,16 @@ gsnprov:file-ontogsn-pruned-0-full-jsonld
 gsnprov:file-ontogsn-pruned-0-full-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_0_full.ttl" ;
-    gsnprov:fileChecksum "427c2793a6de8d8b3d5bae2cd71782f622a04c66679fb14e07816eac7ca9a2bc" ;
+    gsnprov:fileChecksum "3cbf7ec759f74decc76b9bb0e748ab02a79fe5cf9d5a081d673322497f5bca3a" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-pruned-1-core-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_1_core.jsonld" ;
-    gsnprov:fileChecksum "3dd5431d5ac20f0d527559e21958c8db10e5bd8235662a8b9fe306f7e9dfd90c" ;
+    gsnprov:fileChecksum "b9d3c2ba70690e91f7127ed91e98a74cb49f79cb43fc779ec35c9e37fab3f310" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5038,16 +6234,16 @@ gsnprov:file-ontogsn-pruned-1-core-jsonld
 gsnprov:file-ontogsn-pruned-1-core-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_1_core.ttl" ;
-    gsnprov:fileChecksum "42814f2024adcfafcfc9547f67c3e388a2915a399238cdec69c92cca266c9e34" ;
+    gsnprov:fileChecksum "677293e064ae34a4ee71ad97f7eae3588c9a96055dda711105dd5f5a2ba21a2a" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-pruned-2-pattern-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_2_pattern.jsonld" ;
-    gsnprov:fileChecksum "e21870cad3861ab4c03974739e82c5b801b1968e02956a57a0ceb89bc0fad1f7" ;
+    gsnprov:fileChecksum "bd4d8bc00eb0358c9c9d036a35f5064ab921f7fccdfdeeadfa183a465db02c81" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5055,16 +6251,16 @@ gsnprov:file-ontogsn-pruned-2-pattern-jsonld
 gsnprov:file-ontogsn-pruned-2-pattern-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_2_pattern.ttl" ;
-    gsnprov:fileChecksum "3ab92e5abbd5b2b17d4a636916b9242830832b196d2ea785e9813eddc6074b3c" ;
+    gsnprov:fileChecksum "ab8793c548ce21464b7c0122e803e0e05478d8984c901e97d22c51571cfdb9d7" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-pruned-3-modular-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_3_modular.jsonld" ;
-    gsnprov:fileChecksum "b5db48dd5501f7046edc3af623a9cdddcba1bba1084ad65c483e3e2e4d951376" ;
+    gsnprov:fileChecksum "55957a2dbd429be064014b25d8fcdb13973ad6426e3163dfc27e68af0dc2203f" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5072,16 +6268,16 @@ gsnprov:file-ontogsn-pruned-3-modular-jsonld
 gsnprov:file-ontogsn-pruned-3-modular-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_3_modular.ttl" ;
-    gsnprov:fileChecksum "3cdc5577e31c5009d8956049c97395f7d95f2674ccea48ace9e5c0f43ef4c290" ;
+    gsnprov:fileChecksum "f3d7813235cda128415d27e90cead1aebc80a68be76bba432d735ba562061e40" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-pruned-4-confidence-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_4_confidence.jsonld" ;
-    gsnprov:fileChecksum "338219002e2528bdfb4b806f7393d08756fdebc0b8f927f60c5eca1938f7eca9" ;
+    gsnprov:fileChecksum "ef210e774b30802228dbd03b01cdbcb00a8b0f3ae9b2085b43e83f3fe2388c1b" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5089,16 +6285,16 @@ gsnprov:file-ontogsn-pruned-4-confidence-jsonld
 gsnprov:file-ontogsn-pruned-4-confidence-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_4_confidence.ttl" ;
-    gsnprov:fileChecksum "2f88ff9f90649e1b839ed720a848221ed306ae2196cef52b3e37265dcfd76c36" ;
+    gsnprov:fileChecksum "b8419f643a5e96eb81f3d5f89267495156219c33f0fec277cff7fc2a5e8a2b0c" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-pruned-5-dialectic-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_5_dialectic.jsonld" ;
-    gsnprov:fileChecksum "b4a4b058849702e2fec9b5c3745a9fa1754a8dbe27edb505ef23c659c3e171f6" ;
+    gsnprov:fileChecksum "c86fb9fbe8e680a57e66c2c348eb3a02fbad1eabfd491e77dc10fe5ef4c9d691" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5106,16 +6302,16 @@ gsnprov:file-ontogsn-pruned-5-dialectic-jsonld
 gsnprov:file-ontogsn-pruned-5-dialectic-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-pruned_5_dialectic.ttl" ;
-    gsnprov:fileChecksum "2276aea5f28408987ba6ac4dee7c85cdf1c8d456ab0eeea6a35b185f2ab658d9" ;
+    gsnprov:fileChecksum "c5920278039d523d9ed3481b88f570b9a209db5fcb63577042e5df8721483b0d" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-skeletal-0-full-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_0_full.jsonld" ;
-    gsnprov:fileChecksum "1a40e6c296cc423cec9ee308a05f199a98c238f2da753eed35677c3941cb3d83" ;
+    gsnprov:fileChecksum "22b6841453e9e691aa1047de7a8a26cf1b9361fec3f2d27535614528a76ac126" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5123,16 +6319,16 @@ gsnprov:file-ontogsn-skeletal-0-full-jsonld
 gsnprov:file-ontogsn-skeletal-0-full-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_0_full.ttl" ;
-    gsnprov:fileChecksum "2a124fdebc0e91aab9949428a5a21f99e233eb35e0a42ef341b738e2f2cd1dd9" ;
+    gsnprov:fileChecksum "8b6004698628fc225cae95c2c7a640c984f0b4fa150c9b14dc62a73a3bb0af40" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-skeletal-1-core-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_1_core.jsonld" ;
-    gsnprov:fileChecksum "cdd99b2ab53e2f863b97d01c46fc08403dc852cef9a92cc18acbf3ffa78649bd" ;
+    gsnprov:fileChecksum "ac029bdab5d16e1bf0e8510d0b0d76216e80c8c1d84279f3d420accf5eaea010" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5140,16 +6336,16 @@ gsnprov:file-ontogsn-skeletal-1-core-jsonld
 gsnprov:file-ontogsn-skeletal-1-core-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_1_core.ttl" ;
-    gsnprov:fileChecksum "09ee11981b5e67e136a76785d598212deb93224481392ce0efcf8f3f66d8cbad" ;
+    gsnprov:fileChecksum "607e428f6a89c38817f6b38257c39031dbaf08bca9614c5f53979d487d117f7b" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-skeletal-2-pattern-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_2_pattern.jsonld" ;
-    gsnprov:fileChecksum "1eaa4a7a3f6a6d47a75d27f5c89c004ace18a170ec0c3e345c26a7495ed92856" ;
+    gsnprov:fileChecksum "8c15b9832951fc5c42377b1ca6c96a86e43369af16170c9b0065125970298c87" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5157,16 +6353,16 @@ gsnprov:file-ontogsn-skeletal-2-pattern-jsonld
 gsnprov:file-ontogsn-skeletal-2-pattern-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_2_pattern.ttl" ;
-    gsnprov:fileChecksum "9b4f99c27daeae87350c1019f0f8576bf99f04e9de9b584d20d32a79b6300758" ;
+    gsnprov:fileChecksum "80bab4f02e813ea1a4a1956d8d866d71f6829839f295bfe61215d75d16e3e3b7" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-skeletal-3-modular-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_3_modular.jsonld" ;
-    gsnprov:fileChecksum "77c130abb2776c02c4255190a2c56d07caf9c5ecb89cf7aca42f8ea5de688378" ;
+    gsnprov:fileChecksum "fb0d4a7ec4a73f236fd8e6958580399aac8a359e6a5c0dc0f90406d490cffce2" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5174,16 +6370,16 @@ gsnprov:file-ontogsn-skeletal-3-modular-jsonld
 gsnprov:file-ontogsn-skeletal-3-modular-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_3_modular.ttl" ;
-    gsnprov:fileChecksum "98fe4c71bf1a3391255b46fd2ef14d6e93410b00c16e81609047da9858750618" ;
+    gsnprov:fileChecksum "253de680215d31113769b0efc151b55764314287669fff4952860c952e792928" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-skeletal-4-confidence-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_4_confidence.jsonld" ;
-    gsnprov:fileChecksum "89553a1a303c89505fae490458e7b7f07ac924e63d6c2e2c6054e89482a7c086" ;
+    gsnprov:fileChecksum "9855722988c2342683d93319eb0377025540a1e860671c1c59f6151df2dbe580" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5191,16 +6387,16 @@ gsnprov:file-ontogsn-skeletal-4-confidence-jsonld
 gsnprov:file-ontogsn-skeletal-4-confidence-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_4_confidence.ttl" ;
-    gsnprov:fileChecksum "ca4cf214fe14ff9106a316c8a33930ec0981d6c719dd591a98b7fc59bbc54493" ;
+    gsnprov:fileChecksum "a8642464eb36a62b2a2780175baaaa014f49680d29f340220cb89d271284ac2d" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:file-ontogsn-skeletal-5-dialectic-jsonld
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_5_dialectic.jsonld" ;
-    gsnprov:fileChecksum "cfaec9c3daa7dae0ed29fb8ce9b6fcf06ea9380fd973d1199e0f4a40a1274f1a" ;
+    gsnprov:fileChecksum "0585334aaccb263350b18b1f060f25a3f9b4e000645ead31019ded040617cc77" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated .
@@ -5208,11 +6404,11 @@ gsnprov:file-ontogsn-skeletal-5-dialectic-jsonld
 gsnprov:file-ontogsn-skeletal-5-dialectic-ttl
     a gsnprov:File ;
     gsnprov:path "serializations/separated/ontogsn-skeletal_5_dialectic.ttl" ;
-    gsnprov:fileChecksum "eac942da5dfae720c6af4838c15def8ff1505477e2f953cffc7c18ee5a16c82a" ;
+    gsnprov:fileChecksum "7886c82c5dae10e00e56b68032858f3d50cd15670fc1fceee806145bf74ba122" ;
     prov:wasDerivedFrom gsnprov:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsnprov:build-separated ;
-    gsnprov:declaredVersion "1.2.3" .
+    gsnprov:declaredVersion "1.2.4" .
 
 gsnprov:build-separated
     a prov:Activity ;

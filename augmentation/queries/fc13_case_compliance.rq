@@ -1,0 +1,28 @@
+# id:        CQ-55
+# role:      Auditor
+# operation: read
+# question:  Is the case fully compliant?
+# expect:    rows
+#
+# Compliant is all three counts at zero. The status is derived on every run rather than stored,
+# so it cannot go stale; the price is that it cannot be reproduced for a past report entry.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+
+SELECT ?openIssues ?defeated ?inDoubt
+WHERE {
+  {
+    SELECT (COUNT(DISTINCT ?issue) AS ?openIssues)
+    WHERE {
+      ?issue a gsnaug:Issue .
+      FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
+      FILTER NOT EXISTS {
+        ?answer gsnaug:answers ?issue .
+        FILTER NOT EXISTS { ?answer gsnaug:accepted false }
+      }
+    }
+  }
+  { SELECT (COUNT(DISTINCT ?e) AS ?defeated) WHERE { ?e gsn:defeated true } }
+  { SELECT (COUNT(DISTINCT ?d) AS ?inDoubt)  WHERE { ?d gsn:inDoubt  true } }
+}

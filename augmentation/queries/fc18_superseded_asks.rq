@@ -1,0 +1,18 @@
+# id:        CQ-60
+# role:      Auditor
+# operation: read
+# question:  Which pending ask was displaced by a newer one?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?newerId ?olderId ?outcome ?holder
+WHERE {
+  ?newer gsnaug:supersedes ?older ;
+         schema:identifier ?newerId .
+  ?older schema:identifier ?olderId .
+  OPTIONAL { ?older gsnaug:issueOutcome ?outcome }
+  OPTIONAL { ?newer gsnaug:heldBy ?holder }
+}
+ORDER BY ?olderId

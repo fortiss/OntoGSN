@@ -1,0 +1,30 @@
+# id:        CQ-68
+# role:      Auditor
+# operation: read
+# question:  What was left unresolved at the last audit, and what is due by the next one?
+# expect:    rows
+#
+# Scoped by cycle rather than by date, because two audits may overlap in time and the question
+# asked is always which round.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+
+SELECT ?cycleId ?issueId ?targetId ?outcome ?opened
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:resolve ;
+         gsnaug:raisedIn ?cycle ;
+         gsnaug:raisedAgainst ?target .
+  ?cycle schema:identifier ?cycleId .
+  ?target schema:identifier ?targetId .
+  OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
+  OPTIONAL { ?cycle prov:startedAtTime ?opened }
+  FILTER NOT EXISTS {
+    ?answer gsnaug:answers ?issue .
+    FILTER NOT EXISTS { ?answer gsnaug:accepted false }
+  }
+}
+ORDER BY ?cycleId ?issueId

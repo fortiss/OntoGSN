@@ -1,0 +1,26 @@
+# id:        CQ-76
+# role:      Compliance Officer
+# operation: read
+# question:  Who is responsible for retrieving the evidence for a particular system?
+# expect:    rows
+#
+# gsnaug:assures is asserted, not derived. It names a gsnaug:System directly, so the answer does
+# not depend on how - or whether - the case draws its top-level context.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?system ?solutionId ?owner ?author
+WHERE {
+  ?goal gsnaug:assures ?system .
+  ?goal gsn:supportedBy* ?descendant .
+  ?descendant a gsn:Solution ;
+              schema:identifier ?solutionId .
+  OPTIONAL { ?descendant gsnaug:ownedBy ?owner }
+  OPTIONAL {
+    ?descendant gsn:refersTo ?artefact .
+    ?artefact gsnaug:generatedBy ?author
+  }
+}
+ORDER BY ?system ?solutionId

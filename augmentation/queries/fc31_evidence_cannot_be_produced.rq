@@ -1,0 +1,25 @@
+# id:        CQ-73
+# role:      Developer
+# operation: read
+# question:  Which evidence cannot be produced at all, as opposed to not yet produced?
+# expect:    rows
+#
+# Not yet produced is gsn:undeveloped and gsn:uninstantiated, which CQ-26 and CQ-27 report.
+# Cannot be produced is an ask closed as infeasible, which is a different answer.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?targetId ?issueId ?cycleId
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueOutcome gsnaug:infeasible ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL {
+    ?issue gsnaug:raisedIn ?cycle .
+    ?cycle schema:identifier ?cycleId
+  }
+}
+ORDER BY ?targetId

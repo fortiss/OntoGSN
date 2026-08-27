@@ -10,7 +10,7 @@ at the time. PROV-O is the backbone; `gsnprov:` adds only the terms PROV-O has n
 | `ontogsn-provenance-data.ttl` | the record — 937 decisions, 297 passages, 194 rationales, 747 statements. **Source of truth**, edited by hand. |
 | `ontogsn-provenance-augmentations.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `tools/prov_augment.py`. |
 | `Design Documentation.xlsx` | a human-readable view of the record. **Generated**, never read back. |
-| `Competency Questions.xlsx` | the questions `queries/` answers. Hand-maintained; read by `tools/prov_augment.py`. |
+| `Competency Questions.xlsx` | the questions `queries/` and `augmentation/queries/` answer. Hand-maintained; read by `tools/prov_augment.py`. |
 | `Graffoo Diagram.drawio` | the editable source of the diagrams on the website. Hand-maintained. |
 
 `ontogsn.ttl` does **not** `owl:imports` any of this. It would drag roughly two thousand

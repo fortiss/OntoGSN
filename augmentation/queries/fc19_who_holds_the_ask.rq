@@ -1,0 +1,24 @@
+# id:        CQ-61
+# role:      Auditor
+# operation: read
+# question:  Who currently holds a relayed ask - where is it stuck?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?issueId ?holder ?raiser ?targetId
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:heldBy ?holder ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL { ?issue gsnaug:raisedBy ?raiser }
+  FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
+  FILTER NOT EXISTS {
+    ?answer gsnaug:answers ?issue .
+    FILTER NOT EXISTS { ?answer gsnaug:accepted false }
+  }
+}
+ORDER BY ?issueId

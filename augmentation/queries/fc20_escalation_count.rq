@@ -1,0 +1,24 @@
+# id:        CQ-62
+# role:      Auditor
+# operation: read
+# question:  How many times was an ask escalated because the holder could not answer?
+# expect:    rows
+#
+# An escalation is a hop whose predecessor was closed as cannot-answer, counted from the first
+# ask in the chain - the one that supersedes nothing.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?originalId (COUNT(DISTINCT ?later) AS ?escalations)
+WHERE {
+  ?original a gsnaug:Issue ;
+            schema:identifier ?originalId .
+  FILTER NOT EXISTS { ?original gsnaug:supersedes ?earlier }
+
+  ?later gsnaug:supersedes+ ?original ;
+         gsnaug:supersedes ?predecessor .
+  ?predecessor gsnaug:issueOutcome gsnaug:cannotAnswer .
+}
+GROUP BY ?originalId
+ORDER BY DESC(?escalations)

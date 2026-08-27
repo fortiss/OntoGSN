@@ -1,0 +1,24 @@
+# id:        CQ-75
+# role:      Compliance Officer
+# operation: read
+# question:  How is the interpretation instantiated into claims and evidence?
+# expect:    rows
+#
+# The reference says which data governs the subtree; gsnaug:instantiatedFrom says which row of it
+# produced this element.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?elementId ?kind ?data ?row
+WHERE {
+  ?reference a gsn:InstantiationDataReference ;
+             gsn:attachedTo ?element .
+  ?element schema:identifier ?elementId ;
+           a ?kind .
+  VALUES ?kind { gsn:Goal gsn:Solution }
+  OPTIONAL { ?reference gsn:refersTo ?data }
+  OPTIONAL { ?element gsnaug:instantiatedFrom ?row }
+}
+ORDER BY ?elementId

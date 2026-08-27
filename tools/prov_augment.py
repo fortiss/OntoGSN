@@ -45,7 +45,12 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(REPO, "provenance", "ontogsn-provenance-augmentations.ttl")
 RECORD = os.path.join(REPO, "provenance", "ontogsn-provenance-data.ttl")
 CQ_WORKBOOK = os.path.join(REPO, "provenance", "Competency Questions.xlsx")
-QUERY_DIR = os.path.join(REPO, "queries")
+# the workbook's "Competency Questions" sheet carries the questions of the compliance
+# process the vocabulary was built for; "Extra" carries the stored queries no question of
+# that process names. Both are competency questions, so both are recorded the same way.
+CQ_SHEETS = ("Competency Questions", "Extra")
+CORE_QUERY_DIR = os.path.join(REPO, "queries")
+QUERY_DIRS = (CORE_QUERY_DIR, os.path.join(REPO, "augmentation", "queries"))
 
 PROV_NS = "https://w3id.org/OntoGSN/provenance#"
 # the structural keys that declare a term to exist, as opposed to constraining one that
@@ -79,6 +84,18 @@ def file_block(iri, path, extra=()):
              ("gsnprov:fileChecksum", [Lit(sha256(path))])]
     pairs.extend(extra)
     return (iri, pairs)
+
+
+def query_name(path):
+    """What a query is called in the record.
+
+    The queries under queries/ keep the bare name they have always had, so their IRIs do
+    not move; anything outside that directory is named by its path, which is also what
+    keeps two directories from colliding on a file name.
+    """
+    if path.startswith(CORE_QUERY_DIR + os.sep):
+        return os.path.relpath(path, CORE_QUERY_DIR).replace(os.sep, "/")
+    return rel(path)
 
 
 def declared_version(path):
@@ -147,7 +164,8 @@ def main():
     # --- requirements and competency questions ------------------------------------
     book = load_workbook(CQ_WORKBOOK, data_only=True)
     requirements = read_sheet(book, "Initial Requirements")
-    questions = read_sheet(book, "Competency Questions")
+    questions = sorted((row for sheet in CQ_SHEETS for row in read_sheet(book, sheet)),
+                       key=lambda row: row["ID"])
 
     blocks.append(prov_ttl.header(
         f"Requirements ({len(requirements)})",
@@ -178,18 +196,26 @@ def main():
         text = row["Competency Question"]
         # a few rows repeat their own id at the front of the question text
         text = re.sub(r"^" + re.escape(identifier) + r"\s+", "", text)
-        blocks.append((iri, [
+        pairs = [
             ("a", ["gsnprov:CompetencyQuestion"]),
             ("rdfs:label", [Lit(identifier, lang="en")]),
-            ("gsnprov:persona", [Lit(row["Role / Persona"], lang="en")]),
             ("gsnprov:questionText", [Lit(text, lang="en")]),
-        ]))
-        target = row.get("SPARQL Query File", "").strip()
-        if target:
-            by_query.setdefault(target, []).append(iri)
+        ]
+        # only the process questions carry a role; the ones in "Extra" are asked by
+        # whoever is holding the case
+        role = row.get("Role", "").strip()
+        if role:
+            pairs.insert(2, ("gsnprov:role", [Lit(role, lang="en")]))
+        blocks.append((iri, pairs))
+        # a question can take more than one query to answer, so the cell is a list
+        for target in row.get("SPARQL Query File", "").split(";"):
+            if target.strip():
+                by_query.setdefault(target.strip(), []).append(iri)
 
     # --- stored queries -------------------------------------------------------------
-    paths = sorted(glob.glob(os.path.join(QUERY_DIR, "**", "*.rq"), recursive=True))
+    paths = sorted(path for directory in QUERY_DIRS
+                   for path in glob.glob(os.path.join(directory, "**", "*.rq"),
+                                         recursive=True))
     by_rule, by_term = statement_index()
     blocks.append(prov_ttl.header(
         f"Stored queries ({len(paths)})",
@@ -207,7 +233,7 @@ def main():
     unanswered = dict(by_query)
     unjoined = []
     for path in paths:
-        name = os.path.relpath(path, QUERY_DIR).replace(os.sep, "/")
+        name = query_name(path)
         with open(path, encoding="utf-8", errors="replace") as fh:
             body = fh.read()
         namespaces = sorted({uri for _, uri in PREFIX_RE.findall(body)})
@@ -237,10 +263,10 @@ def main():
                         for st in by_term.get(term.split(":", 1)[1], [])})
         if rests:
             pairs.append(("gsnprov:restsOnStatement", rests))
-        for question in by_query.get(name, []):
+        for question in by_query.get(rel(path), []):
             pairs.append(("gsnprov:answersQuestion", [question]))
         pairs.append(("gsnprov:queryText", [Lit(body)]))
-        unanswered.pop(name, None)
+        unanswered.pop(rel(path), None)
         blocks.append((f"gsnprov:query-{slug(name[:-3])}", pairs))
 
     # --- generated files -------------------------------------------------------------

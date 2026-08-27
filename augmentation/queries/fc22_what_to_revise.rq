@@ -1,0 +1,26 @@
+# id:        CQ-64
+# role:      Compliance Officer
+# operation: read
+# question:  What has to be revised, and by whom?
+# expect:    rows
+#
+# The class of the target says whether the claim or the evidence is at fault. A revise issue
+# against a context is a remark about wording and is deliberately not returned here.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?issueId ?targetId ?targetKind ?owner ?description
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:revise ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId ;
+          a ?targetKind .
+  VALUES ?targetKind { gsn:Goal gsn:Solution }
+  OPTIONAL { ?target gsnaug:ownedBy ?owner }
+  OPTIONAL { ?issue schema:description ?description }
+}
+ORDER BY ?issueId

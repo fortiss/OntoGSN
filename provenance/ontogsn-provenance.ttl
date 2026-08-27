@@ -26,7 +26,7 @@ deliberately NOT imported by either of them: doing so would drag roughly two tho
 individuals into the ABox of every reasoner run over an assurance case."""@en ;
     dc:source "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C"@en ;
     vann:preferredNamespacePrefix "gsnprov" ;
-    owl:versionInfo "1.1.0" ;
+    owl:versionInfo "1.2.0" ;
     rdfs:seeAlso <https://w3id.org/OntoGSN/ontology> , <https://w3id.org/OntoGSN/shapes> .
 
 
@@ -424,12 +424,12 @@ gsnprov:questionText rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:range xsd:string ;
     rdfs:label "question text"@en .
 
-###  https://w3id.org/OntoGSN/provenance#persona
-gsnprov:persona rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+###  https://w3id.org/OntoGSN/provenance#role
+gsnprov:role rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:domain gsnprov:CompetencyQuestion ;
     rdfs:range xsd:string ;
-    rdfs:label "persona"@en ;
-    skos:definition "The role that asks this question - assurance engineer, domain expert, auditor."@en .
+    rdfs:label "role"@en ;
+    skos:definition "The role in the process that asks this question."@en .
 
 ###  https://w3id.org/OntoGSN/provenance#operation
 gsnprov:operation rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;

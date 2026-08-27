@@ -1,0 +1,18 @@
+# id:        CQ-71
+# role:      Developer
+# operation: read
+# question:  Which evidence is generated automatically, and how or where from can it be retrieved?
+# expect:    rows
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+
+SELECT ?artefact ?mechanism ?source ?storage ?retrieval
+WHERE {
+  ?artefact gsnaug:generatedWith ?mechanism .
+  ?mechanism gsnaug:automated true .
+  OPTIONAL { ?artefact gsnaug:generatedFrom  ?source }
+  OPTIONAL { ?artefact gsnaug:storedIn       ?storage }
+  OPTIONAL { ?artefact gsnaug:retrievableWith ?retrieval }
+}
+ORDER BY ?artefact

@@ -1,0 +1,24 @@
+# id:        CQ-53
+# role:      Auditor
+# operation: read
+# question:  Which controls are ready for review?
+# expect:    rows
+#
+# Ready means developed and backed by an artefact. Whether it passed is CQ-54; what is still
+# missing is CQ-26 and CQ-16.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?goalId ?solutionId ?artefact
+WHERE {
+  ?goal a gsn:Goal ;
+        schema:identifier ?goalId ;
+        gsn:supportedBy ?solution .
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  FILTER NOT EXISTS { ?goal     gsn:undeveloped true }
+  FILTER NOT EXISTS { ?solution gsn:undeveloped true }
+}
+ORDER BY ?goalId ?solutionId

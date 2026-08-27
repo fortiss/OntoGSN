@@ -1,0 +1,24 @@
+# id:        CQ-66
+# role:      Developer
+# operation: read
+# question:  What did a revision actually change - which artefact replaced which?
+# expect:    rows
+#
+# Artefact versions only. A reworded claim is not a revision in this sense.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?newer ?older ?mechanism ?issueId
+WHERE {
+  ?newer gsnaug:revisionOf ?older .
+  OPTIONAL { ?newer gsnaug:generatedWith ?mechanism }
+  OPTIONAL {
+    ?solution gsn:refersTo ?older .
+    ?issue gsnaug:raisedAgainst ?solution ;
+           gsnaug:issueType gsnaug:revise ;
+           schema:identifier ?issueId
+  }
+}
+ORDER BY ?newer

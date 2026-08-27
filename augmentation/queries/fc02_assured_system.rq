@@ -1,0 +1,18 @@
+# id:        CQ-45
+# role:      Auditor
+# operation: read
+# question:  What system and organisation is this case about?
+# expect:    rows
+#
+# The subject is an argument, an assurance case or a goal - the three granularities at which a
+# reader would say the case is about something.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?subjectId ?system
+WHERE {
+  ?subject gsnaug:assures ?system .
+  OPTIONAL { ?subject schema:identifier ?subjectId }
+}
+ORDER BY ?subjectId ?system

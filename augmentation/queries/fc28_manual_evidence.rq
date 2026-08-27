@@ -1,0 +1,22 @@
+# id:        CQ-70
+# role:      Developer
+# operation: read
+# question:  Which evidence needs to be generated manually?
+# expect:    rows
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?mechanism ?automated
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  OPTIONAL {
+    ?artefact gsnaug:generatedWith ?mechanism .
+    OPTIONAL { ?mechanism gsnaug:automated ?automated }
+  }
+  FILTER ( !BOUND(?mechanism) || !BOUND(?automated) || ?automated = false )
+}
+ORDER BY ?solutionId

@@ -1,0 +1,22 @@
+# id:        CQ-49
+# role:      Developer
+# operation: read
+# question:  Where is the requested evidence kept and how is it fetched?
+# expect:    rows
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?storage ?retrieval ?automated
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  OPTIONAL { ?artefact gsnaug:storedIn ?storage }
+  OPTIONAL {
+    ?artefact gsnaug:retrievableWith ?retrieval .
+    OPTIONAL { ?retrieval gsnaug:automated ?automated }
+  }
+}
+ORDER BY ?solutionId

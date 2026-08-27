@@ -1,0 +1,19 @@
+# id:        CQ-44
+# role:      Auditor
+# operation: read
+# question:  What law or requirement source does the case answer to?
+# expect:    rows
+#
+# Any element may answer to a requirement, not only the top goal: a control claim usually names
+# the clause it implements. A case that names none reads through CQ-07 instead, which returns
+# every context in scope without saying which of them is the requirement.
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?elementId ?source
+WHERE {
+  ?element gsnaug:requiredBy ?source .
+  OPTIONAL { ?element schema:identifier ?elementId }
+}
+ORDER BY ?elementId ?source

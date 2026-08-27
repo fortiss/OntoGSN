@@ -1,0 +1,20 @@
+# id:        CQ-52
+# role:      Process/Software Owner
+# operation: read
+# question:  Was this evidence verified - by whom, with what mechanism, and did it pass?
+# expect:    rows
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?mechanism ?reviewer ?valid
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  OPTIONAL { ?artefact gsnaug:verifiedWith ?mechanism }
+  OPTIONAL { ?artefact gsnaug:reviewedBy   ?reviewer }
+  OPTIONAL { ?solution gsn:valid ?valid }
+}
+ORDER BY ?solutionId

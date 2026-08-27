@@ -1,0 +1,21 @@
+# id:        CQ-57
+# role:      Process/Software Owner
+# operation: read
+# question:  Who can answer for this element - its owner, or the author of its evidence?
+# expect:    rows
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?elementId ?owner ?author
+WHERE {
+  ?element schema:identifier ?elementId .
+  OPTIONAL { ?element gsnaug:ownedBy ?owner }
+  OPTIONAL {
+    ?element gsn:refersTo ?artefact .
+    ?artefact gsnaug:generatedBy ?author
+  }
+  FILTER ( BOUND(?owner) || BOUND(?author) )
+}
+ORDER BY ?elementId

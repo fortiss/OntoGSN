@@ -1,0 +1,27 @@
+# id:        CQ-77
+# role:      Developer
+# operation: read
+# question:  Which artefacts need changing, and who owns the change?
+# expect:    rows
+#
+# The last column is the impact of the change, which CQ-15 answers in full for a given artefact.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?solutionId ?artefact ?owner ?author ?alsoRestingOnIt
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:defeated true ;
+            gsn:refersTo ?artefact .
+  OPTIONAL { ?solution gsnaug:ownedBy ?owner }
+  OPTIONAL { ?artefact gsnaug:generatedBy ?author }
+  OPTIONAL {
+    ?otherSolution gsn:refersTo ?artefact .
+    ?claim gsn:supportedBy ?otherSolution ;
+           schema:identifier ?alsoRestingOnIt
+  }
+}
+ORDER BY ?solutionId

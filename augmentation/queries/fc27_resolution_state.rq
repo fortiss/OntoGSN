@@ -1,0 +1,25 @@
+# id:        CQ-69
+# role:      Auditor
+# operation: read
+# question:  Was a resolution implemented, declined, or infeasible?
+# expect:    rows
+
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?issueId ?targetId ?state
+WHERE {
+  ?issue a gsnaug:Issue ;
+         schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:resolve ;
+         gsnaug:raisedAgainst ?target .
+  ?target schema:identifier ?targetId .
+  OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
+  OPTIONAL {
+    ?answer a gsnaug:Resolution ;
+            gsnaug:answers ?issue
+  }
+  BIND( IF(BOUND(?answer), "implemented",
+        IF(BOUND(?outcome), STRAFTER(STR(?outcome), "#"), "open")) AS ?state )
+}
+ORDER BY ?issueId
