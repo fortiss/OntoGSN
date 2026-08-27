@@ -269,12 +269,6 @@ gsnsh:CardinalityPropertyShape rdf:type sh:NodeShape ;
     sh:class gsn:Relationship ;
     sh:message "Only a relationship may have a minimum cardinality."@en ;
     sh:severity sh:Violation ;
-    # Widening. The ontology's range is xsd:nonNegativeInteger and stays that way, but the
-    # shape cannot require that exact datatype IRI. A hand-written 1 is xsd:integer by
-    # Turtle's rules, and pyoxigraph - the engine queries/ and queries/rules/ are executed
-    # against - normalises every derived integer type to xsd:integer on load, so even a
-    # correctly typed literal arrives here as one. Non-negativity is what the axiom is
-    # actually about, so it is checked directly with sh:minInclusive.
     sh:property [
         sh:path gsn:minCardinality ;
         sh:name "minimum cardinality" ;
@@ -297,7 +291,6 @@ gsnsh:MaxCardinalityPropertyShape rdf:type sh:NodeShape ;
     sh:class gsn:Relationship ;
     sh:message "Only a relationship may have a maximum cardinality."@en ;
     sh:severity sh:Violation ;
-    # Widened for the same reason as gsn:minCardinality above.
     sh:property [
         sh:path gsn:maxCardinality ;
         sh:name "maximum cardinality" ;

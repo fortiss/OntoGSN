@@ -16,14 +16,6 @@
 #################################################################
 #    Two ARGO prefixes, deliberately
 #################################################################
-#
-#  ARGO declares its base as http://www.github/argumentsontology/ (slash) and mints every
-#  term there EXCEPT complexargument, which lives at http://www.github/argumentsontology#
-#  (hash). Writing argo:complexargument would silently produce a different, undefined term.
-#  argoh: exists solely so that one class can be named correctly.
-#
-#  Neither host resolves. ARGO is vendored at vendor/argo.ttl and mapped by
-#  catalog-v001.xml; see README.md.
 
 
 <https://w3id.org/OntoGSN/alignment> rdf:type owl:Ontology ;
@@ -85,12 +77,6 @@ gsnalign:layer rdf:type owl:AnnotationProperty ;
 #################################################################
 #    Layer 1 - direct assertions
 #################################################################
-#
-#  Both target ARGO properties are label-only: no rdfs:domain, no rdfs:range, no property
-#  characteristics, no skos:definition, and zero occurrences in 'ARGO Axioms REVISED.txt'.
-#  They exist to be extended. Nothing is entailed and nothing can be contradicted.
-#
-#  Subject is a gsn: term but the axiom is asserted HERE, never in serializations/ontogsn.ttl.
 
 gsn:supportedBy rdfs:subPropertyOf argo:isSupportedBy .
 
@@ -114,10 +100,6 @@ gsn:challenges rdfs:subPropertyOf argo:opposes .
 #################################################################
 #    Layer 2 - documentation
 #################################################################
-#
-#  Non-entailing. Recorded so the correspondences are discoverable without a reasoner.
-#  SKOS mapping properties carry rdfs:domain skos:Concept, so these pun the classes as
-#  individuals. Harmless in OWL 2 DL and contained by keeping the axioms in this graph.
 
 gsn:Argument   skos:closeMatch   argoh:complexargument .
 gsn:Goal       skos:relatedMatch argo:statement .
@@ -144,7 +126,7 @@ gsn:Assumption skos:closeMatch   argo:supposition .
    gsnalign:layer "documentation" ;
    skos:note "Holds only under a commitment GSN itself does not make: that assumptions reached by gsn:inContextOf are inputs to the inference. An ARGO supposition is additionally discharged, which a GSN assumption never is. Adopting the ARGO view is therefore stricter than GSN requires."@en .
 
-###  Not a match, and worth saying so explicitly.
+###  gsn:Strategy owl:disjointWith argo:actofinferring
 gsn:Strategy owl:disjointWith argo:actofinferring .
 
 [] rdf:type owl:Axiom ;

@@ -95,10 +95,6 @@ gsnsh:RelationshipWithConfidenceShape rdf:type sh:NodeShape ;
         sh:message "A relationship with confidence may only be associated with a confidence argument."@en ;
         sh:severity sh:Violation ;
     ] ;
-    # Warning, not Violation. Rule S40 reifies a claim point as soon as an element is flagged as
-    # one, and nothing in its premises binds the confidence argument, so the relationship it
-    # creates is a stub for a person to complete. An incomplete stub is unfinished rather than
-    # wrong. The shape above still rejects an association with the wrong kind of argument.
     sh:property [
         sh:path gsn:associatedWith ;
         sh:qualifiedValueShape [ sh:class gsn:Argument ] ;

@@ -983,12 +983,6 @@ gsnsh:CardinalityPropertyShape rdf:type sh:NodeShape ;
     sh:class gsn:Relationship ;
     sh:message "Only a relationship may have a minimum cardinality."@en ;
     sh:severity sh:Violation ;
-    # Widening. The ontology's range is xsd:nonNegativeInteger and stays that way, but the
-    # shape cannot require that exact datatype IRI. A hand-written 1 is xsd:integer by
-    # Turtle's rules, and pyoxigraph - the engine queries/ and queries/rules/ are executed
-    # against - normalises every derived integer type to xsd:integer on load, so even a
-    # correctly typed literal arrives here as one. Non-negativity is what the axiom is
-    # actually about, so it is checked directly with sh:minInclusive.
     sh:property [
         sh:path gsn:minCardinality ;
         sh:name "minimum cardinality" ;
@@ -1011,7 +1005,6 @@ gsnsh:MaxCardinalityPropertyShape rdf:type sh:NodeShape ;
     sh:class gsn:Relationship ;
     sh:message "Only a relationship may have a maximum cardinality."@en ;
     sh:severity sh:Violation ;
-    # Widened for the same reason as gsn:minCardinality above.
     sh:property [
         sh:path gsn:maxCardinality ;
         sh:name "maximum cardinality" ;
@@ -1468,10 +1461,6 @@ gsnsh:RelationshipWithConfidenceShape rdf:type sh:NodeShape ;
         sh:message "A relationship with confidence may only be associated with a confidence argument."@en ;
         sh:severity sh:Violation ;
     ] ;
-    # Warning, not Violation. Rule S40 reifies a claim point as soon as an element is flagged as
-    # one, and nothing in its premises binds the confidence argument, so the relationship it
-    # creates is a stub for a person to complete. An incomplete stub is unfinished rather than
-    # wrong. The shape above still rejects an association with the wrong kind of argument.
     sh:property [
         sh:path gsn:associatedWith ;
         sh:qualifiedValueShape [ sh:class gsn:Argument ] ;

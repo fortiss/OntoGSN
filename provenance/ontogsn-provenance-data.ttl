@@ -24598,3 +24598,18 @@ gsnprov:st-0971
         gsn:supportedBy ,
         gsn:top ,
         gsnsh:UnparentedGoalIsTopShape .
+
+
+#################################################################
+#    Added by hand (1 rationale)
+#    Written for two decisions that carried gsnprov:noRationaleRecorded.
+#################################################################
+
+gsnprov:why-0214
+    a gsnprov:Rationale ;
+    gsnprov:rationaleText """The ontology's range for gsn:minCardinality and gsn:maxCardinality is xsd:nonNegativeInteger and
+stays that way, but the shape cannot require that exact datatype IRI. A hand-written 1 is
+xsd:integer by Turtle's rules, and pyoxigraph - the engine queries/ and queries/rules/ are executed
+against - normalises every derived integer type to xsd:integer on load, so even a correctly typed
+literal arrives at the validator as one. Non-negativity is what the axiom is actually about, so the
+shape admits either datatype and checks the value directly with sh:minInclusive."""@en .
