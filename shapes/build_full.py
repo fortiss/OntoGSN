@@ -11,6 +11,7 @@ editing any module:
 import argparse
 import io
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -52,7 +53,7 @@ HEADER = '''@prefix sh:     <http://www.w3.org/ns/shacl#> .
     dc:title "OntoGSN SHACL Shapes"@en ;
     dc:description "SHACL shapes for validating assurance-case data expressed with the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape is annotated with gsn:coreOrExtension, so the graph can be sliced back into its GSN Community Standard v3 sections."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
-    owl:versionInfo "1.0.1" ;
+    owl:versionInfo "{version}" ;
     owl:imports <https://w3id.org/OntoGSN/shapes/core> ,
                 <https://w3id.org/OntoGSN/shapes/pattern> ,
                 <https://w3id.org/OntoGSN/shapes/modular> ,
@@ -79,6 +80,25 @@ HEADER = '''@prefix sh:     <http://www.w3.org/ns/shacl#> .
 '''
 
 
+def version():
+    """The version the five section files agree on.
+
+    Kept out of the header template: hardcoded here it drifts from the sources it is
+    generated from, which is the one thing this script exists to prevent.
+    """
+    found = set()
+    for filename, _ in MODULES:
+        text = io.open(os.path.join(HERE, filename), encoding="utf-8").read()
+        match = re.search(r'owl:versionInfo\s+"([^"]+)"', text)
+        if not match:
+            sys.exit("{} declares no owl:versionInfo".format(filename))
+        found.add(match.group(1))
+    if len(found) > 1:
+        sys.exit("the section files disagree on owl:versionInfo: {}".format(
+            ", ".join(sorted(found))))
+    return found.pop()
+
+
 def body(path):
     """Everything after the module's own @prefix / @base / ontology header."""
     text = io.open(path, encoding="utf-8").read()
@@ -93,7 +113,7 @@ def main():
                     help="verify the generated file is current; write nothing")
     args = ap.parse_args()
 
-    parts = [HEADER]
+    parts = [HEADER.format(version=version())]
     for filename, section in MODULES:
         parts.append(
             "\n\n"
