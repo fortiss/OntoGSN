@@ -25,7 +25,7 @@
     dc:title "OntoGSN SHACL Shapes"@en ;
     dc:description "SHACL shapes for validating assurance-case data expressed with the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape is annotated with gsn:coreOrExtension, so the graph can be sliced back into its GSN Community Standard v3 sections."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
-    owl:versionInfo "1.0.1" ;
+    owl:versionInfo "1.0.2" ;
     owl:imports <https://w3id.org/OntoGSN/shapes/core> ,
                 <https://w3id.org/OntoGSN/shapes/pattern> ,
                 <https://w3id.org/OntoGSN/shapes/modular> ,
@@ -580,36 +580,62 @@ gsnsh:IdentifierPropertyShape rdf:type sh:NodeShape ;
 #    General axioms
 #################################################################
 
-###  Goal and not (inverse supportedBy some Goal) EquivalentTo top value true
+###  Goal and not (inverse supportedBy some Goal) and not (challenges some Thing) SubClassOf top value true
 gsnsh:TopGoalHasNoParentShape rdf:type sh:NodeShape ;
-    rdfs:label "Top goal has no supported parent goal"@en ;
-    rdfs:comment "From the general class axiom: ( Goal and not (inverse gsn:supportedBy some (Goal or Strategy)) ) EquivalentTo ( gsn:top value true ). A strategy counts as a parent: a goal reached through a strategy is not the pinnacle claim, and reading the axiom over goals alone made every strategy-parented goal a top goal."@en ;
+    rdfs:label "Top goal has no supported parent goal in scope"@en ;
+    rdfs:comment "From the general class axiom: ( Goal and not (inverse gsn:supportedBy some (Goal or Strategy)) and not (gsn:challenges some Thing) ) SubClassOf ( gsn:top value true ). A strategy counts as a parent: a goal reached through a strategy is not the pinnacle claim, and reading the axiom over goals alone made every strategy-parented goal a top goal. A parent in another module does not count: the top goal is the pinnacle claim of an argument, not of the whole store, so an away goal supported from elsewhere remains the top goal of its own module. That scoping is a condition on three individuals and cannot be written as an OWL class expression, which is why the axiom holds in one direction only and this shape carries the other."@en ;
     sh:targetClass gsn:Goal ;
     gsn:coreOrExtension "Core GSN"@en ;
-    sh:or (
-        [ sh:not [ sh:property [ sh:path gsn:top ; sh:name "top (goal)" ; sh:hasValue true ] ] ]
-        [ sh:property [ sh:path [ sh:inversePath gsn:supportedBy ] ;
-                        sh:qualifiedValueShape [ sh:or ( [ sh:class gsn:Goal ]
-                                                         [ sh:class gsn:Strategy ] ) ] ;
-                        sh:qualifiedMaxCount 0 ] ]
-    ) ;
-    sh:message "A goal marked as a top goal must not itself be supporting another goal or strategy; the top goal presents the pinnacle claim in the argument."@en ;
-    sh:severity sh:Violation .
+    sh:severity sh:Violation ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} is marked as a top goal, but {?value} supports it from within its own module, or it challenges part of the argument; the top goal presents the pinnacle claim of its argument."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:top ?flag .
+                FILTER ( STR(?flag) = "true" )
+                {
+                    ?value gsn:supportedBy $this .
+                    FILTER NOT EXISTS {
+                        ?module a gsn:Module .
+                        ?module gsn:contains+ ?value .
+                        FILTER NOT EXISTS { ?module gsn:contains+ $this }
+                    }
+                }
+                UNION
+                { $this gsn:challenges ?value }
+            }
+        """ ;
+    ] .
 
 gsnsh:UnparentedGoalIsTopShape rdf:type sh:NodeShape ;
-    rdfs:label "Goal without a parent goal is a top goal"@en ;
-    rdfs:comment "The converse direction of the general class axiom: a gsn:Goal that does not support any other gsn:Goal or gsn:Strategy is a top goal and should be asserted as such."@en ;
+    rdfs:label "Goal without a parent goal in scope is a top goal"@en ;
+    rdfs:comment "The converse direction of the general class axiom: a gsn:Goal that no gsn:Goal or gsn:Strategy of its own module supports, and that challenges nothing, is a top goal and should be asserted as such. A goal that challenges something is excluded because it is the root of a dialectic structure rather than the claim the author is asserting."@en ;
     sh:targetClass gsn:Goal ;
     gsn:coreOrExtension "Core GSN"@en ;
-    sh:or (
-        [ sh:property [ sh:path gsn:top ; sh:name "top (goal)" ; sh:hasValue true ] ]
-        [ sh:property [ sh:path [ sh:inversePath gsn:supportedBy ] ;
-                        sh:qualifiedValueShape [ sh:or ( [ sh:class gsn:Goal ]
-                                                         [ sh:class gsn:Strategy ] ) ] ;
-                        sh:qualifiedMinCount 1 ] ]
-    ) ;
-    sh:message "A goal that is not supporting any other goal or strategy is a top goal and should be marked as one."@en ;
-    sh:severity sh:Warning .
+    sh:severity sh:Warning ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} is supported by nothing within its own module and challenges nothing, so it is a top goal and should be marked as one."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                FILTER NOT EXISTS { $this gsn:top ?flag . FILTER ( STR(?flag) = "true" ) }
+                FILTER NOT EXISTS { $this gsn:challenges ?target }
+                FILTER NOT EXISTS {
+                    ?parent gsn:supportedBy $this .
+                    FILTER NOT EXISTS {
+                        ?module a gsn:Module .
+                        ?module gsn:contains+ ?parent .
+                        FILTER NOT EXISTS { ?module gsn:contains+ $this }
+                    }
+                }
+            }
+        """ ;
+    ] .
 
 
 #################################################################

@@ -24,7 +24,7 @@
                                      dc:description "OntoGSN is an ontology for managing assurance cases in the Goal Structuring Notation (GSN). The goal of the ontology is to help users in linking the elements of their cases - claims and evidence - with the internationalized resource identifiers (IRIs) of represented concepts, events and data, and in evaluating the validity of their argument."@en ;
                                      dc:identifier "SCSC-141C" ;
                                      dc:issued "2025-02-24"^^xsd:date ;
-                                     dc:modified "2026-08-17T00:00:00Z" ;
+                                     dc:modified "2026-08-18T00:00:00Z" ;
                                      dc:publisher "https://www.fortiss.org/"@en ;
                                      dc:source "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C"@en ;
                                      dc:title "OntoGSN"@en ;
@@ -1247,12 +1247,19 @@ gsn:View rdf:type owl:Class ;
                                                                ]
                                           ]
                        ]
+                       [ rdf:type owl:Class ;
+                         owl:complementOf [ rdf:type owl:Restriction ;
+                                            owl:onProperty gsn:challenges ;
+                                            owl:someValuesFrom owl:Thing
+                                          ]
+                       ]
                      ) ;
   rdf:type owl:Class ;
-  owl:equivalentClass [ rdf:type owl:Restriction ;
-                        owl:onProperty gsn:top ;
-                        owl:hasValue "true"^^xsd:boolean
-                      ]
+  rdfs:subClassOf [ rdf:type owl:Restriction ;
+                    owl:onProperty gsn:top ;
+                    owl:hasValue "true"^^xsd:boolean
+                  ] ;
+  gsn:coreOrExtension "Core GSN"@en
 ] .
 
 

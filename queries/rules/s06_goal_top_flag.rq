@@ -4,18 +4,39 @@
 # operation: rule
 # expect:    change
 # swrl:      'supported by'(?X, ?A) ^ Goal(?A) -> 'top (goal)'(?A, false)
-# reads:     IF X is supported by A AND A is a Goal THEN A is NOT a top-level goal
+# reads:     IF X is supported by A AND A is a Goal AND X is in scope for A THEN A is NOT a
+#            top-level goal; likewise IF A challenges anything THEN A is NOT a top-level goal
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
 # ?X is a Goal or a Strategy without saying so: those are the rdfs:domain of gsn:supportedBy.
 # A strategy parent counts, which is the whole point - a goal reached through a strategy is
 # not the pinnacle claim, and the earlier form of this rule missed every one of them.
+#
+# A parent counts only when it is IN SCOPE. The top goal is the pinnacle claim of an
+# argument, not of the whole store, so an away goal reached from another module stays the top
+# goal of its own module: a parent is discounted exactly when some module holds the parent and
+# not the goal. Written as containment rather than gsn:inModule so that the rule does not
+# depend on S53 and S54 having run first. With no modules in the graph nothing is ever
+# discounted, which is the unscoped reading this rule used to have.
+#
+# A goal that challenges something is never a top goal either. It is the root of a dialectic
+# structure, not the overall claim the author is asserting, and nothing supports it precisely
+# because it is levied against the argument rather than part of it.
 DELETE { ?A gsn:top ?old }
 INSERT { ?A gsn:top false }
 WHERE {
   ?A a gsn:Goal .
-  ?X gsn:supportedBy ?A .
+  {
+    ?X gsn:supportedBy ?A .
+    FILTER NOT EXISTS {
+      ?M a gsn:Module .
+      ?M gsn:contains+ ?X .
+      FILTER NOT EXISTS { ?M gsn:contains+ ?A }
+    }
+  }
+  UNION
+  { ?A gsn:challenges ?target }
   OPTIONAL { ?A gsn:top ?old }
   FILTER(!BOUND(?old) || STR(?old) != "false")
 }

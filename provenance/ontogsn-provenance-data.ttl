@@ -39,17 +39,17 @@ gsnprov:ontology-1.2.4
     rdfs:label "OntoGSN ontology 1.2.4"@en ;
     owl:versionInfo "1.2.4" ;
     gsnprov:path "serializations/ontogsn.ttl" ;
-    gsnprov:fileChecksum "f5cf61e29cf607c73cbba193c1d0e8d7370ef1852c35dc79477c93a58420f424" ;
-    prov:generatedAtTime "2026-08-17T13:36:58Z"^^xsd:dateTime .
+    gsnprov:fileChecksum "5b4514ce55df1dd4393d0a22ff76af51469cdcee2bd78f7d8f717f0b99668927" ;
+    prov:generatedAtTime "2026-08-18T12:30:41Z"^^xsd:dateTime .
 
-gsnprov:shapes-1.0.1
+gsnprov:shapes-1.0.2
     a gsnprov:FormalGraph ;
     prov:specializationOf <https://w3id.org/OntoGSN/shapes> ;
-    rdfs:label "OntoGSN SHACL shapes 1.0.1"@en ;
-    owl:versionInfo "1.0.1" ;
+    rdfs:label "OntoGSN SHACL shapes 1.0.2"@en ;
+    owl:versionInfo "1.0.2" ;
     gsnprov:path "shapes/ontogsn-shapes_0_full.ttl" ;
-    gsnprov:fileChecksum "db3cd98cd500ca2840b6c8892b2f8bb69912e342b50e6a4952f3655d9a24eb99" ;
-    prov:generatedAtTime "2026-08-17T13:36:58Z"^^xsd:dateTime .
+    gsnprov:fileChecksum "70285bfe7c04489bb0f1ff4b1c800fdf6a3c5ed870da5b96d5dc646ce291fa9f" ;
+    prov:generatedAtTime "2026-08-18T12:30:41Z"^^xsd:dateTime .
 
 
 #################################################################
@@ -19198,7 +19198,7 @@ gsnprov:dd-0769
 gsnprov:st-0769
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0769 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ArgumentShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "Argument shape"@en ;
@@ -19225,7 +19225,7 @@ gsnprov:dd-0770
 gsnprov:st-0770
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0770 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ArgumentShape sh:property [ sh:message "An argument may only contain GSN elements and the patterns it instantiates."@en ; sh:name "contains" ; sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Pattern ] ) ; sh:path gsn:contains ; sh:severity sh:Violation ] .""" ;
     gsnprov:statementChecksum "4666a29f" ;
     gsnprov:structuralKey "gsnsh:ArgumentShape|property|gsn:contains" ;
@@ -19249,7 +19249,7 @@ gsnprov:dd-0771
 gsnprov:st-0771
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0771 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ArgumentShape sh:property [ sh:datatype xsd:string ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"An argument must have exactly one identifier, written as text.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"identifier\" ; sh:path schema:identifier ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "7640926b" ;
     gsnprov:structuralKey "gsnsh:ArgumentShape|property|schema:identifier" ;
@@ -19271,7 +19271,7 @@ gsnprov:dd-0772
 gsnprov:st-0772
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0772 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ArtefactReferenceShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "Artefact Reference shape"@en ;
@@ -19298,7 +19298,7 @@ gsnprov:dd-0773
 gsnprov:st-0773
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0773 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ArtefactReferenceShape sh:property [ sh:class gsn:Artefact ; sh:message \"An artefact reference may only point at an artefact.\"@en ; sh:name \"refers to\" ; sh:path gsn:refersTo ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "27517e92" ;
     gsnprov:structuralKey "gsnsh:ArtefactReferenceShape|property|gsn:refersTo" ;
@@ -19322,7 +19322,7 @@ gsnprov:dd-0774
 gsnprov:st-0774
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0774 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:AssumptionShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "Assumption shape"@en ;
@@ -19349,7 +19349,7 @@ gsnprov:dd-0775
 gsnprov:st-0775
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0775 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:AssumptionShape sh:property [ sh:description \"GSN assumptions provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase.\"@en ; sh:message \"An assumption should carry a statement, written as a complete sentence.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"statement\" ; sh:path gsn:statement ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "d703e745" ;
     gsnprov:structuralKey "gsnsh:AssumptionShape|property|gsn:statement" ;
@@ -19372,7 +19372,7 @@ gsnprov:dd-0776
 gsnprov:st-0776
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0776 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:AssuranceCaseShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "Assurance Case shape"@en ;
@@ -19399,7 +19399,7 @@ gsnprov:dd-0777
 gsnprov:st-0777
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0777 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:AssuranceCaseShape sh:property [ sh:message \"An assurance case may only contain arguments and artefacts.\"@en ; sh:name \"contains\" ; sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:Artefact ] ) ; sh:path gsn:contains ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "7760c434" ;
     gsnprov:structuralKey "gsnsh:AssuranceCaseShape|property|gsn:contains" ;
@@ -19424,7 +19424,7 @@ gsnprov:dd-0778
 gsnprov:st-0778
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0778 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:AssuranceCaseShape sh:property [ sh:message \"An assurance case should contain at least one argument.\"@en ; sh:name \"contains an argument\" ; sh:path gsn:contains ; sh:qualifiedMinCount \"1\"^^xsd:integer ; sh:qualifiedValueShape [ sh:class gsn:Argument ] ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "9e44e333" ;
     gsnprov:structuralKey "gsnsh:AssuranceCaseShape|property|gsn:contains" ;
@@ -19448,7 +19448,7 @@ gsnprov:dd-0779
 gsnprov:st-0779
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0779 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:AssuranceCaseShape sh:property [ sh:message \"An assurance case should contain at least one artefact as its body of evidence.\"@en ; sh:name \"contains an artefact\" ; sh:path gsn:contains ; sh:qualifiedMinCount \"1\"^^xsd:integer ; sh:qualifiedValueShape [ sh:class gsn:Artefact ] ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "c7e28aa5" ;
     gsnprov:structuralKey "gsnsh:AssuranceCaseShape|property|gsn:contains" ;
@@ -19472,7 +19472,7 @@ gsnprov:dd-0780
 gsnprov:st-0780
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0780 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ContextShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "Context shape"@en ;
@@ -19499,7 +19499,7 @@ gsnprov:dd-0781
 gsnprov:st-0781
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0781 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ContextShape sh:property [ sh:description \"Two kinds of GSN context statement exist. Where a context statement draws attention to explanatory contextual information (such as the definition of some term), this information shall be stated briefly using complete sentences of a noun-phrase + verb-phrase structure. Where a context statement is a reference to an artefact of some kind, which informs the reasoning step, the context statement shall be expressed as a noun phrase.\"@en ; sh:message \"A context should carry a statement.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"statement\" ; sh:path gsn:statement ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "d4e3c439" ;
     gsnprov:structuralKey "gsnsh:ContextShape|property|gsn:statement" ;
@@ -19522,7 +19522,7 @@ gsnprov:dd-0782
 gsnprov:st-0782
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0782 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:GSNElementShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "GSN Element shape"@en ;
@@ -19549,7 +19549,7 @@ gsnprov:dd-0783
 gsnprov:st-0783
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0783 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:GSNElementShape sh:property [ sh:datatype xsd:string ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Every GSN element must have exactly one identifier, written as text.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"identifier\" ; sh:path schema:identifier ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "622b4010" ;
     gsnprov:structuralKey "gsnsh:GSNElementShape|property|schema:identifier" ;
@@ -19571,7 +19571,7 @@ gsnprov:dd-0784
 gsnprov:st-0784
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0784 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:GoalShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "Goal shape"@en ;
@@ -19598,7 +19598,7 @@ gsnprov:dd-0785
 gsnprov:st-0785
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0785 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:GoalShape sh:property [ sh:message \"A goal may only be placed in the context of an assumption, a context, a justification or a module.\"@en ; sh:name \"in context of\" ; sh:or ( [ sh:class gsn:Assumption ] [ sh:class gsn:Context ] [ sh:class gsn:Justification ] [ sh:class gsn:Module ] ) ; sh:path gsn:inContextOf ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "827d7456" ;
     gsnprov:structuralKey "gsnsh:GoalShape|property|gsn:inContextOf" ;
@@ -19625,7 +19625,7 @@ gsnprov:dd-0786
 gsnprov:st-0786
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0786 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:GoalShape sh:property [ sh:message \"A goal should be placed in at least one context.\"@en ; sh:name \"in context of a context\" ; sh:path gsn:inContextOf ; sh:qualifiedMinCount \"1\"^^xsd:integer ; sh:qualifiedValueShape [ sh:class gsn:Context ] ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "3f732e4f" ;
     gsnprov:structuralKey "gsnsh:GoalShape|property|gsn:inContextOf" ;
@@ -19649,7 +19649,7 @@ gsnprov:dd-0787
 gsnprov:st-0787
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0787 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:GoalShape sh:property [ sh:description \"GSN goals document the claims made in the argument (i.e. premises and conclusions). Each goal shall contain a single goal statement, expressed as a proposition in the form of a noun phrase + verb-phrase sentence.\"@en ; sh:message \"A goal should carry a statement expressing its claim, written as a complete sentence.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"statement\" ; sh:path gsn:statement ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "1ebca703" ;
     gsnprov:structuralKey "gsnsh:GoalShape|property|gsn:statement" ;
@@ -19672,7 +19672,7 @@ gsnprov:dd-0788
 gsnprov:st-0788
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0788 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:GoalShape sh:property [ sh:message \"A goal may only be supported by another goal, a module, a solution or a strategy.\"@en ; sh:name \"supported by\" ; sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Module ] [ sh:class gsn:Solution ] [ sh:class gsn:Strategy ] ) ; sh:path gsn:supportedBy ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "ccc248ad" ;
     gsnprov:structuralKey "gsnsh:GoalShape|property|gsn:supportedBy" ;
@@ -19699,7 +19699,7 @@ gsnprov:dd-0789
 gsnprov:st-0789
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0789 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:JustificationShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "Justification shape"@en ;
@@ -19726,7 +19726,7 @@ gsnprov:dd-0790
 gsnprov:st-0790
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0790 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:JustificationShape sh:property [ sh:description \"GSN justifications provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase.\"@en ; sh:message \"A justification should carry a statement.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"statement\" ; sh:path gsn:statement ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "90d75b3e" ;
     gsnprov:structuralKey "gsnsh:JustificationShape|property|gsn:statement" ;
@@ -19749,7 +19749,7 @@ gsnprov:dd-0791
 gsnprov:st-0791
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0791 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RelationshipShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "gsn:Relationship is a reification (rdfs:subClassOf rdf:Statement) used to attach decorators and confidence to a GSN link."@en ;
@@ -19777,7 +19777,7 @@ gsnprov:dd-0792
 gsnprov:st-0792
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0792 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RelationshipShape sh:property [ sh:maxCount "1"^^xsd:integer ; sh:message "A relationship should name exactly one target element."@en ; sh:minCount "1"^^xsd:integer ; sh:name "object" ; sh:nodeKind sh:IRI ; sh:path rdf:object ; sh:severity sh:Warning ] .""" ;
     gsnprov:statementChecksum "4b47f49c" ;
     gsnprov:structuralKey "gsnsh:RelationshipShape|property|rdf:object" ;
@@ -19800,7 +19800,7 @@ gsnprov:dd-0793
 gsnprov:st-0793
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0793 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:RelationshipShape sh:property [ sh:maxCount \"1\"^^xsd:integer ; sh:message \"A relationship should name exactly one target element.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"object\" ; sh:nodeKind sh:IRI ; sh:path rdf:object ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "4b47f49c" ;
     gsnprov:structuralKey "gsnsh:RelationshipShape|property|rdf:object" ;
@@ -19822,7 +19822,7 @@ gsnprov:dd-0794
 gsnprov:st-0794
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0794 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:RelationshipShape sh:property [ sh:in ( gsn:supportedBy gsn:inContextOf gsn:challenges ) ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A relationship should record which kind of link it stands for: supported by, in context of, or challenges.\"@en ; sh:name \"predicate\" ; sh:path rdf:predicate ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "7ecc1a93" ;
     gsnprov:structuralKey "gsnsh:RelationshipShape|property|rdf:predicate" ;
@@ -19847,7 +19847,7 @@ gsnprov:dd-0795
 gsnprov:st-0795
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0795 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:RelationshipShape sh:property [ sh:maxCount \"1\"^^xsd:integer ; sh:message \"A relationship should name exactly one source element.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"subject\" ; sh:nodeKind sh:IRI ; sh:path rdf:subject ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "71808449" ;
     gsnprov:structuralKey "gsnsh:RelationshipShape|property|rdf:subject" ;
@@ -19869,7 +19869,7 @@ gsnprov:dd-0796
 gsnprov:st-0796
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0796 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RelationshipShape sh:property [ sh:message "The source of a relationship must be a goal, a strategy, a solution, a module or a pattern."@en ; sh:name "subject" ; sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Module ] [ sh:class gsn:Pattern ] [ sh:class gsn:Solution ] [ sh:class gsn:Strategy ] ) ; sh:path rdf:subject ; sh:severity sh:Violation ] .""" ;
     gsnprov:statementChecksum "d3f83a9c" ;
     gsnprov:structuralKey "gsnsh:RelationshipShape|property|rdf:subject" ;
@@ -19894,7 +19894,7 @@ gsnprov:dd-0797
 gsnprov:st-0797
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0797 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:SolutionShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "Solution shape"@en ;
@@ -19921,7 +19921,7 @@ gsnprov:dd-0798
 gsnprov:st-0798
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0798 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:SolutionShape sh:property [ sh:class gsn:Artefact ; sh:message \"A solution presents a reference to an evidence item and should therefore point at an artefact.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"refers to\" ; sh:path gsn:refersTo ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "e9ad9073" ;
     gsnprov:structuralKey "gsnsh:SolutionShape|property|gsn:refersTo" ;
@@ -19945,7 +19945,7 @@ gsnprov:dd-0799
 gsnprov:st-0799
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0799 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:SolutionShape sh:property [ sh:description \"GSN solutions make no claim, but are simply references to evidence items that provide support for a particular claim. They shall therefore be stated as noun-phrases.\"@en ; sh:message \"A solution should carry a statement naming the evidence item, written as a noun phrase.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"statement\" ; sh:path gsn:statement ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "2b3ee6c3" ;
     gsnprov:structuralKey "gsnsh:SolutionShape|property|gsn:statement" ;
@@ -19968,7 +19968,7 @@ gsnprov:dd-0800
 gsnprov:st-0800
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0800 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:StrategyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "Strategy shape"@en ;
@@ -19995,7 +19995,7 @@ gsnprov:dd-0801
 gsnprov:st-0801
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0801 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:StrategyShape sh:property [ sh:message \"A strategy may only be placed in the context of an assumption, a context, a justification or a module.\"@en ; sh:name \"in context of\" ; sh:or ( [ sh:class gsn:Assumption ] [ sh:class gsn:Context ] [ sh:class gsn:Justification ] [ sh:class gsn:Module ] ) ; sh:path gsn:inContextOf ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "3ad7af8d" ;
     gsnprov:structuralKey "gsnsh:StrategyShape|property|gsn:inContextOf" ;
@@ -20022,7 +20022,7 @@ gsnprov:dd-0802
 gsnprov:st-0802
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0802 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:StrategyShape sh:property [ sh:description \"GSN strategy statements describe the reasoning that connects parent goals and their supporting goals, but the core claims and the structure connecting those claims remain unchanged. Strategy statements contain a brief description of the argument approach.\"@en ; sh:message \"A strategy should carry a statement describing the argument approach.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"statement\" ; sh:path gsn:statement ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "1d058065" ;
     gsnprov:structuralKey "gsnsh:StrategyShape|property|gsn:statement" ;
@@ -20045,7 +20045,7 @@ gsnprov:dd-0803
 gsnprov:st-0803
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0803 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:StrategyShape sh:property [ sh:class gsn:Goal ; sh:message \"A strategy may only be supported by a goal.\"@en ; sh:name \"supported by\" ; sh:path gsn:supportedBy ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "177449b3" ;
     gsnprov:structuralKey "gsnsh:StrategyShape|property|gsn:supportedBy" ;
@@ -20071,7 +20071,7 @@ gsnprov:dd-0804
 gsnprov:st-0804
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0804 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ContainsPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "The declared rdfs:range of gsn:contains (Argument, Artefact, Module) is narrower than the class-level owl:allValuesFrom axioms that use it (e.g. gsn:Argument contains only gsn:GSNElement, gsn:Catalogue contains only gsn:Pattern). The range is therefore validated per containing class rather than globally. gsn:Catalogue is added to the domain here for the same reason."@en ;
@@ -20108,7 +20108,7 @@ gsnprov:dd-0805
 gsnprov:st-0805
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0805 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:InContextOfPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "gsn:Module is added to the declared domain (Goal, Strategy) because gsn:Module carries an owl:allValuesFrom restriction on gsn:inContextOf."@en ;
@@ -20142,7 +20142,7 @@ gsnprov:dd-0806
 gsnprov:st-0806
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0806 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:InContextOfRangePropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:inContextOf — range"@en ;
@@ -20178,7 +20178,7 @@ gsnprov:dd-0807
 gsnprov:st-0807
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0807 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RefersToPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:refersTo — domain"@en ;
@@ -20209,7 +20209,7 @@ gsnprov:dd-0808
 gsnprov:st-0808
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0808 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RefersToRangePropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:refersTo — range"@en ;
@@ -20240,7 +20240,7 @@ gsnprov:dd-0809
 gsnprov:st-0809
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0809 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:SupportedByPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "gsn:Module is added to the declared domain (Goal, Strategy) because gsn:Module carries an owl:allValuesFrom restriction on gsn:supportedBy."@en ;
@@ -20274,7 +20274,7 @@ gsnprov:dd-0810
 gsnprov:st-0810
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0810 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:SupportedByRangePropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:supportedBy — range"@en ;
@@ -20308,7 +20308,7 @@ gsnprov:dd-0811
 gsnprov:st-0811
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0811 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:OffDiagramPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:offDiagram"@en ;
@@ -20339,7 +20339,7 @@ gsnprov:dd-0812
 gsnprov:st-0812
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0812 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:OffDiagramPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Off-diagram must be a single true or false value.\"@en ; sh:name \"off-diagram\" ; sh:path gsn:offDiagram ] ." ;
     gsnprov:statementChecksum "001aaff0" ;
     gsnprov:structuralKey "gsnsh:OffDiagramPropertyShape|property|gsn:offDiagram" ;
@@ -20362,7 +20362,7 @@ gsnprov:dd-0813
 gsnprov:st-0813
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0813 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RelationshipTypePropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:relationshipType"@en ;
@@ -20395,7 +20395,7 @@ gsnprov:dd-0815
 gsnprov:st-0815
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0815 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:StatementPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:statement"@en ;
@@ -20427,7 +20427,7 @@ gsnprov:dd-0816
 gsnprov:st-0816
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0816 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:StatementPropertyShape sh:property [ sh:datatype xsd:string ; sh:message \"A statement must be written as text.\"@en ; sh:name \"statement\" ; sh:path gsn:statement ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "fd0e4d97" ;
     gsnprov:structuralKey "gsnsh:StatementPropertyShape|property|gsn:statement" ;
@@ -20450,7 +20450,7 @@ gsnprov:dd-0817
 gsnprov:st-0817
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0817 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:StatementPropertyShape sh:property [ sh:maxCount \"1\"^^xsd:integer ; sh:message \"An element must carry at most one statement; the GSN Community Standard v3 requires a single statement per element.\"@en ; sh:name \"statement\" ; sh:path gsn:statement ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "652bdc7a" ;
     gsnprov:structuralKey "gsnsh:StatementPropertyShape|property|gsn:statement" ;
@@ -20473,7 +20473,7 @@ gsnprov:dd-0818
 gsnprov:st-0818
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0818 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:StructuredPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:structured"@en ;
@@ -20504,7 +20504,7 @@ gsnprov:dd-0819
 gsnprov:st-0819
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0819 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:StructuredPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:description \"A particular kind of argument where the relationships between the asserted claims, and from the evidence to the claims, are explicitly represented.\"@en ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Structured must be a single true or false value.\"@en ; sh:name \"structured\" ; sh:path gsn:structured ] ." ;
     gsnprov:statementChecksum "acc25459" ;
     gsnprov:structuralKey "gsnsh:StructuredPropertyShape|property|gsn:structured" ;
@@ -20527,7 +20527,7 @@ gsnprov:dd-0820
 gsnprov:st-0820
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0820 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:TopPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:top"@en ;
@@ -20558,7 +20558,7 @@ gsnprov:dd-0821
 gsnprov:st-0821
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0821 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:TopPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:description \"A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure.\"@en ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Top goal must be a single true or false value.\"@en ; sh:name \"top (goal)\" ; sh:path gsn:top ] ." ;
     gsnprov:statementChecksum "6bc4e033" ;
     gsnprov:structuralKey "gsnsh:TopPropertyShape|property|gsn:top" ;
@@ -20581,7 +20581,7 @@ gsnprov:dd-0822
 gsnprov:st-0822
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0822 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:TruePropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:true"@en ;
@@ -20612,7 +20612,7 @@ gsnprov:dd-0823
 gsnprov:st-0823
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0823 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:TruePropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"True must be a single true or false value; an element cannot be both true and not true.\"@en ; sh:name \"true\" ; sh:path gsn:true ] ." ;
     gsnprov:statementChecksum "6688542b" ;
     gsnprov:structuralKey "gsnsh:TruePropertyShape|property|gsn:true" ;
@@ -20635,7 +20635,7 @@ gsnprov:dd-0824
 gsnprov:st-0824
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0824 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ValidPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:valid"@en ;
@@ -20666,7 +20666,7 @@ gsnprov:dd-0825
 gsnprov:st-0825
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0825 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ValidPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Valid must be a single true or false value; an element cannot be both valid and invalid.\"@en ; sh:name \"valid\" ; sh:path gsn:valid ] ." ;
     gsnprov:statementChecksum "aaf1340b" ;
     gsnprov:structuralKey "gsnsh:ValidPropertyShape|property|gsn:valid" ;
@@ -20689,7 +20689,7 @@ gsnprov:dd-0826
 gsnprov:st-0826
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0826 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:IdentifierPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "schema:identifier"@en ;
@@ -20704,7 +20704,8 @@ gsnprov:st-0826
         gsnsh:IdentifierPropertyShape .
 
 gsnprov:dd-0827
-    a gsnprov:DesignDecision ;
+    a gsnprov:RetiredDecision ;
+    gsnprov:retirementReason "Superseded by dd-0968 and dd-0969: the shape was rewritten from an sh:or over an inverse-path count into a SHACL-SPARQL constraint, because the parent test is now scoped to the module and a goal that challenges something is excluded - neither is expressible as a property shape."@en ;
     gsnprov:positionKey "S04.SH059" ;
     gsnprov:part gsnprov:part-1 ;
     gsnprov:section gsnprov:sec-core ;
@@ -20718,7 +20719,7 @@ gsnprov:dd-0827
 gsnprov:st-0827
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0827 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:TopGoalHasNoParentShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "From the general class axiom: ( Goal and not (inverse gsn:supportedBy some (Goal or Strategy)) ) EquivalentTo ( gsn:top value true ). A strategy counts as a parent: a goal reached through a strategy is not the pinnacle claim, and reading the axiom over goals alone made every strategy-parented goal a top goal."@en ;
@@ -20737,7 +20738,8 @@ gsnprov:st-0827
         gsnsh:TopGoalHasNoParentShape .
 
 gsnprov:dd-0828
-    a gsnprov:DesignDecision ;
+    a gsnprov:RetiredDecision ;
+    gsnprov:retirementReason "Superseded by dd-0970 and dd-0971: the shape was rewritten from an sh:or over an inverse-path count into a SHACL-SPARQL constraint, because the parent test is now scoped to the module and a goal that challenges something is excluded - neither is expressible as a property shape."@en ;
     gsnprov:positionKey "S04.SH060" ;
     gsnprov:part gsnprov:part-1 ;
     gsnprov:section gsnprov:sec-core ;
@@ -20751,7 +20753,7 @@ gsnprov:dd-0828
 gsnprov:st-0828
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0828 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:UnparentedGoalIsTopShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "The converse direction of the general class axiom: a gsn:Goal that does not support any other gsn:Goal or gsn:Strategy is a top goal and should be asserted as such."@en ;
@@ -20784,7 +20786,7 @@ gsnprov:dd-0829
 gsnprov:st-0829
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0829 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:SupportedByIrreflexiveShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:supportedBy is irreflexive and asymmetric"@en ;
@@ -20811,7 +20813,7 @@ gsnprov:dd-0830
 gsnprov:st-0830
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0830 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:SupportedByIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} and {?value} cannot support each other; support runs in one direction only.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:supportedBy ?value . ?value gsn:supportedBy $this . FILTER ( !sameTerm($this, ?value) ) }\" ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "7568ef0c" ;
     gsnprov:structuralKey "gsnsh:SupportedByIrreflexiveShape|sparql|{$this} and {?value} cannot support each" ;
@@ -20834,7 +20836,7 @@ gsnprov:dd-0831
 gsnprov:st-0831
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0831 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:SupportedByIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} cannot be supported by itself.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:supportedBy ?value . FILTER ( sameTerm($this, ?value) ) }\" ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "882456fc" ;
     gsnprov:structuralKey "gsnsh:SupportedByIrreflexiveShape|sparql|{$this} cannot be supported by itself." ;
@@ -20857,7 +20859,7 @@ gsnprov:dd-0832
 gsnprov:st-0832
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0832 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:InContextOfIrreflexiveShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:inContextOf is irreflexive and asymmetric"@en ;
@@ -20884,7 +20886,7 @@ gsnprov:dd-0833
 gsnprov:st-0833
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0833 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:InContextOfIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} and {?value} cannot be placed in the context of each other.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:inContextOf ?value . ?value gsn:inContextOf $this . FILTER ( !sameTerm($this, ?value) ) }\" ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "8a4703c8" ;
     gsnprov:structuralKey "gsnsh:InContextOfIrreflexiveShape|sparql|{$this} and {?value} cannot be placed in" ;
@@ -20907,7 +20909,7 @@ gsnprov:dd-0834
 gsnprov:st-0834
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0834 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:InContextOfIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} cannot be placed in the context of itself.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:inContextOf ?value . FILTER ( sameTerm($this, ?value) ) }\" ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "2ed60c87" ;
     gsnprov:structuralKey "gsnsh:InContextOfIrreflexiveShape|sparql|{$this} cannot be placed in the context " ;
@@ -20930,7 +20932,7 @@ gsnprov:dd-0835
 gsnprov:st-0835
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0835 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:SupportCycleShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "Not an explicit OWL axiom, but implied by GSN: a goal structure is a directed acyclic graph rooted in one or more top goals."@en ;
@@ -20958,7 +20960,7 @@ gsnprov:dd-0836
 gsnprov:st-0836
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0836 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:SupportCycleShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} takes part in a support cycle; a goal structure must not contain loops.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this WHERE { $this gsn:supportedBy+ $this . }\" ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "7edc1c13" ;
     gsnprov:structuralKey "gsnsh:SupportCycleShape|sparql|{$this} takes part in a support cycle; a" ;
@@ -20981,7 +20983,7 @@ gsnprov:dd-0837
 gsnprov:st-0837
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0837 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:CatalogueShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
@@ -21009,7 +21011,7 @@ gsnprov:dd-0838
 gsnprov:st-0838
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0838 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:CatalogueShape sh:property [ sh:class gsn:Pattern ; sh:message \"A catalogue may only contain patterns.\"@en ; sh:name \"contains\" ; sh:path gsn:contains ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "465a271a" ;
     gsnprov:structuralKey "gsnsh:CatalogueShape|property|gsn:contains" ;
@@ -21033,7 +21035,7 @@ gsnprov:dd-0839
 gsnprov:st-0839
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0839 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:CatalogueShape sh:property [ sh:message \"A catalogue collates a series of patterns and should therefore contain at least one pattern.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"contains\" ; sh:path gsn:contains ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "559b8d18" ;
     gsnprov:structuralKey "gsnsh:CatalogueShape|property|gsn:contains" ;
@@ -21056,7 +21058,7 @@ gsnprov:dd-0840
 gsnprov:st-0840
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0840 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:CatalogueShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"Two patterns in this catalogue share the identifier {?id}; each pattern definition in a catalogue must have a unique pattern identifier.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/pattern> ; sh:select \"SELECT $this ?id WHERE { $this gsn:contains ?p1 , ?p2 . ?p1 schema:identifier ?id . ?p2 schema:identifier ?id . FILTER ( !sameTerm(?p1, ?p2) ) }\" ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "401822d6" ;
     gsnprov:structuralKey "gsnsh:CatalogueShape|sparql|Two patterns in this catalogue share the" ;
@@ -21079,7 +21081,7 @@ gsnprov:dd-0841
 gsnprov:st-0841
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0841 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:InstantiationDataReferenceShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument."@en ;
@@ -21107,7 +21109,7 @@ gsnprov:dd-0842
 gsnprov:st-0842
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0842 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:InstantiationDataReferenceShape sh:property [ sh:message "Instantiation data must be attached to a template or to an element of one."@en ; sh:minCount "1"^^xsd:integer ; sh:name "attached to" ; sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Template ] ) ; sh:path gsn:attachedTo ; sh:severity sh:Violation ] .""" ;
     gsnprov:statementChecksum "32d0dd1c" ;
     gsnprov:structuralKey "gsnsh:InstantiationDataReferenceShape|property|gsn:attachedTo" ;
@@ -21131,7 +21133,7 @@ gsnprov:dd-0843
 gsnprov:st-0843
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0843 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:PatternShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "Pattern shape"@en ;
@@ -21158,7 +21160,7 @@ gsnprov:dd-0844
 gsnprov:st-0844
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0844 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:description \"The applicability section should state under what circumstances the pattern can be applied, making clear the assumptions and principles underlying the pattern to avoid inappropriate application in a mismatched context. This section should record what contextual information is required in order to apply the pattern.\"@en ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern may state its applicability only once.\"@en ; sh:name \"applicability\" ; sh:nodeKind sh:Literal ; sh:path gsn:applicability ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "ac5c9e9a" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:applicability" ;
@@ -21181,7 +21183,7 @@ gsnprov:dd-0845
 gsnprov:st-0845
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0845 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:message \"A pattern should state under what circumstances it may be applied, so that it is not used in a mismatched context.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"applicability\" ; sh:path gsn:applicability ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "4f26c765" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:applicability" ;
@@ -21204,7 +21206,7 @@ gsnprov:dd-0846
 gsnprov:st-0846
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0846 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern may describe its collaboration only once.\"@en ; sh:name \"collaboration\" ; sh:nodeKind sh:Literal ; sh:path gsn:collaboration ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "0440f1eb" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:collaboration" ;
@@ -21227,7 +21229,7 @@ gsnprov:dd-0847
 gsnprov:st-0847
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0847 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:description \"The consequences section should make clear what work remains after the pattern has been applied. This should highlight where further support to the argument is required, and assumptions that need to be discharged.\"@en ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern may state its consequences only once.\"@en ; sh:name \"consequences\" ; sh:nodeKind sh:Literal ; sh:path gsn:consequences ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "273e9bb4" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:consequences" ;
@@ -21250,7 +21252,7 @@ gsnprov:dd-0848
 gsnprov:st-0848
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0848 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern may give its examples only once.\"@en ; sh:name \"examples\" ; sh:nodeKind sh:Literal ; sh:path gsn:examples ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "81422f1a" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:examples" ;
@@ -21273,7 +21275,7 @@ gsnprov:dd-0849
 gsnprov:st-0849
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0849 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern may describe its implementation only once.\"@en ; sh:name \"implementation\" ; sh:nodeKind sh:Literal ; sh:path gsn:implementation ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "186ff38c" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:implementation" ;
@@ -21296,7 +21298,7 @@ gsnprov:dd-0850
 gsnprov:st-0850
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0850 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:description \"The intent statement should state clearly what the pattern aims to achieve.\"@en ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern may state its intent only once.\"@en ; sh:name \"intent\" ; sh:nodeKind sh:Literal ; sh:path gsn:intent ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "93b3ac1a" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:intent" ;
@@ -21319,7 +21321,7 @@ gsnprov:dd-0851
 gsnprov:st-0851
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0851 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:message \"A pattern should state what it aims to achieve.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"intent\" ; sh:path gsn:intent ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "eb7e9008" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:intent" ;
@@ -21342,7 +21344,7 @@ gsnprov:dd-0852
 gsnprov:st-0852
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0852 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern may list its known uses only once.\"@en ; sh:name \"known uses\" ; sh:nodeKind sh:Literal ; sh:path gsn:knownUses ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "f7970456" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:knownUses" ;
@@ -21365,7 +21367,7 @@ gsnprov:dd-0853
 gsnprov:st-0853
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0853 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern may state its motivation only once.\"@en ; sh:name \"motivation\" ; sh:nodeKind sh:Literal ; sh:path gsn:motivation ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "ab3b5686" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:motivation" ;
@@ -21388,7 +21390,7 @@ gsnprov:dd-0854
 gsnprov:st-0854
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0854 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern may list its participants only once.\"@en ; sh:name \"participants\" ; sh:nodeKind sh:Literal ; sh:path gsn:participants ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "8c27bacc" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:participants" ;
@@ -21411,7 +21413,7 @@ gsnprov:dd-0855
 gsnprov:st-0855
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0855 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:class gsn:Pattern ; sh:description \"This section can be used to reference patterns that are related e.g. addressing the same intent in a different context.\"@en ; sh:message \"A pattern may only be related to another pattern.\"@en ; sh:name \"related to\" ; sh:path gsn:relatedTo ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "8f65bac3" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:relatedTo" ;
@@ -21435,7 +21437,7 @@ gsnprov:dd-0856
 gsnprov:st-0856
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0856 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:description \"The structure uses the structural and element abstraction notations to present the pattern, clearly indicating where the argument needs to be further developed or populated with details to instantiate the pattern for a specific case.\"@en ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern may state its structure only once.\"@en ; sh:name \"structure\" ; sh:nodeKind sh:Literal ; sh:path gsn:structure ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "df73130e" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|gsn:structure" ;
@@ -21458,7 +21460,7 @@ gsnprov:dd-0857
 gsnprov:st-0857
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0857 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:message \"A pattern must carry a description.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"description\" ; sh:nodeKind sh:Literal ; sh:path schema:description ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "b025f1fc" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|schema:description" ;
@@ -21480,7 +21482,7 @@ gsnprov:dd-0858
 gsnprov:st-0858
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0858 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PatternShape sh:property [ sh:datatype xsd:string ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A pattern definition should have a single, unique pattern identifier.\"@en ; sh:name \"pattern identifier\" ; sh:path schema:identifier ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "0aedc2bc" ;
     gsnprov:structuralKey "gsnsh:PatternShape|property|schema:identifier" ;
@@ -21502,7 +21504,7 @@ gsnprov:dd-0859
 gsnprov:st-0859
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0859 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:TemplateShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development."@en ;
@@ -21534,7 +21536,7 @@ gsnprov:dd-0860
 gsnprov:st-0860
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0860 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:AttachedToPropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:attachedTo — domain"@en ;
@@ -21565,7 +21567,7 @@ gsnprov:dd-0861
 gsnprov:st-0861
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0861 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:AttachedToRangePropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:attachedTo — range"@en ;
@@ -21596,7 +21598,7 @@ gsnprov:dd-0862
 gsnprov:st-0862
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0862 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:InstantiationOfPropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:instantiationOf — domain"@en ;
@@ -21628,7 +21630,7 @@ gsnprov:dd-0863
 gsnprov:st-0863
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0863 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:InstantiationOfRangePropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:instantiationOf — range"@en ;
@@ -21659,7 +21661,7 @@ gsnprov:dd-0864
 gsnprov:st-0864
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0864 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RelatedToPropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:relatedTo — domain"@en ;
@@ -21690,7 +21692,7 @@ gsnprov:dd-0865
 gsnprov:st-0865
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0865 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RelatedToRangePropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:relatedTo — range"@en ;
@@ -21721,7 +21723,7 @@ gsnprov:dd-0866
 gsnprov:st-0866
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0866 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ChoicePropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:choice"@en ;
@@ -21752,7 +21754,7 @@ gsnprov:dd-0867
 gsnprov:st-0867
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0867 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ChoicePropertyShape sh:property [ sh:datatype xsd:boolean ; sh:description \"A GSN choice can be used to denote possible alternatives in satisfying a relationship.\"@en ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Choice must be a single true or false value.\"@en ; sh:name \"choice\" ; sh:path gsn:choice ] ." ;
     gsnprov:statementChecksum "419331fa" ;
     gsnprov:structuralKey "gsnsh:ChoicePropertyShape|property|gsn:choice" ;
@@ -21775,7 +21777,7 @@ gsnprov:dd-0868
 gsnprov:st-0868
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0868 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:FinalPropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:final"@en ;
@@ -21806,7 +21808,7 @@ gsnprov:dd-0869
 gsnprov:st-0869
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0869 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:FinalPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Final must be a single true or false value.\"@en ; sh:name \"final\" ; sh:path gsn:final ] ." ;
     gsnprov:statementChecksum "06d585fc" ;
     gsnprov:structuralKey "gsnsh:FinalPropertyShape|property|gsn:final" ;
@@ -21829,7 +21831,7 @@ gsnprov:dd-0870
 gsnprov:st-0870
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0870 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:CardinalityPropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:minCardinality and gsn:maxCardinality"@en ;
@@ -21855,13 +21857,13 @@ gsnprov:dd-0871
     gsnprov:naturalLanguage "A minimum cardinality must be a single whole number that is not negative."@en ;
     gsnprov:nlWrittenFor "70e8ac73" ;
     gsnprov:noSourceRecorded "true"^^xsd:boolean ;
-    gsnprov:noRationaleRecorded "true"^^xsd:boolean ;
+    gsnprov:hasRationale gsnprov:why-0214 ;
     prov:generated gsnprov:st-0871 .
 
 gsnprov:st-0871
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0871 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:CardinalityPropertyShape sh:property [ sh:maxCount "1"^^xsd:integer ; sh:message "A minimum cardinality must be a single whole number that is not negative."@en ; sh:minInclusive "0"^^xsd:integer ; sh:name "minimum cardinality" ; sh:or ( [ sh:datatype xsd:nonNegativeInteger ] [ sh:datatype xsd:integer ] ) ; sh:path gsn:minCardinality ] .""" ;
     gsnprov:statementChecksum "70e8ac73" ;
     gsnprov:structuralKey "gsnsh:CardinalityPropertyShape|property|gsn:minCardinality" ;
@@ -21884,7 +21886,7 @@ gsnprov:dd-0872
 gsnprov:st-0872
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0872 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:CardinalityPropertyShape sh:property [ sh:lessThanOrEquals gsn:maxCardinality ; sh:message \"The minimum cardinality must not be greater than the maximum cardinality.\"@en ; sh:name \"minimum cardinality\" ; sh:path gsn:minCardinality ] ." ;
     gsnprov:statementChecksum "dacad5ea" ;
     gsnprov:structuralKey "gsnsh:CardinalityPropertyShape|property|gsn:minCardinality" ;
@@ -21908,7 +21910,7 @@ gsnprov:dd-0873
 gsnprov:st-0873
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0873 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:MaxCardinalityPropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:maxCardinality"@en ;
@@ -21933,13 +21935,13 @@ gsnprov:dd-0874
     gsnprov:naturalLanguage "A maximum cardinality must be a single whole number that is not negative."@en ;
     gsnprov:nlWrittenFor "a3c8cb4a" ;
     gsnprov:noSourceRecorded "true"^^xsd:boolean ;
-    gsnprov:noRationaleRecorded "true"^^xsd:boolean ;
+    gsnprov:hasRationale gsnprov:why-0214 ;
     prov:generated gsnprov:st-0874 .
 
 gsnprov:st-0874
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0874 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:MaxCardinalityPropertyShape sh:property [ sh:maxCount "1"^^xsd:integer ; sh:message "A maximum cardinality must be a single whole number that is not negative."@en ; sh:minInclusive "0"^^xsd:integer ; sh:name "maximum cardinality" ; sh:or ( [ sh:datatype xsd:nonNegativeInteger ] [ sh:datatype xsd:integer ] ) ; sh:path gsn:maxCardinality ] .""" ;
     gsnprov:statementChecksum "a3c8cb4a" ;
     gsnprov:structuralKey "gsnsh:MaxCardinalityPropertyShape|property|gsn:maxCardinality" ;
@@ -21962,7 +21964,7 @@ gsnprov:dd-0875
 gsnprov:st-0875
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0875 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:MultiplePropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:multiple"@en ;
@@ -21993,7 +21995,7 @@ gsnprov:dd-0876
 gsnprov:st-0876
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0876 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:MultiplePropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Multiple must be a single true or false value.\"@en ; sh:name \"multiple\" ; sh:path gsn:multiple ] ." ;
     gsnprov:statementChecksum "a62bf9ff" ;
     gsnprov:structuralKey "gsnsh:MultiplePropertyShape|property|gsn:multiple" ;
@@ -22016,7 +22018,7 @@ gsnprov:dd-0877
 gsnprov:st-0877
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0877 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:OptionalPropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:optional"@en ;
@@ -22047,7 +22049,7 @@ gsnprov:dd-0878
 gsnprov:st-0878
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0878 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:OptionalPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:description \"Optional instantiation means that the relationship and the argument below may or may not be instantiated.\"@en ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Optional must be a single true or false value.\"@en ; sh:name \"optional\" ; sh:path gsn:optional ] ." ;
     gsnprov:statementChecksum "e0036e77" ;
     gsnprov:structuralKey "gsnsh:OptionalPropertyShape|property|gsn:optional" ;
@@ -22070,7 +22072,7 @@ gsnprov:dd-0879
 gsnprov:st-0879
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0879 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:PublishedPropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:published"@en ;
@@ -22101,7 +22103,7 @@ gsnprov:dd-0880
 gsnprov:st-0880
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0880 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PublishedPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Published must be a single true or false value.\"@en ; sh:name \"published\" ; sh:path gsn:published ] ." ;
     gsnprov:statementChecksum "3c125946" ;
     gsnprov:structuralKey "gsnsh:PublishedPropertyShape|property|gsn:published" ;
@@ -22124,7 +22126,7 @@ gsnprov:dd-0881
 gsnprov:st-0881
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0881 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:UndevelopedPropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:undeveloped"@en ;
@@ -22156,7 +22158,7 @@ gsnprov:dd-0882
 gsnprov:st-0882
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0882 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:UndevelopedPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:description \"Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed.\"@en ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Undeveloped must be a single true or false value.\"@en ; sh:name \"undeveloped\" ; sh:path gsn:undeveloped ] ." ;
     gsnprov:statementChecksum "50e92562" ;
     gsnprov:structuralKey "gsnsh:UndevelopedPropertyShape|property|gsn:undeveloped" ;
@@ -22179,7 +22181,7 @@ gsnprov:dd-0883
 gsnprov:st-0883
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0883 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:UndevelopedHasNoSupportShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "GSN convention rather than an explicit OWL axiom: the undeveloped decorator indicates that a line of argument has NOT been developed, so the element should carry no gsn:supportedBy links."@en ;
@@ -22211,7 +22213,7 @@ gsnprov:dd-0884
 gsnprov:st-0884
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0884 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:UninstantiatedPropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:uninstantiated"@en ;
@@ -22242,7 +22244,7 @@ gsnprov:dd-0885
 gsnprov:st-0885
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0885 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:UninstantiatedPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Uninstantiated must be a single true or false value.\"@en ; sh:name \"uninstantiated\" ; sh:path gsn:uninstantiated ] ." ;
     gsnprov:statementChecksum "defa0741" ;
     gsnprov:structuralKey "gsnsh:UninstantiatedPropertyShape|property|gsn:uninstantiated" ;
@@ -22265,7 +22267,7 @@ gsnprov:dd-0886
 gsnprov:st-0886
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0886 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:PatternSectionDomainShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "The ten pattern documentation sections all declare rdfs:domain gsn:Pattern."@en ;
@@ -22315,7 +22317,7 @@ gsnprov:dd-0887
 gsnprov:st-0887
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0887 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ModuleShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "Goal structures can be partitioned into separate, but interrelated, modules. This can allow the division of an overall goal structure into separate goal structures focusing on particular aspects of the overall argument. A module may contain one or more arguments and may contain other modules."@en ;
@@ -22343,7 +22345,7 @@ gsnprov:dd-0888
 gsnprov:st-0888
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0888 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ModuleShape sh:property [ sh:message \"A module may only contain arguments and other modules.\"@en ; sh:name \"contains\" ; sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:Module ] ) ; sh:path gsn:contains ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "16c6ca44" ;
     gsnprov:structuralKey "gsnsh:ModuleShape|property|gsn:contains" ;
@@ -22368,7 +22370,7 @@ gsnprov:dd-0889
 gsnprov:st-0889
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0889 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ModuleShape sh:property [ sh:message \"A module must contain at least one argument.\"@en ; sh:name \"contains an argument\" ; sh:path gsn:contains ; sh:qualifiedMinCount \"1\"^^xsd:integer ; sh:qualifiedValueShape [ sh:class gsn:Argument ] ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "8283b06c" ;
     gsnprov:structuralKey "gsnsh:ModuleShape|property|gsn:contains" ;
@@ -22392,7 +22394,7 @@ gsnprov:dd-0890
 gsnprov:st-0890
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0890 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ModuleShape sh:property [ sh:datatype xsd:boolean ; sh:description \"A contract module is a special type of module that controls the relationship between argument module interfaces using arguments to define how a goal in one module is supported by one or more goals in one or more other modules.\"@en ; sh:disjoint gsn:undeveloped ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Contract must be a single true or false value, and a module cannot be both a contract module and undeveloped.\"@en ; sh:name \"contract\" ; sh:path gsn:contract ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "74f86a1c" ;
     gsnprov:structuralKey "gsnsh:ModuleShape|property|gsn:contract" ;
@@ -22416,7 +22418,7 @@ gsnprov:dd-0891
 gsnprov:st-0891
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0891 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ModuleShape sh:property [ sh:class gsn:Module ; sh:message \"A module may only be placed in the context of another module.\"@en ; sh:name \"in context of\" ; sh:path gsn:inContextOf ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "a327225c" ;
     gsnprov:structuralKey "gsnsh:ModuleShape|property|gsn:inContextOf" ;
@@ -22440,7 +22442,7 @@ gsnprov:dd-0892
 gsnprov:st-0892
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0892 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ModuleShape sh:property [ sh:class gsn:Module ; sh:message \"A module may only be supported by another module.\"@en ; sh:name \"supported by\" ; sh:path gsn:supportedBy ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "4162a8fa" ;
     gsnprov:structuralKey "gsnsh:ModuleShape|property|gsn:supportedBy" ;
@@ -22464,7 +22466,7 @@ gsnprov:dd-0893
 gsnprov:st-0893
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0893 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ViewShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "The argument view depicts the argument inside an individual module."@en ;
@@ -22492,7 +22494,7 @@ gsnprov:dd-0894
 gsnprov:st-0894
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0894 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ViewShape sh:property [ sh:in ( \"architecture\" \"argument\" ) ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A view must declare exactly one view type, either \\\"architecture\\\" or \\\"argument\\\".\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"view type\" ; sh:path gsn:viewType ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "058a9ff9" ;
     gsnprov:structuralKey "gsnsh:ViewShape|property|gsn:viewType" ;
@@ -22515,7 +22517,7 @@ gsnprov:dd-0895
 gsnprov:st-0895
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0895 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ConsistentWithPropertyShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "By making the relationship to the away goal the author is asserting not only the inference of support for the parent goal, but also that the context in which the away goal is declared is consistent with the context and assumptions in scope for the parent goal."@en ;
@@ -22548,7 +22550,7 @@ gsnprov:dd-0896
 gsnprov:st-0896
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0896 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ConsistentWithPropertyShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"Consistency runs both ways: {?value} should also be declared consistent with {$this}. Run the reasoner, or state the other direction as well.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ; sh:select \"SELECT $this ?value WHERE { $this gsn:consistentWith ?value . FILTER NOT EXISTS { ?value gsn:consistentWith $this } }\" ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "d4165ebc" ;
     gsnprov:structuralKey "gsnsh:ConsistentWithPropertyShape|sparql|Consistency runs both ways: {?value} sho" ;
@@ -22571,7 +22573,7 @@ gsnprov:dd-0897
 gsnprov:st-0897
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0897 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ConsistentWithRangePropertyShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:consistentWith — range"@en ;
@@ -22603,7 +22605,7 @@ gsnprov:dd-0898
 gsnprov:st-0898
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0898 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:SubstitutedByPropertyShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "There may be occasions when a goal or strategy requires fuller justification than can be provided within the confines of a GSN justification element. In such cases, an away goal can be substituted for the justification."@en ;
@@ -22635,7 +22637,7 @@ gsnprov:dd-0899
 gsnprov:st-0899
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0899 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:SubstitutedByRangePropertyShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:substitutedBy — range"@en ;
@@ -22666,7 +22668,7 @@ gsnprov:dd-0900
 gsnprov:st-0900
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0900 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:SubstitutedByRangePropertyShape sh:property [ sh:hasValue \"true\"^^xsd:boolean ; sh:message \"A justification may only be substituted by an away goal, that is, a goal marked as away.\"@en ; sh:name \"away\" ; sh:path gsn:away ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "1248b2d9" ;
     gsnprov:structuralKey "gsnsh:SubstitutedByRangePropertyShape|property|gsn:away" ;
@@ -22689,7 +22691,7 @@ gsnprov:dd-0901
 gsnprov:st-0901
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0901 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:AwayPropertyShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "An away element reference repeats a claim or evidence presented in another argument module."@en ;
@@ -22725,7 +22727,7 @@ gsnprov:dd-0902
 gsnprov:st-0902
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0902 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:AwayPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Away must be a single true or false value.\"@en ; sh:name \"away\" ; sh:path gsn:away ] ." ;
     gsnprov:statementChecksum "8647c9a8" ;
     gsnprov:structuralKey "gsnsh:AwayPropertyShape|property|gsn:away" ;
@@ -22748,7 +22750,7 @@ gsnprov:dd-0903
 gsnprov:st-0903
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0903 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ContractPropertyShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:contract"@en ;
@@ -22779,7 +22781,7 @@ gsnprov:dd-0904
 gsnprov:st-0904
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0904 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ContractPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:disjoint gsn:undeveloped ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Contract must be a single true or false value, and a module cannot be both a contract module and undeveloped.\"@en ; sh:name \"contract\" ; sh:path gsn:contract ] ." ;
     gsnprov:statementChecksum "d0735820" ;
     gsnprov:structuralKey "gsnsh:ContractPropertyShape|property|gsn:contract" ;
@@ -22803,7 +22805,7 @@ gsnprov:dd-0905
 gsnprov:st-0905
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0905 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:PublicPropertyShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element."@en ;
@@ -22839,7 +22841,7 @@ gsnprov:dd-0906
 gsnprov:st-0906
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0906 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:PublicPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Public must be a single true or false value.\"@en ; sh:name \"public\" ; sh:path gsn:public ] ." ;
     gsnprov:statementChecksum "23dcbada" ;
     gsnprov:structuralKey "gsnsh:PublicPropertyShape|property|gsn:public" ;
@@ -22862,7 +22864,7 @@ gsnprov:dd-0907
 gsnprov:st-0907
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0907 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ToBeSupportedByContractPropertyShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:toBeSupportedByContract"@en ;
@@ -22893,7 +22895,7 @@ gsnprov:dd-0908
 gsnprov:st-0908
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0908 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ToBeSupportedByContractPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:disjoint gsn:undeveloped ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"To be supported by contract must be a single true or false value, and a goal cannot be both awaiting a contract and undeveloped.\"@en ; sh:name \"to be supported by contract\" ; sh:path gsn:toBeSupportedByContract ] ." ;
     gsnprov:statementChecksum "e890e599" ;
     gsnprov:structuralKey "gsnsh:ToBeSupportedByContractPropertyShape|property|gsn:toBeSupportedByContract" ;
@@ -22917,7 +22919,7 @@ gsnprov:dd-0909
 gsnprov:st-0909
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0909 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ViewTypePropertyShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:viewType"@en ;
@@ -22948,7 +22950,7 @@ gsnprov:dd-0910
 gsnprov:st-0910
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0910 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ViewTypePropertyShape sh:property [ sh:in ( \"architecture\" \"argument\" ) ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A view type must be exactly one of \\\"architecture\\\" or \\\"argument\\\".\"@en ; sh:name \"view type\" ; sh:path gsn:viewType ] ." ;
     gsnprov:statementChecksum "424a874f" ;
     gsnprov:structuralKey "gsnsh:ViewTypePropertyShape|property|gsn:viewType" ;
@@ -22971,7 +22973,7 @@ gsnprov:dd-0911
 gsnprov:st-0911
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0911 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ArgumentContentShape gsn:coreOrExtension "Confidence Argument Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
@@ -23007,7 +23009,7 @@ gsnprov:dd-0912
 gsnprov:st-0912
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0912 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RelationshipWithConfidenceShape gsn:coreOrExtension "Confidence Argument Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."@en ;
@@ -23035,7 +23037,7 @@ gsnprov:dd-0913
 gsnprov:st-0913
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0913 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:RelationshipWithConfidenceShape sh:property [ sh:class gsn:Argument ; sh:message \"A relationship with confidence may only be associated with a confidence argument.\"@en ; sh:name \"associated with\" ; sh:path gsn:associatedWith ; sh:property [ sh:hasValue \"confidence\" ; sh:message \"An argument associated with a relationship with confidence must be a confidence argument.\"@en ; sh:name \"argument type\" ; sh:path gsn:argumentType ] ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "2c913a97" ;
     gsnprov:structuralKey "gsnsh:RelationshipWithConfidenceShape|property|gsn:associatedWith" ;
@@ -23060,7 +23062,7 @@ gsnprov:dd-0914
 gsnprov:st-0914
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0914 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RelationshipWithConfidenceShape sh:property [ sh:class gsn:Argument ; sh:message "A relationship with confidence may only be associated with a confidence argument."@en ; sh:name "associated with" ; sh:path gsn:associatedWith ; sh:property [ sh:hasValue "confidence" ; sh:message "An argument associated with a relationship with confidence must be a confidence argument."@en ; sh:name "argument type" ; sh:path gsn:argumentType ] ; sh:severity sh:Violation ] .""" ;
     gsnprov:statementChecksum "2c913a97" ;
     gsnprov:structuralKey "gsnsh:RelationshipWithConfidenceShape|property|gsn:associatedWith" ;
@@ -23084,7 +23086,7 @@ gsnprov:dd-0915
 gsnprov:st-0915
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0915 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:RelationshipWithConfidenceShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A relationship with confidence must say whether it is an assurance claim point, as a single true or false value.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"assurance claim point\" ; sh:path gsn:assuranceClaimPoint ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "8abe1a7e" ;
     gsnprov:structuralKey "gsnsh:RelationshipWithConfidenceShape|property|gsn:assuranceClaimPoint" ;
@@ -23107,7 +23109,7 @@ gsnprov:dd-0916
 gsnprov:st-0916
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0916 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RelationshipWithConfidenceShape sh:property [ sh:message "The target of a relationship with confidence must be a context, a goal, a solution or a strategy."@en ; sh:name "object" ; sh:or ( [ sh:class gsn:Context ] [ sh:class gsn:Goal ] [ sh:class gsn:Solution ] [ sh:class gsn:Strategy ] ) ; sh:path rdf:object ; sh:severity sh:Violation ] .""" ;
     gsnprov:statementChecksum "6d4e4f1d" ;
     gsnprov:structuralKey "gsnsh:RelationshipWithConfidenceShape|property|rdf:object" ;
@@ -23132,7 +23134,7 @@ gsnprov:dd-0917
 gsnprov:st-0917
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0917 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:RelationshipWithConfidenceShape sh:property [ sh:datatype xsd:string ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A relationship with confidence must have exactly one identifier, written as text.\"@en ; sh:minCount \"1\"^^xsd:integer ; sh:name \"identifier\" ; sh:path schema:identifier ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "789946de" ;
     gsnprov:structuralKey "gsnsh:RelationshipWithConfidenceShape|property|schema:identifier" ;
@@ -23154,7 +23156,7 @@ gsnprov:dd-0918
 gsnprov:st-0918
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0918 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:AssociatedWithPropertyShape gsn:coreOrExtension "Confidence Argument Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:associatedWith — domain"@en ;
@@ -23186,7 +23188,7 @@ gsnprov:dd-0919
 gsnprov:st-0919
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0919 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:AssociatedWithRangePropertyShape gsn:coreOrExtension "Confidence Argument Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:associatedWith — range"@en ;
@@ -23217,7 +23219,7 @@ gsnprov:dd-0920
 gsnprov:st-0920
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0920 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ArgumentTypePropertyShape gsn:coreOrExtension "Confidence Argument Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:argumentType"@en ;
@@ -23248,7 +23250,7 @@ gsnprov:dd-0921
 gsnprov:st-0921
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0921 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ArgumentTypePropertyShape sh:property [ sh:in ( \"confidence\" \"dialectic\" \"risk\" ) ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"An argument type must be exactly one of \\\"confidence\\\", \\\"dialectic\\\" or \\\"risk\\\".\"@en ; sh:name \"argument type\" ; sh:path gsn:argumentType ] ." ;
     gsnprov:statementChecksum "a93db805" ;
     gsnprov:structuralKey "gsnsh:ArgumentTypePropertyShape|property|gsn:argumentType" ;
@@ -23271,7 +23273,7 @@ gsnprov:dd-0922
 gsnprov:st-0922
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0922 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:AssuranceClaimPointPropertyShape gsn:coreOrExtension "Confidence Argument Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."@en ;
@@ -23304,7 +23306,7 @@ gsnprov:dd-0923
 gsnprov:st-0923
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0923 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:AssuranceClaimPointPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Assurance claim point must be a single true or false value.\"@en ; sh:name \"assurance claim point\" ; sh:path gsn:assuranceClaimPoint ] ." ;
     gsnprov:statementChecksum "043ed29c" ;
     gsnprov:structuralKey "gsnsh:AssuranceClaimPointPropertyShape|property|gsn:assuranceClaimPoint" ;
@@ -23327,7 +23329,7 @@ gsnprov:dd-0924
 gsnprov:st-0924
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0924 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:AssuranceClaimPointHasArgumentShape gsn:coreOrExtension "Confidence Argument Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "Derived from SWRL rule S40 and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en ;
@@ -23361,7 +23363,7 @@ gsnprov:dd-0925
 gsnprov:st-0925
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0925 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:DefeaterShape gsn:coreOrExtension "Dialectic Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "The source of challenge being applied; can be directed at any part of an argument. Membership of gsn:Defeater is only meant to be inferred, not asserted — this shape checks that any asserted membership at least agrees with the equivalent class ( gsn:Goal or gsn:Solution )."@en ;
@@ -23394,7 +23396,7 @@ gsnprov:dd-0926
 gsnprov:st-0926
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0926 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:DefeaterShape sh:property [ sh:description \"A challenge must be levied against the appropriate aspect of the goal structure.\"@en ; sh:message \"A defeater may only challenge a GSN element or a relationship.\"@en ; sh:name \"challenges\" ; sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ; sh:path gsn:challenges ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "63164a6e" ;
     gsnprov:structuralKey "gsnsh:DefeaterShape|property|gsn:challenges" ;
@@ -23419,7 +23421,7 @@ gsnprov:dd-0927
 gsnprov:st-0927
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0927 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ChallengesPropertyShape gsn:coreOrExtension "Dialectic Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument."@en ;
@@ -23452,7 +23454,7 @@ gsnprov:dd-0928
 gsnprov:st-0928
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0928 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ChallengesRangePropertyShape gsn:coreOrExtension "Dialectic Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "The declared rdfs:range is gsn:GSNElement only, but gsn:Goal and gsn:Solution both carry an owl:allValuesFrom restriction admitting gsn:Relationship as well, and the standard states that a challenge can be directed at any part of an argument. gsn:Relationship is therefore admitted here."@en ;
@@ -23487,7 +23489,7 @@ gsnprov:dd-0929
 gsnprov:st-0929
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0929 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ChallengesIrreflexiveShape gsn:coreOrExtension "Dialectic Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "GSN convention rather than an explicit OWL axiom: the link between the part of the argument that is being challenged (target) and the dialectic element (source) must be self-evident, so an element cannot challenge itself."@en ;
@@ -23515,7 +23517,7 @@ gsnprov:dd-0930
 gsnprov:st-0930
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0930 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:ChallengesIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} challenges itself; the challenged part of the argument and the element raising the challenge must be different.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ; sh:select \"SELECT $this ?value WHERE { $this gsn:challenges ?value . FILTER ( sameTerm($this, ?value) ) }\" ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "2a84f2e2" ;
     gsnprov:structuralKey "gsnsh:ChallengesIrreflexiveShape|sparql|{$this} challenges itself; the challenge" ;
@@ -23538,7 +23540,7 @@ gsnprov:dd-0931
 gsnprov:st-0931
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0931 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:DefeatedPropertyShape gsn:coreOrExtension "Dialectic Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
@@ -23572,7 +23574,7 @@ gsnprov:dd-0932
 gsnprov:st-0932
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0932 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:DefeatedPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"Defeated must be a single true or false value.\"@en ; sh:name \"defeated\" ; sh:path gsn:defeated ] ." ;
     gsnprov:statementChecksum "3b99e75b" ;
     gsnprov:structuralKey "gsnsh:DefeatedPropertyShape|property|gsn:defeated" ;
@@ -23595,7 +23597,7 @@ gsnprov:dd-0933
 gsnprov:st-0933
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0933 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:InDoubtPropertyShape gsn:coreOrExtension "Dialectic Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt."@en ;
@@ -23629,7 +23631,7 @@ gsnprov:dd-0934
 gsnprov:st-0934
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0934 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:InDoubtPropertyShape sh:property [ sh:datatype xsd:boolean ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"In doubt must be a single true or false value.\"@en ; sh:name \"in doubt\" ; sh:path gsn:inDoubt ] ." ;
     gsnprov:statementChecksum "8508951e" ;
     gsnprov:structuralKey "gsnsh:InDoubtPropertyShape|property|gsn:inDoubt" ;
@@ -23652,7 +23654,7 @@ gsnprov:dd-0935
 gsnprov:st-0935
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0935 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:DefeatedElementIsNotTrueShape gsn:coreOrExtension "Dialectic Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "A defeated element has been successfully challenged, so it cannot simultaneously be asserted as true."@en ;
@@ -23684,7 +23686,7 @@ gsnprov:dd-0936
 gsnprov:st-0936
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0936 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:SuccessfulChallengeCastsDoubtShape gsn:coreOrExtension "Dialectic Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "Complements, rather than replaces, the SWRL rules of the Dialectic Extension: if the claim presented in the challenging goal is true then this is sufficient to establish that the claim in the challenged element is in doubt. Run the reasoner if the assertion is expected to be inferred."@en ;
@@ -23712,7 +23714,7 @@ gsnprov:dd-0937
 gsnprov:st-0937
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0937 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:SuccessfulChallengeCastsDoubtShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} is true and challenges {?value}, which has not been marked as in doubt.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ; sh:select \"SELECT $this ?value WHERE { $this gsn:true true ; gsn:challenges ?value . FILTER NOT EXISTS { ?value gsn:inDoubt true } }\" ; sh:severity sh:Info ] ." ;
     gsnprov:statementChecksum "95953e32" ;
     gsnprov:structuralKey "gsnsh:SuccessfulChallengeCastsDoubtShape|sparql|{$this} is true and challenges {?value}," ;
@@ -24174,7 +24176,8 @@ gsnprov:st-0957
     gsnprov:mentionsTerm gsn:valid .
 
 gsnprov:dd-0958
-    a gsnprov:DesignDecision ;
+    a gsnprov:RetiredDecision ;
+    gsnprov:retirementReason "Superseded: the equivalence was global, so a goal supported from another module could not be a top goal - the away goal that is the pinnacle claim of its own module was excluded by its own reference. Scoping the parent test to the module is a condition on three individuals and is not an OWL class expression, so the axiom now holds in one direction only (SubClassOf, with challengers excluded) and the scoped definition lives in rule S06 and in gsnsh:TopGoalHasNoParentShape / gsnsh:UnparentedGoalIsTopShape."@en ;
     gsnprov:positionKey "S04.R144" ;
     gsnprov:part gsnprov:part-1 ;
     gsnprov:section gsnprov:sec-core ;
@@ -24208,7 +24211,7 @@ gsnprov:dd-0959
 gsnprov:st-0959
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0959 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:RelationshipShape sh:property [ sh:message \"The target of a relationship must be a GSN element or another relationship.\"@en ; sh:name \"object\" ; sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ; sh:path rdf:object ; sh:severity sh:Violation ] ." ;
     gsnprov:statementChecksum "5bd5337b" ;
     gsnprov:structuralKey "gsnsh:RelationshipShape|property|rdf:object" ;
@@ -24232,7 +24235,7 @@ gsnprov:dd-0961
 gsnprov:st-0961
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0961 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:RelationshipWithConfidenceShape sh:property [ sh:message \"A relationship with confidence should be associated with a confidence argument; this one names none yet.\"@en ; sh:name \"associated with\" ; sh:path gsn:associatedWith ; sh:qualifiedMinCount \"1\"^^xsd:integer ; sh:qualifiedValueShape [ sh:class gsn:Argument ] ; sh:severity sh:Warning ] ." ;
     gsnprov:statementChecksum "f45d6f92" ;
     gsnprov:structuralKey "gsnsh:RelationshipWithConfidenceShape|property|gsn:associatedWith" ;
@@ -24314,7 +24317,7 @@ gsnprov:dd-0814
 gsnprov:st-0814
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0814 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText "gsnsh:RelationshipTypePropertyShape sh:property [ sh:description \"An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information. A dialectic relationship is a challenge directed at a claim, an item of evidence or another relationship.\"@en ; sh:in ( \"contextual\" \"dialectic\" \"evidential\" \"inferential\" ) ; sh:maxCount \"1\"^^xsd:integer ; sh:message \"A relationship type must be exactly one of \\\"contextual\\\", \\\"dialectic\\\", \\\"evidential\\\" or \\\"inferential\\\".\"@en ; sh:name \"relationship type\" ; sh:path gsn:relationshipType ] ." ;
     gsnprov:statementChecksum "96a1ab69" ;
     gsnprov:structuralKey "gsnsh:RelationshipTypePropertyShape|property|gsn:relationshipType" ;
@@ -24367,7 +24370,7 @@ gsnprov:dd-0964
 gsnprov:st-0964
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0964 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:RefersToPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:refersTo — domain"@en ;
@@ -24449,7 +24452,7 @@ gsnprov:dd-0967
 gsnprov:st-0967
     a gsnprov:StatementRecord ;
     prov:wasGeneratedBy gsnprov:dd-0967 ;
-    gsnprov:inGraph gsnprov:shapes-1.0.1 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
     gsnprov:statementText """gsnsh:ContainsPropertyShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:comment "The class-level owl:allValuesFrom axioms on gsn:contains are each narrower than its declared rdfs:range, and narrower in different directions: gsn:Argument contains only a GSN element or a pattern, gsn:AssuranceCase only an argument or an artefact, gsn:Catalogue only a pattern. What a container may hold therefore depends on the container, and is validated per containing class rather than by one global range shape."@en ;
@@ -24470,3 +24473,128 @@ gsnprov:st-0967
         gsn:coreOrExtension ,
         gsnsh:ContainsPropertyShape .
 
+
+#################################################################
+#    Added by prov_add.py (4 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsnprov:why-0213
+    a gsnprov:Rationale ;
+    gsnprov:rationaleText """The top goal is the pinnacle claim of an argument, not of the whole store. The general class axiom said otherwise: it made a goal top exactly when no goal or strategy anywhere supports it, so an away goal - the top goal of its own module, referenced from another - was disqualified by the very reference that makes it an away goal. Scoping the parent test to the module is a condition relating three individuals (parent, goal, module) and is not expressible as an OWL class expression, so the axiom was weakened to hold in one direction only and the scoped definition moved here and into rule S06, where it can be stated.
+
+A parent is discounted exactly when some module contains the parent and not the goal. Written as containment rather than gsn:inModule so that the constraint does not depend on rules S53 and S54 having run. With no modules in the graph nothing is discounted, so a core-only case behaves exactly as it did before.
+
+A goal that challenges something is excluded as well. Nothing supports a defeater, precisely because it is levied against the argument rather than part of it, and the unscoped reading therefore made every challenge goal a top goal - which is not the claim the author is asserting."""@en .
+
+gsnprov:dd-0968
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S04.SH072" ;
+    gsnprov:part gsnprov:part-1 ;
+    gsnprov:section gsnprov:sec-core ;
+    gsnprov:formalism gsnprov:SHACL ;
+    gsnprov:naturalLanguage "A goal marked as a top goal must not be supported by a goal or strategy of its own module, and must not challenge any part of the argument."@en ;
+    gsnprov:nlWrittenFor "3b2a58ff" ;
+    gsnprov:hasRationale gsnprov:why-0213 ;
+    prov:generated gsnprov:st-0968 .
+
+gsnprov:st-0968
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-0968 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
+    gsnprov:statementText """gsnsh:TopGoalHasNoParentShape gsn:coreOrExtension "Core GSN"@en ;
+    rdf:type sh:NodeShape ;
+    rdfs:comment "From the general class axiom: ( Goal and not (inverse gsn:supportedBy some (Goal or Strategy)) and not (gsn:challenges some Thing) ) SubClassOf ( gsn:top value true ). A strategy counts as a parent: a goal reached through a strategy is not the pinnacle claim, and reading the axiom over goals alone made every strategy-parented goal a top goal. A parent in another module does not count: the top goal is the pinnacle claim of an argument, not of the whole store, so an away goal supported from elsewhere remains the top goal of its own module. That scoping is a condition on three individuals and cannot be written as an OWL class expression, which is why the axiom holds in one direction only and this shape carries the other."@en ;
+    rdfs:label "Top goal has no supported parent goal in scope"@en ;
+    sh:severity sh:Violation ;
+    sh:targetClass gsn:Goal .""" ;
+    gsnprov:statementChecksum "3b2a58ff" ;
+    gsnprov:structuralKey "gsnsh:TopGoalHasNoParentShape|node|" ;
+    gsnprov:aboutTerm gsnsh:TopGoalHasNoParentShape ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:challenges ,
+        gsn:coreOrExtension ,
+        gsn:supportedBy ,
+        gsn:top ,
+        gsnsh:TopGoalHasNoParentShape .
+
+gsnprov:dd-0969
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S04.SH073" ;
+    gsnprov:part gsnprov:part-1 ;
+    gsnprov:section gsnprov:sec-core ;
+    gsnprov:formalism gsnprov:SHACL ;
+    gsnprov:naturalLanguage "{$this} is marked as a top goal, but {?value} supports it from within its own module, or it challenges part of the argument; the top goal presents the pinnacle claim of its argument."@en ;
+    gsnprov:nlWrittenFor "c5faf79e" ;
+    gsnprov:hasRationale gsnprov:why-0213 ;
+    prov:generated gsnprov:st-0969 .
+
+gsnprov:st-0969
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-0969 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
+    gsnprov:statementText "gsnsh:TopGoalHasNoParentShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} is marked as a top goal, but {?value} supports it from within its own module, or it challenges part of the argument; the top goal presents the pinnacle claim of its argument.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:top ?flag . FILTER ( STR(?flag) = \\\"true\\\" ) { ?value gsn:supportedBy $this . FILTER NOT EXISTS { ?module a gsn:Module . ?module gsn:contains+ ?value . FILTER NOT EXISTS { ?module gsn:contains+ $this } } } UNION { $this gsn:challenges ?value } }\" ] ." ;
+    gsnprov:statementChecksum "c5faf79e" ;
+    gsnprov:structuralKey "gsnsh:TopGoalHasNoParentShape|sparql|{$this} is marked as a top goal, but {?v" ;
+    gsnprov:aboutTerm gsnsh:TopGoalHasNoParentShape ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:challenges ,
+        gsn:contains ,
+        gsn:supportedBy ,
+        gsn:top ,
+        gsnsh:TopGoalHasNoParentShape .
+
+gsnprov:dd-0970
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S04.SH074" ;
+    gsnprov:part gsnprov:part-1 ;
+    gsnprov:section gsnprov:sec-core ;
+    gsnprov:formalism gsnprov:SHACL ;
+    gsnprov:naturalLanguage "A goal that no goal or strategy of its own module supports, and that challenges nothing, is a top goal and should be marked as one."@en ;
+    gsnprov:nlWrittenFor "211c237c" ;
+    gsnprov:hasRationale gsnprov:why-0213 ;
+    prov:generated gsnprov:st-0970 .
+
+gsnprov:st-0970
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-0970 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
+    gsnprov:statementText """gsnsh:UnparentedGoalIsTopShape gsn:coreOrExtension "Core GSN"@en ;
+    rdf:type sh:NodeShape ;
+    rdfs:comment "The converse direction of the general class axiom: a gsn:Goal that no gsn:Goal or gsn:Strategy of its own module supports, and that challenges nothing, is a top goal and should be asserted as such. A goal that challenges something is excluded because it is the root of a dialectic structure rather than the claim the author is asserting."@en ;
+    rdfs:label "Goal without a parent goal in scope is a top goal"@en ;
+    sh:severity sh:Warning ;
+    sh:targetClass gsn:Goal .""" ;
+    gsnprov:statementChecksum "211c237c" ;
+    gsnprov:structuralKey "gsnsh:UnparentedGoalIsTopShape|node|" ;
+    gsnprov:aboutTerm gsnsh:UnparentedGoalIsTopShape ;
+    gsnprov:mentionsTerm gsn:Goal ,
+        gsn:Strategy ,
+        gsn:coreOrExtension ,
+        gsnsh:UnparentedGoalIsTopShape .
+
+gsnprov:dd-0971
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S04.SH075" ;
+    gsnprov:part gsnprov:part-1 ;
+    gsnprov:section gsnprov:sec-core ;
+    gsnprov:formalism gsnprov:SHACL ;
+    gsnprov:naturalLanguage "{$this} is supported by nothing within its own module and challenges nothing, so it is a top goal and should be marked as one."@en ;
+    gsnprov:nlWrittenFor "be37af37" ;
+    gsnprov:hasRationale gsnprov:why-0213 ;
+    prov:generated gsnprov:st-0971 .
+
+gsnprov:st-0971
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-0971 ;
+    gsnprov:inGraph gsnprov:shapes-1.0.2 ;
+    gsnprov:statementText "gsnsh:UnparentedGoalIsTopShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} is supported by nothing within its own module and challenges nothing, so it is a top goal and should be marked as one.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this WHERE { FILTER NOT EXISTS { $this gsn:top ?flag . FILTER ( STR(?flag) = \\\"true\\\" ) } FILTER NOT EXISTS { $this gsn:challenges ?target } FILTER NOT EXISTS { ?parent gsn:supportedBy $this . FILTER NOT EXISTS { ?module a gsn:Module . ?module gsn:contains+ ?parent . FILTER NOT EXISTS { ?module gsn:contains+ $this } } } }\" ] ." ;
+    gsnprov:statementChecksum "be37af37" ;
+    gsnprov:structuralKey "gsnsh:UnparentedGoalIsTopShape|sparql|{$this} is supported by nothing within i" ;
+    gsnprov:aboutTerm gsnsh:UnparentedGoalIsTopShape ;
+    gsnprov:mentionsTerm gsn:Module ,
+        gsn:challenges ,
+        gsn:contains ,
+        gsn:supportedBy ,
+        gsn:top ,
+        gsnsh:UnparentedGoalIsTopShape .

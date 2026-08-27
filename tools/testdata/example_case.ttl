@@ -262,11 +262,14 @@ ex:Ev6 a gsn:Artefact ;
 #    Modular extension: the away goal and the contract
 #################################################################
 
+# Top of its own module. G1_3 in M1 and G3 in M3 both support it, but gsn:top is scoped to
+# the module - the pinnacle claim of an argument, not of the whole store - so a parent in
+# another module does not unseat it. That is what makes an away goal reachable at all.
 ex:G2 a gsn:Goal ;
     schema:identifier "G2" ;
     rdfs:label "Goal G2"@en ;
     gsn:statement "The sensor platform reports degradation within 100 ms of onset." ;
-    gsn:top false ;
+    gsn:top true ;
     gsn:away true ;
     gsn:public true ;
     gsn:valid true ;

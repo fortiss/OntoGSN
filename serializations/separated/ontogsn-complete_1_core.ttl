@@ -681,7 +681,7 @@ gsn:structured a owl:DatatypeProperty ;
     dc:description "The complete Core GSN section of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Includes the SWRL rules and every annotation."@en ;
     dc:identifier "SCSC-141C" ;
     dc:issued "2025-02-24"^^xsd:date ;
-    dc:modified "2026-08-17T00:00:00Z" ;
+    dc:modified "2026-08-18T00:00:00Z" ;
     dc:publisher "https://www.fortiss.org/"@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Core GSN"@en ;
@@ -721,8 +721,6 @@ gsn:AssuranceCase a owl:Class ;
         "Arguments and evidence intended to demonstrate that a system meets its assurance requirements."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
-gsn:challenges a owl:ObjectProperty .
-
 gsn:top a owl:DatatypeProperty ;
     rdfs:label "top (goal)"@en ;
     rdfs:domain gsn:Goal ;
@@ -742,6 +740,8 @@ gsn:Justification a owl:Class ;
     skos:definition "A justification, rendered as an oval with the letter 'J' at the top- or bottom-right, presents a statement of rationale."@en ;
     gsn:coreOrExtension "Core GSN"@en ;
     gsn:renderedAs "oval"@en .
+
+gsn:challenges a owl:ObjectProperty .
 
 gsnswrl:P a swrl:Variable .
 
@@ -978,12 +978,16 @@ gsnswrl:B a swrl:Variable .
 gsnswrl:A a swrl:Variable .
 
 [] a owl:Class ;
-    owl:equivalentClass [ a owl:Restriction ;
+    rdfs:subClassOf [ a owl:Restriction ;
             owl:hasValue true ;
             owl:onProperty gsn:top ] ;
     owl:intersectionOf ( gsn:Goal [ a owl:Class ;
                 owl:complementOf [ a owl:Restriction ;
                         owl:onProperty [ owl:inverseOf gsn:supportedBy ] ;
                         owl:someValuesFrom [ a owl:Class ;
-                                owl:unionOf ( gsn:Goal gsn:Strategy ) ] ] ] ) .
+                                owl:unionOf ( gsn:Goal gsn:Strategy ) ] ] ] [ a owl:Class ;
+                owl:complementOf [ a owl:Restriction ;
+                        owl:onProperty gsn:challenges ;
+                        owl:someValuesFrom owl:Thing ] ] ) ;
+    gsn:coreOrExtension "Core GSN"@en .
 

@@ -71,7 +71,7 @@ skos:note a owl:AnnotationProperty .
     dc:description "The complete ontology of OntoGSN. Generated from ontogsn.ttl by serializations/build_separated.py. Includes the SWRL rules and every annotation."@en ;
     dc:identifier "SCSC-141C" ;
     dc:issued "2025-02-24"^^xsd:date ;
-    dc:modified "2026-08-17T00:00:00Z" ;
+    dc:modified "2026-08-18T00:00:00Z" ;
     dc:publisher "https://www.fortiss.org/"@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN"@en ;
@@ -2609,16 +2609,6 @@ gsn:statement a owl:DatatypeProperty ;
 
 gsnswrl:S1 a swrl:Variable .
 
-gsn:challenges a owl:ObjectProperty ;
-    rdfs:label "challenges"@en ;
-    rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Solution ) ] ;
-    rdfs:range gsn:GSNElement ;
-    skos:definition "Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument."@en ;
-    skos:note "A challenge must be levied against the appropriate aspect of the goal structure."@en ;
-    gsn:coreOrExtension "Dialectic Extension"@en ;
-    gsn:renderedAs "dashed line with an open arrowhead" .
-
 schema:identifier a owl:DatatypeProperty .
 
 gsn:Assumption a owl:Class ;
@@ -2647,6 +2637,16 @@ gsn:associatedWith a owl:ObjectProperty ;
             owl:unionOf ( gsn:ArtefactReference gsn:RelationshipWithConfidence ) ] ;
     rdfs:range gsn:Argument ;
     gsn:coreOrExtension "Confidence Argument Extension"@en .
+
+gsn:challenges a owl:ObjectProperty ;
+    rdfs:label "challenges"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Goal gsn:Solution ) ] ;
+    rdfs:range gsn:GSNElement ;
+    skos:definition "Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument."@en ;
+    skos:note "A challenge must be levied against the appropriate aspect of the goal structure."@en ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    gsn:renderedAs "dashed line with an open arrowhead" .
 
 gsnswrl:S2 a swrl:Variable .
 
@@ -2732,7 +2732,7 @@ gsn:Argument a owl:Class ;
             owl:allValuesFrom [ a owl:Class ;
                     owl:unionOf ( gsn:GSNElement gsn:Pattern ) ] ;
             owl:onProperty gsn:contains ],
-        _:genid0915 ;
+        _:genid0918 ;
     skos:definition "A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information."@en,
         "A connected series of claims intended to establish an overall claim."@en ;
     gsn:coreOrExtension "Core GSN"@en .
@@ -2896,42 +2896,46 @@ gsnswrl:B a swrl:Variable .
 gsnswrl:A a swrl:Variable .
 
 [] a owl:Class ;
-    owl:equivalentClass [ a owl:Restriction ;
+    rdfs:subClassOf [ a owl:Restriction ;
             owl:hasValue true ;
             owl:onProperty gsn:top ] ;
     owl:intersectionOf ( gsn:Goal [ a owl:Class ;
                 owl:complementOf [ a owl:Restriction ;
                         owl:onProperty [ owl:inverseOf gsn:supportedBy ] ;
                         owl:someValuesFrom [ a owl:Class ;
-                                owl:unionOf ( gsn:Goal gsn:Strategy ) ] ] ] ) .
+                                owl:unionOf ( gsn:Goal gsn:Strategy ) ] ] ] [ a owl:Class ;
+                owl:complementOf [ a owl:Restriction ;
+                        owl:onProperty gsn:challenges ;
+                        owl:someValuesFrom owl:Thing ] ] ) ;
+    gsn:coreOrExtension "Core GSN"@en .
 
 [] a owl:Axiom ;
     owl:annotatedProperty rdfs:subClassOf ;
     owl:annotatedSource gsn:Argument ;
-    owl:annotatedTarget _:genid0915 ;
+    owl:annotatedTarget _:genid0918 ;
     skos:definition "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
     gsn:coreOrExtension "Confidence Argument Extension" .
 
-_:genid0079 a owl:Restriction ;
+_:genid0078 a owl:Restriction ;
     owl:onProperty gsn:contains ;
     owl:someValuesFrom gsn:Goal .
 
-_:genid0179 rdf:first [ a owl:Restriction ;
+_:genid0178 rdf:first [ a owl:Restriction ;
             owl:onProperty gsn:contains ;
             owl:someValuesFrom gsn:ArtefactReference ] ;
-    rdf:rest ( _:genid0079 ) .
+    rdf:rest ( _:genid0078 ) .
 
-_:genid0429 rdf:first [ a owl:Restriction ;
+_:genid0430 rdf:first [ a owl:Restriction ;
             owl:onProperty gsn:statement ;
             owl:someValuesFrom xsd:string ] ;
     rdf:rest () .
 
 _:genid0627 a owl:Class ;
-    owl:intersectionOf _:genid0179 .
+    owl:intersectionOf _:genid0178 .
 
-_:genid0685 rdf:first _:genid0627 ;
-    rdf:rest _:genid0429 .
+_:genid0687 rdf:first _:genid0627 ;
+    rdf:rest _:genid0430 .
 
-_:genid0915 a owl:Class ;
-    owl:unionOf _:genid0685 .
+_:genid0918 a owl:Class ;
+    owl:unionOf _:genid0687 .
 
