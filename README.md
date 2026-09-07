@@ -35,12 +35,12 @@ See our website for more information: https://fortiss.github.io/OntoGSN/
 `queries/` holds 43 CRUD SPARQL queries — one per competency question, covering all five
 GSN sections — and `queries/rules/` holds all 51 SWRL rules as SPARQL updates, for stores
 with no reasoner attached. Each query runs as-is against the example ABox in
-`tools/testdata/`, and is parameterised by element identifier so it can be pointed at a
+`dev_tools/testdata/`, and is parameterised by element identifier so it can be pointed at a
 real case without editing a namespace into it.
 
 ```bash
-python tools/query_check.py                                   # verify every query executes
-python tools/run_rules.py mycase.ttl --out mycase-derived.ttl # apply the rules to a case
+python dev_tools/query_check.py                                   # verify every query executes
+python dev_tools/run_rules.py mycase.ttl --out mycase-derived.ttl # apply the rules to a case
 ```
 
 See [`queries/README.md`](queries/README.md).

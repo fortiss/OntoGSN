@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Does the provenance record still agree with what OntoGSN actually says?
 
-    python tools/prov_check.py              # report
-    python tools/prov_check.py --strict     # exit 1 on anything that needs a human
+    python dev_tools/prov_check.py              # report
+    python dev_tools/prov_check.py --strict     # exit 1 on anything that needs a human
 
 Replaces check_coverage.py's workbook-driven report with the same checks driven from the
 graph, and adds the ones the workbook could not express: whether the stored queries name

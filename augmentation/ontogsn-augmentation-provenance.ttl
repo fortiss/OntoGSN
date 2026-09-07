@@ -27,7 +27,7 @@ four: gsnprov:SourcePassage is scoped by definition to the GSN Community Standar
 what this vocabulary rests on is not the standard. It is an industrial compliance process, the
 PROV-O and SHACL specifications, and OntoGSN's own dialectic rules.
 
-Not read by tools/prov_check.py, which validates an explicit list of three files in provenance/.
+Not read by dev_tools/prov_check.py, which validates an explicit list of three files in provenance/.
 Statement records here therefore carry no gsnprov:structuralKey: nothing recomputes it, and a key
 nothing checks is a key that silently rots. What is checked is augmentation/check.py, which runs
 the rules against a fixture and makes every shape fire once.

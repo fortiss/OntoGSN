@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Retire a design decision, or bring one back.
 
-    python tools/prov_retire.py dd-0680 --reason "Superseded by dd-0646; same axiom, ..."
-    python tools/prov_retire.py --undo dd-0680
+    python dev_tools/prov_retire.py dd-0680 --reason "Superseded by dd-0646; same axiom, ..."
+    python dev_tools/prov_retire.py --undo dd-0680
 
 Replaces archive_rows.py, which moved a row between sheets of a spreadsheet that no
 longer exists. Retiring is now a change of type in the provenance graph: the decision
@@ -136,7 +136,7 @@ def main():
         print(f"  {str(before['statement'])[:88]}")
     if not args.undo:
         print("\nThe statement it produced is still in the ontology unless you removed it "
-              "there too.\nRun tools/prov_check.py to see which.")
+              "there too.\nRun dev_tools/prov_check.py to see which.")
 
 
 if __name__ == "__main__":

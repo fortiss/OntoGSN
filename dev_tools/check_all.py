@@ -1,23 +1,30 @@
 # -*- coding: utf-8 -*-
 """Run every consistency check in the repository.
 
-    python tools/check_all.py                     # report
-    python tools/check_all.py --strict            # exit 1 if a derived file is stale
-    python tools/check_all.py --strict --staged   # only the checks the commit affects
+    python dev_tools/check_all.py                     # report
+    python dev_tools/check_all.py --strict            # exit 1 if a derived file is stale
+    python dev_tools/check_all.py --strict --staged   # only the checks the commit affects
 
 Nothing regenerates anything here. This answers one question: is what is committed
-self-consistent? Three of the five checks are about derived files being current, one is
-about every stored query having been verified against what is committed, and the last is
-about the provenance record still agreeing with the ontology.
+self-consistent? Three of the seven checks are about derived files being current, one is
+about every stored query having been verified against what is committed, one is about the
+provenance record still agreeing with the ontology, and the last two ask an OWL-DL reasoner
+and the OOPS! pitfall scanner what they make of the ontology as it now stands.
 
-The provenance report is never fatal on its own. It lists things a person has to judge -
-an axiom nobody has documented, a sentence that needs rewriting - and a build should not
-fail because a human decision is outstanding. Pass --strict-provenance when you want it to.
+Only the first four gate. The provenance report lists things a person has to judge - an
+axiom nobody has documented, a sentence that needs rewriting - and a build should not fail
+because a human decision is outstanding; pass --strict-provenance when you want it to. The
+reasoner and OOPS! checks compare against a recorded baseline, and both baselines contain
+findings that are correct and deliberate, so a difference there is a prompt to look, not a
+verdict. Both also depend on something outside this repository - a JVM, somebody else's
+server - and report SKIPPED when it is missing.
 
 --staged exists because the full run takes about 25 seconds, almost all of it in
 serializations/build.py, which re-serializes the whole ontology to two formats to compare
 them. That is fine in CI and far too slow for a pre-commit hook, so the hook checks only
-what the commit touches: editing a shape does not require re-verifying the RDF/XML.
+what the commit touches: editing a shape does not require re-verifying the RDF/XML. The
+reasoner and OOPS! checks never run in the hook at all - eleven seconds and a network round
+trip are not what a commit should cost - which is what "in_hook" below says.
 """
 import argparse
 import os
@@ -47,13 +54,13 @@ CHECKS = [
     # re-run since it, the ontology or the fixture changed - so it gates, and the fix is
     # to run the script without --check and commit the record it writes.
     {"name": "stored queries verified",
-     "command": ["tools/query_check.py", "--check"],
+     "command": ["dev_tools/query_check.py", "--check"],
      "gating": True,
-     "triggers": ("queries/", "tools/testdata/", "tools/query_check.py",
+     "triggers": ("queries/", "dev_tools/testdata/", "dev_tools/query_check.py",
                   "serializations/ontogsn.ttl",
                   "provenance/ontogsn-provenance-queries.ttl")},
     {"name": "provenance record",
-     "command": ["tools/prov_check.py"],
+     "command": ["dev_tools/prov_check.py"],
      "gating": False,
      # the record describes the ontology, the shapes and the stored queries, so a change
      # to any of them can invalidate it
@@ -61,6 +68,22 @@ CHECKS = [
      # the input prov_augment.py reads
      "triggers": ("provenance/", "serializations/ontogsn.ttl", "shapes/",
                   "queries/")},
+    # The two below reach outside Python: one wants a JVM, the other wants oops.linkeddata.es
+    # to be up. Both report SKIPPED and exit 0 when what they need is absent, and neither
+    # gates - an ontology is not broken because a machine has no Java or a service is down.
+    # Both stay out of the pre-commit hook: eleven seconds and a network round trip are not
+    # what a commit should cost.
+    {"name": "OWL-DL consistency (Pellet)",
+     "command": ["dev_tools/reasoner_check.py", "--check"],
+     "gating": False,
+     "in_hook": False,
+     "triggers": ("serializations/ontogsn.ttl", "dev_tools/testdata/",
+                  "dev_tools/reasoner_check.py")},
+    {"name": "OOPS! pitfall scan",
+     "command": ["dev_tools/oops_check.py", "--check"],
+     "gating": False,
+     "in_hook": False,
+     "triggers": ("serializations/ontogsn.rdf", "dev_tools/oops_check.py")},
 ]
 
 
@@ -84,7 +107,7 @@ def main():
     if args.staged:
         paths = staged_paths()
         checks = [c for c in CHECKS
-                  if any(p.startswith(c["triggers"]) for p in paths)]
+                  if c.get("in_hook", True) and any(p.startswith(c["triggers"]) for p in paths)]
         if not checks:
             print(f"{len(paths)} staged file(s), none affecting a derived artefact")
             return

@@ -4,9 +4,9 @@ Keeps the ontology, the shapes, the derived serializations and the provenance re
 honest against each other.
 
 ```bash
-pip install -r tools/requirements.txt -c tools/constraints.txt
-python tools/check_all.py            # is everything current and consistent?
-python tools/check_all.py --strict   # exit 1 if any derived file is out of date
+pip install -r dev_tools/requirements.txt -c dev_tools/constraints.txt
+python dev_tools/check_all.py            # is everything current and consistent?
+python dev_tools/check_all.py --strict   # exit 1 if any derived file is out of date
 ```
 
 ## Automation
@@ -19,10 +19,10 @@ exactly the drift this is meant to surface.
 A pre-commit hook catches the same thing before it is pushed. Enable it once per clone:
 
 ```bash
-git config core.hooksPath tools/hooks
+git config core.hooksPath dev_tools/hooks
 ```
 
-`core.hooksPath` points git at the versioned `tools/hooks/` rather than copying into
+`core.hooksPath` points git at the versioned `dev_tools/hooks/` rather than copying into
 `.git/hooks/`, so everyone gets the same hook instead of a stale copy of it.
 
 The hook runs `check_all.py --strict --staged`, which selects checks by what the commit
@@ -50,16 +50,16 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `provenance/Competency Questions.xlsx` | the questions `queries/` and `augmentation/queries/` answer |
 | `queries/*.rq` | the stored CRUD queries, one per competency question |
 | `queries/rules/*.rq` | the 51 SWRL rules as SPARQL updates |
-| `tools/testdata/*.ttl` | the example ABox, and one trigger per rule |
+| `dev_tools/testdata/*.ttl` | the example ABox, and one trigger per rule |
 
 | Generated | From | By |
 | :--- | :--- | :--- |
 | `serializations/ontogsn.{rdf,jsonld}` | `ontogsn.ttl` | `serializations/build.py` |
 | `serializations/separated/*` (36 files) | `ontogsn.ttl` | `serializations/build_separated.py` |
 | `shapes/ontogsn-shapes_0_full.ttl` | the five sections | `shapes/build_full.py` |
-| `provenance/ontogsn-provenance-augmentations.ttl` | the repo, and the record it links into | `tools/prov_augment.py` |
-| `provenance/ontogsn-provenance-queries.ttl` | `queries/`, the ontology, the fixture | `tools/query_check.py` |
-| `provenance/Design Documentation.xlsx` | the provenance graph | `tools/prov_to_workbook.py` |
+| `provenance/ontogsn-provenance-augmentations.ttl` | the repo, and the record it links into | `dev_tools/prov_augment.py` |
+| `provenance/ontogsn-provenance-queries.ttl` | `queries/`, the ontology, the fixture | `dev_tools/query_check.py` |
+| `provenance/Design Documentation.xlsx` | the provenance graph | `dev_tools/prov_to_workbook.py` |
 
 Every generator has a `--check` mode. **Nothing runs them automatically** — no CI, no git
 hooks. `check_all.py` is the one command to run before committing.
@@ -70,6 +70,9 @@ hooks. `check_all.py` is the one command to run before committing.
 check_all.py       every check, one command
 query_check.py     the stored queries vs an actual SPARQL engine
 run_rules.py       apply queries/rules/ to a case until nothing more is derived
+shacl_check.py     the fixtures vs shapes/, before and after the rules run
+reasoner_check.py  the ontology and the fixtures vs an OWL-DL reasoner (needs a JVM)
+oops_check.py      the ontology vs the OOPS! pitfall scanner (needs the network)
 prov_check.py      the provenance record vs the ontology, the shapes and the queries
 prov_add.py        draft a decision for an axiom nobody has documented
 prov_retire.py     retire a decision, or bring it back
@@ -92,8 +95,8 @@ workbook_io.py     one definition of the spreadsheet's columns and styling
 ```bash
 python serializations/build.py            # refresh the derived formats
 python serializations/build_separated.py  # refresh the 36 slices
-python tools/prov_add.py                  # see what is undocumented
-python tools/prov_add.py --write          # draft the decisions
+python dev_tools/prov_add.py                  # see what is undocumented
+python dev_tools/prov_add.py --write          # draft the decisions
 ```
 
 `prov_add.py` computes everything computable — statement text, checksum, structural key,
@@ -105,7 +108,7 @@ two are the reason the provenance graph exists, and inventing them would defeat 
 record of a real decision:
 
 ```bash
-python tools/prov_retire.py dd-0680 --reason "..." --superseded-by dd-0646
+python dev_tools/prov_retire.py dd-0680 --reason "..." --superseded-by dd-0646
 ```
 
 **Changed one?** `prov_check.py` reports it three ways: `statement-unmatched` (the recorded
@@ -117,13 +120,13 @@ axiom is gone), `undocumented` (the new one has no decision), and `release-edite
 
 `queries/` holds one SPARQL file per competency question; `queries/rules/` holds the 51
 SWRL rules as SPARQL updates. Both are verified by executing them against
-`serializations/ontogsn.ttl` and the fixtures in `tools/testdata/`, in Oxigraph:
+`serializations/ontogsn.ttl` and the fixtures in `dev_tools/testdata/`, in Oxigraph:
 
 ```bash
-python tools/query_check.py            # verify what changed, update the record
-python tools/query_check.py --all      # re-verify everything
-python tools/query_check.py --check    # CI: is the record current? executes nothing
-python tools/query_check.py -v         # one line per query
+python dev_tools/query_check.py            # verify what changed, update the record
+python dev_tools/query_check.py --all      # re-verify everything
+python dev_tools/query_check.py --check    # CI: is the record current? executes nothing
+python dev_tools/query_check.py -v         # one line per query
 ```
 
 It checks the header, the `gsn:` namespace, that every `gsn:` term named exists in the
@@ -138,8 +141,56 @@ record.
 To apply the rules to a case:
 
 ```bash
-python tools/run_rules.py mycase.ttl --out mycase-materialised.ttl
+python dev_tools/run_rules.py mycase.ttl --out mycase-materialised.ttl
 ```
+
+## The two checks that leave the repository
+
+Everything else here is pure Python over files in this repository. These two are not, and
+both are recorded against a baseline rather than against zero findings — several of the
+things they report are correct and deliberate, so the question is whether the answer
+*changed*.
+
+```bash
+python dev_tools/reasoner_check.py            # is any of it inconsistent?
+python dev_tools/oops_check.py                # what does OOPS! make of it?
+python dev_tools/reasoner_check.py --check    # CI: exit 1 on any difference
+python dev_tools/oops_check.py --write-baseline
+```
+
+| | `reasoner_check.py` | `oops_check.py` |
+| :--- | :--- | :--- |
+| Needs | a JVM on the `PATH`, and `owlready2`, which ships the Pellet it runs | `requests`, and `oops.linkeddata.es` to be up |
+| Asks | is the ontology consistent, is any class unsatisfiable, does a real case still reason | does the pitfall scanner find anything new |
+| Costs | about eleven seconds | one round trip |
+| Baseline | `dev_tools/testdata/reasoner_baseline.txt` | `dev_tools/testdata/oops_baseline.txt` |
+| When it cannot run | prints `SKIPPED`, exits 0 | prints `SKIPPED`, exits 0 |
+
+Neither gates, and neither runs in the pre-commit hook. `check_all.py` runs both; an entry
+marked `"in_hook": False` is skipped under `--staged`.
+
+Two things are worth knowing before reading their output.
+
+**One graph is meant to be inconsistent.** The tail of `example_case.ttl` is malformed on
+purpose, and it closes a `gsn:supportedBy` cycle. That property is asymmetric and
+irreflexive, so the cycle is an OWL contradiction rather than merely bad practice, and the
+reasoner is right to reject it. `reasoner_check.py` therefore checks the file twice: cut at
+the malformed banner, where the expectation is *consistent*, and whole, where it is
+*inconsistent, for that reason*.
+
+**Pellet does not run nine of the rules.** It has no `swrlx:makeOWLThing` builtin, so every
+rule that mints an individual is dropped with a warning — `SupportRelationCreation`,
+`ContextRelationCreation`, `ChallengeRelationCreation`, the four confidence-relation rules
+and two others. Those are exactly the rules the SWRLAPI's Drools engine covered in Protégé,
+and exactly the ones `queries/rules/` executes here. The baseline lists them so the gap is
+visible; a rule joining or leaving that list is a finding about the rule set.
+
+`oops_check.py` rewrites the ontology node as a typed `<owl:Ontology>` element before
+submitting. rdflib writes it as an `<rdf:Description>` with an `rdf:type` child — the same
+graph — which OOPS! does not recognise, and it then reports P39 (critical, "no ontology URI
+declared") and P38 against an ontology that declares both. Fixing `serializations/build.py`
+would work equally well and would change a published artefact, so the normalisation lives
+in the check.
 
 ## How an axiom is identified, and why not the obvious way
 

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """Apply queries/rules/ to an assurance case until nothing more can be derived.
 
-    python tools/run_rules.py case.ttl --out case-materialised.ttl
-    python tools/run_rules.py case.ttl --dry-run          # what would each rule add?
-    python tools/run_rules.py case.ttl --only S1,S16,S47
-    python tools/run_rules.py case.ttl --section "Dialectic Extension"
+    python dev_tools/run_rules.py case.ttl --out case-materialised.ttl
+    python dev_tools/run_rules.py case.ttl --dry-run          # what would each rule add?
+    python dev_tools/run_rules.py case.ttl --only S1,S16,S47
+    python dev_tools/run_rules.py case.ttl --section "Dialectic Extension"
 
-With no input file it runs over tools/testdata/, which is how the rule set is smoke-tested.
+With no input file it runs over dev_tools/testdata/, which is how the rule set is smoke-tested.
 
 Each rule is one SPARQL update and derives one step. Running them once is not the same as
 running a reasoner: a conclusion drawn by S47 may be the premise S12 needs. So the whole
@@ -30,7 +30,7 @@ import sys
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RULE_DIR = os.path.join(REPO, "queries", "rules")
 ONTOLOGY = os.path.join(REPO, "serializations", "ontogsn.ttl")
-TESTDATA = os.path.join(REPO, "tools", "testdata")
+TESTDATA = os.path.join(REPO, "dev_tools", "testdata")
 
 HEADER_RE = re.compile(r"(?m)^#\s+(\w+):\s+(.*)$")
 
@@ -72,7 +72,7 @@ def main():
     try:
         import pyoxigraph
     except ImportError:
-        sys.exit("pyoxigraph is not installed - pip install -r tools/requirements.txt")
+        sys.exit("pyoxigraph is not installed - pip install -r dev_tools/requirements.txt")
 
     inputs = args.inputs or sorted(glob.glob(os.path.join(TESTDATA, "*.ttl")))
     if not inputs:
