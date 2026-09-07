@@ -35,7 +35,8 @@
                                      schema:url "https://w3id.org/OntoGSN/"^^xsd:anyURI ;
                                      schema:version 3.0 ;
                                      owl:versionInfo "1.2.4" ;
-                                     skos:definition "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."@en .
+                                     skos:definition "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."@en ;
+                                     skos:note "A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the provenance graph naming the passage it rests on, or stating that it rests on none."@en .
 
 #################################################################
 #    Annotation properties
@@ -266,6 +267,7 @@ gsn:associatedWith rdf:type owl:ObjectProperty ;
                                     ] ;
                         rdfs:range gsn:Argument ;
                         rdfs:label "associated with"@en ;
+                        skos:definition "[OntoGSN] Links a relationship or an artefact reference to the confidence argument provided for it."@en ;
                         gsn:coreOrExtension "Confidence Argument Extension"@en .
 
 
@@ -278,6 +280,7 @@ gsn:attachedTo rdf:type owl:ObjectProperty ;
                                              )
                                ] ;
                     rdfs:label "attached to"@en ;
+                    skos:definition "[OntoGSN] Links an instantiation data reference to the element or template argument it annotates."@en ;
                     gsn:coreOrExtension "Argument Pattern Extension"@en ;
                     gsn:renderedAs "dotted line" .
 
@@ -333,6 +336,7 @@ gsn:contains rdf:type owl:ObjectProperty ;
                                            )
                              ] ;
                   rdfs:label "contains"@en ;
+                  skos:definition "[OntoGSN] Relates a container (e.g., an assurance case, argument, module, catalogue or pattern) to its components (e.g., elements, arguments, patterns or artefacts)."@en ;
                   gsn:coreOrExtension "Core GSN"@en .
 
 
@@ -377,6 +381,7 @@ gsn:instantiationOf rdf:type owl:ObjectProperty ;
                                      ] ;
                          rdfs:range gsn:Pattern ;
                          rdfs:label "instantiation of"@en ;
+                         skos:definition "[OntoGSN] Relates an argument or element to the pattern it was instantiated from."@en ;
                          gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 
@@ -389,6 +394,7 @@ gsn:refersTo rdf:type owl:ObjectProperty ;
                               ] ;
                   rdfs:range gsn:Artefact ;
                   rdfs:label "refers to"@en ;
+                  skos:definition "[OntoGSN] Relates an artefact reference or an instantiation data reference to the artefact it points at."@en ;
                   gsn:coreOrExtension "Core GSN"@en .
 
 
@@ -467,6 +473,7 @@ gsn:argumentType rdf:type owl:DatatypeProperty ;
                                              ]
                                  ] ;
                       rdfs:label "argument type"@en ;
+                      skos:definition "[OntoGSN] Defines the kind of argument this is: a risk argument (i.e., the main content of assurance), a confidence argument for an assurance claim point, a compliance argument (undefined in the normative standard), or a dialectic argument."@en ;
                       gsn:coreOrExtension "Confidence Argument Extension"@en .
 
 
@@ -549,6 +556,7 @@ gsn:final rdf:type owl:DatatypeProperty ;
                            ] ;
                rdfs:range xsd:boolean ;
                rdfs:label "final"@en ;
+               skos:definition "[OntoGSN] Determines whether this is the delivered version of the argument or pattern, in which no element remains uninstantiated or undeveloped."@en ;
                gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 
@@ -571,6 +579,7 @@ gsn:maxCardinality rdf:type owl:DatatypeProperty ;
                         rdfs:domain gsn:Relationship ;
                         rdfs:range xsd:nonNegativeInteger ;
                         rdfs:label "maximum cardinality"@en ;
+                        skos:definition "[OntoGSN] The upper bound on how many instances of the related element this relationship stands for."@en ;
                         gsn:coreOrExtension "Argument Pattern Extension"@en ;
                         gsn:renderedAs "text" .
 
@@ -580,6 +589,7 @@ gsn:minCardinality rdf:type owl:DatatypeProperty ;
                         rdfs:domain gsn:Relationship ;
                         rdfs:range xsd:nonNegativeInteger ;
                         rdfs:label "minimum cardinality"@en ;
+                        skos:definition "[OntoGSN] The lower bound on how many instances of the related element this relationship stands for."@en ;
                         gsn:coreOrExtension "Argument Pattern Extension"@en ;
                         gsn:renderedAs "text" .
 
@@ -589,6 +599,7 @@ gsn:multiple rdf:type owl:DatatypeProperty ;
                   rdfs:domain gsn:Relationship ;
                   rdfs:range xsd:boolean ;
                   rdfs:label "multiple"@en ;
+                  skos:definition "[OntoGSN] Determines whether the relationship stands for multiple instantiations rather than a single one."@en ;
                   gsn:coreOrExtension "Argument Pattern Extension"@en ;
                   gsn:renderedAs "solid ball" .
 
@@ -598,6 +609,7 @@ gsn:offDiagram rdf:type owl:DatatypeProperty ;
                     rdfs:domain gsn:GSNElement ;
                     rdfs:range xsd:boolean ;
                     rdfs:label "off-diagram"@en ;
+                    skos:definition "[OntoGSN] Determines whether the argument at this element continues in, or is a continuation from, a separate diagram."@en ;
                     gsn:coreOrExtension "Core GSN"@en .
 
 
@@ -637,6 +649,7 @@ gsn:published rdf:type owl:DatatypeProperty ;
                                ] ;
                    rdfs:range xsd:boolean ;
                    rdfs:label "published"@en ;
+                   skos:definition "[OntoGSN] Determines whether the argument or pattern is in its published form, in which the undeveloped decorator is not permitted."@en ;
                    gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 
@@ -674,6 +687,7 @@ gsn:statement rdf:type owl:DatatypeProperty ;
                                ] ;
                    rdfs:range xsd:string ;
                    rdfs:label "statement"@en ;
+                   skos:definition "[OntoGSN] The text the element asserts, written to the grammatical rules the standard sets for GSN statements."@en ;
                    gsn:coreOrExtension "Core GSN"@en .
 
 
@@ -692,6 +706,7 @@ gsn:toBeSupportedByContract rdf:type owl:DatatypeProperty ;
                                  rdfs:range xsd:boolean ;
                                  owl:propertyDisjointWith gsn:undeveloped ;
                                  rdfs:label "to be supported by contract"@en ;
+                                 skos:definition "Support for the claim presented by the attached goal is intended to be provided from an argument in another module linked by an as-yet-undisclosed contract."@en ;
                                  gsn:coreOrExtension "Modular Extension"@en ;
                                  gsn:renderedAs "attached centrally immediately below the goal to which it relates" .
 
@@ -715,6 +730,7 @@ gsn:true rdf:type owl:DatatypeProperty ;
                           ] ;
               rdfs:range xsd:boolean ;
               rdfs:label "true"@en ;
+              skos:definition "[OntoGSN] Marks whether the claim in the element or relationship is determined (e.g., by the auditor or some process) as correct or not."@en ;
               gsn:coreOrExtension "Core GSN"@en .
 
 
@@ -738,6 +754,7 @@ gsn:uninstantiated rdf:type owl:DatatypeProperty ;
                         rdfs:domain gsn:GSNElement ;
                         rdfs:range xsd:boolean ;
                         rdfs:label "uninstantiated"@en ;
+                        skos:definition "The attached element remains to be instantiated: at some later stage the abstract element needs to be replaced with a more concrete instance."@en ;
                         gsn:coreOrExtension "Argument Pattern Extension"@en ;
                         gsn:renderedAs "hollow triangle" .
 
@@ -753,6 +770,7 @@ gsn:valid rdf:type owl:DatatypeProperty ;
                            ] ;
                rdfs:range xsd:boolean ;
                rdfs:label "valid"@en ;
+               skos:definition "[OntoGSN] Marks whether the element is determined (e.g., by a GSN rule) to be consistent or otherwise correct with respect to the GSN argument syntax."@en ;
                gsn:coreOrExtension "Core GSN"@en .
 
 
@@ -769,6 +787,7 @@ gsn:viewType rdf:type owl:DatatypeProperty ;
                                          ]
                              ] ;
                   rdfs:label "view type"@en ;
+                  skos:definition "[OntoGSN] Determines whether the view shows the argument or the module architecture."@en ;
                   gsn:coreOrExtension "Modular Extension"@en .
 
 
@@ -836,6 +855,7 @@ _:genid83 rdf:type owl:Class ;
 gsn:Artefact rdf:type owl:Class ;
                   rdfs:label "Artefact"@en ;
                   skos:altLabel "Evidence"@en ;
+                  skos:definition "[OntoGSN] Information or objective artefacts (e.g., files) being offered in support or context of one or more claims."@en ;
                   gsn:coreOrExtension "Core GSN"@en .
 
 
@@ -843,6 +863,7 @@ gsn:Artefact rdf:type owl:Class ;
 gsn:ArtefactReference rdf:type owl:Class ;
                            rdfs:subClassOf gsn:GSNElement ;
                            rdfs:label "Artefact Reference"@en ;
+                           skos:definition "[OntoGSN] An element that makes no claim of its own and instead points at an artefact, such as a solution or a context expressed as a noun phrase."@en ;
                            gsn:coreOrExtension "Core GSN"@en .
 
 
@@ -950,6 +971,7 @@ gsn:GSNElement rdf:type owl:Class ;
                                       owl:onDataRange xsd:string
                                     ] ;
                     rdfs:label "GSN Element"@en ;
+                    skos:definition "Goals, solutions, strategies, contexts, assumptions and justifications form the principal elements of GSN."@en ;
                     gsn:coreOrExtension "Core GSN"@en .
 
 
@@ -1074,6 +1096,7 @@ gsn:Pattern rdf:type owl:Class ;
                                    owl:someValuesFrom rdfs:Literal
                                  ] ;
                  rdfs:label "Pattern"@en ;
+                 skos:definition "[OntoGSN] A reusable argument structure, accompanied by a description that defines its intent and the constraints on its use, from which concrete arguments are instantiated."@en ;
                  gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 
@@ -1100,6 +1123,7 @@ gsn:Relationship rdf:type owl:Class ;
                                                           ]
                                       ] ;
                       rdfs:label "Relationship"@en ;
+                      skos:definition "[OntoGSN] A link between GSN elements treated as an individual in its own right, carrying its subject, object and type, so that the link itself can be decorated and described."@en ;
                       gsn:coreOrExtension "Core GSN"@en .
 
 
@@ -1148,6 +1172,7 @@ gsn:RelationshipWithConfidence rdf:type owl:Class ;
                                                       owl:onDataRange xsd:string
                                                     ] ;
                                     rdfs:label "Relationship with Confidence"@en ;
+                                    skos:definition "[OntoGSN] A relationship carrying an assurance claim point, whose associated confidence argument documents the reasons for having confidence in the relationship between two elements."@en ;
                                     skos:note "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
                                     gsn:coreOrExtension "Confidence Argument Extension"@en .
 

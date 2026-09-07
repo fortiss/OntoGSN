@@ -26,6 +26,29 @@ The ontology as published is described in the paper (arXiv:2506.11023).
 
 ## Ontology 1.2.4 (unreleased) — shapes 1.0.2
 
+### Twenty-four terms gain a definition
+
+**Not breaking.** Annotations only; no axiom changed. Twenty-four classes and properties
+carried an `rdfs:label` and nothing else — the reification class, the pattern cardinalities,
+the decorators and the container properties. Every one of them now has a `skos:definition`.
+
+A definition prefixed **`[OntoGSN]`** is this ontology's wording rather than the standard's.
+Twenty-one are tagged; three — `gsn:GSNElement`, `gsn:toBeSupportedByContract` and
+`gsn:uninstantiated` — are the standard's own sentence and are not. The convention is stated
+in a `skos:note` on the ontology node, so a reader who never opens `provenance/` can still
+decode it.
+
+Every definition has a decision record naming the passage it was drawn from. One,
+`gsn:Relationship`, cites none and says so with `gsnprov:noSourceRecorded`: GSN draws a link
+as a line and gives it no identity, so there is no passage for a reified relationship to rest
+on.
+
+*For case authors:* nothing to do. Documentation generated from the ontology gains 24
+definitions; OOPS! pitfall P08 drops from 26 elements to the two `schema.org` properties,
+which are not this ontology's to annotate.
+
+Reasoning per definition: `dd-0972`–`dd-0995`, rationales `why-0215`–`why-0217`.
+
 ### Top goals are scoped to the module
 
 **Breaking for reasoners.** The general class axiom for `gsn:top` was an

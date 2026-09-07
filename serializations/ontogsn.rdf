@@ -114,6 +114,7 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology" />
     <owl:versionInfo>1.2.4</owl:versionInfo>
     <skos:definition xml:lang="en">GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence.</skos:definition>
+    <skos:note xml:lang="en">A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the provenance graph naming the passage it rests on, or stating that it rests on none.</skos:note>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#Argument">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class" />
@@ -130,12 +131,14 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class" />
     <rdfs:label xml:lang="en">Artefact</rdfs:label>
     <skos:altLabel xml:lang="en">Evidence</skos:altLabel>
+    <skos:definition xml:lang="en">[OntoGSN] Information or objective artefacts (e.g., files) being offered in support or context of one or more claims.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Core GSN</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#ArtefactReference">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class" />
     <rdfs:label xml:lang="en">Artefact Reference</rdfs:label>
     <rdfs:subClassOf rdf:resource="https://w3id.org/OntoGSN/ontology#GSNElement" />
+    <skos:definition xml:lang="en">[OntoGSN] An element that makes no claim of its own and instead points at an artefact, such as a solution or a context expressed as a noun phrase.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Core GSN</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#Assumption">
@@ -420,6 +423,7 @@
     <rdfs:label xml:lang="en">GSN Element</rdfs:label>
     <rdfs:subClassOf rdf:nodeID="genid0371" />
     <rdfs:subClassOf rdf:nodeID="genid0808" />
+    <skos:definition xml:lang="en">Goals, solutions, strategies, contexts, assumptions and justifications form the principal elements of GSN.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Core GSN</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#Goal">
@@ -549,6 +553,7 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class" />
     <rdfs:label xml:lang="en">Pattern</rdfs:label>
     <rdfs:subClassOf rdf:nodeID="genid0844" />
+    <skos:definition xml:lang="en">[OntoGSN] A reusable argument structure, accompanied by a description that defines its intent and the constraints on its use, from which concrete arguments are instantiated.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Argument Pattern Extension</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#PredicateConflictInvalidation">
@@ -589,6 +594,7 @@
     <rdfs:subClassOf rdf:nodeID="genid0002" />
     <rdfs:subClassOf rdf:nodeID="genid0520" />
     <rdfs:subClassOf rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement" />
+    <skos:definition xml:lang="en">[OntoGSN] A link between GSN elements treated as an individual in its own right, carrying its subject, object and type, so that the link itself can be decorated and described.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Core GSN</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">
@@ -600,6 +606,7 @@
     <rdfs:subClassOf rdf:nodeID="genid0948" />
     <rdfs:subClassOf rdf:nodeID="genid0988" />
     <rdfs:subClassOf rdf:resource="https://w3id.org/OntoGSN/ontology#Relationship" />
+    <skos:definition xml:lang="en">[OntoGSN] A relationship carrying an assurance claim point, whose associated confidence argument documents the reasons for having confidence in the relationship between two elements.</skos:definition>
     <skos:note xml:lang="en">The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module.</skos:note>
     <gsn:coreOrExtension xml:lang="en">Confidence Argument Extension</gsn:coreOrExtension>
   </rdf:Description>
@@ -728,6 +735,7 @@
     <rdfs:domain rdf:resource="https://w3id.org/OntoGSN/ontology#Argument" />
     <rdfs:label xml:lang="en">argument type</rdfs:label>
     <rdfs:range rdf:nodeID="genid0259" />
+    <skos:definition xml:lang="en">[OntoGSN] Defines the kind of argument this is: a risk argument (i.e., the main content of assurance), a confidence argument for an assurance claim point, a compliance argument (undefined in the normative standard), or a dialectic argument.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Confidence Argument Extension</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#associatedWith">
@@ -735,6 +743,7 @@
     <rdfs:domain rdf:nodeID="genid0552" />
     <rdfs:label xml:lang="en">associated with</rdfs:label>
     <rdfs:range rdf:resource="https://w3id.org/OntoGSN/ontology#Argument" />
+    <skos:definition xml:lang="en">[OntoGSN] Links a relationship or an artefact reference to the confidence argument provided for it.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Confidence Argument Extension</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">
@@ -751,6 +760,7 @@
     <rdfs:domain rdf:resource="https://w3id.org/OntoGSN/ontology#InstantiationDataReference" />
     <rdfs:label xml:lang="en">attached to</rdfs:label>
     <rdfs:range rdf:nodeID="genid0223" />
+    <skos:definition xml:lang="en">[OntoGSN] Links an instantiation data reference to the element or template argument it annotates.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Argument Pattern Extension</gsn:coreOrExtension>
     <gsn:renderedAs>dotted line</gsn:renderedAs>
   </rdf:Description>
@@ -811,6 +821,7 @@
     <rdfs:domain rdf:nodeID="genid0241" />
     <rdfs:label xml:lang="en">contains</rdfs:label>
     <rdfs:range rdf:nodeID="genid0257" />
+    <skos:definition xml:lang="en">[OntoGSN] Relates a container (e.g., an assurance case, argument, module, catalogue or pattern) to its components (e.g., elements, arguments, patterns or artefacts).</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Core GSN</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#contract">
@@ -852,6 +863,7 @@
     <rdfs:domain rdf:nodeID="genid0415" />
     <rdfs:label xml:lang="en">final</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
+    <skos:definition xml:lang="en">[OntoGSN] Determines whether this is the delivered version of the argument or pattern, in which no element remains uninstantiated or undeveloped.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Argument Pattern Extension</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#implementation">
@@ -894,6 +906,7 @@
     <rdfs:domain rdf:nodeID="genid0521" />
     <rdfs:label xml:lang="en">instantiation of</rdfs:label>
     <rdfs:range rdf:resource="https://w3id.org/OntoGSN/ontology#Pattern" />
+    <skos:definition xml:lang="en">[OntoGSN] Relates an argument or element to the pattern it was instantiated from.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Argument Pattern Extension</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#intent">
@@ -915,6 +928,7 @@
     <rdfs:domain rdf:resource="https://w3id.org/OntoGSN/ontology#Relationship" />
     <rdfs:label xml:lang="en">maximum cardinality</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger" />
+    <skos:definition xml:lang="en">[OntoGSN] The upper bound on how many instances of the related element this relationship stands for.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Argument Pattern Extension</gsn:coreOrExtension>
     <gsn:renderedAs>text</gsn:renderedAs>
   </rdf:Description>
@@ -923,6 +937,7 @@
     <rdfs:domain rdf:resource="https://w3id.org/OntoGSN/ontology#Relationship" />
     <rdfs:label xml:lang="en">minimum cardinality</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger" />
+    <skos:definition xml:lang="en">[OntoGSN] The lower bound on how many instances of the related element this relationship stands for.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Argument Pattern Extension</gsn:coreOrExtension>
     <gsn:renderedAs>text</gsn:renderedAs>
   </rdf:Description>
@@ -938,6 +953,7 @@
     <rdfs:domain rdf:resource="https://w3id.org/OntoGSN/ontology#Relationship" />
     <rdfs:label xml:lang="en">multiple</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
+    <skos:definition xml:lang="en">[OntoGSN] Determines whether the relationship stands for multiple instantiations rather than a single one.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Argument Pattern Extension</gsn:coreOrExtension>
     <gsn:renderedAs>solid ball</gsn:renderedAs>
   </rdf:Description>
@@ -946,6 +962,7 @@
     <rdfs:domain rdf:resource="https://w3id.org/OntoGSN/ontology#GSNElement" />
     <rdfs:label xml:lang="en">off-diagram</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
+    <skos:definition xml:lang="en">[OntoGSN] Determines whether the argument at this element continues in, or is a continuation from, a separate diagram.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Core GSN</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#optional">
@@ -978,6 +995,7 @@
     <rdfs:domain rdf:nodeID="genid0940" />
     <rdfs:label xml:lang="en">published</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
+    <skos:definition xml:lang="en">[OntoGSN] Determines whether the argument or pattern is in its published form, in which the undeveloped decorator is not permitted.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Argument Pattern Extension</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#refersTo">
@@ -985,6 +1003,7 @@
     <rdfs:domain rdf:nodeID="genid0230" />
     <rdfs:label xml:lang="en">refers to</rdfs:label>
     <rdfs:range rdf:resource="https://w3id.org/OntoGSN/ontology#Artefact" />
+    <skos:definition xml:lang="en">[OntoGSN] Relates an artefact reference or an instantiation data reference to the artefact it points at.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Core GSN</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#relatedTo">
@@ -1014,6 +1033,7 @@
     <rdfs:domain rdf:nodeID="genid0778" />
     <rdfs:label xml:lang="en">statement</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string" />
+    <skos:definition xml:lang="en">[OntoGSN] The text the element asserts, written to the grammatical rules the standard sets for GSN statements.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Core GSN</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#structure">
@@ -1056,6 +1076,7 @@
     <rdfs:label xml:lang="en">to be supported by contract</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
     <owl:propertyDisjointWith rdf:resource="https://w3id.org/OntoGSN/ontology#undeveloped" />
+    <skos:definition xml:lang="en">Support for the claim presented by the attached goal is intended to be provided from an argument in another module linked by an as-yet-undisclosed contract.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Modular Extension</gsn:coreOrExtension>
     <gsn:renderedAs>attached centrally immediately below the goal to which it relates</gsn:renderedAs>
   </rdf:Description>
@@ -1073,6 +1094,7 @@
     <rdfs:domain rdf:nodeID="genid0806" />
     <rdfs:label xml:lang="en">true</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
+    <skos:definition xml:lang="en">[OntoGSN] Marks whether the claim in the element or relationship is determined (e.g., by the auditor or some process) as correct or not.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Core GSN</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#undeveloped">
@@ -1089,6 +1111,7 @@
     <rdfs:domain rdf:resource="https://w3id.org/OntoGSN/ontology#GSNElement" />
     <rdfs:label xml:lang="en">uninstantiated</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
+    <skos:definition xml:lang="en">The attached element remains to be instantiated: at some later stage the abstract element needs to be replaced with a more concrete instance.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Argument Pattern Extension</gsn:coreOrExtension>
     <gsn:renderedAs>hollow triangle</gsn:renderedAs>
   </rdf:Description>
@@ -1097,6 +1120,7 @@
     <rdfs:domain rdf:nodeID="genid0198" />
     <rdfs:label xml:lang="en">valid</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
+    <skos:definition xml:lang="en">[OntoGSN] Marks whether the element is determined (e.g., by a GSN rule) to be consistent or otherwise correct with respect to the GSN argument syntax.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Core GSN</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#viewType">
@@ -1104,6 +1128,7 @@
     <rdfs:domain rdf:resource="https://w3id.org/OntoGSN/ontology#View" />
     <rdfs:label xml:lang="en">view type</rdfs:label>
     <rdfs:range rdf:nodeID="genid0303" />
+    <skos:definition xml:lang="en">[OntoGSN] Determines whether the view shows the argument or the module architecture.</skos:definition>
     <gsn:coreOrExtension xml:lang="en">Modular Extension</gsn:coreOrExtension>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/swrl#A">

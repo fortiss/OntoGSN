@@ -4689,6 +4689,12 @@
     ]
   },
   {
+    "@id": "http://www.w3.org/2004/02/skos/core#note",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
     "@id": "https://w3id.org/OntoGSN/ontology#Argument",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
@@ -4747,6 +4753,12 @@
         "@value": "Evidence"
       }
     ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "[OntoGSN] Information or objective artefacts (e.g., files) being offered in support or context of one or more claims."
+      }
+    ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
       {
         "@language": "en",
@@ -4768,6 +4780,12 @@
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
         "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "[OntoGSN] An element that makes no claim of its own and instead points at an artefact, such as a solution or a context expressed as a noun phrase."
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
@@ -5179,6 +5197,12 @@
         "@id": "_:genid0255"
       }
     ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "Goals, solutions, strategies, contexts, assumptions and justifications form the principal elements of GSN."
+      }
+    ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
       {
         "@language": "en",
@@ -5516,6 +5540,12 @@
         "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement"
       }
     ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "[OntoGSN] A link between GSN elements treated as an individual in its own right, carrying its subject, object and type, so that the link itself can be decorated and described."
+      }
+    ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
       {
         "@language": "en",
@@ -5758,6 +5788,12 @@
         "@id": "_:genid0076"
       }
     ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "[OntoGSN] Relates a container (e.g., an assurance case, argument, module, catalogue or pattern) to its components (e.g., elements, arguments, patterns or artefacts)."
+      }
+    ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
       {
         "@language": "en",
@@ -5845,6 +5881,12 @@
         "@id": "http://www.w3.org/2001/XMLSchema#boolean"
       }
     ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "[OntoGSN] Determines whether the argument at this element continues in, or is a continuation from, a separate diagram."
+      }
+    ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
       {
         "@language": "en",
@@ -5871,6 +5913,12 @@
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "https://w3id.org/OntoGSN/ontology#Artefact"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "[OntoGSN] Relates an artefact reference or an instantiation data reference to the artefact it points at."
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
@@ -5955,6 +6003,12 @@
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "[OntoGSN] The text the element asserts, written to the grammatical rules the standard sets for GSN statements."
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
@@ -6098,6 +6152,12 @@
         "@id": "http://www.w3.org/2001/XMLSchema#boolean"
       }
     ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "[OntoGSN] Marks whether the claim in the element or relationship is determined (e.g., by the auditor or some process) as correct or not."
+      }
+    ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
       {
         "@language": "en",
@@ -6124,6 +6184,12 @@
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
         "@id": "http://www.w3.org/2001/XMLSchema#boolean"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#definition": [
+      {
+        "@language": "en",
+        "@value": "[OntoGSN] Marks whether the element is determined (e.g., by a GSN rule) to be consistent or otherwise correct with respect to the GSN argument syntax."
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
@@ -6237,6 +6303,12 @@
       {
         "@language": "en",
         "@value": "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#note": [
+      {
+        "@language": "en",
+        "@value": "A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the provenance graph naming the passage it rests on, or stating that it rests on none."
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
