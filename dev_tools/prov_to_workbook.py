@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Generate the human-readable design documentation from the provenance graph.
 
-    python tools/prov_to_workbook.py     # write provenance/Design Documentation.xlsx
+    python dev_tools/prov_to_workbook.py     # write provenance/Design Documentation.xlsx
 
 The provenance Turtle is the source of truth; this workbook is a view of it, for people
 who would rather read a spreadsheet than a graph. Nothing reads it back.

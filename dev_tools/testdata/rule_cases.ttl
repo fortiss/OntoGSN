@@ -391,10 +391,10 @@ rc:G54inner gsn:inModule rc:M54inner .
 #    carries it up through nested modules. Every other rule of the Modular Extension consumes
 #    it in a single atom.
 #
-#    tools/query_check.py verifies each rule against a fresh store, so a rule whose premise
+#    dev_tools/query_check.py verifies each rule against a fresh store, so a rule whose premise
 #    another rule derives would never fire and would look broken. These are the facts S53 and
 #    S54 produce from the two fixtures, stated here so that the fourteen rules that depend on
-#    them can each be exercised alone. tools/run_rules.py derives the same set for itself and
+#    them can each be exercised alone. dev_tools/run_rules.py derives the same set for itself and
 #    adds nothing, which is the check that this block has not drifted.
 #################################################################
 

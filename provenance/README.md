@@ -8,9 +8,9 @@ at the time. PROV-O is the backbone; `gsnprov:` adds only the terms PROV-O has n
 | :--- | :--- |
 | `ontogsn-provenance.ttl` | the vocabulary. Hand-written. |
 | `ontogsn-provenance-data.ttl` | the record — 937 decisions, 297 passages, 194 rationales, 747 statements. **Source of truth**, edited by hand. |
-| `ontogsn-provenance-augmentations.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `tools/prov_augment.py`. |
+| `ontogsn-provenance-augmentations.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `dev_tools/prov_augment.py`. |
 | `Design Documentation.xlsx` | a human-readable view of the record. **Generated**, never read back. |
-| `Competency Questions.xlsx` | the questions `queries/` and `augmentation/queries/` answer. Hand-maintained; read by `tools/prov_augment.py`. |
+| `Competency Questions.xlsx` | the questions `queries/` and `augmentation/queries/` answer. Hand-maintained; read by `dev_tools/prov_augment.py`. |
 | `Graffoo Diagram.drawio` | the editable source of the diagrams on the website. Hand-maintained. |
 
 `ontogsn.ttl` does **not** `owl:imports` any of this. It would drag roughly two thousand
@@ -22,13 +22,13 @@ Two roles are kept apart, because conflating them is what broke the earlier atte
 
 | Role | Mechanism |
 | :--- | :--- |
-| **Identity** — which axiom a record is *about*, across re-saves | `gsnprov:structuralKey`: the blank-node-free `(subject, predicate, object)` key from `tools/ttl_model.py` and `tools/shapes_model.py` |
+| **Identity** — which axiom a record is *about*, across re-saves | `gsnprov:structuralKey`: the blank-node-free `(subject, predicate, object)` key from `dev_tools/ttl_model.py` and `dev_tools/shapes_model.py` |
 | **Evidence** — what it said when the decision was taken | `gsnprov:statementText` + `gsnprov:statementChecksum` (`sha1[:8]`) |
 
 Verbatim text cannot be identity. Whitespace, operand order and blank-node ids
 (`_:genid83`) all change on re-save, and a namespace move once invalidated every record in
 the design document. Structural keys survive all three. This is why neither RDF-star nor
-`owl:Axiom` reification is used — see `tools/README.md` for the full argument.
+`owl:Axiom` reification is used — see `dev_tools/README.md` for the full argument.
 
 `gsnprov:aboutTerm` and `gsnprov:mentionsTerm` are a third, weaker thing: direct IRI links
 into the ontology, so the two graphs can be joined in SPARQL. They name a **term**, never a
@@ -106,16 +106,16 @@ for the same meaning — and the distinction is worth keeping.
 ## Running it
 
 ```bash
-python tools/prov_check.py                # what has drifted
-python tools/prov_check.py --strict       # exit 1 if anything needs a human
-python tools/prov_augment.py              # rebuild the augmentations
-python tools/prov_to_workbook.py          # rebuild Design Documentation.xlsx
+python dev_tools/prov_check.py                # what has drifted
+python dev_tools/prov_check.py --strict       # exit 1 if anything needs a human
+python dev_tools/prov_augment.py              # rebuild the augmentations
+python dev_tools/prov_to_workbook.py          # rebuild Design Documentation.xlsx
 ```
 
 The record began life as a hand-maintained spreadsheet, `OntoGSN Design Document.xlsx`,
-and was imported once by `tools/prov_migrate.py`. Both are gone: the graph is the source of
+and was imported once by `dev_tools/prov_migrate.py`. Both are gone: the graph is the source of
 truth now, and `Design Documentation.xlsx` is generated *from* it rather than into it. The
-import is in the history if it is ever needed again (`git log -- tools/prov_migrate.py`),
+import is in the history if it is ever needed again (`git log -- dev_tools/prov_migrate.py`),
 but re-running it against an edited spreadsheet would renumber the deduplicated passages
 and rationales and orphan every reference made since.
 

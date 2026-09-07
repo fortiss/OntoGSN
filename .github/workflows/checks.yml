@@ -23,7 +23,7 @@ jobs:
       # -c pins the exact versions the derived files were generated with. Without it a new
       # rdflib could reorder its Turtle output and fail the build for a reason that has
       # nothing to do with the commit under review.
-      - run: pip install -r tools/requirements.txt -c tools/constraints.txt
+      - run: pip install -r dev_tools/requirements.txt -c dev_tools/constraints.txt
 
       # --strict fails the build when a derived file is stale, or when a stored query has
       # not been verified against what is committed. The provenance report runs but does
@@ -34,5 +34,10 @@ jobs:
       # The stored queries were the reason --strict-provenance was held back, and they are
       # fixed: prov_check.py now reports nothing. Add the flag when you want an
       # undocumented axiom to fail the build.
-      - name: derived files current, queries verified, provenance record consistent
-        run: python tools/check_all.py --strict
+      #
+      # The reasoner and OOPS! checks run here and nowhere else - they are kept out of the
+      # pre-commit hook. Neither gates: both compare against a baseline that legitimately
+      # contains findings, and both print SKIPPED and pass when what they need is missing -
+      # a JVM for the reasoner, a reachable oops.linkeddata.es for the scanner.
+      - name: derived files current, queries verified, record consistent, ontology reasons
+        run: python dev_tools/check_all.py --strict

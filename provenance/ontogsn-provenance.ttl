@@ -38,7 +38,7 @@ individuals into the ABox of every reasoner run over an assurance case."""@en ;
 #
 #    IDENTITY  - which axiom a record is *about*, stable across re-serialization.
 #                gsnprov:structuralKey, the blank-node-free (subject, predicate, object)
-#                key produced by tools/ttl_model.py and tools/shapes_model.py.
+#                key produced by dev_tools/ttl_model.py and dev_tools/shapes_model.py.
 #
 #    EVIDENCE  - what the axiom literally said when the decision was taken.
 #                gsnprov:statementText plus gsnprov:statementChecksum.
@@ -131,7 +131,7 @@ gsnprov:QueryVerification rdf:type owl:Class ;
     rdfs:label "query verification"@en ;
     skos:definition "One occasion on which a stored query was executed against the example ABox and found to work: what form it took, what came back, and what it was verified against."@en ;
     skos:note "Recorded rather than recomputed, because re-running every query on every change is the cost this record exists to avoid. gsnprov:verificationKey is what makes that safe: it covers the query, the ontology, the example ABox and the checker's own version, so a key that still matches is a question already answered and a key that no longer matches is an unverified query rather than a failing one."@en ;
-    skos:scopeNote "Written by tools/query_check.py into provenance/ontogsn-provenance-queries.ttl. A query with no verification has never been run; a verification whose key is stale describes a state of the repository that no longer exists."@en .
+    skos:scopeNote "Written by dev_tools/query_check.py into provenance/ontogsn-provenance-queries.ttl. A query with no verification has never been run; a verification whose key is stale describes a state of the repository that no longer exists."@en .
 
 
 ###  https://w3id.org/OntoGSN/provenance#Formalism
@@ -261,7 +261,7 @@ gsnprov:naturalLanguage rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:range xsd:string ;
     rdfs:label "natural language"@en ;
     skos:definition "What this decision says, in English, for a reader who does not read Turtle."@en ;
-    skos:note "Generated once from the statement by tools/nl.py, then STORED and never regenerated, so that wording improved by hand survives. Retired decisions are written in the past tense, since they describe something the ontology no longer has. It is prose about the ontology, not a competing claim - disagreements belong in the rationale."@en .
+    skos:note "Generated once from the statement by dev_tools/nl.py, then STORED and never regenerated, so that wording improved by hand survives. Retired decisions are written in the past tense, since they describe something the ontology no longer has. It is prose about the ontology, not a competing claim - disagreements belong in the rationale."@en .
 
 ###  https://w3id.org/OntoGSN/provenance#nlWrittenFor
 gsnprov:nlWrittenFor rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
@@ -367,7 +367,7 @@ gsnprov:structuralKey rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:range xsd:string ;
     rdfs:label "structural key"@en ;
     skos:definition "The identity of the axiom: its subject, predicate and object rendered structurally and without blank-node identifiers, as subject|predicate|object."@en ;
-    skos:note "THE identity mechanism. It is what lets a record keep pointing at the same axiom when the file is re-saved, reformatted, or its blank nodes renumbered. Produced by tools/ttl_model.py for the ontology and tools/shapes_model.py for the shapes."@en .
+    skos:note "THE identity mechanism. It is what lets a record keep pointing at the same axiom when the file is re-saved, reformatted, or its blank nodes renumbered. Produced by dev_tools/ttl_model.py for the ontology and dev_tools/shapes_model.py for the shapes."@en .
 
 ###  https://w3id.org/OntoGSN/provenance#ruleName
 gsnprov:ruleName rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;

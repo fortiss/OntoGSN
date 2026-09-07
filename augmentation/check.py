@@ -9,7 +9,7 @@ Three things, in the order they can fail:
     2. the SPARQL rules reach a fixpoint, and each SWRL rule has a SPARQL twin
     3. the SHACL shapes validate the fixture before and after the rules run
 
-Deliberately standalone. tools/check_all.py globs serializations/, shapes/ and queries/, so it
+Deliberately standalone. dev_tools/check_all.py globs serializations/, shapes/ and queries/, so it
 never sees this directory - which is the point: the augmentation must not be able to break the
 core checks.
 """

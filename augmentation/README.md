@@ -20,7 +20,7 @@ domain or range.
 python augmentation/check.py
 ```
 
-Standalone on purpose. `tools/check_all.py` globs `serializations/`, `shapes/` and `queries/`, so it
+Standalone on purpose. `dev_tools/check_all.py` globs `serializations/`, `shapes/` and `queries/`, so it
 never sees this directory — the augmentation cannot break the core checks.
 
 ## The three groups

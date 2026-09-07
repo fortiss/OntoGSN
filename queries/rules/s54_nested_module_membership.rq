@@ -11,7 +11,7 @@
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
 # A module may contain other modules, so membership carries upward. Applied to a fixpoint by
-# tools/run_rules.py this reaches any depth of nesting; on its own it advances one level, which
+# dev_tools/run_rules.py this reaches any depth of nesting; on its own it advances one level, which
 # is why its trigger in rule_cases.ttl states the inner membership S53 would otherwise derive.
 INSERT { ?E gsn:inModule ?M }
 WHERE {

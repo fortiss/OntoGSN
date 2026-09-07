@@ -68,7 +68,7 @@ def _sheet(wb, title, rows, columns, header_colour):
 
 def write(path, live, archived):
     """Two sheets. There was a third, listing axioms with no design decision; it is gone
-    because tools/prov_check.py reports the same thing against the live files, and a copy
+    because dev_tools/prov_check.py reports the same thing against the live files, and a copy
     of that frozen into a workbook goes stale the moment an axiom is documented."""
     wb = Workbook()
     wb.remove(wb.active)

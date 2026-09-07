@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Draft a design decision for every axiom the provenance graph does not yet document.
 
-    python tools/prov_add.py             # show the drafts
-    python tools/prov_add.py --write     # append them to ontogsn-provenance-data.ttl
+    python dev_tools/prov_add.py             # show the drafts
+    python dev_tools/prov_add.py --write     # append them to ontogsn-provenance-data.ttl
 
 prov_check.py reports an undocumented axiom; this writes the record for it. Everything
 that can be computed is computed - the statement text, its checksum, the structural key
