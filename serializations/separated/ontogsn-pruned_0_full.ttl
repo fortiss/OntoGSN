@@ -52,6 +52,7 @@ gsn:attachedTo a owl:ObjectProperty ;
     rdfs:domain gsn:InstantiationDataReference ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( gsn:GSNElement gsn:Template ) ] ;
+    skos:definition "[OntoGSN] Links an instantiation data reference to the element or template argument it annotates."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "dotted line" .
 
@@ -121,6 +122,7 @@ gsn:final a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Determines whether this is the delivered version of the argument or pattern, in which no element remains uninstantiated or undeveloped."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 gsn:implementation a owl:AnnotationProperty ;
@@ -150,6 +152,7 @@ gsn:instantiationOf a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:GSNElement ) ] ;
     rdfs:range gsn:Pattern ;
+    skos:definition "[OntoGSN] Relates an argument or element to the pattern it was instantiated from."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 gsn:intent a owl:AnnotationProperty ;
@@ -168,6 +171,7 @@ gsn:maxCardinality a owl:DatatypeProperty ;
     rdfs:label "maximum cardinality"@en ;
     rdfs:domain gsn:Relationship ;
     rdfs:range xsd:nonNegativeInteger ;
+    skos:definition "[OntoGSN] The upper bound on how many instances of the related element this relationship stands for."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "text" .
 
@@ -175,6 +179,7 @@ gsn:minCardinality a owl:DatatypeProperty ;
     rdfs:label "minimum cardinality"@en ;
     rdfs:domain gsn:Relationship ;
     rdfs:range xsd:nonNegativeInteger ;
+    skos:definition "[OntoGSN] The lower bound on how many instances of the related element this relationship stands for."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "text" .
 
@@ -188,6 +193,7 @@ gsn:multiple a owl:DatatypeProperty ;
     rdfs:label "multiple"@en ;
     rdfs:domain gsn:Relationship ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Determines whether the relationship stands for multiple instantiations rather than a single one."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "solid ball" .
 
@@ -195,6 +201,7 @@ gsn:offDiagram a owl:DatatypeProperty ;
     rdfs:label "off-diagram"@en ;
     rdfs:domain gsn:GSNElement ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Determines whether the argument at this element continues in, or is a continuation from, a separate diagram."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:optional a owl:DatatypeProperty ;
@@ -225,6 +232,7 @@ gsn:published a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Determines whether the argument or pattern is in its published form, in which the undeveloped decorator is not permitted."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 gsn:refersTo a owl:ObjectProperty ;
@@ -232,6 +240,7 @@ gsn:refersTo a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:ArtefactReference gsn:InstantiationDataReference ) ] ;
     rdfs:range gsn:Artefact ;
+    skos:definition "[OntoGSN] Relates an artefact reference or an instantiation data reference to the artefact it points at."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:relatedTo a owl:ObjectProperty ;
@@ -290,6 +299,7 @@ gsn:toBeSupportedByContract a owl:DatatypeProperty ;
     rdfs:domain gsn:Goal ;
     rdfs:range xsd:boolean ;
     owl:propertyDisjointWith gsn:undeveloped ;
+    skos:definition "Support for the claim presented by the attached goal is intended to be provided from an argument in another module linked by an as-yet-undisclosed contract."@en ;
     gsn:coreOrExtension "Modular Extension"@en ;
     gsn:renderedAs "attached centrally immediately below the goal to which it relates" .
 
@@ -306,12 +316,14 @@ gsn:true a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Marks whether the claim in the element or relationship is determined (e.g., by the auditor or some process) as correct or not."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:uninstantiated a owl:DatatypeProperty ;
     rdfs:label "uninstantiated"@en ;
     rdfs:domain gsn:GSNElement ;
     rdfs:range xsd:boolean ;
+    skos:definition "The attached element remains to be instantiated: at some later stage the abstract element needs to be replaced with a more concrete instance."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "hollow triangle" .
 
@@ -320,6 +332,7 @@ gsn:valid a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:GSNElement gsn:Pattern gsn:Relationship ) ] ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Marks whether the element is determined (e.g., by a GSN rule) to be consistent or otherwise correct with respect to the GSN argument syntax."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:viewType a owl:DatatypeProperty ;
@@ -331,6 +344,7 @@ gsn:viewType a owl:DatatypeProperty ;
                     rdf:rest [ a rdf:List ;
                             rdf:first "argument" ;
                             rdf:rest () ] ] ] ;
+    skos:definition "[OntoGSN] Determines whether the view shows the argument or the module architecture."@en ;
     gsn:coreOrExtension "Modular Extension"@en .
 
 schema:description a owl:AnnotationProperty,
@@ -380,6 +394,7 @@ gsn:argumentType a owl:DatatypeProperty ;
                             rdf:rest [ a rdf:List ;
                                     rdf:first "risk" ;
                                     rdf:rest () ] ] ] ] ;
+    skos:definition "[OntoGSN] Defines the kind of argument this is: a risk argument (i.e., the main content of assurance), a confidence argument for an assurance claim point, a compliance argument (undefined in the normative standard), or a dialectic argument."@en ;
     gsn:coreOrExtension "Confidence Argument Extension"@en .
 
 gsn:assuranceClaimPoint a owl:DatatypeProperty ;
@@ -435,6 +450,7 @@ gsn:RelationshipWithConfidence a owl:Class ;
             owl:onProperty schema:identifier ;
             owl:someValuesFrom xsd:string ],
         gsn:Relationship ;
+    skos:definition "[OntoGSN] A relationship carrying an assurance claim point, whose associated confidence argument documents the reasons for having confidence in the relationship between two elements."@en ;
     skos:note "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
     gsn:coreOrExtension "Confidence Argument Extension"@en .
 
@@ -443,6 +459,7 @@ gsn:associatedWith a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:ArtefactReference gsn:RelationshipWithConfidence ) ] ;
     rdfs:range gsn:Argument ;
+    skos:definition "[OntoGSN] Links a relationship or an artefact reference to the confidence argument provided for it."@en ;
     gsn:coreOrExtension "Confidence Argument Extension"@en .
 
 gsn:challenges a owl:ObjectProperty ;
@@ -495,6 +512,7 @@ gsn:supportedBy a owl:AsymmetricProperty,
 gsn:Artefact a owl:Class ;
     rdfs:label "Artefact"@en ;
     skos:altLabel "Evidence"@en ;
+    skos:definition "[OntoGSN] Information or objective artefacts (e.g., files) being offered in support or context of one or more claims."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:inContextOf a owl:AsymmetricProperty,
@@ -514,6 +532,7 @@ schema:identifier a owl:DatatypeProperty .
 gsn:ArtefactReference a owl:Class ;
     rdfs:label "Artefact Reference"@en ;
     rdfs:subClassOf gsn:GSNElement ;
+    skos:definition "[OntoGSN] An element that makes no claim of its own and instead points at an artefact, such as a solution or a context expressed as a noun phrase."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Justification a owl:Class ;
@@ -572,6 +591,7 @@ gsn:statement a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:GSNElement ) ] ;
     rdfs:range xsd:string ;
+    skos:definition "[OntoGSN] The text the element asserts, written to the grammatical rules the standard sets for GSN statements."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Context a owl:Class ;
@@ -590,6 +610,7 @@ gsn:contains a owl:ObjectProperty ;
             owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Catalogue gsn:Module gsn:Pattern ) ] ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:Artefact gsn:GSNElement gsn:Pattern ) ] ;
+    skos:definition "[OntoGSN] Relates a container (e.g., an assurance case, argument, module, catalogue or pattern) to its components (e.g., elements, arguments, patterns or artefacts)."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Module a owl:Class ;
@@ -624,6 +645,7 @@ gsn:Relationship a owl:Class ;
                     owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
             owl:onProperty rdf:object ],
         rdf:Statement ;
+    skos:definition "[OntoGSN] A link between GSN elements treated as an individual in its own right, carrying its subject, object and type, so that the link itself can be decorated and described."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Argument a owl:Class ;
@@ -688,6 +710,7 @@ gsn:GSNElement a owl:Class ;
         [ a owl:Restriction ;
             owl:onProperty schema:identifier ;
             owl:someValuesFrom xsd:string ] ;
+    skos:definition "Goals, solutions, strategies, contexts, assumptions and justifications form the principal elements of GSN."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Pattern a owl:Class ;
@@ -695,5 +718,6 @@ gsn:Pattern a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty schema:description ;
             owl:someValuesFrom rdfs:Literal ] ;
+    skos:definition "[OntoGSN] A reusable argument structure, accompanied by a description that defines its intent and the constraints on its use, from which concrete arguments are instantiated."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 

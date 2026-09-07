@@ -36,6 +36,7 @@ gsn:offDiagram a owl:DatatypeProperty ;
     rdfs:label "off-diagram"@en ;
     rdfs:domain gsn:GSNElement ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Determines whether the argument at this element continues in, or is a continuation from, a separate diagram."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:refersTo a owl:ObjectProperty ;
@@ -43,6 +44,7 @@ gsn:refersTo a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:ArtefactReference gsn:InstantiationDataReference ) ] ;
     rdfs:range gsn:Artefact ;
+    skos:definition "[OntoGSN] Relates an artefact reference or an instantiation data reference to the artefact it points at."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:relationshipType a owl:DatatypeProperty ;
@@ -86,6 +88,7 @@ gsn:true a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Marks whether the claim in the element or relationship is determined (e.g., by the auditor or some process) as correct or not."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:valid a owl:DatatypeProperty ;
@@ -93,6 +96,7 @@ gsn:valid a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:GSNElement gsn:Pattern gsn:Relationship ) ] ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Marks whether the element is determined (e.g., by a GSN rule) to be consistent or otherwise correct with respect to the GSN argument syntax."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 <https://w3id.org/OntoGSN/ontology/core> a owl:Ontology ;
@@ -195,11 +199,13 @@ schema:identifier a owl:DatatypeProperty .
 gsn:Artefact a owl:Class ;
     rdfs:label "Artefact"@en ;
     skos:altLabel "Evidence"@en ;
+    skos:definition "[OntoGSN] Information or objective artefacts (e.g., files) being offered in support or context of one or more claims."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:ArtefactReference a owl:Class ;
     rdfs:label "Artefact Reference"@en ;
     rdfs:subClassOf gsn:GSNElement ;
+    skos:definition "[OntoGSN] An element that makes no claim of its own and instead points at an artefact, such as a solution or a context expressed as a noun phrase."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Context a owl:Class ;
@@ -242,6 +248,7 @@ gsn:Relationship a owl:Class ;
                     owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
             owl:onProperty rdf:object ],
         rdf:Statement ;
+    skos:definition "[OntoGSN] A link between GSN elements treated as an individual in its own right, carrying its subject, object and type, so that the link itself can be decorated and described."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:contains a owl:ObjectProperty ;
@@ -250,6 +257,7 @@ gsn:contains a owl:ObjectProperty ;
             owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Catalogue gsn:Module gsn:Pattern ) ] ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:Artefact gsn:GSNElement gsn:Pattern ) ] ;
+    skos:definition "[OntoGSN] Relates a container (e.g., an assurance case, argument, module, catalogue or pattern) to its components (e.g., elements, arguments, patterns or artefacts)."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Argument a owl:Class ;
@@ -285,6 +293,7 @@ gsn:statement a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:GSNElement ) ] ;
     rdfs:range xsd:string ;
+    skos:definition "[OntoGSN] The text the element asserts, written to the grammatical rules the standard sets for GSN statements."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Goal a owl:Class ;
@@ -323,5 +332,6 @@ gsn:GSNElement a owl:Class ;
         [ a owl:Restriction ;
             owl:onProperty schema:identifier ;
             owl:someValuesFrom xsd:string ] ;
+    skos:definition "Goals, solutions, strategies, contexts, assumptions and justifications form the principal elements of GSN."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 

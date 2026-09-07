@@ -77,6 +77,7 @@ gsn:toBeSupportedByContract a owl:DatatypeProperty ;
     rdfs:domain gsn:Goal ;
     rdfs:range xsd:boolean ;
     owl:propertyDisjointWith gsn:undeveloped ;
+    skos:definition "Support for the claim presented by the attached goal is intended to be provided from an argument in another module linked by an as-yet-undisclosed contract."@en ;
     gsn:coreOrExtension "Modular Extension"@en ;
     gsn:renderedAs "attached centrally immediately below the goal to which it relates" .
 
@@ -89,6 +90,7 @@ gsn:viewType a owl:DatatypeProperty ;
                     rdf:rest [ a rdf:List ;
                             rdf:first "argument" ;
                             rdf:rest () ] ] ] ;
+    skos:definition "[OntoGSN] Determines whether the view shows the argument or the module architecture."@en ;
     gsn:coreOrExtension "Modular Extension"@en .
 
 <https://w3id.org/OntoGSN/ontology/modular> a owl:Ontology ;

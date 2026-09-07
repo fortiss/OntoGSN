@@ -49,6 +49,8 @@ swrla:isRuleEnabled a owl:AnnotationProperty .
 
 skos:definition a owl:AnnotationProperty .
 
+skos:note a owl:AnnotationProperty .
+
 gsn:Catalogue a owl:Class ;
     rdfs:label "Catalogue"@en ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -181,6 +183,7 @@ gsn:attachedTo a owl:ObjectProperty ;
     rdfs:domain gsn:InstantiationDataReference ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( gsn:GSNElement gsn:Template ) ] ;
+    skos:definition "[OntoGSN] Links an instantiation data reference to the element or template argument it annotates."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "dotted line" .
 
@@ -234,6 +237,7 @@ gsn:maxCardinality a owl:DatatypeProperty ;
     rdfs:label "maximum cardinality"@en ;
     rdfs:domain gsn:Relationship ;
     rdfs:range xsd:nonNegativeInteger ;
+    skos:definition "[OntoGSN] The upper bound on how many instances of the related element this relationship stands for."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "text" .
 
@@ -241,6 +245,7 @@ gsn:minCardinality a owl:DatatypeProperty ;
     rdfs:label "minimum cardinality"@en ;
     rdfs:domain gsn:Relationship ;
     rdfs:range xsd:nonNegativeInteger ;
+    skos:definition "[OntoGSN] The lower bound on how many instances of the related element this relationship stands for."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "text" .
 
@@ -254,6 +259,7 @@ gsn:multiple a owl:DatatypeProperty ;
     rdfs:label "multiple"@en ;
     rdfs:domain gsn:Relationship ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Determines whether the relationship stands for multiple instantiations rather than a single one."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "solid ball" .
 
@@ -290,6 +296,7 @@ gsn:uninstantiated a owl:DatatypeProperty ;
     rdfs:label "uninstantiated"@en ;
     rdfs:domain gsn:GSNElement ;
     rdfs:range xsd:boolean ;
+    skos:definition "The attached element remains to be instantiated: at some later stage the abstract element needs to be replaced with a more concrete instance."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "hollow triangle" .
 
@@ -312,6 +319,7 @@ gsn:uninstantiated a owl:DatatypeProperty ;
     schema:version 3.0 ;
     owl:versionInfo "1.2.4" ;
     skos:definition "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."@en ;
+    skos:note "A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the provenance graph naming the passage it rests on, or stating that it rests on none."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 schema:description a owl:AnnotationProperty,
@@ -332,6 +340,7 @@ gsn:final a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Determines whether this is the delivered version of the argument or pattern, in which no element remains uninstantiated or undeveloped."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 gsn:instantiationOf a owl:ObjectProperty ;
@@ -339,6 +348,7 @@ gsn:instantiationOf a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:GSNElement ) ] ;
     rdfs:range gsn:Pattern ;
+    skos:definition "[OntoGSN] Relates an argument or element to the pattern it was instantiated from."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 rdf:subject a owl:ObjectProperty .
@@ -348,6 +358,7 @@ gsn:published a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean ;
+    skos:definition "[OntoGSN] Determines whether the argument or pattern is in its published form, in which the undeveloped decorator is not permitted."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 gsn:undeveloped a owl:DatatypeProperty ;
@@ -388,5 +399,6 @@ gsn:Pattern a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:onProperty schema:description ;
             owl:someValuesFrom rdfs:Literal ] ;
+    skos:definition "[OntoGSN] A reusable argument structure, accompanied by a description that defines its intent and the constraints on its use, from which concrete arguments are instantiated."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
