@@ -39,7 +39,7 @@ gsnprov:ontology-1.2.4
     rdfs:label "OntoGSN ontology 1.2.4"@en ;
     owl:versionInfo "1.2.4" ;
     gsnprov:path "serializations/ontogsn.ttl" ;
-    gsnprov:fileChecksum "7380f75c5f4fb771d2011d9e0d18ee60f89e22fb0d2684b87f04726f04b4a777" ;
+    gsnprov:fileChecksum "2537b3f4bf25df40330c0efa6e498c8cf577e444d5df61a09bdace4cae24bf24" ;
     prov:generatedAtTime "2026-08-18T12:30:41Z"^^xsd:dateTime .
 
 gsnprov:shapes-1.0.2
@@ -3655,7 +3655,9 @@ gsnprov:st-0018
     gsnprov:aboutTerm dc:created .
 
 gsnprov:dd-0019
-    a gsnprov:DesignDecision ;
+    a gsnprov:RetiredDecision ;
+    gsnprov:retirementReason "dc:issued was never a Dublin Core Elements 1.1 term - DCMI defines issued only in DCMI Metadata Terms - so the property resolved to nothing and no tool read it. The declaration is now terms:issued."@en ;
+    gsnprov:supersededBy gsnprov:dd-1000 ;
     gsnprov:positionKey "S01.R018a" ;
     gsnprov:part gsnprov:part-0 ;
     gsnprov:section gsnprov:sec-ontology-specific ;
@@ -3927,7 +3929,9 @@ gsnprov:st-0031
     gsnprov:aboutTerm dc:identifier .
 
 gsnprov:dd-0032
-    a gsnprov:DesignDecision ;
+    a gsnprov:RetiredDecision ;
+    gsnprov:retirementReason "dc:modified was never a Dublin Core Elements 1.1 term - DCMI defines modified only in DCMI Metadata Terms - so the property resolved to nothing and no tool read it. The declaration is now terms:modified."@en ;
+    gsnprov:supersededBy gsnprov:dd-1002 ;
     gsnprov:positionKey "S01.R021" ;
     gsnprov:part gsnprov:part-0 ;
     gsnprov:section gsnprov:sec-ontology-specific ;
@@ -25148,6 +25152,153 @@ gsnprov:st-0995
     gsnprov:aboutTerm gsn:attachedTo ;
     gsnprov:mentionsTerm gsn:attachedTo .
 
+gsnprov:dd-0996
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S01.R45" ;
+    gsnprov:part gsnprov:part-0 ;
+    gsnprov:section gsnprov:sec-ontology-specific ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "‘status’ is defined as an annotation."@en ;
+    gsnprov:nlWrittenFor "dc32cdb5" ;
+    gsnprov:noSourceRecorded "true"^^xsd:boolean ;
+    gsnprov:hasRationale gsnprov:why-0218 ;
+    prov:generated gsnprov:st-0996 .
+
+gsnprov:st-0996
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-0996 ;
+    gsnprov:inGraph gsnprov:ontology-1.2.4 ;
+    gsnprov:statementText "<http://purl.org/ontology/bibo/status> rdf:type owl:AnnotationProperty ." ;
+    gsnprov:statementChecksum "dc32cdb5" ;
+    gsnprov:structuralKey "status|a|AnnotationProperty" ;
+    gsnprov:aboutTerm <http://purl.org/ontology/bibo/status> .
+
+gsnprov:dd-0997
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S01.R46" ;
+    gsnprov:part gsnprov:part-0 ;
+    gsnprov:section gsnprov:sec-ontology-specific ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "‘logo’ is defined as an annotation."@en ;
+    gsnprov:nlWrittenFor "75b7431a" ;
+    gsnprov:noSourceRecorded "true"^^xsd:boolean ;
+    gsnprov:hasRationale gsnprov:why-0218 ;
+    prov:generated gsnprov:st-0997 .
+
+gsnprov:st-0997
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-0997 ;
+    gsnprov:inGraph gsnprov:ontology-1.2.4 ;
+    gsnprov:statementText "schema:logo rdf:type owl:AnnotationProperty ." ;
+    gsnprov:statementChecksum "75b7431a" ;
+    gsnprov:structuralKey "logo|a|AnnotationProperty" ;
+    gsnprov:aboutTerm schema:logo .
+
+gsnprov:dd-0998
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S01.R47" ;
+    gsnprov:part gsnprov:part-0 ;
+    gsnprov:section gsnprov:sec-ontology-specific ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "‘includedInDataCatalog’ is defined as an annotation."@en ;
+    gsnprov:nlWrittenFor "707a4a7a" ;
+    gsnprov:noSourceRecorded "true"^^xsd:boolean ;
+    gsnprov:hasRationale gsnprov:why-0218 ;
+    prov:generated gsnprov:st-0998 .
+
+gsnprov:st-0998
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-0998 ;
+    gsnprov:inGraph gsnprov:ontology-1.2.4 ;
+    gsnprov:statementText "schema:includedInDataCatalog rdf:type owl:AnnotationProperty ." ;
+    gsnprov:statementChecksum "707a4a7a" ;
+    gsnprov:structuralKey "includedInDataCatalog|a|AnnotationProperty" ;
+    gsnprov:aboutTerm schema:includedInDataCatalog .
+
+gsnprov:dd-0999
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S01.R48" ;
+    gsnprov:part gsnprov:part-0 ;
+    gsnprov:section gsnprov:sec-ontology-specific ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "‘doi’ is defined as an annotation."@en ;
+    gsnprov:nlWrittenFor "11d94f17" ;
+    gsnprov:noSourceRecorded "true"^^xsd:boolean ;
+    gsnprov:hasRationale gsnprov:why-0218 ;
+    prov:generated gsnprov:st-0999 .
+
+gsnprov:st-0999
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-0999 ;
+    gsnprov:inGraph gsnprov:ontology-1.2.4 ;
+    gsnprov:statementText "<http://purl.org/ontology/bibo/doi> rdf:type owl:AnnotationProperty ." ;
+    gsnprov:statementChecksum "11d94f17" ;
+    gsnprov:structuralKey "doi|a|AnnotationProperty" ;
+    gsnprov:aboutTerm <http://purl.org/ontology/bibo/doi> .
+
+gsnprov:dd-1000
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S01.R49" ;
+    gsnprov:part gsnprov:part-0 ;
+    gsnprov:section gsnprov:sec-ontology-specific ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "‘issued’ is defined as an annotation."@en ;
+    gsnprov:nlWrittenFor "d2881ca4" ;
+    gsnprov:noSourceRecorded "true"^^xsd:boolean ;
+    gsnprov:hasRationale gsnprov:why-0218 ;
+    prov:generated gsnprov:st-1000 .
+
+gsnprov:st-1000
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-1000 ;
+    gsnprov:inGraph gsnprov:ontology-1.2.4 ;
+    gsnprov:statementText "terms:issued rdf:type owl:AnnotationProperty ." ;
+    gsnprov:statementChecksum "d2881ca4" ;
+    gsnprov:structuralKey "issued|a|AnnotationProperty" ;
+    gsnprov:aboutTerm terms:issued .
+
+gsnprov:dd-1001
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S01.R50" ;
+    gsnprov:part gsnprov:part-0 ;
+    gsnprov:section gsnprov:sec-ontology-specific ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "‘preferredNamespaceUri’ is defined as an annotation."@en ;
+    gsnprov:nlWrittenFor "32d9ea8e" ;
+    gsnprov:noSourceRecorded "true"^^xsd:boolean ;
+    gsnprov:hasRationale gsnprov:why-0218 ;
+    prov:generated gsnprov:st-1001 .
+
+gsnprov:st-1001
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-1001 ;
+    gsnprov:inGraph gsnprov:ontology-1.2.4 ;
+    gsnprov:statementText "vann:preferredNamespaceUri rdf:type owl:AnnotationProperty ." ;
+    gsnprov:statementChecksum "32d9ea8e" ;
+    gsnprov:structuralKey "preferredNamespaceUri|a|AnnotationProperty" ;
+    gsnprov:aboutTerm vann:preferredNamespaceUri .
+
+gsnprov:dd-1002
+    a gsnprov:DesignDecision ;
+    gsnprov:positionKey "S01.R51" ;
+    gsnprov:part gsnprov:part-0 ;
+    gsnprov:section gsnprov:sec-ontology-specific ;
+    gsnprov:formalism gsnprov:OWL ;
+    gsnprov:naturalLanguage "‘modified’ is defined as an annotation."@en ;
+    gsnprov:nlWrittenFor "8f908078" ;
+    gsnprov:noSourceRecorded "true"^^xsd:boolean ;
+    gsnprov:hasRationale gsnprov:why-0218 ;
+    prov:generated gsnprov:st-1002 .
+
+gsnprov:st-1002
+    a gsnprov:StatementRecord ;
+    prov:wasGeneratedBy gsnprov:dd-1002 ;
+    gsnprov:inGraph gsnprov:ontology-1.2.4 ;
+    gsnprov:statementText "terms:modified rdf:type owl:AnnotationProperty ." ;
+    gsnprov:statementChecksum "8f908078" ;
+    gsnprov:structuralKey "modified|a|AnnotationProperty" ;
+    gsnprov:aboutTerm terms:modified .
+
 
 
 gsnprov:why-0215
@@ -25161,3 +25312,13 @@ gsnprov:why-0216
 gsnprov:why-0217
     a gsnprov:Rationale ;
     gsnprov:rationaleText "The standard defines this term outright, so the definition is its own sentence rather than a paraphrase, and carries no [OntoGSN] prefix. Two things were elided: the framing that introduces the sentence as the definition of a decorator, and any clause saying where the symbol is drawn, which gsn:renderedAs already carries on the same term. A cross-reference into another section of the standard was dropped for the same reason - it carries no meaning outside the document it points into."@en .
+
+
+#################################################################
+#    Added by prov_add.py (7 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsnprov:why-0218
+    a gsnprov:Rationale ;
+    gsnprov:rationaleText "Seven annotation properties imported so that the ontology's own header can state what the FAIR assessors look for and found missing: a preferred namespace URI (vann), a DOI and a publication status (bibo), a logo and the catalogue the ontology is deposited in (schema), and issue and modification dates (dcterms). FOOPS! scored the ontology 75% - the version IRI, the namespace URI, the DOI, the logo, the status, the issued date and a registry entry were the seven things it could not find, and each is a fact about the release that was true but nowhere written down. dcterms:issued and dcterms:modified replace dc:issued and dc:modified, which were never Dublin Core Elements 1.1 terms at all: DCMI defines issued and modified only in DCMI Metadata Terms, so the two properties the ontology had been using resolved to nothing and no tool read them. The DOI is Zenodo's concept DOI rather than a version DOI, so that it keeps pointing at the newest deposit rather than pinning the first; schema:includedInDataCatalog names that same Zenodo deposit, which is what makes the claim true - the check also passes on a Linked Open Vocabularies entry, which the ontology does not yet have."@en .
