@@ -26,6 +26,34 @@ The ontology as published is described in the paper (arXiv:2506.11023).
 
 ## Ontology 1.2.4 (unreleased) — shapes 1.0.2
 
+### The header states what makes the release findable
+
+**Not breaking.** Header metadata only; no term and no axiom changed. FOOPS!, the FAIR
+assessor for ontologies, scored OntoGSN 75%: seven facts about the release were true but
+written down nowhere a machine could read them.
+
+- `owl:versionIRI` — `https://w3id.org/OntoGSN/ontology/1.2.4`. The ontology URI names the
+  ontology; the version IRI names *this* release of it, and is what a consumer pins to.
+- `vann:preferredNamespaceUri` — `https://w3id.org/OntoGSN/ontology#`. The prefix `gsn` was
+  declared; the namespace it stands for was not.
+- `bibo:doi` — the Zenodo **concept** DOI `10.5281/zenodo.17808330`, which resolves to the
+  newest deposit, rather than a version DOI that would pin the first.
+- `schema:includedInDataCatalog` — the same Zenodo deposit. This is the ontology's registry
+  entry; it is not yet in Linked Open Vocabularies.
+- `bibo:status`, `schema:logo` — published, and the project banner.
+- `dcterms:issued` and `dcterms:modified` **replace `dc:issued` and `dc:modified`.** Dublin
+  Core Elements 1.1 never defined either term — DCMI defines `issued` and `modified` only in
+  DCMI Metadata Terms — so the two properties the header had been using resolved to nothing
+  and no tool read them. The dates themselves are unchanged.
+
+*For case authors:* nothing to do. Seven annotation properties are declared that were not
+before (`bibo:doi`, `bibo:status`, `dcterms:issued`, `dcterms:modified`,
+`schema:includedInDataCatalog`, `schema:logo`, `vann:preferredNamespaceUri`) and two are
+gone (`dc:issued`, `dc:modified`); a case that annotated itself with either of those two —
+none should have — would need to move to the `dcterms` spelling.
+
+Reasoning: `dd-0996`–`dd-1002`, `dd-0019` and `dd-0032` retired, rationale `why-0218`.
+
 ### Twenty-four terms gain a definition
 
 **Not breaking.** Annotations only; no axiom changed. Twenty-four classes and properties

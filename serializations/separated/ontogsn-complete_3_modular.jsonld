@@ -5232,18 +5232,6 @@
     ]
   },
   {
-    "@id": "http://purl.org/dc/elements/1.1/issued",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
-    "@id": "http://purl.org/dc/elements/1.1/modified",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#AnnotationProperty"
-    ]
-  },
-  {
     "@id": "http://purl.org/dc/elements/1.1/publisher",
     "@type": [
       "http://www.w3.org/2002/07/owl#AnnotationProperty"
@@ -5274,7 +5262,37 @@
     ]
   },
   {
+    "@id": "http://purl.org/dc/terms/issued",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/dc/terms/modified",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/ontology/bibo/doi",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/ontology/bibo/status",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
     "@id": "http://purl.org/vocab/vann/preferredNamespacePrefix",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://purl.org/vocab/vann/preferredNamespaceUri",
     "@type": [
       "http://www.w3.org/2002/07/owl#AnnotationProperty"
     ]
@@ -5296,6 +5314,18 @@
     "@id": "http://schema.org/identifier",
     "@type": [
       "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ]
+  },
+  {
+    "@id": "http://schema.org/includedInDataCatalog",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
+    ]
+  },
+  {
+    "@id": "http://schema.org/logo",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#AnnotationProperty"
     ]
   },
   {
@@ -6459,17 +6489,6 @@
         "@value": "SCSC-141C"
       }
     ],
-    "http://purl.org/dc/elements/1.1/issued": [
-      {
-        "@type": "http://www.w3.org/2001/XMLSchema#date",
-        "@value": "2025-02-24"
-      }
-    ],
-    "http://purl.org/dc/elements/1.1/modified": [
-      {
-        "@value": "2026-08-18T00:00:00Z"
-      }
-    ],
     "http://purl.org/dc/elements/1.1/publisher": [
       {
         "@language": "en",
@@ -6498,15 +6517,51 @@
         "@value": "20th February 2025"
       }
     ],
+    "http://purl.org/dc/terms/issued": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2025-02-24"
+      }
+    ],
+    "http://purl.org/dc/terms/modified": [
+      {
+        "@value": "2026-08-18T00:00:00Z"
+      }
+    ],
+    "http://purl.org/ontology/bibo/doi": [
+      {
+        "@value": "https://doi.org/10.5281/zenodo.17808330"
+      }
+    ],
+    "http://purl.org/ontology/bibo/status": [
+      {
+        "@id": "http://purl.org/ontology/bibo/status/published"
+      }
+    ],
     "http://purl.org/vocab/vann/preferredNamespacePrefix": [
       {
         "@value": "gsn"
+      }
+    ],
+    "http://purl.org/vocab/vann/preferredNamespaceUri": [
+      {
+        "@value": "https://w3id.org/OntoGSN/ontology#"
       }
     ],
     "http://schema.org/disclaimer": [
       {
         "@language": "en",
         "@value": "[Disclaimer from the GSN Community Standard v3.0]: While the authors and the publishers have used reasonable endeavours to ensure that the information and guidance given in this work is correct, all parties must rely on their own skill and judgement when making use of this work and obtain professional or specialist advice before taking, or refraining from, any action on the basis of the content of this work. Neither the authors nor the publishers make any representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability or availability with respect to such information and guidance for any purpose, and they will not be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever (including as a result of negligence) arising out of, or in connection with, the use of this work. The views and opinions expressed in this publication are those of the authors and do not necessarily reflect those of their employers, the SCSC1 or other organisations."
+      }
+    ],
+    "http://schema.org/includedInDataCatalog": [
+      {
+        "@id": "https://zenodo.org/"
+      }
+    ],
+    "http://schema.org/logo": [
+      {
+        "@id": "https://fortiss.github.io/OntoGSN/assets/images/ontogsn-banner.png"
       }
     ],
     "http://schema.org/url": [
@@ -6519,6 +6574,11 @@
       {
         "@type": "http://www.w3.org/2001/XMLSchema#decimal",
         "@value": "3.0"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#versionIRI": [
+      {
+        "@id": "https://w3id.org/OntoGSN/ontology/1.2.4"
       }
     ],
     "http://www.w3.org/2002/07/owl#versionInfo": [
