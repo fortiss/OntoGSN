@@ -20,6 +20,7 @@ It imports the foundational vocabularies [RDFS](https://www.w3.org/TR/rdf-schema
 
 Reasoning is carried out with [SWRL](https://www.w3.org/submissions/SWRL/)‑capable engines such as  
 [Pellet](https://www.w3.org/2001/sw/wiki/Pellet) or [Drools](https://www.drools.org/).  
-Additional rule/constraint technologies (e.g. [SPARQL 1.1](https://www.w3.org/TR/sparql11-query/) and [SHACL](https://www.w3.org/TR/shacl/)) are planned for a future release.
+Every SWRL rule is also available as a [SPARQL 1.1](https://www.w3.org/TR/sparql11-update/) update, for stores with no reasoner attached ([`queries/rules/`](https://github.com/fortiss/OntoGSN/tree/main/queries/rules)).  
+[SHACL](https://www.w3.org/TR/shacl/) shapes validate assurance-case data against the ontology ([`shapes/`](https://github.com/fortiss/OntoGSN/tree/main/shapes)).
 
-> **Note**  The assertion box (ABox) is created by the user; the repository currently contains only tutorial individuals.
+> **Note**  The assertion box (ABox) is created by the user. The repository contains only example individuals: a worked template argument in [`example/`](https://github.com/fortiss/OntoGSN/tree/main/example) and the test fixtures.

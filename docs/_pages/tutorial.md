@@ -8,7 +8,7 @@ sidebar:
 
 ## Setup
 1. Install Stanford Protégé (v5.6.3), a similar ontology editor or a graph database (e.g., Ontotext GraphDB).
-2. Download ontogsn.owl into your project folder.
+2. Download [ontogsn.ttl](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.ttl) (or [ontogsn.rdf](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.rdf)) into your project folder.
 3. Import the file into your chosen editor/database.
 4. For Protégé, install the following plug-ins: ROWL Protege 5.0+ Plugin, Pellet Reasoner Plug-in.
 

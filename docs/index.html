@@ -11,7 +11,7 @@ header:
   overlay_color: "#000"       # hex overlay tint (optional)
   caption: #"Figure 1 – OntoGSN class taxonomy"       # small text bottom‑left
   cta_label: "Read the documentation →"              # call‑to‑action button
-  cta_url: "/development/"                           # where the button leads
+  cta_url: "/documentation/"                         # where the button leads
 ---
 
 <p>
@@ -25,6 +25,22 @@ header:
   <a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.jsonld" target="_blank">
     <img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" />
   </a>
+  <a href="https://github.com/fortiss/OntoGSN/tree/main/serializations/separated" target="_blank">
+    <img src="https://img.shields.io/badge/Format-By_section-blue.svg" alt="By section" />
+  </a>
+</p>
+
+<p>
+  <strong>Permanent IRI:</strong>
+  <a href="https://w3id.org/OntoGSN/ontology" target="_blank">https://w3id.org/OntoGSN/ontology</a>
+  &nbsp;(load the ontology from this address, which always serves the current version)
+</p>
+
+<p>
+  <strong>Validate assurance-case data:</strong>
+  <a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/shapes/ontogsn-shapes_0_full.ttl" target="_blank">
+    <img src="https://img.shields.io/badge/Format-SHACL-blue.svg" alt="SHACL shapes" />
+  </a>
 </p>
 
 <p>
@@ -36,7 +52,20 @@ header:
 
 <p>
   <strong>How to cite:</strong>
-  Bueno Momcilovic, T., Gallina, B., Kessler, I., Hendricks, J., & Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. Retrieved from https://fortiss.github.io/OntoGSN/
+  Bueno Momčilović, T., Gallina, B., Kessler, I., Hendricks, J., & Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. arXiv preprint (v2). <a href="https://doi.org/10.48550/arXiv.2506.11023" target="_blank">https://doi.org/10.48550/arXiv.2506.11023</a>
+  <br />
+  <a href="https://arxiv.org/abs/2506.11023" target="_blank">
+    <img src="https://img.shields.io/badge/arXiv-2506.11023-B31B1B.svg" alt="arXiv:2506.11023" />
+  </a>
+  &nbsp;A third version of the paper is in preparation.
+</p>
+
+<p>
+  <strong>To cite the ontology itself:</strong>
+  <a href="https://doi.org/10.5281/zenodo.17808330" target="_blank">
+    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17808330.svg" alt="DOI 10.5281/zenodo.17808330" />
+  </a>
+  &nbsp;(this DOI always resolves to the newest release)
 </p>
 
 
@@ -46,17 +75,20 @@ header:
     <p>OntoGSN is an ontology for enabling users to manage (i.e., create,
        maintain, align, evaluate, explain and display) GSN assurance cases semantically. Key benefits include:</p>
     <ul>
-      <li>native storage and querying of graph data;</li>
+      <li>native storage and querying of graph data, with <a href="https://github.com/fortiss/OntoGSN/tree/main/queries" target="_blank">stored SPARQL queries</a> that answer common questions about a case;</li>
       <li>human‑readable, visualisable domain representation;</li>
-      <li>seamless linking to data, documents and code in one store;</li>
-      <li>logic‑based quality verification through rule engines;</li>
+      <li>linking to data, documents and code in one store;</li>
+      <li>logic‑based quality checks: SWRL rules for reasoners, the same rules as SPARQL updates for stores without a reasoner, and SHACL shapes for validating case data;</li>
       <li>a foundation for advanced methods such as GraphRAG; and</li>
       <li>an active, mostly open‑source tooling ecosystem.</li>
     </ul>
-    <p>The ontology acts as a "translator" (i.e., middleware) between a system and an assurance case, as well as a validator for all rules under the standard.
-        We have created the ontology in order to reduce the pain for users who have to specify how each system should interface with the assurance case, and/or have to update the information in the assurance case manually using an additional software interface. The added advantage of having the ontology handle the management of updates across interfaces is that one can monitor the status of their system's design, implementation, testing and runtime from the assurance case tree itself, which is well-suited for auditors, safety or security engineers, and other supervisory or monitoring roles.
+    <p>Every term is sourced from the GSN Community Standard v3, across its five sections: core GSN and the argument pattern, modular, confidence and dialectic extensions.
+        A <a href="https://github.com/fortiss/OntoGSN/tree/main/provenance" target="_blank">provenance record</a> traces each axiom to the passage of the standard behind it, and records the reasoning.
     </p>
-    <h3></h3>
+    <p>The ontology acts as a "translator" (i.e., middleware) between a system and its assurance case, and as a validator for the rules of the standard.
+        You do not need to write a separate interface for each system, or update the assurance case by hand.
+        Because the ontology carries the updates, you can follow the system's design, implementation, testing and runtime from the assurance case tree itself. This suits auditors, safety and security engineers, and other supervisory or monitoring roles.
+    </p>
   </section>
 
 
@@ -74,10 +106,3 @@ header:
 
     <p>This work was partially supported by financial and other means by the following research projects: DUCA (EU grant agreement 101086308), DiProLeA (German Federal Ministry of Education and Research, grant 02J19B120 ff), ROBIN at the Bavarian Research Institute for Digital Transformation, ∞ COMPASS (#49 project at Software Center, Sweden), as well as our industrial partners in the FinComp project.</p>
   </section>
-
-<p>
-  <strong>Our preprint (v1):</strong>
-  <a href="https://arxiv.org/abs/2506.11023" target="_blank">
-    <img src="https://img.shields.io/badge/arXiv-2506.11023-B31B1B.svg" alt="arXiv:2506.11023" />
-  </a>
-</p>
