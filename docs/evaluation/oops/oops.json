@@ -1,0 +1,161 @@
+{
+  "pitfalls": [
+    {
+      "code": "P10",
+      "title": "Missing disjoint-ness",
+      "importance": "IMPORTANT",
+      "cases": 1,
+      "description": "The ontology lacks disjoint axioms between classes or between properties that should be defined as disjoint. This pitfall is related to the guidelines provided in [6], [2] and [7].",
+      "elements": []
+    },
+    {
+      "code": "P11",
+      "title": "Missing domain or range in properties",
+      "importance": "IMPORTANT",
+      "cases": 2,
+      "description": "Object and/or datatype properties missing domain or range (or both of them) are included in the ontology.",
+      "elements": [
+        [
+          "http://schema.org/description"
+        ],
+        [
+          "http://schema.org/identifier"
+        ]
+      ]
+    },
+    {
+      "code": "P24",
+      "title": "Using recursive definitions",
+      "importance": "IMPORTANT",
+      "cases": 3,
+      "description": "An ontology element (a class, an object property or a datatype property) is used in its own definition. Some examples of this would be: (a) the definition of a class as the enumeration of several classes including itself; (b) the appearance of a class within its owl:equivalentClass or rdfs:subClassOf axioms; (c) the appearance of an object property in its rdfs:domain or range rdfs:range definitions; or (d) the appearance of a datatype property in its rdfs:domain definition.",
+      "elements": [
+        [
+          "https://w3id.org/OntoGSN/ontology#Goal"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#Module"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#Relationship"
+        ]
+      ]
+    },
+    {
+      "code": "P30",
+      "title": "Equivalent classes not explicitly declared",
+      "importance": "IMPORTANT",
+      "cases": 1,
+      "description": "This pitfall consists in missing the definition of equivalent classes (owl:equivalentClass) in case of duplicated concepts. When an ontology reuses terms from other ontologies, classes that have the same meaning should be defined as equivalent in order to benefit the interoperability between both ontologies.",
+      "elements": [
+        [
+          "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
+          "https://w3id.org/OntoGSN/ontology#Argument"
+        ]
+      ]
+    },
+    {
+      "code": "P08-A",
+      "title": "Missing annotations - Label & Comment",
+      "importance": "MINOR",
+      "cases": 2,
+      "description": "This pitfall consists in creating an ontology element and failing to provide human readable annotations attached to it. Consequently, ontology elements lack annotation properties that label them (e.g. rdfs:label, lemon:LexicalEntry, skos:prefLabel or skos:altLabel) or that define them (e.g. rdfs:comment or dc:description). This pitfall is related to the guidelines provided in [5].",
+      "elements": [
+        [
+          "http://schema.org/description"
+        ],
+        [
+          "http://schema.org/identifier"
+        ]
+      ]
+    },
+    {
+      "code": "P13-N",
+      "title": "Inverse relationships not explicitly declared - No Suggestion",
+      "importance": "MINOR",
+      "cases": 10,
+      "description": "This pitfall appears when any relationship (except for those that are defined as symmetric properties using owl:SymmetricProperty) does not have an inverse relationship (owl:inverseOf) defined within the ontology.",
+      "elements": [
+        [
+          "https://w3id.org/OntoGSN/ontology#associatedWith"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#attachedTo"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#challenges"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#contains"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#inContextOf"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#inModule"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#instantiationOf"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#refersTo"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#relatedTo"
+        ],
+        [
+          "https://w3id.org/OntoGSN/ontology#substitutedBy"
+        ]
+      ]
+    },
+    {
+      "code": "P13-S",
+      "title": "Inverse relationships not explicitly declared - Symmetric or Transitive?",
+      "importance": "MINOR",
+      "cases": 1,
+      "description": "This pitfall appears when any relationship (except for those that are defined as symmetric properties using owl:SymmetricProperty) does not have an inverse relationship (owl:inverseOf) defined within the ontology.",
+      "elements": [
+        [
+          "https://w3id.org/OntoGSN/ontology#relatedTo"
+        ]
+      ]
+    },
+    {
+      "code": "P34",
+      "title": "Untyped class",
+      "importance": "MINOR",
+      "cases": 7,
+      "description": "An ontology element is used as a class without having been explicitly declared as such using the primitives owl:Class or rdfs:Class. This pitfall is related with the common problems listed in [8].",
+      "elements": [
+        [
+          "http://www.w3.org/2003/11/swrl#AtomList"
+        ],
+        [
+          "http://www.w3.org/2003/11/swrl#BuiltinAtom"
+        ],
+        [
+          "http://www.w3.org/2003/11/swrl#ClassAtom"
+        ],
+        [
+          "http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"
+        ],
+        [
+          "http://www.w3.org/2003/11/swrl#Imp"
+        ],
+        [
+          "http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"
+        ],
+        [
+          "http://www.w3.org/2003/11/swrl#Variable"
+        ]
+      ]
+    }
+  ],
+  "not_evaluated": [
+    {
+      "checker": "C06",
+      "pitfall": "P06",
+      "error": "java.util.ConcurrentModificationException"
+    }
+  ]
+}
