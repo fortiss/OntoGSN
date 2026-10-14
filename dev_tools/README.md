@@ -16,6 +16,10 @@ every pull request. It verifies; it never regenerates. Regeneration stays a deli
 by a person, because a build that silently rewrites the ontology's derived files would hide
 exactly the drift this is meant to surface.
 
+`.github/workflows/reports.yml` regenerates the reports that the website publishes about
+the ontology. It runs when the ontology changes on `main`, and opens a pull request with the
+new reports. A person merges it. See [The website reports](#the-website-reports).
+
 A pre-commit hook catches the same thing before it is pushed. Enable it once per clone:
 
 ```bash
@@ -60,9 +64,14 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `provenance/ontogsn-provenance-augmentations.ttl` | the repo, and the record it links into | `dev_tools/prov_augment.py` |
 | `provenance/ontogsn-provenance-queries.ttl` | `queries/`, the ontology, the fixture | `dev_tools/query_check.py` |
 | `provenance/Design Documentation.xlsx` | the provenance graph | `dev_tools/prov_to_workbook.py` |
+| `docs/documentation/` | `ontogsn.ttl` | WIDOCO, run by `dev_tools/reports.py` |
+| `docs/evaluation/oops/` | `ontogsn.rdf` | OOPS!, run by `dev_tools/reports.py` |
+| `docs/evaluation/foops/` | the published ontology | FOOPS!, run by `dev_tools/reports.py` |
 
-Every generator has a `--check` mode. **Nothing runs them automatically** — no CI, no git
-hooks. `check_all.py` is the one command to run before committing.
+Every generator has a `--check` mode. CI and the hook run those checks. They never run a
+generator, with one exception: CI runs `reports.py` (see
+[The website reports](#the-website-reports)). `check_all.py` is the one command to run
+before committing.
 
 ## The scripts
 
@@ -73,6 +82,7 @@ run_rules.py       apply queries/rules/ to a case until nothing more is derived
 shacl_check.py     the fixtures vs shapes/, before and after the rules run
 reasoner_check.py  the ontology and the fixtures vs an OWL-DL reasoner (needs a JVM)
 oops_check.py      the ontology vs the OOPS! pitfall scanner (needs the network)
+reports.py         regenerate the WIDOCO, OOPS! and FOOPS! reports the website publishes
 prov_check.py      the provenance record vs the ontology, the shapes and the queries
 prov_add.py        draft a decision for an axiom nobody has documented
 prov_retire.py     retire a decision, or bring it back
@@ -191,6 +201,44 @@ graph — which OOPS! does not recognise, and it then reports P39 (critical, "no
 declared") and P38 against an ontology that declares both. Fixing `serializations/build.py`
 would work equally well and would change a published artefact, so the normalisation lives
 in the check.
+
+## The website reports
+
+`reports.py` regenerates the three reports that the website publishes about the ontology.
+
+| Report | Tool | Written to | Made from |
+| :--- | :--- | :--- | :--- |
+| Documentation | [WIDOCO](https://github.com/dgarijo/Widoco) 1.4.25 | `docs/documentation/` | `serializations/ontogsn.ttl` |
+| Pitfall scan | [OOPS!](https://github.com/oeg-upm/OOPS) 0.3.0-SNAPSHOT | `docs/evaluation/oops/` | `serializations/ontogsn.rdf` |
+| FAIR assessment | [FOOPS!](https://github.com/oeg-upm/fair_ontologies) 0.4.0 | `docs/evaluation/foops/` | the ontology at `https://w3id.org/OntoGSN/ontology` |
+
+`.github/workflows/reports.yml` runs it when the ontology changes on `main`, and opens a
+pull request with the result. To run it yourself, you need Java 17 or newer. OOPS! also
+needs Maven, because it is built from source.
+
+```bash
+python dev_tools/reports.py --fetch          # regenerate every report that is stale
+python dev_tools/reports.py --check          # exit 1 if a report is stale
+python dev_tools/reports.py foops --force    # regenerate one report, even if it is current
+```
+
+`--fetch` gets a missing tool before it regenerates a report. It clones the tool next to
+this repository, at the version that `reports.py` pins. For example, WIDOCO goes to
+`../Widoco`. WIDOCO and FOOPS! run from the JAR of that release, which `--fetch` downloads
+into the clone and verifies. OOPS! has no release JAR, so `--fetch` builds it in the clone
+with Maven. Nothing is copied into this repository. `--tools-dir` puts the clones in a
+different folder.
+
+Each report folder has a `build.json` with the tool version and a checksum of the input. If
+neither changed, the report is current, and `reports.py` does not regenerate it.
+
+FOOPS! assesses the published ontology, which is the version on `main`. If the published
+copy differs from your files, the run stops. `--wait SECONDS` waits for the published copy
+to catch up. `--file` assesses your local `ontogsn.ttl` instead, with fewer checks.
+
+To move to a newer version of a tool, change its entry in `TOOLS` in `reports.py`. The
+next run with `--fetch` then regenerates every report that the tool makes. For a tool you
+already cloned, check out the new version in the clone first.
 
 ## How an axiom is identified, and why not the obvious way
 

@@ -49,6 +49,8 @@ Local checks ensure that everything is current and consistent: derived serializa
 
 Commit the regenerated files alongside your change. Never hand-edit a generated file.
 
+The website reports in `docs/documentation/` and `docs/evaluation/` are generated too, but you do not regenerate them. When your change reaches `main`, CI regenerates them and opens a pull request.
+
 ## The website
 
 [`docs/`](docs/) is the source of <https://fortiss.github.io/OntoGSN/>, hosted on Github Pages. Note: `docs/` is required by GitHub.
