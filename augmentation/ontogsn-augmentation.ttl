@@ -25,67 +25,33 @@
     dc:creator "Tomas Bueno Momčilović"@en ;
     dc:publisher "https://www.fortiss.org/"@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
-    dc:description """Terms for linking a GSN assurance case to things GSN deliberately does not model: the people
-and roles behind an element, the tool that produced a piece of evidence and where it is kept, the
-review issues raised against the case, and the regulatory requirement a claim answers to.
-
-Every link names what sits at its far end: a gsnaug:System is what a case assures, a
-gsnaug:Requirement is what a claim answers to, a gsnaug:Role is what an agent holds, and a
-gsnaug:ArtefactElement is the part of an artefact an element was instantiated from.
-
-Three groups do the work. Evidence provenance hangs off gsn:Artefact rather than gsn:Solution,
-because the storage location, the generating tool and the verification script are facts about the
-file and not about the node in the diagram; a query reaches them through the gsn:refersTo the
-solution already has. Roles say who owns, reviews and is assured by what. Issues record a reviewer's
-ask - clarify, revise or resolve - as an individual, so that rounds can be counted and an ask can be
-superseded or answered.
-
-An issue is not a status flag. gsn:inDoubt and gsn:defeated are states of an element; an issue is
-the request to move the element off one, and only two of the nine combinations of issue type and
-target produce a defeater at all. The rest are legitimate asks that leave the argument's truth
-values untouched.
-
-Nothing in OntoGSN imports this file, and this file restates no gsn: domain or range."""@en ;
+    dc:description """OntoGSN Augmentation is a container for custom extensions to the OntoGSN ontology. It contains the terms for linking a GSN assurance case to external non-GSN elements. Current version includes elements that are common to software auditing processes: the people and roles behind an element; the mechanisms for generating, retrieving and verifying an evidence artefact, or verifying that the context still holds; the issues raised against the case as defeaters, and their answers; the (regulatory) requirement a claim answers to; and the system that the case assures."""@en ;
     terms:created "2026-08-17"^^xsd:date ;
     vann:preferredNamespacePrefix "gsnaug" ;
     vann:preferredNamespaceUri "https://w3id.org/OntoGSN/augmentation#" ;
     owl:versionInfo "0.2.0" ;
-    gsnaug:augmentedOntoGSNVersion "1.2.4" ;
-    skos:note """The augmented-version annotation scopes everything below. Two axioms in particular were written
-against OntoGSN 1.2.4 and would not hold before it: gsnaug:instantiatedFrom assumes an
-InstantiationDataReference may carry gsn:refersTo, and rule A2/A3 assume gsn:challenges reaches the
-class of target the rule matches. Re-check this file whenever that version string moves."""@en .
-
+    gsnaug:augmentedOntoGSNVersion "1.2.4" .
 
 gsnaug:augmentedOntoGSNVersion rdf:type owl:AnnotationProperty ;
     rdfs:label "augmented OntoGSN version"@en ;
     rdfs:comment "The version of OntoGSN this augmentation was written against."@en .
 
-
-#################################################################
-#    The one axiom with a gsn: term as its subject
-#################################################################
-
-gsn:Artefact rdfs:subClassOf prov:Entity .
-
-
 #################################################################
 #    Classes
 #################################################################
+
+gsn:Artefact rdfs:subClassOf prov:Entity .
 
 ###  Issues and answers
 
 gsnaug:Issue rdf:type owl:Class ;
     rdfs:label "Issue"@en ;
     skos:altLabel "Request"@en ;
-    skos:definition "An ask raised by a reviewer against something in an assurance case: clarify it, revise it, or resolve it."@en ;
-    skos:note """An issue is the ask, not the state of what it targets. It persists after being raised: it is open,
-it may be relayed or superseded, and it is closed by a gsnaug:Answer. Modelling it as an individual
-rather than as a flag is what makes 'how many rounds has this claim taken' a countable question."""@en .
+    skos:definition "An ask raised by a reviewer against an element in an assurance case."@en .
 
 gsnaug:Answer rdf:type owl:Class ;
     rdfs:label "Answer"@en ;
-    skos:definition "The response that closes an issue."@en ;
+    skos:definition "The response that aims to close an issue."@en ;
     skos:note "Superclass only. Instantiate one of the three subclasses, which say what kind of ask was answered."@en .
 
 gsnaug:Clarification rdf:type owl:Class ;
@@ -113,24 +79,32 @@ gsnaug:AuditCycle rdf:type owl:Class ;
     skos:note "Start and end are prov:startedAtTime and prov:endedAtTime, which apply because an audit cycle is a prov:Activity. An issue carries its own date with dcterms:created."@en .
 
 
-###  Evidence mechanisms and storage
+###  Mechanisms and storage
 
-gsnaug:EvidenceGenerationMechanism rdf:type owl:Class ;
-    rdfs:label "Evidence Generation Mechanism"@en ;
-    skos:definition "A mechanism - a process, a script, a command - that can or should be used to generate a piece of evidence."@en ;
-    skos:note "Naming the mechanism is also a signal to whoever maintains it: an artefact generated by a known script should not be edited by hand, and one whose mechanism is missing is a candidate for automation."@en .
+gsnaug:Mechanism rdf:type owl:Class ;
+    rdfs:label "Mechanism"@en ;
+    skos:definition "Means through which some GSN-linked artefact is generated, retrieved or verified." ;
+    skos:note "Used for maintaining the continuity between a gsn:Artefact and a gsn:GSNElement, and automating the respective activities with rules (where possible)."
 
-gsnaug:EvidenceRetrievalMechanism rdf:type owl:Class ;
-    rdfs:label "Evidence Retrieval Mechanism"@en ;
-    skos:definition "A mechanism - a process, a script, a query, a command - that can or should be used to retrieve a piece of evidence."@en .
+#gsnaug:EvidenceGenerationMechanism rdf:type owl:Class ;
+#    rdfs:label "Evidence Generation Mechanism"@en ;
+#    skos:definition "A mechanism that is used to generate a piece of evidence."@en .
 
-gsnaug:EvidenceVerificationMechanism rdf:type owl:Class ;
-    rdfs:label "Evidence Verification Mechanism"@en ;
-    skos:definition "A mechanism - a process, a script, a rule, a command - that can or should be used to verify the truth or appropriateness of a piece of evidence."@en .
+#gsnaug:EvidenceRetrievalMechanism rdf:type owl:Class ;
+#    rdfs:label "Evidence Retrieval Mechanism"@en ;
+#    skos:definition "A mechanism that is used to retrieve a piece of evidence."@en .
+
+#gsnaug:EvidenceVerificationMechanism rdf:type owl:Class ;
+#    rdfs:label "Evidence Verification Mechanism"@en ;
+#    skos:definition "A mechanism that can or should be used to verify the truth or appropriateness of a piece of evidence."@en .
+
+#gsnaug:ContextVerificationMechanism rdf:type owl:Class ;
+#    rdfs:label "Context Verification Mechanism"@en ;
+#    skos:definition "A mechanism that can or should be used to verify the truth or appropriateness of a particular contextual artefact."@en .
 
 gsnaug:StorageSystem rdf:type owl:Class ;
     rdfs:label "Storage System"@en ;
-    skos:definition "Where an artefact lives: a repository, a document store, a drive."@en .
+    skos:definition "The digital or physical medium where the artefact is stored."@en .
 
 
 ###  What the links point at
@@ -138,8 +112,7 @@ gsnaug:StorageSystem rdf:type owl:Class ;
 gsnaug:System rdf:type owl:Class ;
     rdfs:label "System"@en ;
     skos:altLabel "Assured system"@en ;
-    skos:definition "The system, service or organisation an assurance case is about."@en ;
-    skos:scopeNote "Names the far end of gsnaug:assures and nothing more. The taxonomy of systems belongs to the user's domain ontology; a domain class whose instances an argument assures is a gsnaug:System by inference."@en .
+    skos:definition "The system or process an assurance case is about."@en .
 
 gsnaug:Requirement rdf:type owl:Class ;
     rdfs:label "Requirement"@en ;
@@ -158,99 +131,45 @@ gsnaug:ArtefactElement rdf:type owl:Class ;
     skos:definition "A part of an artefact identified in its own right: a row of a control catalogue, a clause of a regulation, a section of a report."@en ;
     skos:scopeNote "Neither a gsn:GSNElement nor a gsn:Artefact. It is a part of one, reached from the artefact by gsnaug:containsElement."@en .
 
-
 #################################################################
-#    Issue types
-#################################################################
-
-gsnaug:IssueTypeScheme rdf:type skos:ConceptScheme ;
-    rdfs:label "Issue types"@en ;
-    skos:prefLabel "Issue types"@en ;
-    skos:hasTopConcept gsnaug:clarify , gsnaug:revise , gsnaug:resolve .
-
-gsnaug:clarify rdf:type skos:Concept ;
-    skos:inScheme gsnaug:IssueTypeScheme ;
-    skos:topConceptOf gsnaug:IssueTypeScheme ;
-    skos:prefLabel "clarify"@en ;
-    skos:definition "The target is unclear to the reviewer. Not necessarily invalid - only difficult to interpret."@en ;
-    skos:scopeNote "Nothing is inferred. A clarify issue never becomes a defeater and never moves a truth value, whatever it targets."@en .
-
-gsnaug:revise rdf:type skos:Concept ;
-    skos:inScheme gsnaug:IssueTypeScheme ;
-    skos:topConceptOf gsnaug:IssueTypeScheme ;
-    skos:prefLabel "revise"@en ;
-    skos:definition "The target is invalid according to the reviewer and must be revised."@en ;
-    skos:scopeNote "Becomes a challenge, and so puts the target gsn:inDoubt, only when the target is a gsn:Goal or a gsn:Solution. Against a context, an assumption or a justification it is a remark about how well that element is expressed, which is not a claim about the argument."@en .
-
-gsnaug:resolve rdf:type skos:Concept ;
-    skos:inScheme gsnaug:IssueTypeScheme ;
-    skos:topConceptOf gsnaug:IssueTypeScheme ;
-    skos:prefLabel "resolve"@en ;
-    skos:definition "The target is defeated and must be resolved before the next review."@en ;
-    skos:scopeNote "Becomes a challenge, and so defeats the target, only when the target is a gsn:Goal or a gsn:Solution. Same reasoning as gsnaug:revise."@en .
-
-
-#################################################################
-#    Issue outcomes
+#    Object Properties
 #################################################################
 
-gsnaug:IssueOutcomeScheme rdf:type skos:ConceptScheme ;
-    rdfs:label "Issue outcomes"@en ;
-    skos:prefLabel "Issue outcomes"@en ;
-    skos:hasTopConcept gsnaug:cannotAnswer , gsnaug:declined , gsnaug:infeasible .
-
-gsnaug:cannotAnswer rdf:type skos:Concept ;
-    skos:inScheme gsnaug:IssueOutcomeScheme ;
-    skos:topConceptOf gsnaug:IssueOutcomeScheme ;
-    skos:prefLabel "cannot answer"@en ;
-    skos:definition "The holder does not know the answer, which is what sends the ask onward instead of back."@en ;
-    skos:scopeNote "Not a refusal and not a negative answer. The ask is still live; it is the holder who has changed."@en .
-
-gsnaug:declined rdf:type skos:Concept ;
-    skos:inScheme gsnaug:IssueOutcomeScheme ;
-    skos:topConceptOf gsnaug:IssueOutcomeScheme ;
-    skos:prefLabel "declined"@en ;
-    skos:definition "The holder can act on the ask and refuses to."@en .
-
-gsnaug:infeasible rdf:type skos:Concept ;
-    skos:inScheme gsnaug:IssueOutcomeScheme ;
-    skos:topConceptOf gsnaug:IssueOutcomeScheme ;
-    skos:prefLabel "infeasible"@en ;
-    skos:definition "The ask cannot be met at all: the evidence cannot be produced, or the defeat cannot be resolved."@en .
-
-
-#################################################################
-#    Object properties - the artefact
-#################################################################
-
-gsnaug:storedIn rdf:type owl:ObjectProperty ;
-    rdfs:domain gsn:Artefact ;
-    rdfs:range gsnaug:StorageSystem ;
-    rdfs:label "stored in"@en ;
-    skos:definition "Where the artefact is kept."@en .
+### Artefact-Mechanism Continuity
 
 gsnaug:retrievableWith rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:Artefact ;
-    rdfs:range gsnaug:EvidenceRetrievalMechanism ;
+    rdfs:range gsnaug:Mechanism ;
     rdfs:label "retrievable with"@en ;
-    skos:definition "How the artefact can be fetched again."@en ;
-    skos:note "Has no PROV counterpart and is minted outright. PROV records what happened; this describes future access."@en .
+    skos:definition "How can the artefact be fetched."@en ;
+    skos:note "Describes future access via, e.g., queries."@en .
 
-gsnaug:generatedBy rdf:type owl:ObjectProperty ;
-    rdfs:subPropertyOf prov:wasAttributedTo ;
+gsnaug:generableWith rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:Artefact ;
-    rdfs:range prov:Agent ;
-    rdfs:label "generated by"@en ;
-    skos:definition "The person who produced the artefact."@en ;
-    skos:note "A subproperty rather than bare prov:wasAttributedTo, so that the author and the tool stay distinguishable while a PROV-aware consumer still traverses both."@en .
+    rdfs:range gsnaug:Mechanism ;
+    rdfs:label "generable with"@en ;
+    skos:definition "How is the artefact meant to be produced."@en .
+
+gsnaug:verifiableWith rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range gsnaug:Mechanism ;
+    rdfs:label "verified with"@en ;
+    skos:definition "What can check the truth or appropriateness of the artefact."@en .
+
+### Artefact-Mechanism Provenance
+
+gsnaug:retrievedWith rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range gsnaug:Mechanism ;
+    rdfs:label "retrieved with"@en ;
+    skos:definition "What can check the truth or appropriateness of the artefact."@en .
 
 gsnaug:generatedWith rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf prov:wasAttributedTo ;
     rdfs:domain gsn:Artefact ;
-    rdfs:range gsnaug:EvidenceGenerationMechanism ;
+    rdfs:range gsnaug:Mechanism ;
     rdfs:label "generated with"@en ;
-    skos:definition "The tool or script that produced the artefact."@en ;
-    skos:note "The mechanism is treated as an agent rather than as a prov:Activity. The orthodox PROV route - wasGeneratedBy to an Activity, prov:used to the tool - is three hops for one fact and needs an activity individual that nobody has. Revisit if the provenance of a particular generation run is ever wanted, rather than of the artefact."@en .
+    skos:definition "How was the artefact produced."@en .
 
 gsnaug:generatedFrom rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf prov:wasDerivedFrom ;
@@ -261,30 +180,41 @@ gsnaug:generatedFrom rdf:type owl:ObjectProperty ;
 
 gsnaug:verifiedWith rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:Artefact ;
-    rdfs:range gsnaug:EvidenceVerificationMechanism ;
+    rdfs:range gsnaug:Mechanism ;
     rdfs:label "verified with"@en ;
-    skos:definition "What checks the truth or appropriateness of the artefact."@en ;
-    skos:note "The mechanism that ran, which is provenance. Distinct from a shape or a rule that decides whether a claim holds, which is a definition."@en .
+    skos:definition "What checked the truth or appropriateness of the artefact."@en ;
+    skos:note "The mechanism that ran, which is provenance. Distinct from a shape or a rule that decides whether a claim holds."@en .
+
+### Artefact Configuration
+
+gsnaug:storedIn rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range gsnaug:StorageSystem ;
+    rdfs:label "stored in"@en ;
+    skos:definition "Where the artefact is kept."@en .
 
 gsnaug:containsElement rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:Artefact ;
     rdfs:range gsnaug:ArtefactElement ;
     rdfs:label "contains element"@en ;
-    skos:definition "A part of the artefact identified in its own right - the row, clause or section a claim was drawn from."@en ;
-    skos:note "The counterpart of gsnaug:instantiatedFrom, read from the file rather than from the element. gsn:contains is not reused: neither gsn:Artefact nor gsnaug:ArtefactElement is in its domain or range, and both are generative, so the reuse would retype the artefact and the part alike."@en .
+    skos:definition "The artefact part that an artefact contains."@en .
 
-gsnaug:revisionOf rdf:type owl:ObjectProperty ;
+gsnaug:replaces rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf prov:wasRevisionOf ;
     rdfs:domain gsn:Artefact ;
     rdfs:range gsn:Artefact ;
-    rdfs:label "revision of"@en ;
-    skos:definition "The earlier version of the artefact that this one replaces."@en ;
+    rdfs:label "replaces"@en ;
+    skos:definition "What older artefact does the newer artefact substitute."@en ;
     skos:note "Artefacts only. A gsn:GSNElement is not a prov:Entity here, so a reworded claim is not a revision in this sense; that is element versioning, which this file does not model."@en .
 
+###    Roles
 
-#################################################################
-#    Object properties - roles
-#################################################################
+gsnaug:generatedBy rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasAttributedTo ;
+    rdfs:domain gsn:Artefact ;
+    rdfs:range prov:Agent ;
+    rdfs:label "generated by"@en ;
+    skos:definition "By whom was the artefact produced."@en .
 
 gsnaug:assures rdf:type owl:ObjectProperty ;
     rdfs:domain [ rdf:type owl:Class ;
@@ -295,7 +225,7 @@ gsnaug:assures rdf:type owl:ObjectProperty ;
                 ] ;
     rdfs:range gsnaug:System ;
     rdfs:label "assures"@en ;
-    skos:definition "The system, service or organisation this argument is about."@en ;
+    skos:definition "What the case is meant to assure."@en ;
     skos:note "Says in one triple what a top-level context says in a diagram. GSN recommends but does not require such a context, so a conforming case may omit it; this property carries the fact either way."@en .
 
 gsnaug:assuredBy rdf:type owl:ObjectProperty ;
@@ -311,28 +241,16 @@ gsnaug:assuredBy rdf:type owl:ObjectProperty ;
     skos:definition "The argument or case that assures this system."@en ;
     skos:note "The inverse exists so that a domain ontology can point inward without write access to the case graph, and so that two competing cases can claim the same system."@en .
 
-gsnaug:owns rdf:type owl:ObjectProperty ;
-    rdfs:domain prov:Agent ;
-    rdfs:range gsn:GSNElement ;
-    rdfs:label "owns"@en ;
-    skos:definition "The agent who stands behind an element - who owns its validity or truth."@en .
-
 gsnaug:ownedBy rdf:type owl:ObjectProperty ;
     owl:inverseOf gsnaug:owns ;
-    rdfs:domain gsn:GSNElement ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Artefact
+                                gsn:GSNElement
+                              )
+                ] ;
     rdfs:range prov:Agent ;
     rdfs:label "owned by"@en ;
-    skos:definition "The agent who stands behind this element."@en .
-
-gsnaug:reviews rdf:type owl:ObjectProperty ;
-    rdfs:domain prov:Agent ;
-    rdfs:range [ rdf:type owl:Class ;
-                 owl:unionOf ( gsn:Artefact
-                               gsn:GSNElement
-                             )
-               ] ;
-    rdfs:label "reviews"@en ;
-    skos:definition "The agent who checked an element or an artefact."@en .
+    skos:definition "The agent who stands behind this element or artefact."@en .
 
 gsnaug:reviewedBy rdf:type owl:ObjectProperty ;
     owl:inverseOf gsnaug:reviews ;
@@ -353,9 +271,7 @@ gsnaug:hasRole rdf:type owl:ObjectProperty ;
     skos:note "Not functional. One agent may hold several roles, and which roles an agent holds changes between audit cycles."@en .
 
 
-#################################################################
-#    Object properties - issues
-#################################################################
+###    Object properties - issues
 
 gsnaug:raisedAgainst rdf:type owl:ObjectProperty ;
     rdfs:domain gsnaug:Issue ;
@@ -369,23 +285,7 @@ gsnaug:raisedAgainst rdf:type owl:ObjectProperty ;
                              )
                ] ;
     rdfs:label "raised against"@en ;
-    skos:definition "What the issue is about."@en ;
-    skos:note """The union is everything in a case a reviewer can point at: the case itself, an argument, any GSN
-element - a goal, a solution, a context - a reified relationship, an artefact, or the pattern the
-argument was instantiated from. gsn:Catalogue and gsn:InstantiationDataReference are outside it; add
-them if a review ever targets one.
-
-Range is generative rather than restrictive, so the union does not reject a target outside it - it
-retypes it. gsnaugsh:IssueShape rejects it instead.
-
-What the target is still matters to the rules as well as to the vocabulary: only a revise or resolve
-issue against a gsn:Goal or a gsn:Solution becomes a defeater."""@en .
-
-gsnaug:issueType rdf:type owl:ObjectProperty ;
-    rdfs:domain gsnaug:Issue ;
-    rdfs:range skos:Concept ;
-    rdfs:label "issue type"@en ;
-    skos:definition "Which of the three asks this issue is: clarify, revise or resolve."@en .
+    skos:definition "What the issue is about."@en .
 
 gsnaug:answers rdf:type owl:ObjectProperty ;
     rdfs:domain gsnaug:Answer ;
@@ -414,12 +314,7 @@ gsnaug:heldBy rdf:type owl:ObjectProperty ;
     skos:definition "The agent the issue rests with: whoever has to answer it now."@en ;
     skos:note "One issue per relay hop, chained with gsnaug:supersedes, rather than one issue whose holder is overwritten. An overwritten holder leaves no trace of the hops, and the number of escalations is a count of them."@en .
 
-gsnaug:issueOutcome rdf:type owl:ObjectProperty ;
-    rdfs:domain gsnaug:Issue ;
-    rdfs:range skos:Concept ;
-    rdfs:label "issue outcome"@en ;
-    skos:definition "How the issue ended, in the cases where it ended without being answered."@en ;
-    skos:note "An issue closed by a gsnaug:Answer carries no outcome, and an issue with neither is still open. The three are mutually exclusive readings of the same slot."@en .
+
 
 gsnaug:raisedIn rdf:type owl:ObjectProperty ;
     rdfs:domain gsnaug:Issue ;
@@ -436,9 +331,8 @@ gsnaug:coveredIn rdf:type owl:ObjectProperty ;
     skos:note "Not functional: a case is reviewed round after round. gsnaug:raisedIn scopes a single ask to a round; this scopes the whole case, and answers which rounds a case has been through without going by way of its issues."@en .
 
 
-#################################################################
-#    Object properties - structure and the generic pair
-#################################################################
+###    Object properties - structure and the generic pair
+
 
 gsnaug:instantiatedFrom rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:GSNElement ;
@@ -488,6 +382,17 @@ gsnaug:accepted rdf:type owl:DatatypeProperty ;
     skos:definition "Whether the agent who raised the issue accepted this answer."@en ;
     skos:note "Several answers may address one issue. An answer that is not accepted leaves the issue open, which is how a round of answering is distinguished from a close."@en .
 
+gsnaug:issueOutcome rdf:type owl:DatatypeProperty ;
+    rdfs:domain gsnaug:Issue ;
+    #rdfs:range "cannot answer" or "declined" or "infeasible" ;
+    rdfs:label "issue outcome"@en ;
+    skos:definition "How the issue ended, in the cases where it ended without being answered."@en .
+
+gsnaug:issueType rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Issue ;
+    #rdfs:range "clarify" or "revise" or "resolve" ;
+    rdfs:label "issue type"@en ;
+    skos:definition "Which of the three asks this issue is: clarify, revise or resolve."@en .
 
 #################################################################
 #    SWRL rules
