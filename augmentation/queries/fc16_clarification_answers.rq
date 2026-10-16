@@ -1,18 +1,22 @@
 # id:        CQ-58
 # role:      Auditor
 # operation: read
-# question:  What answered a clarification, and which ask did it close?
+# question:  What was said in reply to a clarification, and was the reply accepted?
 # expect:    rows
+#
+# A response does not close an ask. The outcome does: "resolved" means the raiser accepted a
+# response; no outcome means the ask is still open, replies or not.
 
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
-SELECT ?answer ?issueId ?description
+SELECT ?response ?issueId ?description ?outcome
 WHERE {
-  ?answer a gsnaug:Answer ;
-          gsnaug:answers ?issue .
+  ?response a gsnaug:Response ;
+            gsnaug:respondsTo ?issue .
   ?issue schema:identifier ?issueId ;
          gsnaug:issueType gsnaug:clarify .
-  OPTIONAL { ?answer schema:description ?description }
+  OPTIONAL { ?response schema:description ?description }
+  OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
 }
 ORDER BY ?issueId

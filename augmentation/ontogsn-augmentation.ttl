@@ -51,16 +51,21 @@ gsnaug:ArtefactPart rdf:type owl:Class ;
 gsnaug:Mechanism rdf:type owl:Class ;
     rdfs:label "Mechanism"@en ;
     skos:definition "Means through which some GSN-linked artefact is generated, retrieved or verified."@en ;
-    skos:note "Used for maintaining the continuity between a gsn:Artefact and a gsn:GSNElement, and automating the respective activities with rules (where possible). A mechanism states which domain terms it depends on with gsnaug:readsTerm and gsnaug:writesTerm. A mechanism can be a SHACL shape, a SWRL rule, or a SPARQL query. A mechanism that is code carries its text in gsnaug:script. One that is neither, such as an interview, carries only its provenance."@en .
+    skos:note "Used for maintaining the continuity between a gsn:Artefact and a gsn:GSNElement, and automating the respective activities with rules (where possible). A mechanism states which domain terms it depends on with gsnaug:readsTerm and gsnaug:writesTerm. A mechanism can be a SHACL shape, a SWRL rule, or a SPARQL query. A mechanism that is code carries its text in gsnaug:script. One that is neither, such as an interview, carries only its provenance. What a mechanism needs in order to run, such as an interpreter, a package or a credential, is dcterms:requires, with the far end left to a domain ontology."@en .
 
 gsnaug:Issue rdf:type owl:Class ;
     rdfs:label "Issue"@en ;
-    skos:altLabel "Request"@en ;
-    skos:definition "An ask raised by a reviewer against an element in an assurance case."@en .
+    skos:altLabel "Request"@en ,
+                  "Finding"@en ,
+                  "Comment"@en ;
+    skos:definition "An ask raised by an agent against something in an assurance case."@en ;
+    skos:scopeNote "The raiser is any agent: a reviewer, the owner of the element, or a tool. Who raised it is gsnaug:raisedBy, and the role that agent holds is gsnaug:hasRole."@en .
 
-gsnaug:Answer rdf:type owl:Class ;
-    rdfs:label "Answer"@en ;
-    skos:definition "The response to a reviewer's ask that aims to close an issue."@en .
+gsnaug:Response rdf:type owl:Class ;
+    rdfs:label "Response"@en ;
+    skos:altLabel "Answer"@en ;
+    skos:definition "Content offered in reply to an issue."@en ;
+    skos:scopeNote "A response does not close the issue. An issue can collect several responses, and whether the raiser accepted one is recorded on the issue, in gsnaug:issueOutcome."@en .
 
 gsnaug:AuditCycle rdf:type owl:Class ;
     rdfs:subClassOf prov:Activity ;
@@ -69,21 +74,39 @@ gsnaug:AuditCycle rdf:type owl:Class ;
     skos:note "Start and end are prov:startedAtTime and prov:endedAtTime, which apply because an audit cycle is a prov:Activity. An issue carries its own date with dcterms:created."@en .
 
 gsnaug:System rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
     rdfs:label "System"@en ;
     skos:altLabel "Assured system"@en ;
     skos:definition "The subject of an assurance case."@en ;
-    skos:note "Can include the system where the artefact is stored."@en .
+    skos:note "Can include the system where the artefact is stored. A changed system, or a changed part of one, is a new individual that is prov:wasRevisionOf the old one; the granularity is the domain ontology's choice."@en .
 
 gsnaug:Requirement rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
     rdfs:label "Requirement"@en ;
     skos:altLabel "Obligation"@en ;
     skos:definition "The object of an assurance case; a (regulatory) statement or obligation that an element of the case answers to."@en ;
-    skos:scopeNote "Distinct from gsndesign:Requirement, which records what OntoGSN itself set out to do."@en .
+    skos:scopeNote "Distinct from gsndesign:Requirement, which records what OntoGSN itself set out to do."@en ;
+    skos:note "A changed requirement is a new individual that is prov:wasRevisionOf the old one."@en .
 
 gsnaug:Role rdf:type owl:Class ;
     rdfs:label "Role"@en ;
     skos:definition "A role an agent holds in the auditing process."@en ;
     skos:scopeNote "One agent may hold several roles, and a role outlives whoever holds it."@en .
+
+#################################################################
+#    Reused terms
+#################################################################
+
+terms:requires rdf:type owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+    rdfs:label "requires"@en ;
+    skos:note "Reused on a gsnaug:Mechanism for what it needs in order to run. Declared here so that an OWL tool sees a property; no domain, range or other axiom is stated on it, because the term is not this vocabulary's to constrain. gsnaugsh:MechanismRequirementShape checks the use on a mechanism."@en .
+
+terms:isPartOf rdf:type owl:ObjectProperty ;
+    rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+    rdfs:label "is part of"@en ;
+    skos:note "Reused as the superproperty of gsnaug:partOf. Declared here so that an OWL tool sees a property; no domain, range or other axiom is stated on it, because the term is not this vocabulary's to constrain."@en .
+
 
 #################################################################
 #    Object Properties
@@ -171,11 +194,12 @@ gsnaug:storedIn rdf:type owl:ObjectProperty ;
     skos:definition "Where the artefact is kept."@en .
 
 gsnaug:partOf rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf terms:isPartOf ;
     rdfs:domain gsnaug:ArtefactPart ;
     rdfs:range gsn:Artefact ;
     rdfs:label "part of"@en ;
     skos:definition "What part is contained by an artefact."@en ;
-    skos:note "Mereorogical relation. Used when an artefact part (e.g., Excel sheet, document page) can be retrieved from an existing artefact (e.g., Excel table, document), without being stored as an artefact itself."@en .
+    skos:note "Mereological relation. Used when an artefact part (e.g., Excel sheet, document page) can be retrieved from an existing artefact (e.g., Excel table, document), without being stored as an artefact itself."@en .
 
 gsnaug:replaces rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf prov:wasRevisionOf ;
@@ -268,11 +292,11 @@ gsnaug:raisedAgainst rdf:type owl:ObjectProperty ;
     rdfs:label "raised against"@en ;
     skos:definition "What the issue is about."@en .
 
-gsnaug:answers rdf:type owl:ObjectProperty ;
-    rdfs:domain gsnaug:Answer ;
+gsnaug:respondsTo rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Response ;
     rdfs:range gsnaug:Issue ;
-    rdfs:label "answers"@en ;
-    skos:definition "The issue this answer closes."@en .
+    rdfs:label "responds to"@en ;
+    skos:definition "The issue this response replies to."@en .
 
 gsnaug:supersedes rdf:type owl:ObjectProperty ,
                            owl:IrreflexiveProperty ;
@@ -372,7 +396,8 @@ gsnaug:issueOutcome rdf:type owl:DatatypeProperty ;
                  owl:oneOf ( "resolved" "cannot answer" "declined" "infeasible" )
                ] ;
     rdfs:label "issue outcome"@en ;
-    skos:definition "How the issue ended."@en .
+    skos:definition "How the issue ended."@en ;
+    skos:note "\"resolved\" means the raiser accepted a response. \"cannot answer\", \"declined\" and \"infeasible\" mean the issue ended without one. An issue with no outcome is open, however many responses it has."@en .
 
 gsnaug:issueType rdf:type owl:ObjectProperty ;
     rdfs:domain gsnaug:Issue ;
@@ -792,6 +817,168 @@ gsnaug:FailingReportRefutesSolution swrla:isRuleEnabled "true"^^xsd:boolean ;
                                                                                                         swrl:argument2 "false"^^xsd:boolean
                                                                                                       ] ;
                                                                                             rdf:rest rdf:nil
+                                                                                          ]
+                                                                               ]
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:true ;
+                           swrl:argument1 gsnaugswrl:S ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ] .
+
+###  A6c
+gsnaug:ConformingPartReportConfirmsSolution swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Conforming Part Report Confirms Solution" ;
+   rdfs:comment "IF Solution S refers to Artefact A AND ArtefactPart P is part of A AND P is verifiable with Mechanism M AND a report R generated by M over P conforms THEN S is true"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Solution ;
+                           swrl:argument1 gsnaugswrl:S
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsn:refersTo ;
+                                      swrl:argument1 gsnaugswrl:S ;
+                                      swrl:argument2 gsnaugswrl:A
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:ClassAtom ;
+                                                 swrl:classPredicate gsn:Artefact ;
+                                                 swrl:argument1 gsnaugswrl:A
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsnaug:ArtefactPart ;
+                                                            swrl:argument1 gsnaugswrl:P
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate gsnaug:partOf ;
+                                                                       swrl:argument1 gsnaugswrl:P ;
+                                                                       swrl:argument2 gsnaugswrl:A
+                                                                     ] ;
+                                                           rdf:rest [ rdf:type swrl:AtomList ;
+                                                                      rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                  swrl:propertyPredicate gsnaug:verifiableWith ;
+                                                                                  swrl:argument1 gsnaugswrl:P ;
+                                                                                  swrl:argument2 gsnaugswrl:M
+                                                                                ] ;
+                                                                      rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                 rdf:first [ rdf:type swrl:ClassAtom ;
+                                                                                             swrl:classPredicate sh:ValidationReport ;
+                                                                                             swrl:argument1 gsnaugswrl:R
+                                                                                           ] ;
+                                                                                 rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                            rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                                        swrl:propertyPredicate prov:wasGeneratedBy ;
+                                                                                                        swrl:argument1 gsnaugswrl:R ;
+                                                                                                        swrl:argument2 gsnaugswrl:M
+                                                                                                      ] ;
+                                                                                            rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                                       rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                                                   swrl:propertyPredicate prov:used ;
+                                                                                                                   swrl:argument1 gsnaugswrl:R ;
+                                                                                                                   swrl:argument2 gsnaugswrl:P
+                                                                                                                 ] ;
+                                                                                                       rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                                                  rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                                                                              swrl:propertyPredicate sh:conforms ;
+                                                                                                                              swrl:argument1 gsnaugswrl:R ;
+                                                                                                                              swrl:argument2 "true"^^xsd:boolean
+                                                                                                                            ] ;
+                                                                                                                  rdf:rest rdf:nil
+                                                                                                                ]
+                                                                                                     ]
+                                                                                          ]
+                                                                               ]
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:true ;
+                           swrl:argument1 gsnaugswrl:S ;
+                           swrl:argument2 "true"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ] .
+
+###  A6d
+gsnaug:FailingPartReportRefutesSolution swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Failing Part Report Refutes Solution" ;
+   rdfs:comment "IF Solution S refers to Artefact A AND ArtefactPart P is part of A AND P is verifiable with Mechanism M AND a report R generated by M over P does not conform THEN S is not true"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Solution ;
+                           swrl:argument1 gsnaugswrl:S
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsn:refersTo ;
+                                      swrl:argument1 gsnaugswrl:S ;
+                                      swrl:argument2 gsnaugswrl:A
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:ClassAtom ;
+                                                 swrl:classPredicate gsn:Artefact ;
+                                                 swrl:argument1 gsnaugswrl:A
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsnaug:ArtefactPart ;
+                                                            swrl:argument1 gsnaugswrl:P
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate gsnaug:partOf ;
+                                                                       swrl:argument1 gsnaugswrl:P ;
+                                                                       swrl:argument2 gsnaugswrl:A
+                                                                     ] ;
+                                                           rdf:rest [ rdf:type swrl:AtomList ;
+                                                                      rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                  swrl:propertyPredicate gsnaug:verifiableWith ;
+                                                                                  swrl:argument1 gsnaugswrl:P ;
+                                                                                  swrl:argument2 gsnaugswrl:M
+                                                                                ] ;
+                                                                      rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                 rdf:first [ rdf:type swrl:ClassAtom ;
+                                                                                             swrl:classPredicate sh:ValidationReport ;
+                                                                                             swrl:argument1 gsnaugswrl:R
+                                                                                           ] ;
+                                                                                 rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                            rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                                        swrl:propertyPredicate prov:wasGeneratedBy ;
+                                                                                                        swrl:argument1 gsnaugswrl:R ;
+                                                                                                        swrl:argument2 gsnaugswrl:M
+                                                                                                      ] ;
+                                                                                            rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                                       rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                                                   swrl:propertyPredicate prov:used ;
+                                                                                                                   swrl:argument1 gsnaugswrl:R ;
+                                                                                                                   swrl:argument2 gsnaugswrl:P
+                                                                                                                 ] ;
+                                                                                                       rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                                                  rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                                                                              swrl:propertyPredicate sh:conforms ;
+                                                                                                                              swrl:argument1 gsnaugswrl:R ;
+                                                                                                                              swrl:argument2 "false"^^xsd:boolean
+                                                                                                                            ] ;
+                                                                                                                  rdf:rest rdf:nil
+                                                                                                                ]
+                                                                                                     ]
                                                                                           ]
                                                                                ]
                                                                     ]

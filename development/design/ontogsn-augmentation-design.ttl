@@ -71,7 +71,7 @@ gsnaugdesign:augmentation-0.3.1
     rdfs:label "OntoGSN Augmentation 0.3.1"@en ;
     owl:versionInfo "0.3.1" ;
     gsndesign:path "augmentation/ontogsn-augmentation.ttl" ;
-    gsndesign:fileChecksum "815ac0c4fac8d84c5a5032b2b07f30d0857533129b2bbe85c7214964ca051ce8" .
+    gsndesign:fileChecksum "f1561d061b0045394a20df7eb2176ca71f0cddca37748b3d9852c0fc447a76a9" .
 
 gsnaugdesign:augmentation-shapes-0.3.1
     a gsndesign:FormalGraph ;
@@ -229,6 +229,45 @@ all, a resolution declined by the compliance officer or by the process owner, an
 developer finds infeasible."""@en ;
     gsnaugdesign:locator "steps 4.2, 14.2.1, 14.3.1, 14.4.1" .
 
+gsnaugdesign:src-0011
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:iso-19011 ;
+    gsndesign:quotedText """An audit finding is the result of evaluating the collected audit evidence against the audit criteria.
+Findings indicate conformity or nonconformity, and can lead to the identification of risks and of
+opportunities for improvement. The standard covers first-party audits, conducted by the organisation
+itself, as well as second- and third-party audits."""@en ;
+    gsnaugdesign:locator "3.10 audit finding, with its notes; 1 Scope, paraphrased" .
+
+gsnaugdesign:src-0012
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:iso-19011 ;
+    gsndesign:quotedText """Independence is the basis for the impartiality of the audit and the objectivity of the audit
+conclusions. Auditors are independent of the activity being audited wherever practicable, and act
+free from bias and conflict of interest."""@en ;
+    gsnaugdesign:locator "4 Principles of auditing, e) Independence, paraphrased" .
+
+gsnaugdesign:src-0013
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:prov-o ;
+    gsndesign:quotedText """prov:wasRevisionOf - A revision is a derivation for which the resulting entity is a revised
+version of some original. The implication here is that the resulting entity contains substantial
+content from the original."""@en ;
+    gsnaugdesign:locator "PROV-O, Expanded terms" .
+
+gsnaugdesign:src-0014
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:dcmi-terms ;
+    gsndesign:quotedText """dcterms:requires - A related resource that is required by the described resource to support its
+function, delivery, or coherence."""@en ;
+    gsnaugdesign:locator "DCMI Metadata Terms, requires" .
+
+gsnaugdesign:src-0015
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:dcmi-terms ;
+    gsndesign:quotedText """dcterms:isPartOf - A related resource in which the described resource is physically or logically
+included."""@en ;
+    gsnaugdesign:locator "DCMI Metadata Terms, isPartOf" .
+
 gsnaugdesign:fincomp-process
     a gsnaugdesign:CitedArtefact ;
     rdfs:label "FinComp Compliance Processes (cleaner)"@en ;
@@ -248,6 +287,16 @@ gsnaugdesign:ontogsn-rules
     a gsnaugdesign:CitedArtefact ;
     rdfs:label "The OntoGSN Dialectic Extension rule set"@en ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> .
+
+gsnaugdesign:iso-19011
+    a gsnaugdesign:CitedArtefact ;
+    rdfs:label "ISO 19011:2018 Guidelines for auditing management systems"@en ;
+    skos:note "Cited for the vocabulary of auditing that is not specific to any one compliance process: finding, conformity, nonconformity, independence, and the three audit parties. An inspiration and a second source for a term; nothing in this repository formalises the standard or claims conformance to it."@en .
+
+gsnaugdesign:dcmi-terms
+    a gsnaugdesign:CitedArtefact ;
+    rdfs:label "DCMI Metadata Terms"@en ;
+    prov:specializationOf <http://purl.org/dc/terms/> .
 
 
 #################################################################
@@ -765,6 +814,139 @@ read every report, so a newer report does not retire an older one with the oppos
 that keeps reports over time needs a newest-report guard or a cleanup, and SWRL can express
 neither. And a report with no PROV links is ignored, which is intended: a report that does not say
 what it looked at proves nothing about the solution."""@en .
+
+
+gsnaugdesign:why-0048
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The definition of gsnaug:Issue said the ask was raised by a reviewer, and nothing else in the
+vocabulary agreed with it: gsnaug:raisedBy ranges on prov:Agent, no shape tests the raiser's role, and
+the escalation chain relays an ask between four roles of which only one is the auditor. The
+restriction was inherited from the one process that prompted the class, where the auditor is the
+only party that asks. Two uses outside that process need a wider raiser. An internal review is an
+audit in ISO 19011's own scope, so a finding raised by the organisation on its own case is a finding.
+And change impact analysis ends with someone, often the owner of the element and sometimes a tool,
+raising a revise issue on each element the change touched, so that rule A2 moves it to gsn:inDoubt
+through the same path a reviewer's ask takes. A second class for the self-raised case would have split
+one object in two for the sake of one word in a definition. The definition now says agent, and a
+scope note says who that can be; the role of the raiser is read off gsnaug:hasRole as before. Finding
+is the term ISO 19011 uses for the object, and Comment is what every issue tracker and most review
+tools call it, so both are alternative labels for the reason Request already is: one class, several
+names in use."""@en .
+
+
+gsnaugdesign:why-0049
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A mechanism that is code needs things in order to run: an interpreter, a package, a container
+image, a credential. Recording all of them in the structure a software bill of materials has would
+make this vocabulary prescribe an implementation, which why-0005 rules out, and would duplicate SPDX
+and CycloneDX. What a case needs is one hook from the mechanism to whatever a domain ontology says
+about those things, and Dublin Core already has it: dcterms:requires is defined as a related resource
+that the described resource needs to support its function. It is reused rather than mirrored by a
+gsnaug: subproperty because nothing here has to be said about it - no domain, no range, no
+cardinality - and a subproperty whose only content is a name is a name too many. It is declared as
+an owl:ObjectProperty so that an OWL tool sees a property and not an annotation, and the declaration
+carries no axiom, because the term is not this vocabulary's to constrain. The one thing that is
+checked is that the value is a node and not a string, by a shape targeted at gsnaug:Mechanism and
+not at every subject of the property, which other vocabularies use on other things. The script, the
+automated flag and this property together separate four states: runs by itself, runs by hand from
+its text, runs with something the case names, and is an interview."""@en .
+
+gsnaugdesign:why-0050
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Every audit norm separates the party that produces from the party that judges, and ISO 19011
+names independence as a principle of auditing. The vocabulary already has both parties as relations
+- gsnaug:ownedBy and gsnaug:reviewedBy - so whether they coincide is decidable from the graph alone
+and holds for every case in every organisation, which is the criterion for a shape rather than a
+line in the manual. It is a warning and not a violation: an owner reading their own draft is a
+legitimate state of a case under construction, and what is reported is that the review on record is
+not an independent one. sh:disjoint says it in SHACL Core with no SPARQL. ISO 19011 is cited as
+inspiration and as a second source for the term; the shape does not formalise the standard, and
+nothing here claims conformance to it."""@en .
+
+gsnaugdesign:why-0051
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Change impact asks one question three times: a requirement changed, the system changed, the
+environment changed - which claims are affected. The three were about to get three answers. A
+requirement is text, so its change is easy to see; a system has parts, and not every part matters;
+an environment is nebulous. What the three share is that something at the far end of a link was
+replaced by a newer version of itself, and PROV already has the relation for that:
+prov:wasRevisionOf. Making gsnaug:Requirement and gsnaug:System subclasses of prov:Entity lets a
+case use it on both, as gsn:Artefact already does through gsnaug:replaces, and costs two axioms. The
+granularity problem then leaves the vocabulary. A system is versioned at whatever level the domain
+ontology has - the whole system, a repository, a file, a function - and gsnaug:generatedFrom
+already points from an artefact to whichever of those it was drawn from, so the change is detected
+at the level the evidence was taken at and no gsnaug:SystemPart is minted. A requirement that is a
+clause of a larger text is the same pattern with gsnaug:ArtefactPart. The environment is a
+gsn:Context that gsn:refersTo an artefact, and the artefact is revised; that path needs no term
+either, and the query walks gsn:supportedBy down from the holder of the context, because a context
+applies to everything beneath the element it is attached to and the core rules materialise that
+for assumptions only. Three queries answer the question, fc39 for requirements, fc40 for systems and fc41 for
+contexts, and they are queries rather than rules on purpose. Whether a detected change matters to a claim is
+a judgement, so the graph must not assert it. Whoever judges raises a revise issue on the element,
+and rule A2 moves it to gsn:inDoubt through the same path a reviewer's ask takes. That closes the
+loop with no new flag: detection is a query, judgement is an issue, consequence is the existing
+rule. The systematic approach to safety case maintenance of Kelly and McDermid is the second source
+for the question; the answer rests on PROV and on the existing issue machinery."""@en .
+
+
+gsnaugdesign:why-0052
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Two facts were folded into one link. "A reply exists" and "the issue is closed" were both carried
+by gsnaug:answers, so every query that asked whether an ask was open tested for an answer, and the
+closure shape treated an answer beside a negative outcome as a contradiction. Both readings fail
+once an issue can collect several replies that the raiser rejects, which the process draws: a
+clarification the auditor does not accept goes round again as a revision request. why-0031 saw
+this and put an acceptance flag on the answer; dd-0052 removed the flag and left the conflation.
+The fix is to separate the two facts rather than to flag one of them. A reply is content, so the
+class is gsnaug:Response and the link gsnaug:respondsTo, with no cardinality: several replies to
+one issue are normal. Closure is a judgement, so it lives on the issue, in gsnaug:issueOutcome,
+which why-0028 already defined as how the ask ended: "resolved" now means the raiser accepted a
+reply, the other three mean it ended without one, and no outcome means open, replies or not. One
+place says closed, so no agreement shape is needed, and the closure shape turns into a warning for
+the one state that is probably a data error, resolved with nothing on record. Response rather
+than Reply or Comment: several people respond in turn along the relay chain, and Comment is an
+alternative label of Issue. Answer stays as an alternative label, because that is what the
+process calls it."""@en .
+
+gsnaugdesign:why-0053
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A6a and A6b read a report over the whole artefact. A mechanism that verifies a part, declared on
+the part by hand or copied down by A4, leaves a report whose prov:used names the part, and no rule
+read it: the solution stayed as it was. The gap was found when the part was weighed against being
+absorbed into gsn:Artefact, which would have closed it as a side effect; the rules close it on their
+own. gsn:refersTo ranges on gsn:Artefact, so a solution cannot refer to a part, and A6c and A6d
+reach the part from the artefact the solution refers to, through gsnaug:partOf. Two rules rather than
+a wider A6a and A6b, for the reason A2 and A3 are two each: a SWRL body is a conjunction, and "the
+artefact or a part of it" is two bodies. The body names Artefact(?A) and ArtefactPart(?P) as A4 does,
+so that the SPARQL twin, which runs with no reasoning, reaches only what the case typed. The rules
+carry the assumption A6a and A6b already carry: whoever declared the mechanism on the part, or on
+the whole it was copied from, declared it as what checks the evidence the solution offers, so its
+verdict is the solution's. A conforming report over one part does not say that the whole conforms,
+and the rule does not say so either; it says what the declared check found. The two gaps of A6a and
+A6b remain: no newest-report guard, and a report with no PROV links is ignored. A failing part and a
+conforming whole set gsn:true both ways on one solution, which is the state two reports over one
+artefact already produce. In the fixture, the configuration export declares its mechanism on the
+whole and the key inherits it, so the conforming report over the key exercises the chain A4 then
+A6c across two rounds; the firewall rule declares its own mechanism, and its failing report
+exercises A6d alone."""@en .
+
+gsnaugdesign:why-0054
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """gsnaug:partOf is a part-of relation between a part and the artefact that holds it, and Dublin Core
+defines dcterms:isPartOf as a related resource in which the described resource is physically or
+logically included. The subproperty axiom lets a consumer that knows Dublin Core and not this
+vocabulary read the relation, while the domain and range on gsnaug:partOf keep what dcterms:isPartOf
+does not say: that the subject is a part and not an artefact, and that a part has no location and no
+version of its own. dcterms:isPartOf is declared an owl:ObjectProperty here as dcterms:requires is,
+so that an OWL tool sees a property, and no domain, range or other axiom is stated on it. Two
+alternatives were weighed and not taken. Replacing gsnaug:partOf with dcterms:isPartOf outright
+loses the domain and range that gsnaugsh:ArtefactPartShape and A4 depend on. Absorbing the part into
+the artefact, so that an artefact is partOf an artefact, removes a class and six union domains and
+admits nesting, but a part then gains gsnaug:storedIn and gsnaug:replaces by type, the instantiation
+shape can no longer reject a whole artefact in gsnaug:instantiatedFrom, every query that counts
+artefacts counts rows unless it filters out subjects of partOf, and gsn:Artefact, a Core GSN term for
+evidence offered in support of a claim, would then cover a spreadsheet cell. The class stays, and the
+one defect the comparison exposed is closed by A6c and A6d."""@en .
 
 
 #################################################################
@@ -1314,7 +1496,7 @@ gsnaugdesign:st-0025
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0025 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.1 ;
-    gsndesign:statementText "augmentation/rules/a02a, a02b, a03a, a03b, a04, a06a, a06b - one per SWRL rule, count asserted by development/dev_tools/augmentation_check.py." ;
+    gsndesign:statementText "augmentation/rules/a02a, a02b, a03a, a03b, a04, a06a, a06b, a06c, a06d - one per SWRL rule, count asserted by development/dev_tools/augmentation_check.py." ;
     gsndesign:aboutTerm gsnaug:ReviseIssueChallengesGoal ;
     gsndesign:mentionsTerm gsnaug:ResolveIssueDefeatsGoal , gsnaug:ReviseIssueChallengesGoal .
 
@@ -1664,7 +1846,9 @@ gsnaugdesign:st-0051
     gsndesign:mentionsTerm gsnaug:StorageSystem , gsnaug:System , gsnaug:storedIn .
 
 gsnaugdesign:dd-0052
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at the Response rename: an answer closed an issue by existing, which made a rejected reply indistinguishable from an accepted one. The class is gsnaug:Response, the property gsnaug:respondsTo, and only the outcome closes."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0077 ;
     gsndesign:formalism gsndesign:OWL ;
     gsndesign:naturalLanguage "An answer is one class, and whether it was accepted is not recorded."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
@@ -1779,7 +1963,9 @@ gsnaugdesign:st-0058
         gsn:Relationship , gsnaug:linksTo , gsnaug:tag .
 
 gsnaugdesign:dd-0059
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at the Response rename, for the closure test only: the shape no longer reports a reply beside a negative outcome, it reports a resolved issue with no reply. Everything else this decision states still stands and is restated by dd-0078."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0078 ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "The shapes follow the simplified vocabulary: the shape for each withdrawn term goes, one for each new term comes, and the closure test reads the outcome string."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
@@ -1983,3 +2169,204 @@ gsnaugdesign:st-0070
     gsndesign:aboutTerm gsnaug:FailingReportRefutesSolution ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:FailingReportRefutesSolution ,
         gsnaug:verifiableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
+
+gsnaugdesign:dd-0071
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:RDF ;
+    gsndesign:naturalLanguage "An issue is raised by any agent, not only by a reviewer, and Finding and Comment are alternative labels for it."@en ;
+    prov:used gsnaugdesign:src-0011 , gsnaugdesign:src-0009 ;
+    gsndesign:hasRationale gsnaugdesign:why-0048 ;
+    prov:generated gsnaugdesign:st-0071 .
+
+gsnaugdesign:st-0071
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0071 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:Issue skos:definition \"An ask raised by an agent against something in an assurance case.\"@en ; skos:altLabel \"Finding\"@en , \"Comment\"@en . gsnaug:Answer skos:definition \"The response to an ask that aims to close an issue.\"@en ." ;
+    gsndesign:aboutTerm gsnaug:Issue ;
+    gsndesign:mentionsTerm gsnaug:Answer , gsnaug:Issue , gsnaug:hasRole , gsnaug:raisedBy .
+
+gsnaugdesign:dd-0072
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "What a mechanism needs in order to run is dcterms:requires, reused and declared without a domain or a range."@en ;
+    prov:used gsnaugdesign:src-0014 , gsnaugdesign:src-0003 ;
+    gsndesign:hasRationale gsnaugdesign:why-0049 ;
+    prov:generated gsnaugdesign:st-0072 .
+
+gsnaugdesign:st-0072
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0072 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "dcterms:requires a owl:ObjectProperty ; rdfs:isDefinedBy <http://purl.org/dc/terms/> . (no rdfs:domain, no rdfs:range)" ;
+    gsndesign:aboutTerm <http://purl.org/dc/terms/requires> ;
+    gsndesign:mentionsTerm <http://purl.org/dc/terms/requires> , gsnaug:Mechanism .
+
+gsnaugdesign:dd-0073
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "What a mechanism requires is a node, not a literal, checked on mechanisms only."@en ;
+    prov:used gsnaugdesign:src-0014 ;
+    gsndesign:hasRationale gsnaugdesign:why-0049 ;
+    prov:generated gsnaugdesign:st-0073 .
+
+gsnaugdesign:st-0073
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0073 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:MechanismRequirementShape sh:targetClass gsnaug:Mechanism ; sh:property [ sh:path dcterms:requires ; sh:nodeKind sh:BlankNodeOrIRI ; sh:severity sh:Violation ] ." ;
+    gsndesign:aboutTerm gsnaugsh:MechanismRequirementShape ;
+    gsndesign:mentionsTerm <http://purl.org/dc/terms/requires> , gsnaug:Mechanism , gsnaugsh:MechanismRequirementShape .
+
+gsnaugdesign:dd-0074
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "The reviewer of an element or artefact is not its owner, as a warning."@en ;
+    prov:used gsnaugdesign:src-0012 , gsnaugdesign:src-0001 ;
+    gsndesign:hasRationale gsnaugdesign:why-0050 ;
+    prov:generated gsnaugdesign:st-0074 .
+
+gsnaugdesign:st-0074
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0074 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:IndependenceShape sh:targetSubjectsOf gsnaug:reviewedBy ; sh:property [ sh:path gsnaug:reviewedBy ; sh:disjoint gsnaug:ownedBy ; sh:severity sh:Warning ] ." ;
+    gsndesign:aboutTerm gsnaugsh:IndependenceShape ;
+    gsndesign:mentionsTerm gsnaug:ownedBy , gsnaug:reviewedBy , gsnaugsh:IndependenceShape .
+
+gsnaugdesign:dd-0075
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A requirement and a system are PROV entities, so a changed one is a new individual that is a revision of the old."@en ;
+    prov:used gsnaugdesign:src-0013 , gsnaugdesign:src-0004 ;
+    gsndesign:hasRationale gsnaugdesign:why-0051 ;
+    prov:generated gsnaugdesign:st-0075 .
+
+gsnaugdesign:st-0075
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0075 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:Requirement rdfs:subClassOf prov:Entity . gsnaug:System rdfs:subClassOf prov:Entity . (no gsnaug:SystemPart; no change flag)" ;
+    gsndesign:aboutTerm gsnaug:System ;
+    gsndesign:mentionsTerm gsnaug:Requirement , gsnaug:System , prov:Entity , prov:wasRevisionOf .
+
+gsnaugdesign:dd-0076
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "Change impact is detected by a query and judged by an issue, not asserted by a rule."@en ;
+    prov:used gsnaugdesign:src-0013 ;
+    gsndesign:hasRationale gsnaugdesign:why-0051 ;
+    prov:generated gsnaugdesign:st-0076 .
+
+gsnaugdesign:st-0076
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0076 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.1 ;
+    gsndesign:statementText "fc39_requirement_revised.rq (CQ-81): elements requiredBy a requirement with a newer prov:wasRevisionOf. fc40_system_revised.rq (CQ-82): artefacts generatedFrom an entity with a newer revision and no replacement drawn from it, with the solution and goals above. fc41_context_revised.rq (CQ-83): goals inContextOf a context whose artefact has a newer gsnaug:replaces or prov:wasRevisionOf. No rule writes gsn:inDoubt from any of the three." ;
+    gsndesign:aboutTerm gsnaug:generatedFrom ;
+    gsndesign:mentionsTerm gsn:Context , gsn:inContextOf , gsn:refersTo , gsn:supportedBy , gsnaug:generatedFrom , gsnaug:replaces , gsnaug:requiredBy , prov:wasRevisionOf .
+
+gsnaugdesign:dd-0077
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A reply to an issue is a Response, several are allowed, and only the outcome on the issue closes it."@en ;
+    prov:used gsnaugdesign:src-0009 , gsnaugdesign:src-0010 ;
+    gsndesign:hasRationale gsnaugdesign:why-0052 ;
+    prov:generated gsnaugdesign:st-0077 .
+
+gsnaugdesign:st-0077
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0077 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:Response a owl:Class ; skos:altLabel \"Answer\"@en . gsnaug:respondsTo rdfs:domain gsnaug:Response ; rdfs:range gsnaug:Issue . gsnaug:Answer and gsnaug:answers are removed. gsnaug:issueOutcome: \"resolved\" = the raiser accepted a response; absent = open." ;
+    gsndesign:aboutTerm gsnaug:Response ;
+    gsndesign:mentionsTerm gsnaug:Issue , gsnaug:Response , gsnaug:issueOutcome , gsnaug:respondsTo .
+
+gsnaugdesign:dd-0078
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "A response replies to exactly one issue, and an issue marked resolved with no response is a warning."@en ;
+    prov:used gsnaugdesign:src-0009 ;
+    gsndesign:hasRationale gsnaugdesign:why-0052 ;
+    prov:generated gsnaugdesign:st-0078 .
+
+gsnaugdesign:st-0078
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0078 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:ResponseShape sh:targetClass gsnaug:Response ; sh:property [ sh:path gsnaug:respondsTo ; sh:class gsnaug:Issue ; sh:minCount 1 ; sh:maxCount 1 ] . gsnaugsh:IssueClosureShape sh:sparql [ SELECT $this WHERE { $this gsnaug:issueOutcome \"resolved\" . FILTER NOT EXISTS { ?r gsnaug:respondsTo $this } } ] ; sh:severity sh:Warning . gsnaugsh:AnswerShape is removed. The other shapes dd-0059 names are unchanged." ;
+    gsndesign:aboutTerm gsnaugsh:ResponseShape ;
+    gsndesign:mentionsTerm gsnaug:Response , gsnaug:issueOutcome , gsnaug:respondsTo , gsnaugsh:IssueClosureShape , gsnaugsh:ResponseShape .
+
+gsnaugdesign:dd-0079
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "Whether an ask is open is read from the outcome alone; responses are listed, never counted as closure."@en ;
+    prov:used gsnaugdesign:src-0009 ;
+    gsndesign:hasRationale gsnaugdesign:why-0052 ;
+    prov:generated gsnaugdesign:st-0079 .
+
+gsnaugdesign:st-0079
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0079 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.1 ;
+    gsndesign:statementText "fc13, fc14, fc19, fc26: open = FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?o }, the answer test is dropped. fc16, fc23: list gsnaug:Response by gsnaug:respondsTo. fc27: state = the outcome or open; a ?responded column says whether a reply is on record." ;
+    gsndesign:aboutTerm gsnaug:issueOutcome ;
+    gsndesign:mentionsTerm gsnaug:Response , gsnaug:issueOutcome , gsnaug:respondsTo .
+
+
+#################################################################
+#    Decisions - a report over a part, and part-of in Dublin Core
+#################################################################
+
+gsnaugdesign:dd-0080
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "A solution is true when the mechanism that can verify a part of its artefact left a conforming report over that part."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0053 ;
+    prov:generated gsnaugdesign:st-0080 .
+
+gsnaugdesign:st-0080
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0080 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "A6c: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ verifiableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, true) -> true(?S, true). SPARQL twin in augmentation/rules/a06c." ;
+    gsndesign:aboutTerm gsnaug:ConformingPartReportConfirmsSolution ;
+    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
+        gsnaug:ConformingPartReportConfirmsSolution , gsnaug:partOf , gsnaug:verifiableWith , prov:used ,
+        prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
+
+gsnaugdesign:dd-0081
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "A solution is not true when the mechanism that can verify a part of its artefact left a failing report over that part."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0053 ;
+    prov:generated gsnaugdesign:st-0081 .
+
+gsnaugdesign:st-0081
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0081 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "A6d: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ verifiableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, false) -> true(?S, false). SPARQL twin in augmentation/rules/a06d." ;
+    gsndesign:aboutTerm gsnaug:FailingPartReportRefutesSolution ;
+    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
+        gsnaug:FailingPartReportRefutesSolution , gsnaug:partOf , gsnaug:verifiableWith , prov:used ,
+        prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
+
+gsnaugdesign:dd-0082
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A part is part of its artefact in the Dublin Core sense too: gsnaug:partOf is a subproperty of dcterms:isPartOf, reused and declared without a domain or a range."@en ;
+    prov:used gsnaugdesign:src-0015 ;
+    gsndesign:hasRationale gsnaugdesign:why-0054 ;
+    prov:generated gsnaugdesign:st-0082 .
+
+gsnaugdesign:st-0082
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0082 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "dcterms:isPartOf a owl:ObjectProperty ; rdfs:isDefinedBy <http://purl.org/dc/terms/> . (no rdfs:domain, no rdfs:range) gsnaug:partOf rdfs:subPropertyOf dcterms:isPartOf ." ;
+    gsndesign:aboutTerm gsnaug:partOf ;
+    gsndesign:mentionsTerm <http://purl.org/dc/terms/isPartOf> , gsnaug:ArtefactPart , gsnaug:partOf .

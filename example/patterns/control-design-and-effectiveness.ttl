@@ -1,0 +1,353 @@
+@prefix pat:     <https://w3id.org/OntoGSN/example/patterns/control-effectiveness#> .
+@prefix gsn:     <https://w3id.org/OntoGSN/ontology#> .
+@prefix gsnaug:  <https://w3id.org/OntoGSN/augmentation#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix prov:    <http://www.w3.org/ns/prov#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema:  <http://schema.org/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/OntoGSN/example/patterns/control-effectiveness> a owl:Ontology ;
+    rdfs:label "Control design and effectiveness pattern"@en ;
+    rdfs:comment """A GSN pattern for arguing that a control is effective: it is designed and implemented, and it
+operated effectively over a period. One top goal in context, a strategy over the controls a requirement
+asks for, an optional decomposition over the scope each control applies to, and the two evidence goals
+at the bottom. Augmented with the OntoGSN Augmentation: who owns and reviews what, where the evidence
+came from, and how a reviewer's issue attaches without a hand-drawn challenge."""@en ;
+    owl:imports <https://w3id.org/OntoGSN/ontology> , <https://w3id.org/OntoGSN/augmentation> .
+
+
+#################################################################
+#    The pattern
+#################################################################
+
+pat:Arg a gsn:Argument , gsn:Pattern ;
+    schema:identifier "Arg-CDE" ;
+    rdfs:label "Control design and effectiveness argument"@en ;
+    schema:description "Argues that each control a requirement asks for is effective in a system, from two kinds of evidence per control: evidence that the control is designed and implemented, and evidence that it operated effectively over a period."@en ;
+    gsn:intent "Separate the claim that a control exists from the claim that it works, so that each rests on its own evidence and a change to the system can be traced to the first without disturbing the second."@en ;
+    gsn:motivation "Audit practice distinguishes the design of a control from its operating effectiveness; SOC 2 and ISAE 3402 report on both, and ISO 27001 audits ask for both. An argument that cites one kind of evidence for both claims cannot say which claim a defect in the evidence defeats."@en ;
+    gsn:applicability "Applies where a requirement is met by a set of named controls, and where each control leaves evidence of its implementation and evidence of its operation that can be told apart. Does not apply where the only evidence is the outcome, with no record of the control itself."@en ;
+    gsn:structure "G1 is the top goal, in the context of the system (C1) and the requirement (C2). S1 argues over the controls the requirement asks for, with the control catalogue as context (C3) and as instantiation data (IDR1). G2 is one goal per control, in the context of the control's description (C4). From G2 there is a choice: S2 decomposes the control over the scope it applies to, each scope item becoming a G3, or G3 is instantiated directly for a control with a single scope. G3 is in the context of the scope item (C6) and is supported by G4, the design and implementation claim, and G5, the effectiveness claim over a period (C5). Sn1 and Sn2 cite the two kinds of evidence. G6 is an optional branch under G2 that claims every issue raised against the control has been addressed, one G7 per issue, each in the context of the issue itself (C7)."@en ;
+    gsn:participants "G1 names the system it assures (gsnaug:assures) and the requirement it answers to (gsnaug:requiredBy). G2 names the control it answers to and the catalogue row it was instantiated from. Ev1 was drawn from the system and can be fetched again; Ev2 was produced by a mechanism that ran against the system. Both can be checked by a mechanism. G4 and G5 carry a tag naming the kind of evidence. Issue-1 is a reviewer's ask against G4, Response-1 what was offered in reply, and the outcome resolved on the issue says the reviewer accepted it; G7 links to the issue it claims to have addressed."@en ;
+    gsn:implementation "Instantiate one G2 per control in the catalogue. If the control applies to one scope, take the direct link to G3. If it applies to several, take S2 and instantiate one G3 per scope item; for a further level, nest another S2 and G3 under a G3. Attach the design evidence to Sn1 and the effectiveness evidence to Sn2, never the same artefact to both. Do not draw a challenge for a reviewer's issue: record the issue as a gsnaug:Issue against the element, and the augmentation rules derive the challenge and the doubt. Instantiate G6 and G7 only for issues of type revise or resolve whose outcome is resolved; a response alone does not close an issue."@en ;
+    gsn:consequences "G4 is the claim a change to the system reaches: when the system, or the part the control lives in, has a newer revision, the query over gsnaug:generatedFrom reports Ev1 and through it G4. G5 is the claim a new period reaches: it has to be re-evidenced every audit cycle. Instantiating G6 for an issue that is still open leaves G7 undeveloped."@en ;
+    gsn:structured true ;
+    gsn:published false ;
+    gsn:final false ;
+    gsn:contains pat:G1 , pat:C1 , pat:C2 , pat:S1 , pat:C3 ,
+                 pat:G2 , pat:C4 , pat:S2 , pat:G3 , pat:C6 ,
+                 pat:G4 , pat:G5 , pat:C5 , pat:Sn1 , pat:Sn2 ,
+                 pat:G6 , pat:G7 , pat:C7 , pat:Sn3 .
+
+
+#################################################################
+#    Top goal and its context
+#################################################################
+
+pat:G1 a gsn:Goal ;
+    schema:identifier "G1" ;
+    rdfs:label "Goal G1"@en ;
+    gsn:statement "<system> effectively implements the controls that <requirement> requires" ;
+    gsn:top true ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy pat:S1 ;
+    gsn:inContextOf pat:C1 , pat:C2 ;
+    gsnaug:assures    pat:System ;
+    gsnaug:requiredBy pat:Requirement ;
+    gsnaug:ownedBy    pat:control-owner .
+
+pat:C1 a gsn:Context ;
+    schema:identifier "C1" ;
+    rdfs:label "Context C1"@en ;
+    gsn:statement "<system> description" ;
+    gsn:uninstantiated true .
+
+pat:C2 a gsn:Context ;
+    schema:identifier "C2" ;
+    rdfs:label "Context C2"@en ;
+    gsn:statement "<requirement>" ;
+    gsn:uninstantiated true .
+
+pat:S1 a gsn:Strategy ;
+    schema:identifier "S1" ;
+    rdfs:label "Strategy S1"@en ;
+    gsn:statement "Argument over each control that <requirement> requires" ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy pat:G2 ;
+    gsn:inContextOf pat:C3 .
+
+pat:C3 a gsn:Context ;
+    schema:identifier "C3" ;
+    rdfs:label "Context C3"@en ;
+    gsn:statement "<requirement> control catalogue" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo pat:ControlCatalogue .
+
+pat:IDR1 a gsn:InstantiationDataReference ;
+    schema:identifier "IDR1" ;
+    rdfs:label "Instantiation data IDR1: one G2 per row of the control catalogue"@en ;
+    gsn:attachedTo pat:S1 ;
+    gsn:refersTo pat:ControlCatalogue .
+
+
+#################################################################
+#    One goal per control, and the optional decomposition
+#################################################################
+
+pat:G2 a gsn:Goal ;
+    schema:identifier "G2" ;
+    rdfs:label "Goal G2"@en ;
+    gsn:statement "Control <ctrl> is effective in <system>" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy pat:S2 , pat:G3 , pat:G6 ;
+    gsn:inContextOf pat:C4 ;
+    gsnaug:requiredBy       pat:Control ;
+    gsnaug:instantiatedFrom pat:CatalogueRow ;
+    gsnaug:ownedBy          pat:control-owner ;
+    gsnaug:reviewedBy       pat:reviewer .
+
+pat:C4 a gsn:Context ;
+    schema:identifier "C4" ;
+    rdfs:label "Context C4"@en ;
+    gsn:statement "<ctrl> description" ;
+    gsn:uninstantiated true .
+
+pat:S2 a gsn:Strategy ;
+    schema:identifier "S2" ;
+    rdfs:label "Strategy S2"@en ;
+    gsn:statement "Argument over each <scope> that control <ctrl> applies to" ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy pat:G3 .
+
+pat:G3 a gsn:Goal ;
+    schema:identifier "G3" ;
+    rdfs:label "Goal G3"@en ;
+    gsn:statement "Control <ctrl> is effective for <scope item>" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy pat:G4 , pat:G5 ;
+    gsn:inContextOf pat:C6 .
+
+pat:C6 a gsn:Context ;
+    schema:identifier "C6" ;
+    rdfs:label "Context C6"@en ;
+    gsn:statement "<scope item> description" ;
+    gsn:uninstantiated true .
+
+
+#################################################################
+#    The two evidence claims
+#################################################################
+
+pat:G4 a gsn:Goal ;
+    schema:identifier "G4" ;
+    rdfs:label "Goal G4"@en ;
+    gsn:statement "Control <ctrl> is designed and implemented for <scope item>" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy pat:Sn1 ;
+    gsn:inContextOf pat:C4 ;
+    gsnaug:tag "design-and-implementation" .
+
+pat:G5 a gsn:Goal ;
+    schema:identifier "G5" ;
+    rdfs:label "Goal G5"@en ;
+    gsn:statement "Control <ctrl> operated effectively for <scope item> over <period>" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy pat:Sn2 ;
+    gsn:inContextOf pat:C5 ;
+    gsnaug:tag "test-of-effectiveness" .
+
+pat:C5 a gsn:Context ;
+    schema:identifier "C5" ;
+    rdfs:label "Context C5"@en ;
+    gsn:statement "<period>" ;
+    gsn:uninstantiated true .
+
+pat:Sn1 a gsn:Solution ;
+    schema:identifier "Sn1" ;
+    rdfs:label "Solution Sn1"@en ;
+    gsn:statement "<ctrl> design and implementation evidence" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo pat:Ev1 .
+
+pat:Sn2 a gsn:Solution ;
+    schema:identifier "Sn2" ;
+    rdfs:label "Solution Sn2"@en ;
+    gsn:statement "<ctrl> effectiveness test results for <period>" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo pat:Ev2 .
+
+
+#################################################################
+#    The remediation branch
+#################################################################
+
+pat:G6 a gsn:Goal ;
+    schema:identifier "G6" ;
+    rdfs:label "Goal G6"@en ;
+    gsn:statement "Every issue raised against control <ctrl> has been addressed" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy pat:G7 ;
+    gsn:inContextOf pat:C4 .
+
+pat:G7 a gsn:Goal ;
+    schema:identifier "G7" ;
+    rdfs:label "Goal G7"@en ;
+    gsn:statement "Issue <issue> has been addressed" ;
+    gsn:top false ;
+    gsn:uninstantiated true ;
+    gsn:supportedBy pat:Sn3 ;
+    gsn:inContextOf pat:C7 ;
+    gsnaug:linksTo pat:Issue-1 .
+
+pat:C7 a gsn:Context ;
+    schema:identifier "C7" ;
+    rdfs:label "Context C7"@en ;
+    gsn:statement "<issue> text and metadata" ;
+    gsn:uninstantiated true .
+
+pat:Sn3 a gsn:Solution ;
+    schema:identifier "Sn3" ;
+    rdfs:label "Solution Sn3"@en ;
+    gsn:statement "<issue> answer and its evidence" ;
+    gsn:uninstantiated true ;
+    gsn:refersTo pat:Ev3 .
+
+
+#################################################################
+#    Relationships that carry pattern notation
+#################################################################
+
+pat:R_S1_G2 a gsn:Relationship ;
+    schema:identifier "R-S1-supportedBy-G2" ;
+    rdf:subject pat:S1 ; rdf:predicate gsn:supportedBy ; rdf:object pat:G2 ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "One G2 per control in the catalogue."@en .
+
+pat:R_G2_S2 a gsn:Relationship ;
+    schema:identifier "R-G2-supportedBy-S2" ;
+    rdf:subject pat:G2 ; rdf:predicate gsn:supportedBy ; rdf:object pat:S2 ;
+    gsn:relationshipType "inferential" ;
+    gsn:choice true ;
+    rdfs:comment "One of two: decompose over the scope the control applies to, or go to G3 directly."@en .
+
+pat:R_G2_G3 a gsn:Relationship ;
+    schema:identifier "R-G2-supportedBy-G3" ;
+    rdf:subject pat:G2 ; rdf:predicate gsn:supportedBy ; rdf:object pat:G3 ;
+    gsn:relationshipType "inferential" ;
+    gsn:choice true ;
+    rdfs:comment "One of two: for a control with a single scope, G3 is instantiated directly under G2."@en .
+
+pat:R_S2_G3 a gsn:Relationship ;
+    schema:identifier "R-S2-supportedBy-G3" ;
+    rdf:subject pat:S2 ; rdf:predicate gsn:supportedBy ; rdf:object pat:G3 ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "One G3 per scope item. For a further level, nest another S2 and G3 under a G3."@en .
+
+pat:R_G2_G6 a gsn:Relationship ;
+    schema:identifier "R-G2-supportedBy-G6" ;
+    rdf:subject pat:G2 ; rdf:predicate gsn:supportedBy ; rdf:object pat:G6 ;
+    gsn:relationshipType "inferential" ;
+    gsn:optional true ;
+    rdfs:comment "Only when a revise or resolve issue was raised against the control and answered."@en .
+
+pat:R_G6_G7 a gsn:Relationship ;
+    schema:identifier "R-G6-supportedBy-G7" ;
+    rdf:subject pat:G6 ; rdf:predicate gsn:supportedBy ; rdf:object pat:G7 ;
+    gsn:relationshipType "inferential" ;
+    gsn:multiple true ;
+    gsn:minCardinality "1"^^xsd:nonNegativeInteger ;
+    rdfs:comment "One G7 per issue."@en .
+
+pat:R_G5_C5 a gsn:Relationship ;
+    schema:identifier "R-G5-inContextOf-C5" ;
+    rdf:subject pat:G5 ; rdf:predicate gsn:inContextOf ; rdf:object pat:C5 ;
+    gsn:relationshipType "contextual" ;
+    gsn:optional true ;
+    rdfs:comment "Leave out when the period is fixed by the requirement itself."@en .
+
+
+#################################################################
+#    The far ends: what the augmentation names
+#################################################################
+
+pat:System      a gsnaug:System ;      rdfs:label "<system>"@en .
+pat:Requirement a gsnaug:Requirement ; rdfs:label "<requirement>"@en .
+pat:Control     a gsnaug:Requirement ; rdfs:label "<ctrl>"@en ;
+    prov:wasDerivedFrom pat:Requirement .
+
+pat:ControlCatalogue a gsn:Artefact ;
+    schema:identifier "Cat" ;
+    rdfs:label "<requirement> control catalogue"@en ;
+    gsnaug:ownedBy pat:reviewer .
+
+pat:CatalogueRow a gsnaug:ArtefactPart ;
+    schema:name "<ctrl> row" ;
+    gsnaug:partOf pat:ControlCatalogue .
+
+#  Ev1 was drawn from the system, and can be fetched again. Ev2 was produced by a test that
+#  ran against the system. Both can be checked by a mechanism.
+
+pat:Ev1 a gsn:Artefact ;
+    schema:identifier "Ev1" ;
+    rdfs:label "<ctrl> design and implementation evidence"@en ;
+    gsnaug:generatedFrom   pat:System ;
+    gsnaug:retrievableWith pat:evidence-retrieval ;
+    gsnaug:verifiableWith  pat:evidence-check ;
+    gsnaug:generatedBy     pat:control-owner .
+
+pat:Ev2 a gsn:Artefact ;
+    schema:identifier "Ev2" ;
+    rdfs:label "<ctrl> effectiveness test results for <period>"@en ;
+    gsnaug:generatedFrom  pat:System ;
+    gsnaug:generableWith  pat:effectiveness-test ;
+    gsnaug:verifiableWith pat:evidence-check ;
+    gsnaug:generatedBy    pat:control-owner .
+
+pat:Ev3 a gsn:Artefact ;
+    schema:identifier "Ev3" ;
+    rdfs:label "<issue> answer evidence"@en ;
+    gsnaug:generatedBy pat:control-owner .
+
+pat:evidence-retrieval a gsnaug:Mechanism ; rdfs:label "<how Ev1 is fetched>"@en .
+pat:effectiveness-test a gsnaug:Mechanism ; rdfs:label "<the test that produces Ev2>"@en .
+pat:evidence-check     a gsnaug:Mechanism ; rdfs:label "<the check both pass>"@en .
+
+#  Two agents, two roles. An organisation declares its own roles; these two are the ones every
+#  review has, whatever they are called.
+
+pat:control-owner a prov:Agent ; rdfs:label "<control owner>"@en ; gsnaug:hasRole pat:role-owner .
+pat:reviewer      a prov:Agent ; rdfs:label "<reviewer>"@en ;      gsnaug:hasRole pat:role-reviewer .
+
+pat:role-owner    a gsnaug:Role ; schema:name "<owner role>" .
+pat:role-reviewer a gsnaug:Role ; schema:name "<reviewer role>" .
+
+#  A reviewer's issue against the design claim, the response offered, and the outcome that closes it. No challenge goal
+#  is drawn: rule A2 derives the challenge from a revise issue, and the core rules derive the
+#  doubt. G7 links to the issue it claims to have addressed.
+
+pat:AuditCycle a gsnaug:AuditCycle ; schema:identifier "<audit cycle>" .
+
+pat:Issue-1 a gsnaug:Issue ;
+    schema:identifier "<issue>" ;
+    schema:description "<issue text>" ;
+    gsnaug:issueType gsnaug:revise ;
+    gsnaug:raisedAgainst pat:G4 ;
+    gsnaug:raisedBy pat:reviewer ;
+    gsnaug:heldBy   pat:control-owner ;
+    gsnaug:raisedIn pat:AuditCycle ;
+    gsnaug:issueOutcome "resolved" .
+
+pat:Response-1 a gsnaug:Response ;
+    schema:description "<response text>" ;
+    gsnaug:respondsTo pat:Issue-1 .

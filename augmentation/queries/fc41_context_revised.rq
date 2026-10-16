@@ -1,0 +1,33 @@
+# id:        CQ-83
+# role:      Process Owner
+# operation: read
+# question:  Which goals sit under a context whose artefact has a newer revision?
+# expect:    rows
+#
+# The environment of a claim is what GSN puts in a context. A context that gsn:refersTo an
+# artefact - a deployment list, an operating design domain, a configuration - is the hook: the
+# artefact is revised with gsnaug:replaces or prov:wasRevisionOf, and the context still refers
+# to the old one. A context applies to the element it is attached to and to everything that
+# element supports, so the query walks gsn:supportedBy down from the holder of the context; the
+# core rules do not materialise that for contexts, only for assumptions. Whether the change
+# matters to a goal is a judgement: whoever makes it raises a revise issue on the goal, and rule
+# A2 takes it from there.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT DISTINCT ?goalId ?contextId ?artefact ?newerArtefact
+WHERE {
+  ?context a gsn:Context ;
+           schema:identifier ?contextId ;
+           gsn:refersTo ?artefact .
+  ?newerArtefact (gsnaug:replaces|prov:wasRevisionOf)+ ?artefact .
+  FILTER NOT EXISTS { ?context gsn:refersTo ?newerArtefact }
+  ?holder gsn:inContextOf ?context ;
+          gsn:supportedBy* ?goal .
+  ?goal a gsn:Goal ;
+        schema:identifier ?goalId .
+}
+ORDER BY ?goalId ?contextId

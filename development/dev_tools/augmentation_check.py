@@ -12,6 +12,8 @@ Three things, in the order they can fail:
 Before the rules run, every mechanism in the fixture that is a SHACL shape is run over the data,
 and the report it produces is kept in the graph, linked to the mechanism and the artefact. That
 is what A6a and A6b read: the status of a solution is derived from a report, not asserted.
+A6c and A6d read the same kind of report over a part of the artefact; the fixture carries two of
+those by hand.
 
 The derivations in derivations/ run with the rules but are not twinned: they walk RDF lists,
 which SWRL cannot, so they exist in SPARQL only and are kept out of the twin count.
@@ -86,7 +88,7 @@ for rule in rules:
             atoms += 1
             node = ontology.value(node, RDF.rest)
     print(f"  {str(label):38} {atoms} atoms")
-check(len(rules) == 7, f"{len(rules)} SWRL rules", f"expected 7 SWRL rules, found {len(rules)}")
+check(len(rules) == 9, f"{len(rules)} SWRL rules", f"expected 9 SWRL rules, found {len(rules)}")
 
 # Each SWRL rule needs a SPARQL twin, so the two never drift.
 sparql_rules = sorted(glob.glob(os.path.join(AUG_RULES, "*.rq")))
@@ -221,6 +223,13 @@ expected = [
     ("a failing report does not also confirm",                 (EX.Sn2, GSN.true, Literal(True)), False),
     ("a conforming report does not also refute",               (EX.Sn1, GSN.true, Literal(False)), False),
     ("a goal with no checked solution under it is untouched",  (EX.G2, GSN.true, None), False),
+    # A6c/A6d: a report over a part reaches the solution through the artefact it refers to.
+    # The key's verifier is inherited by A4, so the chain A4 -> A6c needs a second round.
+    ("a conforming report over a part makes the solution true",  (EX.Sn3, GSN.true, Literal(True)), True),
+    ("a conforming part report does not also refute",            (EX.Sn3, GSN.true, Literal(False)), False),
+    ("a failing report over a part makes the solution untrue",   (EX.Sn4, GSN.true, Literal(False)), True),
+    ("a failing part report does not also confirm",              (EX.Sn4, GSN.true, Literal(True)), False),
+    ("a part report leaves the whole artefact's status alone",   (EX["config-export"], GSN.true, None), False),
 ]
 for name, triple, wanted in expected:
     found = (triple in data) if triple[2] is not None else bool(list(data.triples(triple)))
@@ -270,8 +279,8 @@ must_report = [
     ("an issue with no type",                BAD["I-untyped"]),
     ("an issue with a type outside the three", BAD["I-bogus-type"]),
     ("an issue superseding itself",          BAD["I-self"]),
-    ("an answer closing no issue",           BAD["A-no-issue"]),
-    ("an answer closing two issues",         BAD["A-two-issues"]),
+    ("a response to no issue",               BAD["A-no-issue"]),
+    ("a response to two issues",             BAD["A-two-issues"]),
     ("an artefact stored in a person",       BAD["artefact"]),
     ("an artefact part that is part of a person", BAD["part"]),
     ("provenance hung on a solution",        BAD["Sn1"]),
@@ -286,12 +295,14 @@ must_report = [
     ("an outcome outside the four",          BAD["I-bogus-outcome"]),
     ("an issue held by two agents at once",  BAD["I-two-holders"]),
     ("an audit cycle that is not one, and a raiser that is not an agent", BAD["I-bad-cycle"]),
-    ("an issue closed by a no-answer outcome and an answer", BAD["I-both-endings"]),
+    ("an issue resolved with no response",   BAD["I-resolved-unanswered"]),
     ("an artefact replacing a person",       BAD["artefact-revision"]),
     ("a mechanism automated by a word",      BAD["mechanism"]),
     ("a mechanism reading a literal",        BAD["mechanism-literal-term"]),
     ("an artefact that reads a term",        BAD["artefact-that-reads"]),
     ("a mechanism with two scripts",         BAD["mechanism-two-scripts"]),
+    ("a mechanism that requires a word",     BAD["mechanism-needs-a-word"]),
+    ("an element reviewed by its own owner", BAD["G3"]),
 ]
 for name, node in must_report:
     check(str(node) in focus_nodes, f"reported: {name}", f"NOT reported: {name}")

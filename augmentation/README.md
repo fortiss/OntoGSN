@@ -10,7 +10,8 @@ domain or range.
 | File | Role |
 | :--- | :--- |
 | `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 7 SWRL rules |
-| `ontogsn-augmentation-shapes.ttl` | 13 SHACL shapes |
+| `ontogsn-augmentation-shapes.ttl` | 15 SHACL shapes |
+| `HOW-TO.md` | the manual: how to use the vocabulary on a case, for what the vocabulary does not enforce |
 | `rules/*.rq` | a SPARQL twin of each SWRL rule, runnable without a reasoner |
 | `testdata/example_issues.ttl` | a minimal case exercising every rule branch |
 | `testdata/example_violations.ttl` | a deliberately wrong case, one node per shape |
@@ -29,7 +30,7 @@ never sees this directory — the augmentation cannot break the core checks.
 | :--- | :--- | :--- |
 | **Artefact provenance** | `storedIn`, `retrievableWith`, `generatedBy`, `generatedWith`, `generatedFrom`, `verifiedWith`, `revisionOf`, `containsElement` | how a piece of evidence came to be, and how to get it again |
 | **Roles** | `assures`/`assuredBy`, `owns`/`ownedBy`, `reviews`/`reviewedBy`, `hasRole` | who stands behind what |
-| **Issues** | `Issue`, `Answer` and its three subclasses, `raisedAgainst`, `issueType`, `answers`, `supersedes`, `raisedIn`, `coveredIn` | what a reviewer asked for, and whether it has been closed |
+| **Issues** | `Issue`, `Response`, `raisedAgainst`, `issueType`, `respondsTo`, `issueOutcome`, `supersedes`, `raisedIn`, `coveredIn` | what was asked of the case, by whom, and whether it has been closed |
 
 Plus four link properties — `instantiatedFrom`, `requiredBy`, `linksTo`, `tag`.
 
@@ -62,7 +63,7 @@ data is not wrong so much as in the wrong place.
 
 **An issue is an ask, not a status.** `gsn:inDoubt` and `gsn:defeated` are states of an element; an
 issue is the request to move an element off one. Modelling the ask as an individual is what makes
-"how many rounds has this claim taken" countable, and what lets an ask be superseded or answered.
+"how many rounds has this claim taken" countable, and what lets an ask be superseded, responded to, and closed by an outcome.
 
 **A range names, it does not reject.** `rdfs:range` is generative: a value outside it is not
 refused, it is retyped. So every range in the vocabulary is repeated as a SHACL shape, and the shape
@@ -100,18 +101,22 @@ challenges. Only `gsn:defeated` has to be asserted here, because **S46** derives
 | `A3a` / `A3b` | a resolve issue against a goal / a solution becomes a goal challenging it, and defeats it |
 | `A4` | a part of an artefact is verifiable with whatever its artefact is verifiable with |
 | `A6a` / `A6b` | a solution is true / not true when the mechanism that can verify its artefact left a conforming / failing report over it |
+| `A6c` / `A6d` | the same, when the report is over a part of the artefact: the mechanism that can verify the part left a conforming / failing report over the part |
 
 A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express "a goal **or** a
-solution" in one rule. A4 copies `verifiableWith` only. The other seven provenance properties admit a
+solution" in one rule. A6 is four rules for the same reason: the report is over the artefact or over a
+part of it. A4 copies `verifiableWith` only. The other seven provenance properties admit a
 part in their domain, but a part states them for itself.
 
 ## The result of a check stays in the graph
 
 `gsnaug:verifiableWith` says that a mechanism can check an artefact. A6a and A6b read what the check
 found. The finding is a `sh:ValidationReport`, the form every SHACL engine writes, with two PROV links:
-`prov:wasGeneratedBy` names the mechanism, and `prov:used` names the artefact. If the report conforms,
-the solution that refers to the artefact is `gsn:true`. If it does not conform, the solution is not. The
-core rules S10 and S11 then carry the result up to the goal. No term is added for this.
+`prov:wasGeneratedBy` names the mechanism, and `prov:used` names the artefact, or the part of it the
+check ran over. If the report conforms, the solution that refers to the artefact is `gsn:true`. If it
+does not conform, the solution is not. A report over a part reaches the solution through `gsnaug:partOf`,
+because `gsn:refersTo` ranges on `gsn:Artefact` and a solution refers to the whole. The core rules S10
+and S11 then carry the result up to the goal. No term is added for this.
 
 A mechanism that is a SHACL shape produces the report by itself. `augmentation_check.py` runs each such mechanism in
 the fixture over its artefact and keeps the report that the engine returns, plus the two links and a

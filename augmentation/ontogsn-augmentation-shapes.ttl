@@ -8,6 +8,7 @@
 @prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+@prefix terms:    <http://purl.org/dc/terms/> .
 @prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
 @base <https://w3id.org/OntoGSN/augmentation/shapes> .
 
@@ -116,23 +117,23 @@ gsnaugsh:IssueShape rdf:type sh:NodeShape ;
         sh:severity sh:Violation ;
     ] .
 
-###  gsnaug:Issue - an answer and an outcome other than "resolved" are two ways of closing, not both
+###  gsnaug:Issue - an issue resolved without a response
 gsnaugsh:IssueClosureShape rdf:type sh:NodeShape ;
     rdfs:label "Issue closure shape"@en ;
-    rdfs:comment "gsnaug:answers closes an ask positively. gsnaug:issueOutcome records how it ended: \"resolved\" when an answer closed it, and \"cannot answer\", \"declined\" or \"infeasible\" when it ended without one. An issue carrying one of the last three and an answer has been closed twice, in two contradictory ways, and one of the two is stale."@en ;
+    rdfs:comment "Only gsnaug:issueOutcome closes an issue. \"resolved\" means the raiser accepted a response, so an issue marked resolved with no response on record is either missing the response or marked wrongly. A warning, because the first is the common case. The other three outcomes end an issue without a response, and a response beside one of them is not an error: it is what the raiser declined."@en ;
     sh:targetClass gsnaug:Issue ;
     sh:sparql [
-        sh:message "This issue is closed twice over: it carries an answer and an outcome that says it ended without one."@en ;
+        sh:message "This issue is marked resolved, but no response to it is on record."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
         sh:select """
-            SELECT $this ?answer WHERE {
+            SELECT $this WHERE {
                 $this gsnaug:issueOutcome ?outcome .
-                FILTER ( STR(?outcome) != "resolved" )
-                ?answer gsnaug:answers $this .
+                FILTER ( STR(?outcome) = "resolved" )
+                FILTER NOT EXISTS { ?response gsnaug:respondsTo $this }
             }
         """ ;
     ] ;
-    sh:severity sh:Violation .
+    sh:severity sh:Warning .
 
 ###  gsnaug:Issue - an issue may not supersede itself
 gsnaugsh:IssueSupersessionShape rdf:type sh:NodeShape ;
@@ -150,20 +151,20 @@ gsnaugsh:IssueSupersessionShape rdf:type sh:NodeShape ;
 
 
 #################################################################
-#    Answers
+#    Responses
 #################################################################
 
-###  gsnaug:Answer
-gsnaugsh:AnswerShape rdf:type sh:NodeShape ;
-    rdfs:label "Answer shape"@en ;
-    sh:targetClass gsnaug:Answer ;
+###  gsnaug:Response
+gsnaugsh:ResponseShape rdf:type sh:NodeShape ;
+    rdfs:label "Response shape"@en ;
+    sh:targetClass gsnaug:Response ;
     sh:property [
-        sh:path gsnaug:answers ;
+        sh:path gsnaug:respondsTo ;
         sh:class gsnaug:Issue ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:name "answers" ;
-        sh:message "An answer must close exactly one issue."@en ;
+        sh:name "responds to" ;
+        sh:message "A response replies to exactly one issue."@en ;
         sh:severity sh:Violation ;
     ] .
 
@@ -336,6 +337,19 @@ gsnaugsh:MechanismInterfaceShape rdf:type sh:NodeShape ;
         sh:severity sh:Violation ;
     ] .
 
+###  What a mechanism needs in order to run is a resource, not a literal
+gsnaugsh:MechanismRequirementShape rdf:type sh:NodeShape ;
+    rdfs:label "Mechanism requirement shape"@en ;
+    rdfs:comment "Targeted at gsnaug:Mechanism and not at every subject of dcterms:requires, which other vocabularies use on other things. What the far end is - an interpreter, a package, a container image, a credential - belongs to a domain ontology; that it is a node and not a string does not."@en ;
+    sh:targetClass gsnaug:Mechanism ;
+    sh:property [
+        sh:path terms:requires ;
+        sh:nodeKind sh:BlankNodeOrIRI ;
+        sh:name "requires" ;
+        sh:message "What a mechanism requires in order to run is a resource, not a literal."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
 
 #################################################################
 #    Agents and roles
@@ -364,6 +378,19 @@ gsnaugsh:AccountabilityShape rdf:type sh:NodeShape ;
         sh:name "reviewed by" ;
         sh:message "The reviewer of an element or artefact is a named agent."@en ;
         sh:severity sh:Violation ;
+    ] .
+
+###  The agent who reviews an element or artefact is not the agent who owns it
+gsnaugsh:IndependenceShape rdf:type sh:NodeShape ;
+    rdfs:label "Independence shape"@en ;
+    rdfs:comment "A warning, not a violation: an owner reading their own draft is a legitimate state of a case under construction, and what the shape reports is that the review on record is not an independent one."@en ;
+    sh:targetSubjectsOf gsnaug:reviewedBy ;
+    sh:property [
+        sh:path gsnaug:reviewedBy ;
+        sh:disjoint gsnaug:ownedBy ;
+        sh:name "reviewed by" ;
+        sh:message "The reviewer of an element or artefact is also its owner, so the review is not independent."@en ;
+        sh:severity sh:Warning ;
     ] .
 
 ###  Whoever holds a role is an agent, and what is held is a role

@@ -3,11 +3,14 @@
 # operation: read
 # question:  Was a resolution implemented, declined, or infeasible?
 # expect:    rows
+#
+# The state is the outcome. A response that the auditor has not accepted leaves the ask open,
+# and the last column says whether one is on record.
 
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
-SELECT ?issueId ?targetId ?state
+SELECT ?issueId ?targetId ?state ?responded
 WHERE {
   ?issue a gsnaug:Issue ;
          schema:identifier ?issueId ;
@@ -15,11 +18,7 @@ WHERE {
          gsnaug:raisedAgainst ?target .
   ?target schema:identifier ?targetId .
   OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
-  OPTIONAL {
-    ?answer a gsnaug:Answer ;
-            gsnaug:answers ?issue
-  }
-  BIND( IF(BOUND(?answer), "implemented",
-        IF(BOUND(?outcome), STR(?outcome), "open")) AS ?state )
+  BIND( IF(BOUND(?outcome), STR(?outcome), "open") AS ?state )
+  BIND( EXISTS { ?response gsnaug:respondsTo ?issue } AS ?responded )
 }
 ORDER BY ?issueId
