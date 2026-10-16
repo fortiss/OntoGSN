@@ -210,9 +210,6 @@ def main():
         # a question can take more than one query to answer, so the cell is a list
         for target in row.get("SPARQL Query File", "").split(";"):
             target = target.strip()
-            # the workbook still cites the core queries by their pre-2026-10 path
-            if target.startswith("queries/"):
-                target = "ontology/" + target
             if target:
                 by_query.setdefault(target, []).append(iri)
 
