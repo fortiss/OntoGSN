@@ -46,6 +46,23 @@ was built, not about any case, and the new name says so. The maintenance scripts
 
 ## Ontology 1.2.4 (unreleased) — shapes 1.0.2
 
+### A view depicts a module
+
+**Not breaking.** One object property is added and no existing axiom changed. The Modular
+Extension had `gsn:View`, with `gsn:viewType` to tell an argument view from an architecture
+view, but nothing related a view to the module whose argument it shows. The standard says
+(1:4.2.1, p. 32): "The argument view depicts the argument inside an individual module."
+
+- `gsn:depicts` has domain `gsn:View` and range `gsn:Module`. The property is authored, never
+  inferred. No rule reads it.
+- Two SHACL shapes, `gsnsh:DepictsPropertyShape` and `gsnsh:DepictsRangePropertyShape`,
+  report a subject that is not a view or an object that is not a module.
+
+*For case authors:* nothing to do. A case that already has views can now state which module
+each view depicts.
+
+Reasoning per axiom: `dd-1003` to `dd-1010`, rationale `why-0219`, passage `src-0142`.
+
 ### The header states what makes the release findable
 
 **Not breaking.** Header metadata only; no term and no axiom changed. FOOPS!, the FAIR
@@ -139,6 +156,8 @@ rationale `why-0211`, passage `src-0140`.
 
 ### SHACL shapes 1.0.1 → 1.0.2
 
+- `gsnsh:DepictsPropertyShape` and `gsnsh:DepictsRangePropertyShape` added for the domain and
+  range of `gsn:depicts`.
 - `gsnsh:TopGoalHasNoParentShape` and `gsnsh:UnparentedGoalIsTopShape` rewritten from
   `sh:or` over an inverse-path count into SHACL-SPARQL constraints, for the top-goal scoping
   above. Retires `dd-0827`, `dd-0828`.

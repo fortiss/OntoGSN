@@ -43,6 +43,13 @@ gsn:contract a owl:DatatypeProperty ;
 
 gsn:coreOrExtension a owl:AnnotationProperty .
 
+gsn:depicts a owl:ObjectProperty ;
+    rdfs:label "depicts"@en ;
+    rdfs:domain gsn:View ;
+    rdfs:range gsn:Module ;
+    skos:definition "The argument view depicts the argument inside an individual module."@en ;
+    gsn:coreOrExtension "Modular Extension"@en .
+
 gsn:inModule a owl:ObjectProperty ;
     rdfs:label "in module"@en ;
     rdfs:domain gsn:GSNElement ;
@@ -100,11 +107,6 @@ gsn:viewType a owl:DatatypeProperty ;
     owl:versionInfo "1.2.4" ;
     gsn:coreOrExtension "Modular Extension"@en .
 
-gsn:View a owl:Class ;
-    rdfs:label "View"@en ;
-    skos:definition "The argument view depicts the argument inside an individual module."@en ;
-    gsn:coreOrExtension "Modular Extension"@en .
-
 gsn:away a owl:DatatypeProperty ;
     rdfs:label "away"@en ;
     schema:description "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en ;
@@ -124,6 +126,11 @@ gsn:Argument a owl:Class .
 gsn:GSNElement a owl:Class .
 
 gsn:Solution a owl:Class .
+
+gsn:View a owl:Class ;
+    rdfs:label "View"@en ;
+    skos:definition "The argument view depicts the argument inside an individual module."@en ;
+    gsn:coreOrExtension "Modular Extension"@en .
 
 gsn:contains a owl:ObjectProperty .
 

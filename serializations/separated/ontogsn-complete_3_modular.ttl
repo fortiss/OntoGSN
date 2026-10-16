@@ -843,6 +843,13 @@ gsn:SubstitutionInvalidation a swrl:Imp ;
 
 gsn:coreOrExtension a owl:AnnotationProperty .
 
+gsn:depicts a owl:ObjectProperty ;
+    rdfs:label "depicts"@en ;
+    rdfs:domain gsn:View ;
+    rdfs:range gsn:Module ;
+    skos:definition "The argument view depicts the argument inside an individual module."@en ;
+    gsn:coreOrExtension "Modular Extension"@en .
+
 gsn:renderedAs a owl:AnnotationProperty .
 
 gsn:viewType a owl:DatatypeProperty ;
@@ -885,11 +892,6 @@ gsn:viewType a owl:DatatypeProperty ;
     skos:note "A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the design record under development/design/ naming the passage it rests on, or stating that it rests on none."@en ;
     gsn:coreOrExtension "Modular Extension"@en .
 
-gsn:View a owl:Class ;
-    rdfs:label "View"@en ;
-    skos:definition "The argument view depicts the argument inside an individual module."@en ;
-    gsn:coreOrExtension "Modular Extension"@en .
-
 gsn:consistentWith a owl:ObjectProperty,
         owl:SymmetricProperty ;
     rdfs:label "consistent with"@en ;
@@ -913,6 +915,11 @@ gsn:substitutedBy a owl:ObjectProperty ;
 schema:identifier a owl:DatatypeProperty .
 
 gsn:Solution a owl:Class .
+
+gsn:View a owl:Class ;
+    rdfs:label "View"@en ;
+    skos:definition "The argument view depicts the argument inside an individual module."@en ;
+    gsn:coreOrExtension "Modular Extension"@en .
 
 gsn:undeveloped a owl:DatatypeProperty .
 

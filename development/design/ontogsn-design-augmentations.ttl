@@ -448,7 +448,7 @@ gsndesign:cq-CQ-78
 
 
 #################################################################
-#    Stored queries (126)
+#    Stored queries (129)
 #    gsndesign:declaresNamespace records what each file binds its prefixes to, which is
 #    how a query pointing at the wrong namespace becomes findable.
 #    
@@ -737,7 +737,7 @@ gsndesign:query-augmentation-queries-fc13-case-compliance
     rdfs:label "augmentation/queries/fc13_case_compliance.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc13_case_compliance.rq" ;
-    gsndesign:fileChecksum "08322b2a38771c2355ac902263076cc9e789258ddb4772432080d6ed2d22e79a" ;
+    gsndesign:fileChecksum "bbeba3fce2ae17b274c483e4a9bb41a2550771501dcd84480f26e1fd5f7daab5" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:defeated ,
@@ -764,7 +764,6 @@ WHERE {
     WHERE {
       ?issue a gsnaug:Issue .
       FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
-      FILTER NOT EXISTS { ?answer gsnaug:answers ?issue }
     }
   }
   { SELECT (COUNT(DISTINCT ?e) AS ?defeated) WHERE { ?e gsn:defeated true } }
@@ -777,7 +776,7 @@ gsndesign:query-augmentation-queries-fc14-open-clarifications
     rdfs:label "augmentation/queries/fc14_open_clarifications.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc14_open_clarifications.rq" ;
-    gsndesign:fileChecksum "4f7f2d1bf75d17c5ad5a27cf31c8b3dc02e4c304dce37537e456406189be7690" ;
+    gsndesign:fileChecksum "6b246685a88236b7a9e99634f2d5a20c9e83db85050dc33b395ffee4c7f5112a" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -804,7 +803,6 @@ WHERE {
   OPTIONAL { ?issue gsnaug:heldBy ?holder }
   OPTIONAL { ?issue schema:description ?description }
   FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
-  FILTER NOT EXISTS { ?answer gsnaug:answers ?issue }
 }
 ORDER BY ?issueId
 """ .
@@ -849,26 +847,30 @@ gsndesign:query-augmentation-queries-fc16-clarification-answers
     rdfs:label "augmentation/queries/fc16_clarification_answers.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc16_clarification_answers.rq" ;
-    gsndesign:fileChecksum "6792dbdc2d4c1e35e997c7136081bb39213420ce007c33aa581e8791760e3a16" ;
+    gsndesign:fileChecksum "2cc302761e9e533493eed9256f5e00287a33831b63877b0aa9d65ab18dd0a2ba" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-58 ;
     gsndesign:queryText """# id:        CQ-58
 # role:      Auditor
 # operation: read
-# question:  What answered a clarification, and which ask did it close?
+# question:  What was said in reply to a clarification, and was the reply accepted?
 # expect:    rows
+#
+# A response does not close an ask. The outcome does: "resolved" means the raiser accepted a
+# response; no outcome means the ask is still open, replies or not.
 
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
-SELECT ?answer ?issueId ?description
+SELECT ?response ?issueId ?description ?outcome
 WHERE {
-  ?answer a gsnaug:Answer ;
-          gsnaug:answers ?issue .
+  ?response a gsnaug:Response ;
+            gsnaug:respondsTo ?issue .
   ?issue schema:identifier ?issueId ;
          gsnaug:issueType gsnaug:clarify .
-  OPTIONAL { ?answer schema:description ?description }
+  OPTIONAL { ?response schema:description ?description }
+  OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
 }
 ORDER BY ?issueId
 """ .
@@ -938,7 +940,7 @@ gsndesign:query-augmentation-queries-fc19-who-holds-the-ask
     rdfs:label "augmentation/queries/fc19_who_holds_the_ask.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc19_who_holds_the_ask.rq" ;
-    gsndesign:fileChecksum "9d72a132f9ed636f3dd52c7d2ab1d7d13fe6c53ecd884b05b0558ac03dc146a2" ;
+    gsndesign:fileChecksum "b9d51ac12884c568d1531548ca004d6ad4aa7ceffac44f2e5bd2f355cabc48af" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-61 ;
@@ -960,7 +962,6 @@ WHERE {
   ?target schema:identifier ?targetId .
   OPTIONAL { ?issue gsnaug:raisedBy ?raiser }
   FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
-  FILTER NOT EXISTS { ?answer gsnaug:answers ?issue }
 }
 ORDER BY ?issueId
 """ .
@@ -1047,29 +1048,29 @@ gsndesign:query-augmentation-queries-fc23-revision-rounds
     rdfs:label "augmentation/queries/fc23_revision_rounds.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc23_revision_rounds.rq" ;
-    gsndesign:fileChecksum "362267eacda789cd825ae4a41b0fb0ef22caee07c63cb6abeb0eea10d1b3f6b2" ;
+    gsndesign:fileChecksum "caa4a7ed7db0a7355d38c56e01ba0796bd200bc42da6d3125ef3e4b709fa0ec3" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-65 ;
     gsndesign:queryText """# id:        CQ-65
 # role:      Compliance Officer
 # operation: read
-# question:  How many revision rounds, and which revision closed which ask?
+# question:  How many revision rounds, and what was offered in reply to each ask?
 # expect:    rows
 
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?targetId (COUNT(DISTINCT ?issue) AS ?rounds)
-       (GROUP_CONCAT(DISTINCT STR(?answer); separator=", ") AS ?revisions)
+       (GROUP_CONCAT(DISTINCT STR(?response); separator=", ") AS ?responses)
 WHERE {
   ?issue a gsnaug:Issue ;
          gsnaug:issueType gsnaug:revise ;
          gsnaug:raisedAgainst ?target .
   ?target schema:identifier ?targetId .
   OPTIONAL {
-    ?answer a gsnaug:Answer ;
-            gsnaug:answers ?issue
+    ?response a gsnaug:Response ;
+              gsnaug:respondsTo ?issue
   }
 }
 GROUP BY ?targetId
@@ -1119,7 +1120,7 @@ gsndesign:query-augmentation-queries-fc26-unresolved-at-audit
     rdfs:label "augmentation/queries/fc26_unresolved_at_audit.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc26_unresolved_at_audit.rq" ;
-    gsndesign:fileChecksum "53ff09c1404623aefa821b94dbb741f3b78ef42ac4faa68b5e908c226b750546" ;
+    gsndesign:fileChecksum "d5f4c684e64389ce38f911b0c0770d9a11664e1d2ac6878cd6be75591e780c2c" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/ns/prov#" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
@@ -1148,7 +1149,6 @@ WHERE {
   ?target schema:identifier ?targetId .
   OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
   OPTIONAL { ?cycle prov:startedAtTime ?opened }
-  FILTER NOT EXISTS { ?answer gsnaug:answers ?issue }
 }
 ORDER BY ?cycleId ?issueId
 """ .
@@ -1158,7 +1158,7 @@ gsndesign:query-augmentation-queries-fc27-resolution-state
     rdfs:label "augmentation/queries/fc27_resolution_state.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc27_resolution_state.rq" ;
-    gsndesign:fileChecksum "3bf59d998a508af767b688dea813f18dcd903c01460ac20e7c46c9ae72f7a726" ;
+    gsndesign:fileChecksum "d6ccf525db705ed201b5c5b7b2e1dccc8883f35b6c185776b889c994d4eed52a" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-69 ;
@@ -1167,11 +1167,14 @@ gsndesign:query-augmentation-queries-fc27-resolution-state
 # operation: read
 # question:  Was a resolution implemented, declined, or infeasible?
 # expect:    rows
+#
+# The state is the outcome. A response that the auditor has not accepted leaves the ask open,
+# and the last column says whether one is on record.
 
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
-SELECT ?issueId ?targetId ?state
+SELECT ?issueId ?targetId ?state ?responded
 WHERE {
   ?issue a gsnaug:Issue ;
          schema:identifier ?issueId ;
@@ -1179,12 +1182,8 @@ WHERE {
          gsnaug:raisedAgainst ?target .
   ?target schema:identifier ?targetId .
   OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
-  OPTIONAL {
-    ?answer a gsnaug:Answer ;
-            gsnaug:answers ?issue
-  }
-  BIND( IF(BOUND(?answer), "implemented",
-        IF(BOUND(?outcome), STR(?outcome), "open")) AS ?state )
+  BIND( IF(BOUND(?outcome), STR(?outcome), "open") AS ?state )
+  BIND( EXISTS { ?response gsnaug:respondsTo ?issue } AS ?responded )
 }
 ORDER BY ?issueId
 """ .
@@ -1665,6 +1664,150 @@ WHERE {
 }
 GROUP BY ?solutionId ?artefact ?mechanism ?state
 ORDER BY ?solutionId ?mechanism
+""" .
+
+gsndesign:query-augmentation-queries-fc39-requirement-revised
+    a gsndesign:Query ;
+    rdfs:label "augmentation/queries/fc39_requirement_revised.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "augmentation/queries/fc39_requirement_revised.rq" ;
+    gsndesign:fileChecksum "dc74c1eb978af124b4e8b92f3ace23da59af6f4777629c84ed21fe78108e996e" ;
+    gsndesign:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/ns/prov#" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:queryText """# id:        CQ-81
+# role:      Compliance Officer
+# operation: read
+# question:  Which elements answer to a requirement that has a newer revision?
+# expect:    rows
+#
+# A changed requirement is a new gsnaug:Requirement that is prov:wasRevisionOf the old one. An
+# element still linked to the old one by gsnaug:requiredBy, and not yet to the new one, is in the
+# answer. Whether the change matters to the element is a judgement: whoever makes it raises a
+# revise issue on the element, and rule A2 takes it from there.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?elementId ?requirement ?newerRequirement ?owner
+WHERE {
+  ?newerRequirement prov:wasRevisionOf+ ?requirement .
+  ?element gsnaug:requiredBy ?requirement ;
+           schema:identifier ?elementId .
+  FILTER NOT EXISTS { ?element gsnaug:requiredBy ?newerRequirement }
+  OPTIONAL { ?element gsnaug:ownedBy ?owner }
+}
+ORDER BY ?elementId ?requirement
+""" .
+
+gsndesign:query-augmentation-queries-fc40-system-revised
+    a gsndesign:Query ;
+    rdfs:label "augmentation/queries/fc40_system_revised.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "augmentation/queries/fc40_system_revised.rq" ;
+    gsndesign:fileChecksum "50733d04c0475b6d20a45d3f265669ec01f38b8d1ae06e6c6c54fea0a4a97d85" ;
+    gsndesign:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/ns/prov#" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:Solution ,
+        gsn:refersTo ,
+        gsn:supportedBy ;
+    gsndesign:restsOnStatement gsndesign:st-0175 ,
+        gsndesign:st-0207 ,
+        gsndesign:st-0289 ;
+    gsndesign:queryText """# id:        CQ-82
+# role:      Developer
+# operation: read
+# question:  Which evidence was drawn from a system, or a part of one, that has a newer revision?
+# expect:    rows
+#
+# A changed system, or a changed part of one, is a new individual that is prov:wasRevisionOf the
+# old one; how fine the parts are is the domain ontology's choice. An artefact drawn from the old
+# one by gsnaug:generatedFrom is in the answer until a replacement drawn from the new one exists.
+# The last two columns are the solution that cites the artefact and the goals above it, which
+# is the reach of the change. Whether the change matters to them is a judgement: whoever makes
+# it raises a revise issue on the solution, and rule A2 takes it from there.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT DISTINCT ?artefact ?source ?newerSource ?solutionId ?goalId
+WHERE {
+  ?newerSource prov:wasRevisionOf+ ?source .
+  ?artefact gsnaug:generatedFrom ?source .
+  FILTER NOT EXISTS {
+    ?replacement gsnaug:replaces+ ?artefact ;
+                 gsnaug:generatedFrom ?newerSource .
+  }
+  OPTIONAL {
+    ?solution a gsn:Solution ;
+              schema:identifier ?solutionId ;
+              gsn:refersTo ?artefact .
+    OPTIONAL { ?goal gsn:supportedBy+ ?solution ; schema:identifier ?goalId }
+  }
+}
+ORDER BY ?artefact ?solutionId ?goalId
+""" .
+
+gsndesign:query-augmentation-queries-fc41-context-revised
+    a gsndesign:Query ;
+    rdfs:label "augmentation/queries/fc41_context_revised.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "augmentation/queries/fc41_context_revised.rq" ;
+    gsndesign:fileChecksum "f520d326eb105880af3f10d1c58330f1c8471879e23b6ffebf3ccf799c9eeabb" ;
+    gsndesign:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/ns/prov#" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:Context ,
+        gsn:Goal ,
+        gsn:inContextOf ,
+        gsn:refersTo ,
+        gsn:supportedBy ;
+    gsndesign:restsOnStatement gsndesign:st-0161 ,
+        gsndesign:st-0181 ,
+        gsndesign:st-0207 ,
+        gsndesign:st-0218 ,
+        gsndesign:st-0289 ;
+    gsndesign:queryText """# id:        CQ-83
+# role:      Process Owner
+# operation: read
+# question:  Which goals sit under a context whose artefact has a newer revision?
+# expect:    rows
+#
+# The environment of a claim is what GSN puts in a context. A context that gsn:refersTo an
+# artefact - a deployment list, an operating design domain, a configuration - is the hook: the
+# artefact is revised with gsnaug:replaces or prov:wasRevisionOf, and the context still refers
+# to the old one. A context applies to the element it is attached to and to everything that
+# element supports, so the query walks gsn:supportedBy down from the holder of the context; the
+# core rules do not materialise that for contexts, only for assumptions. Whether the change
+# matters to a goal is a judgement: whoever makes it raises a revise issue on the goal, and rule
+# A2 takes it from there.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT DISTINCT ?goalId ?contextId ?artefact ?newerArtefact
+WHERE {
+  ?context a gsn:Context ;
+           schema:identifier ?contextId ;
+           gsn:refersTo ?artefact .
+  ?newerArtefact (gsnaug:replaces|prov:wasRevisionOf)+ ?artefact .
+  FILTER NOT EXISTS { ?context gsn:refersTo ?newerArtefact }
+  ?holder gsn:inContextOf ?context ;
+          gsn:supportedBy* ?goal .
+  ?goal a gsn:Goal ;
+        schema:identifier ?goalId .
+}
+ORDER BY ?goalId ?contextId
 """ .
 
 gsndesign:query-create-assurance-case-skeleton
@@ -6109,14 +6252,14 @@ WHERE {
 gsndesign:file-ontogsn-ttl
     a gsndesign:File ;
     gsndesign:path "serializations/ontogsn.ttl" ;
-    gsndesign:fileChecksum "2b4bfd36e2f9c037093f470b11cb10725aa27117b494fbe777284cbf91200be6" ;
+    gsndesign:fileChecksum "241d3e5ace231334e36d360d31be76d26697d459ee3a84c645a7cf133db8067c" ;
     gsndesign:declaredVersion "1.2.4" ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> .
 
 gsndesign:file-ontogsn-rdf
     a gsndesign:File ;
     gsndesign:path "serializations/ontogsn.rdf" ;
-    gsndesign:fileChecksum "427d1e5bf9311e728d7f1fba39c7b0678dc359444683b9d37b7f07d817ee9c8c" ;
+    gsndesign:fileChecksum "7cd093fbb8cecde1779c1d05a3fe73e9313b34ecae3e30760a9d945aea5573c0" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-serializations .
@@ -6124,7 +6267,7 @@ gsndesign:file-ontogsn-rdf
 gsndesign:file-ontogsn-jsonld
     a gsndesign:File ;
     gsndesign:path "serializations/ontogsn.jsonld" ;
-    gsndesign:fileChecksum "9162e2d861a0bcae98d0ceaeae0ade1adc921eb4bcbfe4f3fb3aa9d72d61d43d" ;
+    gsndesign:fileChecksum "188dadbc4c3cef227303d9d7dde3dfa5d4334804ab3169cc3902c887b4a8e49c" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-serializations .
@@ -6160,7 +6303,7 @@ gsndesign:file-ontogsn-shapes-2-pattern
 gsndesign:file-ontogsn-shapes-3-modular
     a gsndesign:File ;
     gsndesign:path "shapes/ontogsn-shapes_3_modular.ttl" ;
-    gsndesign:fileChecksum "8d7bcaa0b0b665134538f05a151555748b8dc2e698953c50d78af81357b171c4" ;
+    gsndesign:fileChecksum "f2650ecb11d35f4868baa394f5a08892a6a3afcf2e492dd481eda5678aa79050" ;
     gsndesign:declaredVersion "1.0.2" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
@@ -6181,7 +6324,7 @@ gsndesign:file-ontogsn-shapes-5-dialectic
 gsndesign:file-ontogsn-shapes-0-full
     a gsndesign:File ;
     gsndesign:path "shapes/ontogsn-shapes_0_full.ttl" ;
-    gsndesign:fileChecksum "1516e0f180c625d05c37a976107e8d4dcee820fad1769b05fba7e58dd5424e44" ;
+    gsndesign:fileChecksum "9deb1ac7a423f5393c3c7cb5645c8a1ec7df4c2c683f4b4b31ccfe33b21d42d4" ;
     gsndesign:declaredVersion "1.0.2" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-shapes-1-core ,
         gsndesign:file-ontogsn-shapes-2-pattern ,
@@ -6210,7 +6353,7 @@ gsndesign:agent-build-full-py
 gsndesign:file-ontogsn-complete-0-full-jsonld
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-complete_0_full.jsonld" ;
-    gsndesign:fileChecksum "c4416d4cadc6c017e940a72aa24c57bf1eecced006675452ba2f39345e15fe1f" ;
+    gsndesign:fileChecksum "f8a2c55744619937ec0def51d4bbb320d33530dd53cb34ea9b0b0b25d504c81e" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6218,7 +6361,7 @@ gsndesign:file-ontogsn-complete-0-full-jsonld
 gsndesign:file-ontogsn-complete-0-full-ttl
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-complete_0_full.ttl" ;
-    gsndesign:fileChecksum "0c31965b789a6ee92ddd332b59ffd2e0578b3834dfa50209fb557ed35c300374" ;
+    gsndesign:fileChecksum "e4c54a3969e4fa9b2179004b74b79d59885eaf8d0ecad68907f41afef29551af" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
@@ -6261,7 +6404,7 @@ gsndesign:file-ontogsn-complete-2-pattern-ttl
 gsndesign:file-ontogsn-complete-3-modular-jsonld
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-complete_3_modular.jsonld" ;
-    gsndesign:fileChecksum "e149913707246ada1a527dd6ad3cd38352c78cad597021b1d74a6ab8db5dd419" ;
+    gsndesign:fileChecksum "feb269467a69a6a047aebe7546fd4dc1d6ef8be0d0b4b8f42e7add5b7711319b" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6269,7 +6412,7 @@ gsndesign:file-ontogsn-complete-3-modular-jsonld
 gsndesign:file-ontogsn-complete-3-modular-ttl
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-complete_3_modular.ttl" ;
-    gsndesign:fileChecksum "6ffb6fbc58f7fa4708253ed4a57ef16923e1364a5343e45409710909422b2396" ;
+    gsndesign:fileChecksum "20a9cfa8554dac60de83759eccb761fb7db0e29e9863c7490f8268edf357f80a" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
@@ -6312,7 +6455,7 @@ gsndesign:file-ontogsn-complete-5-dialectic-ttl
 gsndesign:file-ontogsn-pruned-0-full-jsonld
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-pruned_0_full.jsonld" ;
-    gsndesign:fileChecksum "19bc0a5ff4ed4ab167b5fb4a96c52a91ccd7ae163737cd157617e462e3b84f65" ;
+    gsndesign:fileChecksum "3388d4cb1e8d1eddb8a194d3b5564fb84f6eb415182a0b82d7fe205e19cfdea1" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6320,7 +6463,7 @@ gsndesign:file-ontogsn-pruned-0-full-jsonld
 gsndesign:file-ontogsn-pruned-0-full-ttl
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-pruned_0_full.ttl" ;
-    gsndesign:fileChecksum "74b74fccef7472c92236c919178cafa6d89dbaa4e3d74f5701d58977cc11816a" ;
+    gsndesign:fileChecksum "4e3baa39ea3109073cefcf166eef0cd80713abc35deb2adfbeb2adb18230bbe8" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
@@ -6363,7 +6506,7 @@ gsndesign:file-ontogsn-pruned-2-pattern-ttl
 gsndesign:file-ontogsn-pruned-3-modular-jsonld
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-pruned_3_modular.jsonld" ;
-    gsndesign:fileChecksum "9eaed312d9fe9a9fafe563523d4bc60fc1f64e67b929189300efd9db716f5892" ;
+    gsndesign:fileChecksum "3c51a7c3b3dc282e0d1ee9f41201c64f1b706675292be63cee18a0e2e1b9760e" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6371,7 +6514,7 @@ gsndesign:file-ontogsn-pruned-3-modular-jsonld
 gsndesign:file-ontogsn-pruned-3-modular-ttl
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-pruned_3_modular.ttl" ;
-    gsndesign:fileChecksum "f9472347140aeb17fa1a927ad3183a439af6755323bbe51d8999842e416a7c70" ;
+    gsndesign:fileChecksum "815e8c1fae798f0b6e017e41be190792946632c2b8e4fd5fc285ec3702cee667" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
@@ -6414,7 +6557,7 @@ gsndesign:file-ontogsn-pruned-5-dialectic-ttl
 gsndesign:file-ontogsn-skeletal-0-full-jsonld
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-skeletal_0_full.jsonld" ;
-    gsndesign:fileChecksum "d6d1333f5fcc82a1beb706881328c759f9ceb01da85e96f3da5943a22bcb5908" ;
+    gsndesign:fileChecksum "935902a7a99be2e4ea65ebcd7b926ebe6e719f0d24b715b28b4de1aa5bf7a47d" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6422,7 +6565,7 @@ gsndesign:file-ontogsn-skeletal-0-full-jsonld
 gsndesign:file-ontogsn-skeletal-0-full-ttl
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-skeletal_0_full.ttl" ;
-    gsndesign:fileChecksum "cfbbd67b34c9729ddb94ad949b91b02cfa930e4dcd0114eedaf76c1a6e5afd89" ;
+    gsndesign:fileChecksum "da097496cff3d8a9f1c325eac13ef407ed79c24ca2841777ba5d259140a66a4c" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
@@ -6465,7 +6608,7 @@ gsndesign:file-ontogsn-skeletal-2-pattern-ttl
 gsndesign:file-ontogsn-skeletal-3-modular-jsonld
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-skeletal_3_modular.jsonld" ;
-    gsndesign:fileChecksum "8cf496a0c1d46cad432e3290629a25ff4ccf696d5706bf0b6e46ca326dfb1095" ;
+    gsndesign:fileChecksum "bb29bc3e4e1979d99e0d691cd4670481422b3bc8c02b47fffa15af6eb89fb7ee" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6473,7 +6616,7 @@ gsndesign:file-ontogsn-skeletal-3-modular-jsonld
 gsndesign:file-ontogsn-skeletal-3-modular-ttl
     a gsndesign:File ;
     gsndesign:path "serializations/separated/ontogsn-skeletal_3_modular.ttl" ;
-    gsndesign:fileChecksum "5ddcc02d2c2ce0c09f21dfa4ce269011c0abbbbc7cd526bb6376b80cb6a8dc10" ;
+    gsndesign:fileChecksum "8c0618b8d7f5fcee06006078fdb0133894a8d202f9be4cdbab7c1862ec7bee12" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;

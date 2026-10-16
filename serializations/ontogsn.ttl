@@ -367,6 +367,15 @@ gsn:contains rdf:type owl:ObjectProperty ;
                   gsn:coreOrExtension "Core GSN"@en .
 
 
+###  https://w3id.org/OntoGSN/ontology#depicts
+gsn:depicts rdf:type owl:ObjectProperty ;
+                 rdfs:domain gsn:View ;
+                 rdfs:range gsn:Module ;
+                 rdfs:label "depicts"@en ;
+                 skos:definition "The argument view depicts the argument inside an individual module."@en ;
+                 gsn:coreOrExtension "Modular Extension"@en .
+
+
 ###  https://w3id.org/OntoGSN/ontology#inContextOf
 gsn:inContextOf rdf:type owl:ObjectProperty ,
                               owl:AsymmetricProperty ,

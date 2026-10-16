@@ -1256,6 +1256,25 @@ gsnsh:ConsistentWithRangePropertyShape rdf:type sh:NodeShape ;
     sh:severity sh:Violation .
 
 
+###  gsn:depicts
+gsnsh:DepictsPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:depicts — domain"@en ;
+    rdfs:comment "The argument view depicts the argument inside an individual module."@en ;
+    sh:targetSubjectsOf gsn:depicts ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:View ;
+    sh:message "Only a view may depict something."@en ;
+    sh:severity sh:Violation .
+
+gsnsh:DepictsRangePropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:depicts — range"@en ;
+    sh:targetObjectsOf gsn:depicts ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:class gsn:Module ;
+    sh:message "A view may only depict a module."@en ;
+    sh:severity sh:Violation .
+
+
 ###  gsn:substitutedBy
 gsnsh:SubstitutedByPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:substitutedBy — domain"@en ;

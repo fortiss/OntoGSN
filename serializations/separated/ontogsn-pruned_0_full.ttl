@@ -111,6 +111,13 @@ gsn:defeated a owl:DatatypeProperty ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
     gsn:renderedAs "cross (‘X’) superimposed on a GSN element or relationship" .
 
+gsn:depicts a owl:ObjectProperty ;
+    rdfs:label "depicts"@en ;
+    rdfs:domain gsn:View ;
+    rdfs:range gsn:Module ;
+    skos:definition "The argument view depicts the argument inside an individual module."@en ;
+    gsn:coreOrExtension "Modular Extension"@en .
+
 gsn:examples a owl:AnnotationProperty ;
     rdfs:label "examples"@en ;
     rdfs:domain gsn:Pattern ;
@@ -378,11 +385,6 @@ gsn:Template a owl:Class ;
     skos:definition "A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:View a owl:Class ;
-    rdfs:label "View"@en ;
-    skos:definition "The argument view depicts the argument inside an individual module."@en ;
-    gsn:coreOrExtension "Modular Extension"@en .
-
 gsn:argumentType a owl:DatatypeProperty ;
     rdfs:label "argument type"@en ;
     rdfs:domain gsn:Argument ;
@@ -453,6 +455,11 @@ gsn:RelationshipWithConfidence a owl:Class ;
     skos:definition "[OntoGSN] A relationship carrying an assurance claim point, whose associated confidence argument documents the reasons for having confidence in the relationship between two elements."@en ;
     skos:note "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
     gsn:coreOrExtension "Confidence Argument Extension"@en .
+
+gsn:View a owl:Class ;
+    rdfs:label "View"@en ;
+    skos:definition "The argument view depicts the argument inside an individual module."@en ;
+    gsn:coreOrExtension "Modular Extension"@en .
 
 gsn:associatedWith a owl:ObjectProperty ;
     rdfs:label "associated with"@en ;

@@ -872,6 +872,14 @@
     <gsn:coreOrExtension xml:lang="en">Dialectic Extension</gsn:coreOrExtension>
     <gsn:renderedAs>cross (‘X’) superimposed on a GSN element or relationship</gsn:renderedAs>
   </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#depicts">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty" />
+    <rdfs:domain rdf:resource="https://w3id.org/OntoGSN/ontology#View" />
+    <rdfs:label xml:lang="en">depicts</rdfs:label>
+    <rdfs:range rdf:resource="https://w3id.org/OntoGSN/ontology#Module" />
+    <skos:definition xml:lang="en">The argument view depicts the argument inside an individual module.</skos:definition>
+    <gsn:coreOrExtension xml:lang="en">Modular Extension</gsn:coreOrExtension>
+  </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#examples">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty" />
     <rdfs:domain rdf:resource="https://w3id.org/OntoGSN/ontology#Pattern" />

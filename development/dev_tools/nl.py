@@ -37,6 +37,7 @@ OBJ_PHRASE = {
     "supportedBy": "be supported by", "inContextOf": "be in the context of",
     "challenges": "challenge", "contains": "contain", "refersTo": "refer to",
     "consistentWith": "be consistent with", "substitutedBy": "be substituted by",
+    "depicts": "depict",
     "associatedWith": "be associated with", "attachedTo": "be attached to",
     "instantiationOf": "be an instantiation of", "relatedTo": "be related to",
     "subject": "have as its subject", "predicate": "have as its predicate",

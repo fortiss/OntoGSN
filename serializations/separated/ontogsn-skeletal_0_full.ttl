@@ -71,6 +71,10 @@ gsn:defeated a owl:DatatypeProperty ;
             owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
     rdfs:range xsd:boolean .
 
+gsn:depicts a owl:ObjectProperty ;
+    rdfs:domain gsn:View ;
+    rdfs:range gsn:Module .
+
 gsn:examples a owl:AnnotationProperty ;
     rdfs:domain gsn:Pattern .
 
@@ -227,8 +231,6 @@ gsn:Defeater a owl:Class ;
 gsn:Template a owl:Class ;
     rdfs:subClassOf gsn:Pattern .
 
-gsn:View a owl:Class .
-
 gsn:argumentType a owl:DatatypeProperty ;
     rdfs:domain gsn:Argument ;
     rdfs:range [ a rdfs:Datatype ;
@@ -279,6 +281,8 @@ gsn:RelationshipWithConfidence a owl:Class ;
             owl:onProperty schema:identifier ;
             owl:someValuesFrom xsd:string ],
         gsn:Relationship .
+
+gsn:View a owl:Class .
 
 gsn:associatedWith a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;

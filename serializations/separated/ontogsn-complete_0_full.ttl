@@ -2242,6 +2242,13 @@ gsn:coreOrExtension a owl:AnnotationProperty ;
     rdfs:label "core or extension"@en ;
     skos:definition "Indicator of the sourcing section in the GSN Community Standard v3."@en .
 
+gsn:depicts a owl:ObjectProperty ;
+    rdfs:label "depicts"@en ;
+    rdfs:domain gsn:View ;
+    rdfs:range gsn:Module ;
+    skos:definition "The argument view depicts the argument inside an individual module."@en ;
+    gsn:coreOrExtension "Modular Extension"@en .
+
 gsn:examples a owl:AnnotationProperty ;
     rdfs:label "examples"@en ;
     rdfs:domain gsn:Pattern ;
@@ -2382,11 +2389,6 @@ gsn:Catalogue a owl:Class ;
     skos:definition "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:View a owl:Class ;
-    rdfs:label "View"@en ;
-    skos:definition "The argument view depicts the argument inside an individual module."@en ;
-    gsn:coreOrExtension "Modular Extension"@en .
-
 gsn:argumentType a owl:DatatypeProperty ;
     rdfs:label "argument type"@en ;
     rdfs:domain gsn:Argument ;
@@ -2454,6 +2456,11 @@ gsn:InstantiationDataReference a owl:Class ;
     skos:definition "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument." ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "hollow triangle" .
+
+gsn:View a owl:Class ;
+    rdfs:label "View"@en ;
+    skos:definition "The argument view depicts the argument inside an individual module."@en ;
+    gsn:coreOrExtension "Modular Extension"@en .
 
 gsn:inDoubt a owl:DatatypeProperty ;
     rdfs:label "in doubt"@en ;

@@ -39,7 +39,7 @@ gsndesign:ontology-1.2.4
     rdfs:label "OntoGSN ontology 1.2.4"@en ;
     owl:versionInfo "1.2.4" ;
     gsndesign:path "serializations/ontogsn.ttl" ;
-    gsndesign:fileChecksum "2b4bfd36e2f9c037093f470b11cb10725aa27117b494fbe777284cbf91200be6" ;
+    gsndesign:fileChecksum "241d3e5ace231334e36d360d31be76d26697d459ee3a84c645a7cf133db8067c" ;
     prov:generatedAtTime "2026-08-18T12:30:41Z"^^xsd:dateTime .
 
 gsndesign:shapes-1.0.2
@@ -48,7 +48,7 @@ gsndesign:shapes-1.0.2
     rdfs:label "OntoGSN SHACL shapes 1.0.2"@en ;
     owl:versionInfo "1.0.2" ;
     gsndesign:path "shapes/ontogsn-shapes_0_full.ttl" ;
-    gsndesign:fileChecksum "1516e0f180c625d05c37a976107e8d4dcee820fad1769b05fba7e58dd5424e44" ;
+    gsndesign:fileChecksum "9deb1ac7a423f5393c3c7cb5645c8a1ec7df4c2c683f4b4b31ccfe33b21d42d4" ;
     prov:generatedAtTime "2026-08-18T12:30:41Z"^^xsd:dateTime .
 
 
@@ -25322,3 +25322,228 @@ gsndesign:why-0217
 gsndesign:why-0218
     a gsndesign:Rationale ;
     gsndesign:rationaleText "Seven annotation properties imported so that the ontology's own header can state what the FAIR assessors look for and found missing: a preferred namespace URI (vann), a DOI and a publication status (bibo), a logo and the catalogue the ontology is deposited in (schema), and issue and modification dates (dcterms). FOOPS! scored the ontology 75% - the version IRI, the namespace URI, the DOI, the logo, the status, the issued date and a registry entry were the seven things it could not find, and each is a fact about the release that was true but nowhere written down. dcterms:issued and dcterms:modified replace dc:issued and dc:modified, which were never Dublin Core Elements 1.1 terms at all: DCMI defines issued and modified only in DCMI Metadata Terms, so the two properties the ontology had been using resolved to nothing and no tool read them. The DOI is Zenodo's concept DOI rather than a version DOI, so that it keeps pointing at the newest deposit rather than pinning the first; schema:includedInDataCatalog names that same Zenodo deposit, which is what makes the claim true - the check also passes on a Linked Open Vocabularies entry, which the ontology does not yet have."@en .
+
+gsndesign:why-0219
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The standard introduces the argument view as the view that depicts the argument inside an individual module (1:4.2.1). The ontology already carried gsn:View, with gsn:viewType to tell an argument view from an architecture view, but no property related a view to the module whose argument it shows, so a view could not be placed in the case it belongs to. gsn:depicts names that relation, and its domain and range are the two nouns of the sentence: the view depicts, and a module is what it depicts. The domain is the whole gsn:View class rather than only views typed as argument views, because the ontology does not subclass views by type and the sentence is read as the view's purpose, not as a restriction on which views have one. The property is authored, never inferred. The two SHACL shapes state the same domain and range for a validator, so that a case which depicts something other than a module, or depicts from something other than a view, is reported rather than retyped."@en .
+
+
+#################################################################
+#    Added by prov_add.py (8 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1003
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R173" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "‘depicts’ is defined as: “The argument view depicts the argument inside an individual module.”"@en ;
+    gsndesign:nlWrittenFor "ebf0eb73" ;
+    prov:used gsndesign:src-0142 ;
+    gsndesign:hasRationale gsndesign:why-0219 ;
+    prov:generated gsndesign:st-1003 .
+
+gsndesign:st-1003
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1003 ;
+    gsndesign:inGraph gsndesign:ontology-1.2.4 ;
+    gsndesign:statementText "gsn:depicts skos:definition \"The argument view depicts the argument inside an individual module.\"@en ." ;
+    gsndesign:statementChecksum "ebf0eb73" ;
+    gsndesign:structuralKey "depicts|definition|The argument view depicts the argument inside an individual module." ;
+    gsndesign:aboutTerm gsn:depicts ;
+    gsndesign:mentionsTerm gsn:depicts ;
+    prov:wasDerivedFrom gsndesign:src-0142 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0142 ; prov:hadActivity gsndesign:dd-1003 ] .
+
+gsndesign:dd-1004
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R174" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Something can only depict a module."@en ;
+    gsndesign:nlWrittenFor "b8764bd0" ;
+    prov:used gsndesign:src-0142 ;
+    gsndesign:hasRationale gsndesign:why-0219 ;
+    prov:generated gsndesign:st-1004 .
+
+gsndesign:st-1004
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1004 ;
+    gsndesign:inGraph gsndesign:ontology-1.2.4 ;
+    gsndesign:statementText "gsn:depicts rdfs:range gsn:Module ." ;
+    gsndesign:statementChecksum "b8764bd0" ;
+    gsndesign:structuralKey "depicts|range|Module" ;
+    gsndesign:aboutTerm gsn:depicts ;
+    gsndesign:mentionsTerm gsn:Module ,
+        gsn:depicts ;
+    prov:wasDerivedFrom gsndesign:src-0142 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0142 ; prov:hadActivity gsndesign:dd-1004 ] .
+
+gsndesign:dd-1005
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R175" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "‘depicts’ belongs to Modular Extension."@en ;
+    gsndesign:nlWrittenFor "8e0a52e1" ;
+    prov:used gsndesign:src-0142 ;
+    gsndesign:hasRationale gsndesign:why-0219 ;
+    prov:generated gsndesign:st-1005 .
+
+gsndesign:st-1005
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1005 ;
+    gsndesign:inGraph gsndesign:ontology-1.2.4 ;
+    gsndesign:statementText "gsn:depicts gsn:coreOrExtension \"Modular Extension\"@en ." ;
+    gsndesign:statementChecksum "8e0a52e1" ;
+    gsndesign:structuralKey "depicts|coreOrExtension|Modular Extension" ;
+    gsndesign:aboutTerm gsn:depicts ;
+    gsndesign:mentionsTerm gsn:coreOrExtension ,
+        gsn:depicts ;
+    prov:wasDerivedFrom gsndesign:src-0142 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0142 ; prov:hadActivity gsndesign:dd-1005 ] .
+
+gsndesign:dd-1006
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R176" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Only a view can depict something."@en ;
+    gsndesign:nlWrittenFor "87ef2c9f" ;
+    prov:used gsndesign:src-0142 ;
+    gsndesign:hasRationale gsndesign:why-0219 ;
+    prov:generated gsndesign:st-1006 .
+
+gsndesign:st-1006
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1006 ;
+    gsndesign:inGraph gsndesign:ontology-1.2.4 ;
+    gsndesign:statementText "gsn:depicts rdfs:domain gsn:View ." ;
+    gsndesign:statementChecksum "87ef2c9f" ;
+    gsndesign:structuralKey "depicts|domain|View" ;
+    gsndesign:aboutTerm gsn:depicts ;
+    gsndesign:mentionsTerm gsn:View ,
+        gsn:depicts ;
+    prov:wasDerivedFrom gsndesign:src-0142 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0142 ; prov:hadActivity gsndesign:dd-1006 ] .
+
+gsndesign:dd-1007
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R177" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "‘depicts’ is defined as a relationship between elements."@en ;
+    gsndesign:nlWrittenFor "61f08b77" ;
+    prov:used gsndesign:src-0142 ;
+    gsndesign:hasRationale gsndesign:why-0219 ;
+    prov:generated gsndesign:st-1007 .
+
+gsndesign:st-1007
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1007 ;
+    gsndesign:inGraph gsndesign:ontology-1.2.4 ;
+    gsndesign:statementText "gsn:depicts rdf:type owl:ObjectProperty ." ;
+    gsndesign:statementChecksum "61f08b77" ;
+    gsndesign:structuralKey "depicts|a|ObjectProperty" ;
+    gsndesign:aboutTerm gsn:depicts ;
+    gsndesign:mentionsTerm gsn:depicts ;
+    prov:wasDerivedFrom gsndesign:src-0142 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0142 ; prov:hadActivity gsndesign:dd-1007 ] .
+
+gsndesign:dd-1008
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R178" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "‘depicts’ is labelled “depicts”."@en ;
+    gsndesign:nlWrittenFor "d6471e7b" ;
+    prov:used gsndesign:src-0142 ;
+    gsndesign:hasRationale gsndesign:why-0219 ;
+    prov:generated gsndesign:st-1008 .
+
+gsndesign:st-1008
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1008 ;
+    gsndesign:inGraph gsndesign:ontology-1.2.4 ;
+    gsndesign:statementText "gsn:depicts rdfs:label \"depicts\"@en ." ;
+    gsndesign:statementChecksum "d6471e7b" ;
+    gsndesign:structuralKey "depicts|label|depicts" ;
+    gsndesign:aboutTerm gsn:depicts ;
+    gsndesign:mentionsTerm gsn:depicts ;
+    prov:wasDerivedFrom gsndesign:src-0142 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0142 ; prov:hadActivity gsndesign:dd-1008 ] .
+
+gsndesign:dd-1009
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.SH025" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "Only a view may depict something."@en ;
+    gsndesign:nlWrittenFor "e477a2a5" ;
+    prov:used gsndesign:src-0142 ;
+    gsndesign:hasRationale gsndesign:why-0219 ;
+    prov:generated gsndesign:st-1009 .
+
+gsndesign:st-1009
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1009 ;
+    gsndesign:inGraph gsndesign:shapes-1.0.2 ;
+    gsndesign:statementText """gsnsh:DepictsPropertyShape gsn:coreOrExtension "Modular Extension"@en ;
+    rdf:type sh:NodeShape ;
+    rdfs:comment "The argument view depicts the argument inside an individual module."@en ;
+    rdfs:label "gsn:depicts — domain"@en ;
+    sh:class gsn:View ;
+    sh:message "Only a view may depict something."@en ;
+    sh:severity sh:Violation ;
+    sh:targetSubjectsOf gsn:depicts .""" ;
+    gsndesign:statementChecksum "e477a2a5" ;
+    gsndesign:structuralKey "gsnsh:DepictsPropertyShape|node|" ;
+    gsndesign:aboutTerm gsnsh:DepictsPropertyShape ;
+    gsndesign:mentionsTerm gsn:View ,
+        gsn:coreOrExtension ,
+        gsn:depicts ,
+        gsnsh:DepictsPropertyShape ;
+    prov:wasDerivedFrom gsndesign:src-0142 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0142 ; prov:hadActivity gsndesign:dd-1009 ] .
+
+gsndesign:dd-1010
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.SH026" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "A view may only depict a module."@en ;
+    gsndesign:nlWrittenFor "2c45604a" ;
+    prov:used gsndesign:src-0142 ;
+    gsndesign:hasRationale gsndesign:why-0219 ;
+    prov:generated gsndesign:st-1010 .
+
+gsndesign:st-1010
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1010 ;
+    gsndesign:inGraph gsndesign:shapes-1.0.2 ;
+    gsndesign:statementText """gsnsh:DepictsRangePropertyShape gsn:coreOrExtension "Modular Extension"@en ;
+    rdf:type sh:NodeShape ;
+    rdfs:label "gsn:depicts — range"@en ;
+    sh:class gsn:Module ;
+    sh:message "A view may only depict a module."@en ;
+    sh:severity sh:Violation ;
+    sh:targetObjectsOf gsn:depicts .""" ;
+    gsndesign:statementChecksum "2c45604a" ;
+    gsndesign:structuralKey "gsnsh:DepictsRangePropertyShape|node|" ;
+    gsndesign:aboutTerm gsnsh:DepictsRangePropertyShape ;
+    gsndesign:mentionsTerm gsn:Module ,
+        gsn:coreOrExtension ,
+        gsn:depicts ,
+        gsnsh:DepictsRangePropertyShape ;
+    prov:wasDerivedFrom gsndesign:src-0142 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0142 ; prov:hadActivity gsndesign:dd-1010 ] .
+

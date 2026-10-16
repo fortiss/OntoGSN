@@ -25,6 +25,10 @@ gsn:contract a owl:DatatypeProperty ;
 
 gsn:coreOrExtension a owl:AnnotationProperty .
 
+gsn:depicts a owl:ObjectProperty ;
+    rdfs:domain gsn:View ;
+    rdfs:range gsn:Module .
+
 gsn:inModule a owl:ObjectProperty ;
     rdfs:domain gsn:GSNElement ;
     rdfs:range gsn:Module .
@@ -62,8 +66,6 @@ gsn:viewType a owl:DatatypeProperty ;
     owl:versionInfo "1.2.4" ;
     gsn:coreOrExtension "Modular Extension"@en .
 
-gsn:View a owl:Class .
-
 gsn:away a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Assumption gsn:Context gsn:Goal gsn:Justification gsn:Solution ) ] ;
@@ -78,6 +80,8 @@ gsn:Argument a owl:Class .
 gsn:GSNElement a owl:Class .
 
 gsn:Solution a owl:Class .
+
+gsn:View a owl:Class .
 
 gsn:contains a owl:ObjectProperty .
 
