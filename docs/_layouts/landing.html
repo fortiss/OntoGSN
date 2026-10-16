@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+{% include landing__hero.html %}
+
+<div id="main" role="main">
+  <article class="splash" itemscope itemtype="https://schema.org/CreativeWork"{% if page.locale %} lang="{{ page.locale }}"{% endif %}>
+    {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+
+    <section class="page__content" itemprop="text">
+      {{ content }}
+    </section>
+  </article>
+</div>

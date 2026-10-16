@@ -1,0 +1,407 @@
+/* ==========================================================================
+   Landing page (index.html, layout: landing)
+   ========================================================================== */
+
+// the palette of the banner illustration
+$og-ink: #2f3e4c;
+$og-navy: #406b9c;
+$og-navy-dark: mix(#000, $og-navy, 20%);
+$og-sky: #a9c6de;
+$og-cream: #fbf7f0;
+$og-cream-dark: mix(#000, $og-cream, 8%);
+
+/* the landing page reads a touch smaller than the rest of the site */
+.layout--landing .page__content {
+  font-size: 0.95em;
+  padding-top: 1.25em;
+
+  h2 {
+    margin-top: 1.75em;
+    color: $og-ink;
+  }
+}
+
+/*
+   Hero
+   ========================================================================== */
+
+.og-hero {
+  background: $og-cream;
+  border-bottom: 1px solid $og-cream-dark;
+  -webkit-animation: $intro-transition;
+  animation: $intro-transition;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+    max-width: $x-large;
+    margin: 0 auto;
+    padding: 1.75em 1em 1.5em;
+
+    @include breakpoint($medium) {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 2em;
+      padding: 1.75em 1em;
+    }
+  }
+
+  &__text {
+    flex: 1 1 50%;
+  }
+
+  &__title {
+    margin: 0 0 0.3em;
+    font-size: $type-size-1;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: $og-ink;
+  }
+
+  &__lead {
+    max-width: 30em;
+    margin: 0 0 1em;
+    font-family: $global-font-family;
+    font-size: $type-size-4;
+    line-height: 1.5;
+    color: $og-ink;
+  }
+
+  &__actions {
+    margin: 0;
+
+    .btn {
+      margin: 0 0.5em 0.5em 0;
+    }
+  }
+
+  &__figure {
+    flex: 0 1 40%;
+    width: 100%;
+    max-width: 420px;
+    margin: 0;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.btn--og {
+  background-color: $og-navy;
+  color: #fff;
+
+  &:visited {
+    color: #fff;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $og-navy-dark;
+    color: #fff;
+  }
+}
+
+.btn--og-outline {
+  background-color: transparent;
+  border: 1px solid $og-navy;
+  color: $og-navy;
+
+  &:visited {
+    color: $og-navy;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $og-navy;
+    color: #fff;
+  }
+}
+
+/*
+   Download chips
+   ========================================================================== */
+
+.og-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+  }
+}
+
+.og-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.45em 1em;
+  border: 1px solid $og-navy;
+  border-radius: 2em;
+  background: #fff;
+  color: $og-navy;
+  font-size: 0.9em;
+  line-height: 1.3;
+  font-weight: bold;
+  text-decoration: none;
+  -webkit-transition: $global-transition;
+  transition: $global-transition;
+
+  i {
+    font-size: 0.95em;
+  }
+
+  &:visited {
+    color: $og-navy;
+  }
+
+  &:hover,
+  &:focus {
+    background: $og-navy;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+/*
+   Resource rows (label on the left, content on the right)
+   ========================================================================== */
+
+.og-resources {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75em 1.5em;
+  margin: 0.5em 0 1.5em;
+
+  @include breakpoint($medium) {
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+  }
+
+  dt {
+    margin: 0;
+    font-weight: bold;
+    color: $og-ink;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  a > code {
+    padding: 0.2em 0.45em;
+    font-size: 0.95em;
+  }
+
+  small {
+    display: inline-block;
+    margin-inline-start: 0.5em;
+    color: $muted-text-color;
+  }
+
+  .og-chips + small {
+    display: block;
+    margin: 0.3em 0 0 0.25em;
+  }
+}
+
+/*
+   The one-sentence description
+   ========================================================================== */
+
+.og-statement {
+  margin: 2em 0 0.5em;
+  padding-inline-start: 1em;
+  border-inline-start: 4px solid $og-navy;
+  font-size: $type-size-4;
+  line-height: 1.5;
+  color: $og-ink;
+}
+
+/*
+   Benefit cards
+   ========================================================================== */
+
+.og-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+  margin: 1em 0 0;
+  padding: 0;
+  list-style: none;
+
+  @include breakpoint($small) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include breakpoint($large) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  li {
+    margin: 0;
+    padding: 1em 1.1em 1.1em;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    background: #fff;
+  }
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    margin: 0 0 0.4em;
+    font-size: 1em;
+    color: $og-ink;
+
+    i {
+      width: 1.25em;
+      text-align: center;
+      color: $og-navy;
+    }
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.95em;
+  }
+}
+
+/*
+   Citation and acknowledgements
+   ========================================================================== */
+
+.og-cite {
+  margin: 0.5em 0 1em;
+  padding: 1em 1.25em;
+  border-inline-start: 4px solid $og-sky;
+  background: $og-cream;
+  border-radius: 0 $border-radius $border-radius 0;
+
+  p {
+    margin: 0 0 0.6em;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.og-ack {
+  font-size: 0.9em;
+  color: $muted-text-color;
+
+  h2 {
+    font-size: $h-size-3;
+  }
+}
+
+/*
+   Badges (shields.io) and the by-section matrix
+   ========================================================================== */
+
+.og-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35em;
+
+  a,
+  img {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  img {
+    height: 20px;
+  }
+
+  small {
+    margin-inline-start: 0.25em;
+  }
+}
+
+.og-badge-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: $og-navy;
+  font: inherit;
+  line-height: 0;
+  cursor: pointer;
+
+  img {
+    display: block;
+  }
+
+  i {
+    font-size: 0.7em;
+    -webkit-transition: $global-transition;
+    transition: $global-transition;
+  }
+
+  &[aria-expanded="true"] i {
+    transform: rotate(180deg);
+  }
+}
+
+.og-matrix {
+  overflow-x: auto;
+
+  @include breakpoint($medium) {
+    grid-column: 2;
+  }
+
+  table {
+    width: auto;
+    margin: 0.25em 0;
+    font-size: 0.9em;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 0.35em 0.75em;
+    border: 1px solid $border-color;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  thead th {
+    background: $og-cream;
+    color: $og-ink;
+  }
+
+  tbody th {
+    text-align: start;
+    font-weight: normal;
+    background: $og-cream;
+  }
+
+  td a {
+    font-weight: bold;
+    text-decoration: none;
+    color: $og-navy;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  small {
+    display: block;
+    margin: 0 0 0.25em;
+  }
+}

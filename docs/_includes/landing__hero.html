@@ -1,0 +1,30 @@
+{% comment %}
+  Hero of the landing page. Reads page.hero:
+    lead      - one sentence under the title (Markdown allowed)
+    image     - path of the illustration, shown beside the text
+    image_alt - alt text for that illustration
+    actions   - list of { label, url, class (optional), external (optional) }
+{% endcomment %}
+{% assign hero = page.hero %}
+<section class="og-hero">
+  <div class="og-hero__inner">
+    <div class="og-hero__text">
+      <h1 id="page-title" class="og-hero__title" itemprop="headline">{{ hero.title | default: page.title | default: site.title }}</h1>
+      {% if hero.lead %}
+        <p class="og-hero__lead">{{ hero.lead | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+      {% endif %}
+      {% if hero.actions %}
+        <p class="og-hero__actions">
+          {% for action in hero.actions %}
+            <a href="{{ action.url | relative_url }}" class="btn btn--large {{ action.class | default: 'btn--og' }}"{% if action.external %} target="_blank" rel="noopener"{% endif %}>{{ action.label }}</a>
+          {% endfor %}
+        </p>
+      {% endif %}
+    </div>
+    {% if hero.image %}
+      <figure class="og-hero__figure">
+        <img src="{{ hero.image | relative_url }}" alt="{{ hero.image_alt | default: '' }}" width="1440" height="880">
+      </figure>
+    {% endif %}
+  </div>
+</section>
