@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Validate development/dev_tools/testdata/ against shapes/ and compare the result with a recorded baseline.
+"""Validate development/dev_tools/testdata/ against ontology/shapes/ and compare the result with a recorded baseline.
 
     python development/dev_tools/shacl_check.py                    # compare against the baseline
     python development/dev_tools/shacl_check.py --write-baseline   # record the current result
@@ -7,7 +7,7 @@
 
 Two graphs are validated, and the second is the one that matters.
 
-The first is the fixture as authored. The second is the fixture after queries/rules/ has been
+The first is the fixture as authored. The second is the fixture after ontology/queries/rules/ has been
 applied to a fixpoint - the rules assert flags of their own, and a rule that writes a property
 somewhere its rdfs:domain does not reach produces data the ontology rejects. That is not
 hypothetical: it is how gsn:valid came to be asserted on gsn:Relationship, which is not a
@@ -31,10 +31,10 @@ import os
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SHAPES = os.path.join(REPO, "shapes", "ontogsn-shapes_0_full.ttl")
-ONTOLOGY = os.path.join(REPO, "serializations", "ontogsn.ttl")
+SHAPES = os.path.join(REPO, "ontology", "shapes", "ontogsn-shapes_0_full.ttl")
+ONTOLOGY = os.path.join(REPO, "ontology", "serializations", "ontogsn.ttl")
 TESTDATA = os.path.join(REPO, "development", "dev_tools", "testdata")
-FIXTURE = os.path.join(REPO, "example", "example_case.ttl")
+FIXTURE = os.path.join(REPO, "ontology", "example", "example_case.ttl")
 RULE_FIXTURE = os.path.join(TESTDATA, "rule_cases.ttl")
 BASELINE = os.path.join(TESTDATA, "shacl_baseline.txt")
 
@@ -76,13 +76,13 @@ def shorten(term):
 
 
 def materialise(paths):
-    """Load paths plus the ontology into a store and apply queries/rules/ to a fixpoint.
+    """Load paths plus the ontology into a store and apply ontology/queries/rules/ to a fixpoint.
 
     Returns the Turtle serialisation. Reuses run_rules.py's loader so the two cannot disagree
     about what the rule set is.
     """
     import pyoxigraph
-    sys.path.insert(0, os.path.join(REPO, "example"))
+    sys.path.insert(0, os.path.join(REPO, "ontology", "example"))
     from run_rules import load_rules, fingerprint
 
     store = pyoxigraph.Store()
@@ -184,7 +184,7 @@ def render(authored, post_rules, converged):
     out += authored or ["(none)"]
     out += ["",
             f"## post-rules ({len(post_rules)} findings)",
-            "## example_case.ttl + rule_cases.ttl after queries/rules/ reaches a fixpoint",
+            "## example_case.ttl + rule_cases.ttl after ontology/queries/rules/ reaches a fixpoint",
             f"## rules converged: {'yes' if converged else 'NO'}",
             ""]
     out += post_rules or ["(none)"]
@@ -210,7 +210,7 @@ def main():
     authored = validate([FIXTURE])
     print(f"  {len(authored)} finding(s)")
 
-    print("applying queries/rules/ to a fixpoint and validating the result ...")
+    print("applying ontology/queries/rules/ to a fixpoint and validating the result ...")
     materialised, converged = materialise([FIXTURE, RULE_FIXTURE])
     if not converged:
         print("  NOTE: the rule set did not converge; validating the state it stopped in")

@@ -80,7 +80,7 @@ dangling references. The stub says what kind of thing the name is; for its defin
 the section that owns it.
 
 Section files carry their own ontology IRI (`https://w3id.org/OntoGSN/ontology/core` and so
-on), mirroring [`shapes/`](../../shapes/README.md). Only `0_full` uses the ontology's own
+on), mirroring [`ontology/shapes/`](../../shapes/README.md). Only `0_full` uses the ontology's own
 IRI, because only `0_full` is the whole ontology.
 
 ## Three things the build reports

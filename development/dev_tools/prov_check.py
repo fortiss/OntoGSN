@@ -198,12 +198,12 @@ def check_files(graph, findings):
     ontology = ttl_model.URIRef("https://w3id.org/OntoGSN/ontology")
     source_version = None
     for entity in set(graph.subjects(P.declaredVersion, None)):
-        if value(graph, entity, P.path) == "serializations/ontogsn.ttl":
+        if value(graph, entity, P.path) == "ontology/serializations/ontogsn.ttl":
             source_version = value(graph, entity, P.declaredVersion)
 
     for entity in sorted(set(graph.subjects(PROV.specializationOf, ontology)), key=str):
         path = value(graph, entity, P.path)
-        if path is None or path == "serializations/ontogsn.ttl":
+        if path is None or path == "ontology/serializations/ontogsn.ttl":
             continue
         if graph.value(entity, PROV.wasGeneratedBy) is None:
             findings.append(("no-build-step", path,

@@ -38,7 +38,7 @@ gsndesign:ontology-1.2.4
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     rdfs:label "OntoGSN ontology 1.2.4"@en ;
     owl:versionInfo "1.2.4" ;
-    gsndesign:path "serializations/ontogsn.ttl" ;
+    gsndesign:path "ontology/serializations/ontogsn.ttl" ;
     gsndesign:fileChecksum "241d3e5ace231334e36d360d31be76d26697d459ee3a84c645a7cf133db8067c" ;
     prov:generatedAtTime "2026-08-18T12:30:41Z"^^xsd:dateTime .
 
@@ -47,7 +47,7 @@ gsndesign:shapes-1.0.2
     prov:specializationOf <https://w3id.org/OntoGSN/shapes> ;
     rdfs:label "OntoGSN SHACL shapes 1.0.2"@en ;
     owl:versionInfo "1.0.2" ;
-    gsndesign:path "shapes/ontogsn-shapes_0_full.ttl" ;
+    gsndesign:path "ontology/shapes/ontogsn-shapes_0_full.ttl" ;
     gsndesign:fileChecksum "9deb1ac7a423f5393c3c7cb5645c8a1ec7df4c2c683f4b4b31ccfe33b21d42d4" ;
     prov:generatedAtTime "2026-08-18T12:30:41Z"^^xsd:dateTime .
 
@@ -24613,7 +24613,7 @@ gsndesign:why-0214
     a gsndesign:Rationale ;
     gsndesign:rationaleText """The ontology's range for gsn:minCardinality and gsn:maxCardinality is xsd:nonNegativeInteger and
 stays that way, but the shape cannot require that exact datatype IRI. A hand-written 1 is
-xsd:integer by Turtle's rules, and pyoxigraph - the engine queries/ and queries/rules/ are executed
+xsd:integer by Turtle's rules, and pyoxigraph - the engine ontology/queries/ and ontology/queries/rules/ are executed
 against - normalises every derived integer type to xsd:integer on load, so even a correctly typed
 literal arrives at the validator as one. Non-negativity is what the axiom is actually about, so the
 shape admits either datatype and checks the value directly with sh:minInclusive."""@en .

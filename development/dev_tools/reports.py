@@ -7,8 +7,8 @@
     python development/dev_tools/reports.py --check          # exit 1 if a report is stale; runs nothing
 
     report   tool     written to               made from
-    widoco   WIDOCO   docs/documentation/      serializations/ontogsn.ttl
-    oops     OOPS!    docs/evaluation/oops/    serializations/ontogsn.rdf
+    widoco   WIDOCO   docs/documentation/      ontology/serializations/ontogsn.ttl
+    oops     OOPS!    docs/evaluation/oops/    ontology/serializations/ontogsn.rdf
     foops    FOOPS!   docs/evaluation/foops/   https://w3id.org/OntoGSN/ontology
 
 .github/workflows/reports.yml runs this when the ontology changes on main, and proposes the
@@ -30,10 +30,10 @@ order move - so regenerating and diffing would always find a difference that mea
 
 What each tool is given, and why:
 
-WIDOCO documents serializations/ontogsn.ttl, the hand-maintained source. It always names its
+WIDOCO documents ontology/serializations/ontogsn.ttl, the hand-maintained source. It always names its
 page index-en.html, and a copy is saved as index.html so that /documentation/ serves it.
 
-OOPS! reads RDF/XML only. It is given serializations/ontogsn.rdf with the ontology node
+OOPS! reads RDF/XML only. It is given ontology/serializations/ontogsn.rdf with the ontology node
 retyped, by the function oops_check.py uses for the same reason: written the way rdflib
 writes it, that node makes OOPS! report P38 and P39 against an ontology that declares both.
 Its command line writes Turtle whose resource names are random UUIDs, so what is published
@@ -46,7 +46,7 @@ does the IRI resolve, does it negotiate content, does the version IRI resolve, i
 registered - and a file cannot answer them. The IRI serves main through
 raw.githubusercontent.com, which caches for five minutes, so the published copies are first
 compared with the files here, and the run waits (--wait) or stops rather than assess the
-version before this one. --file assesses serializations/ontogsn.ttl instead, 15 checks, to
+version before this one. --file assesses ontology/serializations/ontogsn.ttl instead, 15 checks, to
 preview a change that is not on main yet. What the published ontology scores also depends
 on things no build.json records - a registry entry, a licence URL that resolves - and
 --force re-assesses it.
@@ -69,14 +69,14 @@ import ttl_model
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-ONTOLOGY_TTL = "serializations/ontogsn.ttl"
-ONTOLOGY_RDF = "serializations/ontogsn.rdf"
+ONTOLOGY_TTL = "ontology/serializations/ontogsn.ttl"
+ONTOLOGY_RDF = "ontology/serializations/ontogsn.rdf"
 ONTOLOGY_IRI = "https://w3id.org/OntoGSN/ontology"
 
 # what the IRI serves for each Accept header, and the file here it has to equal
-PUBLISHED = [("text/turtle", "serializations/ontogsn.ttl"),
-             ("application/rdf+xml", "serializations/ontogsn.rdf"),
-             ("application/ld+json", "serializations/ontogsn.jsonld")]
+PUBLISHED = [("text/turtle", "ontology/serializations/ontogsn.ttl"),
+             ("application/rdf+xml", "ontology/serializations/ontogsn.rdf"),
+             ("application/ld+json", "ontology/serializations/ontogsn.jsonld")]
 POLL_SECONDS = 30
 
 # Bump when a page template or the content of a report changes, so that every report is

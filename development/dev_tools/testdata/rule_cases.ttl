@@ -1,4 +1,4 @@
-# One minimal trigger per SWRL rule, for the queries in queries/rules/.
+# One minimal trigger per SWRL rule, for the queries in ontology/queries/rules/.
 #
 # Loaded on top of example_case.ttl. That case already fires most of the rules; this file
 # adds a small, isolated scenario for each of the ones it does not, so that every rule
@@ -394,7 +394,7 @@ rc:G54inner gsn:inModule rc:M54inner .
 #    development/dev_tools/query_check.py verifies each rule against a fresh store, so a rule whose premise
 #    another rule derives would never fire and would look broken. These are the facts S53 and
 #    S54 produce from the two fixtures, stated here so that the fourteen rules that depend on
-#    them can each be exercised alone. example/run_rules.py derives the same set for itself and
+#    them can each be exercised alone. ontology/example/run_rules.py derives the same set for itself and
 #    adds nothing, which is the check that this block has not drifted.
 #################################################################
 

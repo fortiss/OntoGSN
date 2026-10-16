@@ -179,7 +179,7 @@ gsndesign:formalism rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
     rdfs:label "formalism"@en ;
     skos:definition "The language a decision expressed itself in, or a stored query is written in."@en ;
     skos:note "On the decision rather than the statement, so that decisions producing no statement can still say which language they declined to work in."@en ;
-    skos:note "Carries no rdfs:domain. It applies to a gsndesign:DesignDecision and to a gsndesign:Query, and those two have nothing in common worth naming - a query is a plan, a decision is an activity. Asserting either one as the domain would make a reasoner type the other as it, which is worse than saying nothing: rdfs:domain licenses an inference, it does not impose a constraint. The intended domain is stated here, and shapes/ is where it would be enforced if it ever needed to be."@en .
+    skos:note "Carries no rdfs:domain. It applies to a gsndesign:DesignDecision and to a gsndesign:Query, and those two have nothing in common worth naming - a query is a plan, a decision is an activity. Asserting either one as the domain would make a reasoner type the other as it, which is worse than saying nothing: rdfs:domain licenses an inference, it does not impose a constraint. The intended domain is stated here, and ontology/shapes/ is where it would be enforced if it ever needed to be."@en .
 
 ###  https://w3id.org/OntoGSN/design#part
 gsndesign:part rdf:type owl:ObjectProperty , owl:FunctionalProperty ;
@@ -375,7 +375,7 @@ gsndesign:ruleName rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:range xsd:string ;
     rdfs:label "rule name"@en ;
     skos:definition "The SWRL rule's own name, taken from its rdfs:label in the ontology - 'Assumption Invalidation', 'Cross-Module Support'."@en ;
-    skos:note "The descriptive name is the only identifier a rule carries in the ontology: nothing there records the S1 to S52 numbering the rules were catalogued under. That numbering survives in the file names of queries/rules/, so a rule is joined to its SPARQL translation by name, never by number."@en .
+    skos:note "The descriptive name is the only identifier a rule carries in the ontology: nothing there records the S1 to S52 numbering the rules were catalogued under. That numbering survives in the file names of ontology/queries/rules/, so a rule is joined to its SPARQL translation by name, never by number."@en .
 
 ###  https://w3id.org/OntoGSN/design#fileChecksum
 gsndesign:fileChecksum rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;

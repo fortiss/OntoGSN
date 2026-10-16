@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Map each design-document row onto a statement in serializations/ontogsn.ttl.
+"""Map each design-document row onto a statement in ontology/serializations/ontogsn.ttl.
 
 The document's "Simplified Item in Ontology" column is an informal Manchester-like
 shorthand ('Goal inContextOf only (Assumption or Context)'). This module parses it

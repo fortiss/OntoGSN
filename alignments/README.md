@@ -54,7 +54,7 @@ gsn:supportedBy rdfs:subPropertyOf argo:isSupportedBy .
 gsn:challenges  rdfs:subPropertyOf argo:opposes .
 ```
 
-The alignment graph asserts them. The file `serializations/ontogsn.ttl` never does. OntoGSN is
+The alignment graph asserts them. The file `ontology/serializations/ontogsn.ttl` never does. OntoGSN is
 a faithful rendering of the GSN Community Standard v3 and is the source of truth for it. A
 claim about ARGO is not a claim that the standard makes. There is a second reason. A consumer
 that uses only GSN never loads BFO and CCO, because nothing in the repository imports this
@@ -161,7 +161,7 @@ Four points are open.
 
 | Question | Status |
 | :--- | :--- |
-| Where the rules live, and in what formalism | SPARQL CONSTRUCT in `alignments/rules/`, matching `queries/rules`, is the obvious answer. Settle the step rule first. A fan-in through a strategy is two hops and one without is one hop, and both must produce the same step |
+| Where the rules live, and in what formalism | SPARQL CONSTRUCT in `alignments/rules/`, matching `ontology/queries/rules`, is the obvious answer. Settle the step rule first. A fan-in through a strategy is two hops and one without is one hop, and both must produce the same step |
 | Whether the `argo:supposition` rule interacts badly with `gsn:ContextInheritance` | Accepted risk under `dd-0007`. One fixture is worth writing |
 | Whether a step with no premises (`dd-0019`) is tolerable in the long term | That depends on whether anything queries the ARGO view. The limitation is scoped to version 0.1.0 so that a later version can lift it cleanly |
 | Whether a fixture exercises the alignment, as `development/dev_tools/testdata/` does for the rules | Not before the rules exist, because there is nothing to populate yet |

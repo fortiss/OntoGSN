@@ -47,23 +47,23 @@ produce and re-derive, would become unverifiable if they were separated from it.
 
 | Hand-maintained | |
 | :--- | :--- |
-| `serializations/ontogsn.ttl` | the ontology |
-| `shapes/ontogsn-shapes_[1-5]*.ttl` | the five SHACL sections |
+| `ontology/serializations/ontogsn.ttl` | the ontology |
+| `ontology/shapes/ontogsn-shapes_[1-5]*.ttl` | the five SHACL sections |
 | `development/design/ontogsn-design.ttl` | the design-record vocabulary |
 | `development/design/ontogsn-design-data.ttl` | **the design record** — ~36,000 words of quoted standard passages, rationale and prose that exist nowhere else |
-| `development/design/Competency Questions.xlsx` | the questions `queries/` and `augmentation/queries/` answer |
-| `queries/*.rq` | the stored CRUD queries, one per competency question |
-| `queries/rules/*.rq` | the 51 SWRL rules as SPARQL updates |
-| `example/example_case.ttl` | the example ABox the queries and checks run against |
+| `development/design/Competency Questions.xlsx` | the questions `ontology/queries/` and `augmentation/queries/` answer |
+| `ontology/queries/*.rq` | the stored CRUD queries, one per competency question |
+| `ontology/queries/rules/*.rq` | the 51 SWRL rules as SPARQL updates |
+| `ontology/example/example_case.ttl` | the example ABox the queries and checks run against |
 | `development/dev_tools/testdata/*.ttl` | one trigger per rule, and the recorded baselines |
 
 | Generated | From | By |
 | :--- | :--- | :--- |
-| `serializations/ontogsn.{rdf,jsonld}` | `ontogsn.ttl` | `development/dev_tools/build.py` |
-| `serializations/separated/*` (36 files) | `ontogsn.ttl` | `development/dev_tools/build_separated.py` |
-| `shapes/ontogsn-shapes_0_full.ttl` | the five sections | `development/dev_tools/build_full.py` |
+| `ontology/serializations/ontogsn.{rdf,jsonld}` | `ontogsn.ttl` | `development/dev_tools/build.py` |
+| `ontology/serializations/separated/*` (36 files) | `ontogsn.ttl` | `development/dev_tools/build_separated.py` |
+| `ontology/shapes/ontogsn-shapes_0_full.ttl` | the five sections | `development/dev_tools/build_full.py` |
 | `development/design/ontogsn-design-augmentations.ttl` | the repo, and the record it links into | `development/dev_tools/prov_augment.py` |
-| `development/design/ontogsn-design-queries.ttl` | `queries/`, the ontology, the fixture | `development/dev_tools/query_check.py` |
+| `development/design/ontogsn-design-queries.ttl` | `ontology/queries/`, the ontology, the fixture | `development/dev_tools/query_check.py` |
 | `development/design/Design Documentation.xlsx` | the design record | `development/dev_tools/prov_to_workbook.py` |
 | `docs/documentation/` | `ontogsn.ttl` | WIDOCO, run by `development/dev_tools/reports.py` |
 | `docs/evaluation/oops/` | `ontogsn.rdf` | OOPS!, run by `development/dev_tools/reports.py` |
@@ -79,8 +79,8 @@ before committing.
 ```
 check_all.py       every check, one command
 query_check.py     the stored queries vs an actual SPARQL engine
-example/run_rules.py   apply queries/rules/ to a case until nothing more is derived (user-facing, so it lives in example/)
-shacl_check.py     the fixtures vs shapes/, before and after the rules run
+ontology/example/run_rules.py   apply ontology/queries/rules/ to a case until nothing more is derived (user-facing, so it lives in ontology/example/)
+shacl_check.py     the fixtures vs ontology/shapes/, before and after the rules run
 reasoner_check.py  the ontology and the fixtures vs an OWL-DL reasoner (needs a JVM)
 oops_check.py      the ontology vs the OOPS! pitfall scanner (needs the network)
 reports.py         regenerate the WIDOCO, OOPS! and FOOPS! reports the website publishes
@@ -91,7 +91,7 @@ prov_augment.py    rebuild the requirements / questions / queries / build-chain 
 prov_to_workbook.py  rebuild the readable spreadsheet
 prov_ttl.py        deterministic Turtle writer (rdflib's ordering is not stable)
 ttl_model.py       ontogsn.ttl -> a flat inventory of statements and rules
-shapes_model.py    shapes/*.ttl -> a flat inventory of constraints
+shapes_model.py    ontology/shapes/*.ttl -> a flat inventory of constraints
 matching.py        normalisation, checksums, structural keys, and which formalism a
                    statement is in
 nl.py              a statement -> an English sentence
@@ -129,9 +129,9 @@ axiom is gone), `undocumented` (the new one has no decision), and `release-edite
 
 ## Stored queries
 
-`queries/` holds one SPARQL file per competency question; `queries/rules/` holds the 51
+`ontology/queries/` holds one SPARQL file per competency question; `ontology/queries/rules/` holds the 51
 SWRL rules as SPARQL updates. Both are verified by executing them against
-`serializations/ontogsn.ttl` and the fixtures in `development/dev_tools/testdata/`, in Oxigraph:
+`ontology/serializations/ontogsn.ttl` and the fixtures in `development/dev_tools/testdata/`, in Oxigraph:
 
 ```bash
 python development/dev_tools/query_check.py            # verify what changed, update the record
@@ -152,7 +152,7 @@ record.
 To apply the rules to a case:
 
 ```bash
-python example/run_rules.py mycase.ttl --out mycase-materialised.ttl
+python ontology/example/run_rules.py mycase.ttl --out mycase-materialised.ttl
 ```
 
 ## The two checks that leave the repository
@@ -193,7 +193,7 @@ the malformed banner, where the expectation is *consistent*, and whole, where it
 rule that mints an individual is dropped with a warning — `SupportRelationCreation`,
 `ContextRelationCreation`, `ChallengeRelationCreation`, the four confidence-relation rules
 and two others. Those are exactly the rules the SWRLAPI's Drools engine covered in Protégé,
-and exactly the ones `queries/rules/` executes here. The baseline lists them so the gap is
+and exactly the ones `ontology/queries/rules/` executes here. The baseline lists them so the gap is
 visible; a rule joining or leaving that list is a finding about the rule set.
 
 `oops_check.py` rewrites the ontology node as a typed `<owl:Ontology>` element before
@@ -209,8 +209,8 @@ in the check.
 
 | Report | Tool | Written to | Made from |
 | :--- | :--- | :--- | :--- |
-| Documentation | [WIDOCO](https://github.com/dgarijo/Widoco) 1.4.25 | `docs/documentation/` | `serializations/ontogsn.ttl` |
-| Pitfall scan | [OOPS!](https://github.com/oeg-upm/OOPS) 0.3.0-SNAPSHOT | `docs/evaluation/oops/` | `serializations/ontogsn.rdf` |
+| Documentation | [WIDOCO](https://github.com/dgarijo/Widoco) 1.4.25 | `docs/documentation/` | `ontology/serializations/ontogsn.ttl` |
+| Pitfall scan | [OOPS!](https://github.com/oeg-upm/OOPS) 0.3.0-SNAPSHOT | `docs/evaluation/oops/` | `ontology/serializations/ontogsn.rdf` |
 | FAIR assessment | [FOOPS!](https://github.com/oeg-upm/fair_ontologies) 0.4.0 | `docs/evaluation/foops/` | the ontology at `https://w3id.org/OntoGSN/ontology` |
 
 `.github/workflows/reports.yml` runs it when the ontology changes on `main`, and opens a

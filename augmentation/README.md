@@ -21,7 +21,7 @@ domain or range.
 python development/dev_tools/augmentation_check.py
 ```
 
-Standalone on purpose. `development/dev_tools/check_all.py` globs `serializations/`, `shapes/` and `queries/`, so it
+Standalone on purpose. `development/dev_tools/check_all.py` globs `ontology/serializations/`, `ontology/shapes/` and `ontology/queries/`, so it
 never sees this directory — the augmentation cannot break the core checks.
 
 ## The three groups
@@ -149,7 +149,7 @@ This is why the file carries one axiom whose subject is a `gsn:` term:
 gsn:Artefact rdfs:subClassOf prov:Entity .
 ```
 
-Asserted here and never in `serializations/ontogsn.ttl` — same call, for the same reason, as the two
+Asserted here and never in `ontology/serializations/ontogsn.ttl` — same call, for the same reason, as the two
 `gsn:` axioms in `alignments/gsnalign.ttl`. Without it the three subproperties have a domain of
 `gsn:Artefact` under superproperties whose domain is `prov:Entity`, and a PROV-aware consumer sees
 nothing.

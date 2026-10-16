@@ -1,14 +1,14 @@
 # Stored queries
 
 CRUD SPARQL for a graph database holding an assurance case built on
-[`serializations/ontogsn.ttl`](../serializations/ontogsn.ttl). One file per competency
+[`ontology/serializations/ontogsn.ttl`](../serializations/ontogsn.ttl). One file per competency
 question; the question itself is in the file's header, and the same set is tabulated in
 [`development/design/Competency Questions.xlsx`](../development/design/Competency%20Questions.xlsx) - on
 the "Competency Questions" sheet where a compliance process asks the question, and on
 "Extra" otherwise.
 
 [`rules/`](rules/) holds all 51 SWRL rules of
-[`serializations/ontogsn.ttl`](../serializations/ontogsn.ttl) as SPARQL updates, for stores
+[`ontology/serializations/ontogsn.ttl`](../serializations/ontogsn.ttl) as SPARQL updates, for stores
 with no reasoner attached.
 
 ## Using them
@@ -24,7 +24,7 @@ VALUES ?goalId { "G1" }             # PARAMETER: the goal to trace
 ?goal schema:identifier ?goalId .
 ```
 
-The defaults point at [`example/example_case.ttl`](../example/example_case.ttl),
+The defaults point at [`ontology/example/example_case.ttl`](../example/example_case.ttl),
 so every query runs as-is and returns something.
 
 Boolean decorators are matched with `FILTER(STR(?flag) = "true")`, which works whether the
@@ -106,10 +106,10 @@ can be read side by side.
 Run them with:
 
 ```bash
-python example/run_rules.py mycase.ttl --out mycase-materialised.ttl
-python example/run_rules.py mycase.ttl --dry-run           # what would each rule derive?
-python example/run_rules.py mycase.ttl --only S1,S16,S47
-python example/run_rules.py mycase.ttl --section "Dialectic Extension"
+python ontology/example/run_rules.py mycase.ttl --out mycase-materialised.ttl
+python ontology/example/run_rules.py mycase.ttl --dry-run           # what would each rule derive?
+python ontology/example/run_rules.py mycase.ttl --only S1,S16,S47
+python ontology/example/run_rules.py mycase.ttl --section "Dialectic Extension"
 ```
 
 Each rule derives one step, so `run_rules.py` applies the whole set repeatedly until a pass

@@ -125,8 +125,8 @@ def draft(graph, record, labels, uid, position, section_iri, part_iri, known):
     # Looked up, not hardcoded. The release node carries its version in its IRI, so it is
     # renamed at every release; a literal here goes stale silently and points new records at
     # a graph that no longer exists.
-    in_graph = release_node(graph, "shapes/ontogsn-shapes_0_full.ttl"
-                            if text.startswith("gsnsh:") else "serializations/ontogsn.ttl")
+    in_graph = release_node(graph, "ontology/shapes/ontogsn-shapes_0_full.ttl"
+                            if text.startswith("gsnsh:") else "ontology/serializations/ontogsn.ttl")
     st_pairs = [("a", ["gsndesign:StatementRecord"]),
                 ("prov:wasGeneratedBy", [decision]),
                 ("gsndesign:inGraph", [in_graph]),

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate serializations/separated/ from ontogsn.ttl.
+"""Regenerate ontology/serializations/separated/ from ontogsn.ttl.
 
     python development/dev_tools/build_separated.py            # rewrite the 36 derived files
     python development/dev_tools/build_separated.py --check    # fail if they are out of date (CI)
@@ -59,7 +59,7 @@ from rdflib import BNode, Graph, Literal, Namespace, RDF, RDFS, URIRef
 from rdflib.namespace import OWL
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-HERE = os.path.join(REPO, "serializations")
+HERE = os.path.join(REPO, "ontology", "serializations")
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import build                                  # canonical(), serialize()

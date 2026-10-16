@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Verify that every stored query in queries/ still executes, and record that it did.
+"""Verify that every stored query in ontology/queries/ still executes, and record that it did.
 
     python development/dev_tools/query_check.py            # verify what changed, update the record
     python development/dev_tools/query_check.py --all      # re-verify everything
@@ -14,7 +14,7 @@ exist? That last one is the failure this directory was rewritten to fix - a quer
 gsn:Evidence or gsn:Model returns nothing at all, silently and forever, and no amount of
 running it will say so. Static checks are cheap and always run.
 
-The DYNAMIC check loads serializations/ontogsn.ttl and the example ABox into an in-memory
+The DYNAMIC check loads ontology/serializations/ontogsn.ttl and the example ABox into an in-memory
 Oxigraph store and executes the query against it: reads must return rows, writes must
 change the store in the direction they claim. That is the expensive part, so it is not
 re-run for a query nothing has touched.
@@ -47,11 +47,11 @@ from rdflib import RDF, RDFS, URIRef
 SWRL_IMP = URIRef("http://www.w3.org/2003/11/swrl#Imp")
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-QUERY_DIR = os.path.join(REPO, "queries")
+QUERY_DIR = os.path.join(REPO, "ontology", "queries")
 TESTDATA = os.path.join(REPO, "development", "dev_tools", "testdata")
-FIXTURE = os.path.join(REPO, "example", "example_case.ttl")
+FIXTURE = os.path.join(REPO, "ontology", "example", "example_case.ttl")
 RULE_FIXTURE = os.path.join(TESTDATA, "rule_cases.ttl")
-ONTOLOGY = os.path.join(REPO, "serializations", "ontogsn.ttl")
+ONTOLOGY = os.path.join(REPO, "ontology", "serializations", "ontogsn.ttl")
 RECORD = os.path.join(REPO, "development", "design", "ontogsn-design-queries.ttl")
 
 FIXTURES = [FIXTURE, RULE_FIXTURE]

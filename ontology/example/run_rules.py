@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Apply queries/rules/ to an assurance case until nothing more can be derived.
+"""Apply ontology/queries/rules/ to an assurance case until nothing more can be derived.
 
-    python example/run_rules.py case.ttl --out case-materialised.ttl
-    python example/run_rules.py case.ttl --dry-run          # what would each rule add?
-    python example/run_rules.py case.ttl --only S1,S16,S47
-    python example/run_rules.py case.ttl --section "Dialectic Extension"
+    python ontology/example/run_rules.py case.ttl --out case-materialised.ttl
+    python ontology/example/run_rules.py case.ttl --dry-run          # what would each rule add?
+    python ontology/example/run_rules.py case.ttl --only S1,S16,S47
+    python ontology/example/run_rules.py case.ttl --section "Dialectic Extension"
 
-With no input file it runs over example/example_case.ttl and development/dev_tools/testdata/,
+With no input file it runs over ontology/example/example_case.ttl and development/dev_tools/testdata/,
 which is how the rule set is smoke-tested.
 
 Each rule is one SPARQL update and derives one step. Running them once is not the same as
@@ -28,10 +28,10 @@ import os
 import re
 import sys
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RULE_DIR = os.path.join(REPO, "queries", "rules")
-ONTOLOGY = os.path.join(REPO, "serializations", "ontogsn.ttl")
-EXAMPLE = os.path.join(REPO, "example", "example_case.ttl")
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+RULE_DIR = os.path.join(REPO, "ontology", "queries", "rules")
+ONTOLOGY = os.path.join(REPO, "ontology", "serializations", "ontogsn.ttl")
+EXAMPLE = os.path.join(REPO, "ontology", "example", "example_case.ttl")
 TESTDATA = os.path.join(REPO, "development", "dev_tools", "testdata")
 
 HEADER_RE = re.compile(r"(?m)^#\s+(\w+):\s+(.*)$")

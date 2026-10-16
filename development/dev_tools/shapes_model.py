@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Read shapes/ontogsn-shapes_[1-5]*.ttl as a flat inventory of constraints.
+"""Read ontology/shapes/ontogsn-shapes_[1-5]*.ttl as a flat inventory of constraints.
 
 The design workbook records one row per decision, so the shapes are flattened to the
 same granularity: a named node shape, one `sh:property` block, or one `sh:sparql`
@@ -17,7 +17,7 @@ GSN = Namespace("https://w3id.org/OntoGSN/ontology#")
 GSNSH = Namespace("https://w3id.org/OntoGSN/shapes#")
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SHAPES_DIR = os.path.join(REPO, "shapes")
+SHAPES_DIR = os.path.join(REPO, "ontology", "shapes")
 SOURCES = sorted(glob.glob(os.path.join(SHAPES_DIR, "ontogsn-shapes_[1-5]*.ttl")))
 
 PREFIXES = {

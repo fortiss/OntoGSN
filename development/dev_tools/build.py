@@ -26,7 +26,7 @@ from rdflib import RDF, BNode, Graph
 from rdflib.compare import to_isomorphic
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-HERE = os.path.join(REPO, "serializations")
+HERE = os.path.join(REPO, "ontology", "serializations")
 SOURCE = os.path.join(HERE, "ontogsn.ttl")
 
 # derived file -> rdflib serializer

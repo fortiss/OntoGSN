@@ -31,7 +31,7 @@ record, so the executable shape stays executable.
 | `ontogsn-shapes_4_confidence.ttl` | Confidence Argument Extension | `https://w3id.org/OntoGSN/shapes/confidence` |
 | `ontogsn-shapes_5_dialectic.ttl` | Dialectic Extension | `https://w3id.org/OntoGSN/shapes/dialectic` |
 
-The naming mirrors [`serializations/separated/`](../serializations/separated/README.md).
+The naming mirrors [`ontology/serializations/separated/`](../serializations/separated/README.md).
 
 The five per-section files are the source of truth. `ontogsn-shapes_0_full.ttl` is **generated** by concatenating them — regenerate it after any edit:
 
@@ -65,8 +65,8 @@ The shapes use `sh:class`, which walks `rdfs:subClassOf*`. **The ontology must t
 With [pySHACL](https://github.com/RDFLib/pySHACL):
 
 ```sh
-pyshacl -s shapes/ontogsn-shapes_0_full.ttl \
-        -e serializations/ontogsn.ttl \
+pyshacl -s ontology/shapes/ontogsn-shapes_0_full.ttl \
+        -e ontology/serializations/ontogsn.ttl \
         -a -f human \
         my-assurance-case.ttl
 ```

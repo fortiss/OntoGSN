@@ -13,8 +13,8 @@ on:
   push:
     branches: [main]
     paths:
-      - serializations/ontogsn.ttl
-      - serializations/ontogsn.rdf
+      - ontology/serializations/ontogsn.ttl
+      - ontology/serializations/ontogsn.rdf
       - development/dev_tools/reports.py
       - development/dev_tools/oops_check.py
       - .github/workflows/reports.yml
@@ -172,10 +172,10 @@ jobs:
           commit-message: |
             Regenerate the website reports
 
-            From serializations/ontogsn.ttl at ${{ github.sha }}, by the reports workflow.
+            From ontology/serializations/ontogsn.ttl at ${{ github.sha }}, by the reports workflow.
           title: Regenerate the website reports
           body: |
-            The reports workflow regenerated the website reports from `serializations/ontogsn.ttl` at ${{ github.sha }}.
+            The reports workflow regenerated the website reports from `ontology/serializations/ontogsn.ttl` at ${{ github.sha }}.
 
             | Report | Folder | Result |
             | :--- | :--- | :--- |

@@ -212,7 +212,7 @@ A control that exists is not a control that works. Give each control two claims.
 control is designed and implemented, and cites evidence drawn from the system. The other claims
 the control operated effectively over a period, and cites the result of a test or a review.
 
-A pattern for this is in `example/patterns/control-design-and-effectiveness.ttl`. It has one
+A pattern for this is in `ontology/example/patterns/control-design-and-effectiveness.ttl`. It has one
 top goal in context, a strategy over the controls a requirement asks for, an optional
 decomposition over the scope of each control, and the two claims at the bottom. Mark the two
 claims with `gsnaug:tag "design-and-implementation"` and `gsnaug:tag "test-of-effectiveness"`.

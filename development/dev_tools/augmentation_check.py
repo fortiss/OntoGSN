@@ -18,7 +18,7 @@ those by hand.
 The derivations in derivations/ run with the rules but are not twinned: they walk RDF lists,
 which SWRL cannot, so they exist in SPARQL only and are kept out of the twin count.
 
-Deliberately standalone. development/dev_tools/check_all.py globs serializations/, shapes/ and queries/, so it
+Deliberately standalone. development/dev_tools/check_all.py globs ontology/serializations/, ontology/shapes/ and ontology/queries/, so it
 never sees this directory - which is the point: the augmentation must not be able to break the
 core checks.
 """
@@ -45,8 +45,8 @@ PROV = Namespace("http://www.w3.org/ns/prov#")
 ONTOLOGY = os.path.join(HERE, "ontogsn-augmentation.ttl")
 SHAPES = os.path.join(HERE, "shapes", "ontogsn-augmentation-shapes.ttl")
 FIXTURE = os.path.join(HERE, "testdata", "example_issues.ttl")
-CORE = os.path.join(REPO, "serializations", "ontogsn.ttl")
-CORE_RULES = os.path.join(REPO, "queries", "rules")
+CORE = os.path.join(REPO, "ontology", "serializations", "ontogsn.ttl")
+CORE_RULES = os.path.join(REPO, "ontology", "queries", "rules")
 AUG_RULES = os.path.join(HERE, "rules")
 DERIVATIONS = os.path.join(HERE, "derivations")
 

@@ -26,7 +26,7 @@ If you wish to add an augmentation to OntoGSN, please create a separate ontology
 
 ## Adding or changing an axiom
 
-The `serializations/ontogsn.ttl` is the core file containing the axioms. Every axiom in the ontology has a design decision recorded against it: which passage of the GSN Community Standard v3 it came from, and why it is interpreted in such a way in OntoGSN. Before making a change to any axiom, please review its design decision. 
+The `ontology/serializations/ontogsn.ttl` is the core file containing the axioms. Every axiom in the ontology has a design decision recorded against it: which passage of the GSN Community Standard v3 it came from, and why it is interpreted in such a way in OntoGSN. Before making a change to any axiom, please review its design decision. 
 
 If you are adding an axiom, add the reasoning using `python development/dev_tools/prov_add.py --write`. If you are modifying an existing axiom, add your comment to the design decision. If you are *removing* an axiom, retire its decision rather than deleting it.
 
@@ -42,9 +42,9 @@ Local checks ensure that everything is current and consistent: derived serializa
 
 | If you change... | ...regenerate with |
 | :--- | :--- |
-| `serializations/ontogsn.ttl` | `development/dev_tools/build.py` and `development/dev_tools/build_separated.py` |
-| any of `shapes/ontogsn-shapes_[1-5]*.ttl` | `development/dev_tools/build_full.py` |
-| anything in `queries/` | `development/dev_tools/query_check.py` |
+| `ontology/serializations/ontogsn.ttl` | `development/dev_tools/build.py` and `development/dev_tools/build_separated.py` |
+| any of `ontology/shapes/ontogsn-shapes_[1-5]*.ttl` | `development/dev_tools/build_full.py` |
+| anything in `ontology/queries/` | `development/dev_tools/query_check.py` |
 | `development/design/ontogsn-design-data.ttl` or `development/design/Competency Questions.xlsx` | `development/dev_tools/prov_augment.py` |
 
 Commit the regenerated files alongside your change. Never hand-edit a generated file.

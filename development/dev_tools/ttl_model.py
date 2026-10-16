@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Read serializations/ontogsn.ttl and expose it as a flat inventory of statements.
+"""Read ontology/serializations/ontogsn.ttl and expose it as a flat inventory of statements.
 
 The design document records one row per *axiom*, so this module flattens the graph
 to that same granularity:
@@ -24,7 +24,7 @@ SWRL = Namespace("http://www.w3.org/2003/11/swrl#")
 SCHEMA = Namespace("http://schema.org/")
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DEFAULT_TTL = os.path.join(REPO, "serializations", "ontogsn.ttl")
+DEFAULT_TTL = os.path.join(REPO, "ontology", "serializations", "ontogsn.ttl")
 
 QNAME_MAP = {
     str(GSN): "gsn:", str(RDFS): "rdfs:", str(OWL): "owl:", str(RDF): "rdf:",

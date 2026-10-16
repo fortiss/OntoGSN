@@ -1,13 +1,13 @@
 # id:        CQ-41
 # operation: delete
-# question:  How are the conclusions written by queries/rules/ cleared before re-running them?
+# question:  How are the conclusions written by ontology/queries/rules/ cleared before re-running them?
 # expect:    delete
 #
 # Only the four things nothing but a rule ever writes. gsn:valid, gsn:true, gsn:away,
 # gsn:top, gsn:public and gsn:contract are also set by hand, so clearing them would destroy
 # assertions; the reified relationships the rules mint cannot be told from hand-drawn ones.
 #
-# To keep derived and asserted apart, run example/run_rules.py --out on a copy instead of
+# To keep derived and asserted apart, run ontology/example/run_rules.py --out on a copy instead of
 # materialising in place.
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>

@@ -192,7 +192,7 @@ gsnaugdesign:src-0006
     gsndesign:quotedText """S52 Defeater Declaration: challenges(?A, ?B) -> Defeater(?A).
 S48 Challenge Doubt: challenges(?G, ?E) ^ true(?G, true) ^ Goal(?G) -> inDoubt(?E, true).
 S46 Challenge Defeat: valid(?S, true) ^ challenges(?S, ?E) ^ Solution(?S) -> defeated(?E, true)."""@en ;
-    gsnaugdesign:locator "queries/rules/s46, s48, s52" .
+    gsnaugdesign:locator "ontology/queries/rules/s46, s48, s52" .
 
 gsnaugdesign:src-0007
     a gsndesign:SourcePassage ;
@@ -502,7 +502,7 @@ gsnaugdesign:why-0023
     a gsndesign:Rationale ;
     gsndesign:rationaleText """Without this axiom the three PROV subproperties have a domain of gsn:Artefact under superproperties
 whose domain is prov:Entity, and nothing an artefact carries is visible to a PROV-aware consumer.
-It is asserted here and never in serializations/ontogsn.ttl for the reason the alignment gives for
+It is asserted here and never in ontology/serializations/ontogsn.ttl for the reason the alignment gives for
 its two gsn: axioms: OntoGSN is a faithful rendering of the GSN Community Standard v3, a claim about
 PROV-O is not a claim the standard makes, and a GSN-only consumer should not pull PROV into its
 closure."""@en .

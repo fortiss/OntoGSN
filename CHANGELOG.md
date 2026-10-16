@@ -1,14 +1,14 @@
 # Changelog
 
 The ontology-level view: what changed between two values of `owl:versionInfo` in
-`serializations/ontogsn.ttl`, for a reader who downloaded the TTL and never looks at this
+`ontology/serializations/ontogsn.ttl`, for a reader who downloaded the TTL and never looks at this
 repository. Repository-level changes live in the commit log; each `v*` git tag marks the
 **last commit at that version**, so `git diff v1.2.2 v1.2.3 -- serializations/ontogsn.ttl`
 shows exactly what a version changed. Entries up to 1.2.4 are reconstructed by hand from the
 commit log and `development/design/`; from the next release on, an entry is written when the version
 number moves.
 
-The SHACL shapes (`shapes/`) version independently, but a shapes release is only meaningful
+The SHACL shapes (`ontology/shapes/`) version independently, but a shapes release is only meaningful
 against an ontology version, so both are listed together.
 
 | Ontology | Date | Shapes | Breaking |
@@ -211,7 +211,7 @@ which rendered rule S52 (`challenges(?A,?B) → Defeater(?A)`) inert. Changed to
 
 Around this version the repository gained its checked artefacts: the SHACL shapes (1.0.0),
 the design record (`development/design/`), SPARQL translations of all 51 SWRL
-rules (`queries/rules/`), and the separated serializations. None of these changes the
+rules (`ontology/queries/rules/`), and the separated serializations. None of these changes the
 ontology itself.
 
 ---
@@ -226,5 +226,5 @@ ontology itself.
 ## Ontology 1.2 — 2025-07-10
 
 The earliest version whose artefact survives in this repository, added as
-`serializations/ontogsn.ttl`. Changes from 1.0 and 1.1 were never recorded and cannot be
+`ontology/serializations/ontogsn.ttl`. Changes from 1.0 and 1.1 were never recorded and cannot be
 reconstructed here.

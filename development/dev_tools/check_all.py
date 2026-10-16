@@ -38,17 +38,17 @@ CHECKS = [
     {"name": "derived serializations",
      "command": ["development/dev_tools/build.py", "--check"],
      "gating": True,
-     "triggers": ("serializations/ontogsn.ttl", "serializations/ontogsn.rdf",
-                  "serializations/ontogsn.jsonld", "development/dev_tools/build.py")},
+     "triggers": ("ontology/serializations/ontogsn.ttl", "ontology/serializations/ontogsn.rdf",
+                  "ontology/serializations/ontogsn.jsonld", "development/dev_tools/build.py")},
     {"name": "separated serializations",
      "command": ["development/dev_tools/build_separated.py", "--check"],
      "gating": True,
-     "triggers": ("serializations/ontogsn.ttl", "serializations/separated/",
+     "triggers": ("ontology/serializations/ontogsn.ttl", "ontology/serializations/separated/",
                   "development/dev_tools/build_separated.py")},
     {"name": "full SHACL shapes file",
      "command": ["development/dev_tools/build_full.py", "--check"],
      "gating": True,
-     "triggers": ("shapes/", "development/dev_tools/build_full.py")},
+     "triggers": ("ontology/shapes/", "development/dev_tools/build_full.py")},
     # Executes nothing: it recomputes each query's verification key and compares it with
     # development/design/ontogsn-design-queries.ttl. A stale key means a query nobody has
     # re-run since it, the ontology or the fixture changed - so it gates, and the fix is
@@ -56,8 +56,8 @@ CHECKS = [
     {"name": "stored queries verified",
      "command": ["development/dev_tools/query_check.py", "--check"],
      "gating": True,
-     "triggers": ("queries/", "example/", "development/dev_tools/testdata/", "development/dev_tools/query_check.py",
-                  "serializations/ontogsn.ttl",
+     "triggers": ("ontology/queries/", "ontology/example/", "development/dev_tools/testdata/", "development/dev_tools/query_check.py",
+                  "ontology/serializations/ontogsn.ttl",
                   "development/design/ontogsn-design-queries.ttl")},
     {"name": "design record",
      "command": ["development/dev_tools/prov_check.py"],
@@ -66,8 +66,8 @@ CHECKS = [
      # to any of them can invalidate it
      # "development/design/" also covers 'Competency Questions.xlsx', which lives there and is
      # the input prov_augment.py reads
-     "triggers": ("development/design/", "serializations/ontogsn.ttl", "shapes/",
-                  "queries/")},
+     "triggers": ("development/design/", "ontology/serializations/ontogsn.ttl", "ontology/shapes/",
+                  "ontology/queries/")},
     # The two below reach outside Python: one wants a JVM, the other wants oops.linkeddata.es
     # to be up. Both report SKIPPED and exit 0 when what they need is absent, and neither
     # gates - an ontology is not broken because a machine has no Java or a service is down.
@@ -77,13 +77,13 @@ CHECKS = [
      "command": ["development/dev_tools/reasoner_check.py", "--check"],
      "gating": False,
      "in_hook": False,
-     "triggers": ("serializations/ontogsn.ttl", "example/", "development/dev_tools/testdata/",
+     "triggers": ("ontology/serializations/ontogsn.ttl", "ontology/example/", "development/dev_tools/testdata/",
                   "development/dev_tools/reasoner_check.py")},
     {"name": "OOPS! pitfall scan",
      "command": ["development/dev_tools/oops_check.py", "--check"],
      "gating": False,
      "in_hook": False,
-     "triggers": ("serializations/ontogsn.rdf", "development/dev_tools/oops_check.py")},
+     "triggers": ("ontology/serializations/ontogsn.rdf", "development/dev_tools/oops_check.py")},
 ]
 
 

@@ -49,7 +49,7 @@ CQ_WORKBOOK = os.path.join(REPO, "development", "design", "Competency Questions.
 # process the vocabulary was built for; "Extra" carries the stored queries no question of
 # that process names. Both are competency questions, so both are recorded the same way.
 CQ_SHEETS = ("Competency Questions", "Extra")
-CORE_QUERY_DIR = os.path.join(REPO, "queries")
+CORE_QUERY_DIR = os.path.join(REPO, "ontology", "queries")
 QUERY_DIRS = (CORE_QUERY_DIR, os.path.join(REPO, "augmentation", "queries"))
 
 PROV_NS = "https://w3id.org/OntoGSN/design#"
@@ -89,7 +89,7 @@ def file_block(iri, path, extra=()):
 def query_name(path):
     """What a query is called in the record.
 
-    The queries under queries/ keep the bare name they have always had, so their IRIs do
+    The queries under ontology/queries/ keep the bare name they have always had, so their IRIs do
     not move; anything outside that directory is named by its path, which is also what
     keeps two directories from colliding on a file name.
     """
@@ -209,8 +209,12 @@ def main():
         blocks.append((iri, pairs))
         # a question can take more than one query to answer, so the cell is a list
         for target in row.get("SPARQL Query File", "").split(";"):
-            if target.strip():
-                by_query.setdefault(target.strip(), []).append(iri)
+            target = target.strip()
+            # the workbook still cites the core queries by their pre-2026-10 path
+            if target.startswith("queries/"):
+                target = "ontology/" + target
+            if target:
+                by_query.setdefault(target, []).append(iri)
 
     # --- stored queries -------------------------------------------------------------
     paths = sorted(path for directory in QUERY_DIRS
@@ -226,7 +230,7 @@ def main():
         "what detects that it changed.\n\n"
         "Two links reach back into the ontology, and they are not the same strength.\n"
         "gsndesign:translatesStatement is an exact correspondence: the files under\n"
-        "queries/rules/ ARE the SWRL rules, re-expressed for a store with no reasoner, and\n"
+        "ontology/queries/rules/ ARE the SWRL rules, re-expressed for a store with no reasoner, and\n"
         "the join is the rule's name. gsndesign:restsOnStatement is weaker and derived: the\n"
         "axiom declaring each gsn: term the query names. Either way the target is a\n"
         "StatementRecord, so one hop further reaches why that axiom exists at all."))
@@ -273,10 +277,10 @@ def main():
     blocks.append(prov_ttl.header(
         "Generated files and what generates them",
         "A derived file with no generating activity is one nobody knows how to rebuild.\n"
-        "The slices under serializations/separated/ are exactly that, which is why they\n"
+        "The slices under ontology/serializations/separated/ are exactly that, which is why they\n"
         "appear here with prov:wasDerivedFrom but no prov:wasGeneratedBy."))
 
-    source_ttl = os.path.join(REPO, "serializations", "ontogsn.ttl")
+    source_ttl = os.path.join(REPO, "ontology", "serializations", "ontogsn.ttl")
     blocks.append(file_block("gsndesign:file-ontogsn-ttl", source_ttl, [
         ("gsndesign:declaredVersion", [Lit(declared_version(source_ttl) or "unknown")]),
         ("prov:specializationOf", ["<https://w3id.org/OntoGSN/ontology>"]),
@@ -284,7 +288,7 @@ def main():
 
     derived = []
     for name in ("ontogsn.rdf", "ontogsn.jsonld"):
-        path = os.path.join(REPO, "serializations", name)
+        path = os.path.join(REPO, "ontology", "serializations", name)
         iri = "gsndesign:file-" + slug(name)
         derived.append(iri)
         blocks.append(file_block(iri, path, [
@@ -305,7 +309,7 @@ def main():
         ("gsndesign:path", [Lit("development/dev_tools/build.py")]),
     ]))
 
-    sections = sorted(glob.glob(os.path.join(REPO, "shapes",
+    sections = sorted(glob.glob(os.path.join(REPO, "ontology", "shapes",
                                              "ontogsn-shapes_[1-5]*.ttl")))
     section_iris = []
     for path in sections:
@@ -315,7 +319,7 @@ def main():
             ("gsndesign:declaredVersion", [Lit(declared_version(path) or "unknown")]),
             ("prov:wasDerivedFrom", ["gsndesign:file-ontogsn-ttl"]),
         ]))
-    full = os.path.join(REPO, "shapes", "ontogsn-shapes_0_full.ttl")
+    full = os.path.join(REPO, "ontology", "shapes", "ontogsn-shapes_0_full.ttl")
     blocks.append(file_block("gsndesign:file-ontogsn-shapes-0-full", full, [
         ("gsndesign:declaredVersion", [Lit(declared_version(full) or "unknown")]),
         ("prov:wasDerivedFrom", section_iris),
@@ -338,9 +342,9 @@ def main():
     # of it and owe it their version number. The shapes above are a different graph with
     # a version of their own, which is why they are derived from the ontology but not
     # specializations of it.
-    slices = sorted(glob.glob(os.path.join(REPO, "serializations", "separated",
+    slices = sorted(glob.glob(os.path.join(REPO, "ontology", "serializations", "separated",
                                            "*.ttl")) +
-                    glob.glob(os.path.join(REPO, "serializations", "separated",
+                    glob.glob(os.path.join(REPO, "ontology", "serializations", "separated",
                                            "*.jsonld")))
     slice_iris = []
     for path in slices:

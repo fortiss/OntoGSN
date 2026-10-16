@@ -15,7 +15,7 @@ import re
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-HERE = os.path.join(REPO, "shapes")
+HERE = os.path.join(REPO, "ontology", "shapes")
 
 MODULES = [
     ("ontogsn-shapes_1_core.ttl", "Core GSN"),
