@@ -9,8 +9,8 @@ domain or range.
 
 | File | Role |
 | :--- | :--- |
-| `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 7 SWRL rules |
-| `shapes/ontogsn-augmentation-shapes.ttl` | 15 SHACL shapes |
+| `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 9 SWRL rules |
+| `shapes/ontogsn-augmentation-shapes.ttl` | 20 SHACL shapes |
 | `HOW-TO.md` | the manual: how to use the vocabulary on a case, for what the vocabulary does not enforce |
 | `rules/*.rq` | a SPARQL twin of each SWRL rule, runnable without a reasoner |
 | `testdata/example_issues.ttl` | a minimal case exercising every rule branch |
@@ -100,8 +100,8 @@ challenges. Only `gsn:defeated` has to be asserted here, because **S46** derives
 | `A2a` / `A2b` | a revise issue against a goal / a solution becomes a true goal challenging it |
 | `A3a` / `A3b` | a resolve issue against a goal / a solution becomes a goal challenging it, and defeats it |
 | `A4` | a part of an artefact is verifiable with whatever its artefact is verifiable with |
-| `A6a` / `A6b` | a solution is true / not true when the mechanism that can verify its artefact left a conforming / failing report over it |
-| `A6c` / `A6d` | the same, when the report is over a part of the artefact: the mechanism that can verify the part left a conforming / failing report over the part |
+| `A6a` / `A6b` | a solution is true / not true when the newest report that the mechanism that can verify its artefact left over it conforms / fails |
+| `A6c` / `A6d` | the same, when the report is over a part of the artefact: the newest report the mechanism that can verify the part left over the part |
 
 A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express "a goal **or** a
 solution" in one rule. A6 is four rules for the same reason: the report is over the artefact or over a
@@ -123,8 +123,20 @@ the fixture over its artefact and keeps the report that the engine returns, plus
 timestamp. A mechanism that is a script needs a wrapper that writes the same form, or a person writes
 the report by hand. The fixture has one of each.
 
-The rules read every report. A newer report does not retire an older one with the opposite result, and
-a report without the two PROV links is ignored.
+The SPARQL twins carry two guards that the SWRL rules do not, in the way the core rule S10 does: each
+file marks them as not in the SWRL, and each deletes the old truth value before it writes the new one.
+The newest-report guard reads `prov:generatedAtTime`: a report counts only while no report from the
+same mechanism over the same target is later, so a re-run retires the run before it and the history
+stays in the graph. The composition guard, on A6a and A6c only: a conforming report confirms the
+solution only while no current report over the artefact or over a part of it fails. One failing check
+is enough, two mechanisms that disagree do not make the rules alternate, and no solution ends up both
+true and not true. A report without a timestamp is never retired and retires nothing;
+`gsnaugsh:ReportTimestampShape` warns about it, and `gsnaugsh:ReportConflictShape` names two reports
+from one mechanism over one target that disagree and that no timestamp puts in order. A report with
+`prov:invalidatedAtTime` or `prov:wasInvalidatedBy` is struck: the rules skip it and it retires nothing,
+so the report before it counts again. That is how a run that was wrong is taken out of the derivation
+without deleting it, and `gsnaugsh:ReportInvalidationShape` warns when the strike names no activity. A
+report without the two PROV links is ignored.
 
 ## PROV-O
 

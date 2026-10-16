@@ -232,6 +232,20 @@ ex:entry-1 a ex:AccessLogEntry ;
 
 ex:access-log gsnaug:verifiableWith ex:retention-shape , ex:expiry-rule .
 
+#  An earlier run of the retention shape failed, before the policy was attached to the log.
+#  The report stays: a case keeps its history. The run check.py makes now is later, so the
+#  newest-report guard in A6a and A6b retires this one, and Sn1 is true and not also untrue.
+
+ex:retention-report-0 a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+                sh:focusNode ex:entry-1 ;
+                sh:resultSeverity sh:Violation ;
+                sh:resultMessage "The log has no retention policy." ] ;
+    prov:wasGeneratedBy ex:retention-shape ;
+    prov:used ex:access-log ;
+    prov:generatedAtTime "2026-03-01T09:00:00Z"^^xsd:dateTime .
+
 ex:retention-shape a gsnaug:Mechanism , sh:NodeShape ;
     gsnaug:automated true ;
     sh:targetClass ex:AccessLogEntry ;
@@ -293,6 +307,22 @@ ex:note-check-report-1 a sh:ValidationReport ;
     prov:used ex:interview-note ;
     prov:generatedAtTime "2026-03-08T16:40:00Z"^^xsd:dateTime .
 
+#  A second check over the same note passes: the file exists. Its newest report conforms and
+#  the note check's newest report does not. Support is a composition, so the composition guard
+#  in A6a keeps Sn2 untrue: one failing check is enough, and the two rules do not alternate.
+
+ex:interview-note gsnaug:verifiableWith ex:note-exists .
+
+ex:note-exists a gsnaug:Mechanism ;
+    gsnaug:automated true ;
+    gsnaug:script "Test-Path interview-note.md -PathType Leaf" .
+
+ex:note-exists-report-1 a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy ex:note-exists ;
+    prov:used ex:interview-note ;
+    prov:generatedAtTime "2026-03-08T16:45:00Z"^^xsd:dateTime .
+
 #  Two solutions whose check ran over a part and not over the whole. The configuration export
 #  declares its mechanism on the whole, so the key inherits it by A4, and the conforming report
 #  over the key marks Sn3 true by A6c. The firewall rule declares its own mechanism, and the
@@ -319,6 +349,28 @@ ex:key-check-report-1 a sh:ValidationReport ;
     prov:wasGeneratedBy ex:key-check ;
     prov:used ex:config-export-key-7 ;
     prov:generatedAtTime "2026-03-08T17:05:00Z"^^xsd:dateTime .
+
+#  A later run of the key check failed, against the wrong file: a stale export. The report
+#  stays, struck: prov:wasInvalidatedBy names the review that found the mistake, and the rules
+#  skip it. It retires nothing, so the earlier conforming report counts again and Sn3 stays
+#  true. Striking is a hand step, and the hand that did it is on record.
+
+ex:key-check-report-2 a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+                sh:focusNode ex:config-export-key-7 ;
+                sh:resultSeverity sh:Violation ;
+                sh:resultMessage "No session_timeout key in the export." ] ;
+    prov:wasGeneratedBy ex:key-check ;
+    prov:used ex:config-export-key-7 ;
+    prov:generatedAtTime "2026-03-09T08:10:00Z"^^xsd:dateTime ;
+    prov:wasInvalidatedBy ex:strike-1 ;
+    prov:invalidatedAtTime "2026-03-09T09:00:00Z"^^xsd:dateTime .
+
+ex:strike-1 a prov:Activity ;
+    prov:wasAssociatedWith ex:officer-cara ;
+    prov:endedAtTime "2026-03-09T09:00:00Z"^^xsd:dateTime ;
+    schema:description "The run read config-export-2025.json, the stale export, not the current one." .
 
 ex:Sn4 a gsn:Solution ; schema:identifier "Sn4" ;
     gsn:statement "Firewall ruleset of the reporting system." ;

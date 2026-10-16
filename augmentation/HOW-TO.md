@@ -12,6 +12,8 @@ The examples use these prefixes:
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix prov:    <http://www.w3.org/ns/prov#> .
 @prefix schema:  <http://schema.org/> .
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 ```
 
 ## Register a mechanism
@@ -51,6 +53,72 @@ ex:note-check a gsnaug:Mechanism ;
 
 Stop there. What a tool or a package is, which version, and what it needs in turn, belongs to
 a domain ontology or to a software bill of materials. The augmentation holds the link only.
+
+## Record what a verification found
+
+`gsnaug:verifiableWith` says that a mechanism can check an artefact. What the check found is a
+report. Keep the report in the case graph. The rules A6a to A6d set the status of the solution
+from it. Do not set `gsn:true` on a solution by hand.
+
+A report is a `sh:ValidationReport`, the form every SHACL engine writes. The rules read three
+things off it:
+
+1. `sh:conforms`, true when the check passed and false when it failed.
+2. `prov:wasGeneratedBy`, the mechanism that ran.
+3. `prov:used`, the artefact or the artefact part that the mechanism ran over.
+
+Add `prov:generatedAtTime` as well, so that a reader can tell two reports over the same artefact
+apart. A report without the two PROV links proves nothing about the solution, and the rules
+ignore it.
+
+If the mechanism is a SHACL shape, the engine writes the report. Add the two links and the time
+to the report node, and load it with the case. `development/dev_tools/augmentation_check.py`
+does this for the test fixture and shows the three triples to add.
+
+If the mechanism is a script, a query or an interview, nothing writes the report. Write it by
+hand in the same form, or let a wrapper around the script write it. Put each finding in a
+`sh:result`, so that the report says what failed and not only that something did.
+
+```turtle
+ex:note-check-report-1 a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+                sh:focusNode ex:interview-note ;
+                sh:resultSeverity sh:Violation ;
+                sh:resultMessage "The note names no interviewee and no date." ] ;
+    prov:wasGeneratedBy ex:note-check ;
+    prov:used ex:interview-note ;
+    prov:generatedAtTime "2026-03-08T16:40:00Z"^^xsd:dateTime .
+```
+
+If the report conforms, the solution that refers to the artefact becomes `gsn:true true`. If it
+does not conform, the solution becomes `gsn:true false`. The core rules S10 and S11 carry the
+result to the goals above. A report over a part reaches the solution that refers to the whole
+artefact, see the section on parts of a file.
+
+If you run a check again, add the new report and keep the old one. The rules read the newest
+report from each mechanism over each artefact, by `prov:generatedAtTime`, and the older report
+stays in the graph as history. If two mechanisms check the same artefact, the solution is true
+only when the newest report of each one conforms. One failing check is enough.
+
+A report without a timestamp is never retired and retires nothing, and the shapes report a
+warning on it. If two reports from one mechanism over one artefact disagree and no timestamp
+puts one after the other, the failing one wins, and the shapes report both. Add the timestamps,
+or strike the report that no longer counts.
+
+If a run was wrong, for example because the check read the wrong file, do not delete its report
+and do not change its time. Strike it. Add `prov:wasInvalidatedBy` with the activity that struck
+it, and `prov:invalidatedAtTime`. The rules skip a struck report, and it retires nothing, so the
+report before it counts again. Name the person on the activity with `prov:wasAssociatedWith`. If
+a struck report names no activity, the shapes report a warning.
+
+```turtle
+ex:key-check-report-2 prov:wasInvalidatedBy ex:strike-1 ;
+    prov:invalidatedAtTime "2026-03-09T09:00:00Z"^^xsd:dateTime .
+ex:strike-1 a prov:Activity ;
+    prov:wasAssociatedWith ex:officer-cara ;
+    schema:description "The run read the stale export, not the current one." .
+```
 
 ## Declare the roles in your organization
 
@@ -233,7 +301,8 @@ ex:access-log-row-42 a gsnaug:ArtefactPart ; gsnaug:partOf ex:access-log .
 ```
 
 A report over the part confirms or refutes the solution that refers to the whole artefact, in
-the same way as a report over the whole. Link the report to the part with `prov:used`.
+the same way as a report over the whole. Link the report to the part with `prov:used`. The
+section on recording what a verification found says what else the report must carry.
 
 `gsnaug:partOf` is a `dcterms:isPartOf`. A tool that knows Dublin Core and not this vocabulary
 reads the relation.

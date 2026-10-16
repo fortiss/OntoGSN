@@ -13,7 +13,11 @@ Before the rules run, every mechanism in the fixture that is a SHACL shape is ru
 and the report it produces is kept in the graph, linked to the mechanism and the artefact. That
 is what A6a and A6b read: the status of a solution is derived from a report, not asserted.
 A6c and A6d read the same kind of report over a part of the artefact; the fixture carries two of
-those by hand.
+those by hand. The four rules read the newest report from each mechanism over each target, so
+the fixture also carries an earlier failing report from the same shape, which the run's newer
+report retires, a second mechanism over one artefact, whose passing report must not lift a
+solution that the other mechanism's report refutes, and a struck report, a later failing run
+that a review invalidated, which must neither count nor retire the run before it.
 
 The derivations in derivations/ run with the rules but are not twinned: they walk RDF lists,
 which SWRL cannot, so they exist in SPARQL only and are kept out of the twin count.
@@ -164,13 +168,15 @@ check(len(updates) > len(sparql_rules) + len(derivations),
       "no core rules were loaded - the augmentation rules would run in isolation")
 
 for round_number in range(1, 21):
-    size = len(data)
+    # Compared by content, not by size: a rule that deletes one value and inserts another
+    # leaves the size alone, and two such rules alternating would pass for a fixpoint.
+    snapshot = set(data)
     for name, text in updates:
         try:
             data.update(text)
         except Exception as error:                       # a rule that cannot run is a failure
             failures.append(f"{name}: {error}")
-    if len(data) == size:
+    if set(data) == snapshot:
         print(f"  fixpoint after {round_number} round(s); {before} -> {len(data)} triples")
         break
 else:
@@ -220,13 +226,19 @@ expected = [
     ("one failing solution under the goal makes it untrue",    (EX.G1, GSN.true, Literal(False)), True),
     ("the passing sibling does not lift the goal back",        (EX.G1, GSN.true, Literal(True)), False),
     ("a failing hand-written report makes the solution untrue", (EX.Sn2, GSN.true, Literal(False)), True),
-    ("a failing report does not also confirm",                 (EX.Sn2, GSN.true, Literal(True)), False),
-    ("a conforming report does not also refute",               (EX.Sn1, GSN.true, Literal(False)), False),
+    # The two guards that are not in the SWRL. The retention shape's earlier failing report
+    # over the access log is retired by the report this run made; and the second mechanism
+    # over the interview note passes, which does not lift a solution the first one refutes.
+    ("an older failing report is retired by the newer conforming one", (EX.Sn1, GSN.true, Literal(False)), False),
+    ("a conforming second check does not lift a refuted solution",    (EX.Sn2, GSN.true, Literal(True)), False),
     ("a goal with no checked solution under it is untouched",  (EX.G2, GSN.true, None), False),
     # A6c/A6d: a report over a part reaches the solution through the artefact it refers to.
     # The key's verifier is inherited by A4, so the chain A4 -> A6c needs a second round.
     ("a conforming report over a part makes the solution true",  (EX.Sn3, GSN.true, Literal(True)), True),
-    ("a conforming part report does not also refute",            (EX.Sn3, GSN.true, Literal(False)), False),
+    # The key check's later failing run is struck. Were it counted, Sn3 would be untrue; were
+    # it skipped but still the newest, it would retire the conforming run and Sn3 would have
+    # no status at all. Both tests are needed to tell the two mistakes apart.
+    ("a struck failing re-run does not refute",                  (EX.Sn3, GSN.true, Literal(False)), False),
     ("a failing report over a part makes the solution untrue",   (EX.Sn4, GSN.true, Literal(False)), True),
     ("a failing part report does not also confirm",              (EX.Sn4, GSN.true, Literal(True)), False),
     ("a part report leaves the whole artefact's status alone",   (EX["config-export"], GSN.true, None), False),
@@ -234,6 +246,11 @@ expected = [
 for name, triple, wanted in expected:
     found = (triple in data) if triple[2] is not None else bool(list(data.triples(triple)))
     check(found == wanted, name, f"{name} - expected {wanted}, got {found}")
+
+# A6 deletes the old value before it writes the new one, so no solution ends up both ways.
+two_valued = sorted(str(s).split("#")[-1] for s in data.subjects(RDF.type, GSN.Solution)
+                    if len(set(data.objects(s, GSN.true))) > 1)
+check(not two_valued, "no solution carries two truth values", f"two truth values on {two_valued}")
 
 # --------------------------------------------------------------------------- shapes
 
@@ -303,6 +320,10 @@ must_report = [
     ("a mechanism with two scripts",         BAD["mechanism-two-scripts"]),
     ("a mechanism that requires a word",     BAD["mechanism-needs-a-word"]),
     ("an element reviewed by its own owner", BAD["G3"]),
+    ("a report with no timestamp",           BAD["report-undated"]),
+    ("a conforming report that disagrees with a failing one at the same time", BAD["report-yes"]),
+    ("a failing report that disagrees with a conforming one at the same time", BAD["report-no"]),
+    ("a struck report that names no activity", BAD["report-struck-anonymously"]),
 ]
 for name, node in must_report:
     check(str(node) in focus_nodes, f"reported: {name}", f"NOT reported: {name}")

@@ -38,6 +38,12 @@ stating and wide enough that a node outside it is almost certainly a mistake."""
     ] , [
         sh:prefix "rdf" ;
         sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "prov" ;
+        sh:namespace "http://www.w3.org/ns/prov#"^^xsd:anyURI ;
+    ] , [
+        sh:prefix "sh" ;
+        sh:namespace "http://www.w3.org/ns/shacl#"^^xsd:anyURI ;
     ] .
 
 
@@ -480,3 +486,64 @@ gsnaugsh:LinkShape rdf:type sh:NodeShape ;
             [ sh:class gsn:Relationship ] ) ;
     sh:message "A custom link starts from an argument, an artefact, an assurance case, a GSN element, a pattern or a reified relationship."@en ;
     sh:severity sh:Violation .
+
+
+#################################################################
+#    Reports
+#################################################################
+
+###  A report the rules read carries a timestamp
+gsnaugsh:ReportTimestampShape rdf:type sh:NodeShape ;
+    rdfs:label "Report timestamp shape"@en ;
+    rdfs:comment "Rules A6a to A6d read the newest report from a mechanism over a target, ordered by prov:generatedAtTime. A report without one is never retired and retires nothing, so a second run of the same check leaves two reports that both count. A warning, not a violation: the report still proves what it proves, and a case with one report per check never meets the problem."@en ;
+    sh:targetClass sh:ValidationReport ;
+    sh:property [
+        sh:path prov:generatedAtTime ;
+        sh:datatype xsd:dateTime ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "generated at time" ;
+        sh:message "A validation report carries exactly one prov:generatedAtTime, so that a later report from the same mechanism over the same target can retire it."@en ;
+        sh:severity sh:Warning ;
+    ] .
+
+###  Two reports from one mechanism over one target that disagree are ordered in time
+gsnaugsh:ReportConflictShape rdf:type sh:NodeShape ;
+    rdfs:label "Report conflict shape"@en ;
+    rdfs:comment "Two unstruck reports from the same mechanism over the same target that disagree, and that no prov:generatedAtTime puts one after the other, both count for rules A6a to A6d. The failing one wins, because a conforming report confirms a solution only while no current report fails, so the solution stays not true until the two are ordered or one is removed. Nothing on the solution says why; this shape names the two reports."@en ;
+    sh:targetClass sh:ValidationReport ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} and {?value} come from the same mechanism over the same target and disagree, and no prov:generatedAtTime puts one after the other. Add the timestamps, or remove the report that no longer counts."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this prov:wasGeneratedBy ?mechanism ;
+                      prov:used ?target ;
+                      sh:conforms ?verdict .
+                ?value a sh:ValidationReport ;
+                       prov:wasGeneratedBy ?mechanism ;
+                       prov:used ?target ;
+                       sh:conforms ?other .
+                FILTER(?value != $this)
+                FILTER(STR(?verdict) != STR(?other))
+                FILTER NOT EXISTS { $this prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck1 }
+                FILTER NOT EXISTS { ?value prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck2 }
+                OPTIONAL { $this prov:generatedAtTime ?t1 }
+                OPTIONAL { ?value prov:generatedAtTime ?t2 }
+                FILTER(!BOUND(?t1) || !BOUND(?t2) || ?t1 = ?t2)
+            }
+        """ ;
+    ] .
+
+###  A struck report names the activity that struck it
+gsnaugsh:ReportInvalidationShape rdf:type sh:NodeShape ;
+    rdfs:label "Report invalidation shape"@en ;
+    rdfs:comment "A report with prov:invalidatedAtTime or prov:wasInvalidatedBy is struck: rules A6a to A6d skip it, and it retires nothing. Striking is a hand step on a derived status, so the hand is on record: the activity that struck the report, and through prov:wasAssociatedWith the agent. A warning, not a violation: the strike holds either way, and what is reported is that nobody is named for it."@en ;
+    sh:targetClass sh:ValidationReport ;
+    sh:or ( [ sh:property [ sh:path prov:invalidatedAtTime ; sh:name "invalidated at time" ; sh:maxCount 0 ] ]
+            [ sh:property [ sh:path prov:wasInvalidatedBy ; sh:name "was invalidated by" ; sh:minCount 1 ; sh:class prov:Activity ] ] ) ;
+    sh:message "A struck report names the activity that struck it in prov:wasInvalidatedBy, and that activity is a prov:Activity."@en ;
+    sh:severity sh:Warning .

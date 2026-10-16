@@ -4,6 +4,8 @@
 @prefix prov:   <http://www.w3.org/ns/prov#> .
 @prefix schema: <http://schema.org/> .
 @prefix terms:  <http://purl.org/dc/terms/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 
 #  Deliberately wrong. Every node here must be reported by exactly the shape named above it;
 #  a shape that stops firing on this file has stopped constraining anything.
@@ -138,3 +140,31 @@ bad:G3 a gsn:Goal ; schema:identifier "GB3" ;
     gsnaug:ownedBy    bad:same-person ;
     gsnaug:reviewedBy bad:same-person .
 bad:same-person a prov:Agent .
+
+#  ReportTimestampShape (warning) - a report the rules read carries a timestamp
+bad:report-undated a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy bad:check ;
+    prov:used bad:evidence .
+
+#  ReportConflictShape - two reports from one mechanism over one target disagree, and the
+#  timestamps do not put one after the other
+bad:report-yes a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy bad:check ;
+    prov:used bad:evidence-2 ;
+    prov:generatedAtTime "2026-03-08T12:00:00Z"^^xsd:dateTime .
+bad:report-no a sh:ValidationReport ;
+    sh:conforms false ;
+    prov:wasGeneratedBy bad:check ;
+    prov:used bad:evidence-2 ;
+    prov:generatedAtTime "2026-03-08T12:00:00Z"^^xsd:dateTime .
+bad:check a gsnaug:Mechanism .
+
+#  ReportInvalidationShape (warning) - a struck report names the activity that struck it
+bad:report-struck-anonymously a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy bad:check ;
+    prov:used bad:evidence-3 ;
+    prov:generatedAtTime "2026-03-08T12:00:00Z"^^xsd:dateTime ;
+    prov:invalidatedAtTime "2026-03-09T12:00:00Z"^^xsd:dateTime .
