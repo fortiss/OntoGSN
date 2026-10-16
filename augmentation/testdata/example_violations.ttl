@@ -26,46 +26,54 @@ bad:I-self a gsnaug:Issue ; schema:identifier "IB4" ;
     gsnaug:raisedAgainst bad:G1 ;
     gsnaug:supersedes bad:I-self .
 
-#  AnswerShape - an answer closes exactly one issue
-bad:A-no-issue a gsnaug:Clarification .
+#  AnswerShape - an answer closes exactly one issue: not none, and not two
+bad:A-no-issue a gsnaug:Answer .
 
-#  AnswerAgreementShape - a Revision cannot answer a clarify issue
 bad:I-clarify a gsnaug:Issue ; schema:identifier "IB5" ;
     gsnaug:issueType gsnaug:clarify ;
     gsnaug:raisedAgainst bad:G1 .
-bad:A-mismatched a gsnaug:Revision ; gsnaug:answers bad:I-clarify .
+bad:A-two-issues a gsnaug:Answer ; gsnaug:answers bad:I-clarify , bad:I-untyped .
 
 #  ArtefactShape - the ranges are not decorative
 bad:artefact a gsn:Artefact ;
     gsnaug:storedIn        bad:a-person ;
+    gsnaug:retrievableWith bad:a-person ;
     gsnaug:generatedWith   bad:a-person ;
-    gsnaug:verifiedWith    bad:a-person ;
-    gsnaug:containsElement bad:a-person .
+    gsnaug:verifiedWith    bad:a-person .
+
+#  ArtefactPartShape - a part is part of an artefact, not of a person
+bad:part a gsnaug:ArtefactPart ;
+    gsnaug:partOf bad:a-person ;
+    gsnaug:verifiableWith bad:a-person .
 
 #  SolutionProvenanceShape (warning) - provenance belongs on the artefact
 bad:Sn1 a gsn:Solution ; schema:identifier "SnB1" ;
     gsnaug:generatedWith bad:some-script .
 
 #  AssuranceScopeShape - what a case assures is a gsnaug:System, not an artefact. This is the
-#  exact mistake the old top object context made, by reaching the system through gsn:refersTo.
+#  exact mistake a top object context makes when it reaches the system through gsn:refersTo.
 bad:G1 a gsn:Goal ; schema:identifier "GB1" ; gsn:top true ;
     gsn:statement "A claim about one system." ;
     gsnaug:assures bad:system-b .
 
 bad:system-b a gsn:Artefact .
 
-#  ElementLinkShape - a requirement is not a person, a row of a catalogue is not a person, and
-#  the owner of an element is an agent.
+#  ElementLinkShape and AccountabilityShape - a requirement is not a person, a row of a
+#  catalogue is not a person, and the owner of an element is an agent.
 bad:G2 a gsn:Goal ; schema:identifier "GB2" ; gsn:top true ;
     gsn:statement "A top goal wired to the wrong things." ;
     gsnaug:requiredBy       bad:a-person ;
     gsnaug:instantiatedFrom bad:a-person ;
     gsnaug:ownedBy          bad:not-an-agent .
 
-#  AgentShape - whoever owns, reviews or holds a role is an agent, and a role is a gsnaug:Role
-bad:not-an-agent gsnaug:owns    bad:G1 ;
-    gsnaug:reviews bad:artefact ;
-    gsnaug:hasRole bad:a-person .
+#  AgentShape - whoever holds a role is an agent, and a role is a gsnaug:Role
+bad:not-an-agent gsnaug:hasRole bad:a-person .
+
+#  AccountabilityShape and LinkShape - only an artefact or an element is owned, reviewed or
+#  linked from, and the owner or reviewer is an agent
+bad:a-sticky-note gsnaug:ownedBy    bad:a-person ;
+    gsnaug:reviewedBy bad:a-person ;
+    gsnaug:linksTo    bad:anything .
 
 #  AuditCoverageShape - a case is covered in an audit cycle; an ask is scoped with raisedIn
 bad:case-1 a gsn:Goal ; schema:identifier "ACB1" ;
@@ -76,11 +84,11 @@ bad:I-off-target a gsnaug:Issue ; schema:identifier "IB10" ;
     gsnaug:issueType gsnaug:clarify ;
     gsnaug:raisedAgainst bad:a-sticky-note .
 
-#  IssueShape - an outcome must be one of the three
+#  IssueShape - an outcome must be one of the four
 bad:I-bogus-outcome a gsnaug:Issue ; schema:identifier "IB6" ;
     gsnaug:issueType gsnaug:resolve ;
     gsnaug:raisedAgainst bad:G1 ;
-    gsnaug:issueOutcome bad:postponed .
+    gsnaug:issueOutcome "postponed" .
 
 #  IssueShape - an ask rests with one holder at a time; a second hop is a new issue
 bad:I-two-holders a gsnaug:Issue ; schema:identifier "IB7" ;
@@ -95,24 +103,27 @@ bad:I-bad-cycle a gsnaug:Issue ; schema:identifier "IB8" ;
     gsnaug:raisedIn bad:last-spring ;
     gsnaug:raisedBy bad:nobody-in-particular .
 
-#  IssueClosureShape - an outcome and an accepted answer close the same ask twice
+#  IssueClosureShape - an outcome that says "no answer" and an answer close the same ask twice
 bad:I-both-endings a gsnaug:Issue ; schema:identifier "IB9" ;
     gsnaug:issueType gsnaug:resolve ;
     gsnaug:raisedAgainst bad:G1 ;
-    gsnaug:issueOutcome gsnaug:declined .
-bad:A-also-answered a gsnaug:Resolution ;
-    gsnaug:answers bad:I-both-endings ;
-    gsnaug:accepted true .
+    gsnaug:issueOutcome "declined" .
+bad:A-also-answered a gsnaug:Answer ;
+    gsnaug:answers bad:I-both-endings .
 
-#  AnswerShape - whether an answer was accepted is a boolean
-bad:A-bad-accepted a gsnaug:Clarification ;
-    gsnaug:answers bad:I-clarify ;
-    gsnaug:accepted "maybe" .
-
-#  ArtefactShape - an artefact is a revision of another artefact, not of a person
+#  ArtefactShape - an artefact replaces another artefact, not a person
 bad:artefact-revision a gsn:Artefact ;
-    gsnaug:revisionOf bad:a-person .
+    gsnaug:replaces bad:a-person .
 
 #  MechanismAutomationShape - automated is a boolean, not a word
-bad:mechanism a gsnaug:EvidenceGenerationMechanism ;
+bad:mechanism a gsnaug:Mechanism ;
     gsnaug:automated "yes" .
+
+#  MechanismInterfaceShape - a term is an IRI, a script is one string, and only a mechanism
+#  carries either
+bad:mechanism-literal-term a gsnaug:Mechanism ;
+    gsnaug:readsTerm "AccessLogEntry" .
+bad:artefact-that-reads a gsn:Artefact ;
+    gsnaug:readsTerm gsn:Goal .
+bad:mechanism-two-scripts a gsnaug:Mechanism ;
+    gsnaug:script "Get-WinEvent" , "Get-Date" .

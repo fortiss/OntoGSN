@@ -2,8 +2,12 @@
 @prefix ex:     <https://example.org/case#> .
 @prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
 @prefix gsnaug: <https://w3id.org/OntoGSN/augmentation#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
 @prefix prov:   <http://www.w3.org/ns/prov#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema: <http://schema.org/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix swrl:   <http://www.w3.org/2003/11/swrl#> .
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 
 #  A minimal case exercising every branch of the augmentation rules: one top goal that names
@@ -40,15 +44,23 @@ ex:it-system  a gsnaug:System .
 ex:access-log a gsn:Artefact ;
     gsnaug:storedIn        ex:evidence-store ;
     gsnaug:retrievableWith ex:log-query ;
+    gsnaug:retrievedWith   ex:log-query ;
+    gsnaug:generableWith   ex:logging-function ;
     gsnaug:generatedBy     ex:dev-anna ;
     gsnaug:generatedWith   ex:logging-function ;
     gsnaug:generatedFrom   ex:it-system ;
+    gsnaug:verifiableWith  ex:retention-rule ;
     gsnaug:verifiedWith    ex:retention-rule .
 
-ex:evidence-store   a gsnaug:StorageSystem .
-ex:log-query        a gsnaug:EvidenceRetrievalMechanism .
-ex:logging-function a gsnaug:EvidenceGenerationMechanism .
-ex:retention-rule   a gsnaug:EvidenceVerificationMechanism .
+ex:evidence-store   a gsnaug:System .
+ex:log-query        a gsnaug:Mechanism .
+
+# A part of the access log. It declares nothing of its own: A4 copies gsnaug:verifiableWith
+# down from ex:access-log.
+ex:access-log-row-42 a gsnaug:ArtefactPart ; schema:name "Access log, row 42" ;
+    gsnaug:partOf ex:access-log .
+ex:logging-function a gsnaug:Mechanism .
+ex:retention-rule   a gsnaug:Mechanism .
 ex:dev-anna         a prov:Agent .
 
 #  I1  clarify against a goal      -> nothing inferred; clarify never defeats
@@ -72,13 +84,13 @@ ex:I4 a gsnaug:Issue ; schema:identifier "I4" ;
     gsnaug:issueType gsnaug:resolve ;
     gsnaug:raisedAgainst ex:G1 .
 
-ex:A1 a gsnaug:Revision ; gsnaug:answers ex:I3 ; gsnaug:accepted false ;
+ex:A1 a gsnaug:Answer ; gsnaug:answers ex:I3 ;
     schema:description "The log was regenerated for the full period." .
 
 
 #  ---------------------------------------------------------------------------------------
-#  The deviations: two audit rounds, four roles, a clarification relayed twice, a declined
-#  resolution, an infeasible one, a rejected answer, a revised artefact and a manual channel.
+#  The deviations: two audit rounds, four roles, a clarification relayed twice and resolved,
+#  a declined resolution, an infeasible one, a replaced artefact and a manual channel.
 #  ---------------------------------------------------------------------------------------
 
 ex:audit-2025 a gsnaug:AuditCycle ; schema:identifier "AUDIT-2025" ;
@@ -99,11 +111,11 @@ ex:role-officer       a gsnaug:Role ; schema:name "Compliance Officer" .
 ex:role-process-owner a gsnaug:Role ; schema:name "Process Owner" .
 ex:role-developer     a gsnaug:Role ; schema:name "Developer" .
 
-#  One agent owns a context and one reviews an artefact, so the two role properties are
-#  exercised in the direction that carries the domain as well as the one that carries the range.
+#  One agent owns a context and reviews an artefact, so both accountability properties are
+#  exercised on both kinds of subject the domain allows.
 
-ex:officer-cara gsnaug:owns    ex:C-object .
-ex:officer-cara gsnaug:reviews ex:access-log .
+ex:C-object   gsnaug:ownedBy    ex:officer-cara .
+ex:access-log gsnaug:reviewedBy ex:officer-cara .
 
 ex:G1  gsnaug:ownedBy ex:officer-cara ;
        gsn:supportedBy ex:Sn2 .
@@ -113,7 +125,7 @@ ex:Sn1 gsnaug:ownedBy ex:dev-anna .
 #  reached the developer, who answered it. Three issues, two escalations, one chain.
 
 ex:I1 gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:officer-cara ;
-      gsnaug:raisedIn ex:audit-2026 ; gsnaug:issueOutcome gsnaug:cannotAnswer ;
+      gsnaug:raisedIn ex:audit-2026 ; gsnaug:issueOutcome "cannot answer" ;
       dcterms:created "2026-02-02"^^xsd:date ;
       schema:description "Which reporting period does this claim cover?" .
 
@@ -122,7 +134,7 @@ ex:I5 a gsnaug:Issue ; schema:identifier "I5" ;
     gsnaug:raisedAgainst ex:G1 ;
     gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:owner-dan ;
     gsnaug:raisedIn ex:audit-2026 ; gsnaug:supersedes ex:I1 ;
-    gsnaug:issueOutcome gsnaug:cannotAnswer ;
+    gsnaug:issueOutcome "cannot answer" ;
     dcterms:created "2026-02-05"^^xsd:date .
 
 ex:I6 a gsnaug:Issue ; schema:identifier "I6" ;
@@ -130,9 +142,10 @@ ex:I6 a gsnaug:Issue ; schema:identifier "I6" ;
     gsnaug:raisedAgainst ex:G1 ;
     gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:dev-anna ;
     gsnaug:raisedIn ex:audit-2026 ; gsnaug:supersedes ex:I5 ;
+    gsnaug:issueOutcome "resolved" ;
     dcterms:created "2026-02-07"^^xsd:date .
 
-ex:A2 a gsnaug:Clarification ; gsnaug:answers ex:I6 ; gsnaug:accepted true ;
+ex:A2 a gsnaug:Answer ; gsnaug:answers ex:I6 ;
     schema:description "The period is the 2025 calendar year." .
 
 #  I4 was raised in the previous round and is still open. I7 was declined; I8 records that the
@@ -152,14 +165,14 @@ ex:I7 a gsnaug:Issue ; schema:identifier "I7" ;
     gsnaug:issueType gsnaug:resolve ;
     gsnaug:raisedAgainst ex:G1 ;
     gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:officer-cara ;
-    gsnaug:raisedIn ex:audit-2026 ; gsnaug:issueOutcome gsnaug:declined ;
+    gsnaug:raisedIn ex:audit-2026 ; gsnaug:issueOutcome "declined" ;
     dcterms:created "2026-03-02"^^xsd:date .
 
 ex:I8 a gsnaug:Issue ; schema:identifier "I8" ;
     gsnaug:issueType gsnaug:resolve ;
     gsnaug:raisedAgainst ex:Sn1 ;
     gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:dev-anna ;
-    gsnaug:raisedIn ex:audit-2026 ; gsnaug:issueOutcome gsnaug:infeasible ;
+    gsnaug:raisedIn ex:audit-2026 ; gsnaug:issueOutcome "infeasible" ;
     dcterms:created "2026-03-05"^^xsd:date .
 
 #  Mechanisms say whether a person is in the loop; the retention rule is checked by hand and
@@ -168,6 +181,64 @@ ex:I8 a gsnaug:Issue ; schema:identifier "I8" ;
 ex:logging-function gsnaug:automated true .
 ex:log-query        gsnaug:automated true .
 ex:retention-rule   gsnaug:automated false .
+
+#  A few domain terms stand in for a domain ontology. The log query is a SPARQL query in the graph
+#  and declares the terms it reads by hand, since the query is text; the retention rule is checked
+#  by hand, so its terms are declared by hand and nothing in the graph says what it does; the
+#  logging function is a script, readable but not derivable from, and it says what it writes: the
+#  entries it produces; the interview declares nothing.
+
+ex:AccessLog      a owl:Class .
+ex:AccessLogEntry a owl:Class .
+ex:Expiring       a owl:Class .
+ex:inLog          a owl:ObjectProperty .
+ex:retainedUntil  a owl:DatatypeProperty .
+ex:retentionPolicy a owl:ObjectProperty .
+
+ex:log-query a sh:SPARQLSelectExecutable ;
+    sh:select """SELECT ?entry ?until WHERE { ?entry a ex:AccessLogEntry ; ex:retainedUntil ?until }""" ;
+    gsnaug:readsTerm ex:AccessLogEntry , ex:retainedUntil .
+
+ex:logging-function gsnaug:writesTerm ex:AccessLogEntry .
+
+ex:retention-rule gsnaug:readsTerm ex:retainedUntil .
+
+ex:logging-function gsnaug:script """#requires -Version 7
+Get-WinEvent -LogName Security | Export-Csv -Path access-log.csv""" .
+
+#  Two mechanisms that are in the graph as what they are: a shape and a rule. Neither declares a
+#  term; the rules in derivations/ read the terms off the node. The shape has a plain path, a
+#  path with sh:class, and a sequence path, so that all three branches of D1 are exercised.
+
+ex:access-log gsnaug:verifiableWith ex:retention-shape , ex:expiry-rule .
+
+ex:retention-shape a gsnaug:Mechanism , sh:NodeShape ;
+    gsnaug:automated true ;
+    sh:targetClass ex:AccessLogEntry ;
+    sh:property [ sh:path ex:retainedUntil ; sh:minCount 1 ] ;
+    sh:property [ sh:path ex:inLog ; sh:class ex:AccessLog ] ;
+    sh:property [ sh:path ( ex:inLog ex:retentionPolicy ) ; sh:minCount 1 ] .
+
+ex:expiry-rule a gsnaug:Mechanism , swrl:Imp ;
+    gsnaug:automated true ;
+    swrl:body [ a swrl:AtomList ;
+                rdf:first [ a swrl:ClassAtom ;
+                            swrl:classPredicate ex:AccessLogEntry ;
+                            swrl:argument1 ex:e ] ;
+                rdf:rest  [ a swrl:AtomList ;
+                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                        swrl:propertyPredicate ex:retainedUntil ;
+                                        swrl:argument1 ex:e ;
+                                        swrl:argument2 ex:d ] ;
+                            rdf:rest rdf:nil ] ] ;
+    swrl:head [ a swrl:AtomList ;
+                rdf:first [ a swrl:ClassAtom ;
+                            swrl:classPredicate ex:Expiring ;
+                            swrl:argument1 ex:e ] ;
+                rdf:rest rdf:nil ] .
+
+ex:e a swrl:Variable .
+ex:d a swrl:Variable .
 
 ex:Sn2 a gsn:Solution ; schema:identifier "Sn2" ;
     gsn:statement "Interview record with the process owner." ;
@@ -178,10 +249,10 @@ ex:interview-note a gsn:Artefact ;
     gsnaug:retrievableWith ex:interview ;
     gsnaug:generatedBy     ex:owner-dan .
 
-ex:interview a gsnaug:EvidenceRetrievalMechanism ; gsnaug:automated false .
+ex:interview a gsnaug:Mechanism ; gsnaug:automated false .
 
 ex:access-log-v2 a gsn:Artefact ;
-    gsnaug:revisionOf     ex:access-log ;
+    gsnaug:replaces       ex:access-log ;
     gsnaug:generatedBy    ex:dev-anna ;
     gsnaug:generatedWith  ex:logging-function .
 
@@ -208,7 +279,7 @@ ex:IDR1 a gsn:InstantiationDataReference ; schema:identifier "IDR1" ;
     gsn:attachedTo ex:G1 ;
     gsn:refersTo   ex:control-catalogue .
 
-ex:control-catalogue a gsn:Artefact ;
-    gsnaug:containsElement ex:ctrl-row-7 .
+ex:control-catalogue a gsn:Artefact .
 
-ex:ctrl-row-7 a gsnaug:ArtefactElement ; schema:name "Control 7" .
+ex:ctrl-row-7 a gsnaug:ArtefactPart ; schema:name "Control 7" ;
+    gsnaug:partOf ex:control-catalogue .

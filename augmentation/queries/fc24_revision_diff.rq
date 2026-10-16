@@ -12,7 +12,7 @@ PREFIX schema:  <http://schema.org/>
 
 SELECT ?newer ?older ?mechanism ?issueId
 WHERE {
-  ?newer gsnaug:revisionOf ?older .
+  ?newer gsnaug:replaces ?older .
   OPTIONAL { ?newer gsnaug:generatedWith ?mechanism }
   OPTIONAL {
     ?solution gsn:refersTo ?older .

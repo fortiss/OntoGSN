@@ -29,7 +29,7 @@
     terms:created "2026-08-17"^^xsd:date ;
     vann:preferredNamespacePrefix "gsnaug" ;
     vann:preferredNamespaceUri "https://w3id.org/OntoGSN/augmentation#" ;
-    owl:versionInfo "0.2.0" ;
+    owl:versionInfo "0.3.1" ;
     gsnaug:augmentedOntoGSNVersion "1.2.4" .
 
 gsnaug:augmentedOntoGSNVersion rdf:type owl:AnnotationProperty ;
@@ -42,7 +42,15 @@ gsnaug:augmentedOntoGSNVersion rdf:type owl:AnnotationProperty ;
 
 gsn:Artefact rdfs:subClassOf prov:Entity .
 
-###  Issues and answers
+gsnaug:ArtefactPart rdf:type owl:Class ;
+    rdfs:label "Artefact Part"@en ;
+    skos:altLabel "Artefact Element"@en ;
+    skos:definition "A part of an artefact identified in its own right."@en .
+
+gsnaug:Mechanism rdf:type owl:Class ;
+    rdfs:label "Mechanism"@en ;
+    skos:definition "Means through which some GSN-linked artefact is generated, retrieved or verified."@en ;
+    skos:note "Used for maintaining the continuity between a gsn:Artefact and a gsn:GSNElement, and automating the respective activities with rules (where possible). A mechanism states which domain terms it depends on with gsnaug:readsTerm and gsnaug:writesTerm. A mechanism can be a SHACL shape, a SWRL rule, or a SPARQL query. A mechanism that is code carries its text in gsnaug:script. One that is neither, such as an interview, carries only its provenance."@en .
 
 gsnaug:Issue rdf:type owl:Class ;
     rdfs:label "Issue"@en ;
@@ -51,26 +59,7 @@ gsnaug:Issue rdf:type owl:Class ;
 
 gsnaug:Answer rdf:type owl:Class ;
     rdfs:label "Answer"@en ;
-    skos:definition "The response that aims to close an issue."@en ;
-    skos:note "Superclass only. Instantiate one of the three subclasses, which say what kind of ask was answered."@en .
-
-gsnaug:Clarification rdf:type owl:Class ;
-    rdfs:subClassOf gsnaug:Answer ;
-    rdfs:label "Clarification"@en ;
-    skos:definition "The answer to a clarify issue: a comment that explains the element without changing it."@en .
-
-gsnaug:Revision rdf:type owl:Class ;
-    rdfs:subClassOf gsnaug:Answer ;
-    rdfs:label "Revision"@en ;
-    skos:definition "The answer to a revise issue: the record that the element was changed."@en .
-
-gsnaug:Resolution rdf:type owl:Class ;
-    rdfs:subClassOf gsnaug:Answer ;
-    rdfs:label "Resolution"@en ;
-    skos:definition "The answer to a resolve issue: the record that the defeat was addressed."@en .
-
-
-###  Audit cycles
+    skos:definition "The response to a reviewer's ask that aims to close an issue."@en .
 
 gsnaug:AuditCycle rdf:type owl:Class ;
     rdfs:subClassOf prov:Activity ;
@@ -78,126 +67,114 @@ gsnaug:AuditCycle rdf:type owl:Class ;
     skos:definition "One round of review, from the moment it opens to the moment its report is issued."@en ;
     skos:note "Start and end are prov:startedAtTime and prov:endedAtTime, which apply because an audit cycle is a prov:Activity. An issue carries its own date with dcterms:created."@en .
 
-
-###  Mechanisms and storage
-
-gsnaug:Mechanism rdf:type owl:Class ;
-    rdfs:label "Mechanism"@en ;
-    skos:definition "Means through which some GSN-linked artefact is generated, retrieved or verified." ;
-    skos:note "Used for maintaining the continuity between a gsn:Artefact and a gsn:GSNElement, and automating the respective activities with rules (where possible)."
-
-#gsnaug:EvidenceGenerationMechanism rdf:type owl:Class ;
-#    rdfs:label "Evidence Generation Mechanism"@en ;
-#    skos:definition "A mechanism that is used to generate a piece of evidence."@en .
-
-#gsnaug:EvidenceRetrievalMechanism rdf:type owl:Class ;
-#    rdfs:label "Evidence Retrieval Mechanism"@en ;
-#    skos:definition "A mechanism that is used to retrieve a piece of evidence."@en .
-
-#gsnaug:EvidenceVerificationMechanism rdf:type owl:Class ;
-#    rdfs:label "Evidence Verification Mechanism"@en ;
-#    skos:definition "A mechanism that can or should be used to verify the truth or appropriateness of a piece of evidence."@en .
-
-#gsnaug:ContextVerificationMechanism rdf:type owl:Class ;
-#    rdfs:label "Context Verification Mechanism"@en ;
-#    skos:definition "A mechanism that can or should be used to verify the truth or appropriateness of a particular contextual artefact."@en .
-
-gsnaug:StorageSystem rdf:type owl:Class ;
-    rdfs:label "Storage System"@en ;
-    skos:definition "The digital or physical medium where the artefact is stored."@en .
-
-
-###  What the links point at
-
 gsnaug:System rdf:type owl:Class ;
     rdfs:label "System"@en ;
     skos:altLabel "Assured system"@en ;
-    skos:definition "The system or process an assurance case is about."@en .
+    skos:definition "The subject of an assurance case."@en ;
+    skos:note "Can include the system where the artefact is stored."@en .
 
 gsnaug:Requirement rdf:type owl:Class ;
     rdfs:label "Requirement"@en ;
     skos:altLabel "Obligation"@en ;
-    skos:definition "A requirement, regulatory statement or obligation that an element of the case answers to."@en ;
-    skos:scopeNote "Distinct from gsnprov:Requirement, which records what OntoGSN itself set out to do. Same word, different subject."@en .
+    skos:definition "The object of an assurance case; a (regulatory) statement or obligation that an element of the case answers to."@en ;
+    skos:scopeNote "Distinct from gsnprov:Requirement, which records what OntoGSN itself set out to do."@en .
 
 gsnaug:Role rdf:type owl:Class ;
     rdfs:label "Role"@en ;
-    skos:definition "A role an agent holds in the review process: developer, process owner, compliance officer, auditor."@en ;
-    skos:scopeNote "The role, not the person. One agent may hold several, and a role outlives whoever holds it."@en .
-
-gsnaug:ArtefactElement rdf:type owl:Class ;
-    rdfs:label "Artefact Element"@en ;
-    skos:altLabel "Artefact part"@en ;
-    skos:definition "A part of an artefact identified in its own right: a row of a control catalogue, a clause of a regulation, a section of a report."@en ;
-    skos:scopeNote "Neither a gsn:GSNElement nor a gsn:Artefact. It is a part of one, reached from the artefact by gsnaug:containsElement."@en .
+    skos:definition "A role an agent holds in the auditing process."@en ;
+    skos:scopeNote "One agent may hold several roles, and a role outlives whoever holds it."@en .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-### Artefact-Mechanism Continuity
-
 gsnaug:retrievableWith rdf:type owl:ObjectProperty ;
-    rdfs:domain gsn:Artefact ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Artefact
+                                gsnaug:ArtefactPart
+                              )
+                ] ;
     rdfs:range gsnaug:Mechanism ;
     rdfs:label "retrievable with"@en ;
     skos:definition "How can the artefact be fetched."@en ;
     skos:note "Describes future access via, e.g., queries."@en .
 
+gsnaug:retrievedWith rdf:type owl:ObjectProperty ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Artefact
+                                gsnaug:ArtefactPart
+                              )
+                ] ;
+    rdfs:range gsnaug:Mechanism ;
+    rdfs:label "retrieved with"@en ;
+    skos:definition "How was the artefact fetched."@en .
+
 gsnaug:generableWith rdf:type owl:ObjectProperty ;
-    rdfs:domain gsn:Artefact ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Artefact
+                                gsnaug:ArtefactPart
+                              )
+                ] ;
     rdfs:range gsnaug:Mechanism ;
     rdfs:label "generable with"@en ;
     skos:definition "How is the artefact meant to be produced."@en .
 
-gsnaug:verifiableWith rdf:type owl:ObjectProperty ;
-    rdfs:domain gsn:Artefact ;
-    rdfs:range gsnaug:Mechanism ;
-    rdfs:label "verified with"@en ;
-    skos:definition "What can check the truth or appropriateness of the artefact."@en .
-
-### Artefact-Mechanism Provenance
-
-gsnaug:retrievedWith rdf:type owl:ObjectProperty ;
-    rdfs:domain gsn:Artefact ;
-    rdfs:range gsnaug:Mechanism ;
-    rdfs:label "retrieved with"@en ;
-    skos:definition "What can check the truth or appropriateness of the artefact."@en .
-
 gsnaug:generatedWith rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf prov:wasAttributedTo ;
-    rdfs:domain gsn:Artefact ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Artefact
+                                gsnaug:ArtefactPart
+                              )
+                ] ;
     rdfs:range gsnaug:Mechanism ;
     rdfs:label "generated with"@en ;
     skos:definition "How was the artefact produced."@en .
 
-gsnaug:generatedFrom rdf:type owl:ObjectProperty ;
-    rdfs:subPropertyOf prov:wasDerivedFrom ;
-    rdfs:domain gsn:Artefact ;
-    rdfs:range prov:Entity ;
-    rdfs:label "generated from"@en ;
-    skos:definition "The system or dataset the artefact was drawn from."@en .
+gsnaug:verifiableWith rdf:type owl:ObjectProperty ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Artefact
+                                gsnaug:ArtefactPart
+                              )
+                ] ;
+    rdfs:range gsnaug:Mechanism ;
+    rdfs:label "verified with"@en ;
+    skos:definition "What can check the truth or appropriateness of the artefact."@en .
 
 gsnaug:verifiedWith rdf:type owl:ObjectProperty ;
-    rdfs:domain gsn:Artefact ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Artefact
+                                gsnaug:ArtefactPart
+                              )
+                ] ;
     rdfs:range gsnaug:Mechanism ;
     rdfs:label "verified with"@en ;
     skos:definition "What checked the truth or appropriateness of the artefact."@en ;
     skos:note "The mechanism that ran, which is provenance. Distinct from a shape or a rule that decides whether a claim holds."@en .
 
-### Artefact Configuration
+gsnaug:readsTerm rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Mechanism ;
+    rdfs:label "reads term"@en ;
+    skos:definition "A class or property of a domain ontology that the mechanism depends on."@en ;
+    skos:note "The term is used as an individual (OWL 2 punning), so no range is declared. Used for change impact analysis: which artefacts, and through them which claims, rest on a term that the domain ontology changed or withdrew."@en .
+
+gsnaug:writesTerm rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:Mechanism ;
+    rdfs:label "writes term"@en ;
+    skos:definition "A class or property of a domain ontology that the mechanism asserts in its result."@en ;
+    skos:note "Same form as gsnaug:readsTerm. Together they let the output of one mechanism be matched against the input of another."@en .
 
 gsnaug:storedIn rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:Artefact ;
-    rdfs:range gsnaug:StorageSystem ;
+    rdfs:range gsnaug:System ;
     rdfs:label "stored in"@en ;
     skos:definition "Where the artefact is kept."@en .
 
-gsnaug:containsElement rdf:type owl:ObjectProperty ;
-    rdfs:domain gsn:Artefact ;
-    rdfs:range gsnaug:ArtefactElement ;
-    rdfs:label "contains element"@en ;
-    skos:definition "The artefact part that an artefact contains."@en .
+gsnaug:partOf rdf:type owl:ObjectProperty ;
+    rdfs:domain gsnaug:ArtefactPart ;
+    rdfs:range gsn:Artefact ;
+    rdfs:label "part of"@en ;
+    skos:definition "What part is contained by an artefact."@en ;
+    skos:note "Mereorogical relation. Used when an artefact part (e.g., Excel sheet, document page) can be retrieved from an existing artefact (e.g., Excel table, document), without being stored as an artefact itself."@en .
 
 gsnaug:replaces rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf prov:wasRevisionOf ;
@@ -205,13 +182,27 @@ gsnaug:replaces rdf:type owl:ObjectProperty ;
     rdfs:range gsn:Artefact ;
     rdfs:label "replaces"@en ;
     skos:definition "What older artefact does the newer artefact substitute."@en ;
-    skos:note "Artefacts only. A gsn:GSNElement is not a prov:Entity here, so a reworded claim is not a revision in this sense; that is element versioning, which this file does not model."@en .
+    skos:note "Artefacts only. Does not replace a version control system, but instead provides a trace of versions submitted for auditing."@en .
 
-###    Roles
+gsnaug:generatedFrom rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:wasDerivedFrom ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Artefact
+                                gsnaug:ArtefactPart
+                              )
+                ] ;
+    rdfs:range prov:Entity ;
+    rdfs:label "generated from"@en ;
+    skos:definition "The system the artefact was drawn from."@en ;
+    skos:note "Used when the artefact is generated or retrieved from another system (e.g., monitoring tool) or even the system in question."@en .
 
 gsnaug:generatedBy rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf prov:wasAttributedTo ;
-    rdfs:domain gsn:Artefact ;
+    rdfs:domain [ rdf:type owl:Class ;
+                  owl:unionOf ( gsn:Artefact
+                                gsnaug:ArtefactPart
+                              )
+                ] ;
     rdfs:range prov:Agent ;
     rdfs:label "generated by"@en ;
     skos:definition "By whom was the artefact produced."@en .
@@ -226,23 +217,16 @@ gsnaug:assures rdf:type owl:ObjectProperty ;
     rdfs:range gsnaug:System ;
     rdfs:label "assures"@en ;
     skos:definition "What the case is meant to assure."@en ;
-    skos:note "Says in one triple what a top-level context says in a diagram. GSN recommends but does not require such a context, so a conforming case may omit it; this property carries the fact either way."@en .
+    skos:note "Shortcut or complementary element to the top-level context. GSN recommends having the top-level context with the system, but does not require it, so a conforming case may omit it."@en .
 
-gsnaug:assuredBy rdf:type owl:ObjectProperty ;
-    owl:inverseOf gsnaug:assures ;
-    rdfs:domain gsnaug:System ;
-    rdfs:range [ rdf:type owl:Class ;
-                 owl:unionOf ( gsn:Argument
-                               gsn:AssuranceCase
-                               gsn:Goal
-                             )
-               ] ;
-    rdfs:label "assured by"@en ;
-    skos:definition "The argument or case that assures this system."@en ;
-    skos:note "The inverse exists so that a domain ontology can point inward without write access to the case graph, and so that two competing cases can claim the same system."@en .
+gsnaug:requiredBy rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:range gsnaug:Requirement ;
+    rdfs:label "required by"@en ;
+    skos:definition "The requirement, regulatory statement or obligation that this element answers to."@en ;
+    skos:note "Close in intent to dcterms:conformsTo, and kept separate because conformance is a claim about an artefact meeting a standard, while this records where a claim in the argument came from."@en .
 
 gsnaug:ownedBy rdf:type owl:ObjectProperty ;
-    owl:inverseOf gsnaug:owns ;
     rdfs:domain [ rdf:type owl:Class ;
                   owl:unionOf ( gsn:Artefact
                                 gsn:GSNElement
@@ -253,7 +237,6 @@ gsnaug:ownedBy rdf:type owl:ObjectProperty ;
     skos:definition "The agent who stands behind this element or artefact."@en .
 
 gsnaug:reviewedBy rdf:type owl:ObjectProperty ;
-    owl:inverseOf gsnaug:reviews ;
     rdfs:domain [ rdf:type owl:Class ;
                   owl:unionOf ( gsn:Artefact
                                 gsn:GSNElement
@@ -267,17 +250,14 @@ gsnaug:hasRole rdf:type owl:ObjectProperty ;
     rdfs:domain prov:Agent ;
     rdfs:range gsnaug:Role ;
     rdfs:label "has role"@en ;
-    skos:definition "A role the agent holds in the review process."@en ;
-    skos:note "Not functional. One agent may hold several roles, and which roles an agent holds changes between audit cycles."@en .
-
-
-###    Object properties - issues
+    skos:definition "A role the agent holds in the review process."@en .
 
 gsnaug:raisedAgainst rdf:type owl:ObjectProperty ;
     rdfs:domain gsnaug:Issue ;
     rdfs:range [ rdf:type owl:Class ;
                  owl:unionOf ( gsn:Argument
                                gsn:Artefact
+                               gsnaug:ArtefactPart
                                gsn:AssuranceCase
                                gsn:GSNElement
                                gsn:Pattern
@@ -298,7 +278,7 @@ gsnaug:supersedes rdf:type owl:ObjectProperty ,
     rdfs:domain gsnaug:Issue ;
     rdfs:range gsnaug:Issue ;
     rdfs:label "supersedes"@en ;
-    skos:definition "A later ask that displaces a still-pending one."@en .
+    skos:definition "An older issue substituted by a newer issue."@en .
 
 gsnaug:raisedBy rdf:type owl:ObjectProperty ;
     rdfs:domain gsnaug:Issue ;
@@ -314,49 +294,57 @@ gsnaug:heldBy rdf:type owl:ObjectProperty ;
     skos:definition "The agent the issue rests with: whoever has to answer it now."@en ;
     skos:note "One issue per relay hop, chained with gsnaug:supersedes, rather than one issue whose holder is overwritten. An overwritten holder leaves no trace of the hops, and the number of escalations is a count of them."@en .
 
-
-
 gsnaug:raisedIn rdf:type owl:ObjectProperty ;
     rdfs:domain gsnaug:Issue ;
     rdfs:range gsnaug:AuditCycle ;
     rdfs:label "raised in"@en ;
     skos:definition "The audit cycle the issue was raised in."@en ;
-    skos:note "What makes 'what was left unresolved at the last audit' answerable. An ask outlives the cycle that raised it, so the cycle is recorded rather than inferred from a date."@en .
+    skos:note "Used for issue provenance. Particularly useful for longer-standing issues."@en .
 
 gsnaug:coveredIn rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:AssuranceCase ;
     rdfs:range gsnaug:AuditCycle ;
     rdfs:label "covered in"@en ;
     skos:definition "An audit cycle that reviewed this case."@en ;
-    skos:note "Not functional: a case is reviewed round after round. gsnaug:raisedIn scopes a single ask to a round; this scopes the whole case, and answers which rounds a case has been through without going by way of its issues."@en .
-
-
-###    Object properties - structure and the generic pair
-
+    skos:note "Used for assurance-case provenance. Particularly useful for case reuse."@en .
 
 gsnaug:instantiatedFrom rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:GSNElement ;
-    rdfs:range gsnaug:ArtefactElement ;
+    rdfs:range gsnaug:ArtefactPart ;
     rdfs:label "instantiated from"@en ;
     skos:definition "The part of an artefact that produced this element."@en ;
-    skos:note "Completes the pattern-instantiation loop. gsn:attachedTo points from the instantiation data reference to the element it governs, and since OntoGSN 1.2.4 gsn:refersTo points from that reference to the artefact holding the data; this says which part of that artefact produced which element. The artefact reaches the same part by gsnaug:containsElement."@en .
-
-gsnaug:requiredBy rdf:type owl:ObjectProperty ;
-    rdfs:domain gsn:GSNElement ;
-    rdfs:range gsnaug:Requirement ;
-    rdfs:label "required by"@en ;
-    skos:definition "The requirement, regulatory statement or obligation that this element answers to."@en ;
-    skos:note "Close in intent to dcterms:conformsTo, and kept separate because conformance is a claim about an artefact meeting a standard, while this records where a claim in the argument came from. gsnaug:Requirement names the far end; its taxonomy still belongs to the user's domain ontology."@en .
+    skos:note "Completes the pattern-instantiation loop. gsn:attachedTo points from the instantiation data reference to the element it governs, and since OntoGSN 1.2.4 gsn:refersTo points from that reference to the artefact holding the data; this says which part of that artefact produced which element. The part reaches its artefact by gsnaug:partOf."@en .
 
 gsnaug:linksTo rdf:type owl:ObjectProperty ;
     rdfs:label "links to"@en ;
-    skos:definition "A link from anything to anything, for reaching a term in another ontology that no other property here covers."@en ;
-    skos:note "Deliberately without domain or range, and deliberately not a superproperty of anything else in this file. Its whole purpose is to presume nothing about what sits at either end; giving it relatives would import their typing into the generic case."@en .
+    rdfs:domain [ rdf:type owl:Class ;
+                owl:unionOf ( gsn:Argument
+                            gsn:Artefact
+                            gsnaug:ArtefactPart
+                            gsn:AssuranceCase
+                            gsn:GSNElement
+                            gsn:Pattern
+                            gsn:Relationship
+                            )
+            ] ;
+    rdfs:range owl:Thing ;
+    skos:definition "A custom link from anything GSN-related to anything non-GSN-related."@en ;
+    skos:note "Used for reaching a term in another ontology that no other property here covers."@en .
 
 gsnaug:tag rdf:type owl:DatatypeProperty ;
+    rdfs:domain [ rdf:type owl:Class ;
+                owl:unionOf ( gsn:Argument
+                            gsn:Artefact
+                            gsnaug:ArtefactPart
+                            gsn:AssuranceCase
+                            gsn:GSNElement
+                            gsn:Pattern
+                            gsn:Relationship
+                            )
+            ] ;
     rdfs:label "tag"@en ;
-    skos:definition "An informal keyword for grouping or filtering anything."@en ;
-    skos:note "Informal on purpose. If a set of tags starts carrying meaning, that is the signal to model it, not to formalise the tag."@en .
+    skos:definition "An informal keyword for adding custom metadata as literals."@en ;
+    skos:note "Informal. Used for custom filtering and grouping."@en .
 
 
 #################################################################
@@ -364,35 +352,50 @@ gsnaug:tag rdf:type owl:DatatypeProperty ;
 #################################################################
 
 gsnaug:automated rdf:type owl:DatatypeProperty ;
-    rdfs:domain [ rdf:type owl:Class ;
-                  owl:unionOf ( gsnaug:EvidenceGenerationMechanism
-                                gsnaug:EvidenceRetrievalMechanism
-                                gsnaug:EvidenceVerificationMechanism
-                              )
-                ] ;
+    rdfs:domain gsnaug:Mechanism ;
     rdfs:range xsd:boolean ;
     rdfs:label "automated"@en ;
-    skos:definition "Whether the mechanism runs without a person."@en ;
-    skos:note "False records an assessment that the mechanism is manual; no mechanism at all records that none has been assessed. 'Automation was tried and does not work' and 'nobody has looked' are different answers, and this is what separates them."@en .
+    skos:definition "Whether the mechanism can be executed without manual intervention."@en ;
+    skos:note "Used for automating the execution of retrieval, generation or verification of artefacts."@en .
 
-gsnaug:accepted rdf:type owl:DatatypeProperty ;
-    rdfs:domain gsnaug:Answer ;
-    rdfs:range xsd:boolean ;
-    rdfs:label "accepted"@en ;
-    skos:definition "Whether the agent who raised the issue accepted this answer."@en ;
-    skos:note "Several answers may address one issue. An answer that is not accepted leaves the issue open, which is how a round of answering is distinguished from a close."@en .
+gsnaug:script rdf:type owl:DatatypeProperty ;
+    rdfs:domain gsnaug:Mechanism ;
+    rdfs:range xsd:string ;
+    rdfs:label "script"@en ;
+    skos:definition "The text of the script or command that carries the mechanism out."@en ;
+    skos:note "For a mechanism that is code rather than a shape, a rule or a query, which would be in the graph as that node. A PowerShell or shell script, a command line, a pipeline definition. Name the interpreter in the text itself, as a shebang or a PowerShell #requires line, since the literal carries no language tag. A person can read the text, but no tool here derives gsnaug:readsTerm from it, so the terms are declared by hand."@en .
 
 gsnaug:issueOutcome rdf:type owl:DatatypeProperty ;
     rdfs:domain gsnaug:Issue ;
-    #rdfs:range "cannot answer" or "declined" or "infeasible" ;
+    rdfs:range [ rdf:type rdfs:Datatype ;
+                 owl:oneOf ( "resolved" "cannot answer" "declined" "infeasible" )
+               ] ;
     rdfs:label "issue outcome"@en ;
-    skos:definition "How the issue ended, in the cases where it ended without being answered."@en .
+    skos:definition "How the issue ended."@en .
 
 gsnaug:issueType rdf:type owl:ObjectProperty ;
     rdfs:domain gsnaug:Issue ;
-    #rdfs:range "clarify" or "revise" or "resolve" ;
+    rdfs:range [ rdf:type owl:Class ;
+                 owl:oneOf ( gsnaug:clarify gsnaug:revise gsnaug:resolve )
+               ] ;
     rdfs:label "issue type"@en ;
     skos:definition "Which of the three asks this issue is: clarify, revise or resolve."@en .
+
+#################################################################
+#    Individuals
+#################################################################
+
+gsnaug:clarify rdf:type owl:NamedIndividual ;
+    rdfs:label "clarify"@en ;
+    skos:definition "An ask to explain the element without changing it."@en .
+
+gsnaug:revise rdf:type owl:NamedIndividual ;
+    rdfs:label "revise"@en ;
+    skos:definition "An ask to change the element."@en .
+
+gsnaug:resolve rdf:type owl:NamedIndividual ;
+    rdfs:label "resolve"@en ;
+    skos:definition "An ask to address a defeat of the element."@en .
 
 #################################################################
 #    SWRL rules
@@ -400,6 +403,9 @@ gsnaug:issueType rdf:type owl:ObjectProperty ;
 
 gsnaugswrl:I  rdf:type swrl:Variable .
 gsnaugswrl:E  rdf:type swrl:Variable .
+gsnaugswrl:P  rdf:type swrl:Variable .
+gsnaugswrl:A  rdf:type swrl:Variable .
+gsnaugswrl:X  rdf:type swrl:Variable .
 
 
 ###  A2a
@@ -619,4 +625,46 @@ gsnaug:ResolveIssueDefeatsSolution swrla:isRuleEnabled "true"^^xsd:boolean ;
                                      rdf:rest rdf:nil
                                    ]
                         ]
+             ] .
+
+
+###  A4
+gsnaug:PartInheritsVerifiableWith swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Part Inherits Verifiable With" ;
+   rdfs:comment "IF ArtefactPart P is part of Artefact A AND A is verifiable with X THEN P is verifiable with X"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsnaug:ArtefactPart ;
+                           swrl:argument1 gsnaugswrl:P
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                      swrl:propertyPredicate gsnaug:partOf ;
+                                      swrl:argument1 gsnaugswrl:P ;
+                                      swrl:argument2 gsnaugswrl:A
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:ClassAtom ;
+                                                 swrl:classPredicate gsn:Artefact ;
+                                                 swrl:argument1 gsnaugswrl:A
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                            swrl:propertyPredicate gsnaug:verifiableWith ;
+                                                            swrl:argument1 gsnaugswrl:A ;
+                                                            swrl:argument2 gsnaugswrl:X
+                                                          ] ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsnaug:verifiableWith ;
+                           swrl:argument1 gsnaugswrl:P ;
+                           swrl:argument2 gsnaugswrl:X
+                         ] ;
+               rdf:rest rdf:nil
              ] .

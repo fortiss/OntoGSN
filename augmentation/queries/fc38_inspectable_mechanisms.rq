@@ -1,0 +1,49 @@
+# id:        CQ-80
+# role:      Compliance Officer
+# operation: read
+# question:  Which evidence rests on a mechanism that can be read without being run, and what does
+#            each mechanism declare?
+# expect:    rows
+#
+# Four states per mechanism. In the graph: the mechanism is a shape, a rule or a query, so what
+# it depends on can be read off the node. Script in the graph: a person can read what it does,
+# but no tool derives the terms, so any listed are declared by hand. Declared by hand: terms are
+# listed but nothing in the graph says what the mechanism does, so the list has to be trusted.
+# Opaque: none of the above, so only a run tells.
+#
+# "In the graph" is read off the type. The list below is what this query knows: SHACL shapes,
+# SHACL-AF SPARQL executables, SWRL rules and SPIN queries. A new formalism is a line here.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+PREFIX sh:      <http://www.w3.org/ns/shacl#>
+PREFIX sp:      <http://spinrdf.org/sp#>
+PREFIX swrl:    <http://www.w3.org/2003/11/swrl#>
+
+SELECT ?solutionId ?artefact ?mechanism ?state
+       (GROUP_CONCAT(DISTINCT STR(?term); separator=", ") AS ?reads)
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  ?artefact ?use ?mechanism .
+  FILTER ( ?use IN ( gsnaug:retrievableWith, gsnaug:retrievedWith,
+                     gsnaug:generableWith,   gsnaug:generatedWith,
+                     gsnaug:verifiableWith,  gsnaug:verifiedWith ) )
+  OPTIONAL {
+    ?mechanism a ?formalism .
+    FILTER ( ?formalism IN ( sh:NodeShape, sh:PropertyShape,
+                             sh:SPARQLSelectExecutable, sh:SPARQLAskExecutable,
+                             sh:SPARQLConstructExecutable, sh:SPARQLUpdateExecutable,
+                             swrl:Imp, sp:Query ) )
+  }
+  OPTIONAL { ?mechanism gsnaug:script    ?script }
+  OPTIONAL { ?mechanism gsnaug:readsTerm ?term }
+  BIND( IF(BOUND(?formalism), "in the graph",
+        IF(BOUND(?script),    "script in the graph",
+        IF(BOUND(?term),      "terms declared by hand",
+                              "opaque"))) AS ?state )
+}
+GROUP BY ?solutionId ?artefact ?mechanism ?state
+ORDER BY ?solutionId ?mechanism

@@ -9,7 +9,7 @@ domain or range.
 
 | File | Role |
 | :--- | :--- |
-| `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 4 SWRL rules |
+| `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 5 SWRL rules |
 | `ontogsn-augmentation-shapes.ttl` | 13 SHACL shapes |
 | `rules/*.rq` | a SPARQL twin of each SWRL rule, runnable without a reasoner |
 | `testdata/example_issues.ttl` | a minimal case exercising every rule branch |
@@ -98,9 +98,11 @@ challenges. Only `gsn:defeated` has to be asserted here, because **S46** derives
 | :--- | :--- |
 | `A2a` / `A2b` | a revise issue against a goal / a solution becomes a true goal challenging it |
 | `A3a` / `A3b` | a resolve issue against a goal / a solution becomes a goal challenging it, and defeats it |
+| `A4` | a part of an artefact is verifiable with whatever its artefact is verifiable with |
 
 A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express "a goal **or** a
-solution" in one rule.
+solution" in one rule. A4 copies `verifiableWith` only. The other seven provenance properties admit a
+part in their domain, but a part states them for itself.
 
 ## PROV-O
 

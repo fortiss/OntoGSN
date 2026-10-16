@@ -18,7 +18,7 @@ WHERE {
 
   ?later gsnaug:supersedes+ ?original ;
          gsnaug:supersedes ?predecessor .
-  ?predecessor gsnaug:issueOutcome gsnaug:cannotAnswer .
+  ?predecessor gsnaug:issueOutcome "cannot answer" .
 }
 GROUP BY ?originalId
 ORDER BY DESC(?escalations)
