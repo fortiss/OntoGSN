@@ -6,7 +6,7 @@ name: reports
 # never regenerates. This regenerates and never merges, so what the website shows is still
 # a person's decision.
 #
-# Nothing is vendored. dev_tools/reports.py --fetch clones each tool, at the version the
+# Nothing is vendored. development/dev_tools/reports.py --fetch clones each tool, at the version the
 # script pins, into the folder above the checkout - the same layout as on a developer's
 # machine - and downloads or builds it there. It does so only for a report that is stale.
 on:
@@ -15,8 +15,8 @@ on:
     paths:
       - serializations/ontogsn.ttl
       - serializations/ontogsn.rdf
-      - dev_tools/reports.py
-      - dev_tools/oops_check.py
+      - development/dev_tools/reports.py
+      - development/dev_tools/oops_check.py
       - .github/workflows/reports.yml
   workflow_dispatch:
     inputs:
@@ -52,14 +52,14 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
-      - run: pip install -c dev_tools/constraints.txt rdflib
+      - run: pip install -c development/dev_tools/constraints.txt rdflib
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '17'
       - name: document the ontology
         id: report
-        run: python dev_tools/reports.py widoco --fetch $FORCE
+        run: python development/dev_tools/reports.py widoco --fetch $FORCE
       - uses: actions/upload-artifact@v7
         with:
           name: widoco
@@ -77,7 +77,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
-      - run: pip install -c dev_tools/constraints.txt rdflib
+      - run: pip install -c development/dev_tools/constraints.txt rdflib
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
@@ -86,11 +86,11 @@ jobs:
       - uses: actions/cache@v6
         with:
           path: ~/.m2/repository
-          key: oops-maven-${{ hashFiles('dev_tools/reports.py') }}
+          key: oops-maven-${{ hashFiles('development/dev_tools/reports.py') }}
           restore-keys: oops-maven-
       - name: scan the ontology for pitfalls
         id: report
-        run: python dev_tools/reports.py oops --fetch $FORCE
+        run: python development/dev_tools/reports.py oops --fetch $FORCE
       - uses: actions/upload-artifact@v7
         with:
           name: oops
@@ -108,7 +108,7 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
-      - run: pip install -c dev_tools/constraints.txt rdflib
+      - run: pip install -c development/dev_tools/constraints.txt rdflib
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
@@ -117,7 +117,7 @@ jobs:
       # --wait gives the cache that long, and more, to serve this commit.
       - name: assess the published ontology
         id: report
-        run: python dev_tools/reports.py foops --fetch --wait 600 $FORCE
+        run: python development/dev_tools/reports.py foops --fetch --wait 600 $FORCE
       - uses: actions/upload-artifact@v7
         with:
           name: foops

@@ -9,18 +9,18 @@ domain or range.
 
 | File | Role |
 | :--- | :--- |
-| `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 5 SWRL rules |
+| `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 7 SWRL rules |
 | `ontogsn-augmentation-shapes.ttl` | 13 SHACL shapes |
 | `rules/*.rq` | a SPARQL twin of each SWRL rule, runnable without a reasoner |
 | `testdata/example_issues.ttl` | a minimal case exercising every rule branch |
 | `testdata/example_violations.ttl` | a deliberately wrong case, one node per shape |
-| `check.py` | parses, runs the rules to a fixpoint, and validates both fixtures |
+| `development/dev_tools/augmentation_check.py` | parses, runs each shape mechanism and keeps its report, runs the rules to a fixpoint, and validates both fixtures |
 
 ```bash
-python augmentation/check.py
+python development/dev_tools/augmentation_check.py
 ```
 
-Standalone on purpose. `dev_tools/check_all.py` globs `serializations/`, `shapes/` and `queries/`, so it
+Standalone on purpose. `development/dev_tools/check_all.py` globs `serializations/`, `shapes/` and `queries/`, so it
 never sees this directory — the augmentation cannot break the core checks.
 
 ## The three groups
@@ -99,10 +99,27 @@ challenges. Only `gsn:defeated` has to be asserted here, because **S46** derives
 | `A2a` / `A2b` | a revise issue against a goal / a solution becomes a true goal challenging it |
 | `A3a` / `A3b` | a resolve issue against a goal / a solution becomes a goal challenging it, and defeats it |
 | `A4` | a part of an artefact is verifiable with whatever its artefact is verifiable with |
+| `A6a` / `A6b` | a solution is true / not true when the mechanism that can verify its artefact left a conforming / failing report over it |
 
 A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express "a goal **or** a
 solution" in one rule. A4 copies `verifiableWith` only. The other seven provenance properties admit a
 part in their domain, but a part states them for itself.
+
+## The result of a check stays in the graph
+
+`gsnaug:verifiableWith` says that a mechanism can check an artefact. A6a and A6b read what the check
+found. The finding is a `sh:ValidationReport`, the form every SHACL engine writes, with two PROV links:
+`prov:wasGeneratedBy` names the mechanism, and `prov:used` names the artefact. If the report conforms,
+the solution that refers to the artefact is `gsn:true`. If it does not conform, the solution is not. The
+core rules S10 and S11 then carry the result up to the goal. No term is added for this.
+
+A mechanism that is a SHACL shape produces the report by itself. `augmentation_check.py` runs each such mechanism in
+the fixture over its artefact and keeps the report that the engine returns, plus the two links and a
+timestamp. A mechanism that is a script needs a wrapper that writes the same form, or a person writes
+the report by hand. The fixture has one of each.
+
+The rules read every report. A newer report does not retire an older one with the opposite result, and
+a report without the two PROV links is ignored.
 
 ## PROV-O
 

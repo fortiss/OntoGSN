@@ -3,7 +3,7 @@
 CRUD SPARQL for a graph database holding an assurance case built on
 [`serializations/ontogsn.ttl`](../serializations/ontogsn.ttl). One file per competency
 question; the question itself is in the file's header, and the same set is tabulated in
-[`provenance/Competency Questions.xlsx`](../provenance/Competency%20Questions.xlsx) - on
+[`development/design/Competency Questions.xlsx`](../development/design/Competency%20Questions.xlsx) - on
 the "Competency Questions" sheet where a compliance process asks the question, and on
 "Extra" otherwise.
 
@@ -24,7 +24,7 @@ VALUES ?goalId { "G1" }             # PARAMETER: the goal to trace
 ?goal schema:identifier ?goalId .
 ```
 
-The defaults point at [`dev_tools/testdata/example_case.ttl`](../dev_tools/testdata/example_case.ttl),
+The defaults point at [`example/example_case.ttl`](../example/example_case.ttl),
 so every query runs as-is and returns something.
 
 Boolean decorators are matched with `FILTER(STR(?flag) = "true")`, which works whether the
@@ -106,10 +106,10 @@ can be read side by side.
 Run them with:
 
 ```bash
-python dev_tools/run_rules.py mycase.ttl --out mycase-materialised.ttl
-python dev_tools/run_rules.py mycase.ttl --dry-run           # what would each rule derive?
-python dev_tools/run_rules.py mycase.ttl --only S1,S16,S47
-python dev_tools/run_rules.py mycase.ttl --section "Dialectic Extension"
+python example/run_rules.py mycase.ttl --out mycase-materialised.ttl
+python example/run_rules.py mycase.ttl --dry-run           # what would each rule derive?
+python example/run_rules.py mycase.ttl --only S1,S16,S47
+python example/run_rules.py mycase.ttl --section "Dialectic Extension"
 ```
 
 Each rule derives one step, so `run_rules.py` applies the whole set repeatedly until a pass
@@ -118,6 +118,6 @@ driver detects that, stops, and names the rules involved.
 
 ## Verification
 
-`dev_tools/query_check.py` runs each query against the ontology and the example ABox in
-Oxigraph and records the outcome in `provenance/ontogsn-provenance-queries.ttl`. See
-[`dev_tools/README.md`](../dev_tools/README.md#stored-queries).
+`development/dev_tools/query_check.py` runs each query against the ontology and the example ABox in
+Oxigraph and records the outcome in `development/design/ontogsn-design-queries.ttl`. See
+[`development/dev_tools/README.md`](../development/dev_tools/README.md#stored-queries).

@@ -209,6 +209,15 @@ Get-WinEvent -LogName Security | Export-Csv -Path access-log.csv""" .
 #  Two mechanisms that are in the graph as what they are: a shape and a rule. Neither declares a
 #  term; the rules in derivations/ read the terms off the node. The shape has a plain path, a
 #  path with sh:class, and a sequence path, so that all three branches of D1 are exercised.
+#  The log carries one entry, so that the shape has a focus node when check.py runs it: the
+#  report the run leaves behind is what A6a reads to mark Sn1 true.
+
+ex:access-log a ex:AccessLog ;
+    ex:retentionPolicy ex:retention-policy-2025 .
+
+ex:entry-1 a ex:AccessLogEntry ;
+    ex:inLog ex:access-log ;
+    ex:retainedUntil "2027-01-01"^^xsd:date .
 
 ex:access-log gsnaug:verifiableWith ex:retention-shape , ex:expiry-rule .
 
@@ -250,6 +259,27 @@ ex:interview-note a gsn:Artefact ;
     gsnaug:generatedBy     ex:owner-dan .
 
 ex:interview a gsnaug:Mechanism ; gsnaug:automated false .
+
+#  The note is also verifiable with a script. A script leaves no report of its own, so the one
+#  here is written by hand in the form a SHACL engine would produce: the adapter a scripted
+#  mechanism needs. It does not conform, so A6b marks Sn2 not true. The two gaps it reports are
+#  the ones I9 asks about.
+
+ex:interview-note gsnaug:verifiableWith ex:note-check .
+
+ex:note-check a gsnaug:Mechanism ;
+    gsnaug:automated true ;
+    gsnaug:script """Select-String -Path interview-note.md -Pattern '^Interviewee:', '^Date:' | Measure-Object""" .
+
+ex:note-check-report-1 a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+                sh:focusNode ex:interview-note ;
+                sh:resultSeverity sh:Violation ;
+                sh:resultMessage "The note names no interviewee and no date." ] ;
+    prov:wasGeneratedBy ex:note-check ;
+    prov:used ex:interview-note ;
+    prov:generatedAtTime "2026-03-08T16:40:00Z"^^xsd:dateTime .
 
 ex:access-log-v2 a gsn:Artefact ;
     gsnaug:replaces       ex:access-log ;

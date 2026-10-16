@@ -8,16 +8,16 @@ Every shape carries `gsn:coreOrExtension`, exactly as the ontology terms do, so 
 
 The shapes carry no editorial comments. Why a constraint is written the way it is —
 including the cases where a shape deliberately departs from the ontology — is recorded in
-[`provenance/ontogsn-provenance-data.ttl`](../provenance/ontogsn-provenance-data.ttl), one
+[`development/design/ontogsn-design-data.ttl`](../development/design/ontogsn-design-data.ttl), one
 design decision per constraint, holding the constraint's Turtle, the passage of the
-standard behind it, and the reasoning. `provenance/Design Documentation.xlsx` is the same
+standard behind it, and the reasoning. `development/design/Design Documentation.xlsx` is the same
 record as a spreadsheet, generated from it.
 
 Shape records carry the same `part` and `section` as the ontology terms they validate — all
 five sections sit in Part 1 of the GSN Community Standard — and are keyed `…​.SH###`, so a
 section's axioms and its shapes sort together (`S04.R135` then `S04.SH001`).
 
-`#` comments in these files are section headings only. Prose belongs in the provenance
+`#` comments in these files are section headings only. Prose belongs in the design
 record, so the executable shape stays executable.
 
 ## Files
@@ -36,7 +36,7 @@ The naming mirrors [`serializations/separated/`](../serializations/separated/REA
 The five per-section files are the source of truth. `ontogsn-shapes_0_full.ttl` is **generated** by concatenating them — regenerate it after any edit:
 
 ```sh
-python shapes/build_full.py
+python development/dev_tools/build_full.py
 ```
 
 Each section file is a standalone, self-sufficient shapes graph: load only `ontogsn-shapes_1_core.ttl` to validate a core-only assurance case, or load any combination.

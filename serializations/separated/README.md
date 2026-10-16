@@ -6,8 +6,8 @@ belongs to, and how much of the ontology is carried with it.
 **Generated. Do not edit by hand.**
 
 ```bash
-python serializations/build_separated.py            # rewrite all 36 files
-python serializations/build_separated.py --check    # verify they are current (CI)
+python development/dev_tools/build_separated.py            # rewrite all 36 files
+python development/dev_tools/build_separated.py --check    # verify they are current (CI)
 ```
 
 ## Filename structure
@@ -67,7 +67,7 @@ five modules between them account for the whole ontology.
 ### Format
 
 `ttl` (Turtle) and `jsonld` (JSON-LD). Both are canonicalised the same way
-`serializations/build.py` canonicalises `ontogsn.rdf` and `ontogsn.jsonld`: blank nodes are
+`development/dev_tools/build.py` canonicalises `ontogsn.rdf` and `ontogsn.jsonld`: blank nodes are
 relabelled from their own structure and the output is sorted, so an unchanged ontology
 produces byte-identical files and git shows only real changes.
 
