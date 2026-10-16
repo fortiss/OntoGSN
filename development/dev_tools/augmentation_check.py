@@ -43,7 +43,7 @@ SH = Namespace(SHACL)
 PROV = Namespace("http://www.w3.org/ns/prov#")
 
 ONTOLOGY = os.path.join(HERE, "ontogsn-augmentation.ttl")
-SHAPES = os.path.join(HERE, "ontogsn-augmentation-shapes.ttl")
+SHAPES = os.path.join(HERE, "shapes", "ontogsn-augmentation-shapes.ttl")
 FIXTURE = os.path.join(HERE, "testdata", "example_issues.ttl")
 CORE = os.path.join(REPO, "serializations", "ontogsn.ttl")
 CORE_RULES = os.path.join(REPO, "queries", "rules")

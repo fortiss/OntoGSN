@@ -1,7 +1,7 @@
 # OntoGSN Augmentation: how to
 
 Each heading names a task. Read the heading as "How to ...". The vocabulary enforces what
-`ontogsn-augmentation-shapes.ttl` checks. This manual covers what it does not enforce.
+`shapes/ontogsn-augmentation-shapes.ttl` checks. This manual covers what it does not enforce.
 
 The examples use these prefixes:
 
