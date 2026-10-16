@@ -14,7 +14,7 @@ sidebar:
 
 ## Use Cases
 
-## Simple: Evaluation of a Static Assurance Case
+### Simple: Evaluation of a Static Assurance Case
 Note: Depending on the chosen editor, you can edit the ontology manually in the user interface, via CRUD queries, or using plug-ins for importing from data files.
 
 1. Add claims (e.g., goals) and evidence (e.g., solutions) as individuals using unique node identifiers.
@@ -23,7 +23,7 @@ Note: Depending on the chosen editor, you can edit the ontology manually in the 
 4. Repeat the above until satisfied with the assurance case.
 5. Run the reasoner (e.g., Pellet) to evaluate against rules.
 
-## Advanced: Dynamic Management of a Predefined Assurance Case
+### Advanced: Dynamic Management of a Predefined Assurance Case
 1. Implement the steps in the Simple use case.
 2. Represent elements of your domain in a "world model" ontology.
 3. Link each element of the world model to the corresponding assurance case claims by using a custom object property (e.g., refersTo).

@@ -1,108 +1,241 @@
 ---
-layout: splash          # keeps the large banner
+layout: landing
 title:  "OntoGSN"
 permalink: /
 author_profile: false
 
-# —– HERO BANNER SETTINGS —–
-header:
-  overlay_image: /assets/images/ontogsn-banner.png   # path to the file
-  overlay_filter: 0.15        # darken/brighten (0 = no filter, 1 = black)
-  overlay_color: "#000"       # hex overlay tint (optional)
-  caption: #"Figure 1 – OntoGSN class taxonomy"       # small text bottom‑left
-  cta_label: "Read the documentation →"              # call‑to‑action button
-  cta_url: "/documentation/"                         # where the button leads
+hero:
+  lead: "The GSN Community Standard as an OWL 2 ontology, with the rules, shapes and queries that keep an assurance case in a graph store."
+  image: /assets/images/ontogsn-figure.webp
+  image_alt: "An ontology graph on the left, linked by dashed lines to an assurance case tree on the right"
+  actions:
+    - label: "Read the documentation"
+      url: /documentation/
+    - label: "Try the Playground"
+      url: /playground/
+      class: btn--og-outline
 ---
 
-<p>
-  <strong>Download serializations:</strong>
-  <a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.ttl" target="_blank">
-    <img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL" />
-  </a>
-  <a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.rdf" target="_blank">
-    <img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML" />
-  </a>
-  <a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.jsonld" target="_blank">
-    <img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" />
-  </a>
-  <a href="https://github.com/fortiss/OntoGSN/tree/main/serializations/separated" target="_blank">
-    <img src="https://img.shields.io/badge/Format-By_section-blue.svg" alt="By section" />
-  </a>
-</p>
+<section id="get" class="og-section">
+  <dl class="og-resources">
+    <dt>Serializations</dt>
+    <dd class="og-badges">
+      <a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.ttl" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL"></a>
+      <a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.rdf" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML"></a>
+      <a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.jsonld" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD"></a>
+      <button type="button" class="og-badge-toggle" aria-expanded="false" aria-controls="og-matrix">
+        <img src="https://img.shields.io/badge/Format-By_section-blue.svg" alt="By section"><i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </button>
+    </dd>
 
-<p>
-  <strong>Permanent IRI:</strong>
-  <a href="https://w3id.org/OntoGSN/ontology" target="_blank">https://w3id.org/OntoGSN/ontology</a>
-  &nbsp;(load the ontology from this address, which always serves the current version)
-</p>
+    <dd id="og-matrix" class="og-matrix" hidden>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Section of the standard</th>
+            <th scope="colgroup" colspan="2">Complete</th>
+            <th scope="colgroup" colspan="2">Pruned</th>
+            <th scope="colgroup" colspan="2">Skeletal</th>
+          </tr>
+          <tr>
+            <th scope="col">Turtle</th><th scope="col">JSON-LD</th>
+            <th scope="col">Turtle</th><th scope="col">JSON-LD</th>
+            <th scope="col">Turtle</th><th scope="col">JSON-LD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Everything</th>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_0_full.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_0_full.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_0_full.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_0_full.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_0_full.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_0_full.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Core GSN</th>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_1_core.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_1_core.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_1_core.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_1_core.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_1_core.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_1_core.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Argument Pattern Extension</th>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_2_pattern.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_2_pattern.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_2_pattern.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_2_pattern.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_2_pattern.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_2_pattern.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Modular Extension</th>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_3_modular.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_3_modular.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_3_modular.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_3_modular.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_3_modular.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_3_modular.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Confidence Argument Extension</th>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_4_confidence.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_4_confidence.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_4_confidence.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_4_confidence.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_4_confidence.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_4_confidence.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Dialectic Extension</th>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_5_dialectic.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-complete_5_dialectic.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_5_dialectic.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-pruned_5_dialectic.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_5_dialectic.ttl" target="_blank" rel="noopener">TTL</a></td>
+            <td><a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/separated/ontogsn-skeletal_5_dialectic.jsonld" target="_blank" rel="noopener">JSON-LD</a></td>
+          </tr>
+        </tbody>
+      </table>
+      <small>Complete carries everything. Pruned drops the SWRL rules and the publication metadata. Skeletal also drops the prose. <a href="https://github.com/fortiss/OntoGSN/tree/main/serializations/separated" target="_blank" rel="noopener">Details</a>.</small>
+    </dd>
 
-<p>
-  <strong>Validate assurance-case data:</strong>
-  <a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/shapes/ontogsn-shapes_0_full.ttl" target="_blank">
-    <img src="https://img.shields.io/badge/Format-SHACL-blue.svg" alt="SHACL shapes" />
-  </a>
-</p>
+    <dt>Permanent IRI</dt>
+    <dd>
+      <a href="https://w3id.org/OntoGSN/ontology" target="_blank" rel="noopener"><code>https://w3id.org/OntoGSN/ontology</code></a>
+      <small>always serves the current version</small>
+    </dd>
 
-<p>
-  <strong>Workbench:</strong>
-  <a href="https://github.com/fortiss/ontogsn_workbench" target="_blank">
-    <img src="https://img.shields.io/badge/Workbench-blue" alt="OntoGSN:Workbench" />
-  </a>
-</p>
+    <dt>SHACL shapes</dt>
+    <dd class="og-badges">
+      <a href="https://raw.githubusercontent.com/fortiss/OntoGSN/main/shapes/ontogsn-shapes_0_full.ttl" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/Format-SHACL-blue.svg" alt="SHACL shapes"></a>
+      <small>validate assurance-case data</small>
+    </dd>
+  </dl>
 
-<p>
-  <strong>How to cite:</strong>
-  Bueno Momčilović, T., Gallina, B., Kessler, I., Hendricks, J., & Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. arXiv preprint (v2). <a href="https://doi.org/10.48550/arXiv.2506.11023" target="_blank">https://doi.org/10.48550/arXiv.2506.11023</a>
-  <br />
-  <a href="https://arxiv.org/abs/2506.11023" target="_blank">
-    <img src="https://img.shields.io/badge/arXiv-2506.11023-B31B1B.svg" alt="arXiv:2506.11023" />
-  </a>
-  &nbsp;A third version of the paper is in preparation.
-</p>
+  <p class="og-statement">OntoGSN is an ontology for enabling users to manage (i.e., create, maintain, align, evaluate, explain and display) GSN assurance cases semantically.</p>
+</section>
 
-<p>
-  <strong>To cite the ontology itself:</strong>
-  <a href="https://doi.org/10.5281/zenodo.17808330" target="_blank">
-    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.17808330.svg" alt="DOI 10.5281/zenodo.17808330" />
-  </a>
-  &nbsp;(this DOI always resolves to the newest release)
-</p>
+<section id="benefits" class="og-section">
+  <h2>What it gives you</h2>
 
+  <ul class="og-cards">
+    <li>
+      <h3><i class="fas fa-project-diagram" aria-hidden="true"></i>Graph-native cases</h3>
+      <p>Store and query assurance cases as graph data. <a href="https://github.com/fortiss/OntoGSN/tree/main/queries" target="_blank" rel="noopener">Stored SPARQL queries</a> answer common questions about a case.</p>
+    </li>
+    <li>
+      <h3><i class="fas fa-eye" aria-hidden="true"></i>Readable and visual</h3>
+      <p>A human-readable representation of the domain that tools can draw as a tree.</p>
+    </li>
+    <li>
+      <h3><i class="fas fa-link" aria-hidden="true"></i>One store for everything</h3>
+      <p>Link claims and evidence to data, documents and code in one place.</p>
+    </li>
+    <li>
+      <h3><i class="fas fa-check-double" aria-hidden="true"></i>Logic-based checks</h3>
+      <p>SWRL rules for reasoners, the same rules as SPARQL updates for stores without one, and SHACL shapes for validating case data.</p>
+    </li>
+    <li>
+      <h3><i class="fas fa-brain" aria-hidden="true"></i>Ready for new methods</h3>
+      <p>A foundation for advanced methods such as GraphRAG.</p>
+    </li>
+    <li>
+      <h3><i class="fas fa-toolbox" aria-hidden="true"></i>Open tooling</h3>
+      <p>An active, mostly open-source ecosystem of editors, stores and reasoners.</p>
+    </li>
+  </ul>
+</section>
 
-  <section id="about" class="page__section">
-    <h2>About</h2>
-  
-    <p>OntoGSN is an ontology for enabling users to manage (i.e., create,
-       maintain, align, evaluate, explain and display) GSN assurance cases semantically. Key benefits include:</p>
-    <ul>
-      <li>native storage and querying of graph data, with <a href="https://github.com/fortiss/OntoGSN/tree/main/queries" target="_blank">stored SPARQL queries</a> that answer common questions about a case;</li>
-      <li>human‑readable, visualisable domain representation;</li>
-      <li>linking to data, documents and code in one store;</li>
-      <li>logic‑based quality checks: SWRL rules for reasoners, the same rules as SPARQL updates for stores without a reasoner, and SHACL shapes for validating case data;</li>
-      <li>a foundation for advanced methods such as GraphRAG; and</li>
-      <li>an active, mostly open‑source tooling ecosystem.</li>
-    </ul>
-    <p>Every term is sourced from the GSN Community Standard v3, across its five sections: core GSN and the argument pattern, modular, confidence and dialectic extensions.
-        A <a href="https://github.com/fortiss/OntoGSN/tree/main/provenance" target="_blank">provenance record</a> traces each axiom to the passage of the standard behind it, and records the reasoning.
-    </p>
-    <p>The ontology acts as a "translator" (i.e., middleware) between a system and its assurance case, and as a validator for the rules of the standard.
-        You do not need to write a separate interface for each system, or update the assurance case by hand.
-        Because the ontology carries the updates, you can follow the system's design, implementation, testing and runtime from the assurance case tree itself. This suits auditors, safety and security engineers, and other supervisory or monitoring roles.
-    </p>
-  </section>
+<section id="tools" class="og-section">
+  <h2>Work with it</h2>
 
+  <dl class="og-resources">
+    <dt>Workbench</dt>
+    <dd>
+      <ul class="og-chips">
+        <li><a class="og-chip" href="https://github.com/fortiss/ontogsn_workbench" target="_blank" rel="noopener"><i class="fas fa-toolbox" aria-hidden="true"></i>OntoGSN Workbench</a></li>
+      </ul>
+    </dd>
+    <dt>In the browser</dt>
+    <dd>
+      <ul class="og-chips">
+        <li><a class="og-chip" href="{{ '/playground/' | relative_url }}"><i class="fas fa-flask" aria-hidden="true"></i>Playground</a></li>
+        <li><a class="og-chip" href="{{ '/tutorial/' | relative_url }}"><i class="fas fa-graduation-cap" aria-hidden="true"></i>Tutorial</a></li>
+      </ul>
+    </dd>
+    <dt>Source</dt>
+    <dd>
+      <ul class="og-chips">
+        <li><a class="og-chip" href="https://github.com/fortiss/OntoGSN" target="_blank" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i>Repository</a></li>
+        <li><a class="og-chip" href="https://github.com/fortiss/OntoGSN/tree/main/provenance" target="_blank" rel="noopener"><i class="fas fa-book" aria-hidden="true"></i>Provenance record</a></li>
+      </ul>
+    </dd>
+  </dl>
+</section>
 
-  <section id="acknowledgements" class="page__section">
-    <h3>Acknowledgements</h3>
+<section id="about" class="og-section">
+  <h2>Grounded in the standard</h2>
 
-    <p>Many thanks to: </p>
-    <ul>
-        <li> Prof. Barbara Gallina, Ingmar Kessler, and Dian Balta for contributions to the ontology and the paper;</li>
-        <li> Jule Hendricks for contributions to the code; </li>
-        <li> Yannick Landeck, Radouane Bouchekir, Tewodros Beyene, Carmen Carlan, and Laure Millet for reviewing various iterations of the contributions;</li>
-        <li> Will Franks (Adelard / NCC Group) and Ewen Denney (NASA Ames) for providing access to the tools of their respective organizations;</li>
-        <li> Damir Safin for technical support.</li>
-    </ul>
+  <p>Every term is sourced from the GSN Community Standard v3, across its five sections: core GSN and the argument pattern, modular, confidence and dialectic extensions.
+     A <a href="https://github.com/fortiss/OntoGSN/tree/main/provenance" target="_blank" rel="noopener">provenance record</a> traces each axiom to the passage of the standard behind it, and records the reasoning.</p>
 
-    <p>This work was partially supported by financial and other means by the following research projects: DUCA (EU grant agreement 101086308), DiProLeA (German Federal Ministry of Education and Research, grant 02J19B120 ff), ROBIN at the Bavarian Research Institute for Digital Transformation, ∞ COMPASS (#49 project at Software Center, Sweden), as well as our industrial partners in the FinComp project.</p>
-  </section>
+  <p>The ontology acts as a "translator" (i.e., middleware) between a system and its assurance case, and as a validator for the rules of the standard.
+     You do not need to write a separate interface for each system, or update the assurance case by hand.
+     Because the ontology carries the updates, you can follow the system's design, implementation, testing and runtime from the assurance case tree itself.
+     This suits auditors, safety and security engineers, and other supervisory or monitoring roles.</p>
+</section>
+
+<section id="cite" class="og-section">
+  <h2>How to cite</h2>
+
+  <div class="og-cite">
+    <p>Bueno Momčilović, T., Gallina, B., Kessler, I., Hendricks, J., &amp; Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. arXiv preprint (v2). <a href="https://doi.org/10.48550/arXiv.2506.11023" target="_blank" rel="noopener">https://doi.org/10.48550/arXiv.2506.11023</a></p>
+  </div>
+
+  <dl class="og-resources">
+    <dt>The paper</dt>
+    <dd>
+      <ul class="og-chips">
+        <li><a class="og-chip" href="https://arxiv.org/abs/2506.11023" target="_blank" rel="noopener"><i class="fas fa-file-alt" aria-hidden="true"></i>arXiv:2506.11023</a></li>
+      </ul>
+      <small>a third version of the paper is in preparation</small>
+    </dd>
+    <dt>The ontology</dt>
+    <dd>
+      <ul class="og-chips">
+        <li><a class="og-chip" href="https://doi.org/10.5281/zenodo.17808330" target="_blank" rel="noopener"><i class="fas fa-archive" aria-hidden="true"></i>DOI 10.5281/zenodo.17808330</a></li>
+      </ul>
+      <small>this DOI always resolves to the newest release</small>
+    </dd>
+  </dl>
+</section>
+
+<section id="acknowledgements" class="og-section og-ack">
+  <h2>Acknowledgements</h2>
+
+  <p>Many thanks to:</p>
+  <ul>
+    <li>Prof. Barbara Gallina, Ingmar Kessler, and Dian Balta for contributions to the ontology and the paper;</li>
+    <li>Jule Hendricks for contributions to the code;</li>
+    <li>Yannick Landeck, Radouane Bouchekir, Tewodros Beyene, Carmen Carlan, and Laure Millet for reviewing various iterations of the contributions;</li>
+    <li>Will Franks (Adelard / NCC Group) and Ewen Denney (NASA Ames) for providing access to the tools of their respective organizations;</li>
+    <li>Damir Safin for technical support.</li>
+  </ul>
+
+  <p>This work was partially supported by financial and other means by the following research projects: DUCA (EU grant agreement 101086308), DiProLeA (German Federal Ministry of Education and Research, grant 02J19B120 ff), ROBIN at the Bavarian Research Institute for Digital Transformation, ∞ COMPASS (#49 project at Software Center, Sweden), as well as our industrial partners in the FinComp project.</p>
+</section>
+
+<script>
+  document.querySelectorAll('.og-badge-toggle').forEach(function (button) {
+    var panel = document.getElementById(button.getAttribute('aria-controls'));
+    button.addEventListener('click', function () {
+      var open = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', open ? 'false' : 'true');
+      panel.hidden = open;
+    });
+  });
+</script>
