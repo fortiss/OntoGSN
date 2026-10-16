@@ -1,0 +1,32 @@
+# id:        CQ-79
+# role:      Developer
+# operation: read
+# question:  If this domain term changes, which mechanisms, artefacts and claims are affected?
+# expect:    rows
+#
+# Answerable without running anything, for every mechanism that declares what it reads. A
+# mechanism that declares nothing is absent from the answer, so the answer is only as complete
+# as the declarations are. For a mechanism that is a shape, a rule or a query in the graph the
+# declaration can be derived from the node itself; for a script it has to be written by hand.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT DISTINCT ?term ?mechanism ?use ?artefact ?solutionId ?goalId
+WHERE {
+  VALUES ?term { <https://example.org/case#retainedUntil> }    # PARAMETER
+
+  ?mechanism gsnaug:readsTerm ?term .
+  ?artefact  ?use ?mechanism .
+  FILTER ( ?use IN ( gsnaug:retrievableWith, gsnaug:retrievedWith,
+                     gsnaug:generableWith,   gsnaug:generatedWith,
+                     gsnaug:verifiableWith,  gsnaug:verifiedWith ) )
+  OPTIONAL {
+    ?solution a gsn:Solution ;
+              schema:identifier ?solutionId ;
+              gsn:refersTo ?artefact .
+    OPTIONAL { ?goal gsn:supportedBy+ ?solution ; schema:identifier ?goalId }
+  }
+}
+ORDER BY ?mechanism ?use ?artefact ?solutionId ?goalId

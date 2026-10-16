@@ -14,7 +14,7 @@ SELECT ?targetId ?issueId ?cycleId
 WHERE {
   ?issue a gsnaug:Issue ;
          schema:identifier ?issueId ;
-         gsnaug:issueOutcome gsnaug:infeasible ;
+         gsnaug:issueOutcome "infeasible" ;
          gsnaug:raisedAgainst ?target .
   ?target schema:identifier ?targetId .
   OPTIONAL {

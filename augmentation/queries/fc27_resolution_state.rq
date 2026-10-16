@@ -16,10 +16,10 @@ WHERE {
   ?target schema:identifier ?targetId .
   OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
   OPTIONAL {
-    ?answer a gsnaug:Resolution ;
+    ?answer a gsnaug:Answer ;
             gsnaug:answers ?issue
   }
   BIND( IF(BOUND(?answer), "implemented",
-        IF(BOUND(?outcome), STRAFTER(STR(?outcome), "#"), "open")) AS ?state )
+        IF(BOUND(?outcome), STR(?outcome), "open")) AS ?state )
 }
 ORDER BY ?issueId

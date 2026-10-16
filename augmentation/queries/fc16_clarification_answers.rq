@@ -7,12 +7,12 @@
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
-SELECT ?answer ?issueId ?description ?accepted
+SELECT ?answer ?issueId ?description
 WHERE {
-  ?answer a gsnaug:Clarification ;
+  ?answer a gsnaug:Answer ;
           gsnaug:answers ?issue .
-  ?issue schema:identifier ?issueId .
+  ?issue schema:identifier ?issueId ;
+         gsnaug:issueType gsnaug:clarify .
   OPTIONAL { ?answer schema:description ?description }
-  OPTIONAL { ?answer gsnaug:accepted ?accepted }
 }
 ORDER BY ?issueId

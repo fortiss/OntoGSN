@@ -1,0 +1,186 @@
+name: reports
+
+# Regenerates what the website publishes about the ontology - the WIDOCO documentation in
+# docs/documentation/, the OOPS! pitfall scan and the FOOPS! FAIR assessment in
+# docs/evaluation/ - and proposes the result as a pull request. checks.yml verifies and
+# never regenerates. This regenerates and never merges, so what the website shows is still
+# a person's decision.
+#
+# Nothing is vendored. dev_tools/reports.py --fetch clones each tool, at the version the
+# script pins, into the folder above the checkout - the same layout as on a developer's
+# machine - and downloads or builds it there. It does so only for a report that is stale.
+on:
+  push:
+    branches: [main]
+    paths:
+      - serializations/ontogsn.ttl
+      - serializations/ontogsn.rdf
+      - dev_tools/reports.py
+      - dev_tools/oops_check.py
+      - .github/workflows/reports.yml
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Regenerate every report, even one that is current
+        type: boolean
+        default: false
+
+# a newer push supersedes a run that is still going
+concurrency:
+  group: reports
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  # empty on a push, which has no inputs
+  FORCE: ${{ inputs.force && '--force' || '' }}
+
+jobs:
+  widoco:
+    # The reports describe what fortiss/OntoGSN publishes, and FOOPS! assesses what the w3id
+    # IRI serves, which is this repository's main. A fork has nothing to publish, so every
+    # job here runs in this repository only.
+    if: github.repository == 'fortiss/OntoGSN'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      summary: ${{ steps.report.outputs.widoco }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install -c dev_tools/constraints.txt rdflib
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: document the ontology
+        id: report
+        run: python dev_tools/reports.py widoco --fetch $FORCE
+      - uses: actions/upload-artifact@v7
+        with:
+          name: widoco
+          path: docs/documentation/
+          if-no-files-found: error
+
+  oops:
+    if: github.repository == 'fortiss/OntoGSN'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      summary: ${{ steps.report.outputs.oops }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install -c dev_tools/constraints.txt rdflib
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+      # OOPS! publishes no JAR, so it is built with Maven. This keeps Maven's downloads.
+      - uses: actions/cache@v6
+        with:
+          path: ~/.m2/repository
+          key: oops-maven-${{ hashFiles('dev_tools/reports.py') }}
+          restore-keys: oops-maven-
+      - name: scan the ontology for pitfalls
+        id: report
+        run: python dev_tools/reports.py oops --fetch $FORCE
+      - uses: actions/upload-artifact@v7
+        with:
+          name: oops
+          path: docs/evaluation/oops/
+          if-no-files-found: error
+
+  foops:
+    if: github.repository == 'fortiss/OntoGSN'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      summary: ${{ steps.report.outputs.foops }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install -c dev_tools/constraints.txt rdflib
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+      # The IRI serves main through raw.githubusercontent.com, which caches for five minutes.
+      # --wait gives the cache that long, and more, to serve this commit.
+      - name: assess the published ontology
+        id: report
+        run: python dev_tools/reports.py foops --fetch --wait 600 $FORCE
+      - uses: actions/upload-artifact@v7
+        with:
+          name: foops
+          path: docs/evaluation/foops/
+          if-no-files-found: error
+
+  propose:
+    needs: [widoco, oops, foops]
+    # also when one report failed: the others are still worth proposing
+    if: ${{ !cancelled() && github.repository == 'fortiss/OntoGSN' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+
+      # A report replaces its whole folder, so that a file the tool stopped writing goes too.
+      # A report whose job did not succeed stays as it is.
+      - if: needs.widoco.result == 'success'
+        run: rm -rf docs/documentation
+      - if: needs.widoco.result == 'success'
+        uses: actions/download-artifact@v8
+        with:
+          name: widoco
+          path: docs/documentation
+      - if: needs.oops.result == 'success'
+        run: rm -rf docs/evaluation/oops
+      - if: needs.oops.result == 'success'
+        uses: actions/download-artifact@v8
+        with:
+          name: oops
+          path: docs/evaluation/oops
+      - if: needs.foops.result == 'success'
+        run: rm -rf docs/evaluation/foops
+      - if: needs.foops.result == 'success'
+        uses: actions/download-artifact@v8
+        with:
+          name: foops
+          path: docs/evaluation/foops
+
+      # Opens the pull request, or updates the one already open. With nothing changed, it
+      # does neither.
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          branch: reports/regenerate
+          delete-branch: true
+          add-paths: |
+            docs/documentation
+            docs/evaluation
+          commit-message: |
+            Regenerate the website reports
+
+            From serializations/ontogsn.ttl at ${{ github.sha }}, by the reports workflow.
+          title: Regenerate the website reports
+          body: |
+            The reports workflow regenerated the website reports from `serializations/ontogsn.ttl` at ${{ github.sha }}.
+
+            | Report | Folder | Result |
+            | :--- | :--- | :--- |
+            | WIDOCO documentation | `docs/documentation/` | ${{ needs.widoco.outputs.summary || needs.widoco.result }} |
+            | OOPS! pitfall scan | `docs/evaluation/oops/` | ${{ needs.oops.outputs.summary || needs.oops.result }} |
+            | FOOPS! FAIR assessment | `docs/evaluation/foops/` | ${{ needs.foops.outputs.summary || needs.foops.result }} |
+
+            If a job did not succeed, its report keeps its previous version. The run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

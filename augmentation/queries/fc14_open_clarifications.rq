@@ -4,8 +4,7 @@
 # question:  Which elements have an open clarification against them?
 # expect:    rows
 #
-# Open means neither ended by an outcome nor closed by an answer the raiser accepted. An answer
-# marked accepted false leaves the ask open, which is what sends it round again.
+# Open means neither ended by an outcome nor closed by an answer.
 
 PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
@@ -21,9 +20,6 @@ WHERE {
   OPTIONAL { ?issue gsnaug:heldBy ?holder }
   OPTIONAL { ?issue schema:description ?description }
   FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
-  FILTER NOT EXISTS {
-    ?answer gsnaug:answers ?issue .
-    FILTER NOT EXISTS { ?answer gsnaug:accepted false }
-  }
+  FILTER NOT EXISTS { ?answer gsnaug:answers ?issue }
 }
 ORDER BY ?issueId

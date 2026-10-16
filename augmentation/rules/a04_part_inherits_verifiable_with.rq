@@ -1,0 +1,21 @@
+# rule:      A4
+# name:      Part Inherits Verifiable With
+# section:   Augmentation
+# operation: rule
+# expect:    insert
+# swrl:      ArtefactPart(?P) ^ partOf(?P, ?A) ^ Artefact(?A) ^ verifiableWith(?A, ?X) -> verifiableWith(?P, ?X)
+# reads:     IF ArtefactPart P is part of Artefact A AND A is verifiable with X THEN P is verifiable with X
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
+
+INSERT {
+  ?P gsnaug:verifiableWith ?X .
+}
+WHERE {
+  ?P a gsnaug:ArtefactPart ;
+     gsnaug:partOf ?A .
+  ?A a gsn:Artefact ;
+     gsnaug:verifiableWith ?X .
+  FILTER NOT EXISTS { ?P gsnaug:verifiableWith ?X }
+}

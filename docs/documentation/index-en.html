@@ -1,0 +1,2369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="resources/primer.css" media="screen"/>
+<link rel="stylesheet" href="resources/rec.css" media="screen"/>
+<link rel="stylesheet" href="resources/extra.css" media="screen"/>
+<link rel="stylesheet" href="resources/owl.css" media="screen"/>
+<link rel="stylesheet" href="resources/dark.css" media="(prefers-color-scheme: dark)"/>
+<link rel="stylesheet" href="resources/light.css" media="(prefers-color-scheme: light)"/>
+<link rel="stylesheet" href="resources/slider.css" media="screen"/>
+<meta name="color-scheme" content="dark light">
+<script type="module" src="resources/dark-mode-toggle.mjs"></script><div class="darkmode">
+	<dark-mode-toggle class="slider"></dark-mode-toggle>
+</div>
+ <title>OntoGSN</title>
+
+
+<!-- SCHEMA.ORG METADATA -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"https://w3id.org/OntoGSN/ontology#","image":"http://vowl.visualdataweb.org/webvowl/#iri=https://w3id.org/OntoGSN/ontology#","name":"OntoGSN", "headline":"Document describing the ontology https://w3id.org/OntoGSN/ontology#", "dateReleased":"20th February 2025", "dateModified":"2026-08-18T00:00:00Z", "version":"1.2.4", "license":"https://creativecommons.org/licenses/by/4.0/", "author":[{"@type":"Person","name":"Tomas Bueno Momčilović"}], "contributor":[{"@type":"Person","name":"Barbara Gallina, Dian Balta, Ingmar Kessler"}]}</script>
+
+<script src="resources/jquery.js"></script> 
+<script src="resources/marked.min.js"></script> 
+    <script> 
+function loadHash() {
+  jQuery(".markdown").each(function(el){jQuery(this).after(marked.parse(jQuery(this).text())).remove()});
+	var hash = location.hash;
+	if($(hash).offset()!=null){
+	  $('html, body').animate({scrollTop: $(hash).offset().top}, 0);
+}
+	loadTOC();
+}
+function loadTOC(){
+	//process toc dynamically
+	  var t='<h2>Table of contents</h2><ul>';i = 1;j=0;
+	  jQuery(".list").each(function(){
+		if(jQuery(this).is('h2')){
+			if(j>0){
+				t+='</ul>';
+				j=0;
+			}
+			t+= '<li>'+i+'. <a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+			i++;
+		}
+		if(jQuery(this).is('h3')){
+			if(j==0){
+				t+='<ul>';
+			}
+			j++;
+			t+= '<li>'+(i-1)+'.'+j+'. '+'<a href=#'+ jQuery(this).attr('id')+'>'+ jQuery(this).ignore("span").text()+'</a></li>';
+		}
+	  });
+	  t+='</ul>';
+	  $("#toc").html(t); 
+}
+$(function(){
+    loadHash();
+}); $.fn.ignore = function(sel){
+        return this.clone().find(sel||">*").remove().end();
+ }; 
+   </script> 
+  </head> 
+
+<body>
+<div class="container">
+<div class="head">
+<div style="float:right">language <a href="index-en.html"><b>en</b></a> </div>
+<h1>OntoGSN</h1>
+<img src="https://fortiss.github.io/OntoGSN/assets/images/ontogsn-banner.png" width="50/">
+<h2>Release: 20th February 2025</h2>
+
+
+<dl>
+<dt>Modified on: 2026-08-18T00:00:00Z</dt>
+<dt>This version:</dt>
+<dd><a href="https://w3id.org/OntoGSN/ontology/1.2.4">https://w3id.org/OntoGSN/ontology/1.2.4</a></dd>
+<dt>Revision:</dt>
+<dd>1.2.4</dd>
+<dt>Issued on:</dt>
+<dd>2025-02-24</dd>
+<dt>Authors:</dt>
+<dd>Tomas Bueno Momčilović</dd>
+
+<dt>Contributors:</dt>
+<dd>Barbara Gallina, Dian Balta, Ingmar Kessler</dd>
+
+<dt>Publisher:</dt>
+<dd>https://www.fortiss.org/</dd>
+<dt>Source:</dt>
+<dd><a href="The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C">The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C</a></dd>
+
+<dt>Download serialization:</dt><dd><span><a href="ontology.jsonld" target="_blank"><img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" /></a> </span><span><a href="ontology.owl" target="_blank"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML" /></a> </span><span><a href="ontology.nt" target="_blank"><img src="https://img.shields.io/badge/Format-N_Triples-blue.svg" alt="N-Triples" /></a> </span><span><a href="ontology.ttl" target="_blank"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL" /></a> </span></dd><dt>License:</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="https://img.shields.io/badge/License-https://creativecommons.org/licenses/by/4.0/-blue.svg" alt="https://creativecommons.org/licenses/by/4.0/" /></a>
+</dd><dt>Visualization:</dt><dd><a href="webvowl/index.html#" target="_blank"><img src="https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg" alt="Visualize with WebVowl" /></a></dd>
+<!-- <dt>Evaluation:</dt><dd><a href="OOPSevaluation/oopsEval.html#" target="_blank"><img src="https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg" alt="Evaluate with OOPS!" /></a></dd> --><dt>Cite as:</dt>
+<dd>Bueno Momcilovic, T., Gallina, B., Kessler, I., Hendricks, J., & Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. Retrieved from https://fortiss.github.io/OntoGSN/</dd>
+<dt>DOI:</dt>
+<dd><a href="http://dx.doi.org/https://doi.org/10.5281/zenodo.17808330"><img src ="https://img.shields.io/badge/DOI-https://doi.org/10.5281/zenodo.17808330-blue.svg" alt="https://doi.org/10.5281/zenodo.17808330" /></a></dd>
+</dl>
+
+<hr/>
+</div>
+<div class="status">
+<div>
+<span>published</span>
+</div>
+</div><div id="toc"></div>  
+
+<!--OVERVIEW SECTION-->
+    <div id="overview"><h2 id="overv" class="list">OntoGSN: Overview <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<span class="markdown">
+This ontology has the following classes and properties.</span>
+<h4>Classes</h4>
+<ul xmlns:widoco="https://w3id.org/widoco/vocab#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    class="hlist">
+   <li>
+      <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a>
+   </li>
+   <li>
+      <a href="#Artefact" title="https://w3id.org/OntoGSN/ontology#Artefact">Artefact</a>
+   </li>
+   <li>
+      <a href="#ArtefactReference"
+         title="https://w3id.org/OntoGSN/ontology#ArtefactReference">Artefact Reference</a>
+   </li>
+   <li>
+      <a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a>
+   </li>
+   <li>
+      <a href="#AssuranceCase" title="https://w3id.org/OntoGSN/ontology#AssuranceCase">Assurance Case</a>
+   </li>
+   <li>
+      <a href="#Catalogue" title="https://w3id.org/OntoGSN/ontology#Catalogue">Catalogue</a>
+   </li>
+   <li>
+      <a href="#Context" title="https://w3id.org/OntoGSN/ontology#Context">Context</a>
+   </li>
+   <li>
+      <a href="#Defeater" title="https://w3id.org/OntoGSN/ontology#Defeater">Defeater</a>
+   </li>
+   <li>
+      <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a>
+   </li>
+   <li>
+      <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a>
+   </li>
+   <li>
+      <a href="#InstantiationDataReference"
+         title="https://w3id.org/OntoGSN/ontology#InstantiationDataReference">Instantiation Data Reference</a>
+   </li>
+   <li>
+      <a href="#Justification" title="https://w3id.org/OntoGSN/ontology#Justification">Justification</a>
+   </li>
+   <li>
+      <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a>
+   </li>
+   <li>
+      <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a>
+   </li>
+   <li>
+      <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a>
+   </li>
+   <li>
+      <a href="#RelationshipWithConfidence"
+         title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a>
+   </li>
+   <li>
+      <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a>
+   </li>
+   <li>
+      <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a>
+   </li>
+   <li>
+      <a href="#Template" title="https://w3id.org/OntoGSN/ontology#Template">Template</a>
+   </li>
+   <li>
+      <a href="#View" title="https://w3id.org/OntoGSN/ontology#View">View</a>
+   </li>
+</ul><h4>Object Properties</h4><ul xmlns:widoco="https://w3id.org/widoco/vocab#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    class="hlist">
+   <li>
+      <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a>
+   </li>
+   <li>
+      <a href="#attachedTo" title="https://w3id.org/OntoGSN/ontology#attachedTo">attached to</a>
+   </li>
+   <li>
+      <a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a>
+   </li>
+   <li>
+      <a href="#consistentWith" title="https://w3id.org/OntoGSN/ontology#consistentWith">consistent with</a>
+   </li>
+   <li>
+      <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a>
+   </li>
+   <li>
+      <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a>
+   </li>
+   <li>
+      <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a>
+   </li>
+   <li>
+      <a href="#instantiationOf"
+         title="https://w3id.org/OntoGSN/ontology#instantiationOf">instantiation of</a>
+   </li>
+   <li>
+      <a href="#refersTo" title="https://w3id.org/OntoGSN/ontology#refersTo">refers to</a>
+   </li>
+   <li>
+      <a href="#relatedTo" title="https://w3id.org/OntoGSN/ontology#relatedTo">related to</a>
+   </li>
+   <li>
+      <a href="#substitutedBy" title="https://w3id.org/OntoGSN/ontology#substitutedBy">substituted by</a>
+   </li>
+   <li>
+      <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a>
+   </li>
+</ul><h4>Data Properties</h4><ul xmlns:widoco="https://w3id.org/widoco/vocab#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    class="hlist">
+   <li>
+      <a href="#argumentType" title="https://w3id.org/OntoGSN/ontology#argumentType">argument type</a>
+   </li>
+   <li>
+      <a href="#assuranceClaimPoint"
+         title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a>
+   </li>
+   <li>
+      <a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a>
+   </li>
+   <li>
+      <a href="#choice" title="https://w3id.org/OntoGSN/ontology#choice">choice</a>
+   </li>
+   <li>
+      <a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a>
+   </li>
+   <li>
+      <a href="#defeated" title="https://w3id.org/OntoGSN/ontology#defeated">defeated</a>
+   </li>
+   <li>
+      <a href="#final" title="https://w3id.org/OntoGSN/ontology#final">final</a>
+   </li>
+   <li>
+      <a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a>
+   </li>
+   <li>
+      <a href="#maxCardinality"
+         title="https://w3id.org/OntoGSN/ontology#maxCardinality">maximum cardinality</a>
+   </li>
+   <li>
+      <a href="#minCardinality"
+         title="https://w3id.org/OntoGSN/ontology#minCardinality">minimum cardinality</a>
+   </li>
+   <li>
+      <a href="#multiple" title="https://w3id.org/OntoGSN/ontology#multiple">multiple</a>
+   </li>
+   <li>
+      <a href="#offDiagram" title="https://w3id.org/OntoGSN/ontology#offDiagram">off-diagram</a>
+   </li>
+   <li>
+      <a href="#optional" title="https://w3id.org/OntoGSN/ontology#optional">optional</a>
+   </li>
+   <li>
+      <a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a>
+   </li>
+   <li>
+      <a href="#published" title="https://w3id.org/OntoGSN/ontology#published">published</a>
+   </li>
+   <li>
+      <a href="#relationshipType"
+         title="https://w3id.org/OntoGSN/ontology#relationshipType">relationship type</a>
+   </li>
+   <li>
+      <a href="#statement" title="https://w3id.org/OntoGSN/ontology#statement">statement</a>
+   </li>
+   <li>
+      <a href="#structured" title="https://w3id.org/OntoGSN/ontology#structured">structured</a>
+   </li>
+   <li>
+      <a href="#toBeSupportedByContract"
+         title="https://w3id.org/OntoGSN/ontology#toBeSupportedByContract">to be supported by contract</a>
+   </li>
+   <li>
+      <a href="#top" title="https://w3id.org/OntoGSN/ontology#top">top (goal)</a>
+   </li>
+   <li>
+      <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a>
+   </li>
+   <li>
+      <a href="#undeveloped" title="https://w3id.org/OntoGSN/ontology#undeveloped">undeveloped</a>
+   </li>
+   <li>
+      <a href="#uninstantiated"
+         title="https://w3id.org/OntoGSN/ontology#uninstantiated">uninstantiated</a>
+   </li>
+   <li>
+      <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a>
+   </li>
+   <li>
+      <a href="#viewType" title="https://w3id.org/OntoGSN/ontology#viewType">view type</a>
+   </li>
+</ul><h4>Annotation Properties</h4><ul xmlns:widoco="https://w3id.org/widoco/vocab#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    class="hlist">
+   <li>
+      <a href="#http://purl.org/dc/terms/abstract" title="http://purl.org/dc/terms/abstract">
+         <span>abstract</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2004/02/skos/core#altLabel" title="http://www.w3.org/2004/02/skos/core#altLabel">
+         <span>alt Label</span>
+      </a>
+   </li>
+   <li>
+      <a href="#applicability" title="https://w3id.org/OntoGSN/ontology#applicability">applicability</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2003/11/swrl#argument1" title="http://www.w3.org/2003/11/swrl#argument1">
+         <span>argument1</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2003/11/swrl#argument2" title="http://www.w3.org/2003/11/swrl#argument2">
+         <span>argument2</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2003/11/swrl#arguments" title="http://www.w3.org/2003/11/swrl#arguments">
+         <span>arguments</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/terms/bibliographicCitation" title="http://purl.org/dc/terms/bibliographicCitation">
+         <span>bibliographic Citation</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2003/11/swrl#body" title="http://www.w3.org/2003/11/swrl#body">
+         <span>body</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2003/11/swrl#builtin" title="http://www.w3.org/2003/11/swrl#builtin">
+         <span>builtin</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://schema.org/citation" title="http://schema.org/citation">
+         <span>citation</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2003/11/swrl#classPredicate" title="http://www.w3.org/2003/11/swrl#classPredicate">
+         <span>class Predicate</span>
+      </a>
+   </li>
+   <li>
+      <a href="#collaboration" title="https://w3id.org/OntoGSN/ontology#collaboration">collaboration</a>
+   </li>
+   <li>
+      <a href="#consequences" title="https://w3id.org/OntoGSN/ontology#consequences">consequences</a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/elements/1.1/contributor" title="http://purl.org/dc/elements/1.1/contributor">
+         <span>contributor</span>
+      </a>
+   </li>
+   <li>
+      <a href="#coreOrExtension"
+         title="https://w3id.org/OntoGSN/ontology#coreOrExtension">core or extension</a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/elements/1.1/created" title="http://purl.org/dc/elements/1.1/created">
+         <span>created</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/terms/created" title="http://purl.org/dc/terms/created">
+         <span>created</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/elements/1.1/creator" title="http://purl.org/dc/elements/1.1/creator">
+         <span>creator</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2004/02/skos/core#definition" title="http://www.w3.org/2004/02/skos/core#definition">
+         <span>definition</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/elements/1.1/description" title="http://purl.org/dc/elements/1.1/description">
+         <span>description</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://schema.org/description" title="http://schema.org/description">
+         <span>description</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://schema.org/disclaimer" title="http://schema.org/disclaimer">
+         <span>disclaimer</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/ontology/bibo/doi" title="http://purl.org/ontology/bibo/doi">
+         <span>doi</span>
+      </a>
+   </li>
+   <li>
+      <a href="#examples" title="https://w3id.org/OntoGSN/ontology#examples">examples</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2003/11/swrl#head" title="http://www.w3.org/2003/11/swrl#head">
+         <span>head</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/elements/1.1/identifier" title="http://purl.org/dc/elements/1.1/identifier">
+         <span>identifier</span>
+      </a>
+   </li>
+   <li>
+      <a href="#implementation" title="https://w3id.org/OntoGSN/ontology#implementation">implementation</a>
+   </li>
+   <li>
+      <a href="#http://schema.org/includedInDataCatalog" title="http://schema.org/includedInDataCatalog">
+         <span>included In Data Catalog</span>
+      </a>
+   </li>
+   <li>
+      <a href="#intent" title="https://w3id.org/OntoGSN/ontology#intent">intent</a>
+   </li>
+   <li>
+      <a href="#http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"
+         title="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled">
+         <span>is Rule Enabled</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/terms/issued" title="http://purl.org/dc/terms/issued">
+         <span>issued</span>
+      </a>
+   </li>
+   <li>
+      <a href="#knownUses" title="https://w3id.org/OntoGSN/ontology#knownUses">known uses</a>
+   </li>
+   <li>
+      <a href="#http://creativecommons.org/ns#license" title="http://creativecommons.org/ns#license">
+         <span>license</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://schema.org/license" title="http://schema.org/license">
+         <span>license</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://schema.org/logo" title="http://schema.org/logo">
+         <span>logo</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/terms/modified" title="http://purl.org/dc/terms/modified">
+         <span>modified</span>
+      </a>
+   </li>
+   <li>
+      <a href="#motivation" title="https://w3id.org/OntoGSN/ontology#motivation">motivation</a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2004/02/skos/core#note" title="http://www.w3.org/2004/02/skos/core#note">
+         <span>note</span>
+      </a>
+   </li>
+   <li>
+      <a href="#participants" title="https://w3id.org/OntoGSN/ontology#participants">participants</a>
+   </li>
+   <li>
+      <a href="#http://purl.org/vocab/vann/preferredNamespacePrefix"
+         title="http://purl.org/vocab/vann/preferredNamespacePrefix">
+         <span>preferred Namespace Prefix</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/vocab/vann/preferredNamespaceUri" title="http://purl.org/vocab/vann/preferredNamespaceUri">
+         <span>preferred Namespace Uri</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://www.w3.org/2003/11/swrl#propertyPredicate" title="http://www.w3.org/2003/11/swrl#propertyPredicate">
+         <span>property Predicate</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/elements/1.1/publisher" title="http://purl.org/dc/elements/1.1/publisher">
+         <span>publisher</span>
+      </a>
+   </li>
+   <li>
+      <a href="#renderedAs" title="https://w3id.org/OntoGSN/ontology#renderedAs">rendered as</a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/elements/1.1/source" title="http://purl.org/dc/elements/1.1/source">
+         <span>source</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://purl.org/ontology/bibo/status" title="http://purl.org/ontology/bibo/status">
+         <span>status</span>
+      </a>
+   </li>
+   <li>
+      <a href="#structure" title="https://w3id.org/OntoGSN/ontology#structure">structure</a>
+   </li>
+   <li>
+      <a href="#http://purl.org/dc/elements/1.1/title" title="http://purl.org/dc/elements/1.1/title">
+         <span>title</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://schema.org/url" title="http://schema.org/url">
+         <span>url</span>
+      </a>
+   </li>
+   <li>
+      <a href="#http://schema.org/version" title="http://schema.org/version">
+         <span>version</span>
+      </a>
+   </li>
+</ul><h4> SWRL Rules </h4><ul xmlns:widoco="https://w3id.org/widoco/vocab#"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    class="hlist">
+   <li>
+      <a href="#d4e7285">Rule #1</a>
+   </li>
+</ul><iframe src="webvowl/index.html"></iframe> 
+</div>
+  
+
+<!--DESCRIPTION SECTION-->
+    <div id="description"><h2 id="desc" class="list">OntoGSN: Description <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+
+<span class="markdown">A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the provenance graph naming the passage it rests on, or stating that it rests on none.</span></div>
+   
+
+<!--CROSSREF SECTION-->
+   <div id="crossref"><h2 id="crossreference" class="list">Cross-reference for OntoGSN classes, object properties and data properties <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+This section provides details for each class and property defined by OntoGSN.
+<div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="classes">
+ <h3 id="classes-headline" class="list">Classes</h3>
+ <ul class="hlist">
+  <li><a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a></li>
+  <li><a href="#Artefact" title="https://w3id.org/OntoGSN/ontology#Artefact">Artefact</a></li>
+  <li><a href="#ArtefactReference" title="https://w3id.org/OntoGSN/ontology#ArtefactReference">Artefact Reference</a></li>
+  <li><a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a></li>
+  <li><a href="#AssuranceCase" title="https://w3id.org/OntoGSN/ontology#AssuranceCase">Assurance Case</a></li>
+  <li><a href="#Catalogue" title="https://w3id.org/OntoGSN/ontology#Catalogue">Catalogue</a></li>
+  <li><a href="#Context" title="https://w3id.org/OntoGSN/ontology#Context">Context</a></li>
+  <li><a href="#Defeater" title="https://w3id.org/OntoGSN/ontology#Defeater">Defeater</a></li>
+  <li><a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a></li>
+  <li><a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a></li>
+  <li><a href="#InstantiationDataReference" title="https://w3id.org/OntoGSN/ontology#InstantiationDataReference">Instantiation Data Reference</a></li>
+  <li><a href="#Justification" title="https://w3id.org/OntoGSN/ontology#Justification">Justification</a></li>
+  <li><a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a></li>
+  <li><a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a></li>
+  <li><a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a></li>
+  <li><a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a></li>
+  <li><a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a></li>
+  <li><a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a></li>
+  <li><a href="#Template" title="https://w3id.org/OntoGSN/ontology#Template">Template</a></li>
+  <li><a href="#View" title="https://w3id.org/OntoGSN/ontology#View">View</a></li>
+ </ul>
+ <div class="entity" id="Argument">
+  <h3>Argument<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Argument</p>
+  <div class="comment">
+   <span class="markdown">A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd></dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#argumentType" title="https://w3id.org/OntoGSN/ontology#argumentType">argument type</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>, <a href="#final" title="https://w3id.org/OntoGSN/ontology#final">final</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#instantiationOf" title="https://w3id.org/OntoGSN/ontology#instantiationOf">instantiation of</a> <sup class="type-op" title="object property">op</sup>, <a href="#published" title="https://w3id.org/OntoGSN/ontology#published">published</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#statement" title="https://w3id.org/OntoGSN/ontology#statement">statement</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#structured" title="https://w3id.org/OntoGSN/ontology#structured">structured</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>, <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Artefact">
+  <h3>Artefact<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Artefact</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Information or objective artefacts (e.g., files) being offered in support or context of one or more claims.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>, <a href="#refersTo" title="https://w3id.org/OntoGSN/ontology#refersTo">refers to</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="ArtefactReference">
+  <h3>Artefact Reference<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#ArtefactReference</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] An element that makes no claim of its own and instead points at an artefact, such as a solution or a context expressed as a noun phrase.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#Context" title="https://w3id.org/OntoGSN/ontology#Context">Context</a> <sup class="type-c" title="class">c</sup>, <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>, <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#refersTo" title="https://w3id.org/OntoGSN/ontology#refersTo">refers to</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Assumption">
+  <h3>Assumption<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Assumption</p>
+  <div class="comment">
+   <span class="markdown">An assumption, rendered as an oval with the letter 'A' at the top- or bottom-right, presents an intentionally unsubstantiated statement.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#consistentWith" title="https://w3id.org/OntoGSN/ontology#consistentWith">consistent with</a> <sup class="type-op" title="object property">op</sup>, <a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#consistentWith" title="https://w3id.org/OntoGSN/ontology#consistentWith">consistent with</a> <sup class="type-op" title="object property">op</sup>, <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="AssuranceCase">
+  <h3>Assurance Case<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#AssuranceCase</p>
+  <div class="comment">
+   <span class="markdown">A reasoned and compelling argument, supported by a body of evidence, that a system, service or organisation will operate as intended for a defined application in a defined environment.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd></dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>, <a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#statement" title="https://w3id.org/OntoGSN/ontology#statement">statement</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Catalogue">
+  <h3>Catalogue<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Catalogue</p>
+  <div class="comment">
+   <span class="markdown">A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd></dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Context">
+  <h3>Context<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Context</p>
+  <div class="comment">
+   <span class="markdown">A context, rendered as shown left, presents a contextual artefact. This can be a reference to contextual information, or a statement.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#ArtefactReference" title="https://w3id.org/OntoGSN/ontology#ArtefactReference">Artefact Reference</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#consistentWith" title="https://w3id.org/OntoGSN/ontology#consistentWith">consistent with</a> <sup class="type-op" title="object property">op</sup>, <a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#consistentWith" title="https://w3id.org/OntoGSN/ontology#consistentWith">consistent with</a> <sup class="type-op" title="object property">op</sup>, <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Defeater">
+  <h3>Defeater<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Defeater</p>
+  <div class="comment">
+   <span class="markdown">The source of challenge being applied; can be directed at any part of an argument. A defeater (goal or solution) can challenge any element in a goal structure, e.g. goal, solution, strategy, context, assumption, justification.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd></dd>
+  </dl>
+ </div>
+ <div class="entity" id="Goal">
+  <h3>Goal<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Goal</p>
+  <div class="comment">
+   <span class="markdown">(Claim is) A proposition being asserted by the author that is a true or false statement.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>, <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>, <a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>, <a href="#toBeSupportedByContract" title="https://w3id.org/OntoGSN/ontology#toBeSupportedByContract">to be supported by contract</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#top" title="https://w3id.org/OntoGSN/ontology#top">top (goal)</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#undeveloped" title="https://w3id.org/OntoGSN/ontology#undeveloped">undeveloped</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="GSNElement">
+  <h3>GSN Element<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#GSNElement</p>
+  <div class="comment">
+   <span class="markdown">Goals, solutions, strategies, contexts, assumptions and justifications form the principal elements of GSN.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd></dd>
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#ArtefactReference" title="https://w3id.org/OntoGSN/ontology#ArtefactReference">Artefact Reference</a> <sup class="type-c" title="class">c</sup>, <a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a> <sup class="type-c" title="class">c</sup>, <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>, <a href="#Justification" title="https://w3id.org/OntoGSN/ontology#Justification">Justification</a> <sup class="type-c" title="class">c</sup>, <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>, <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#defeated" title="https://w3id.org/OntoGSN/ontology#defeated">defeated</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>, <a href="#instantiationOf" title="https://w3id.org/OntoGSN/ontology#instantiationOf">instantiation of</a> <sup class="type-op" title="object property">op</sup>, <a href="#offDiagram" title="https://w3id.org/OntoGSN/ontology#offDiagram">off-diagram</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#statement" title="https://w3id.org/OntoGSN/ontology#statement">statement</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#uninstantiated" title="https://w3id.org/OntoGSN/ontology#uninstantiated">uninstantiated</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#attachedTo" title="https://w3id.org/OntoGSN/ontology#attachedTo">attached to</a> <sup class="type-op" title="object property">op</sup>, <a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>, <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="InstantiationDataReference">
+  <h3>Instantiation Data Reference<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#InstantiationDataReference</p>
+  <div class="comment">
+   <span class="markdown">This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#attachedTo" title="https://w3id.org/OntoGSN/ontology#attachedTo">attached to</a> <sup class="type-op" title="object property">op</sup>, <a href="#refersTo" title="https://w3id.org/OntoGSN/ontology#refersTo">refers to</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Justification">
+  <h3>Justification<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Justification</p>
+  <div class="comment">
+   <span class="markdown">A justification, rendered as an oval with the letter 'J' at the top- or bottom-right, presents a statement of rationale.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#substitutedBy" title="https://w3id.org/OntoGSN/ontology#substitutedBy">substituted by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Module">
+  <h3>Module<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Module</p>
+  <div class="comment">
+   <span class="markdown">Goal structures can be partitioned into separate, but interrelated, modules. This can allow the division of an overall goal structure into separate goal structures focusing on particular aspects of the overall argument. A module may contain one or more arguments and may contain other modules.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>, <a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>, <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>, <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Pattern">
+  <h3>Pattern<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Pattern</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] A reusable argument structure, accompanied by a description that defines its intent and the constraints on its use, from which concrete arguments are instantiated.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd></dd>
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#Template" title="https://w3id.org/OntoGSN/ontology#Template">Template</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="applicability" title="https://w3id.org/OntoGSN/ontology#applicability">applicability</a> <sup class="type-ap" title="annotation property">ap</sup>, <a href="collaboration" title="https://w3id.org/OntoGSN/ontology#collaboration">collaboration</a> <sup class="type-ap" title="annotation property">ap</sup>, <a href="consequences" title="https://w3id.org/OntoGSN/ontology#consequences">consequences</a> <sup class="type-ap" title="annotation property">ap</sup>, <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>, <a href="examples" title="https://w3id.org/OntoGSN/ontology#examples">examples</a> <sup class="type-ap" title="annotation property">ap</sup>, <a href="#final" title="https://w3id.org/OntoGSN/ontology#final">final</a> <sup class="type-dp" title="data property">dp</sup>, <a href="implementation" title="https://w3id.org/OntoGSN/ontology#implementation">implementation</a> <sup class="type-ap" title="annotation property">ap</sup>, <a href="intent" title="https://w3id.org/OntoGSN/ontology#intent">intent</a> <sup class="type-ap" title="annotation property">ap</sup>, <a href="knownUses" title="https://w3id.org/OntoGSN/ontology#knownUses">known uses</a> <sup class="type-ap" title="annotation property">ap</sup>, <a href="motivation" title="https://w3id.org/OntoGSN/ontology#motivation">motivation</a> <sup class="type-ap" title="annotation property">ap</sup>, <a href="participants" title="https://w3id.org/OntoGSN/ontology#participants">participants</a> <sup class="type-ap" title="annotation property">ap</sup>, <a href="#published" title="https://w3id.org/OntoGSN/ontology#published">published</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#relatedTo" title="https://w3id.org/OntoGSN/ontology#relatedTo">related to</a> <sup class="type-op" title="object property">op</sup>, <a href="structure" title="https://w3id.org/OntoGSN/ontology#structure">structure</a> <sup class="type-ap" title="annotation property">ap</sup>, <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>, <a href="#instantiationOf" title="https://w3id.org/OntoGSN/ontology#instantiationOf">instantiation of</a> <sup class="type-op" title="object property">op</sup>, <a href="#relatedTo" title="https://w3id.org/OntoGSN/ontology#relatedTo">related to</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Relationship">
+  <h3>Relationship<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Relationship</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] A link between GSN elements treated as an individual in its own right, carrying its subject, object and type, so that the link itself can be decorated and described.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement">Statement</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    has sub-classes
+   </dt>
+   <dd>
+    <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#choice" title="https://w3id.org/OntoGSN/ontology#choice">choice</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#defeated" title="https://w3id.org/OntoGSN/ontology#defeated">defeated</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#maxCardinality" title="https://w3id.org/OntoGSN/ontology#maxCardinality">maximum cardinality</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#minCardinality" title="https://w3id.org/OntoGSN/ontology#minCardinality">minimum cardinality</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#multiple" title="https://w3id.org/OntoGSN/ontology#multiple">multiple</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#optional" title="https://w3id.org/OntoGSN/ontology#optional">optional</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#relationshipType" title="https://w3id.org/OntoGSN/ontology#relationshipType">relationship type</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#undeveloped" title="https://w3id.org/OntoGSN/ontology#undeveloped">undeveloped</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="RelationshipWithConfidence">
+  <h3>Relationship with Confidence<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] A relationship carrying an assurance claim point, whose associated confidence argument documents the reasons for having confidence in the relationship between two elements.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>, <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Solution">
+  <h3>Solution<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Solution</p>
+  <div class="comment">
+   <span class="markdown">A solution, rendered as a circle, presents a reference to an evidence item.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#ArtefactReference" title="https://w3id.org/OntoGSN/ontology#ArtefactReference">Artefact Reference</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup>, <a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>, <a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Strategy">
+  <h3>Strategy<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Strategy</p>
+  <div class="comment">
+   <span class="markdown">A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s).</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>, <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>, <a href="#undeveloped" title="https://w3id.org/OntoGSN/ontology#undeveloped">undeveloped</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="Template">
+  <h3>Template<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#Template</p>
+  <div class="comment">
+   <span class="markdown">A template argument is a special case of a pattern argument. It uses the core GSN and argument pattern extension to construct an argument structure which requires no further development.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    has super-classes
+   </dt>
+   <dd>
+    <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+   </dd>
+   <dt>
+    is in range of
+   </dt>
+   <dd>
+    <a href="#attachedTo" title="https://w3id.org/OntoGSN/ontology#attachedTo">attached to</a> <sup class="type-op" title="object property">op</sup>
+   </dd>
+  </dl>
+ </div>
+ <div class="entity" id="View">
+  <h3>View<sup class="type-c" title="class">c</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#View</p>
+  <div class="comment">
+   <span class="markdown">The argument view depicts the argument inside an individual module.</span>
+  </div>
+  <dl class="description">
+   <dt>
+    is in domain of
+   </dt>
+   <dd>
+    <a href="#viewType" title="https://w3id.org/OntoGSN/ontology#viewType">view type</a> <sup class="type-dp" title="data property">dp</sup>
+   </dd>
+  </dl>
+ </div>
+</div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="objectproperties">
+ <h3 id="properties" class="list">Object Properties</h3>
+ <ul class="hlist">
+  <li><a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a></li>
+  <li><a href="#attachedTo" title="https://w3id.org/OntoGSN/ontology#attachedTo">attached to</a></li>
+  <li><a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a></li>
+  <li><a href="#consistentWith" title="https://w3id.org/OntoGSN/ontology#consistentWith">consistent with</a></li>
+  <li><a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a></li>
+  <li><a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a></li>
+  <li><a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a></li>
+  <li><a href="#instantiationOf" title="https://w3id.org/OntoGSN/ontology#instantiationOf">instantiation of</a></li>
+  <li><a href="#refersTo" title="https://w3id.org/OntoGSN/ontology#refersTo">refers to</a></li>
+  <li><a href="#relatedTo" title="https://w3id.org/OntoGSN/ontology#relatedTo">related to</a></li>
+  <li><a href="#substitutedBy" title="https://w3id.org/OntoGSN/ontology#substitutedBy">substituted by</a></li>
+  <li><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a></li>
+ </ul>
+ <div class="entity" id="associatedWith">
+  <h3>associated with<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#associatedWith</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Links a relationship or an artefact reference to the confidence argument provided for it.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#ArtefactReference" title="https://w3id.org/OntoGSN/ontology#ArtefactReference">Artefact Reference</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="attachedTo">
+  <h3>attached to<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#attachedTo</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Links an instantiation data reference to the element or template argument it annotates.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#InstantiationDataReference" title="https://w3id.org/OntoGSN/ontology#InstantiationDataReference">Instantiation Data Reference</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Template" title="https://w3id.org/OntoGSN/ontology#Template">Template</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="challenges">
+  <h3>challenges<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#challenges</p>
+  <div class="comment">
+   <span class="markdown">Allows a Challenge to any GSN entity to be documented. A goal, (core element) can be used in a dialectic context to assert a challenge to part of the argument. A solution, (core element) can be used to present a reference to an evidence item that asserts a challenge to part of the argument.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="consistentWith">
+  <h3>consistent with<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#consistentWith</p>
+  <div class="comment">
+   <span class="markdown">By making the relationship to the away goal the author is asserting not only the inference of support for the parent goal, but also that the context in which the away goal is declared is consistent with the context and assumptions in scope for the parent goal.</span>
+  </div>
+  <div class="description">
+   <p><strong>has characteristics: </strong> symmetric</p>
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Context" title="https://w3id.org/OntoGSN/ontology#Context">Context</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Context" title="https://w3id.org/OntoGSN/ontology#Context">Context</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="contains">
+  <h3>contains<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#contains</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Relates a container (e.g., an assurance case, argument, module, catalogue or pattern) to its components (e.g., elements, arguments, patterns or artefacts).</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#AssuranceCase" title="https://w3id.org/OntoGSN/ontology#AssuranceCase">Assurance Case</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Catalogue" title="https://w3id.org/OntoGSN/ontology#Catalogue">Catalogue</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Artefact" title="https://w3id.org/OntoGSN/ontology#Artefact">Artefact</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="inContextOf">
+  <h3>in context of<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#inContextOf</p>
+  <div class="comment">
+   <span class="markdown">InContextOf, rendered as a line with a hollow arrowhead, declares a contextual relationship.</span>
+  </div>
+  <div class="description">
+   <p><strong>has characteristics: </strong> asymmetric, irreflexive</p>
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Context" title="https://w3id.org/OntoGSN/ontology#Context">Context</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Justification" title="https://w3id.org/OntoGSN/ontology#Justification">Justification</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="inModule">
+  <h3>in module<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#inModule</p>
+  <div class="comment">
+   <span class="markdown">The module an element belongs to, whether the element sits in an argument the module contains or in a module nested inside it.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="instantiationOf">
+  <h3>instantiation of<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#instantiationOf</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Relates an argument or element to the pattern it was instantiated from.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="refersTo">
+  <h3>refers to<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#refersTo</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Relates an artefact reference or an instantiation data reference to the artefact it points at.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#ArtefactReference" title="https://w3id.org/OntoGSN/ontology#ArtefactReference">Artefact Reference</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#InstantiationDataReference" title="https://w3id.org/OntoGSN/ontology#InstantiationDataReference">Instantiation Data Reference</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Artefact" title="https://w3id.org/OntoGSN/ontology#Artefact">Artefact</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="relatedTo">
+  <h3>related to<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#relatedTo</p>
+  <div class="comment">
+   <span class="markdown">This section can be used to reference patterns that are related e.g. addressing the same intent in a different context.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="substitutedBy">
+  <h3>substituted by<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#substitutedBy</p>
+  <div class="comment">
+   <span class="markdown">There may be occasions when a goal or strategy requires fuller justification than can be provided within the confines of a GSN justification element. In such cases, an away goal can be substituted for the justification.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Justification" title="https://w3id.org/OntoGSN/ontology#Justification">Justification</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup> <span class="logic">and</span> (<a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup> <span class="logic">value</span> true)
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="supportedBy">
+  <h3>supported by<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#supportedBy</p>
+  <div class="comment">
+   <span class="markdown">SupportedBy, rendered as a line with a solid arrowhead, allows support relationships between elements to be documented.</span>
+  </div>
+  <div class="description">
+   <p><strong>has characteristics: </strong> asymmetric, irreflexive</p>
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+</div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dataproperties">
+ <h3 id="dataproperties-headline" class="list">Data Properties</h3>
+ <ul class="hlist">
+  <li><a href="#argumentType" title="https://w3id.org/OntoGSN/ontology#argumentType">argument type</a></li>
+  <li><a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a></li>
+  <li><a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a></li>
+  <li><a href="#choice" title="https://w3id.org/OntoGSN/ontology#choice">choice</a></li>
+  <li><a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a></li>
+  <li><a href="#defeated" title="https://w3id.org/OntoGSN/ontology#defeated">defeated</a></li>
+  <li><a href="#final" title="https://w3id.org/OntoGSN/ontology#final">final</a></li>
+  <li><a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a></li>
+  <li><a href="#maxCardinality" title="https://w3id.org/OntoGSN/ontology#maxCardinality">maximum cardinality</a></li>
+  <li><a href="#minCardinality" title="https://w3id.org/OntoGSN/ontology#minCardinality">minimum cardinality</a></li>
+  <li><a href="#multiple" title="https://w3id.org/OntoGSN/ontology#multiple">multiple</a></li>
+  <li><a href="#offDiagram" title="https://w3id.org/OntoGSN/ontology#offDiagram">off-diagram</a></li>
+  <li><a href="#optional" title="https://w3id.org/OntoGSN/ontology#optional">optional</a></li>
+  <li><a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a></li>
+  <li><a href="#published" title="https://w3id.org/OntoGSN/ontology#published">published</a></li>
+  <li><a href="#relationshipType" title="https://w3id.org/OntoGSN/ontology#relationshipType">relationship type</a></li>
+  <li><a href="#statement" title="https://w3id.org/OntoGSN/ontology#statement">statement</a></li>
+  <li><a href="#structured" title="https://w3id.org/OntoGSN/ontology#structured">structured</a></li>
+  <li><a href="#toBeSupportedByContract" title="https://w3id.org/OntoGSN/ontology#toBeSupportedByContract">to be supported by contract</a></li>
+  <li><a href="#top" title="https://w3id.org/OntoGSN/ontology#top">top (goal)</a></li>
+  <li><a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a></li>
+  <li><a href="#undeveloped" title="https://w3id.org/OntoGSN/ontology#undeveloped">undeveloped</a></li>
+  <li><a href="#uninstantiated" title="https://w3id.org/OntoGSN/ontology#uninstantiated">uninstantiated</a></li>
+  <li><a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a></li>
+  <li><a href="#viewType" title="https://w3id.org/OntoGSN/ontology#viewType">view type</a></li>
+ </ul>
+ <div class="entity" id="argumentType">
+  <h3>argument type<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#argumentType</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Defines the kind of argument this is: a risk argument (i.e., the main content of assurance), a confidence argument for an assurance claim point, a compliance argument (undefined in the normative standard), or a dialectic argument.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     { "confidence" , "dialectic" , "risk" }
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="assuranceClaimPoint">
+  <h3>assurance claim point<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#assuranceClaimPoint</p>
+  <div class="comment">
+   <span class="markdown">An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#ArtefactReference" title="https://w3id.org/OntoGSN/ontology#ArtefactReference">Artefact Reference</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="away">
+  <h3>away<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#away</p>
+  <div class="comment">
+   <span class="markdown">An away element reference repeats a claim or evidence presented in another argument module.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Context" title="https://w3id.org/OntoGSN/ontology#Context">Context</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Justification" title="https://w3id.org/OntoGSN/ontology#Justification">Justification</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="choice">
+  <h3>choice<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#choice</p>
+  <div class="comment">
+   <span class="markdown">A GSN choice can be used to denote possible alternatives in satisfying a relationship.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="contract">
+  <h3>contract<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#contract</p>
+  <div class="comment">
+   <span class="markdown">A contract module is a special type of module that controls the relationship between argument module interfaces using arguments to define how a goal in one module is supported by one or more goals in one or more other modules.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="defeated">
+  <h3>defeated<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#defeated</p>
+  <div class="comment">
+   <span class="markdown">This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="final">
+  <h3>final<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#final</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Determines whether this is the delivered version of the argument or pattern, in which no element remains uninstantiated or undeveloped.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="inDoubt">
+  <h3>in doubt<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#inDoubt</p>
+  <div class="comment">
+   <span class="markdown">The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#AssuranceCase" title="https://w3id.org/OntoGSN/ontology#AssuranceCase">Assurance Case</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="maxCardinality">
+  <h3>maximum cardinality<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#maxCardinality</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] The upper bound on how many instances of the related element this relationship stands for.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#nonNegativeInteger" target="_blank" title="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">non Negative Integer</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="minCardinality">
+  <h3>minimum cardinality<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#minCardinality</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] The lower bound on how many instances of the related element this relationship stands for.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#nonNegativeInteger" target="_blank" title="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">non Negative Integer</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="multiple">
+  <h3>multiple<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#multiple</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Determines whether the relationship stands for multiple instantiations rather than a single one.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="offDiagram">
+  <h3>off-diagram<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#offDiagram</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Determines whether the argument at this element continues in, or is a continuation from, a separate diagram.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="optional">
+  <h3>optional<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#optional</p>
+  <div class="comment">
+   <span class="markdown">Optional instantiation means that the relationship and the argument below may or may not be instantiated.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="public">
+  <h3>public<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#public</p>
+  <div class="comment">
+   <span class="markdown">This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Context" title="https://w3id.org/OntoGSN/ontology#Context">Context</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Justification" title="https://w3id.org/OntoGSN/ontology#Justification">Justification</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="published">
+  <h3>published<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#published</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Determines whether the argument or pattern is in its published form, in which the undeveloped decorator is not permitted.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="relationshipType">
+  <h3>relationship type<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#relationshipType</p>
+  <div class="comment">
+   <span class="markdown">An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     { "contextual" , "dialectic" , "evidential" , "inferential" }
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="statement">
+  <h3>statement<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#statement</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] The text the element asserts, written to the grammatical rules the standard sets for GSN statements.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#AssuranceCase" title="https://w3id.org/OntoGSN/ontology#AssuranceCase">Assurance Case</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#string" target="_blank" title="http://www.w3.org/2001/XMLSchema#string">string</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="structured">
+  <h3>structured<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#structured</p>
+  <div class="comment">
+   <span class="markdown">A particular kind of argument where the relationships between the asserted claims, and from the evidence to the claims, are explicitly represented.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="toBeSupportedByContract">
+  <h3>to be supported by contract<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#toBeSupportedByContract</p>
+  <div class="comment">
+   <span class="markdown">Support for the claim presented by the attached goal is intended to be provided from an argument in another module linked by an as-yet-undisclosed contract.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="top">
+  <h3>top (goal)<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#top</p>
+  <div class="comment">
+   <span class="markdown">A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="true">
+  <h3>true<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#true</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Marks whether the claim in the element or relationship is determined (e.g., by the auditor or some process) as correct or not.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="undeveloped">
+  <h3>undeveloped<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#undeveloped</p>
+  <div class="comment">
+   <span class="markdown">Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="uninstantiated">
+  <h3>uninstantiated<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#uninstantiated</p>
+  <div class="comment">
+   <span class="markdown">The attached element remains to be instantiated: at some later stage the abstract element needs to be replaced with a more concrete instance.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="valid">
+  <h3>valid<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#valid</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Marks whether the element is determined (e.g., by a GSN rule) to be consistent or otherwise correct with respect to the GSN argument syntax.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="viewType">
+  <h3>view type<sup class="type-dp" title="data property">dp</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#viewType</p>
+  <div class="comment">
+   <span class="markdown">[OntoGSN] Determines whether the view shows the argument or the module architecture.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#View" title="https://w3id.org/OntoGSN/ontology#View">View</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     { "architecture" , "argument" }
+    </dd>
+   </dl>
+  </div>
+ </div>
+</div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="annotationproperties">
+ <h3 id="annotationproperties" class="list">Annotation Properties</h3>
+ <ul class="hlist">
+  <li><a href="#http://purl.org/dc/terms/abstract" title="http://purl.org/dc/terms/abstract"> <span>abstract</span> </a></li>
+  <li><a href="#http://www.w3.org/2004/02/skos/core#altLabel" title="http://www.w3.org/2004/02/skos/core#altLabel"> <span>alt Label</span> </a></li>
+  <li><a href="#applicability" title="https://w3id.org/OntoGSN/ontology#applicability">applicability</a></li>
+  <li><a href="#http://www.w3.org/2003/11/swrl#argument1" title="http://www.w3.org/2003/11/swrl#argument1"> <span>argument1</span> </a></li>
+  <li><a href="#http://www.w3.org/2003/11/swrl#argument2" title="http://www.w3.org/2003/11/swrl#argument2"> <span>argument2</span> </a></li>
+  <li><a href="#http://www.w3.org/2003/11/swrl#arguments" title="http://www.w3.org/2003/11/swrl#arguments"> <span>arguments</span> </a></li>
+  <li><a href="#http://purl.org/dc/terms/bibliographicCitation" title="http://purl.org/dc/terms/bibliographicCitation"> <span>bibliographic Citation</span> </a></li>
+  <li><a href="#http://www.w3.org/2003/11/swrl#body" title="http://www.w3.org/2003/11/swrl#body"> <span>body</span> </a></li>
+  <li><a href="#http://www.w3.org/2003/11/swrl#builtin" title="http://www.w3.org/2003/11/swrl#builtin"> <span>builtin</span> </a></li>
+  <li><a href="#http://schema.org/citation" title="http://schema.org/citation"> <span>citation</span> </a></li>
+  <li><a href="#http://www.w3.org/2003/11/swrl#classPredicate" title="http://www.w3.org/2003/11/swrl#classPredicate"> <span>class Predicate</span> </a></li>
+  <li><a href="#collaboration" title="https://w3id.org/OntoGSN/ontology#collaboration">collaboration</a></li>
+  <li><a href="#consequences" title="https://w3id.org/OntoGSN/ontology#consequences">consequences</a></li>
+  <li><a href="#http://purl.org/dc/elements/1.1/contributor" title="http://purl.org/dc/elements/1.1/contributor"> <span>contributor</span> </a></li>
+  <li><a href="#coreOrExtension" title="https://w3id.org/OntoGSN/ontology#coreOrExtension">core or extension</a></li>
+  <li><a href="#http://purl.org/dc/elements/1.1/created" title="http://purl.org/dc/elements/1.1/created"> <span>created</span> </a></li>
+  <li><a href="#http://purl.org/dc/terms/created" title="http://purl.org/dc/terms/created"> <span>created</span> </a></li>
+  <li><a href="#http://purl.org/dc/elements/1.1/creator" title="http://purl.org/dc/elements/1.1/creator"> <span>creator</span> </a></li>
+  <li><a href="#http://www.w3.org/2004/02/skos/core#definition" title="http://www.w3.org/2004/02/skos/core#definition"> <span>definition</span> </a></li>
+  <li><a href="#http://purl.org/dc/elements/1.1/description" title="http://purl.org/dc/elements/1.1/description"> <span>description</span> </a></li>
+  <li><a href="#http://schema.org/description" title="http://schema.org/description"> <span>description</span> </a></li>
+  <li><a href="#http://schema.org/disclaimer" title="http://schema.org/disclaimer"> <span>disclaimer</span> </a></li>
+  <li><a href="#http://purl.org/ontology/bibo/doi" title="http://purl.org/ontology/bibo/doi"> <span>doi</span> </a></li>
+  <li><a href="#examples" title="https://w3id.org/OntoGSN/ontology#examples">examples</a></li>
+  <li><a href="#http://www.w3.org/2003/11/swrl#head" title="http://www.w3.org/2003/11/swrl#head"> <span>head</span> </a></li>
+  <li><a href="#http://purl.org/dc/elements/1.1/identifier" title="http://purl.org/dc/elements/1.1/identifier"> <span>identifier</span> </a></li>
+  <li><a href="#implementation" title="https://w3id.org/OntoGSN/ontology#implementation">implementation</a></li>
+  <li><a href="#http://schema.org/includedInDataCatalog" title="http://schema.org/includedInDataCatalog"> <span>included In Data Catalog</span> </a></li>
+  <li><a href="#intent" title="https://w3id.org/OntoGSN/ontology#intent">intent</a></li>
+  <li><a href="#http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled" title="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled"> <span>is Rule Enabled</span> </a></li>
+  <li><a href="#http://purl.org/dc/terms/issued" title="http://purl.org/dc/terms/issued"> <span>issued</span> </a></li>
+  <li><a href="#knownUses" title="https://w3id.org/OntoGSN/ontology#knownUses">known uses</a></li>
+  <li><a href="#http://creativecommons.org/ns#license" title="http://creativecommons.org/ns#license"> <span>license</span> </a></li>
+  <li><a href="#http://schema.org/license" title="http://schema.org/license"> <span>license</span> </a></li>
+  <li><a href="#http://schema.org/logo" title="http://schema.org/logo"> <span>logo</span> </a></li>
+  <li><a href="#http://purl.org/dc/terms/modified" title="http://purl.org/dc/terms/modified"> <span>modified</span> </a></li>
+  <li><a href="#motivation" title="https://w3id.org/OntoGSN/ontology#motivation">motivation</a></li>
+  <li><a href="#http://www.w3.org/2004/02/skos/core#note" title="http://www.w3.org/2004/02/skos/core#note"> <span>note</span> </a></li>
+  <li><a href="#participants" title="https://w3id.org/OntoGSN/ontology#participants">participants</a></li>
+  <li><a href="#http://purl.org/vocab/vann/preferredNamespacePrefix" title="http://purl.org/vocab/vann/preferredNamespacePrefix"> <span>preferred Namespace Prefix</span> </a></li>
+  <li><a href="#http://purl.org/vocab/vann/preferredNamespaceUri" title="http://purl.org/vocab/vann/preferredNamespaceUri"> <span>preferred Namespace Uri</span> </a></li>
+  <li><a href="#http://www.w3.org/2003/11/swrl#propertyPredicate" title="http://www.w3.org/2003/11/swrl#propertyPredicate"> <span>property Predicate</span> </a></li>
+  <li><a href="#http://purl.org/dc/elements/1.1/publisher" title="http://purl.org/dc/elements/1.1/publisher"> <span>publisher</span> </a></li>
+  <li><a href="#renderedAs" title="https://w3id.org/OntoGSN/ontology#renderedAs">rendered as</a></li>
+  <li><a href="#http://purl.org/dc/elements/1.1/source" title="http://purl.org/dc/elements/1.1/source"> <span>source</span> </a></li>
+  <li><a href="#http://purl.org/ontology/bibo/status" title="http://purl.org/ontology/bibo/status"> <span>status</span> </a></li>
+  <li><a href="#structure" title="https://w3id.org/OntoGSN/ontology#structure">structure</a></li>
+  <li><a href="#http://purl.org/dc/elements/1.1/title" title="http://purl.org/dc/elements/1.1/title"> <span>title</span> </a></li>
+  <li><a href="#http://schema.org/url" title="http://schema.org/url"> <span>url</span> </a></li>
+  <li><a href="#http://schema.org/version" title="http://schema.org/version"> <span>version</span> </a></li>
+ </ul>
+ <div class="entity" id="http://purl.org/dc/terms/abstract">
+  <h3>abstract<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/terms/abstract</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2004/02/skos/core#altLabel">
+  <h3>alt Label<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2004/02/skos/core#altLabel</p>
+ </div>
+ <div class="entity" id="applicability">
+  <h3>applicability<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#applicability</p>
+  <div class="comment">
+   <span class="markdown">The applicability section should state under what circumstances the pattern can be applied, making clear the assumptions and principles underlying the pattern to avoid inappropriate application in a mismatched context. This section should record what contextual information is required in order to apply the pattern.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://www.w3.org/2003/11/swrl#argument1">
+  <h3>argument1<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2003/11/swrl#argument1</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2003/11/swrl#argument2">
+  <h3>argument2<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2003/11/swrl#argument2</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2003/11/swrl#arguments">
+  <h3>arguments<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2003/11/swrl#arguments</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/terms/bibliographicCitation">
+  <h3>bibliographic Citation<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/terms/bibliographicCitation</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2003/11/swrl#body">
+  <h3>body<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2003/11/swrl#body</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2003/11/swrl#builtin">
+  <h3>builtin<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2003/11/swrl#builtin</p>
+ </div>
+ <div class="entity" id="http://schema.org/citation">
+  <h3>citation<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://schema.org/citation</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2003/11/swrl#classPredicate">
+  <h3>class Predicate<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2003/11/swrl#classPredicate</p>
+ </div>
+ <div class="entity" id="collaboration">
+  <h3>collaboration<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#collaboration</p>
+  <div class="comment">
+   <span class="markdown">The collaboration section should describe how elements of the pattern work together to achieve the desired effect, particularly where there are links that are not readily apparent from the argument structure.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="consequences">
+  <h3>consequences<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#consequences</p>
+  <div class="comment">
+   <span class="markdown">The consequences section should make clear what work remains after the pattern has been applied. This should highlight where further support to the argument is required, and assumptions that need to be discharged.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://purl.org/dc/elements/1.1/contributor">
+  <h3>contributor<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/contributor</p>
+ </div>
+ <div class="entity" id="coreOrExtension">
+  <h3>core or extension<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#coreOrExtension</p>
+  <div class="comment">
+   <span class="markdown">Indicator of the sourcing section in the GSN Community Standard v3.</span>
+  </div>
+ </div>
+ <div class="entity" id="http://purl.org/dc/elements/1.1/created">
+  <h3>created<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/created</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/terms/created">
+  <h3>created<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/terms/created</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/elements/1.1/creator">
+  <h3>creator<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/creator</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2004/02/skos/core#definition">
+  <h3>definition<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2004/02/skos/core#definition</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/elements/1.1/description">
+  <h3>description<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/description</p>
+ </div>
+ <div class="entity" id="http://schema.org/description">
+  <h3>description<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://schema.org/description</p>
+  <div class="description">
+   <dl>
+    <dt>
+     is also defined as
+    </dt>
+    <dd>
+     data property
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://schema.org/disclaimer">
+  <h3>disclaimer<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://schema.org/disclaimer</p>
+ </div>
+ <div class="entity" id="http://purl.org/ontology/bibo/doi">
+  <h3>doi<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/ontology/bibo/doi</p>
+ </div>
+ <div class="entity" id="examples">
+  <h3>examples<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#examples</p>
+  <div class="comment">
+   <span class="markdown">It may be useful to provide example illustrations of the application of the pattern, particularly for more abstract patterns. Illustrations should include a typical case and can be supplemented with atypical cases where more than one example is provided.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://www.w3.org/2003/11/swrl#head">
+  <h3>head<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2003/11/swrl#head</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/elements/1.1/identifier">
+  <h3>identifier<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/identifier</p>
+ </div>
+ <div class="entity" id="implementation">
+  <h3>implementation<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#implementation</p>
+  <div class="comment">
+   <span class="markdown">The implementation section should communicate how the application of the pattern is carried out e.g. the order in which elements should be developed; communicate hints or techniques that may ease successful application; highlight common or recognised pitfalls with the application of the pattern; and record potential misinterpretation of the terms or concepts in the pattern.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://schema.org/includedInDataCatalog">
+  <h3>included In Data Catalog<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://schema.org/includedInDataCatalog</p>
+ </div>
+ <div class="entity" id="intent">
+  <h3>intent<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#intent</p>
+  <div class="comment">
+   <span class="markdown">The intent statement should state clearly what the pattern aims to achieve.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled">
+  <h3>is Rule Enabled<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/terms/issued">
+  <h3>issued<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/terms/issued</p>
+ </div>
+ <div class="entity" id="knownUses">
+  <h3>known uses<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#knownUses</p>
+  <div class="comment">
+   <span class="markdown">It may be useful to provide references to known applications of the pattern. These can serve as additional examples.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://creativecommons.org/ns#license">
+  <h3>license<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://creativecommons.org/ns#license</p>
+ </div>
+ <div class="entity" id="http://schema.org/license">
+  <h3>license<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://schema.org/license</p>
+ </div>
+ <div class="entity" id="http://schema.org/logo">
+  <h3>logo<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://schema.org/logo</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/terms/modified">
+  <h3>modified<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/terms/modified</p>
+ </div>
+ <div class="entity" id="motivation">
+  <h3>motivation<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#motivation</p>
+  <div class="comment">
+   <span class="markdown">The motivation statement can be used to state why the pattern was created. It could be expressed in terms of previous experiences e.g. as the abstraction of a successfully presented argument, or challenges addressed e.g. argument topics that are often incompletely or poorly addressed.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://www.w3.org/2004/02/skos/core#note">
+  <h3>note<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2004/02/skos/core#note</p>
+ </div>
+ <div class="entity" id="participants">
+  <h3>participants<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#participants</p>
+  <div class="comment">
+   <span class="markdown">The participants section augments the structure by providing a description of each element. This can provide more complete descriptions, clarify the role of the element in the overall argument and emphasise the aspects that require development or instantiation.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://purl.org/vocab/vann/preferredNamespacePrefix">
+  <h3>preferred Namespace Prefix<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/vocab/vann/preferredNamespacePrefix</p>
+ </div>
+ <div class="entity" id="http://purl.org/vocab/vann/preferredNamespaceUri">
+  <h3>preferred Namespace Uri<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/vocab/vann/preferredNamespaceUri</p>
+ </div>
+ <div class="entity" id="http://www.w3.org/2003/11/swrl#propertyPredicate">
+  <h3>property Predicate<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://www.w3.org/2003/11/swrl#propertyPredicate</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/elements/1.1/publisher">
+  <h3>publisher<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/publisher</p>
+ </div>
+ <div class="entity" id="renderedAs">
+  <h3>rendered as<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#renderedAs</p>
+ </div>
+ <div class="entity" id="http://purl.org/dc/elements/1.1/source">
+  <h3>source<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/source</p>
+ </div>
+ <div class="entity" id="http://purl.org/ontology/bibo/status">
+  <h3>status<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/ontology/bibo/status</p>
+ </div>
+ <div class="entity" id="structure">
+  <h3>structure<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#structure</p>
+  <div class="comment">
+   <span class="markdown">The structure uses the structural and element abstraction notations to present the pattern, clearly indicating where the argument needs to be further developed or populated with details to instantiate the pattern for a specific case.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="http://purl.org/dc/elements/1.1/title">
+  <h3>title<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/title</p>
+ </div>
+ <div class="entity" id="http://schema.org/url">
+  <h3>url<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://schema.org/url</p>
+ </div>
+ <div class="entity" id="http://schema.org/version">
+  <h3>version<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> http://schema.org/version</p>
+ </div>
+</div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="swrlrules">
+ <h3 id="swrlrules" class="list">SWRL rules</h3>
+ <ul class="hlist">
+  <li><a href="#d4e7285">Rule #1</a></li>
+ </ul>
+ <div class="entity" id="d4e7285">
+  <h3>Rule #1<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
+  <p>-&gt;</p>
+ </div>
+</div><div id="legend">
+<h2>Legend <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<div   class="entity">
+<sup class="type-c" title="Classes">c</sup>: Classes <br/>
+<sup class="type-op" title="Object Properties">op</sup>: Object Properties <br/>
+<sup class="type-dp" title="Data Properties">dp</sup>: Data Properties <br/>
+</div>
+</div>
+</div>
+<div id="acknowledgments">
+<h2 id="ack" class="list">Acknowledgments <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
+<p>
+The authors would like to thank <a href="http://www.essepuntato.it/">Silvio Peroni</a> for developing <a href="http://www.essepuntato.it/lode">LODE</a>, a Live OWL Documentation Environment, which is used for representing the Cross Referencing Section of this document and <a href="https://w3id.org/people/dgarijo">Daniel Garijo</a> for developing <a href="https://github.com/dgarijo/Widoco">Widoco</a>, the program used to create the template used in this documentation.</p>
+</div>
+
+
+</div>
+</body>
+</html>

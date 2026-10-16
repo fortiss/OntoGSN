@@ -1,0 +1,23 @@
+# rule:      D3
+# name:      Rule Mechanism Writes Terms
+# section:   Augmentation derivations
+# operation: rule
+# expect:    insert
+# swrl:      none. The head is an RDF list, walked with rdf:rest*, which SWRL cannot express.
+# reads:     IF a mechanism is a SWRL rule THEN it writes every class predicate and property
+#            predicate in its head
+#
+# The twin of D2: what a rule concludes is what it writes. A term in both body and head is read
+# and written, which is the case for every rule that narrows a class it also tests.
+
+PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX swrl:   <http://www.w3.org/2003/11/swrl#>
+
+INSERT { ?mechanism gsnaug:writesTerm ?term }
+WHERE {
+  ?mechanism a gsnaug:Mechanism , swrl:Imp ;
+             swrl:head/rdf:rest*/rdf:first ?atom .
+  ?atom swrl:classPredicate|swrl:propertyPredicate ?term .
+  FILTER ( isIRI(?term) )
+}

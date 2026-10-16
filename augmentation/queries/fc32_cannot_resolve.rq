@@ -16,6 +16,6 @@ WHERE {
          gsnaug:raisedAgainst ?target .
   ?target schema:identifier ?targetId .
   OPTIONAL { ?issue gsnaug:heldBy ?holder }
-  FILTER ( ?outcome IN ( gsnaug:declined, gsnaug:infeasible ) )
+  FILTER ( ?outcome IN ( "declined", "infeasible" ) )
 }
 ORDER BY ?issueId

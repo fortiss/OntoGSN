@@ -17,10 +17,7 @@ WHERE {
     WHERE {
       ?issue a gsnaug:Issue .
       FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
-      FILTER NOT EXISTS {
-        ?answer gsnaug:answers ?issue .
-        FILTER NOT EXISTS { ?answer gsnaug:accepted false }
-      }
+      FILTER NOT EXISTS { ?answer gsnaug:answers ?issue }
     }
   }
   { SELECT (COUNT(DISTINCT ?e) AS ?defeated) WHERE { ?e gsn:defeated true } }

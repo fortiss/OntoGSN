@@ -9,6 +9,9 @@ Three things, in the order they can fail:
     2. the SPARQL rules reach a fixpoint, and each SWRL rule has a SPARQL twin
     3. the SHACL shapes validate the fixture before and after the rules run
 
+The derivations in derivations/ run with the rules but are not twinned: they walk RDF lists,
+which SWRL cannot, so they exist in SPARQL only and are kept out of the twin count.
+
 Deliberately standalone. dev_tools/check_all.py globs serializations/, shapes/ and queries/, so it
 never sees this directory - which is the point: the augmentation must not be able to break the
 core checks.
@@ -35,6 +38,7 @@ FIXTURE = os.path.join(HERE, "testdata", "example_issues.ttl")
 CORE = os.path.join(REPO, "serializations", "ontogsn.ttl")
 CORE_RULES = os.path.join(REPO, "queries", "rules")
 AUG_RULES = os.path.join(HERE, "rules")
+DERIVATIONS = os.path.join(HERE, "derivations")
 
 failures = []
 
@@ -74,7 +78,7 @@ for rule in rules:
             atoms += 1
             node = ontology.value(node, RDF.rest)
     print(f"  {str(label):38} {atoms} atoms")
-check(len(rules) == 4, f"{len(rules)} SWRL rules", f"expected 4 SWRL rules, found {len(rules)}")
+check(len(rules) == 5, f"{len(rules)} SWRL rules", f"expected 5 SWRL rules, found {len(rules)}")
 
 # Each SWRL rule needs a SPARQL twin, so the two never drift.
 sparql_rules = sorted(glob.glob(os.path.join(AUG_RULES, "*.rq")))
@@ -93,13 +97,14 @@ data.parse(FIXTURE, format="turtle")
 before = len(data)
 
 updates = []
-for path in sorted(glob.glob(os.path.join(CORE_RULES, "*.rq"))) + sparql_rules:
+derivations = sorted(glob.glob(os.path.join(DERIVATIONS, "*.rq")))
+for path in sorted(glob.glob(os.path.join(CORE_RULES, "*.rq"))) + sparql_rules + derivations:
     text = open(path, encoding="utf-8").read()
     upper = text.upper()
     if "INSERT" in upper or "DELETE" in upper:
         updates.append((os.path.basename(path), text))
-check(len(updates) > len(sparql_rules),
-      f"{len(updates)} update rules loaded ({len(sparql_rules)} of them augmentation)",
+check(len(updates) > len(sparql_rules) + len(derivations),
+      f"{len(updates)} update rules loaded ({len(sparql_rules)} augmentation rules, {len(derivations)} derivations)",
       "no core rules were loaded - the augmentation rules would run in isolation")
 
 for round_number in range(1, 21):
@@ -134,6 +139,25 @@ expected = [
     ("context under a revise issue is untouched", (EX["C-object"], GSN.inDoubt, None), False),
     ("the case names the system it assures", (EX.G1, AUG.assures, EX["it-system"]), True),
     ("the case names what requires it",      (EX.G1, AUG.requiredBy, EX.regulation), True),
+    # derivations: a mechanism that is a shape or a rule gets its terms read off the node
+    ("a shape mechanism reads its target class",   (EX["retention-shape"], AUG.readsTerm, EX.AccessLogEntry), True),
+    ("a shape mechanism reads a plain path",       (EX["retention-shape"], AUG.readsTerm, EX.retainedUntil), True),
+    ("a shape mechanism reads a sh:class",         (EX["retention-shape"], AUG.readsTerm, EX.AccessLog), True),
+    ("a shape mechanism reads a sequence path",    (EX["retention-shape"], AUG.readsTerm, EX.retentionPolicy), True),
+    ("a shape mechanism writes nothing",           (EX["retention-shape"], AUG.writesTerm, None), False),
+    ("a rule mechanism reads its body",            (EX["expiry-rule"], AUG.readsTerm, EX.retainedUntil), True),
+    ("a rule mechanism writes its head",           (EX["expiry-rule"], AUG.writesTerm, EX.Expiring), True),
+    ("a rule mechanism does not read its head",    (EX["expiry-rule"], AUG.readsTerm, EX.Expiring), False),
+    ("a rule that is not a mechanism derives nothing",
+                                                   (AUG.ReviseIssueChallengesGoal, AUG.readsTerm, None), False),
+    ("a query mechanism derives nothing",          (EX["log-query"], AUG.readsTerm, EX.AccessLogEntry), True),
+    # A4: a part is verifiable with whatever verifies its artefact, and inherits nothing else
+    ("a part is verifiable with what checks its artefact",   (EX["access-log-row-42"], AUG.verifiableWith, EX["retention-rule"]), True),
+    ("a part inherits every verifier, not just one",         (EX["access-log-row-42"], AUG.verifiableWith, EX["expiry-rule"]), True),
+    ("a part does not inherit what verified its artefact",   (EX["access-log-row-42"], AUG.verifiedWith, None), False),
+    ("a part does not inherit how its artefact is fetched",  (EX["access-log-row-42"], AUG.retrievableWith, None), False),
+    ("a part of an artefact with no provenance inherits none", (EX["ctrl-row-7"], AUG.verifiableWith, None), False),
+    ("inheritance does not retype the part as an artefact",  (EX["access-log-row-42"], RDF.type, GSN.Artefact), False),
 ]
 for name, triple, wanted in expected:
     found = (triple in data) if triple[2] is not None else bool(list(data.triples(triple)))
@@ -185,22 +209,27 @@ must_report = [
     ("an issue with a type outside the three", BAD["I-bogus-type"]),
     ("an issue superseding itself",          BAD["I-self"]),
     ("an answer closing no issue",           BAD["A-no-issue"]),
-    ("a Revision answering a clarify issue", BAD["A-mismatched"]),
+    ("an answer closing two issues",         BAD["A-two-issues"]),
     ("an artefact stored in a person",       BAD["artefact"]),
+    ("an artefact part that is part of a person", BAD["part"]),
     ("provenance hung on a solution",        BAD["Sn1"]),
     ("a goal assuring something that is not a system", BAD["G1"]),
     ("an element required by, instantiated from and owned by the wrong kinds of thing",
                                              BAD["G2"]),
-    ("an owner, reviewer and role-holder that is not an agent", BAD["not-an-agent"]),
+    ("a role-holder that is not an agent, holding something that is not a role",
+                                             BAD["not-an-agent"]),
+    ("a bare note that is owned, reviewed and linked from", BAD["a-sticky-note"]),
     ("something other than a case covered in an audit cycle",   BAD["case-1"]),
     ("an issue raised against something outside the case",      BAD["I-off-target"]),
-    ("an outcome outside the three",         BAD["I-bogus-outcome"]),
+    ("an outcome outside the four",          BAD["I-bogus-outcome"]),
     ("an issue held by two agents at once",  BAD["I-two-holders"]),
     ("an audit cycle that is not one, and a raiser that is not an agent", BAD["I-bad-cycle"]),
-    ("an issue closed by an outcome and an accepted answer", BAD["I-both-endings"]),
-    ("an acceptance that is not a boolean",  BAD["A-bad-accepted"]),
-    ("an artefact revising a person",        BAD["artefact-revision"]),
+    ("an issue closed by a no-answer outcome and an answer", BAD["I-both-endings"]),
+    ("an artefact replacing a person",       BAD["artefact-revision"]),
     ("a mechanism automated by a word",      BAD["mechanism"]),
+    ("a mechanism reading a literal",        BAD["mechanism-literal-term"]),
+    ("an artefact that reads a term",        BAD["artefact-that-reads"]),
+    ("a mechanism with two scripts",         BAD["mechanism-two-scripts"]),
 ]
 for name, node in must_report:
     check(str(node) in focus_nodes, f"reported: {name}", f"NOT reported: {name}")
