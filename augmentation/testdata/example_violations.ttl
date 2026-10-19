@@ -1,7 +1,11 @@
 @prefix bad:    <https://example.org/bad#> .
 @prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
 @prefix gsnaug: <https://w3id.org/OntoGSN/augmentation#> .
+@prefix prov:   <http://www.w3.org/ns/prov#> .
 @prefix schema: <http://schema.org/> .
+@prefix terms:  <http://purl.org/dc/terms/> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 
 #  Deliberately wrong. Every node here must be reported by exactly the shape named above it;
 #  a shape that stops firing on this file has stopped constraining anything.
@@ -26,13 +30,13 @@ bad:I-self a gsnaug:Issue ; schema:identifier "IB4" ;
     gsnaug:raisedAgainst bad:G1 ;
     gsnaug:supersedes bad:I-self .
 
-#  AnswerShape - an answer closes exactly one issue: not none, and not two
-bad:A-no-issue a gsnaug:Answer .
+#  ResponseShape - a response replies to exactly one issue: not none, and not two
+bad:A-no-issue a gsnaug:Response .
 
 bad:I-clarify a gsnaug:Issue ; schema:identifier "IB5" ;
     gsnaug:issueType gsnaug:clarify ;
     gsnaug:raisedAgainst bad:G1 .
-bad:A-two-issues a gsnaug:Answer ; gsnaug:answers bad:I-clarify , bad:I-untyped .
+bad:A-two-issues a gsnaug:Response ; gsnaug:respondsTo bad:I-clarify , bad:I-untyped .
 
 #  ArtefactShape - the ranges are not decorative
 bad:artefact a gsn:Artefact ;
@@ -103,13 +107,11 @@ bad:I-bad-cycle a gsnaug:Issue ; schema:identifier "IB8" ;
     gsnaug:raisedIn bad:last-spring ;
     gsnaug:raisedBy bad:nobody-in-particular .
 
-#  IssueClosureShape - an outcome that says "no answer" and an answer close the same ask twice
-bad:I-both-endings a gsnaug:Issue ; schema:identifier "IB9" ;
+#  IssueClosureShape (warning) - resolved means the raiser accepted a response, and there is none
+bad:I-resolved-unanswered a gsnaug:Issue ; schema:identifier "IB9" ;
     gsnaug:issueType gsnaug:resolve ;
     gsnaug:raisedAgainst bad:G1 ;
-    gsnaug:issueOutcome "declined" .
-bad:A-also-answered a gsnaug:Answer ;
-    gsnaug:answers bad:I-both-endings .
+    gsnaug:issueOutcome "resolved" .
 
 #  ArtefactShape - an artefact replaces another artefact, not a person
 bad:artefact-revision a gsn:Artefact ;
@@ -127,3 +129,42 @@ bad:artefact-that-reads a gsn:Artefact ;
     gsnaug:readsTerm gsn:Goal .
 bad:mechanism-two-scripts a gsnaug:Mechanism ;
     gsnaug:script "Get-WinEvent" , "Get-Date" .
+
+#  MechanismRequirementShape - what a mechanism needs to run is a node, not a string
+bad:mechanism-needs-a-word a gsnaug:Mechanism ;
+    terms:requires "PowerShell 7" .
+
+#  IndependenceShape (warning) - the agent who reviews an element is not the one who owns it
+bad:G3 a gsn:Goal ; schema:identifier "GB3" ;
+    gsn:statement "A claim reviewed by its own owner." ;
+    gsnaug:ownedBy    bad:same-person ;
+    gsnaug:reviewedBy bad:same-person .
+bad:same-person a prov:Agent .
+
+#  ReportTimestampShape (warning) - a report the rules read carries a timestamp
+bad:report-undated a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy bad:check ;
+    prov:used bad:evidence .
+
+#  ReportConflictShape - two reports from one mechanism over one target disagree, and the
+#  timestamps do not put one after the other
+bad:report-yes a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy bad:check ;
+    prov:used bad:evidence-2 ;
+    prov:generatedAtTime "2026-03-08T12:00:00Z"^^xsd:dateTime .
+bad:report-no a sh:ValidationReport ;
+    sh:conforms false ;
+    prov:wasGeneratedBy bad:check ;
+    prov:used bad:evidence-2 ;
+    prov:generatedAtTime "2026-03-08T12:00:00Z"^^xsd:dateTime .
+bad:check a gsnaug:Mechanism .
+
+#  ReportInvalidationShape (warning) - a struck report names the activity that struck it
+bad:report-struck-anonymously a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy bad:check ;
+    prov:used bad:evidence-3 ;
+    prov:generatedAtTime "2026-03-08T12:00:00Z"^^xsd:dateTime ;
+    prov:invalidatedAtTime "2026-03-09T12:00:00Z"^^xsd:dateTime .

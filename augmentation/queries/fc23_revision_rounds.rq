@@ -1,22 +1,22 @@
 # id:        CQ-65
 # role:      Compliance Officer
 # operation: read
-# question:  How many revision rounds, and which revision closed which ask?
+# question:  How many revision rounds, and what was offered in reply to each ask?
 # expect:    rows
 
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?targetId (COUNT(DISTINCT ?issue) AS ?rounds)
-       (GROUP_CONCAT(DISTINCT STR(?answer); separator=", ") AS ?revisions)
+       (GROUP_CONCAT(DISTINCT STR(?response); separator=", ") AS ?responses)
 WHERE {
   ?issue a gsnaug:Issue ;
          gsnaug:issueType gsnaug:revise ;
          gsnaug:raisedAgainst ?target .
   ?target schema:identifier ?targetId .
   OPTIONAL {
-    ?answer a gsnaug:Answer ;
-            gsnaug:answers ?issue
+    ?response a gsnaug:Response ;
+              gsnaug:respondsTo ?issue
   }
 }
 GROUP BY ?targetId

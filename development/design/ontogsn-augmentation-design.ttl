@@ -1,0 +1,2532 @@
+@prefix gsnaugdesign: <https://w3id.org/OntoGSN/augmentation/design#> .
+@prefix gsnaug:     <https://w3id.org/OntoGSN/augmentation#> .
+@prefix gsnaugsh:   <https://w3id.org/OntoGSN/augmentation/shapes#> .
+@prefix gsndesign:    <https://w3id.org/OntoGSN/design#> .
+@prefix gsn:        <https://w3id.org/OntoGSN/ontology#> .
+@prefix prov:       <http://www.w3.org/ns/prov#> .
+@prefix sh:         <http://www.w3.org/ns/shacl#> .
+@prefix dc:         <http://purl.org/dc/elements/1.1/> .
+@prefix owl:        <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:        <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:       <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:       <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann:       <http://purl.org/vocab/vann/> .
+@prefix xsd:        <http://www.w3.org/2001/XMLSchema#> .
+@base <https://w3id.org/OntoGSN/augmentation/design> .
+
+<https://w3id.org/OntoGSN/augmentation/design> rdf:type owl:Ontology ;
+    owl:imports <https://w3id.org/OntoGSN/design> ;
+    dc:title "OntoGSN Augmentation - the record"@en ;
+    dc:creator "Tomas Bueno Momčilović"@en ;
+    dc:publisher "https://www.fortiss.org/"@en ;
+    dc:description """Why each term, rule and shape of https://w3id.org/OntoGSN/augmentation exists, and why several
+obvious-looking alternatives were rejected.
+
+The gsndesign: vocabulary supplies the backbone, so the SPARQL in development/design/README.md works over
+this record unchanged. Two terms are added below for the same reason the alignment record adds
+four: gsndesign:SourcePassage is scoped by definition to the GSN Community Standard v3, and most of
+what this vocabulary rests on is not the standard. It is an industrial compliance process, the
+PROV-O and SHACL specifications, and OntoGSN's own dialectic rules.
+
+Not read by development/dev_tools/prov_check.py, which validates an explicit list of three files in development/design/.
+Statement records here therefore carry no gsndesign:structuralKey: nothing recomputes it, and a key
+nothing checks is a key that silently rots. What is checked is development/dev_tools/augmentation_check.py, which runs
+the rules against a fixture and makes every shape fire once.
+
+This record is also where the augmentation's editorial comments live. The Turtle files carry no
+prose rationale of their own - only structural section headers, and the annotations a consumer of
+the vocabulary reads: labels, definitions, scope notes, usage notes. Anything that explains why an
+axiom is written the way it is, or why an obvious alternative was rejected, belongs to a
+gsndesign:Rationale here, where it is queryable and where nothing has to be kept in step by hand
+across the serialisations."""@en ;
+    vann:preferredNamespacePrefix "gsnaugdesign" ;
+    owl:versionInfo "0.3.1" ;
+    rdfs:seeAlso <https://w3id.org/OntoGSN/augmentation> , <https://w3id.org/OntoGSN/design> .
+
+
+#################################################################
+#    Local vocabulary
+#    Two terms. Everything else is reused from gsndesign:.
+#################################################################
+
+gsnaugdesign:CitedArtefact rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "cited artefact"@en ;
+    skos:definition "Something a decision here rests on that is not the GSN Community Standard: a specification, an industrial process model, or a rule already in OntoGSN."@en ;
+    skos:note "Mirrors gsnaligndesign:CitedArtefact rather than importing it. The alignment record is about ARGO and this one is about a compliance process; a shared class would have to be defined somewhere neither of them owns."@en .
+
+gsnaugdesign:locator rdf:type owl:DatatypeProperty ;
+    rdfs:domain gsndesign:SourcePassage ;
+    rdfs:label "locator"@en ;
+    skos:definition "Where in the cited artefact the passage is: a section number, a rule identifier, a diagram step."@en .
+
+
+#################################################################
+#    The graphs this record describes
+#################################################################
+
+gsnaugdesign:augmentation-0.3.1
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
+    rdfs:label "OntoGSN Augmentation 0.3.1"@en ;
+    owl:versionInfo "0.3.1" ;
+    gsndesign:path "augmentation/ontogsn-augmentation.ttl" ;
+    gsndesign:fileChecksum "f1561d061b0045394a20df7eb2176ca71f0cddca37748b3d9852c0fc447a76a9" .
+
+gsnaugdesign:augmentation-shapes-0.3.1
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation/shapes> ;
+    rdfs:label "OntoGSN Augmentation SHACL shapes 0.3.1"@en ;
+    owl:versionInfo "0.3.1" ;
+    gsndesign:path "augmentation/shapes/ontogsn-augmentation-shapes.ttl" ;
+    gsndesign:fileChecksum "3e832b266980c440c6e1a04db4524eb724616e8ca631324a69cbf331b816465b" .
+
+gsnaugdesign:augmentation-queries-0.3.1
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
+    rdfs:label "OntoGSN Augmentation stored queries 0.3.1"@en ;
+    owl:versionInfo "0.3.1" ;
+    gsndesign:path "augmentation/queries/" .
+
+gsnaugdesign:augmentation-derivations-0.3.1
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
+    rdfs:label "OntoGSN Augmentation SPARQL derivations 0.3.1"@en ;
+    owl:versionInfo "0.3.1" ;
+    gsndesign:path "augmentation/derivations/" .
+
+gsnaugdesign:augmentation-rules-0.3.1
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
+    rdfs:label "OntoGSN Augmentation SPARQL rules 0.3.1"@en ;
+    owl:versionInfo "0.3.1" ;
+    gsndesign:path "augmentation/rules/" .
+
+#  0.2.0 is kept because nineteen decisions were retired at 0.3.1.
+
+gsnaugdesign:augmentation-0.2.0
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
+    rdfs:label "OntoGSN Augmentation 0.2.0"@en ;
+    owl:versionInfo "0.2.0" ;
+    gsndesign:path "augmentation/ontogsn-augmentation.ttl" ;
+    gsndesign:fileChecksum "9a81c0a245c30221d6e4e24b0efa6bb78b687aee696bd5eb28cfb57830595ece" .
+
+gsnaugdesign:augmentation-shapes-0.2.0
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation/shapes> ;
+    rdfs:label "OntoGSN Augmentation SHACL shapes 0.2.0"@en ;
+    owl:versionInfo "0.2.0" ;
+    gsndesign:path "augmentation/shapes/ontogsn-augmentation-shapes.ttl" ;
+    gsndesign:fileChecksum "0f9dff30d62dd16f70bc28ca9f3fdd9f44191a9488781bd1eda6cfa485288fbd" .
+
+#  0.1.0 is kept because four decisions were retired at 0.2.0 and the axioms they produced were
+#  real while it stood. A retired decision whose statement claimed to be in the current graph
+#  would say the withdrawn term is still there.
+
+gsnaugdesign:augmentation-0.1.0
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
+    rdfs:label "OntoGSN Augmentation 0.1.0"@en ;
+    owl:versionInfo "0.1.0" ;
+    gsndesign:path "augmentation/ontogsn-augmentation.ttl" ;
+    gsndesign:fileChecksum "9d69156328d715744503b7c117f78f6a1fee69d7ac34ef59344964d76ceebf56" .
+
+gsnaugdesign:augmentation-shapes-0.1.0
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation/shapes> ;
+    rdfs:label "OntoGSN Augmentation SHACL shapes 0.1.0"@en ;
+    owl:versionInfo "0.1.0" ;
+    gsndesign:path "augmentation/shapes/ontogsn-augmentation-shapes.ttl" ;
+    gsndesign:fileChecksum "c258eb1ad8f51924064eb66f1cc9f9d31400a532fe294a64f246d8efeb6099c7" .
+
+
+#################################################################
+#    Sources
+#################################################################
+
+gsnaugdesign:src-0001
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:fincomp-process ;
+    gsndesign:quotedText """A four-role financial-compliance process - Developer, Process/Software Owner, Compliance Officer,
+Auditor - whose happy path runs from Interpret Law to Generate Report Entry, and whose deviations
+are clarification rounds, escalations, revision loops, resolution requests and a fallback from
+automated to manual evidence generation."""@en ;
+    gsnaugdesign:locator "page 'Full Happy Path with Detours'" .
+
+gsnaugdesign:src-0002
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:fincomp-process ;
+    gsndesign:quotedText """The auditor's three asks are distinguished by the state the target was found in. Clarification: the
+element is unclear, not necessarily invalid, just difficult to interpret. Revision: the element is
+invalid according to the auditor and must be revised. Resolution: the implementation of a control -
+a low-level claim and its solution - is unsound and must be resolved before the next audit."""@en ;
+    gsnaugdesign:locator "detour steps 1.1-1.3, 8.1-8.3, 14.1-14.5" .
+
+gsnaugdesign:src-0003
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:fincomp-process ;
+    gsndesign:quotedText """Verify Evidence occurs three times, once per lane boundary, each time guarded on whether the
+evidence satisfies rules; Generate Evidence may be attempted through Automate Evidence Generation
+and fall back to manual; Get Evidence is a retrieval repeated on every revision loop."""@en ;
+    gsnaugdesign:locator "steps 4-13" .
+
+gsnaugdesign:src-0004
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:prov-o ;
+    gsndesign:quotedText """prov:wasAttributedTo - Attribution is the ascribing of an entity to an agent. prov:wasDerivedFrom -
+A derivation is a transformation of an entity into another. prov:wasGeneratedBy relates an entity
+to the activity that generated it."""@en ;
+    gsnaugdesign:locator "PROV-O, Starting Point terms" .
+
+gsnaugdesign:src-0005
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:shacl-spec ;
+    gsndesign:quotedText """A SPARQL-based constraint must not contain a MINUS clause, a VALUES clause, or a SERVICE clause.
+[...] SPARQL queries with a variable named this in a nested SELECT are ill-formed."""@en ;
+    gsnaugdesign:locator "SHACL 5.2.1, syntax restrictions on SPARQL queries" .
+
+gsnaugdesign:src-0006
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:ontogsn-rules ;
+    gsndesign:quotedText """S52 Defeater Declaration: challenges(?A, ?B) -> Defeater(?A).
+S48 Challenge Doubt: challenges(?G, ?E) ^ true(?G, true) ^ Goal(?G) -> inDoubt(?E, true).
+S46 Challenge Defeat: valid(?S, true) ^ challenges(?S, ?E) ^ Solution(?S) -> defeated(?E, true)."""@en ;
+    gsnaugdesign:locator "ontology/queries/rules/s46, s48, s52" .
+
+gsnaugdesign:src-0007
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsndesign:GSNCommunityStandardV3 ;
+    gsndesign:quotedText """1:2.3.4 GSN solutions make no claim, but are simply references to evidence items that provide
+support for a particular claim."""@en ;
+    gsndesign:clause "1:2.3.4" ;
+    gsndesign:pageRef "25" ;
+    gsnaugdesign:locator "1:2.3.4" .
+
+gsnaugdesign:src-0008
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsndesign:GSNCommunityStandardV3 ;
+    gsndesign:quotedText """Contextual elements are optional. It is good practice for the top-level goal of a goal structure to
+be placed in context, but the standard states no requirement that any particular element carry a
+context, nor what a context must contain."""@en ;
+    gsndesign:pageRef "25" ;
+    gsnaugdesign:locator "1:2.3.5, read against the absence of a shall" .
+
+gsnaugdesign:src-0009
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:fincomp-process ;
+    gsndesign:quotedText """A clarification request is relayed from the auditor to the compliance officer, from there to the
+process owner and on to the developer, each hop guarded on the current holder being unable to
+answer; the response travels back along the same chain. A clarification that reveals a defect turns
+into a revision request instead of closing the ask."""@en ;
+    gsnaugdesign:locator "steps 13.1-13.8, 3.2.1, 4.1.2.1, 13.7.1" .
+
+gsnaugdesign:src-0010
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:fincomp-process ;
+    gsndesign:quotedText """Three terminal states end the process without a report entry: evidence that cannot be produced at
+all, a resolution declined by the compliance officer or by the process owner, and a resolution the
+developer finds infeasible."""@en ;
+    gsnaugdesign:locator "steps 4.2, 14.2.1, 14.3.1, 14.4.1" .
+
+gsnaugdesign:src-0011
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:iso-19011 ;
+    gsndesign:quotedText """An audit finding is the result of evaluating the collected audit evidence against the audit criteria.
+Findings indicate conformity or nonconformity, and can lead to the identification of risks and of
+opportunities for improvement. The standard covers first-party audits, conducted by the organisation
+itself, as well as second- and third-party audits."""@en ;
+    gsnaugdesign:locator "3.10 audit finding, with its notes; 1 Scope, paraphrased" .
+
+gsnaugdesign:src-0012
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:iso-19011 ;
+    gsndesign:quotedText """Independence is the basis for the impartiality of the audit and the objectivity of the audit
+conclusions. Auditors are independent of the activity being audited wherever practicable, and act
+free from bias and conflict of interest."""@en ;
+    gsnaugdesign:locator "4 Principles of auditing, e) Independence, paraphrased" .
+
+gsnaugdesign:src-0013
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:prov-o ;
+    gsndesign:quotedText """prov:wasRevisionOf - A revision is a derivation for which the resulting entity is a revised
+version of some original. The implication here is that the resulting entity contains substantial
+content from the original."""@en ;
+    gsnaugdesign:locator "PROV-O, Expanded terms" .
+
+gsnaugdesign:src-0014
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:dcmi-terms ;
+    gsndesign:quotedText """dcterms:requires - A related resource that is required by the described resource to support its
+function, delivery, or coherence."""@en ;
+    gsnaugdesign:locator "DCMI Metadata Terms, requires" .
+
+gsnaugdesign:src-0015
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:dcmi-terms ;
+    gsndesign:quotedText """dcterms:isPartOf - A related resource in which the described resource is physically or logically
+included."""@en ;
+    gsnaugdesign:locator "DCMI Metadata Terms, isPartOf" .
+
+gsnaugdesign:src-0016
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsnaugdesign:prov-o ;
+    gsndesign:quotedText """prov:wasInvalidatedBy - Invalidation is the start of the destruction, cessation, or expiry of an
+existing entity by an activity. The entity is no longer available for use (or further invalidation)
+after invalidation. Any generation or usage of an entity precedes its invalidation."""@en ;
+    gsnaugdesign:locator "PROV-O, Expanded terms" .
+
+gsnaugdesign:fincomp-process
+    a gsnaugdesign:CitedArtefact ;
+    rdfs:label "FinComp Compliance Processes (cleaner)"@en ;
+    skos:note "An industrial compliance process model held outside this repository. It is the reason this vocabulary exists and the reason it stops where it does: a term with no moment in that process behind it was not minted."@en .
+
+gsnaugdesign:prov-o
+    a gsnaugdesign:CitedArtefact ;
+    rdfs:label "PROV-O: The PROV Ontology"@en ;
+    prov:specializationOf <http://www.w3.org/ns/prov-o> .
+
+gsnaugdesign:shacl-spec
+    a gsnaugdesign:CitedArtefact ;
+    rdfs:label "Shapes Constraint Language (SHACL), W3C Recommendation"@en ;
+    prov:specializationOf <http://www.w3.org/ns/shacl#> .
+
+gsnaugdesign:ontogsn-rules
+    a gsnaugdesign:CitedArtefact ;
+    rdfs:label "The OntoGSN Dialectic Extension rule set"@en ;
+    prov:specializationOf <https://w3id.org/OntoGSN/ontology> .
+
+gsnaugdesign:iso-19011
+    a gsnaugdesign:CitedArtefact ;
+    rdfs:label "ISO 19011:2018 Guidelines for auditing management systems"@en ;
+    skos:note "Cited for the vocabulary of auditing that is not specific to any one compliance process: finding, conformity, nonconformity, independence, and the three audit parties. An inspiration and a second source for a term; nothing in this repository formalises the standard or claims conformance to it."@en .
+
+gsnaugdesign:dcmi-terms
+    a gsnaugdesign:CitedArtefact ;
+    rdfs:label "DCMI Metadata Terms"@en ;
+    prov:specializationOf <http://purl.org/dc/terms/> .
+
+
+#################################################################
+#    Rationales
+#################################################################
+
+gsnaugdesign:why-0001
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A gsn:Solution is the GSN element that references an artefact; the standard is explicit that it
+makes no claim and is simply a reference. The storage location, the generating tool and the
+verification script are therefore facts about the file, not about the node in the diagram. Placing
+them on the artefact also costs nothing at query time, because the solution already carries the hop
+that reaches it: ?claim gsn:supportedBy/gsn:refersTo ?artefact. Placing them on the solution would
+split the same fact across two nodes and leave an artefact cited by two solutions with two
+half-answers."""@en .
+
+gsnaugdesign:why-0002
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Bare PROV terms cannot tell the author from the tool: both are prov:wasAttributedTo an agent, and
+the compliance process turns on exactly that distinction, since whether evidence was generated
+automatically or by hand is what a reviewer asks about. Subproperties restore it while leaving a
+PROV-aware consumer able to traverse both. They also make a domain declarable - rdfs:domain
+gsn:Artefact may be stated on a term this file owns, and must never be stated on a prov: one,
+because OWL has no scoping and the restatement would apply to everyone's PROV. The same holds for
+SHACL: a shape may require exactly one gsnaug:generatedWith without constraining prov:wasAttributedTo
+anywhere else. The cost is three rdfs:subPropertyOf triples."""@en .
+
+gsnaugdesign:why-0003
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """PROV records what happened. Where the artefact is kept and how to fetch it again are facts about
+future access, and no PROV term means either. Verification is a third case: PROV would model it as
+a separate prov:Activity with a prov:used, which is correct and which nobody has an individual for.
+Minting three properties outright is the smaller commitment, and the activity can be added later if
+the provenance of a particular verification run is ever wanted rather than of the artefact."""@en .
+
+gsnaugdesign:why-0004
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The orthodox PROV route from an entity to the tool that made it is three hops - wasGeneratedBy to a
+prov:Activity, prov:used from that activity to the tool - and requires an activity individual that
+no assurance case has. Treating the mechanism as a prov:SoftwareAgent is one hop for the same fact.
+This is a deliberate simplification rather than an oversight, and it is the right one only while the
+question being asked is 'what produced this artefact'. If the question becomes 'what happened during
+that particular run', the activity has to come back."""@en .
+
+gsnaugdesign:why-0005
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Saying more about a mechanism would be prescribing an implementation. A generation mechanism may be
+a shell script in one organisation, a scheduled pipeline in another and a documented manual
+procedure in a third, and the vocabulary has no business preferring one. Leaving the classes without
+a superclass and without structure makes them attachment points: a domain ontology subclasses them -
+sw:Script rdfs:subClassOf gsnaug:EvidenceGenerationMechanism - or declares individuals directly, and
+nothing here has to be revised when it does. The same reasoning as the augmentation's own rule about
+supplying the link and never the taxonomy."""@en .
+
+gsnaugdesign:why-0006
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """gsn:inDoubt and gsn:defeated are states of an element. A reviewer's ask is not a state - it is a
+request to move an element off one - and it persists after being made: it is open, it may be
+superseded, and it is eventually closed by an answer. Three things follow that a flag cannot carry.
+Rounds are countable, because one individual exists per round and 'how many times has this claim
+been asked about' is a COUNT. An ask outlives the review that raised it, which is what 'resolved
+before the next audit' means. And an ask can be answered, which is a relation between two
+individuals. A boolean on the target expresses none of these."""@en .
+
+gsnaugdesign:why-0007
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The industrial process calls the thing a request, and a request is a speech act: it names the moment
+of asking and nothing after it. What the vocabulary needs is the object that persists - open,
+relayed, superseded, answered - so the class is named Issue and Request is kept as a skos:altLabel
+rather than as a second class. Minting both would have produced two names for one thing and a
+standing question about which to instantiate."""@en .
+
+gsnaugdesign:why-0008
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Three subclasses of Issue would put the kind of ask into the ontology's class hierarchy, so a fourth
+kind - an escalation, a waiver, a deferral - would be an ontology release. As a SKOS scheme it is a
+concept: concepts deprecate, merge and map, and a project may add its own without touching this
+file. The three answers are genuinely separate classes because they differ in what they carry and
+in what closes them; the asks differ only in which of three things is being asked."""@en .
+
+gsnaugdesign:why-0009
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A reviewer may raise an issue against anything in a case: a goal, a solution, a context, a reified
+relationship, an artefact, or the case itself. An auditor asking for a context to be better
+expressed is making a real request that has to be recorded. Declaring a range would do one of two
+harmful things. Narrow, it would reject those asks. Broad but enumerated, it would still be
+generative rather than restrictive - rdfs:range does not reject a wrong value, it retypes it - so an
+issue pointed at something outside the enumeration would silently make that thing a member of one of
+the listed classes. What the target is still matters, but it matters to the rules, which fire only
+on a gsn:Goal or a gsn:Solution, and to a shape, which checks arity and not type."""@en .
+
+gsnaugdesign:why-0010
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Only two of the nine combinations of issue type and target say anything about the argument. A revise
+or resolve issue against a goal or a solution disputes a claim or the evidence for one, which is
+what gsn:challenges is for. Every other combination is a legitimate ask that changes nothing:
+asking for a context, an assumption or a justification to be better expressed is a remark about the
+quality of a contextual element, not a claim that the argument is unsound, and it must not move
+gsn:inDoubt or gsn:defeated. A clarify issue infers nothing whatever it targets, because by
+definition the element is not in question - only the reader is stuck. The issue is still recorded
+and still queryable in every one of these cases; what it does not do is change a truth value."""@en .
+
+gsnaugdesign:why-0011
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """OntoGSN's dialectic rules already do most of the work, so the new rules only have to assert the
+challenge. S52 types anything that challenges as a gsn:Defeater, and S48 derives gsn:inDoubt from a
+true goal that challenges - so a revise issue needs to become a true goal and nothing more.
+gsn:defeated is the exception: S46 derives it from a valid gsn:Solution challenging its target, and
+an issue is an ask rather than evidence, so routing a resolve issue through a Solution would mean
+asserting that the ask is itself evidence. Asserting gsn:defeated directly is the smaller claim.
+This asymmetry is the one place the new rules do not compose with the existing ones, and it is
+recorded here rather than left to be rediscovered."""@en .
+
+gsnaugdesign:why-0012
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A SWRL body is a conjunction of atoms and cannot express a disjunction, so 'the target is a goal or
+a solution' needs one rule per class. Splitting is preferable to the alternatives: a helper class
+covering both would be a term minted purely to work around a syntax, and dropping the class test
+would let the rule fire on contexts and assumptions, which is precisely what it must not do."""@en .
+
+gsnaugdesign:why-0013
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The standard makes contextual elements optional. Declaring a top-level context that names the system
+is good practice and widely followed, but a case that omits it is conforming, so a vocabulary that
+could only read the system out of a context would be unable to answer 'what is this case about' for
+a large class of valid cases. gsnaug:assures states the fact directly and works either way. Where
+both are present they must agree, which is a shape rather than an axiom, and rule A5 derives the
+property from the context so that the usual case needs no duplicate assertion at all."""@en .
+
+gsnaugdesign:why-0014
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Rule A5 fires on a top goal, because that is where a top-level context attaches. Reaching the
+enclosing gsn:Argument from there would need an inverse gsn:contains traversal in every use, so
+gsn:Goal is admitted to the domain alongside gsn:Argument and gsn:AssuranceCase. All three are
+things a reader would say the case is about, at three different granularities."""@en .
+
+gsnaugdesign:why-0015
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Subclassing gsn:Context rather than minting a parallel class means a GSN-only tool sees an ordinary
+context: it renders it, validates it and inherits it down the argument exactly as before, and the
+extra typing is invisible. The pair splits what a single context usually conflates - the property
+being assured and the thing it is assured of - which is what makes them separately derivable into
+gsnaug:assures and gsnaug:requiredBy."""@en .
+
+gsnaugdesign:why-0016
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The failure mode of an augmentation vocabulary is sixty bespoke properties each used twice. Two weak
+terms absorb the long tail so the named ones stay few: gsnaug:linksTo for a link to anything in any
+ontology, gsnaug:tag for an informal keyword. gsnaug:linksTo is deliberately not a superproperty of
+anything else here, and nothing is a subproperty of it: relatives would import their typing into the
+generic case, which is the one thing it exists to avoid. If a set of tags starts carrying meaning,
+that is the signal to model it, not to formalise the tag."""@en .
+
+gsnaugdesign:why-0017
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """dcterms:conformsTo is a claim that something meets an established standard. What is wanted here is
+the converse direction and a different relation: which requirement or regulatory statement demanded
+that this claim be made at all. Reusing dcterms:conformsTo would have inverted the reading. What
+sits at the far end - a requirement, a risk, a control, a regulatory clause - belongs to the user's
+domain ontology, and this file supplies the link and not the taxonomy."""@en .
+
+gsnaugdesign:why-0018
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """rdfs:range is generative: pointing gsnaug:storedIn at a person does not fail, it makes the person a
+gsnaug:StorageSystem. The OWL range says what the value is; the shape is what rejects a wrong one.
+Repeating each range as a shape is therefore not redundancy but the other half of the pair, and it
+is the half a validator can act on. The one exception is gsnaug:raisedAgainst, which has no range to
+repeat and is checked for arity alone."""@en .
+
+gsnaugdesign:why-0019
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Evidence provenance on a solution is not wrong data, it is data in the wrong place: the fact is
+true, it is simply attached to the reference rather than to the thing referenced, and every query in
+this vocabulary reads it from the artefact. A violation would refuse a case that is merely awkward;
+a warning says move it, which is what the author needs to hear."""@en .
+
+gsnaugdesign:why-0020
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Requiring a top-level context is a house rule, not a fact about GSN, and the standard requires no
+such thing. A shape that reports every conforming case that omits one would be noise, and noise is
+how a shapes file stops being read. Shipping it sh:deactivated rather than omitting it means the
+decision is visible and reversible in one line, by whoever has actually decided to require it."""@en .
+
+gsnaugdesign:why-0021
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Two syntactic constraints ruled out the obvious ways to write this. SHACL-SPARQL forbids a VALUES
+clause in a constraint, which rules out a lookup table of class-to-concept pairs. A UNION with a
+filter in each branch fails for a subtler reason: a filter inside a nested group pattern cannot see a
+variable bound in the enclosing group, so the issue type would be unbound in every branch and the
+constraint would silently match nothing - which it did, until a negative fixture caught it. One flat
+disjunctive FILTER over an unbound class variable is correct and, being flat, has no scope to get
+wrong."""@en .
+
+gsnaugdesign:why-0022
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A SWRL rule needs a reasoner, and much of this repository is exercised with rdflib and stored SPARQL
+instead. Keeping a SPARQL twin of every SWRL rule means the augmentation runs in both settings, and
+follows the pattern OntoGSN already uses for its own rule set. The risk is that the two drift, so
+development/dev_tools/augmentation_check.py asserts that the counts match and runs the SPARQL side to a fixpoint against a
+fixture that exercises every branch, including the four combinations that must infer nothing."""@en .
+
+gsnaugdesign:why-0023
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Without this axiom the three PROV subproperties have a domain of gsn:Artefact under superproperties
+whose domain is prov:Entity, and nothing an artefact carries is visible to a PROV-aware consumer.
+It is asserted here and never in ontology/serializations/ontogsn.ttl for the reason the alignment gives for
+its two gsn: axioms: OntoGSN is a faithful rendering of the GSN Community Standard v3, a claim about
+PROV-O is not a claim the standard makes, and a GSN-only consumer should not pull PROV into its
+closure."""@en .
+
+gsnaugdesign:why-0024
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """An augmentation is only valid against the version of the augmented ontology it was written for, and
+two things here would not hold before OntoGSN 1.2.4: gsnaug:instantiatedFrom assumes an
+InstantiationDataReference may carry gsn:refersTo, which the widened domain of that release first
+permitted, and rules A2 and A3 assume gsn:challenges reaches the class of target they match.
+Recording the version as an annotation makes the dependency checkable rather than folkloric."""@en .
+
+gsnaugdesign:why-0025
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A later ask displacing a pending one is a relation between two distinct issues; an issue that
+superseded itself would be a modelling error rather than a fact. owl:IrreflexiveProperty states
+this, and makes such a case an inconsistency for a reasoner. Because a reasoner is not always in the
+loop, the same thing is also checked by a shape - the OWL states the intent, the shape catches the
+data."""@en .
+
+
+gsnaugdesign:why-0026
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """An ask outlives the review that raised it - "resolved before the next audit" is a property of the
+ask - so the round has to be an individual something can point at. It is a prov:Activity because
+that is what an audit is, and because the subclass brings prov:startedAtTime and prov:endedAtTime
+with it: PROV-O is already imported, so minting date properties here would restate terms already in
+the closure. An issue's own date is dcterms:created for the same reason. Scoping by cycle rather
+than by date is deliberate - two audits may overlap in time, and the question asked is always which
+round, never which fortnight."""@en .
+
+gsnaugdesign:why-0027
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Reusing gsnaug:ownedBy for the holder of an ask fails twice. It retypes: gsnaug:owns declares
+rdfs:range gsn:GSNElement and gsnaug:ownedBy rdfs:domain gsn:GSNElement, domains are generative, so
+an issue carrying it would be inferred a gsn:GSNElement - which rules A2 and A3 grant only to a
+revise or resolve issue and deliberately never to a clarify one. And it conflates two relations:
+owning is standing behind an element's validity, which for an ask is the raiser and does not change,
+while the holder is whoever must answer now and changes at every hop. Recording each hop as a new
+issue chained with gsnaug:supersedes, rather than as an overwritten property, is what keeps the
+chain countable: an overwritten holder leaves only the last one, and the number of escalations is a
+count of hops."""@en .
+
+gsnaugdesign:why-0028
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """An ask can end without being answered, and the three ways it does are what the process branches on:
+the holder does not know, which relays it onward; refuses, which is terminal but is not a failure of
+the argument; or cannot meet it at all. None of these is a gsnaug:Answer, because an answer is the
+content that closes an ask and these are the absence of one. None is a state of the target either,
+which is what gsn:inDoubt and gsn:defeated already carry. A SKOS scheme rather than three subclasses
+for the reason the issue types are one: a fourth outcome should be a concept, not a release. The
+slot then divides cleanly - answered by gsnaug:answers, ended by gsnaug:issueOutcome, open when
+neither is present."""@en .
+
+gsnaugdesign:why-0029
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """gsnaug:Revision records that an element changed and not what it changed from. prov:wasRevisionOf is
+the relation wanted, and a subproperty of it is preferable to the term itself for the reason already
+given for the attribution properties: a domain and a range may be declared on a term this file owns
+and must never be declared on a prov: one. It works only because gsn:Artefact is already asserted a
+prov:Entity here. The scope stops at artefacts on purpose - a gsn:GSNElement is not a prov:Entity,
+so a reworded claim is not a revision in this sense, and element versioning is a question about
+identity over time that this vocabulary does not answer."""@en .
+
+gsnaugdesign:why-0030
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Whether evidence is produced by hand is a fact about the mechanism, not about the artefact and not
+about the process, so the flag belongs on the mechanism. One boolean separates three states that
+presence-or-absence alone cannot: marked true is automated, marked false is an assessment that it
+has to be done by hand, and no mechanism at all means nobody has looked. gsnaug:tag was rejected
+because tags are for what is not modelled and this is. Subclassing the mechanism was rejected as the
+only carrier, because it makes "is this automated" unanswerable without knowing a particular
+domain's taxonomy; the two compose, the subclass saying which mechanism and the boolean saying
+whether a person is in the loop. The domain covers retrieval and verification as well as generation,
+because the same question is asked of all three, and a non-automated retrieval is what evidence
+provided by interview or on paper amounts to."""@en .
+
+gsnaugdesign:why-0031
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """gsnaug:answers carries no cardinality restriction, so several answers may already address one
+issue; what was missing is whether the agent who asked took any of them. Without it an answered
+issue and a satisfied one are the same graph, and "the auditor rejected this clarification" - which
+the process draws, and which sends the ask round again as a revision request - cannot be told from
+"nobody has answered yet". The flag sits on the answer rather than on the issue because it is a
+judgement about that particular answer, and an issue may accumulate several."""@en .
+
+gsnaugdesign:why-0032
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """An issue and an answer both need text, and neither may carry gsn:statement: its domain is the union
+of gsn:Argument, gsn:AssuranceCase and gsn:GSNElement, so using it would retype the issue exactly as
+reusing gsnaug:ownedBy would. schema:description is declared in OntoGSN without a domain, which
+makes it usable on anything and is already how the ontology carries free text on a pattern. Minting
+a property for the text of an ask would have added a term to say what an existing one says."""@en .
+
+
+gsnaugdesign:why-0033
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """gsnaug:answers and gsnaug:issueOutcome are the two ways an ask can end, and they are meant to be
+exclusive: an outcome records that the ask ended without an answer. Nothing in OWL can say so, since
+a cardinality restriction cannot span two properties, so the exclusivity is a shape or it is
+nowhere. It is a violation rather than a warning because the two readings contradict each other
+rather than merely sitting awkwardly, and a query counting open asks will believe whichever of them
+it happens to test."""@en .
+
+gsnaugdesign:why-0034
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The argument against a range on gsnaug:raisedAgainst was that a narrow one would either reject
+legitimate asks or, since range is generative, silently retype whatever an issue pointed at. The
+first half no longer applies: the union names every kind of thing a case is made of that a reviewer
+can point at - the case, an argument, any GSN element, a reified relationship, an artefact, and the
+pattern an argument was instantiated from - so there is no legitimate ask it rejects. The second half
+still applies, and is why the union is also written as a SHACL alternative in gsnaugsh:IssueShape:
+the range says what a target is, and only the shape can say that a target is wrong. gsn:Catalogue and
+gsn:InstantiationDataReference are left out because neither is reviewed in its own right; adding
+either is a one-line change to both the union and the shape."""@en .
+
+gsnaugdesign:why-0035
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Two ways of saying one fact is one too many. gsnaug:assures and gsnaug:requiredBy were introduced as
+the fallback for a case that declares no top-level context; the two context subclasses and rules
+A5a/A5b were the path for a case that does. Keeping both needed a rule to derive one from the other
+and a shape to check that they agreed, and the derivation ran through gsn:refersTo, whose range is
+gsn:Artefact - so a case that used the supported path ended up asserting that the system it assures
+is a piece of evidence. Dropping the classes removes the rule, the shape, that bug and the choice.
+Nothing is lost to a case that draws the contexts: they remain ordinary gsn:Context elements, and
+what they mean is asserted on the goal instead of inferred from their type."""@en .
+
+gsnaugdesign:why-0036
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A property whose far end is owl:Thing is a property a shape cannot check. Four classes name the four
+far ends - gsnaug:System, gsnaug:Requirement, gsnaug:Role, gsnaug:ArtefactElement - and none of them
+carries a taxonomy, a subclass or a data property. That is deliberate: what a system or a requirement
+is belongs to the user's domain ontology, and a class here that tried to say it would either be wrong
+for most users or so general as to say nothing. What the four do supply is a name for a validator to
+check against, which is exactly what the old top object context could not give, since it reached the
+system through a property whose range is gsn:Artefact. gsnaug:Requirement shares a word with
+gsndesign:Requirement and nothing else: that one records what OntoGSN itself set out to do."""@en .
+
+gsnaugdesign:why-0037
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """prov:Agent is the domain, and gsnaug:Agent was not minted. The file already treats prov:Agent as its
+notion of an actor - gsnaug:raisedBy, gsnaug:heldBy and gsnaug:generatedBy all range on it, and three
+shapes already test for it - so a parallel class would have split the notion in two. Nor is the
+domain restrictive: rdfs:domain is generative, prov:Agent is disjoint from nothing in PROV-O, and
+PROV-O explicitly allows an entity to be an agent, so the axiom types an owner rather than rejecting
+one. The cost is that anything owning, reviewing or holding a role is inferred a prov:Agent, which is
+the intended reading and what a PROV-aware consumer needs in order to traverse it at all."""@en .
+
+gsnaugdesign:why-0038
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """An owl:inverseOf lets a reasoner derive the mirrored domain and range, and the file states them anyway
+on both members of each pair. Two reasons. The vocabulary is read far more often than it is reasoned
+over, and a reader looking up gsnaug:assuredBy should not have to invert gsnaug:assures in their head
+to find out what it points at. And the shapes run with inference switched off, so a domain that only
+a reasoner would produce is a domain no shape can rely on."""@en .
+
+gsnaugdesign:why-0039
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """gsn:contains was the obvious reuse and does not work. Its domain is the five GSN containers and its
+range the four things they hold; gsn:Artefact is in neither, and gsnaug:ArtefactElement is in neither.
+Both are generative, so asserting the triple would not be rejected - it would infer that a control
+catalogue is an argument, a case, a catalogue, a module or a pattern, and that a row of it is one of
+four things it is not. Widening the core property from an augmentation file is the other way, and
+this file restates no gsn: domain or range for the same reason it carries only one gsn: axiom.
+gsnaug:containsElement is a new property with a domain and a range that are true, and it is the
+counterpart of gsnaug:instantiatedFrom read from the file rather than from the element."""@en .
+
+gsnaugdesign:why-0040
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """gsnaug:raisedIn scopes a single ask to a round, which answers what was left unresolved at the last
+audit but not which rounds a case has been through - a case reviewed and found clean raises no issues
+and would look unaudited. gsnaug:coveredIn records the round against the case directly. It is not
+functional and no inverse is minted: the audit cycle is already reachable by the property, and an
+inverse would be a fourth way of walking an association that has two."""@en .
+
+gsnaugdesign:why-0041
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A3a and A3b wrote the challenge and the defeat in a single guarded operation, and the guard was on
+the target. Two resolve issues raised against the same element give the WHERE two solutions; the
+first writes gsn:defeated true, the guard rejects the second, and the challenge that solution would
+have written is lost with it. Which of the two issues survives depends on the order the store
+returns them in, so the same graph produced different answers from run to run and one legitimate
+defeater was silently dropped.
+
+The two writes belong to different keys, which is what the split says. The defeat is a fact about
+the target, so its guard is on the target and firing once is enough. The challenge is a fact about
+the pair, so its guard is on the pair and one issue's challenge cannot suppress another's. A2a and
+A2b never had the problem: they write nothing about the target, and their guard is already on the
+pair.
+
+Two SPARQL operations, still one rule and still one SWRL twin. SWRL has set semantics and no delete,
+so the SWRL form was correct as written; only the SPARQL translation had to say what it meant."""@en .
+
+
+gsnaugdesign:why-0042
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Simplification of classes and relations. No deeper reason is recorded; the before and the after
+are visible in the commits."""@en .
+
+
+gsnaugdesign:why-0043
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """gsnaug:Mechanism accepts anything that can generate, retrieve or verify an artefact, and why-0005
+still holds: the vocabulary has no business preferring a shape over a script. The cost of that
+neutrality is that, at the level of the six provenance properties, a SHACL shape and a shell script
+are indistinguishable, and a critic can fairly say that nothing but traceability connects a domain
+ontology to the case. The difference between the two is not what happens when they run but what can
+be asked of them without running them: what they depend on, what they conclude, and whether the
+thing that decides is in the graph at all. Two properties make the first two askable.
+gsnaug:readsTerm and gsnaug:writesTerm name the domain classes and properties a mechanism depends
+on and asserts, which answers "if this term changes, which claims are affected" by a query rather
+than a code search. The third needs no property: a mechanism that is a SHACL shape, a SWRL rule or
+a SPARQL query is that node, typed as both, and the stored query reads "in the graph" off the type.
+The asymmetry is the argument: for a shape or a rule the term list can be derived from the node,
+for a script it has to be written by hand and trusted. No range is declared on the two term
+properties, because their values are classes and properties used as individuals (OWL 2 punning),
+and a range of owl:Class would leave OWL 2 DL. A boolean "declarative" flag was rejected because the
+type already carries it. Subclasses were rejected for the same reason the three mechanism
+subclasses were folded at 0.3.1: the kind of mechanism is the domain's taxonomy to supply, and this
+vocabulary supplies the link. A pointer from the mechanism to a separate specification node,
+gsnaug:specifiedBy, was tried before release and withdrawn: the one case it served, two mechanisms
+carrying out one shape with different automation flags, is rare, and its cost was a second node for
+every shape and a self-reference for every mechanism that is its own specification. The price of
+withdrawing it is that the list of formalisms lives in the query that reads the type, which is where
+a list of what the tooling knows belongs. The shape reports an undeclared term as a warning rather
+than a violation, because a term absent from the loaded ontologies is either a withdrawn term or an
+ontology that was not loaded, and the shape cannot tell which. Deriving the terms from a
+SHACL shape or a SWRL rule is done by the three derivations in augmentation/derivations/, which
+why-0045 explains."""@en .
+
+
+gsnaugdesign:why-0044
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A mechanism that is code has no node in the graph to be specified by, but its text can still be in
+the graph, where a reviewer can read it next to the artefact it produced. gsnaug:script carries that
+text. It is deliberately a plain string and not a link: a link to a file in a repository points at
+whatever that file says today, while the literal says what the mechanism was when it was registered.
+No language property accompanies it, because an interpreter line in the text (a shebang, a
+PowerShell #requires) does the same job without a second term to keep in step. A script sits one
+rung below a specification on the inspectability ladder that CQ-80 reports: a person can read it,
+no tool here derives the terms from it, so gsnaug:readsTerm on a scripted mechanism is a hand
+declaration."""@en .
+
+gsnaugdesign:why-0045
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A mechanism that is a shape or a rule carries its own interface, so declaring it by hand would be
+a copy that drifts. Three SPARQL updates read it off the node instead. For a shape: every target
+class, target property, IRI property path and sh:class, on the shape itself and on every shape
+nested under sh:property, sh:node, sh:not, sh:and, sh:or and sh:xone, with inverse, repeated,
+alternative and sequence paths unwrapped to their IRIs. For a rule: the class and property
+predicates of the body are read, those of the head are written, which is the rule's own direction
+turned into an interface. Nothing is derived from text, so a SPARQL query in sh:select and a script
+are declared by hand; nor from sh:datatype or a built-in atom, which are not classes or properties
+of a domain ontology. The derivations live in their own directory and not in rules/, because
+rules/ is held to one SWRL twin per file and these have none: they walk RDF lists with rdf:rest*
+and skip blank-node paths with isIRI, neither of which SWRL can express. check.py runs them with
+the rules, so the shapes see the derived terms, and keeps them out of the twin count. Nothing
+filters OntoGSN's own terms out of the result: a rule that reads gsn:Goal does depend on gsn:Goal,
+and the change-impact question is as fair to ask of the core vocabulary as of a domain one. The
+term list is the mechanism-side half of what why-0046 says of a part of an artefact: a domain term
+that some mechanism reads is a fence with its reason attached, and one that nothing reads can be
+withdrawn with CQ-79 showing nothing affected."""@en .
+
+gsnaugdesign:why-0046
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A part is read out of its artefact, so the eight provenance properties can be true of a part as
+well as of a whole, and their domains admit both. The granularity is the point. A part can be a
+function inside a longer script, a sheet in a workbook or a row in a catalogue, so what fetched,
+produced or checked it is recorded at the level of the thing a change actually touches, not of the
+file that contains it. That is the answer to Chesterton's fence, the rule that nothing is removed
+until it is known why it was put there: a function whose part has a mechanism, a solution and a
+claim behind it is a fence with its reason attached, and one with none is a fence with nothing to
+say for itself. The same granularity carries change impact down to the script. The part names the
+function, gsnaug:script carries the text, and a checksum of that text, for which
+gsndesign:fileChecksum is already defined, would say whether the two still agree; that comparison is
+not built. gsnaug:storedIn and gsnaug:replaces are left on
+the whole, because a part has no location of its own and is not versioned on its own. The widening
+is not decoration: a property's domain is generative, so a rule that writes one of the eight onto
+a part would otherwise also type the part a gsn:Artefact, and gsnaugsh:ArtefactPartShape says a
+part is not one. One rule copies one property down: whatever can check the artefact can check the
+part, so gsnaug:verifiableWith is inherited. Whether that holds of every mechanism is an open
+question, recorded here and not settled; the other seven are not inherited, and a part states
+them for itself. An OWL property chain, partOf o verifiableWith -> verifiableWith, would say the
+same in one axiom and was not used: the rules here are held to one SPARQL twin per rule so that
+the augmentation runs without a reasoner, and a chain has no place in that count. The body names
+Artefact(?A) as well as partOf, so that the SPARQL twin, which runs with no reasoning, inherits
+only from something the case typed as an artefact. gsnaugsh:ArtefactShape targets the part as
+well, so that a value declared on a part by hand is held to the same range as one declared on the
+whole."""@en .
+
+gsnaugdesign:why-0047
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """gsnaug:verifiableWith says that an artefact can be checked by a mechanism. It does not say what the
+check found. Until A6, the finding stayed on the screen of whoever ran the check, and the status of
+the solution was typed into the case by hand. A6a and A6b read the status off a report instead. The
+report is a sh:ValidationReport, because every SHACL engine already writes one, and because it
+carries the one field the rules need, sh:conforms. Two PROV links tie the report to the case:
+prov:wasGeneratedBy names the mechanism, and prov:used names the artefact. No term is added to the
+vocabulary for this. A check that is not a SHACL shape, such as a script, writes a report in the
+same form through a wrapper, or a person writes it by hand. The fixture has one of each: check.py
+runs the retention shape and keeps the report the engine returns, and the note check is a script
+with a hand-written failing report. The rules write gsn:true, not gsn:valid and not gsn:inDoubt.
+gsn:valid is defined as consistency with the GSN syntax, and gsn:inDoubt is a dialectic state.
+gsn:true is defined as a claim determined correct by some process, and a report is that process.
+Writing gsn:true also lets the core rules S10 and S11 carry the result upward. In the fixture the
+passing report on the access log and the failing report on the interview note make the goal above
+them untrue, because support in GSN is a composition. Two things are left out on purpose. The rules
+read every report, so a newer report does not retire an older one with the opposite result. A case
+that keeps reports over time needs a newest-report guard or a cleanup, and SWRL can express
+neither. And a report with no PROV links is ignored, which is intended: a report that does not say
+what it looked at proves nothing about the solution."""@en .
+
+
+gsnaugdesign:why-0048
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The definition of gsnaug:Issue said the ask was raised by a reviewer, and nothing else in the
+vocabulary agreed with it: gsnaug:raisedBy ranges on prov:Agent, no shape tests the raiser's role, and
+the escalation chain relays an ask between four roles of which only one is the auditor. The
+restriction was inherited from the one process that prompted the class, where the auditor is the
+only party that asks. Two uses outside that process need a wider raiser. An internal review is an
+audit in ISO 19011's own scope, so a finding raised by the organisation on its own case is a finding.
+And change impact analysis ends with someone, often the owner of the element and sometimes a tool,
+raising a revise issue on each element the change touched, so that rule A2 moves it to gsn:inDoubt
+through the same path a reviewer's ask takes. A second class for the self-raised case would have split
+one object in two for the sake of one word in a definition. The definition now says agent, and a
+scope note says who that can be; the role of the raiser is read off gsnaug:hasRole as before. Finding
+is the term ISO 19011 uses for the object, and Comment is what every issue tracker and most review
+tools call it, so both are alternative labels for the reason Request already is: one class, several
+names in use."""@en .
+
+
+gsnaugdesign:why-0049
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A mechanism that is code needs things in order to run: an interpreter, a package, a container
+image, a credential. Recording all of them in the structure a software bill of materials has would
+make this vocabulary prescribe an implementation, which why-0005 rules out, and would duplicate SPDX
+and CycloneDX. What a case needs is one hook from the mechanism to whatever a domain ontology says
+about those things, and Dublin Core already has it: dcterms:requires is defined as a related resource
+that the described resource needs to support its function. It is reused rather than mirrored by a
+gsnaug: subproperty because nothing here has to be said about it - no domain, no range, no
+cardinality - and a subproperty whose only content is a name is a name too many. It is declared as
+an owl:ObjectProperty so that an OWL tool sees a property and not an annotation, and the declaration
+carries no axiom, because the term is not this vocabulary's to constrain. The one thing that is
+checked is that the value is a node and not a string, by a shape targeted at gsnaug:Mechanism and
+not at every subject of the property, which other vocabularies use on other things. The script, the
+automated flag and this property together separate four states: runs by itself, runs by hand from
+its text, runs with something the case names, and is an interview."""@en .
+
+gsnaugdesign:why-0050
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Every audit norm separates the party that produces from the party that judges, and ISO 19011
+names independence as a principle of auditing. The vocabulary already has both parties as relations
+- gsnaug:ownedBy and gsnaug:reviewedBy - so whether they coincide is decidable from the graph alone
+and holds for every case in every organisation, which is the criterion for a shape rather than a
+line in the manual. It is a warning and not a violation: an owner reading their own draft is a
+legitimate state of a case under construction, and what is reported is that the review on record is
+not an independent one. sh:disjoint says it in SHACL Core with no SPARQL. ISO 19011 is cited as
+inspiration and as a second source for the term; the shape does not formalise the standard, and
+nothing here claims conformance to it."""@en .
+
+gsnaugdesign:why-0051
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Change impact asks one question three times: a requirement changed, the system changed, the
+environment changed - which claims are affected. The three were about to get three answers. A
+requirement is text, so its change is easy to see; a system has parts, and not every part matters;
+an environment is nebulous. What the three share is that something at the far end of a link was
+replaced by a newer version of itself, and PROV already has the relation for that:
+prov:wasRevisionOf. Making gsnaug:Requirement and gsnaug:System subclasses of prov:Entity lets a
+case use it on both, as gsn:Artefact already does through gsnaug:replaces, and costs two axioms. The
+granularity problem then leaves the vocabulary. A system is versioned at whatever level the domain
+ontology has - the whole system, a repository, a file, a function - and gsnaug:generatedFrom
+already points from an artefact to whichever of those it was drawn from, so the change is detected
+at the level the evidence was taken at and no gsnaug:SystemPart is minted. A requirement that is a
+clause of a larger text is the same pattern with gsnaug:ArtefactPart. The environment is a
+gsn:Context that gsn:refersTo an artefact, and the artefact is revised; that path needs no term
+either, and the query walks gsn:supportedBy down from the holder of the context, because a context
+applies to everything beneath the element it is attached to and the core rules materialise that
+for assumptions only. Three queries answer the question, fc39 for requirements, fc40 for systems and fc41 for
+contexts, and they are queries rather than rules on purpose. Whether a detected change matters to a claim is
+a judgement, so the graph must not assert it. Whoever judges raises a revise issue on the element,
+and rule A2 moves it to gsn:inDoubt through the same path a reviewer's ask takes. That closes the
+loop with no new flag: detection is a query, judgement is an issue, consequence is the existing
+rule. The systematic approach to safety case maintenance of Kelly and McDermid is the second source
+for the question; the answer rests on PROV and on the existing issue machinery."""@en .
+
+
+gsnaugdesign:why-0052
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """Two facts were folded into one link. "A reply exists" and "the issue is closed" were both carried
+by gsnaug:answers, so every query that asked whether an ask was open tested for an answer, and the
+closure shape treated an answer beside a negative outcome as a contradiction. Both readings fail
+once an issue can collect several replies that the raiser rejects, which the process draws: a
+clarification the auditor does not accept goes round again as a revision request. why-0031 saw
+this and put an acceptance flag on the answer; dd-0052 removed the flag and left the conflation.
+The fix is to separate the two facts rather than to flag one of them. A reply is content, so the
+class is gsnaug:Response and the link gsnaug:respondsTo, with no cardinality: several replies to
+one issue are normal. Closure is a judgement, so it lives on the issue, in gsnaug:issueOutcome,
+which why-0028 already defined as how the ask ended: "resolved" now means the raiser accepted a
+reply, the other three mean it ended without one, and no outcome means open, replies or not. One
+place says closed, so no agreement shape is needed, and the closure shape turns into a warning for
+the one state that is probably a data error, resolved with nothing on record. Response rather
+than Reply or Comment: several people respond in turn along the relay chain, and Comment is an
+alternative label of Issue. Answer stays as an alternative label, because that is what the
+process calls it."""@en .
+
+gsnaugdesign:why-0053
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A6a and A6b read a report over the whole artefact. A mechanism that verifies a part, declared on
+the part by hand or copied down by A4, leaves a report whose prov:used names the part, and no rule
+read it: the solution stayed as it was. The gap was found when the part was weighed against being
+absorbed into gsn:Artefact, which would have closed it as a side effect; the rules close it on their
+own. gsn:refersTo ranges on gsn:Artefact, so a solution cannot refer to a part, and A6c and A6d
+reach the part from the artefact the solution refers to, through gsnaug:partOf. Two rules rather than
+a wider A6a and A6b, for the reason A2 and A3 are two each: a SWRL body is a conjunction, and "the
+artefact or a part of it" is two bodies. The body names Artefact(?A) and ArtefactPart(?P) as A4 does,
+so that the SPARQL twin, which runs with no reasoning, reaches only what the case typed. The rules
+carry the assumption A6a and A6b already carry: whoever declared the mechanism on the part, or on
+the whole it was copied from, declared it as what checks the evidence the solution offers, so its
+verdict is the solution's. A conforming report over one part does not say that the whole conforms,
+and the rule does not say so either; it says what the declared check found. The two gaps of A6a and
+A6b remain: no newest-report guard, and a report with no PROV links is ignored. A failing part and a
+conforming whole set gsn:true both ways on one solution, which is the state two reports over one
+artefact already produce. In the fixture, the configuration export declares its mechanism on the
+whole and the key inherits it, so the conforming report over the key exercises the chain A4 then
+A6c across two rounds; the firewall rule declares its own mechanism, and its failing report
+exercises A6d alone."""@en .
+
+gsnaugdesign:why-0054
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """gsnaug:partOf is a part-of relation between a part and the artefact that holds it, and Dublin Core
+defines dcterms:isPartOf as a related resource in which the described resource is physically or
+logically included. The subproperty axiom lets a consumer that knows Dublin Core and not this
+vocabulary read the relation, while the domain and range on gsnaug:partOf keep what dcterms:isPartOf
+does not say: that the subject is a part and not an artefact, and that a part has no location and no
+version of its own. dcterms:isPartOf is declared an owl:ObjectProperty here as dcterms:requires is,
+so that an OWL tool sees a property, and no domain, range or other axiom is stated on it. Two
+alternatives were weighed and not taken. Replacing gsnaug:partOf with dcterms:isPartOf outright
+loses the domain and range that gsnaugsh:ArtefactPartShape and A4 depend on. Absorbing the part into
+the artefact, so that an artefact is partOf an artefact, removes a class and six union domains and
+admits nesting, but a part then gains gsnaug:storedIn and gsnaug:replaces by type, the instantiation
+shape can no longer reject a whole artefact in gsnaug:instantiatedFrom, every query that counts
+artefacts counts rows unless it filters out subjects of partOf, and gsn:Artefact, a Core GSN term for
+evidence offered in support of a claim, would then cover a spreadsheet cell. The class stays, and the
+one defect the comparison exposed is closed by A6c and A6d."""@en .
+
+gsnaugdesign:why-0055
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """why-0047 and why-0053 left one gap open twice: the rules read every report, so a newer report did
+not retire an older one with the opposite result, and the reason given was that SWRL can express
+neither a newest-report guard nor a cleanup. The core had already crossed that line. S10 carries a
+sibling guard that its SWRL header does not, marked in the file as not in the SWRL, and deletes the
+old truth value before it writes the new one, because without the guard S10 and S11 alternate
+forever on a claim with mixed support. The SPARQL twins of A6a to A6d now do the same, for the same
+reason, and the SWRL rules are unchanged: they state the positive half. Two guards, because two
+things went wrong. The newest-report guard reads prov:generatedAtTime, which the check tool already
+wrote and the hand-written reports in the fixture already carried, and lets a report count only
+while no report from the same mechanism over the same target is later. Per mechanism and per
+target, not per artefact, because two mechanisms over one artefact are two checks that both have
+to hold, and a report over a part is a check of something other than a report over the whole. The
+composition guard is the one S10 has: a conforming report confirms the solution only while no
+current report over the artefact or over a part of it fails. Without it, an artefact whose two
+mechanisms disagree makes A6a and A6b alternate as S10 and S11 would, and a failing part under a
+conforming whole sets gsn:true both ways, which why-0053 recorded as an open state. The two failing
+rules carry no such guard: a failing report refutes whatever else was found, which is what
+composition means, and so no solution ends up both true and not true. Three alternatives were
+weighed. An explicit retirement link, prov:wasRevisionOf from the new report or
+prov:wasInvalidatedBy on the old, needs the same negation and adds a hand step to a derivation
+that exists to remove hand steps; it stays open for the case where a re-run was wrong and a person
+wants to strike it. A cleanup that removes the old report keeps the rules as they were and loses
+the history from the case. Detection alone resolves nothing. A timestamp can be missing or equal,
+and then no guard orders the two reports: both count, the failing one wins, and nothing on the
+solution says why. Two shapes say why. A report without a timestamp is a warning, because the
+report still proves what it proves and a case with one report per check never meets the problem.
+Two reports from one mechanism over one target that disagree and cannot be ordered are a violation
+on both, with the other report as the value. The check tool now compares the graph by content
+between rounds and not by size, because a delete-then-insert leaves the size alone and two such
+rules alternating would have passed for a fixpoint; the fixture carries a retired report and a
+second mechanism over one artefact so that both guards are exercised."""@en .
+
+
+gsnaugdesign:why-0056
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """why-0055 left one case open: a re-run that was wrong. The newest-report guard trusts the clock, so
+a run against a stale export, the wrong file or a broken mechanism becomes the truth the moment it
+is later than the run before it, and stays the truth until a run after it. The three ways out all
+have a cost. Deleting the report loses the history the case was built to keep. Changing its time
+is a lie in the graph. A new report that happens to conform papers over the fault without naming
+it. What is wanted is a report that stays, that the rules skip, and that says who took it out and
+why. PROV has the term. prov:Invalidation is the start of the destruction, cessation or expiry of
+an entity by an activity, and a report whose verdict no longer counts has ceased in exactly that
+sense. prov:wasInvalidatedBy names the activity, the activity names the agent through
+prov:wasAssociatedWith, and prov:invalidatedAtTime says when. No term is added, as none was for the
+report itself. Two readings of the guard were weighed. The first skips a struck report and leaves
+the newest-report guard as it was, so a struck run that is the newest still retires the run before
+it, and the solution loses its status rather than regaining the old one. The second, taken here,
+keeps a struck report out of both places: it never counts and it retires nothing, so the run before
+it counts again. The second is what striking means, and the fixture tells the two apart: a struck
+failing re-run over the configuration key must leave the solution true, not untrue and not without
+a status. prov:wasRevisionOf from a new report to the struck one was weighed and not taken: it says
+the new report corrects the old, which presumes a new report, and the wrong run is what has to go
+whether or not a right one exists yet. Either of the two PROV properties strikes the report, because
+a strike with only a time is still a strike, and the shape says what is missing from it: a strike
+without an activity is a hand step on a derived status with no hand on record, and a warning rather
+than a violation, because the strike holds either way. The conflict shape skips struck reports as
+the rules do, so that a struck report that disagrees with a live one is not reported as a conflict
+that is not there."""@en .
+
+
+
+#################################################################
+#    Decisions - the vocabulary
+#################################################################
+
+gsnaugdesign:dd-0001
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Evidence provenance is recorded on the artefact and never on the solution that references it."@en ;
+    prov:used gsnaugdesign:src-0007 ;
+    gsndesign:hasRationale gsnaugdesign:why-0001 ;
+    prov:generated gsnaugdesign:st-0001 .
+
+gsnaugdesign:st-0001
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0001 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:storedIn rdfs:domain gsn:Artefact . gsnaug:retrievableWith, gsnaug:generatedBy, gsnaug:generatedWith, gsnaug:generatedFrom, gsnaug:verifiedWith rdfs:domain [ (gsn:Artefact or gsnaug:ArtefactPart) ] ; the part is admitted by dd-0066." ;
+    gsndesign:aboutTerm gsnaug:storedIn ;
+    gsndesign:mentionsTerm gsn:Artefact , gsnaug:generatedBy , gsnaug:generatedFrom , gsnaug:generatedWith ,
+        gsnaug:retrievableWith , gsnaug:verifiedWith .
+
+gsnaugdesign:dd-0002
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "An artefact is a PROV entity."@en ;
+    prov:used gsnaugdesign:src-0004 ;
+    gsndesign:hasRationale gsnaugdesign:why-0023 ;
+    prov:generated gsnaugdesign:st-0002 .
+
+gsnaugdesign:st-0002
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0002 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsn:Artefact rdfs:subClassOf prov:Entity ." ;
+    gsndesign:aboutTerm gsn:Artefact ;
+    gsndesign:mentionsTerm gsn:Artefact .
+
+gsnaugdesign:dd-0003
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The three provenance properties that PROV does cover are subproperties of PROV terms rather than the PROV terms themselves."@en ;
+    prov:used gsnaugdesign:src-0004 ;
+    gsndesign:hasRationale gsnaugdesign:why-0002 ;
+    prov:generated gsnaugdesign:st-0003 .
+
+gsnaugdesign:st-0003
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0003 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:generatedBy rdfs:subPropertyOf prov:wasAttributedTo . gsnaug:generatedWith rdfs:subPropertyOf prov:wasAttributedTo . gsnaug:generatedFrom rdfs:subPropertyOf prov:wasDerivedFrom ." ;
+    gsndesign:aboutTerm gsnaug:generatedBy ;
+    gsndesign:mentionsTerm gsnaug:generatedBy , gsnaug:generatedFrom , gsnaug:generatedWith .
+
+gsnaugdesign:dd-0004
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. gsnaug:generatedWith now ranges on the single gsnaug:Mechanism class."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0050 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The tool that generated an artefact is modelled as a PROV software agent, not as a PROV activity."@en ;
+    prov:used gsnaugdesign:src-0003 ;
+    gsndesign:hasRationale gsnaugdesign:why-0004 ;
+    prov:generated gsnaugdesign:st-0004 .
+
+gsnaugdesign:st-0004
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0004 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:generatedWith rdfs:range gsnaug:EvidenceGenerationMechanism ." ;
+    gsndesign:aboutTerm gsnaug:generatedWith ;
+    gsndesign:mentionsTerm gsnaug:EvidenceGenerationMechanism , gsnaug:generatedWith .
+
+gsnaugdesign:dd-0005
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Where an artefact is stored, how it is retrieved and what verifies it are minted outright, because PROV has no term for any of them."@en ;
+    prov:used gsnaugdesign:src-0004 ;
+    gsndesign:hasRationale gsnaugdesign:why-0003 ;
+    prov:generated gsnaugdesign:st-0005 .
+
+gsnaugdesign:st-0005
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0005 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:storedIn a owl:ObjectProperty . gsnaug:retrievableWith a owl:ObjectProperty . gsnaug:verifiedWith a owl:ObjectProperty ." ;
+    gsndesign:aboutTerm gsnaug:storedIn ;
+    gsndesign:mentionsTerm gsnaug:retrievableWith , gsnaug:storedIn , gsnaug:verifiedWith .
+
+gsnaugdesign:dd-0006
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. The three mechanism classes are folded into gsnaug:Mechanism, and gsnaug:StorageSystem is a subclass of gsnaug:System."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0050 , gsnaugdesign:dd-0051 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The generation, retrieval and verification mechanisms and the storage system are declared without a superclass and without further structure."@en ;
+    prov:used gsnaugdesign:src-0003 ;
+    gsndesign:hasRationale gsnaugdesign:why-0005 ;
+    prov:generated gsnaugdesign:st-0006 .
+
+gsnaugdesign:st-0006
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0006 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:EvidenceGenerationMechanism a owl:Class . gsnaug:EvidenceRetrievalMechanism a owl:Class . gsnaug:EvidenceVerificationMechanism a owl:Class . gsnaug:StorageSystem a owl:Class ." ;
+    gsndesign:aboutTerm gsnaug:EvidenceGenerationMechanism ;
+    gsndesign:mentionsTerm gsnaug:EvidenceGenerationMechanism , gsnaug:EvidenceRetrievalMechanism ,
+        gsnaug:EvidenceVerificationMechanism , gsnaug:StorageSystem .
+
+gsnaugdesign:dd-0007
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A reviewer's ask is an individual of its own class, not a flag on what it targets."@en ;
+    prov:used gsnaugdesign:src-0002 ;
+    gsndesign:hasRationale gsnaugdesign:why-0006 ;
+    prov:generated gsnaugdesign:st-0007 .
+
+gsnaugdesign:st-0007
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0007 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:Issue a owl:Class ." ;
+    gsndesign:aboutTerm gsnaug:Issue ;
+    gsndesign:mentionsTerm gsnaug:Issue .
+
+gsnaugdesign:dd-0008
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:RDF ;
+    gsndesign:naturalLanguage "Request is an alternative label for Issue rather than a second class."@en ;
+    prov:used gsnaugdesign:src-0002 ;
+    gsndesign:hasRationale gsnaugdesign:why-0007 ;
+    prov:generated gsnaugdesign:st-0008 .
+
+gsnaugdesign:st-0008
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0008 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:Issue skos:altLabel \"Request\"@en ." ;
+    gsndesign:aboutTerm gsnaug:Issue ;
+    gsndesign:mentionsTerm gsnaug:Issue .
+
+gsnaugdesign:dd-0009
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. The three kinds of ask are named individuals enumerated in the range of gsnaug:issueType; the scheme is gone."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0053 ;
+    gsndesign:formalism gsndesign:RDF ;
+    gsndesign:naturalLanguage "The three kinds of ask are SKOS concepts in a scheme, not three subclasses of Issue."@en ;
+    prov:used gsnaugdesign:src-0002 ;
+    gsndesign:hasRationale gsnaugdesign:why-0008 ;
+    prov:generated gsnaugdesign:st-0009 .
+
+gsnaugdesign:st-0009
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0009 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:clarify a skos:Concept . gsnaug:revise a skos:Concept . gsnaug:resolve a skos:Concept . All three skos:inScheme gsnaug:IssueTypeScheme ." ;
+    gsndesign:aboutTerm gsnaug:IssueTypeScheme ;
+    gsndesign:mentionsTerm gsnaug:IssueTypeScheme , gsnaug:clarify , gsnaug:resolve , gsnaug:revise .
+
+gsnaugdesign:dd-0010
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. gsnaug:Answer is one class without subclasses."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0052 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The three answers share a superclass, so that the property closing an issue has one domain."@en ;
+    prov:used gsnaugdesign:src-0002 ;
+    gsndesign:hasRationale gsnaugdesign:why-0008 ;
+    prov:generated gsnaugdesign:st-0010 .
+
+gsnaugdesign:st-0010
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0010 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:Clarification rdfs:subClassOf gsnaug:Answer . gsnaug:Revision rdfs:subClassOf gsnaug:Answer . gsnaug:Resolution rdfs:subClassOf gsnaug:Answer . gsnaug:answers rdfs:domain gsnaug:Answer ." ;
+    gsndesign:aboutTerm gsnaug:Answer ;
+    gsndesign:mentionsTerm gsnaug:Answer , gsnaug:Clarification , gsnaug:Resolution , gsnaug:Revision , gsnaug:answers .
+
+gsnaugdesign:dd-0011
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason """Reversed at 0.2.0. gsnaug:raisedAgainst now carries a six-way range union, and gsnaugsh:IssueShape rejects a target outside it. The reasoning against a range still holds for a narrow one; what changed is that a union covering everything in a case is not narrow, and a shape closes the gap a generative range leaves open."""@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0040 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "An issue may be raised against anything in a case, so the property that says what it is about declares no range."@en ;
+    prov:used gsnaugdesign:src-0002 ;
+    gsndesign:hasRationale gsnaugdesign:why-0009 ;
+    prov:generated gsnaugdesign:st-0011 .
+
+gsnaugdesign:st-0011
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0011 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.1.0 ;
+    gsndesign:statementText "gsnaug:raisedAgainst rdfs:domain gsnaug:Issue . (no rdfs:range)" ;
+    gsndesign:aboutTerm gsnaug:raisedAgainst ;
+    gsndesign:mentionsTerm gsnaug:Issue , gsnaug:raisedAgainst .
+
+gsnaugdesign:dd-0012
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "An issue cannot supersede itself."@en ;
+    prov:used gsnaugdesign:src-0002 ;
+    gsndesign:hasRationale gsnaugdesign:why-0025 ;
+    prov:generated gsnaugdesign:st-0012 .
+
+gsnaugdesign:st-0012
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0012 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:supersedes a owl:IrreflexiveProperty ; rdfs:domain gsnaug:Issue ; rdfs:range gsnaug:Issue ." ;
+    gsndesign:aboutTerm gsnaug:supersedes ;
+    gsndesign:mentionsTerm gsnaug:Issue , gsnaug:supersedes .
+
+gsnaugdesign:dd-0013
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. gsnaug:assures stays; its inverse is withdrawn."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0057 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "What a case is about can be stated as a property, so that a case which omits the customary top-level context can still say it."@en ;
+    prov:used gsnaugdesign:src-0008 ;
+    gsndesign:hasRationale gsnaugdesign:why-0013 ;
+    prov:generated gsnaugdesign:st-0013 .
+
+gsnaugdesign:st-0013
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0013 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:assures a owl:ObjectProperty . gsnaug:assuredBy owl:inverseOf gsnaug:assures ." ;
+    gsndesign:aboutTerm gsnaug:assures ;
+    gsndesign:mentionsTerm gsnaug:assuredBy , gsnaug:assures .
+
+gsnaugdesign:dd-0014
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A goal, as well as an argument or a case, can be the thing that assures a system."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0014 ;
+    prov:generated gsnaugdesign:st-0014 .
+
+gsnaugdesign:st-0014
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0014 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:assures rdfs:domain [ (Argument or AssuranceCase or Goal) ] ." ;
+    gsndesign:aboutTerm gsnaug:assures ;
+    gsndesign:mentionsTerm gsn:Argument , gsn:AssuranceCase , gsn:Goal , gsnaug:assures .
+
+gsnaugdesign:dd-0015
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason """Withdrawn at 0.2.0 together with gsnaug:TopSubjectContext and gsnaug:TopObjectContext. gsnaug:assures and gsnaug:requiredBy say the same thing directly and work for a case that draws no top-level context, which is the case the two classes were introduced to fall back from."""@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0041 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The two top-level contexts are subclasses of the GSN context, so a GSN-only tool treats them as ordinary contexts."@en ;
+    prov:used gsnaugdesign:src-0008 ;
+    gsndesign:hasRationale gsnaugdesign:why-0015 ;
+    prov:generated gsnaugdesign:st-0015 .
+
+gsnaugdesign:st-0015
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0015 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.1.0 ;
+    gsndesign:statementText "gsnaug:TopSubjectContext rdfs:subClassOf gsn:Context . gsnaug:TopObjectContext rdfs:subClassOf gsn:Context ." ;
+    gsndesign:aboutTerm gsnaug:TopObjectContext ;
+    gsndesign:mentionsTerm gsn:Context , gsnaug:TopObjectContext , gsnaug:TopSubjectContext .
+
+gsnaugdesign:dd-0016
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. gsnaug:linksTo now carries the six-way domain and owl:Thing as range; gsnaug:tag is unchanged."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0058 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Two deliberately weak terms absorb everything the named properties do not cover: a link to anything, and an informal keyword."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0016 ;
+    prov:generated gsnaugdesign:st-0016 .
+
+gsnaugdesign:st-0016
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0016 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:linksTo a owl:ObjectProperty . (no domain, no range, no super- or subproperties) gsnaug:tag a owl:DatatypeProperty ." ;
+    gsndesign:aboutTerm gsnaug:linksTo ;
+    gsndesign:mentionsTerm gsnaug:linksTo , gsnaug:tag .
+
+gsnaugdesign:dd-0017
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Where a claim came from is a separate property rather than a reuse of the Dublin Core conformance term."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0017 ;
+    prov:generated gsnaugdesign:st-0017 .
+
+gsnaugdesign:st-0017
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0017 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:requiredBy a owl:ObjectProperty ; rdfs:domain gsn:GSNElement ." ;
+    gsndesign:aboutTerm gsnaug:requiredBy ;
+    gsndesign:mentionsTerm gsn:GSNElement , gsnaug:requiredBy .
+
+gsnaugdesign:dd-0018
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:RDF ;
+    gsndesign:naturalLanguage "The augmentation records which version of OntoGSN it was written against."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0024 ;
+    prov:generated gsnaugdesign:st-0018 .
+
+gsnaugdesign:st-0018
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0018 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:augmentedOntoGSNVersion \"1.2.4\" ." ;
+    gsndesign:aboutTerm gsnaug:augmentedOntoGSNVersion ;
+    gsndesign:mentionsTerm gsnaug:augmentedOntoGSNVersion .
+
+gsnaugdesign:dd-0019
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Which row of instantiation data produced an element is recorded on the element, and depends on the widened reference domain of OntoGSN 1.2.4."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0024 ;
+    prov:generated gsnaugdesign:st-0019 .
+
+gsnaugdesign:st-0019
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0019 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:instantiatedFrom a owl:ObjectProperty ; rdfs:domain gsn:GSNElement ." ;
+    gsndesign:aboutTerm gsnaug:instantiatedFrom ;
+    gsndesign:mentionsTerm gsn:GSNElement , gsnaug:instantiatedFrom .
+
+
+gsnaugdesign:dd-0031
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "An audit round is an individual of its own class and a PROV activity, so that an ask can be scoped to it and the round can carry its own dates."@en ;
+    prov:used gsnaugdesign:src-0002 ;
+    gsndesign:hasRationale gsnaugdesign:why-0026 ;
+    prov:generated gsnaugdesign:st-0031 .
+
+gsnaugdesign:st-0031
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0031 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:AuditCycle rdfs:subClassOf prov:Activity . gsnaug:raisedIn rdfs:domain gsnaug:Issue ; rdfs:range gsnaug:AuditCycle . (no date properties minted: prov:startedAtTime, prov:endedAtTime, dcterms:created)" ;
+    gsndesign:aboutTerm gsnaug:AuditCycle ;
+    gsndesign:mentionsTerm gsnaug:AuditCycle , gsnaug:Issue , gsnaug:raisedIn .
+
+gsnaugdesign:dd-0032
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Who raised an ask and who currently holds it are two properties of their own, and not a reuse of the ownership property."@en ;
+    prov:used gsnaugdesign:src-0009 ;
+    gsndesign:hasRationale gsnaugdesign:why-0027 ;
+    prov:generated gsnaugdesign:st-0032 .
+
+gsnaugdesign:st-0032
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0032 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:raisedBy rdfs:domain gsnaug:Issue ; rdfs:range prov:Agent . gsnaug:heldBy rdfs:domain gsnaug:Issue ; rdfs:range prov:Agent ." ;
+    gsndesign:aboutTerm gsnaug:heldBy ;
+    gsndesign:mentionsTerm gsnaug:Issue , gsnaug:heldBy , gsnaug:ownedBy , gsnaug:raisedBy , gsnaug:supersedes .
+
+gsnaugdesign:dd-0033
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. The outcome is one of four strings, including \"resolved\"; the scheme is gone."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0054 ;
+    gsndesign:formalism gsndesign:RDF ;
+    gsndesign:naturalLanguage "An ask that ends without an answer records how it ended, as a concept in a scheme of three."@en ;
+    prov:used gsnaugdesign:src-0010 ;
+    gsndesign:hasRationale gsnaugdesign:why-0028 ;
+    prov:generated gsnaugdesign:st-0033 .
+
+gsnaugdesign:st-0033
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0033 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:issueOutcome rdfs:domain gsnaug:Issue ; rdfs:range skos:Concept . gsnaug:cannotAnswer a skos:Concept . gsnaug:declined a skos:Concept . gsnaug:infeasible a skos:Concept . All three skos:inScheme gsnaug:IssueOutcomeScheme ." ;
+    gsndesign:aboutTerm gsnaug:issueOutcome ;
+    gsndesign:mentionsTerm gsnaug:IssueOutcomeScheme , gsnaug:cannotAnswer , gsnaug:declined , gsnaug:infeasible , gsnaug:issueOutcome .
+
+gsnaugdesign:dd-0034
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. Renamed gsnaug:replaces."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0055 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The earlier version of an artefact is a subproperty of the PROV revision term, declared for artefacts only."@en ;
+    prov:used gsnaugdesign:src-0004 ;
+    gsndesign:hasRationale gsnaugdesign:why-0029 ;
+    prov:generated gsnaugdesign:st-0034 .
+
+gsnaugdesign:st-0034
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0034 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:revisionOf rdfs:subPropertyOf prov:wasRevisionOf ; rdfs:domain gsn:Artefact ; rdfs:range gsn:Artefact ." ;
+    gsndesign:aboutTerm gsnaug:revisionOf ;
+    gsndesign:mentionsTerm gsn:Artefact , gsnaug:Revision , gsnaug:revisionOf .
+
+gsnaugdesign:dd-0035
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. gsnaug:automated now has the single gsnaug:Mechanism class as its domain."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0050 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Whether a mechanism runs without a person is one boolean on the mechanism, covering generation, retrieval and verification alike."@en ;
+    prov:used gsnaugdesign:src-0003 ;
+    gsndesign:hasRationale gsnaugdesign:why-0030 ;
+    prov:generated gsnaugdesign:st-0035 .
+
+gsnaugdesign:st-0035
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0035 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:automated rdfs:domain [ (EvidenceGenerationMechanism or EvidenceRetrievalMechanism or EvidenceVerificationMechanism) ] ; rdfs:range xsd:boolean ." ;
+    gsndesign:aboutTerm gsnaug:automated ;
+    gsndesign:mentionsTerm gsnaug:EvidenceGenerationMechanism , gsnaug:EvidenceRetrievalMechanism ,
+        gsnaug:EvidenceVerificationMechanism , gsnaug:automated , gsnaug:tag .
+
+gsnaugdesign:dd-0036
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. gsnaug:accepted is withdrawn; an answer closes an issue by existing."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0052 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Whether the agent who asked accepted an answer is recorded on the answer, because an issue may accumulate several."@en ;
+    prov:used gsnaugdesign:src-0009 ;
+    gsndesign:hasRationale gsnaugdesign:why-0031 ;
+    prov:generated gsnaugdesign:st-0036 .
+
+gsnaugdesign:st-0036
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0036 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:accepted rdfs:domain gsnaug:Answer ; rdfs:range xsd:boolean ." ;
+    gsndesign:aboutTerm gsnaug:accepted ;
+    gsndesign:mentionsTerm gsnaug:Answer , gsnaug:accepted , gsnaug:answers .
+
+gsnaugdesign:dd-0037
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:RDF ;
+    gsndesign:naturalLanguage "The text of an ask and of an answer is schema:description, and no property is minted for it."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0032 ;
+    prov:generated gsnaugdesign:st-0037 .
+
+gsnaugdesign:st-0037
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0037 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "(no statement: gsnaug:Issue and gsnaug:Answer carry schema:description, which OntoGSN declares without a domain, and never gsn:statement, whose domain would retype them)" ;
+    gsndesign:aboutTerm gsnaug:Issue ;
+    gsndesign:mentionsTerm gsnaug:Answer , gsnaug:Issue .
+
+
+#################################################################
+#    Decisions - the rules
+#################################################################
+
+gsnaugdesign:dd-0020
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "An issue becomes a defeater only when it asks for a revision or a resolution and its target is a goal or a solution."@en ;
+    prov:used gsnaugdesign:src-0002 ;
+    gsndesign:hasRationale gsnaugdesign:why-0010 ;
+    prov:generated gsnaugdesign:st-0020 .
+
+gsnaugdesign:st-0020
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0020 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "Four rules, and no fifth: A2a, A2b, A3a, A3b each test both the issue type and the class of the target. No rule fires on gsnaug:clarify, and none fires on a target that is neither gsn:Goal nor gsn:Solution." ;
+    gsndesign:aboutTerm gsnaug:Issue ;
+    gsndesign:mentionsTerm gsn:Goal , gsn:Solution , gsnaug:clarify , gsnaug:resolve , gsnaug:revise .
+
+gsnaugdesign:dd-0021
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "A revise issue against a claim becomes a true goal that challenges it, and nothing more."@en ;
+    prov:used gsnaugdesign:src-0006 ;
+    gsndesign:hasRationale gsnaugdesign:why-0011 ;
+    prov:generated gsnaugdesign:st-0021 .
+
+gsnaugdesign:st-0021
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0021 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "Issue(?I) ^ issueType(?I, revise) ^ raisedAgainst(?I, ?E) ^ Goal(?E) -> Goal(?I) ^ true(?I, true) ^ challenges(?I, ?E)" ;
+    gsndesign:aboutTerm gsnaug:ReviseIssueChallengesGoal ;
+    gsndesign:mentionsTerm gsn:challenges , gsn:true , gsnaug:ReviseIssueChallengesGoal , gsnaug:ReviseIssueChallengesSolution .
+
+gsnaugdesign:dd-0022
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "A resolve issue against a claim asserts the defeat directly, because the rule that would otherwise derive it needs valid evidence and an issue is an ask."@en ;
+    prov:used gsnaugdesign:src-0006 ;
+    gsndesign:hasRationale gsnaugdesign:why-0011 ;
+    prov:generated gsnaugdesign:st-0022 .
+
+gsnaugdesign:st-0022
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0022 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "Issue(?I) ^ issueType(?I, resolve) ^ raisedAgainst(?I, ?E) ^ Goal(?E) -> Goal(?I) ^ challenges(?I, ?E) ^ defeated(?E, true)" ;
+    gsndesign:aboutTerm gsnaug:ResolveIssueDefeatsGoal ;
+    gsndesign:mentionsTerm gsn:challenges , gsn:defeated , gsnaug:ResolveIssueDefeatsGoal , gsnaug:ResolveIssueDefeatsSolution .
+
+gsnaugdesign:dd-0023
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "Each of the two issue rules is written twice, once for a goal target and once for a solution target."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0012 ;
+    prov:generated gsnaugdesign:st-0023 .
+
+gsnaugdesign:st-0023
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0023 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "A2a and A2b; A3a and A3b." ;
+    gsndesign:aboutTerm gsnaug:ReviseIssueChallengesSolution ;
+    gsndesign:mentionsTerm gsnaug:ResolveIssueDefeatsSolution , gsnaug:ReviseIssueChallengesSolution .
+
+gsnaugdesign:dd-0024
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason """Withdrawn at 0.2.0 with the classes the rules read. Deriving the system through gsn:refersTo also typed it a gsn:Artefact, which naming the far end fixes."""@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0041 ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "The system and the requirement are derived from the two top-level contexts, so that a case which draws them does not have to assert them twice."@en ;
+    prov:used gsnaugdesign:src-0008 ;
+    gsndesign:hasRationale gsnaugdesign:why-0013 ;
+    prov:generated gsnaugdesign:st-0024 .
+
+gsnaugdesign:st-0024
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0024 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.1.0 ;
+    gsndesign:statementText "Goal(?G) ^ top(?G, true) ^ inContextOf(?G, ?C) ^ TopObjectContext(?C) ^ refersTo(?C, ?S) -> assures(?G, ?S) ; and the matching rule for TopSubjectContext and requiredBy." ;
+    gsndesign:aboutTerm gsnaug:TopObjectContextAssurance ;
+    gsndesign:mentionsTerm gsnaug:TopObjectContextAssurance , gsnaug:TopSubjectContextRequirement , gsnaug:assures , gsnaug:requiredBy .
+
+gsnaugdesign:dd-0025
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "Every SWRL rule is also written as a SPARQL update, so the augmentation runs without a reasoner."@en ;
+    prov:used gsnaugdesign:src-0006 ;
+    gsndesign:hasRationale gsnaugdesign:why-0022 ;
+    prov:generated gsnaugdesign:st-0025 .
+
+gsnaugdesign:st-0025
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0025 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.1 ;
+    gsndesign:statementText "augmentation/rules/a02a, a02b, a03a, a03b, a04, a06a, a06b, a06c, a06d - one per SWRL rule, count asserted by development/dev_tools/augmentation_check.py." ;
+    gsndesign:aboutTerm gsnaug:ReviseIssueChallengesGoal ;
+    gsndesign:mentionsTerm gsnaug:ResolveIssueDefeatsGoal , gsnaug:ReviseIssueChallengesGoal .
+
+
+#################################################################
+#    Decisions - the shapes
+#################################################################
+
+gsnaugdesign:dd-0026
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "Every range declared in the vocabulary is repeated as a shape, because a range infers a type rather than rejecting a wrong one."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0018 ;
+    prov:generated gsnaugdesign:st-0026 .
+
+gsnaugdesign:st-0026
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0026 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:ArtefactShape constrains gsnaug:storedIn, retrievableWith, generatedWith, verifiedWith and generatedBy to their declared ranges." ;
+    gsndesign:aboutTerm gsnaugsh:ArtefactShape ;
+    gsndesign:mentionsTerm gsnaug:generatedBy , gsnaug:generatedWith , gsnaug:retrievableWith , gsnaug:storedIn , gsnaug:verifiedWith .
+
+gsnaugdesign:dd-0027
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "Evidence provenance found on a solution is reported as a warning, not as a violation."@en ;
+    prov:used gsnaugdesign:src-0007 ;
+    gsndesign:hasRationale gsnaugdesign:why-0019 ;
+    prov:generated gsnaugdesign:st-0027 .
+
+gsnaugdesign:st-0027
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0027 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:SolutionProvenanceShape sh:severity sh:Warning ." ;
+    gsndesign:aboutTerm gsnaugsh:SolutionProvenanceShape ;
+    gsndesign:mentionsTerm gsnaugsh:SolutionProvenanceShape .
+
+gsnaugdesign:dd-0028
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason """Withdrawn at 0.2.0 with gsnaugsh:TopContextCompletenessShape. A shape that ships switched off and whose classes no longer exist constrains nothing at all."""@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0041 ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "The shape that would require both top-level contexts is shipped switched off."@en ;
+    prov:used gsnaugdesign:src-0008 ;
+    gsndesign:hasRationale gsnaugdesign:why-0020 ;
+    prov:generated gsnaugdesign:st-0028 .
+
+gsnaugdesign:st-0028
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0028 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.1.0 ;
+    gsndesign:statementText "gsnaugsh:TopContextCompletenessShape sh:deactivated true ." ;
+    gsndesign:aboutTerm gsnaugsh:TopContextCompletenessShape ;
+    gsndesign:mentionsTerm gsnaugsh:TopContextCompletenessShape .
+
+gsnaugdesign:dd-0029
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. The answer subclasses are gone, so there is nothing left to pair."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0059 ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "The shape pairing each kind of answer with its kind of issue is one flat filter, because neither of the two natural ways to write it works."@en ;
+    prov:used gsnaugdesign:src-0005 ;
+    gsndesign:hasRationale gsnaugdesign:why-0021 ;
+    prov:generated gsnaugdesign:st-0029 .
+
+gsnaugdesign:st-0029
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0029 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.2.0 ;
+    gsndesign:statementText "gsnaugsh:AnswerAgreementShape sh:sparql [ sh:select \"... FILTER ( (?answerClass = gsnaug:Clarification && ?type != gsnaug:clarify) || ... )\" ] ." ;
+    gsndesign:aboutTerm gsnaugsh:AnswerAgreementShape ;
+    gsndesign:mentionsTerm gsnaugsh:AnswerAgreementShape .
+
+gsnaugdesign:dd-0030
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "That an issue cannot supersede itself is checked by a shape as well as stated in the vocabulary."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0025 ;
+    prov:generated gsnaugdesign:st-0030 .
+
+gsnaugdesign:st-0030
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0030 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:IssueSupersessionShape sh:sparql [ sh:select \"SELECT $this WHERE { $this gsnaug:supersedes $this . }\" ] ." ;
+    gsndesign:aboutTerm gsnaugsh:IssueSupersessionShape ;
+    gsndesign:mentionsTerm gsnaug:supersedes , gsnaugsh:IssueSupersessionShape .
+
+gsnaugdesign:dd-0038
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. The shapes follow the simplified terms."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0059 ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "The ranges and arities of the seven terms added for the compliance process are repeated as shapes, on the same reasoning as the first six."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0018 ;
+    prov:generated gsnaugdesign:st-0038 .
+
+gsnaugdesign:st-0038
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0038 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.2.0 ;
+    gsndesign:statementText "gsnaugsh:IssueShape constrains gsnaug:issueOutcome to the three concepts and gsnaug:raisedIn, gsnaug:raisedBy and gsnaug:heldBy to their ranges, each at most once. gsnaugsh:AnswerShape constrains gsnaug:accepted to one boolean. gsnaugsh:ArtefactShape constrains gsnaug:revisionOf to gsn:Artefact. gsnaugsh:MechanismAutomationShape constrains gsnaug:automated to one boolean." ;
+    gsndesign:aboutTerm gsnaugsh:IssueShape ;
+    gsndesign:mentionsTerm gsnaug:accepted , gsnaug:automated , gsnaug:heldBy , gsnaug:issueOutcome ,
+        gsnaug:raisedBy , gsnaug:raisedIn , gsnaug:revisionOf , gsnaugsh:MechanismAutomationShape .
+
+gsnaugdesign:dd-0039
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. The closure shape now tests the outcome string instead of the withdrawn acceptance flag."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0059 ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "An issue closed both by an outcome and by an answer the raiser accepted is reported, because the two ways of ending an ask are exclusive."@en ;
+    prov:used gsnaugdesign:src-0010 ;
+    gsndesign:hasRationale gsnaugdesign:why-0033 ;
+    prov:generated gsnaugdesign:st-0039 .
+
+gsnaugdesign:st-0039
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0039 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.2.0 ;
+    gsndesign:statementText "gsnaugsh:IssueClosureShape sh:sparql [ sh:select \"SELECT $this ?answer WHERE { $this gsnaug:issueOutcome ?outcome . ?answer gsnaug:answers $this ; gsnaug:accepted true . }\" ] ." ;
+    gsndesign:aboutTerm gsnaugsh:IssueClosureShape ;
+    gsndesign:mentionsTerm gsnaug:accepted , gsnaug:answers , gsnaug:issueOutcome , gsnaugsh:IssueClosureShape .
+
+
+#################################################################
+#    Decisions - 0.2.0, naming the far ends
+#################################################################
+
+gsnaugdesign:dd-0040
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "What an issue may be raised against is a union of the six kinds of thing a case is made of, and a shape rejects a target outside it."@en ;
+    prov:used gsnaugdesign:src-0002 ;
+    gsndesign:hasRationale gsnaugdesign:why-0034 ;
+    prov:generated gsnaugdesign:st-0040 .
+
+gsnaugdesign:st-0040
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0040 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:raisedAgainst rdfs:range [ (gsn:Argument or gsn:Artefact or gsn:AssuranceCase or gsn:GSNElement or gsn:Pattern or gsn:Relationship) ] ." ;
+    gsndesign:aboutTerm gsnaug:raisedAgainst ;
+    gsndesign:mentionsTerm gsn:Argument , gsn:Artefact , gsn:AssuranceCase , gsn:GSNElement ,
+        gsn:Pattern , gsn:Relationship , gsnaug:raisedAgainst .
+
+gsnaugdesign:dd-0041
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The two top-level context subclasses, the two rules that read them and the shapes that checked them are withdrawn; what they expressed is asserted directly."@en ;
+    prov:used gsnaugdesign:src-0008 ;
+    gsndesign:hasRationale gsnaugdesign:why-0035 ;
+    prov:generated gsnaugdesign:st-0041 .
+
+gsnaugdesign:st-0041
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0041 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:TopSubjectContext, gsnaug:TopObjectContext, gsnaug:TopSubjectContextRequirement, gsnaug:TopObjectContextAssurance, gsnaugsh:TopContextAgreementShape and gsnaugsh:TopContextCompletenessShape are removed." ;
+    gsndesign:aboutTerm gsnaug:assures ;
+    gsndesign:mentionsTerm gsnaug:assures , gsnaug:requiredBy .
+
+gsnaugdesign:dd-0042
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. gsnaug:ArtefactElement is renamed gsnaug:ArtefactPart; the other three classes stay."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0056 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Four classes name what the four open-ended links point at, and none of them carries a taxonomy."@en ;
+    prov:used gsnaugdesign:src-0001 ;
+    gsndesign:hasRationale gsnaugdesign:why-0036 ;
+    prov:generated gsnaugdesign:st-0042 .
+
+gsnaugdesign:st-0042
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0042 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:System a owl:Class . gsnaug:Requirement a owl:Class . gsnaug:Role a owl:Class . gsnaug:ArtefactElement a owl:Class ." ;
+    gsndesign:aboutTerm gsnaug:System ;
+    gsndesign:mentionsTerm gsnaug:ArtefactElement , gsnaug:Requirement , gsnaug:Role , gsnaug:System .
+
+gsnaugdesign:dd-0043
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. gsnaug:instantiatedFrom ranges on gsnaug:ArtefactPart; the other two ranges stay."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0056 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The three links that used to end nowhere now range on the class that names their far end."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0036 ;
+    prov:generated gsnaugdesign:st-0043 .
+
+gsnaugdesign:st-0043
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0043 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:assures rdfs:range gsnaug:System . gsnaug:requiredBy rdfs:range gsnaug:Requirement . gsnaug:instantiatedFrom rdfs:range gsnaug:ArtefactElement ." ;
+    gsndesign:aboutTerm gsnaug:assures ;
+    gsndesign:mentionsTerm gsnaug:ArtefactElement , gsnaug:Requirement , gsnaug:System , gsnaug:assures ,
+        gsnaug:instantiatedFrom , gsnaug:requiredBy .
+
+gsnaugdesign:dd-0044
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. gsnaug:owns and gsnaug:reviews are withdrawn; gsnaug:hasRole stays."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0057 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Whoever owns an element, reviews one or holds a role is a PROV agent; no parallel agent class is minted."@en ;
+    prov:used gsnaugdesign:src-0004 ;
+    gsndesign:hasRationale gsnaugdesign:why-0037 ;
+    prov:generated gsnaugdesign:st-0044 .
+
+gsnaugdesign:st-0044
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0044 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:owns rdfs:domain prov:Agent . gsnaug:reviews rdfs:domain prov:Agent . gsnaug:hasRole a owl:ObjectProperty ; rdfs:domain prov:Agent ; rdfs:range gsnaug:Role ." ;
+    gsndesign:aboutTerm gsnaug:hasRole ;
+    gsndesign:mentionsTerm gsnaug:Role , gsnaug:hasRole , gsnaug:owns , gsnaug:reviews .
+
+gsnaugdesign:dd-0045
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. The inverses are withdrawn; gsnaug:ownedBy and gsnaug:reviewedBy carry the domain and range themselves."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0057 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Each inverse states the mirrored domain and range rather than leaving them to a reasoner."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0038 ;
+    prov:generated gsnaugdesign:st-0045 .
+
+gsnaugdesign:st-0045
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0045 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:assuredBy rdfs:domain gsnaug:System ; rdfs:range [ (gsn:Argument or gsn:AssuranceCase or gsn:Goal) ] . gsnaug:ownedBy rdfs:range prov:Agent . gsnaug:reviewedBy rdfs:range prov:Agent ." ;
+    gsndesign:aboutTerm gsnaug:assuredBy ;
+    gsndesign:mentionsTerm gsnaug:System , gsnaug:assuredBy , gsnaug:ownedBy , gsnaug:reviewedBy .
+
+gsnaugdesign:dd-0046
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. gsnaug:containsElement is replaced by gsnaug:partOf, which runs from the part to the artefact."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0056 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A part of an artefact is reached by a new property rather than by the core containment property."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0039 ;
+    prov:generated gsnaugdesign:st-0046 .
+
+gsnaugdesign:st-0046
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0046 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.2.0 ;
+    gsndesign:statementText "gsnaug:containsElement a owl:ObjectProperty ; rdfs:domain gsn:Artefact ; rdfs:range gsnaug:ArtefactElement . (gsn:contains not reused)" ;
+    gsndesign:aboutTerm gsnaug:containsElement ;
+    gsndesign:mentionsTerm gsn:Artefact , gsn:contains , gsnaug:ArtefactElement , gsnaug:containsElement .
+
+gsnaugdesign:dd-0047
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Which rounds a case has been through is recorded on the case, not inferred from the asks raised in them."@en ;
+    prov:used gsnaugdesign:src-0002 ;
+    gsndesign:hasRationale gsnaugdesign:why-0040 ;
+    prov:generated gsnaugdesign:st-0047 .
+
+gsnaugdesign:st-0047
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0047 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:coveredIn a owl:ObjectProperty ; rdfs:domain gsn:AssuranceCase ; rdfs:range gsnaug:AuditCycle ." ;
+    gsndesign:aboutTerm gsnaug:coveredIn ;
+    gsndesign:mentionsTerm gsn:AssuranceCase , gsnaug:AuditCycle , gsnaug:coveredIn .
+
+gsnaugdesign:dd-0048
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at 0.3.1: simplification of classes and relations. The shapes added at 0.2.0 stay; the constraint on gsnaug:containsElement moves to gsnaugsh:ArtefactPartShape."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0059 ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "Every range added at 0.2.0 is repeated as a shape, and the violation fixture is validated against the core ontology so that a subclass test means what it says."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0018 ;
+    prov:generated gsnaugdesign:st-0048 .
+
+gsnaugdesign:st-0048
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0048 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.2.0 ;
+    gsndesign:statementText "gsnaugsh:AgentShape, gsnaugsh:AssuranceScopeShape, gsnaugsh:ElementLinkShape and gsnaugsh:AuditCoverageShape are added; gsnaugsh:IssueShape constrains gsnaug:raisedAgainst to the six-way alternative and gsnaugsh:ArtefactShape constrains gsnaug:containsElement." ;
+    gsndesign:aboutTerm gsnaugsh:AgentShape ;
+    gsndesign:mentionsTerm gsnaug:containsElement , gsnaug:raisedAgainst , gsnaugsh:AgentShape ,
+        gsnaugsh:AssuranceScopeShape , gsnaugsh:AuditCoverageShape , gsnaugsh:ElementLinkShape .
+
+gsnaugdesign:dd-0049
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The SPARQL twins of A3a and A3b write the defeat and the challenge as two operations, so that two asks against the same target both become defeaters."@en ;
+    prov:used gsnaugdesign:src-0006 ;
+    gsndesign:hasRationale gsnaugdesign:why-0041 ;
+    prov:generated gsnaugdesign:st-0049 .
+
+gsnaugdesign:st-0049
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0049 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.1 ;
+    gsndesign:statementText "augmentation/rules/a03a and a03b: DELETE/INSERT of gsn:defeated guarded on the target, then INSERT of gsn:challenges guarded on the pair." ;
+    gsndesign:aboutTerm gsnaug:ResolveIssueDefeatsGoal ;
+    gsndesign:mentionsTerm gsnaug:ResolveIssueDefeatsGoal , gsnaug:ResolveIssueDefeatsSolution .
+
+
+#################################################################
+#    Decisions - 0.3.1, simplification of classes and relations
+#################################################################
+
+gsnaugdesign:dd-0050
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "One class of mechanism covers generation, retrieval and verification, and each of the three has a property for what can do it and one for what did."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0050 .
+
+gsnaugdesign:st-0050
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0050 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:Mechanism a owl:Class . gsnaug:retrievableWith, gsnaug:retrievedWith, gsnaug:generableWith, gsnaug:generatedWith, gsnaug:verifiableWith, gsnaug:verifiedWith rdfs:domain [ (gsn:Artefact or gsnaug:ArtefactPart) ] ; rdfs:range gsnaug:Mechanism ; the part is admitted by dd-0066. gsnaug:automated rdfs:domain gsnaug:Mechanism . gsnaug:EvidenceGenerationMechanism, gsnaug:EvidenceRetrievalMechanism and gsnaug:EvidenceVerificationMechanism are removed." ;
+    gsndesign:aboutTerm gsnaug:Mechanism ;
+    gsndesign:mentionsTerm gsn:Artefact , gsnaug:Mechanism , gsnaug:automated , gsnaug:generableWith ,
+        gsnaug:generatedWith , gsnaug:retrievableWith , gsnaug:retrievedWith , gsnaug:verifiableWith ,
+        gsnaug:verifiedWith .
+
+gsnaugdesign:dd-0051
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A storage system is a kind of system, and an artefact may be stored in any system."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0051 .
+
+gsnaugdesign:st-0051
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0051 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:StorageSystem rdfs:subClassOf gsnaug:System . gsnaug:storedIn rdfs:range gsnaug:System ." ;
+    gsndesign:aboutTerm gsnaug:StorageSystem ;
+    gsndesign:mentionsTerm gsnaug:StorageSystem , gsnaug:System , gsnaug:storedIn .
+
+gsnaugdesign:dd-0052
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at the Response rename: an answer closed an issue by existing, which made a rejected reply indistinguishable from an accepted one. The class is gsnaug:Response, the property gsnaug:respondsTo, and only the outcome closes."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0077 ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "An answer is one class, and whether it was accepted is not recorded."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0052 .
+
+gsnaugdesign:st-0052
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0052 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:Answer a owl:Class . gsnaug:answers rdfs:domain gsnaug:Answer ; rdfs:range gsnaug:Issue . gsnaug:Clarification, gsnaug:Revision, gsnaug:Resolution and gsnaug:accepted are removed." ;
+    gsndesign:aboutTerm gsnaug:Answer ;
+    gsndesign:mentionsTerm gsnaug:Answer , gsnaug:Issue , gsnaug:answers .
+
+gsnaugdesign:dd-0053
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The three kinds of ask are named individuals, and the issue type ranges on their enumeration."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0053 .
+
+gsnaugdesign:st-0053
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0053 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:clarify, gsnaug:revise, gsnaug:resolve a owl:NamedIndividual . gsnaug:issueType a owl:ObjectProperty ; rdfs:domain gsnaug:Issue ; rdfs:range [ owl:oneOf (gsnaug:clarify gsnaug:revise gsnaug:resolve) ] . gsnaug:IssueTypeScheme is removed." ;
+    gsndesign:aboutTerm gsnaug:issueType ;
+    gsndesign:mentionsTerm gsnaug:Issue , gsnaug:clarify , gsnaug:issueType , gsnaug:resolve , gsnaug:revise .
+
+gsnaugdesign:dd-0054
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "How an issue ended is one of four strings, and \"resolved\" is one of them."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0054 .
+
+gsnaugdesign:st-0054
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0054 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:issueOutcome a owl:DatatypeProperty ; rdfs:domain gsnaug:Issue ; rdfs:range [ a rdfs:Datatype ; owl:oneOf (\"resolved\" \"cannot answer\" \"declined\" \"infeasible\") ] . gsnaug:IssueOutcomeScheme, gsnaug:cannotAnswer, gsnaug:declined and gsnaug:infeasible are removed." ;
+    gsndesign:aboutTerm gsnaug:issueOutcome ;
+    gsndesign:mentionsTerm gsnaug:Issue , gsnaug:issueOutcome .
+
+gsnaugdesign:dd-0055
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The older version of an artefact is reached by gsnaug:replaces."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0055 .
+
+gsnaugdesign:st-0055
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0055 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:replaces rdfs:subPropertyOf prov:wasRevisionOf ; rdfs:domain gsn:Artefact ; rdfs:range gsn:Artefact . gsnaug:revisionOf is removed." ;
+    gsndesign:aboutTerm gsnaug:replaces ;
+    gsndesign:mentionsTerm gsn:Artefact , gsnaug:replaces , prov:wasRevisionOf .
+
+gsnaugdesign:dd-0056
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A part of an artefact is a gsnaug:ArtefactPart, and it points at its artefact rather than the artefact pointing at it."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0056 .
+
+gsnaugdesign:st-0056
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0056 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:System, gsnaug:Requirement, gsnaug:Role, gsnaug:ArtefactPart a owl:Class . gsnaug:partOf a owl:ObjectProperty ; rdfs:domain gsnaug:ArtefactPart ; rdfs:range gsn:Artefact . gsnaug:assures rdfs:range gsnaug:System . gsnaug:requiredBy rdfs:range gsnaug:Requirement . gsnaug:instantiatedFrom rdfs:range gsnaug:ArtefactPart . gsnaug:ArtefactElement and gsnaug:containsElement are removed." ;
+    gsndesign:aboutTerm gsnaug:ArtefactPart ;
+    gsndesign:mentionsTerm gsn:Artefact , gsnaug:ArtefactPart , gsnaug:Requirement , gsnaug:Role , gsnaug:System ,
+        gsnaug:assures , gsnaug:instantiatedFrom , gsnaug:partOf , gsnaug:requiredBy .
+
+gsnaugdesign:dd-0057
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The three inverse properties are withdrawn, and the forward properties carry the domain and range themselves."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0057 .
+
+gsnaugdesign:st-0057
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0057 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:assures rdfs:domain [ (gsn:Argument or gsn:AssuranceCase or gsn:Goal) ] ; rdfs:range gsnaug:System . gsnaug:ownedBy, gsnaug:reviewedBy rdfs:domain [ (gsn:Artefact or gsn:GSNElement) ] ; rdfs:range prov:Agent . gsnaug:hasRole rdfs:domain prov:Agent ; rdfs:range gsnaug:Role . gsnaug:assuredBy, gsnaug:owns and gsnaug:reviews are removed." ;
+    gsndesign:aboutTerm gsnaug:ownedBy ;
+    gsndesign:mentionsTerm gsn:Artefact , gsn:GSNElement , gsnaug:Role , gsnaug:System , gsnaug:assures ,
+        gsnaug:hasRole , gsnaug:ownedBy , gsnaug:reviewedBy , prov:Agent .
+
+gsnaugdesign:dd-0058
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The generic link starts from something in a case and may end anywhere."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0058 .
+
+gsnaugdesign:st-0058
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0058 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:linksTo rdfs:domain [ (gsn:Argument or gsn:Artefact or gsn:AssuranceCase or gsn:GSNElement or gsn:Pattern or gsn:Relationship) ] ; rdfs:range owl:Thing . gsnaug:tag a owl:DatatypeProperty ." ;
+    gsndesign:aboutTerm gsnaug:linksTo ;
+    gsndesign:mentionsTerm gsn:Argument , gsn:Artefact , gsn:AssuranceCase , gsn:GSNElement , gsn:Pattern ,
+        gsn:Relationship , gsnaug:linksTo , gsnaug:tag .
+
+gsnaugdesign:dd-0059
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired at the Response rename, for the closure test only: the shape no longer reports a reply beside a negative outcome, it reports a resolved issue with no reply. Everything else this decision states still stands and is restated by dd-0078."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0078 ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "The shapes follow the simplified vocabulary: the shape for each withdrawn term goes, one for each new term comes, and the closure test reads the outcome string."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0059 .
+
+gsnaugdesign:st-0059
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0059 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:AnswerAgreementShape is removed, and gsnaugsh:AnswerShape no longer constrains gsnaug:accepted. gsnaugsh:IssueShape constrains gsnaug:issueType to the three individuals and gsnaug:issueOutcome to the four strings. gsnaugsh:IssueClosureShape reports an answer on an issue whose outcome is not \"resolved\". gsnaugsh:ArtefactShape constrains the six mechanism properties to gsnaug:Mechanism, gsnaug:storedIn to gsnaug:System and gsnaug:replaces to gsn:Artefact. gsnaugsh:ArtefactPartShape, gsnaugsh:AccountabilityShape and gsnaugsh:LinkShape are added. gsnaugsh:AgentShape covers gsnaug:hasRole only, and gsnaugsh:AssuranceScopeShape also checks its subject." ;
+    gsndesign:aboutTerm gsnaugsh:IssueShape ;
+    gsndesign:mentionsTerm gsnaug:issueOutcome , gsnaug:issueType , gsnaug:replaces , gsnaugsh:AccountabilityShape ,
+        gsnaugsh:AgentShape , gsnaugsh:AnswerShape , gsnaugsh:ArtefactPartShape , gsnaugsh:ArtefactShape ,
+        gsnaugsh:AssuranceScopeShape , gsnaugsh:IssueClosureShape , gsnaugsh:IssueShape , gsnaugsh:LinkShape .
+
+gsnaugdesign:dd-0060
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The twelve stored queries that read a withdrawn term are rewritten to the simplified one, and an open ask is one with neither an outcome nor an answer."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0042 ;
+    prov:generated gsnaugdesign:st-0060 .
+
+gsnaugdesign:st-0060
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0060 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.1 ;
+    gsndesign:statementText "augmentation/queries/fc13, fc14, fc16, fc19, fc20, fc23, fc24, fc26, fc27, fc30, fc31, fc32: gsnaug:accepted, gsnaug:Clarification, gsnaug:Revision, gsnaug:Resolution, gsnaug:revisionOf and the three outcome concepts are replaced; an open ask is FILTER NOT EXISTS { ?answer gsnaug:answers ?issue } ." ;
+    gsndesign:aboutTerm gsnaug:answers ;
+    gsndesign:mentionsTerm gsnaug:Answer , gsnaug:answers , gsnaug:issueOutcome , gsnaug:replaces .
+
+gsnaugdesign:dd-0061
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A mechanism names the domain terms it reads and writes. A mechanism that is a shape, a rule or a query is that node, typed as both."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0043 ;
+    prov:generated gsnaugdesign:st-0061 .
+
+gsnaugdesign:st-0061
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0061 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:readsTerm, gsnaug:writesTerm a owl:ObjectProperty ; rdfs:domain gsnaug:Mechanism . No rdfs:range on either." ;
+    gsndesign:aboutTerm gsnaug:readsTerm ;
+    gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:readsTerm , gsnaug:writesTerm .
+
+gsnaugdesign:dd-0062
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "A term is an IRI that some loaded ontology declares, a script is one string, and only a mechanism carries either."@en ;
+    prov:used gsnaugdesign:src-0005 ;
+    gsndesign:hasRationale gsnaugdesign:why-0043 ;
+    prov:generated gsnaugdesign:st-0062 .
+
+gsnaugdesign:st-0062
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0062 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:MechanismInterfaceShape targets the subjects of gsnaug:readsTerm, gsnaug:writesTerm and gsnaug:script; requires the subject to be a gsnaug:Mechanism; requires a term to be an IRI (violation) declared as a class or property by a loaded ontology (warning); requires a script to be one xsd:string (violation)." ;
+    gsndesign:aboutTerm gsnaugsh:MechanismInterfaceShape ;
+    gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:readsTerm , gsnaug:script , gsnaug:writesTerm ,
+        gsnaugsh:MechanismInterfaceShape .
+
+gsnaugdesign:dd-0063
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "Two stored queries read the interface: one walks from a domain term to the claims that rest on it, the other sorts each mechanism under a solution into in the graph, script in the graph, declared by hand, or opaque."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0043 ;
+    prov:generated gsnaugdesign:st-0063 .
+
+gsnaugdesign:st-0063
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0063 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.1 ;
+    gsndesign:statementText "augmentation/queries/fc37_term_impact.rq (CQ-79): ?mechanism gsnaug:readsTerm ?term, then any of the six mechanism properties to the artefact, gsn:refersTo to the solution and gsn:supportedBy+ to the goals. augmentation/queries/fc38_inspectable_mechanisms.rq (CQ-80): per solution, artefact and mechanism, state = in the graph if the mechanism is typed sh:NodeShape, sh:PropertyShape, a sh:SPARQL*Executable, swrl:Imp or sp:Query; script in the graph if gsnaug:script is bound; terms declared by hand if only gsnaug:readsTerm is; else opaque." ;
+    gsndesign:aboutTerm gsnaug:readsTerm ;
+    gsndesign:mentionsTerm gsnaug:readsTerm , gsnaug:script .
+
+gsnaugdesign:dd-0064
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A mechanism that is code carries the text of its script as one string literal."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0044 ;
+    prov:generated gsnaugdesign:st-0064 .
+
+gsnaugdesign:st-0064
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0064 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:script a owl:DatatypeProperty ; rdfs:domain gsnaug:Mechanism ; rdfs:range xsd:string . gsnaugsh:MechanismInterfaceShape also targets the subjects of gsnaug:script and constrains it to one xsd:string. fc38_inspectable_mechanisms.rq reports a scripted mechanism as \"script in the graph\"." ;
+    gsndesign:aboutTerm gsnaug:script ;
+    gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:readsTerm , gsnaug:script ,
+        gsnaugsh:MechanismInterfaceShape .
+
+gsnaugdesign:dd-0065
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The terms a shape or rule mechanism reads, and the terms a rule mechanism writes, are derived from the node by SPARQL updates that have no SWRL twin."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0045 ;
+    prov:generated gsnaugdesign:st-0065 .
+
+gsnaugdesign:st-0065
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0065 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-derivations-0.3.1 ;
+    gsndesign:statementText "augmentation/derivations/d01_shape_mechanism_reads.rq: a gsnaug:Mechanism typed sh:NodeShape or sh:PropertyShape readsTerm every IRI reached by sh:targetClass, sh:targetSubjectsOf, sh:targetObjectsOf, sh:class and sh:path (unwrapping sh:inversePath, sh:zeroOrMorePath, sh:oneOrMorePath, sh:zeroOrOnePath, sh:alternativePath and sequence lists) on itself and on shapes reached by sh:property, sh:node, sh:not, sh:and, sh:or, sh:xone. d02_rule_mechanism_reads.rq: a gsnaug:Mechanism typed swrl:Imp readsTerm every IRI swrl:classPredicate or swrl:propertyPredicate in its swrl:body. d03_rule_mechanism_writes.rq: the same over swrl:head, into gsnaug:writesTerm." ;
+    gsndesign:aboutTerm gsnaug:readsTerm ;
+    gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:readsTerm , gsnaug:writesTerm .
+
+gsnaugdesign:dd-0066
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "The eight provenance properties of an artefact also apply to a part of one; where it is stored and what it replaces do not."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0046 ;
+    prov:generated gsnaugdesign:st-0066 .
+
+gsnaugdesign:st-0066
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0066 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:retrievableWith, gsnaug:retrievedWith, gsnaug:generableWith, gsnaug:generatedWith, gsnaug:verifiableWith, gsnaug:verifiedWith, gsnaug:generatedFrom, gsnaug:generatedBy rdfs:domain [ (gsn:Artefact or gsnaug:ArtefactPart) ] . gsnaug:storedIn and gsnaug:replaces keep rdfs:domain gsn:Artefact." ;
+    gsndesign:aboutTerm gsnaug:ArtefactPart ;
+    gsndesign:mentionsTerm gsn:Artefact , gsnaug:ArtefactPart , gsnaug:generableWith , gsnaug:generatedBy ,
+        gsnaug:generatedFrom , gsnaug:generatedWith , gsnaug:replaces , gsnaug:retrievableWith ,
+        gsnaug:retrievedWith , gsnaug:storedIn , gsnaug:verifiableWith , gsnaug:verifiedWith .
+
+gsnaugdesign:dd-0067
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "A part of an artefact is verifiable with whatever its artefact is verifiable with."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0046 ;
+    prov:generated gsnaugdesign:st-0067 .
+
+gsnaugdesign:st-0067
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0067 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "A4: ArtefactPart(?P) ^ partOf(?P, ?A) ^ Artefact(?A) ^ verifiableWith(?A, ?X) -> verifiableWith(?P, ?X). SPARQL twin in augmentation/rules/a04." ;
+    gsndesign:aboutTerm gsnaug:PartInheritsVerifiableWith ;
+    gsndesign:mentionsTerm gsn:Artefact , gsnaug:ArtefactPart , gsnaug:PartInheritsVerifiableWith , gsnaug:partOf ,
+        gsnaug:verifiableWith .
+
+gsnaugdesign:dd-0068
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "The artefact shape holds a part to the same ranges as the whole."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0046 ;
+    prov:generated gsnaugdesign:st-0068 .
+
+gsnaugdesign:st-0068
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0068 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:ArtefactShape sh:targetClass gsn:Artefact, gsnaug:ArtefactPart ." ;
+    gsndesign:aboutTerm gsnaugsh:ArtefactShape ;
+    gsndesign:mentionsTerm gsnaug:ArtefactPart , gsnaugsh:ArtefactShape .
+
+
+#################################################################
+#    Decisions - the mechanism result in the graph
+#################################################################
+
+gsnaugdesign:dd-0069
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "A solution is true when the mechanism that can verify its artefact left a conforming report over that artefact."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0047 ;
+    prov:generated gsnaugdesign:st-0069 .
+
+gsnaugdesign:st-0069
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0069 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "A6a: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ verifiableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, true) -> true(?S, true). SPARQL twin in augmentation/rules/a06a." ;
+    gsndesign:aboutTerm gsnaug:ConformingReportConfirmsSolution ;
+    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ConformingReportConfirmsSolution ,
+        gsnaug:verifiableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
+
+gsnaugdesign:dd-0070
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "A solution is not true when the mechanism that can verify its artefact left a failing report over that artefact."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0047 ;
+    prov:generated gsnaugdesign:st-0070 .
+
+gsnaugdesign:st-0070
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0070 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "A6b: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ verifiableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, false) -> true(?S, false). SPARQL twin in augmentation/rules/a06b." ;
+    gsndesign:aboutTerm gsnaug:FailingReportRefutesSolution ;
+    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:FailingReportRefutesSolution ,
+        gsnaug:verifiableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
+
+gsnaugdesign:dd-0071
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:RDF ;
+    gsndesign:naturalLanguage "An issue is raised by any agent, not only by a reviewer, and Finding and Comment are alternative labels for it."@en ;
+    prov:used gsnaugdesign:src-0011 , gsnaugdesign:src-0009 ;
+    gsndesign:hasRationale gsnaugdesign:why-0048 ;
+    prov:generated gsnaugdesign:st-0071 .
+
+gsnaugdesign:st-0071
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0071 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:Issue skos:definition \"An ask raised by an agent against something in an assurance case.\"@en ; skos:altLabel \"Finding\"@en , \"Comment\"@en . gsnaug:Answer skos:definition \"The response to an ask that aims to close an issue.\"@en ." ;
+    gsndesign:aboutTerm gsnaug:Issue ;
+    gsndesign:mentionsTerm gsnaug:Answer , gsnaug:Issue , gsnaug:hasRole , gsnaug:raisedBy .
+
+gsnaugdesign:dd-0072
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "What a mechanism needs in order to run is dcterms:requires, reused and declared without a domain or a range."@en ;
+    prov:used gsnaugdesign:src-0014 , gsnaugdesign:src-0003 ;
+    gsndesign:hasRationale gsnaugdesign:why-0049 ;
+    prov:generated gsnaugdesign:st-0072 .
+
+gsnaugdesign:st-0072
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0072 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "dcterms:requires a owl:ObjectProperty ; rdfs:isDefinedBy <http://purl.org/dc/terms/> . (no rdfs:domain, no rdfs:range)" ;
+    gsndesign:aboutTerm <http://purl.org/dc/terms/requires> ;
+    gsndesign:mentionsTerm <http://purl.org/dc/terms/requires> , gsnaug:Mechanism .
+
+gsnaugdesign:dd-0073
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "What a mechanism requires is a node, not a literal, checked on mechanisms only."@en ;
+    prov:used gsnaugdesign:src-0014 ;
+    gsndesign:hasRationale gsnaugdesign:why-0049 ;
+    prov:generated gsnaugdesign:st-0073 .
+
+gsnaugdesign:st-0073
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0073 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:MechanismRequirementShape sh:targetClass gsnaug:Mechanism ; sh:property [ sh:path dcterms:requires ; sh:nodeKind sh:BlankNodeOrIRI ; sh:severity sh:Violation ] ." ;
+    gsndesign:aboutTerm gsnaugsh:MechanismRequirementShape ;
+    gsndesign:mentionsTerm <http://purl.org/dc/terms/requires> , gsnaug:Mechanism , gsnaugsh:MechanismRequirementShape .
+
+gsnaugdesign:dd-0074
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "The reviewer of an element or artefact is not its owner, as a warning."@en ;
+    prov:used gsnaugdesign:src-0012 , gsnaugdesign:src-0001 ;
+    gsndesign:hasRationale gsnaugdesign:why-0050 ;
+    prov:generated gsnaugdesign:st-0074 .
+
+gsnaugdesign:st-0074
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0074 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:IndependenceShape sh:targetSubjectsOf gsnaug:reviewedBy ; sh:property [ sh:path gsnaug:reviewedBy ; sh:disjoint gsnaug:ownedBy ; sh:severity sh:Warning ] ." ;
+    gsndesign:aboutTerm gsnaugsh:IndependenceShape ;
+    gsndesign:mentionsTerm gsnaug:ownedBy , gsnaug:reviewedBy , gsnaugsh:IndependenceShape .
+
+gsnaugdesign:dd-0075
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A requirement and a system are PROV entities, so a changed one is a new individual that is a revision of the old."@en ;
+    prov:used gsnaugdesign:src-0013 , gsnaugdesign:src-0004 ;
+    gsndesign:hasRationale gsnaugdesign:why-0051 ;
+    prov:generated gsnaugdesign:st-0075 .
+
+gsnaugdesign:st-0075
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0075 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:Requirement rdfs:subClassOf prov:Entity . gsnaug:System rdfs:subClassOf prov:Entity . (no gsnaug:SystemPart; no change flag)" ;
+    gsndesign:aboutTerm gsnaug:System ;
+    gsndesign:mentionsTerm gsnaug:Requirement , gsnaug:System , prov:Entity , prov:wasRevisionOf .
+
+gsnaugdesign:dd-0076
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "Change impact is detected by a query and judged by an issue, not asserted by a rule."@en ;
+    prov:used gsnaugdesign:src-0013 ;
+    gsndesign:hasRationale gsnaugdesign:why-0051 ;
+    prov:generated gsnaugdesign:st-0076 .
+
+gsnaugdesign:st-0076
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0076 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.1 ;
+    gsndesign:statementText "fc39_requirement_revised.rq (CQ-81): elements requiredBy a requirement with a newer prov:wasRevisionOf. fc40_system_revised.rq (CQ-82): artefacts generatedFrom an entity with a newer revision and no replacement drawn from it, with the solution and goals above. fc41_context_revised.rq (CQ-83): goals inContextOf a context whose artefact has a newer gsnaug:replaces or prov:wasRevisionOf. No rule writes gsn:inDoubt from any of the three." ;
+    gsndesign:aboutTerm gsnaug:generatedFrom ;
+    gsndesign:mentionsTerm gsn:Context , gsn:inContextOf , gsn:refersTo , gsn:supportedBy , gsnaug:generatedFrom , gsnaug:replaces , gsnaug:requiredBy , prov:wasRevisionOf .
+
+gsnaugdesign:dd-0077
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A reply to an issue is a Response, several are allowed, and only the outcome on the issue closes it."@en ;
+    prov:used gsnaugdesign:src-0009 , gsnaugdesign:src-0010 ;
+    gsndesign:hasRationale gsnaugdesign:why-0052 ;
+    prov:generated gsnaugdesign:st-0077 .
+
+gsnaugdesign:st-0077
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0077 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "gsnaug:Response a owl:Class ; skos:altLabel \"Answer\"@en . gsnaug:respondsTo rdfs:domain gsnaug:Response ; rdfs:range gsnaug:Issue . gsnaug:Answer and gsnaug:answers are removed. gsnaug:issueOutcome: \"resolved\" = the raiser accepted a response; absent = open." ;
+    gsndesign:aboutTerm gsnaug:Response ;
+    gsndesign:mentionsTerm gsnaug:Issue , gsnaug:Response , gsnaug:issueOutcome , gsnaug:respondsTo .
+
+gsnaugdesign:dd-0078
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "A response replies to exactly one issue, and an issue marked resolved with no response is a warning."@en ;
+    prov:used gsnaugdesign:src-0009 ;
+    gsndesign:hasRationale gsnaugdesign:why-0052 ;
+    prov:generated gsnaugdesign:st-0078 .
+
+gsnaugdesign:st-0078
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0078 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:ResponseShape sh:targetClass gsnaug:Response ; sh:property [ sh:path gsnaug:respondsTo ; sh:class gsnaug:Issue ; sh:minCount 1 ; sh:maxCount 1 ] . gsnaugsh:IssueClosureShape sh:sparql [ SELECT $this WHERE { $this gsnaug:issueOutcome \"resolved\" . FILTER NOT EXISTS { ?r gsnaug:respondsTo $this } } ] ; sh:severity sh:Warning . gsnaugsh:AnswerShape is removed. The other shapes dd-0059 names are unchanged." ;
+    gsndesign:aboutTerm gsnaugsh:ResponseShape ;
+    gsndesign:mentionsTerm gsnaug:Response , gsnaug:issueOutcome , gsnaug:respondsTo , gsnaugsh:IssueClosureShape , gsnaugsh:ResponseShape .
+
+gsnaugdesign:dd-0079
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "Whether an ask is open is read from the outcome alone; responses are listed, never counted as closure."@en ;
+    prov:used gsnaugdesign:src-0009 ;
+    gsndesign:hasRationale gsnaugdesign:why-0052 ;
+    prov:generated gsnaugdesign:st-0079 .
+
+gsnaugdesign:st-0079
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0079 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.1 ;
+    gsndesign:statementText "fc13, fc14, fc19, fc26: open = FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?o }, the answer test is dropped. fc16, fc23: list gsnaug:Response by gsnaug:respondsTo. fc27: state = the outcome or open; a ?responded column says whether a reply is on record." ;
+    gsndesign:aboutTerm gsnaug:issueOutcome ;
+    gsndesign:mentionsTerm gsnaug:Response , gsnaug:issueOutcome , gsnaug:respondsTo .
+
+
+#################################################################
+#    Decisions - a report over a part, and part-of in Dublin Core
+#################################################################
+
+gsnaugdesign:dd-0080
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "A solution is true when the mechanism that can verify a part of its artefact left a conforming report over that part."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0053 ;
+    prov:generated gsnaugdesign:st-0080 .
+
+gsnaugdesign:st-0080
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0080 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "A6c: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ verifiableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, true) -> true(?S, true). SPARQL twin in augmentation/rules/a06c." ;
+    gsndesign:aboutTerm gsnaug:ConformingPartReportConfirmsSolution ;
+    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
+        gsnaug:ConformingPartReportConfirmsSolution , gsnaug:partOf , gsnaug:verifiableWith , prov:used ,
+        prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
+
+gsnaugdesign:dd-0081
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "A solution is not true when the mechanism that can verify a part of its artefact left a failing report over that part."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0053 ;
+    prov:generated gsnaugdesign:st-0081 .
+
+gsnaugdesign:st-0081
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0081 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "A6d: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ verifiableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, false) -> true(?S, false). SPARQL twin in augmentation/rules/a06d." ;
+    gsndesign:aboutTerm gsnaug:FailingPartReportRefutesSolution ;
+    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
+        gsnaug:FailingPartReportRefutesSolution , gsnaug:partOf , gsnaug:verifiableWith , prov:used ,
+        prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
+
+gsnaugdesign:dd-0082
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A part is part of its artefact in the Dublin Core sense too: gsnaug:partOf is a subproperty of dcterms:isPartOf, reused and declared without a domain or a range."@en ;
+    prov:used gsnaugdesign:src-0015 ;
+    gsndesign:hasRationale gsnaugdesign:why-0054 ;
+    prov:generated gsnaugdesign:st-0082 .
+
+gsnaugdesign:st-0082
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0082 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:statementText "dcterms:isPartOf a owl:ObjectProperty ; rdfs:isDefinedBy <http://purl.org/dc/terms/> . (no rdfs:domain, no rdfs:range) gsnaug:partOf rdfs:subPropertyOf dcterms:isPartOf ." ;
+    gsndesign:aboutTerm gsnaug:partOf ;
+    gsndesign:mentionsTerm <http://purl.org/dc/terms/isPartOf> , gsnaug:ArtefactPart , gsnaug:partOf .
+
+
+#################################################################
+#    Decisions - the newest report wins
+#################################################################
+
+gsnaugdesign:dd-0083
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The SPARQL twins of A6a to A6d read only the newest report from a mechanism over a target, and a conforming report confirms a solution only while no current report over its artefact or a part of it fails."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0055 ;
+    prov:generated gsnaugdesign:st-0083 .
+
+gsnaugdesign:st-0083
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0083 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.1 ;
+    gsndesign:statementText "augmentation/rules/a06a, a06b, a06c, a06d: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime; in a06a and a06c a second FILTER NOT EXISTS on a current failing report over the artefact or a part of it; DELETE { ?S gsn:true ?old } before INSERT. Each file marks the guards as not in the SWRL. The SWRL rules are unchanged." ;
+    gsndesign:aboutTerm gsnaug:ConformingReportConfirmsSolution ;
+    gsndesign:mentionsTerm gsn:true , gsnaug:ConformingPartReportConfirmsSolution , gsnaug:ConformingReportConfirmsSolution ,
+        gsnaug:FailingPartReportRefutesSolution , gsnaug:FailingReportRefutesSolution , gsnaug:partOf , gsnaug:verifiableWith ,
+        prov:generatedAtTime , sh:ValidationReport , sh:conforms .
+
+gsnaugdesign:dd-0084
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "A validation report without exactly one prov:generatedAtTime is reported as a warning, not as a violation."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0055 ;
+    prov:generated gsnaugdesign:st-0084 .
+
+gsnaugdesign:st-0084
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0084 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:ReportTimestampShape sh:targetClass sh:ValidationReport ; prov:generatedAtTime xsd:dateTime, sh:minCount 1, sh:maxCount 1, sh:severity sh:Warning ." ;
+    gsndesign:aboutTerm gsnaugsh:ReportTimestampShape ;
+    gsndesign:mentionsTerm gsnaugsh:ReportTimestampShape , prov:generatedAtTime , sh:ValidationReport .
+
+gsnaugdesign:dd-0085
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "Two reports from one mechanism over one target that disagree, and that no timestamp puts one after the other, are a violation on both."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0055 ;
+    prov:generated gsnaugdesign:st-0085 .
+
+gsnaugdesign:st-0085
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0085 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:ReportConflictShape sh:targetClass sh:ValidationReport ; sh:sparql selecting another sh:ValidationReport with the same prov:wasGeneratedBy and prov:used, a different sh:conforms, no prov:generatedAtTime on either side later than the other, and neither side struck by prov:invalidatedAtTime or prov:wasInvalidatedBy ; sh:severity sh:Violation ." ;
+    gsndesign:aboutTerm gsnaugsh:ReportConflictShape ;
+    gsndesign:mentionsTerm gsnaugsh:ReportConflictShape , prov:generatedAtTime , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
+
+gsnaugdesign:dd-0086
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "A report with prov:invalidatedAtTime or prov:wasInvalidatedBy is struck: the SPARQL twins of A6a to A6d skip it, and it retires no earlier report."@en ;
+    prov:used gsnaugdesign:src-0016 ;
+    gsndesign:hasRationale gsnaugdesign:why-0056 ;
+    prov:generated gsnaugdesign:st-0086 .
+
+gsnaugdesign:st-0086
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0086 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.1 ;
+    gsndesign:statementText "augmentation/rules/a06a, a06b, a06c, a06d: FILTER NOT EXISTS { ?R prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck } on the report read, on every candidate for a newer report, and in a06a and a06c on the failing reports of the composition guard." ;
+    gsndesign:aboutTerm gsnaug:ConformingReportConfirmsSolution ;
+    gsndesign:mentionsTerm gsnaug:ConformingPartReportConfirmsSolution , gsnaug:ConformingReportConfirmsSolution ,
+        gsnaug:FailingPartReportRefutesSolution , gsnaug:FailingReportRefutesSolution , prov:invalidatedAtTime ,
+        prov:wasInvalidatedBy , sh:ValidationReport .
+
+gsnaugdesign:dd-0087
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "A struck report that names no activity in prov:wasInvalidatedBy is reported as a warning, not as a violation."@en ;
+    prov:used gsnaugdesign:src-0016 ;
+    gsndesign:hasRationale gsnaugdesign:why-0056 ;
+    prov:generated gsnaugdesign:st-0087 .
+
+gsnaugdesign:st-0087
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0087 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:statementText "gsnaugsh:ReportInvalidationShape sh:targetClass sh:ValidationReport ; sh:or ( no prov:invalidatedAtTime | prov:wasInvalidatedBy sh:minCount 1, sh:class prov:Activity ) ; sh:severity sh:Warning ." ;
+    gsndesign:aboutTerm gsnaugsh:ReportInvalidationShape ;
+    gsndesign:mentionsTerm gsnaugsh:ReportInvalidationShape , prov:Activity , prov:invalidatedAtTime , prov:wasInvalidatedBy , sh:ValidationReport .

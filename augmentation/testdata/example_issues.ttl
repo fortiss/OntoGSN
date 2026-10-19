@@ -32,6 +32,7 @@ ex:C-subject a gsn:Context ; schema:identifier "C1" ;
     gsn:statement "Compliance as defined by the regulation." .
 
 ex:C-object a gsn:Context ; schema:identifier "C2" ;
+    gsn:refersTo ex:deployment-list ;
     gsn:statement "The company IT system." .
 
 ex:Sn1 a gsn:Solution ; schema:identifier "Sn1" ;
@@ -40,6 +41,16 @@ ex:Sn1 a gsn:Solution ; schema:identifier "Sn1" ;
 
 ex:regulation a gsnaug:Requirement .
 ex:it-system  a gsnaug:System .
+
+#  Both have moved on since the case was written. G1 still answers to the old regulation, and
+#  the access log was still drawn from the old system: what fc39 and fc40 report.
+ex:regulation-2027 a gsnaug:Requirement ; prov:wasRevisionOf ex:regulation .
+ex:it-system-r2    a gsnaug:System      ; prov:wasRevisionOf ex:it-system .
+
+#  The environment too: the object context refers to a deployment list that was replaced, which
+#  is what fc41 reports.
+ex:deployment-list    a gsn:Artefact .
+ex:deployment-list-v2 a gsn:Artefact ; gsnaug:replaces ex:deployment-list .
 
 ex:access-log a gsn:Artefact ;
     gsnaug:storedIn        ex:evidence-store ;
@@ -84,7 +95,7 @@ ex:I4 a gsnaug:Issue ; schema:identifier "I4" ;
     gsnaug:issueType gsnaug:resolve ;
     gsnaug:raisedAgainst ex:G1 .
 
-ex:A1 a gsnaug:Answer ; gsnaug:answers ex:I3 ;
+ex:A1 a gsnaug:Response ; gsnaug:respondsTo ex:I3 ;
     schema:description "The log was regenerated for the full period." .
 
 
@@ -145,7 +156,7 @@ ex:I6 a gsnaug:Issue ; schema:identifier "I6" ;
     gsnaug:issueOutcome "resolved" ;
     dcterms:created "2026-02-07"^^xsd:date .
 
-ex:A2 a gsnaug:Answer ; gsnaug:answers ex:I6 ;
+ex:A2 a gsnaug:Response ; gsnaug:respondsTo ex:I6 ;
     schema:description "The period is the 2025 calendar year." .
 
 #  I4 was raised in the previous round and is still open. I7 was declined; I8 records that the
@@ -209,8 +220,31 @@ Get-WinEvent -LogName Security | Export-Csv -Path access-log.csv""" .
 #  Two mechanisms that are in the graph as what they are: a shape and a rule. Neither declares a
 #  term; the rules in derivations/ read the terms off the node. The shape has a plain path, a
 #  path with sh:class, and a sequence path, so that all three branches of D1 are exercised.
+#  The log carries one entry, so that the shape has a focus node when check.py runs it: the
+#  report the run leaves behind is what A6a reads to mark Sn1 true.
+
+ex:access-log a ex:AccessLog ;
+    ex:retentionPolicy ex:retention-policy-2025 .
+
+ex:entry-1 a ex:AccessLogEntry ;
+    ex:inLog ex:access-log ;
+    ex:retainedUntil "2027-01-01"^^xsd:date .
 
 ex:access-log gsnaug:verifiableWith ex:retention-shape , ex:expiry-rule .
+
+#  An earlier run of the retention shape failed, before the policy was attached to the log.
+#  The report stays: a case keeps its history. The run check.py makes now is later, so the
+#  newest-report guard in A6a and A6b retires this one, and Sn1 is true and not also untrue.
+
+ex:retention-report-0 a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+                sh:focusNode ex:entry-1 ;
+                sh:resultSeverity sh:Violation ;
+                sh:resultMessage "The log has no retention policy." ] ;
+    prov:wasGeneratedBy ex:retention-shape ;
+    prov:used ex:access-log ;
+    prov:generatedAtTime "2026-03-01T09:00:00Z"^^xsd:dateTime .
 
 ex:retention-shape a gsnaug:Mechanism , sh:NodeShape ;
     gsnaug:automated true ;
@@ -250,6 +284,117 @@ ex:interview-note a gsn:Artefact ;
     gsnaug:generatedBy     ex:owner-dan .
 
 ex:interview a gsnaug:Mechanism ; gsnaug:automated false .
+
+#  The note is also verifiable with a script. A script leaves no report of its own, so the one
+#  here is written by hand in the form a SHACL engine would produce: the adapter a scripted
+#  mechanism needs. It does not conform, so A6b marks Sn2 not true. The two gaps it reports are
+#  the ones I9 asks about.
+
+ex:interview-note gsnaug:verifiableWith ex:note-check .
+
+ex:note-check a gsnaug:Mechanism ;
+    gsnaug:automated true ;
+    dcterms:requires <https://example.org/tools#powershell-7> ;
+    gsnaug:script """Select-String -Path interview-note.md -Pattern '^Interviewee:', '^Date:' | Measure-Object""" .
+
+ex:note-check-report-1 a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+                sh:focusNode ex:interview-note ;
+                sh:resultSeverity sh:Violation ;
+                sh:resultMessage "The note names no interviewee and no date." ] ;
+    prov:wasGeneratedBy ex:note-check ;
+    prov:used ex:interview-note ;
+    prov:generatedAtTime "2026-03-08T16:40:00Z"^^xsd:dateTime .
+
+#  A second check over the same note passes: the file exists. Its newest report conforms and
+#  the note check's newest report does not. Support is a composition, so the composition guard
+#  in A6a keeps Sn2 untrue: one failing check is enough, and the two rules do not alternate.
+
+ex:interview-note gsnaug:verifiableWith ex:note-exists .
+
+ex:note-exists a gsnaug:Mechanism ;
+    gsnaug:automated true ;
+    gsnaug:script "Test-Path interview-note.md -PathType Leaf" .
+
+ex:note-exists-report-1 a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy ex:note-exists ;
+    prov:used ex:interview-note ;
+    prov:generatedAtTime "2026-03-08T16:45:00Z"^^xsd:dateTime .
+
+#  Two solutions whose check ran over a part and not over the whole. The configuration export
+#  declares its mechanism on the whole, so the key inherits it by A4, and the conforming report
+#  over the key marks Sn3 true by A6c. The firewall rule declares its own mechanism, and the
+#  failing report over it marks Sn4 not true by A6d. Neither whole carries a report of its own.
+
+ex:G1 gsn:supportedBy ex:Sn3 , ex:Sn4 .
+
+ex:Sn3 a gsn:Solution ; schema:identifier "Sn3" ;
+    gsn:statement "Configuration export of the reporting system." ;
+    gsn:refersTo ex:config-export .
+
+ex:config-export a gsn:Artefact ;
+    gsnaug:verifiableWith ex:key-check .
+
+ex:config-export-key-7 a gsnaug:ArtefactPart ; schema:name "Configuration export, key 7" ;
+    gsnaug:partOf ex:config-export .
+
+ex:key-check a gsnaug:Mechanism ;
+    gsnaug:automated true ;
+    gsnaug:script """Select-String -Path config-export.json -Pattern '"session_timeout"' | Measure-Object""" .
+
+ex:key-check-report-1 a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy ex:key-check ;
+    prov:used ex:config-export-key-7 ;
+    prov:generatedAtTime "2026-03-08T17:05:00Z"^^xsd:dateTime .
+
+#  A later run of the key check failed, against the wrong file: a stale export. The report
+#  stays, struck: prov:wasInvalidatedBy names the review that found the mistake, and the rules
+#  skip it. It retires nothing, so the earlier conforming report counts again and Sn3 stays
+#  true. Striking is a hand step, and the hand that did it is on record.
+
+ex:key-check-report-2 a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+                sh:focusNode ex:config-export-key-7 ;
+                sh:resultSeverity sh:Violation ;
+                sh:resultMessage "No session_timeout key in the export." ] ;
+    prov:wasGeneratedBy ex:key-check ;
+    prov:used ex:config-export-key-7 ;
+    prov:generatedAtTime "2026-03-09T08:10:00Z"^^xsd:dateTime ;
+    prov:wasInvalidatedBy ex:strike-1 ;
+    prov:invalidatedAtTime "2026-03-09T09:00:00Z"^^xsd:dateTime .
+
+ex:strike-1 a prov:Activity ;
+    prov:wasAssociatedWith ex:officer-cara ;
+    prov:endedAtTime "2026-03-09T09:00:00Z"^^xsd:dateTime ;
+    schema:description "The run read config-export-2025.json, the stale export, not the current one." .
+
+ex:Sn4 a gsn:Solution ; schema:identifier "Sn4" ;
+    gsn:statement "Firewall ruleset of the reporting system." ;
+    gsn:refersTo ex:firewall-ruleset .
+
+ex:firewall-ruleset a gsn:Artefact .
+
+ex:firewall-rule-12 a gsnaug:ArtefactPart ; schema:name "Firewall ruleset, rule 12" ;
+    gsnaug:partOf ex:firewall-ruleset ;
+    gsnaug:verifiableWith ex:rule-check .
+
+ex:rule-check a gsnaug:Mechanism ;
+    gsnaug:automated true ;
+    gsnaug:script """Select-String -Path firewall-rules.csv -Pattern '^12,.*,0\\.0\\.0\\.0/0,' | Measure-Object""" .
+
+ex:rule-check-report-1 a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+                sh:focusNode ex:firewall-rule-12 ;
+                sh:resultSeverity sh:Violation ;
+                sh:resultMessage "Rule 12 allows inbound traffic from any address." ] ;
+    prov:wasGeneratedBy ex:rule-check ;
+    prov:used ex:firewall-rule-12 ;
+    prov:generatedAtTime "2026-03-08T17:20:00Z"^^xsd:dateTime .
 
 ex:access-log-v2 a gsn:Artefact ;
     gsnaug:replaces       ex:access-log ;

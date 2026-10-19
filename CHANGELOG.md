@@ -1,14 +1,14 @@
 # Changelog
 
 The ontology-level view: what changed between two values of `owl:versionInfo` in
-`serializations/ontogsn.ttl`, for a reader who downloaded the TTL and never looks at this
+`ontology/serializations/ontogsn.ttl`, for a reader who downloaded the TTL and never looks at this
 repository. Repository-level changes live in the commit log; each `v*` git tag marks the
 **last commit at that version**, so `git diff v1.2.2 v1.2.3 -- serializations/ontogsn.ttl`
 shows exactly what a version changed. Entries up to 1.2.4 are reconstructed by hand from the
-commit log and `provenance/`; from the next release on, an entry is written when the version
+commit log and `development/design/`; from the next release on, an entry is written when the version
 number moves.
 
-The SHACL shapes (`shapes/`) version independently, but a shapes release is only meaningful
+The SHACL shapes (`ontology/shapes/`) version independently, but a shapes release is only meaningful
 against an ontology version, so both are listed together.
 
 | Ontology | Date | Shapes | Breaking |
@@ -24,7 +24,44 @@ The ontology as published is described in the paper (arXiv:2506.11023).
 
 ---
 
+## Design record 1.3.0 (2026-10-16)
+
+**Breaking for anyone who imported the record.** The record of design decisions moved from
+`provenance/` to `development/design/`, and its IRIs moved with it. Nothing in the ontology,
+the shapes or the queries changed.
+
+| Old | New |
+| :--- | :--- |
+| `https://w3id.org/OntoGSN/provenance` (prefix `gsnprov`) | `https://w3id.org/OntoGSN/design` (prefix `gsndesign`) |
+| `https://w3id.org/OntoGSN/provenance/{data,queries,augmentations}` | `https://w3id.org/OntoGSN/design/{data,queries,augmentations}` |
+| `https://w3id.org/OntoGSN/alignment/provenance` (prefix `gsnalignprov`) | `https://w3id.org/OntoGSN/alignment/design` (prefix `gsnaligndesign`) |
+| `https://w3id.org/OntoGSN/augmentation/provenance` (prefix `gsnaugprov`) | `https://w3id.org/OntoGSN/augmentation/design` (prefix `gsnaugdesign`) |
+
+The word "provenance" was the problem. In an assurance case it means the origin of evidence,
+and readers expected a module to import into their own case. The record is about how OntoGSN
+was built, not about any case, and the new name says so. The maintenance scripts moved to
+`development/dev_tools/` at the same time.
+
+---
+
 ## Ontology 1.2.4 (unreleased) — shapes 1.0.2
+
+### A view depicts a module
+
+**Not breaking.** One object property is added and no existing axiom changed. The Modular
+Extension had `gsn:View`, with `gsn:viewType` to tell an argument view from an architecture
+view, but nothing related a view to the module whose argument it shows. The standard says
+(1:4.2.1, p. 32): "The argument view depicts the argument inside an individual module."
+
+- `gsn:depicts` has domain `gsn:View` and range `gsn:Module`. The property is authored, never
+  inferred. No rule reads it.
+- Two SHACL shapes, `gsnsh:DepictsPropertyShape` and `gsnsh:DepictsRangePropertyShape`,
+  report a subject that is not a view or an object that is not a module.
+
+*For case authors:* nothing to do. A case that already has views can now state which module
+each view depicts.
+
+Reasoning per axiom: `dd-1003` to `dd-1010`, rationale `why-0219`, passage `src-0142`.
 
 ### The header states what makes the release findable
 
@@ -63,11 +100,11 @@ the decorators and the container properties. Every one of them now has a `skos:d
 A definition prefixed **`[OntoGSN]`** is this ontology's wording rather than the standard's.
 Twenty-one are tagged; three — `gsn:GSNElement`, `gsn:toBeSupportedByContract` and
 `gsn:uninstantiated` — are the standard's own sentence and are not. The convention is stated
-in a `skos:note` on the ontology node, so a reader who never opens `provenance/` can still
+in a `skos:note` on the ontology node, so a reader who never opens `development/design/` can still
 decode it.
 
 Every definition has a decision record naming the passage it was drawn from. One,
-`gsn:Relationship`, cites none and says so with `gsnprov:noSourceRecorded`: GSN draws a link
+`gsn:Relationship`, cites none and says so with `gsndesign:noSourceRecorded`: GSN draws a link
 as a line and gives it no identity, so there is no passage for a reified relationship to rest
 on.
 
@@ -119,10 +156,12 @@ rationale `why-0211`, passage `src-0140`.
 
 ### SHACL shapes 1.0.1 → 1.0.2
 
+- `gsnsh:DepictsPropertyShape` and `gsnsh:DepictsRangePropertyShape` added for the domain and
+  range of `gsn:depicts`.
 - `gsnsh:TopGoalHasNoParentShape` and `gsnsh:UnparentedGoalIsTopShape` rewritten from
   `sh:or` over an inverse-path count into SHACL-SPARQL constraints, for the top-goal scoping
   above. Retires `dd-0827`, `dd-0828`.
-- `shapes/build_full.py` now reads `owl:versionInfo` from the section files instead of
+- `development/dev_tools/build_full.py` now reads `owl:versionInfo` from the section files instead of
   carrying its own copy, and fails if they disagree.
 
 ---
@@ -151,7 +190,7 @@ extensions added rules that write to them.
 *For case authors:* nothing to do; previously ill-typed but intended assertions become
 well-typed.
 
-Reasoning per axiom: see the 1.2.3 decisions in `provenance/` (the commit
+Reasoning per axiom: see the 1.2.3 decisions in `development/design/` (the commit
 `602e870` lists every widening with its justification).
 
 ---
@@ -171,8 +210,8 @@ which rendered rule S52 (`challenges(?A,?B) → Defeater(?A)`) inert. Changed to
 — anything that relied on every goal being a defeater (nothing should have) changes.
 
 Around this version the repository gained its checked artefacts: the SHACL shapes (1.0.0),
-the design-rationale provenance graph (`provenance/`), SPARQL translations of all 51 SWRL
-rules (`queries/rules/`), and the separated serializations. None of these changes the
+the design record (`development/design/`), SPARQL translations of all 51 SWRL
+rules (`ontology/queries/rules/`), and the separated serializations. None of these changes the
 ontology itself.
 
 ---
@@ -187,5 +226,5 @@ ontology itself.
 ## Ontology 1.2 — 2025-07-10
 
 The earliest version whose artefact survives in this repository, added as
-`serializations/ontogsn.ttl`. Changes from 1.0 and 1.1 were never recorded and cannot be
+`ontology/serializations/ontogsn.ttl`. Changes from 1.0 and 1.1 were never recorded and cannot be
 reconstructed here.

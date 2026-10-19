@@ -1,7 +1,7 @@
 name: checks
 
 # Is what is committed self-consistent? Nothing here regenerates anything - it verifies
-# that the derived files match their sources and that the provenance record still agrees
+# that the derived files match their sources and that the design record still agrees
 # with the ontology. Regeneration stays a deliberate act by a person.
 on:
   push:
@@ -23,15 +23,15 @@ jobs:
       # -c pins the exact versions the derived files were generated with. Without it a new
       # rdflib could reorder its Turtle output and fail the build for a reason that has
       # nothing to do with the commit under review.
-      - run: pip install -r dev_tools/requirements.txt -c dev_tools/constraints.txt
+      - run: pip install -r development/dev_tools/requirements.txt -c development/dev_tools/constraints.txt
 
       # --strict fails the build when a derived file is stale, or when a stored query has
-      # not been verified against what is committed. The provenance report runs but does
+      # not been verified against what is committed. The design-record report runs but does
       # not gate: it lists things needing human judgement - an axiom nobody has documented
       # yet, a sentence that needs rewriting - and CI should not fail because a decision is
       # outstanding.
       #
-      # The stored queries were the reason --strict-provenance was held back, and they are
+      # The stored queries were the reason --strict-design was held back, and they are
       # fixed: prov_check.py now reports nothing. Add the flag when you want an
       # undocumented axiom to fail the build.
       #
@@ -40,4 +40,4 @@ jobs:
       # contains findings, and both print SKIPPED and pass when what they need is missing -
       # a JVM for the reasoner, a reachable oops.linkeddata.es for the scanner.
       - name: derived files current, queries verified, record consistent, ontology reasons
-        run: python dev_tools/check_all.py --strict
+        run: python development/dev_tools/check_all.py --strict

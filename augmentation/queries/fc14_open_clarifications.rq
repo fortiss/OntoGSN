@@ -20,6 +20,5 @@ WHERE {
   OPTIONAL { ?issue gsnaug:heldBy ?holder }
   OPTIONAL { ?issue schema:description ?description }
   FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?outcome }
-  FILTER NOT EXISTS { ?answer gsnaug:answers ?issue }
 }
 ORDER BY ?issueId

@@ -1,9 +1,9 @@
 # OntoGSN Ontology
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![Format: RDF/XML](https://img.shields.io/badge/Format-RDF%2FXML-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.rdf)
-[![Format: TTL](https://img.shields.io/badge/Format-Turtle-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.ttl)
-[![Format: JSON-LD](https://img.shields.io/badge/Format-JSON--LD-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/serializations/ontogsn.jsonld)
+[![Format: RDF/XML](https://img.shields.io/badge/Format-RDF%2FXML-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/serializations/ontogsn.rdf)
+[![Format: TTL](https://img.shields.io/badge/Format-Turtle-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/serializations/ontogsn.ttl)
+[![Format: JSON-LD](https://img.shields.io/badge/Format-JSON--LD-blue.svg)](https://raw.githubusercontent.com/fortiss/OntoGSN/main/ontology/serializations/ontogsn.jsonld)
 
 - **Workbench**: https://github.com/fortiss/ontogsn_workbench
 - **Website**: https://fortiss.github.io/OntoGSN/
@@ -24,26 +24,26 @@ Many thanks to:
 See our website for more information: https://fortiss.github.io/OntoGSN/
 
 ## Serializations
-`serializations/ontogsn.ttl` is the full ontology. The RDF/XML and JSON-LD serializations are generated from the TTL file:
+`ontology/serializations/ontogsn.ttl` is the full ontology. The RDF/XML and JSON-LD serializations are generated from the TTL file:
 
-`serializations/separated/` holds the ontology cut by GSN section (`core`, `pattern`,
+`ontology/serializations/separated/` holds the ontology cut by GSN section (`core`, `pattern`,
 `modular`, `confidence`, `dialectic`) and by scope (`complete` with the SWRL rules,
 `pruned` without them, `skeletal` without the prose either). Those 36 files are generated too.
 
 ## Queries
 
-`queries/` holds 43 CRUD SPARQL queries — one per competency question, covering all five
-GSN sections — and `queries/rules/` holds all 51 SWRL rules as SPARQL updates, for stores
+`ontology/queries/` holds 43 CRUD SPARQL queries — one per competency question, covering all five
+GSN sections — and `ontology/queries/rules/` holds all 51 SWRL rules as SPARQL updates, for stores
 with no reasoner attached. Each query runs as-is against the example ABox in
-`dev_tools/testdata/`, and is parameterised by element identifier so it can be pointed at a
+`ontology/example/example_case.ttl`, and is parameterised by element identifier so it can be pointed at a
 real case without editing a namespace into it.
 
 ```bash
-python dev_tools/query_check.py                                   # verify every query executes
-python dev_tools/run_rules.py mycase.ttl --out mycase-derived.ttl # apply the rules to a case
+python development/dev_tools/query_check.py                                   # verify every query executes
+python ontology/example/run_rules.py mycase.ttl --out mycase-derived.ttl # apply the rules to a case
 ```
 
-See [`queries/README.md`](queries/README.md).
+See [`ontology/queries/README.md`](ontology/queries/README.md).
 
 ## Dependencies
 Existing objects and properties are imported from the following foundational ontologies: Resource Description Framework Schema (RDFS), XML Schema Definition Language (XSD), Dublin-Core (DC), Schema.org, and Simple Knowledge Organization System (SKOS). Reasoning is based on the Semantic Web Rule Language (SWRL)  rules and OWL axioms, which can be executed with supported rule engines (e.g., Pellet or Drools).
@@ -51,11 +51,11 @@ Existing objects and properties are imported from the following foundational ont
 ## How to use
 ### Setup
 1. Install Stanford Protégé (v5.6.3), a similar ontology editor or a graph database (e.g., Ontotext GraphDB).
-2. Download `serializations/ontogsn.ttl` (or `ontogsn.rdf`) into your project folder.
+2. Download `ontology/serializations/ontogsn.ttl` (or `ontogsn.rdf`) into your project folder.
 3. Import the file into your chosen editor/database.
 4. For Protégé, install the following plug-ins: ROWL Protege 5.0+ Plugin, Pellet Reasoner Plug-in.
 ### Simple Use: Static Assurance Case
-Note: Depending on the chosen editor, you can edit the ontology manually in the user interface, via CRUD queries (see `queries/`), or using plug-ins for importing from data files.
+Note: Depending on the chosen editor, you can edit the ontology manually in the user interface, via CRUD queries (see `ontology/queries/`), or using plug-ins for importing from data files.
 1. Add claims (e.g., goals) and evidence (e.g., solutions) as individuals using unique node identifiers.
 2. Add the node header as a label and textual content as description.
 3. Link the nodes with appropriate object properties (e.g., supportedBy).

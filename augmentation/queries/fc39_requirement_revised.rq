@@ -1,0 +1,25 @@
+# id:        CQ-81
+# role:      Compliance Officer
+# operation: read
+# question:  Which elements answer to a requirement that has a newer revision?
+# expect:    rows
+#
+# A changed requirement is a new gsnaug:Requirement that is prov:wasRevisionOf the old one. An
+# element still linked to the old one by gsnaug:requiredBy, and not yet to the new one, is in the
+# answer. Whether the change matters to the element is a judgement: whoever makes it raises a
+# revise issue on the element, and rule A2 takes it from there.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?elementId ?requirement ?newerRequirement ?owner
+WHERE {
+  ?newerRequirement prov:wasRevisionOf+ ?requirement .
+  ?element gsnaug:requiredBy ?requirement ;
+           schema:identifier ?elementId .
+  FILTER NOT EXISTS { ?element gsnaug:requiredBy ?newerRequirement }
+  OPTIONAL { ?element gsnaug:ownedBy ?owner }
+}
+ORDER BY ?elementId ?requirement

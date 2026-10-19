@@ -1,0 +1,34 @@
+# id:        CQ-82
+# role:      Developer
+# operation: read
+# question:  Which evidence was drawn from a system, or a part of one, that has a newer revision?
+# expect:    rows
+#
+# A changed system, or a changed part of one, is a new individual that is prov:wasRevisionOf the
+# old one; how fine the parts are is the domain ontology's choice. An artefact drawn from the old
+# one by gsnaug:generatedFrom is in the answer until a replacement drawn from the new one exists.
+# The last two columns are the solution that cites the artefact and the goals above it, which
+# is the reach of the change. Whether the change matters to them is a judgement: whoever makes
+# it raises a revise issue on the solution, and rule A2 takes it from there.
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT DISTINCT ?artefact ?source ?newerSource ?solutionId ?goalId
+WHERE {
+  ?newerSource prov:wasRevisionOf+ ?source .
+  ?artefact gsnaug:generatedFrom ?source .
+  FILTER NOT EXISTS {
+    ?replacement gsnaug:replaces+ ?artefact ;
+                 gsnaug:generatedFrom ?newerSource .
+  }
+  OPTIONAL {
+    ?solution a gsn:Solution ;
+              schema:identifier ?solutionId ;
+              gsn:refersTo ?artefact .
+    OPTIONAL { ?goal gsn:supportedBy+ ?solution ; schema:identifier ?goalId }
+  }
+}
+ORDER BY ?artefact ?solutionId ?goalId

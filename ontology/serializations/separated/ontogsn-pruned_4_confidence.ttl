@@ -1,0 +1,109 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix gsn: <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dc:description a owl:AnnotationProperty .
+
+dc:source a owl:AnnotationProperty .
+
+dc:title a owl:AnnotationProperty .
+
+skos:definition a owl:AnnotationProperty .
+
+skos:note a owl:AnnotationProperty .
+
+gsn:coreOrExtension a owl:AnnotationProperty .
+
+gsn:renderedAs a owl:AnnotationProperty .
+
+<https://w3id.org/OntoGSN/ontology/confidence> a owl:Ontology ;
+    dc:description "The pruned Confidence Argument Extension section of OntoGSN. Generated from ontogsn.ttl by development/dev_tools/build_separated.py. Excludes the SWRL rules; the term annotations are kept."@en ;
+    dc:source "https://w3id.org/OntoGSN/ontology" ;
+    dc:title "OntoGSN — Confidence Argument Extension"@en ;
+    owl:versionInfo "1.2.4" ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en .
+
+rdf:object a owl:ObjectProperty .
+
+gsn:Context a owl:Class .
+
+gsn:Goal a owl:Class .
+
+gsn:Relationship a owl:Class .
+
+gsn:Solution a owl:Class .
+
+gsn:Strategy a owl:Class .
+
+gsn:argumentType a owl:DatatypeProperty ;
+    rdfs:label "argument type"@en ;
+    rdfs:domain gsn:Argument ;
+    rdfs:range [ a rdfs:Datatype ;
+            owl:oneOf [ a rdf:List ;
+                    rdf:first "confidence" ;
+                    rdf:rest [ a rdf:List ;
+                            rdf:first "dialectic" ;
+                            rdf:rest [ a rdf:List ;
+                                    rdf:first "risk" ;
+                                    rdf:rest () ] ] ] ] ;
+    skos:definition "[OntoGSN] Defines the kind of argument this is: a risk argument (i.e., the main content of assurance), a confidence argument for an assurance claim point, a compliance argument (undefined in the normative standard), or a dialectic argument."@en ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en .
+
+gsn:assuranceClaimPoint a owl:DatatypeProperty ;
+    rdfs:label "assurance claim point"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:ArtefactReference gsn:RelationshipWithConfidence ) ] ;
+    rdfs:range xsd:boolean ;
+    skos:definition "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."@en ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en ;
+    gsn:renderedAs "solid square" .
+
+schema:identifier a owl:DatatypeProperty .
+
+gsn:ArtefactReference a owl:Class .
+
+gsn:RelationshipWithConfidence a owl:Class ;
+    rdfs:label "Relationship with Confidence"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:intersectionOf ( gsn:Argument [ a owl:Restriction ;
+                                owl:hasValue "confidence" ;
+                                owl:onProperty gsn:argumentType ] ) ] ;
+            owl:onProperty gsn:associatedWith ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:Context gsn:Goal gsn:Solution gsn:Strategy ) ] ;
+            owl:onProperty rdf:object ],
+        [ a owl:Class ;
+            owl:intersectionOf ( [ a owl:Restriction ;
+                        owl:onProperty gsn:associatedWith ;
+                        owl:someValuesFrom gsn:Argument ] [ a owl:Restriction ;
+                        owl:onProperty gsn:assuranceClaimPoint ;
+                        owl:someValuesFrom xsd:boolean ] ) ],
+        [ a owl:Restriction ;
+            owl:onDataRange xsd:string ;
+            owl:onProperty schema:identifier ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onProperty schema:identifier ;
+            owl:someValuesFrom xsd:string ],
+        gsn:Relationship ;
+    skos:definition "[OntoGSN] A relationship carrying an assurance claim point, whose associated confidence argument documents the reasons for having confidence in the relationship between two elements."@en ;
+    skos:note "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en .
+
+gsn:associatedWith a owl:ObjectProperty ;
+    rdfs:label "associated with"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:ArtefactReference gsn:RelationshipWithConfidence ) ] ;
+    rdfs:range gsn:Argument ;
+    skos:definition "[OntoGSN] Links a relationship or an artefact reference to the confidence argument provided for it."@en ;
+    gsn:coreOrExtension "Confidence Argument Extension"@en .
+
+gsn:Argument a owl:Class .
+

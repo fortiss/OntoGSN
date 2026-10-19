@@ -22,6 +22,5 @@ WHERE {
   ?target schema:identifier ?targetId .
   OPTIONAL { ?issue gsnaug:issueOutcome ?outcome }
   OPTIONAL { ?cycle prov:startedAtTime ?opened }
-  FILTER NOT EXISTS { ?answer gsnaug:answers ?issue }
 }
 ORDER BY ?cycleId ?issueId
