@@ -195,6 +195,9 @@ This ontology has the following classes and properties.</span>
       <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a>
    </li>
    <li>
+      <a href="#depicts" title="https://w3id.org/OntoGSN/ontology#depicts">depicts</a>
+   </li>
+   <li>
       <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a>
    </li>
    <li>
@@ -536,7 +539,7 @@ This ontology has the following classes and properties.</span>
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     class="hlist">
    <li>
-      <a href="#d4e7285">Rule #1</a>
+      <a href="#d4e7303">Rule #1</a>
    </li>
 </ul><iframe src="webvowl/index.html"></iframe> 
 </div>
@@ -545,7 +548,7 @@ This ontology has the following classes and properties.</span>
 <!--DESCRIPTION SECTION-->
     <div id="description"><h2 id="desc" class="list">OntoGSN: Description <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
 
-<span class="markdown">A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the provenance graph naming the passage it rests on, or stating that it rests on none.</span></div>
+<span class="markdown">A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the design record under development/design/ naming the passage it rests on, or stating that it rests on none.</span></div>
    
 
 <!--CROSSREF SECTION-->
@@ -870,7 +873,7 @@ This section provides details for each class and property defined by OntoGSN.
     is in range of
    </dt>
    <dd>
-    <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>, <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>, <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>
+    <a href="#depicts" title="https://w3id.org/OntoGSN/ontology#depicts">depicts</a> <sup class="type-op" title="object property">op</sup>, <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>, <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>, <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>
    </dd>
   </dl>
  </div>
@@ -1039,7 +1042,7 @@ This section provides details for each class and property defined by OntoGSN.
     is in domain of
    </dt>
    <dd>
-    <a href="#viewType" title="https://w3id.org/OntoGSN/ontology#viewType">view type</a> <sup class="type-dp" title="data property">dp</sup>
+    <a href="#depicts" title="https://w3id.org/OntoGSN/ontology#depicts">depicts</a> <sup class="type-op" title="object property">op</sup>, <a href="#viewType" title="https://w3id.org/OntoGSN/ontology#viewType">view type</a> <sup class="type-dp" title="data property">dp</sup>
    </dd>
   </dl>
  </div>
@@ -1051,6 +1054,7 @@ This section provides details for each class and property defined by OntoGSN.
   <li><a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a></li>
   <li><a href="#consistentWith" title="https://w3id.org/OntoGSN/ontology#consistentWith">consistent with</a></li>
   <li><a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a></li>
+  <li><a href="#depicts" title="https://w3id.org/OntoGSN/ontology#depicts">depicts</a></li>
   <li><a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a></li>
   <li><a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a></li>
   <li><a href="#instantiationOf" title="https://w3id.org/OntoGSN/ontology#instantiationOf">instantiation of</a></li>
@@ -1171,6 +1175,29 @@ This section provides details for each class and property defined by OntoGSN.
     </dt>
     <dd>
      <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Artefact" title="https://w3id.org/OntoGSN/ontology#Artefact">Artefact</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup> <span class="logic">or</span> <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+   </dl>
+  </div>
+ </div>
+ <div class="entity" id="depicts">
+  <h3>depicts<sup class="type-op" title="object property">op</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a> </span></h3>
+  <p><strong>IRI:</strong> https://w3id.org/OntoGSN/ontology#depicts</p>
+  <div class="comment">
+   <span class="markdown">The argument view depicts the argument inside an individual module.</span>
+  </div>
+  <div class="description">
+   <dl>
+    <dt>
+     has domain
+    </dt>
+    <dd>
+     <a href="#View" title="https://w3id.org/OntoGSN/ontology#View">View</a> <sup class="type-c" title="class">c</sup>
+    </dd>
+    <dt>
+     has range
+    </dt>
+    <dd>
+     <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>
     </dd>
    </dl>
   </div>
@@ -2342,9 +2369,9 @@ This section provides details for each class and property defined by OntoGSN.
 </div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="swrlrules">
  <h3 id="swrlrules" class="list">SWRL rules</h3>
  <ul class="hlist">
-  <li><a href="#d4e7285">Rule #1</a></li>
+  <li><a href="#d4e7303">Rule #1</a></li>
  </ul>
- <div class="entity" id="d4e7285">
+ <div class="entity" id="d4e7303">
   <h3>Rule #1<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p>-&gt;</p>
  </div>
