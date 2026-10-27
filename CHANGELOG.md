@@ -13,7 +13,7 @@ against an ontology version, so both are listed together.
 
 | Ontology | Date | Shapes | Breaking |
 | :--- | :--- | :--- | :--- |
-| 1.2.4 | unreleased | 1.0.2 | yes — for reasoners |
+| 1.2.4 | unreleased | 1.0.3 | yes — for reasoners |
 | 1.2.3 | 2026-08-15 | 1.0.0 | no |
 | 1.2.2 | 2026-08-05 | 1.0.0 (introduced 2026-08-06) | yes — for reasoners |
 | 1.2.1 | 2026-01-23 | — | no |
@@ -44,7 +44,7 @@ was built, not about any case, and the new name says so. The maintenance scripts
 
 ---
 
-## Ontology 1.2.4 (unreleased) — shapes 1.0.2
+## Ontology 1.2.4 (unreleased) — shapes 1.0.3
 
 ### A view depicts a module
 
@@ -163,6 +163,14 @@ rationale `why-0211`, passage `src-0140`.
   above. Retires `dd-0827`, `dd-0828`.
 - `development/dev_tools/build_full.py` now reads `owl:versionInfo` from the section files instead of
   carrying its own copy, and fails if they disagree.
+
+### SHACL shapes 1.0.2 → 1.0.3
+
+- `gsnsh:SolutionShape` no longer requires `gsn:refersTo`; it still warns when the reference
+  points at something that is not an artefact. The new `gsnsh:SolutionEvidenceShape` requires
+  the reference only of a solution that is not flagged `gsn:uninstantiated true`, so a
+  placeholder solution in a pattern, or an uninstantiated copy in an instantiated argument, is
+  no longer warned about evidence it cannot have yet. Retires `dd-0798`; rationale `why-0220`.
 
 ---
 
