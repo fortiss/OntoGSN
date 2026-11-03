@@ -1082,12 +1082,14 @@ gsndesign:query-augmentation-queries-fc24-revision-diff
     rdfs:label "augmentation/queries/fc24_revision_diff.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc24_revision_diff.rq" ;
-    gsndesign:fileChecksum "d4615cb8e409d7073e97517be4555708efcd022975bebe5e300699539b928f25" ;
+    gsndesign:fileChecksum "61308164405318a62e17caa21d2461b9d136d844c6efc9297c082da9c7aeafb0" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
-    gsndesign:mentionsTerm gsn:refersTo ;
-    gsndesign:restsOnStatement gsndesign:st-0289 ;
+    gsndesign:mentionsTerm gsn:inContextOf ,
+        gsn:refersTo ;
+    gsndesign:restsOnStatement gsndesign:st-0218 ,
+        gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-66 ;
     gsndesign:queryText """# id:        CQ-66
 # role:      Developer
@@ -1096,19 +1098,30 @@ gsndesign:query-augmentation-queries-fc24-revision-diff
 # expect:    rows
 #
 # Artefact versions only. A reworded claim is not a revision in this sense.
+#
+# The issue is the revise issue raised against an element that still refers to the older
+# artefact, or the revise issue in context of one that does. A case that points the revised
+# solution at the newer artefact can keep the older one in the context of the issue.
 
 PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
-SELECT ?newer ?older ?mechanism ?issueId
+SELECT DISTINCT ?newer ?older ?mechanism ?issueId
 WHERE {
   ?newer gsnaug:replaces ?older .
   OPTIONAL { ?newer gsnaug:generatedWith ?mechanism }
   OPTIONAL {
-    ?solution gsn:refersTo ?older .
-    ?issue gsnaug:raisedAgainst ?solution ;
-           gsnaug:issueType gsnaug:revise ;
+    {
+      ?solution gsn:refersTo ?older .
+      ?issue gsnaug:raisedAgainst ?solution .
+    }
+    UNION
+    {
+      ?context gsn:refersTo ?older .
+      ?issue gsn:inContextOf ?context .
+    }
+    ?issue gsnaug:issueType gsnaug:revise ;
            schema:identifier ?issueId
   }
 }

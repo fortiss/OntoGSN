@@ -5,19 +5,30 @@
 # expect:    rows
 #
 # Artefact versions only. A reworded claim is not a revision in this sense.
+#
+# The issue is the revise issue raised against an element that still refers to the older
+# artefact, or the revise issue in context of one that does. A case that points the revised
+# solution at the newer artefact can keep the older one in the context of the issue.
 
 PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
-SELECT ?newer ?older ?mechanism ?issueId
+SELECT DISTINCT ?newer ?older ?mechanism ?issueId
 WHERE {
   ?newer gsnaug:replaces ?older .
   OPTIONAL { ?newer gsnaug:generatedWith ?mechanism }
   OPTIONAL {
-    ?solution gsn:refersTo ?older .
-    ?issue gsnaug:raisedAgainst ?solution ;
-           gsnaug:issueType gsnaug:revise ;
+    {
+      ?solution gsn:refersTo ?older .
+      ?issue gsnaug:raisedAgainst ?solution .
+    }
+    UNION
+    {
+      ?context gsn:refersTo ?older .
+      ?issue gsn:inContextOf ?context .
+    }
+    ?issue gsnaug:issueType gsnaug:revise ;
            schema:identifier ?issueId
   }
 }
