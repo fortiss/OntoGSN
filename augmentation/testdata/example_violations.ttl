@@ -70,6 +70,15 @@ bad:G2 a gsn:Goal ; schema:identifier "GB2" ; gsn:top true ;
     gsnaug:instantiatedFrom bad:a-person ;
     gsnaug:ownedBy          bad:not-an-agent .
 
+#  InstantiationMechanismShape - only a reference is instantiated with a mechanism, and what
+#  it is instantiable with is a mechanism, not a person
+bad:G4 a gsn:Goal ; schema:identifier "GB4" ;
+    gsn:statement "A goal that carries the mechanism of its reference." ;
+    gsnaug:instantiatedWith bad:some-script .
+
+bad:IDR1 a gsn:InstantiationDataReference ;
+    gsnaug:instantiableWith bad:a-person .
+
 #  AgentShape - whoever holds a role is an agent, and a role is a gsnaug:Role
 bad:not-an-agent gsnaug:hasRole bad:a-person .
 

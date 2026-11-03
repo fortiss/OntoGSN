@@ -40,7 +40,7 @@ axiom is written the way it is, or why an obvious alternative was rejected, belo
 gsndesign:Rationale here, where it is queryable and where nothing has to be kept in step by hand
 across the serialisations."""@en ;
     vann:preferredNamespacePrefix "gsnaugdesign" ;
-    owl:versionInfo "0.3.1" ;
+    owl:versionInfo "0.3.2" ;
     rdfs:seeAlso <https://w3id.org/OntoGSN/augmentation> , <https://w3id.org/OntoGSN/design> .
 
 
@@ -65,6 +65,45 @@ gsnaugdesign:locator rdf:type owl:DatatypeProperty ;
 #    The graphs this record describes
 #################################################################
 
+gsnaugdesign:augmentation-0.3.2
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
+    rdfs:label "OntoGSN Augmentation 0.3.2"@en ;
+    owl:versionInfo "0.3.2" ;
+    gsndesign:path "augmentation/ontogsn-augmentation.ttl" ;
+    gsndesign:fileChecksum "d30d8ab1fc7a4d30400fd562d096cb699a07911ac52b1dd0fded5f2659f82c21" .
+
+gsnaugdesign:augmentation-shapes-0.3.2
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation/shapes> ;
+    rdfs:label "OntoGSN Augmentation SHACL shapes 0.3.2"@en ;
+    owl:versionInfo "0.3.2" ;
+    gsndesign:path "augmentation/shapes/ontogsn-augmentation-shapes.ttl" ;
+    gsndesign:fileChecksum "198074e724988de45151923525164a9a7cddbf77dbc1833e3223f5ab3e25bd35" .
+
+gsnaugdesign:augmentation-queries-0.3.2
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
+    rdfs:label "OntoGSN Augmentation stored queries 0.3.2"@en ;
+    owl:versionInfo "0.3.2" ;
+    gsndesign:path "augmentation/queries/" .
+
+gsnaugdesign:augmentation-derivations-0.3.2
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
+    rdfs:label "OntoGSN Augmentation SPARQL derivations 0.3.2"@en ;
+    owl:versionInfo "0.3.2" ;
+    gsndesign:path "augmentation/derivations/" .
+
+gsnaugdesign:augmentation-rules-0.3.2
+    a gsndesign:FormalGraph ;
+    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
+    rdfs:label "OntoGSN Augmentation SPARQL rules 0.3.2"@en ;
+    owl:versionInfo "0.3.2" ;
+    gsndesign:path "augmentation/rules/" .
+
+#  0.3.1 is kept because two decisions were retired at the Response rename.
+
 gsnaugdesign:augmentation-0.3.1
     a gsndesign:FormalGraph ;
     prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
@@ -80,27 +119,6 @@ gsnaugdesign:augmentation-shapes-0.3.1
     owl:versionInfo "0.3.1" ;
     gsndesign:path "augmentation/shapes/ontogsn-augmentation-shapes.ttl" ;
     gsndesign:fileChecksum "3e832b266980c440c6e1a04db4524eb724616e8ca631324a69cbf331b816465b" .
-
-gsnaugdesign:augmentation-queries-0.3.1
-    a gsndesign:FormalGraph ;
-    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
-    rdfs:label "OntoGSN Augmentation stored queries 0.3.1"@en ;
-    owl:versionInfo "0.3.1" ;
-    gsndesign:path "augmentation/queries/" .
-
-gsnaugdesign:augmentation-derivations-0.3.1
-    a gsndesign:FormalGraph ;
-    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
-    rdfs:label "OntoGSN Augmentation SPARQL derivations 0.3.1"@en ;
-    owl:versionInfo "0.3.1" ;
-    gsndesign:path "augmentation/derivations/" .
-
-gsnaugdesign:augmentation-rules-0.3.1
-    a gsndesign:FormalGraph ;
-    prov:specializationOf <https://w3id.org/OntoGSN/augmentation> ;
-    rdfs:label "OntoGSN Augmentation SPARQL rules 0.3.1"@en ;
-    owl:versionInfo "0.3.1" ;
-    gsndesign:path "augmentation/rules/" .
 
 #  0.2.0 is kept because nineteen decisions were retired at 0.3.1.
 
@@ -275,6 +293,16 @@ gsnaugdesign:src-0016
 existing entity by an activity. The entity is no longer available for use (or further invalidation)
 after invalidation. Any generation or usage of an entity precedes its invalidation."""@en ;
     gsnaugdesign:locator "PROV-O, Expanded terms" .
+
+gsnaugdesign:src-0017
+    a gsndesign:SourcePassage ;
+    prov:specializationOf gsndesign:GSNCommunityStandardV3 ;
+    gsndesign:quotedText """Instantiation Data Reference. This symbol indicates that the GSN argument below the attached
+element is to be instantiated as a template argument. It provides a reference to the information
+used to instantiate the template argument."""@en ;
+    gsndesign:clause "1:3" ;
+    gsndesign:pageRef "31" ;
+    gsnaugdesign:locator "Table 1:3-3" .
 
 gsnaugdesign:fincomp-process
     a gsnaugdesign:CitedArtefact ;
@@ -1019,6 +1047,29 @@ the rules do, so that a struck report that disagrees with a live one is not repo
 that is not there."""@en .
 
 
+gsnaugdesign:why-0057
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The standard says that an instantiation data reference points at the information used to
+instantiate a template argument, and since OntoGSN 1.2.4 gsn:refersTo says which artefact that is.
+Nothing said how the information becomes elements, so the step that does it, a SPARQL query or a
+SWRL rule, had nowhere to be recorded, and gsnaug:instantiatedFrom named the row an element came
+from but not what read the row. The augmentation already records mechanisms on artefacts in pairs,
+one for what can be done and one for what was done, and the pair is reused here with the same
+range. The near end is the reference and not the artefact: a mechanism on the artefact, as
+gsnaug:generableWith, is one that produces the data, which is the other direction. A mechanism
+that instantiates is also bound to the template as much as to the data: it writes the elements of
+one argument, and one catalogue can feed several templates, each with its own query. On the
+artefact, nothing would say which template a query is for. The reference
+is also narrower than the pattern, because one pattern can carry several references over different
+data, and each reference is the one node that knows both the data and the argument below it.
+gsnaug:generatedWith is a subproperty of prov:wasAttributedTo, and gsnaug:instantiatedWith is not:
+PROV gives that property the domain prov:Entity, so the axiom would make every instantiation data
+reference a PROV entity, which nothing else in either vocabulary says. It stays plain, as
+gsnaug:retrievedWith and gsnaug:verifiedWith do. No rule reads either property, and each element
+still names its row with gsnaug:instantiatedFrom. The shape targets whatever carries the property,
+so that a goal or a solution that carries one is reported rather than retyped as a reference."""@en .
+
+
 
 #################################################################
 #    Decisions - the vocabulary
@@ -1035,7 +1086,7 @@ gsnaugdesign:dd-0001
 gsnaugdesign:st-0001
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0001 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:storedIn rdfs:domain gsn:Artefact . gsnaug:retrievableWith, gsnaug:generatedBy, gsnaug:generatedWith, gsnaug:generatedFrom, gsnaug:verifiedWith rdfs:domain [ (gsn:Artefact or gsnaug:ArtefactPart) ] ; the part is admitted by dd-0066." ;
     gsndesign:aboutTerm gsnaug:storedIn ;
     gsndesign:mentionsTerm gsn:Artefact , gsnaug:generatedBy , gsnaug:generatedFrom , gsnaug:generatedWith ,
@@ -1052,7 +1103,7 @@ gsnaugdesign:dd-0002
 gsnaugdesign:st-0002
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0002 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsn:Artefact rdfs:subClassOf prov:Entity ." ;
     gsndesign:aboutTerm gsn:Artefact ;
     gsndesign:mentionsTerm gsn:Artefact .
@@ -1068,7 +1119,7 @@ gsnaugdesign:dd-0003
 gsnaugdesign:st-0003
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0003 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:generatedBy rdfs:subPropertyOf prov:wasAttributedTo . gsnaug:generatedWith rdfs:subPropertyOf prov:wasAttributedTo . gsnaug:generatedFrom rdfs:subPropertyOf prov:wasDerivedFrom ." ;
     gsndesign:aboutTerm gsnaug:generatedBy ;
     gsndesign:mentionsTerm gsnaug:generatedBy , gsnaug:generatedFrom , gsnaug:generatedWith .
@@ -1102,7 +1153,7 @@ gsnaugdesign:dd-0005
 gsnaugdesign:st-0005
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0005 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:storedIn a owl:ObjectProperty . gsnaug:retrievableWith a owl:ObjectProperty . gsnaug:verifiedWith a owl:ObjectProperty ." ;
     gsndesign:aboutTerm gsnaug:storedIn ;
     gsndesign:mentionsTerm gsnaug:retrievableWith , gsnaug:storedIn , gsnaug:verifiedWith .
@@ -1137,7 +1188,7 @@ gsnaugdesign:dd-0007
 gsnaugdesign:st-0007
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0007 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:Issue a owl:Class ." ;
     gsndesign:aboutTerm gsnaug:Issue ;
     gsndesign:mentionsTerm gsnaug:Issue .
@@ -1153,7 +1204,7 @@ gsnaugdesign:dd-0008
 gsnaugdesign:st-0008
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0008 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:Issue skos:altLabel \"Request\"@en ." ;
     gsndesign:aboutTerm gsnaug:Issue ;
     gsndesign:mentionsTerm gsnaug:Issue .
@@ -1223,7 +1274,7 @@ gsnaugdesign:dd-0012
 gsnaugdesign:st-0012
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0012 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:supersedes a owl:IrreflexiveProperty ; rdfs:domain gsnaug:Issue ; rdfs:range gsnaug:Issue ." ;
     gsndesign:aboutTerm gsnaug:supersedes ;
     gsndesign:mentionsTerm gsnaug:Issue , gsnaug:supersedes .
@@ -1257,7 +1308,7 @@ gsnaugdesign:dd-0014
 gsnaugdesign:st-0014
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0014 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:assures rdfs:domain [ (Argument or AssuranceCase or Goal) ] ." ;
     gsndesign:aboutTerm gsnaug:assures ;
     gsndesign:mentionsTerm gsn:Argument , gsn:AssuranceCase , gsn:Goal , gsnaug:assures .
@@ -1309,7 +1360,7 @@ gsnaugdesign:dd-0017
 gsnaugdesign:st-0017
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0017 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:requiredBy a owl:ObjectProperty ; rdfs:domain gsn:GSNElement ." ;
     gsndesign:aboutTerm gsnaug:requiredBy ;
     gsndesign:mentionsTerm gsn:GSNElement , gsnaug:requiredBy .
@@ -1325,7 +1376,7 @@ gsnaugdesign:dd-0018
 gsnaugdesign:st-0018
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0018 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:augmentedOntoGSNVersion \"1.2.4\" ." ;
     gsndesign:aboutTerm gsnaug:augmentedOntoGSNVersion ;
     gsndesign:mentionsTerm gsnaug:augmentedOntoGSNVersion .
@@ -1341,7 +1392,7 @@ gsnaugdesign:dd-0019
 gsnaugdesign:st-0019
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0019 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:instantiatedFrom a owl:ObjectProperty ; rdfs:domain gsn:GSNElement ." ;
     gsndesign:aboutTerm gsnaug:instantiatedFrom ;
     gsndesign:mentionsTerm gsn:GSNElement , gsnaug:instantiatedFrom .
@@ -1358,7 +1409,7 @@ gsnaugdesign:dd-0031
 gsnaugdesign:st-0031
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0031 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:AuditCycle rdfs:subClassOf prov:Activity . gsnaug:raisedIn rdfs:domain gsnaug:Issue ; rdfs:range gsnaug:AuditCycle . (no date properties minted: prov:startedAtTime, prov:endedAtTime, dcterms:created)" ;
     gsndesign:aboutTerm gsnaug:AuditCycle ;
     gsndesign:mentionsTerm gsnaug:AuditCycle , gsnaug:Issue , gsnaug:raisedIn .
@@ -1374,7 +1425,7 @@ gsnaugdesign:dd-0032
 gsnaugdesign:st-0032
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0032 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:raisedBy rdfs:domain gsnaug:Issue ; rdfs:range prov:Agent . gsnaug:heldBy rdfs:domain gsnaug:Issue ; rdfs:range prov:Agent ." ;
     gsndesign:aboutTerm gsnaug:heldBy ;
     gsndesign:mentionsTerm gsnaug:Issue , gsnaug:heldBy , gsnaug:ownedBy , gsnaug:raisedBy , gsnaug:supersedes .
@@ -1463,7 +1514,7 @@ gsnaugdesign:dd-0037
 gsnaugdesign:st-0037
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0037 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "(no statement: gsnaug:Issue and gsnaug:Answer carry schema:description, which OntoGSN declares without a domain, and never gsn:statement, whose domain would retype them)" ;
     gsndesign:aboutTerm gsnaug:Issue ;
     gsndesign:mentionsTerm gsnaug:Answer , gsnaug:Issue .
@@ -1484,7 +1535,7 @@ gsnaugdesign:dd-0020
 gsnaugdesign:st-0020
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0020 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "Four rules, and no fifth: A2a, A2b, A3a, A3b each test both the issue type and the class of the target. No rule fires on gsnaug:clarify, and none fires on a target that is neither gsn:Goal nor gsn:Solution." ;
     gsndesign:aboutTerm gsnaug:Issue ;
     gsndesign:mentionsTerm gsn:Goal , gsn:Solution , gsnaug:clarify , gsnaug:resolve , gsnaug:revise .
@@ -1500,7 +1551,7 @@ gsnaugdesign:dd-0021
 gsnaugdesign:st-0021
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0021 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "Issue(?I) ^ issueType(?I, revise) ^ raisedAgainst(?I, ?E) ^ Goal(?E) -> Goal(?I) ^ true(?I, true) ^ challenges(?I, ?E)" ;
     gsndesign:aboutTerm gsnaug:ReviseIssueChallengesGoal ;
     gsndesign:mentionsTerm gsn:challenges , gsn:true , gsnaug:ReviseIssueChallengesGoal , gsnaug:ReviseIssueChallengesSolution .
@@ -1516,7 +1567,7 @@ gsnaugdesign:dd-0022
 gsnaugdesign:st-0022
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0022 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "Issue(?I) ^ issueType(?I, resolve) ^ raisedAgainst(?I, ?E) ^ Goal(?E) -> Goal(?I) ^ challenges(?I, ?E) ^ defeated(?E, true)" ;
     gsndesign:aboutTerm gsnaug:ResolveIssueDefeatsGoal ;
     gsndesign:mentionsTerm gsn:challenges , gsn:defeated , gsnaug:ResolveIssueDefeatsGoal , gsnaug:ResolveIssueDefeatsSolution .
@@ -1532,7 +1583,7 @@ gsnaugdesign:dd-0023
 gsnaugdesign:st-0023
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0023 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A2a and A2b; A3a and A3b." ;
     gsndesign:aboutTerm gsnaug:ReviseIssueChallengesSolution ;
     gsndesign:mentionsTerm gsnaug:ResolveIssueDefeatsSolution , gsnaug:ReviseIssueChallengesSolution .
@@ -1566,7 +1617,7 @@ gsnaugdesign:dd-0025
 gsnaugdesign:st-0025
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0025 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.2 ;
     gsndesign:statementText "augmentation/rules/a02a, a02b, a03a, a03b, a04, a06a, a06b, a06c, a06d - one per SWRL rule, count asserted by development/dev_tools/augmentation_check.py." ;
     gsndesign:aboutTerm gsnaug:ReviseIssueChallengesGoal ;
     gsndesign:mentionsTerm gsnaug:ResolveIssueDefeatsGoal , gsnaug:ReviseIssueChallengesGoal .
@@ -1587,7 +1638,7 @@ gsnaugdesign:dd-0026
 gsnaugdesign:st-0026
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0026 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:ArtefactShape constrains gsnaug:storedIn, retrievableWith, generatedWith, verifiedWith and generatedBy to their declared ranges." ;
     gsndesign:aboutTerm gsnaugsh:ArtefactShape ;
     gsndesign:mentionsTerm gsnaug:generatedBy , gsnaug:generatedWith , gsnaug:retrievableWith , gsnaug:storedIn , gsnaug:verifiedWith .
@@ -1603,7 +1654,7 @@ gsnaugdesign:dd-0027
 gsnaugdesign:st-0027
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0027 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:SolutionProvenanceShape sh:severity sh:Warning ." ;
     gsndesign:aboutTerm gsnaugsh:SolutionProvenanceShape ;
     gsndesign:mentionsTerm gsnaugsh:SolutionProvenanceShape .
@@ -1655,7 +1706,7 @@ gsnaugdesign:dd-0030
 gsnaugdesign:st-0030
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0030 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:IssueSupersessionShape sh:sparql [ sh:select \"SELECT $this WHERE { $this gsnaug:supersedes $this . }\" ] ." ;
     gsndesign:aboutTerm gsnaugsh:IssueSupersessionShape ;
     gsndesign:mentionsTerm gsnaug:supersedes , gsnaugsh:IssueSupersessionShape .
@@ -1713,7 +1764,7 @@ gsnaugdesign:dd-0040
 gsnaugdesign:st-0040
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0040 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:raisedAgainst rdfs:range [ (gsn:Argument or gsn:Artefact or gsn:AssuranceCase or gsn:GSNElement or gsn:Pattern or gsn:Relationship) ] ." ;
     gsndesign:aboutTerm gsnaug:raisedAgainst ;
     gsndesign:mentionsTerm gsn:Argument , gsn:Artefact , gsn:AssuranceCase , gsn:GSNElement ,
@@ -1730,7 +1781,7 @@ gsnaugdesign:dd-0041
 gsnaugdesign:st-0041
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0041 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:TopSubjectContext, gsnaug:TopObjectContext, gsnaug:TopSubjectContextRequirement, gsnaug:TopObjectContextAssurance, gsnaugsh:TopContextAgreementShape and gsnaugsh:TopContextCompletenessShape are removed." ;
     gsndesign:aboutTerm gsnaug:assures ;
     gsndesign:mentionsTerm gsnaug:assures , gsnaug:requiredBy .
@@ -1837,7 +1888,7 @@ gsnaugdesign:dd-0047
 gsnaugdesign:st-0047
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0047 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:coveredIn a owl:ObjectProperty ; rdfs:domain gsn:AssuranceCase ; rdfs:range gsnaug:AuditCycle ." ;
     gsndesign:aboutTerm gsnaug:coveredIn ;
     gsndesign:mentionsTerm gsn:AssuranceCase , gsnaug:AuditCycle , gsnaug:coveredIn .
@@ -1872,7 +1923,7 @@ gsnaugdesign:dd-0049
 gsnaugdesign:st-0049
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0049 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.2 ;
     gsndesign:statementText "augmentation/rules/a03a and a03b: DELETE/INSERT of gsn:defeated guarded on the target, then INSERT of gsn:challenges guarded on the pair." ;
     gsndesign:aboutTerm gsnaug:ResolveIssueDefeatsGoal ;
     gsndesign:mentionsTerm gsnaug:ResolveIssueDefeatsGoal , gsnaug:ResolveIssueDefeatsSolution .
@@ -1893,7 +1944,7 @@ gsnaugdesign:dd-0050
 gsnaugdesign:st-0050
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0050 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:Mechanism a owl:Class . gsnaug:retrievableWith, gsnaug:retrievedWith, gsnaug:generableWith, gsnaug:generatedWith, gsnaug:verifiableWith, gsnaug:verifiedWith rdfs:domain [ (gsn:Artefact or gsnaug:ArtefactPart) ] ; rdfs:range gsnaug:Mechanism ; the part is admitted by dd-0066. gsnaug:automated rdfs:domain gsnaug:Mechanism . gsnaug:EvidenceGenerationMechanism, gsnaug:EvidenceRetrievalMechanism and gsnaug:EvidenceVerificationMechanism are removed." ;
     gsndesign:aboutTerm gsnaug:Mechanism ;
     gsndesign:mentionsTerm gsn:Artefact , gsnaug:Mechanism , gsnaug:automated , gsnaug:generableWith ,
@@ -1911,7 +1962,7 @@ gsnaugdesign:dd-0051
 gsnaugdesign:st-0051
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0051 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:StorageSystem rdfs:subClassOf gsnaug:System . gsnaug:storedIn rdfs:range gsnaug:System ." ;
     gsndesign:aboutTerm gsnaug:StorageSystem ;
     gsndesign:mentionsTerm gsnaug:StorageSystem , gsnaug:System , gsnaug:storedIn .
@@ -1945,7 +1996,7 @@ gsnaugdesign:dd-0053
 gsnaugdesign:st-0053
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0053 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:clarify, gsnaug:revise, gsnaug:resolve a owl:NamedIndividual . gsnaug:issueType a owl:ObjectProperty ; rdfs:domain gsnaug:Issue ; rdfs:range [ owl:oneOf (gsnaug:clarify gsnaug:revise gsnaug:resolve) ] . gsnaug:IssueTypeScheme is removed." ;
     gsndesign:aboutTerm gsnaug:issueType ;
     gsndesign:mentionsTerm gsnaug:Issue , gsnaug:clarify , gsnaug:issueType , gsnaug:resolve , gsnaug:revise .
@@ -1961,7 +2012,7 @@ gsnaugdesign:dd-0054
 gsnaugdesign:st-0054
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0054 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:issueOutcome a owl:DatatypeProperty ; rdfs:domain gsnaug:Issue ; rdfs:range [ a rdfs:Datatype ; owl:oneOf (\"resolved\" \"cannot answer\" \"declined\" \"infeasible\") ] . gsnaug:IssueOutcomeScheme, gsnaug:cannotAnswer, gsnaug:declined and gsnaug:infeasible are removed." ;
     gsndesign:aboutTerm gsnaug:issueOutcome ;
     gsndesign:mentionsTerm gsnaug:Issue , gsnaug:issueOutcome .
@@ -1977,7 +2028,7 @@ gsnaugdesign:dd-0055
 gsnaugdesign:st-0055
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0055 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:replaces rdfs:subPropertyOf prov:wasRevisionOf ; rdfs:domain gsn:Artefact ; rdfs:range gsn:Artefact . gsnaug:revisionOf is removed." ;
     gsndesign:aboutTerm gsnaug:replaces ;
     gsndesign:mentionsTerm gsn:Artefact , gsnaug:replaces , prov:wasRevisionOf .
@@ -1993,7 +2044,7 @@ gsnaugdesign:dd-0056
 gsnaugdesign:st-0056
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0056 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:System, gsnaug:Requirement, gsnaug:Role, gsnaug:ArtefactPart a owl:Class . gsnaug:partOf a owl:ObjectProperty ; rdfs:domain gsnaug:ArtefactPart ; rdfs:range gsn:Artefact . gsnaug:assures rdfs:range gsnaug:System . gsnaug:requiredBy rdfs:range gsnaug:Requirement . gsnaug:instantiatedFrom rdfs:range gsnaug:ArtefactPart . gsnaug:ArtefactElement and gsnaug:containsElement are removed." ;
     gsndesign:aboutTerm gsnaug:ArtefactPart ;
     gsndesign:mentionsTerm gsn:Artefact , gsnaug:ArtefactPart , gsnaug:Requirement , gsnaug:Role , gsnaug:System ,
@@ -2010,7 +2061,7 @@ gsnaugdesign:dd-0057
 gsnaugdesign:st-0057
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0057 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:assures rdfs:domain [ (gsn:Argument or gsn:AssuranceCase or gsn:Goal) ] ; rdfs:range gsnaug:System . gsnaug:ownedBy, gsnaug:reviewedBy rdfs:domain [ (gsn:Artefact or gsn:GSNElement) ] ; rdfs:range prov:Agent . gsnaug:hasRole rdfs:domain prov:Agent ; rdfs:range gsnaug:Role . gsnaug:assuredBy, gsnaug:owns and gsnaug:reviews are removed." ;
     gsndesign:aboutTerm gsnaug:ownedBy ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:GSNElement , gsnaug:Role , gsnaug:System , gsnaug:assures ,
@@ -2027,7 +2078,7 @@ gsnaugdesign:dd-0058
 gsnaugdesign:st-0058
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0058 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:linksTo rdfs:domain [ (gsn:Argument or gsn:Artefact or gsn:AssuranceCase or gsn:GSNElement or gsn:Pattern or gsn:Relationship) ] ; rdfs:range owl:Thing . gsnaug:tag a owl:DatatypeProperty ." ;
     gsndesign:aboutTerm gsnaug:linksTo ;
     gsndesign:mentionsTerm gsn:Argument , gsn:Artefact , gsn:AssuranceCase , gsn:GSNElement , gsn:Pattern ,
@@ -2064,7 +2115,7 @@ gsnaugdesign:dd-0060
 gsnaugdesign:st-0060
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0060 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.2 ;
     gsndesign:statementText "augmentation/queries/fc13, fc14, fc16, fc19, fc20, fc23, fc24, fc26, fc27, fc30, fc31, fc32: gsnaug:accepted, gsnaug:Clarification, gsnaug:Revision, gsnaug:Resolution, gsnaug:revisionOf and the three outcome concepts are replaced; an open ask is FILTER NOT EXISTS { ?answer gsnaug:answers ?issue } ." ;
     gsndesign:aboutTerm gsnaug:answers ;
     gsndesign:mentionsTerm gsnaug:Answer , gsnaug:answers , gsnaug:issueOutcome , gsnaug:replaces .
@@ -2080,7 +2131,7 @@ gsnaugdesign:dd-0061
 gsnaugdesign:st-0061
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0061 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:readsTerm, gsnaug:writesTerm a owl:ObjectProperty ; rdfs:domain gsnaug:Mechanism . No rdfs:range on either." ;
     gsndesign:aboutTerm gsnaug:readsTerm ;
     gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:readsTerm , gsnaug:writesTerm .
@@ -2096,7 +2147,7 @@ gsnaugdesign:dd-0062
 gsnaugdesign:st-0062
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0062 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:MechanismInterfaceShape targets the subjects of gsnaug:readsTerm, gsnaug:writesTerm and gsnaug:script; requires the subject to be a gsnaug:Mechanism; requires a term to be an IRI (violation) declared as a class or property by a loaded ontology (warning); requires a script to be one xsd:string (violation)." ;
     gsndesign:aboutTerm gsnaugsh:MechanismInterfaceShape ;
     gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:readsTerm , gsnaug:script , gsnaug:writesTerm ,
@@ -2113,7 +2164,7 @@ gsnaugdesign:dd-0063
 gsnaugdesign:st-0063
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0063 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.2 ;
     gsndesign:statementText "augmentation/queries/fc37_term_impact.rq (CQ-79): ?mechanism gsnaug:readsTerm ?term, then any of the six mechanism properties to the artefact, gsn:refersTo to the solution and gsn:supportedBy+ to the goals. augmentation/queries/fc38_inspectable_mechanisms.rq (CQ-80): per solution, artefact and mechanism, state = in the graph if the mechanism is typed sh:NodeShape, sh:PropertyShape, a sh:SPARQL*Executable, swrl:Imp or sp:Query; script in the graph if gsnaug:script is bound; terms declared by hand if only gsnaug:readsTerm is; else opaque." ;
     gsndesign:aboutTerm gsnaug:readsTerm ;
     gsndesign:mentionsTerm gsnaug:readsTerm , gsnaug:script .
@@ -2129,7 +2180,7 @@ gsnaugdesign:dd-0064
 gsnaugdesign:st-0064
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0064 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:script a owl:DatatypeProperty ; rdfs:domain gsnaug:Mechanism ; rdfs:range xsd:string . gsnaugsh:MechanismInterfaceShape also targets the subjects of gsnaug:script and constrains it to one xsd:string. fc38_inspectable_mechanisms.rq reports a scripted mechanism as \"script in the graph\"." ;
     gsndesign:aboutTerm gsnaug:script ;
     gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:readsTerm , gsnaug:script ,
@@ -2146,7 +2197,7 @@ gsnaugdesign:dd-0065
 gsnaugdesign:st-0065
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0065 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-derivations-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-derivations-0.3.2 ;
     gsndesign:statementText "augmentation/derivations/d01_shape_mechanism_reads.rq: a gsnaug:Mechanism typed sh:NodeShape or sh:PropertyShape readsTerm every IRI reached by sh:targetClass, sh:targetSubjectsOf, sh:targetObjectsOf, sh:class and sh:path (unwrapping sh:inversePath, sh:zeroOrMorePath, sh:oneOrMorePath, sh:zeroOrOnePath, sh:alternativePath and sequence lists) on itself and on shapes reached by sh:property, sh:node, sh:not, sh:and, sh:or, sh:xone. d02_rule_mechanism_reads.rq: a gsnaug:Mechanism typed swrl:Imp readsTerm every IRI swrl:classPredicate or swrl:propertyPredicate in its swrl:body. d03_rule_mechanism_writes.rq: the same over swrl:head, into gsnaug:writesTerm." ;
     gsndesign:aboutTerm gsnaug:readsTerm ;
     gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:readsTerm , gsnaug:writesTerm .
@@ -2162,7 +2213,7 @@ gsnaugdesign:dd-0066
 gsnaugdesign:st-0066
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0066 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:retrievableWith, gsnaug:retrievedWith, gsnaug:generableWith, gsnaug:generatedWith, gsnaug:verifiableWith, gsnaug:verifiedWith, gsnaug:generatedFrom, gsnaug:generatedBy rdfs:domain [ (gsn:Artefact or gsnaug:ArtefactPart) ] . gsnaug:storedIn and gsnaug:replaces keep rdfs:domain gsn:Artefact." ;
     gsndesign:aboutTerm gsnaug:ArtefactPart ;
     gsndesign:mentionsTerm gsn:Artefact , gsnaug:ArtefactPart , gsnaug:generableWith , gsnaug:generatedBy ,
@@ -2180,7 +2231,7 @@ gsnaugdesign:dd-0067
 gsnaugdesign:st-0067
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0067 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A4: ArtefactPart(?P) ^ partOf(?P, ?A) ^ Artefact(?A) ^ verifiableWith(?A, ?X) -> verifiableWith(?P, ?X). SPARQL twin in augmentation/rules/a04." ;
     gsndesign:aboutTerm gsnaug:PartInheritsVerifiableWith ;
     gsndesign:mentionsTerm gsn:Artefact , gsnaug:ArtefactPart , gsnaug:PartInheritsVerifiableWith , gsnaug:partOf ,
@@ -2197,7 +2248,7 @@ gsnaugdesign:dd-0068
 gsnaugdesign:st-0068
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0068 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:ArtefactShape sh:targetClass gsn:Artefact, gsnaug:ArtefactPart ." ;
     gsndesign:aboutTerm gsnaugsh:ArtefactShape ;
     gsndesign:mentionsTerm gsnaug:ArtefactPart , gsnaugsh:ArtefactShape .
@@ -2218,7 +2269,7 @@ gsnaugdesign:dd-0069
 gsnaugdesign:st-0069
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0069 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A6a: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ verifiableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, true) -> true(?S, true). SPARQL twin in augmentation/rules/a06a." ;
     gsndesign:aboutTerm gsnaug:ConformingReportConfirmsSolution ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ConformingReportConfirmsSolution ,
@@ -2235,7 +2286,7 @@ gsnaugdesign:dd-0070
 gsnaugdesign:st-0070
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0070 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A6b: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ verifiableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, false) -> true(?S, false). SPARQL twin in augmentation/rules/a06b." ;
     gsndesign:aboutTerm gsnaug:FailingReportRefutesSolution ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:FailingReportRefutesSolution ,
@@ -2252,7 +2303,7 @@ gsnaugdesign:dd-0071
 gsnaugdesign:st-0071
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0071 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:Issue skos:definition \"An ask raised by an agent against something in an assurance case.\"@en ; skos:altLabel \"Finding\"@en , \"Comment\"@en . gsnaug:Answer skos:definition \"The response to an ask that aims to close an issue.\"@en ." ;
     gsndesign:aboutTerm gsnaug:Issue ;
     gsndesign:mentionsTerm gsnaug:Answer , gsnaug:Issue , gsnaug:hasRole , gsnaug:raisedBy .
@@ -2268,7 +2319,7 @@ gsnaugdesign:dd-0072
 gsnaugdesign:st-0072
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0072 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "dcterms:requires a owl:ObjectProperty ; rdfs:isDefinedBy <http://purl.org/dc/terms/> . (no rdfs:domain, no rdfs:range)" ;
     gsndesign:aboutTerm <http://purl.org/dc/terms/requires> ;
     gsndesign:mentionsTerm <http://purl.org/dc/terms/requires> , gsnaug:Mechanism .
@@ -2284,7 +2335,7 @@ gsnaugdesign:dd-0073
 gsnaugdesign:st-0073
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0073 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:MechanismRequirementShape sh:targetClass gsnaug:Mechanism ; sh:property [ sh:path dcterms:requires ; sh:nodeKind sh:BlankNodeOrIRI ; sh:severity sh:Violation ] ." ;
     gsndesign:aboutTerm gsnaugsh:MechanismRequirementShape ;
     gsndesign:mentionsTerm <http://purl.org/dc/terms/requires> , gsnaug:Mechanism , gsnaugsh:MechanismRequirementShape .
@@ -2300,7 +2351,7 @@ gsnaugdesign:dd-0074
 gsnaugdesign:st-0074
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0074 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:IndependenceShape sh:targetSubjectsOf gsnaug:reviewedBy ; sh:property [ sh:path gsnaug:reviewedBy ; sh:disjoint gsnaug:ownedBy ; sh:severity sh:Warning ] ." ;
     gsndesign:aboutTerm gsnaugsh:IndependenceShape ;
     gsndesign:mentionsTerm gsnaug:ownedBy , gsnaug:reviewedBy , gsnaugsh:IndependenceShape .
@@ -2316,7 +2367,7 @@ gsnaugdesign:dd-0075
 gsnaugdesign:st-0075
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0075 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:Requirement rdfs:subClassOf prov:Entity . gsnaug:System rdfs:subClassOf prov:Entity . (no gsnaug:SystemPart; no change flag)" ;
     gsndesign:aboutTerm gsnaug:System ;
     gsndesign:mentionsTerm gsnaug:Requirement , gsnaug:System , prov:Entity , prov:wasRevisionOf .
@@ -2332,7 +2383,7 @@ gsnaugdesign:dd-0076
 gsnaugdesign:st-0076
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0076 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.2 ;
     gsndesign:statementText "fc39_requirement_revised.rq (CQ-81): elements requiredBy a requirement with a newer prov:wasRevisionOf. fc40_system_revised.rq (CQ-82): artefacts generatedFrom an entity with a newer revision and no replacement drawn from it, with the solution and goals above. fc41_context_revised.rq (CQ-83): goals inContextOf a context whose artefact has a newer gsnaug:replaces or prov:wasRevisionOf. No rule writes gsn:inDoubt from any of the three." ;
     gsndesign:aboutTerm gsnaug:generatedFrom ;
     gsndesign:mentionsTerm gsn:Context , gsn:inContextOf , gsn:refersTo , gsn:supportedBy , gsnaug:generatedFrom , gsnaug:replaces , gsnaug:requiredBy , prov:wasRevisionOf .
@@ -2348,7 +2399,7 @@ gsnaugdesign:dd-0077
 gsnaugdesign:st-0077
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0077 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "gsnaug:Response a owl:Class ; skos:altLabel \"Answer\"@en . gsnaug:respondsTo rdfs:domain gsnaug:Response ; rdfs:range gsnaug:Issue . gsnaug:Answer and gsnaug:answers are removed. gsnaug:issueOutcome: \"resolved\" = the raiser accepted a response; absent = open." ;
     gsndesign:aboutTerm gsnaug:Response ;
     gsndesign:mentionsTerm gsnaug:Issue , gsnaug:Response , gsnaug:issueOutcome , gsnaug:respondsTo .
@@ -2364,7 +2415,7 @@ gsnaugdesign:dd-0078
 gsnaugdesign:st-0078
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0078 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:ResponseShape sh:targetClass gsnaug:Response ; sh:property [ sh:path gsnaug:respondsTo ; sh:class gsnaug:Issue ; sh:minCount 1 ; sh:maxCount 1 ] . gsnaugsh:IssueClosureShape sh:sparql [ SELECT $this WHERE { $this gsnaug:issueOutcome \"resolved\" . FILTER NOT EXISTS { ?r gsnaug:respondsTo $this } } ] ; sh:severity sh:Warning . gsnaugsh:AnswerShape is removed. The other shapes dd-0059 names are unchanged." ;
     gsndesign:aboutTerm gsnaugsh:ResponseShape ;
     gsndesign:mentionsTerm gsnaug:Response , gsnaug:issueOutcome , gsnaug:respondsTo , gsnaugsh:IssueClosureShape , gsnaugsh:ResponseShape .
@@ -2380,7 +2431,7 @@ gsnaugdesign:dd-0079
 gsnaugdesign:st-0079
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0079 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.3.2 ;
     gsndesign:statementText "fc13, fc14, fc19, fc26: open = FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?o }, the answer test is dropped. fc16, fc23: list gsnaug:Response by gsnaug:respondsTo. fc27: state = the outcome or open; a ?responded column says whether a reply is on record." ;
     gsndesign:aboutTerm gsnaug:issueOutcome ;
     gsndesign:mentionsTerm gsnaug:Response , gsnaug:issueOutcome , gsnaug:respondsTo .
@@ -2401,7 +2452,7 @@ gsnaugdesign:dd-0080
 gsnaugdesign:st-0080
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0080 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A6c: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ verifiableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, true) -> true(?S, true). SPARQL twin in augmentation/rules/a06c." ;
     gsndesign:aboutTerm gsnaug:ConformingPartReportConfirmsSolution ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
@@ -2419,7 +2470,7 @@ gsnaugdesign:dd-0081
 gsnaugdesign:st-0081
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0081 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A6d: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ verifiableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, false) -> true(?S, false). SPARQL twin in augmentation/rules/a06d." ;
     gsndesign:aboutTerm gsnaug:FailingPartReportRefutesSolution ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
@@ -2437,7 +2488,7 @@ gsnaugdesign:dd-0082
 gsnaugdesign:st-0082
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0082 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "dcterms:isPartOf a owl:ObjectProperty ; rdfs:isDefinedBy <http://purl.org/dc/terms/> . (no rdfs:domain, no rdfs:range) gsnaug:partOf rdfs:subPropertyOf dcterms:isPartOf ." ;
     gsndesign:aboutTerm gsnaug:partOf ;
     gsndesign:mentionsTerm <http://purl.org/dc/terms/isPartOf> , gsnaug:ArtefactPart , gsnaug:partOf .
@@ -2458,7 +2509,7 @@ gsnaugdesign:dd-0083
 gsnaugdesign:st-0083
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0083 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.2 ;
     gsndesign:statementText "augmentation/rules/a06a, a06b, a06c, a06d: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime; in a06a and a06c a second FILTER NOT EXISTS on a current failing report over the artefact or a part of it; DELETE { ?S gsn:true ?old } before INSERT. Each file marks the guards as not in the SWRL. The SWRL rules are unchanged." ;
     gsndesign:aboutTerm gsnaug:ConformingReportConfirmsSolution ;
     gsndesign:mentionsTerm gsn:true , gsnaug:ConformingPartReportConfirmsSolution , gsnaug:ConformingReportConfirmsSolution ,
@@ -2476,7 +2527,7 @@ gsnaugdesign:dd-0084
 gsnaugdesign:st-0084
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0084 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:ReportTimestampShape sh:targetClass sh:ValidationReport ; prov:generatedAtTime xsd:dateTime, sh:minCount 1, sh:maxCount 1, sh:severity sh:Warning ." ;
     gsndesign:aboutTerm gsnaugsh:ReportTimestampShape ;
     gsndesign:mentionsTerm gsnaugsh:ReportTimestampShape , prov:generatedAtTime , sh:ValidationReport .
@@ -2492,7 +2543,7 @@ gsnaugdesign:dd-0085
 gsnaugdesign:st-0085
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0085 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:ReportConflictShape sh:targetClass sh:ValidationReport ; sh:sparql selecting another sh:ValidationReport with the same prov:wasGeneratedBy and prov:used, a different sh:conforms, no prov:generatedAtTime on either side later than the other, and neither side struck by prov:invalidatedAtTime or prov:wasInvalidatedBy ; sh:severity sh:Violation ." ;
     gsndesign:aboutTerm gsnaugsh:ReportConflictShape ;
     gsndesign:mentionsTerm gsnaugsh:ReportConflictShape , prov:generatedAtTime , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
@@ -2508,7 +2559,7 @@ gsnaugdesign:dd-0086
 gsnaugdesign:st-0086
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0086 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.2 ;
     gsndesign:statementText "augmentation/rules/a06a, a06b, a06c, a06d: FILTER NOT EXISTS { ?R prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck } on the report read, on every candidate for a newer report, and in a06a and a06c on the failing reports of the composition guard." ;
     gsndesign:aboutTerm gsnaug:ConformingReportConfirmsSolution ;
     gsndesign:mentionsTerm gsnaug:ConformingPartReportConfirmsSolution , gsnaug:ConformingReportConfirmsSolution ,
@@ -2526,7 +2577,46 @@ gsnaugdesign:dd-0087
 gsnaugdesign:st-0087
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0087 ;
-    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.1 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
     gsndesign:statementText "gsnaugsh:ReportInvalidationShape sh:targetClass sh:ValidationReport ; sh:or ( no prov:invalidatedAtTime | prov:wasInvalidatedBy sh:minCount 1, sh:class prov:Activity ) ; sh:severity sh:Warning ." ;
     gsndesign:aboutTerm gsnaugsh:ReportInvalidationShape ;
     gsndesign:mentionsTerm gsnaugsh:ReportInvalidationShape , prov:Activity , prov:invalidatedAtTime , prov:wasInvalidatedBy , sh:ValidationReport .
+
+
+#################################################################
+#    Decisions - the mechanism behind an instantiation data reference
+#################################################################
+
+gsnaugdesign:dd-0088
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "An instantiation data reference names the mechanism that can instantiate its template argument from its data, and the mechanism that did, with the same range as the mechanism properties of an artefact."@en ;
+    prov:used gsnaugdesign:src-0017 ;
+    gsndesign:hasRationale gsnaugdesign:why-0057 ;
+    prov:generated gsnaugdesign:st-0088 .
+
+gsnaugdesign:st-0088
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0088 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
+    gsndesign:statementText "gsnaug:instantiableWith, gsnaug:instantiatedWith a owl:ObjectProperty ; rdfs:domain gsn:InstantiationDataReference ; rdfs:range gsnaug:Mechanism . (no rdfs:subPropertyOf)" ;
+    gsndesign:aboutTerm gsnaug:instantiableWith ;
+    gsndesign:mentionsTerm gsn:InstantiationDataReference , gsnaug:Mechanism , gsnaug:instantiableWith ,
+        gsnaug:instantiatedWith .
+
+gsnaugdesign:dd-0089
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "Only an instantiation data reference is instantiable or instantiated with a mechanism, and what it names is a gsnaug:Mechanism."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0057 ;
+    prov:generated gsnaugdesign:st-0089 .
+
+gsnaugdesign:st-0089
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0089 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.3.2 ;
+    gsndesign:statementText "gsnaugsh:InstantiationMechanismShape sh:targetSubjectsOf gsnaug:instantiableWith , gsnaug:instantiatedWith ; sh:class gsn:InstantiationDataReference ; gsnaug:instantiableWith sh:class gsnaug:Mechanism ; gsnaug:instantiatedWith sh:class gsnaug:Mechanism ; sh:severity sh:Violation ." ;
+    gsndesign:aboutTerm gsnaugsh:InstantiationMechanismShape ;
+    gsndesign:mentionsTerm gsnaugsh:InstantiationMechanismShape , gsn:InstantiationDataReference , gsnaug:Mechanism ,
+        gsnaug:instantiableWith , gsnaug:instantiatedWith .

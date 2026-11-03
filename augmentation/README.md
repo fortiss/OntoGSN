@@ -34,6 +34,8 @@ never sees this directory — the augmentation cannot break the core checks.
 
 Plus four link properties — `instantiatedFrom`, `requiredBy`, `linksTo`, `tag`.
 
+An `InstantiationDataReference` names the `Mechanism` that turns its data into elements, such as a SPARQL query or a SWRL rule: `instantiableWith` for the one meant to do it, `instantiatedWith` for the one that did.
+
 Every link names what sits at its far end:
 
 | Class | Reached by | Is |

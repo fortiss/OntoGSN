@@ -422,7 +422,16 @@ ex:G1 gsn:supportedBy ex:G2 ;
 
 ex:IDR1 a gsn:InstantiationDataReference ; schema:identifier "IDR1" ;
     gsn:attachedTo ex:G1 ;
-    gsn:refersTo   ex:control-catalogue .
+    gsn:refersTo   ex:control-catalogue ;
+    gsnaug:instantiableWith ex:control-instantiation ;
+    gsnaug:instantiatedWith ex:control-instantiation .
+
+#  The query that turns each row of the catalogue into a goal. It is in the graph, not run.
+ex:control-instantiation a gsnaug:Mechanism , sh:SPARQLConstructExecutable ;
+    gsnaug:automated true ;
+    sh:construct """CONSTRUCT { ?goal a gsn:Goal ; gsn:statement ?name ; gsnaug:instantiatedFrom ?row }
+WHERE { ?row gsnaug:partOf ex:control-catalogue ; schema:name ?name .
+        BIND (IRI(CONCAT(STR(?row), "-goal")) AS ?goal) }""" .
 
 ex:control-catalogue a gsn:Artefact .
 

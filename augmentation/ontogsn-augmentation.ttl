@@ -26,11 +26,11 @@
     dc:creator "Tomas Bueno Momčilović"@en ;
     dc:publisher "https://www.fortiss.org/"@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
-    dc:description """OntoGSN Augmentation is a container for custom extensions to the OntoGSN ontology. It contains the terms for linking a GSN assurance case to external non-GSN elements. Current version includes elements that are common to software auditing processes: the people and roles behind an element; the mechanisms for generating, retrieving and verifying an evidence artefact, or verifying that the context still holds; the issues raised against the case as defeaters, and their answers; the (regulatory) requirement a claim answers to; and the system that the case assures."""@en ;
+    dc:description """OntoGSN Augmentation is a container for custom extensions to the OntoGSN ontology. It contains the terms for linking a GSN assurance case to external non-GSN elements. Current version includes elements that are common to software auditing processes: the people and roles behind an element; the mechanisms for generating, retrieving and verifying an evidence artefact, or verifying that the context still holds; the mechanisms for instantiating a template argument from its data; the issues raised against the case as defeaters, and their answers; the (regulatory) requirement a claim answers to; and the system that the case assures."""@en ;
     terms:created "2026-08-17"^^xsd:date ;
     vann:preferredNamespacePrefix "gsnaug" ;
     vann:preferredNamespaceUri "https://w3id.org/OntoGSN/augmentation#" ;
-    owl:versionInfo "0.3.1" ;
+    owl:versionInfo "0.3.2" ;
     gsnaug:augmentedOntoGSNVersion "1.2.4" .
 
 gsnaug:augmentedOntoGSNVersion rdf:type owl:AnnotationProperty ;
@@ -339,6 +339,20 @@ gsnaug:instantiatedFrom rdf:type owl:ObjectProperty ;
     rdfs:label "instantiated from"@en ;
     skos:definition "The part of an artefact that produced this element."@en ;
     skos:note "Completes the pattern-instantiation loop. gsn:attachedTo points from the instantiation data reference to the element it governs, and since OntoGSN 1.2.4 gsn:refersTo points from that reference to the artefact holding the data; this says which part of that artefact produced which element. The part reaches its artefact by gsnaug:partOf."@en .
+
+gsnaug:instantiableWith rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:InstantiationDataReference ;
+    rdfs:range gsnaug:Mechanism ;
+    rdfs:label "instantiable with"@en ;
+    skos:definition "What can instantiate the template argument below the reference from its data."@en ;
+    skos:note "The mechanism is a SPARQL query, such as a sh:SPARQLConstructExecutable, or a SWRL rule, in the graph as that node. It reads the artefact that the reference reaches by gsn:refersTo and writes the elements of the argument. gsnaug:readsTerm and gsnaug:writesTerm on the mechanism name the terms on either side."@en .
+
+gsnaug:instantiatedWith rdf:type owl:ObjectProperty ;
+    rdfs:domain gsn:InstantiationDataReference ;
+    rdfs:range gsnaug:Mechanism ;
+    rdfs:label "instantiated with"@en ;
+    skos:definition "What instantiated the template argument below the reference from its data."@en ;
+    skos:note "The mechanism that ran, which is provenance. Each element it produced names the part of the data it came from with gsnaug:instantiatedFrom."@en .
 
 gsnaug:linksTo rdf:type owl:ObjectProperty ;
     rdfs:label "links to"@en ;

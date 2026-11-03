@@ -304,6 +304,8 @@ must_report = [
     ("a goal assuring something that is not a system", BAD["G1"]),
     ("an element required by, instantiated from and owned by the wrong kinds of thing",
                                              BAD["G2"]),
+    ("a goal instantiated with a mechanism", BAD["G4"]),
+    ("a reference instantiable with a person", BAD["IDR1"]),
     ("a role-holder that is not an agent, holding something that is not a role",
                                              BAD["not-an-agent"]),
     ("a bare note that is owned, reviewed and linked from", BAD["a-sticky-note"]),

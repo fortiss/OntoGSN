@@ -26,7 +26,7 @@ That applies twice over to gsnaug:raisedAgainst and gsnaug:linksTo, whose far en
 union covering everything in a case a reviewer can point at. The union is wide enough to be worth
 stating and wide enough that a node outside it is almost certainly a mistake."""@en ;
     dc:source "https://w3id.org/OntoGSN/augmentation" ;
-    owl:versionInfo "0.3.1" .
+    owl:versionInfo "0.3.2" .
 
 
 <https://w3id.org/OntoGSN/augmentation/shapes> sh:declare [
@@ -454,6 +454,29 @@ gsnaugsh:ElementLinkShape rdf:type sh:NodeShape ;
         sh:class gsnaug:ArtefactPart ;
         sh:name "instantiated from" ;
         sh:message "An element is instantiated from a gsnaug:ArtefactPart - the row, clause or section of an artefact, not the whole artefact."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+###  gsn:InstantiationDataReference - the mechanism that turns the data into elements
+gsnaugsh:InstantiationMechanismShape rdf:type sh:NodeShape ;
+    rdfs:label "Instantiation mechanism shape"@en ;
+    rdfs:comment "Targeted at whatever carries either property rather than at gsn:InstantiationDataReference, so that a goal or a solution that carries one is reported rather than retyped."@en ;
+    sh:targetSubjectsOf gsnaug:instantiableWith , gsnaug:instantiatedWith ;
+    sh:class gsn:InstantiationDataReference ;
+    sh:message "Only a gsn:InstantiationDataReference is instantiable or instantiated with a mechanism. An element names the part of the data it came from with gsnaug:instantiatedFrom."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsnaug:instantiableWith ;
+        sh:class gsnaug:Mechanism ;
+        sh:name "instantiable with" ;
+        sh:message "An instantiation data reference may only be instantiable with a gsnaug:Mechanism."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path gsnaug:instantiatedWith ;
+        sh:class gsnaug:Mechanism ;
+        sh:name "instantiated with" ;
+        sh:message "An instantiation data reference may only be instantiated with a gsnaug:Mechanism."@en ;
         sh:severity sh:Violation ;
     ] .
 
