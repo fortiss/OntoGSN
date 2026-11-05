@@ -1,0 +1,21 @@
+/* Inner text pages (Tutorial, Evaluation, Releases): body class "og-page" */
+
+.og-page {
+  /* use the full page width: no empty column on the left */
+  .page {
+    @include breakpoint($large) {
+      float: none;
+      width: 100%;
+      padding-inline-end: 0;
+    }
+  }
+
+  /* main text 1px smaller than the theme; tables and code keep their size */
+  .page__content {
+    > p,
+    > ul > li,
+    > ol > li {
+      font-size: calc(1rem - 1px);
+    }
+  }
+}

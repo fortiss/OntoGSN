@@ -1,12 +1,16 @@
 ---
-layout: posts       # renders a feed of every file in _posts/
-title:  "News"
+layout: null
 permalink: /blog/
-sidebar:
-  nav: "primary"    # puts the link in the main nav
-author_profile: false
-paginate: true      # activates theme pagination (needs _config entry below)
+sitemap: false
 ---
 
-Welcome to the OntoGSN news feed.  
-Here you’ll find release notes, tutorials, and community updates.
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; url={{ '/releases/' | relative_url }}" />
+    <link rel="canonical" href="{{ '/releases/' | absolute_url }}" />
+  </head>
+  <body>
+    <p>The news page is now the <a href="{{ '/releases/' | relative_url }}">Releases</a> page.</p>
+  </body>
+</html>

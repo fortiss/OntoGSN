@@ -8,13 +8,7 @@ styles:
   - /assets/js/vendor/github.min.css
 ---
 
-<script>
-window.addEventListener('load', async () => {
-  if ('caches' in window) (await caches.keys()).forEach(k => caches.delete(k));
-  if ('serviceWorker' in navigator) (await navigator.serviceWorker.getRegistrations()).forEach(r => r.unregister());
-  localStorage.clear(); sessionStorage.clear();
-});
-</script>
+<p class="pg-narrow-note">The Playground needs a wide screen. Open it in a desktop browser.</p>
 
 <div class="split">
   <div id="leftButtons" class="btns" data-tab-group="left-main">
@@ -64,7 +58,7 @@ window.addEventListener('load', async () => {
 <pre id="out"></pre>
 
 <div class="split">
-  <div id="leftButtons" class="btns">
+  <div id="leftOptions" class="btns">
     Rules:
     <label><input type="checkbox"
       data-query="/assets/data/queries/rule_assumptionInvalidation.sparql"
@@ -91,7 +85,7 @@ window.addEventListener('load', async () => {
       Overloaded car
     </label>
   </div>
-  <div id="rightButtons" class="btns">
+  <div id="rightOptions" class="btns">
     <span class="gsn-hint">scroll: zoom • drag: pan</span>
     Modules: 
     <div id="modulesBar" class="modules-bar" data-tab-group="modules"></div>

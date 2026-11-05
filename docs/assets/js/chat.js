@@ -4,10 +4,25 @@ import app from "./queries.js";
 const $ = sel => document.querySelector(sel);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-// Grab or persist the key/model locally
-// Grab or persist the key/model locally
-const KEY_K = "openrouter_api_key";
-const MODEL_K = "openrouter_model";
+// The page shares its origin (fortiss.github.io) with other fortiss projects.
+// The API key therefore lives in sessionStorage only: it is gone when the tab closes.
+const KEY_K = "ontogsn.chat.openrouter_api_key";
+const MODEL_K = "ontogsn.chat.openrouter_model";
+const LEGACY_KEY_K = "openrouter_api_key";
+const LEGACY_MODEL_K = "openrouter_model";
+
+function storageGet(store, k) {
+  try { return store.getItem(k); } catch (_) { return null; }
+}
+function storageSet(store, k, v) {
+  try { store.setItem(k, v); } catch (_) { /* storage blocked: keep the value in the form only */ }
+}
+function dropLegacyKeys() {
+  try {
+    localStorage.removeItem(LEGACY_KEY_K);
+    localStorage.removeItem(LEGACY_MODEL_K);
+  } catch (_) { /* storage blocked */ }
+}
 
 /**
  * Build the chat UI inside #chat-root once.
@@ -28,7 +43,7 @@ function buildChatUI() {
 
         <form id="chat-form" style="display:grid;gap:.5rem;">
           <input id="chat-key" type="password"
-                 placeholder="OpenRouter API key (stored locally)"
+                 placeholder="OpenRouter API key (kept for this tab only)"
                  autocomplete="off">
           <input id="chat-model" type="text"
                  value="openai/gpt-4o-mini"
@@ -38,7 +53,7 @@ function buildChatUI() {
           <button id="chat-send" type="submit">Send</button>
         </form>
 
-        <small>Tip: your key is kept in <code>localStorage</code> on this device only.</small>
+        <small>Your key stays in this browser tab (<code>sessionStorage</code>) and is deleted when you close the tab. Questions and parts of the graph go to OpenRouter.</small>
       </details>
     </div>
   `;
@@ -46,8 +61,9 @@ function buildChatUI() {
   const keyEl   = /** @type {HTMLInputElement|null} */ (document.querySelector("#chat-key"));
   const modelEl = /** @type {HTMLInputElement|null} */ (document.querySelector("#chat-model"));
 
-  if (keyEl)   keyEl.value   = localStorage.getItem(KEY_K)   || "";
-  if (modelEl) modelEl.value = localStorage.getItem(MODEL_K) || modelEl.value;
+  dropLegacyKeys();
+  if (keyEl)   keyEl.value   = storageGet(sessionStorage, KEY_K)  || "";
+  if (modelEl) modelEl.value = storageGet(localStorage, MODEL_K) || modelEl.value;
 
   const formEl = document.querySelector("#chat-form");
   if (formEl) {
@@ -162,7 +178,7 @@ async function gatherContext(question) {
 }
 
 // Call OpenRouter (non-streaming for simplicity)
-// Docs: POST https://openrouter.ai/api/v1/chat/completions + headers. :contentReference[oaicite:2]{index=2}
+// Docs: POST https://openrouter.ai/api/v1/chat/completions + headers.
 async function askOpenRouter({ apiKey, model, messages }) {
   const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
@@ -178,7 +194,7 @@ async function askOpenRouter({ apiKey, model, messages }) {
       temperature: 0.2,
       max_tokens: 10000,
       //stream: true
-      // You can set stream: true and handle SSE later if you want typing. :contentReference[oaicite:3]{index=3}
+      // You can set stream: true and handle SSE later if you want typing.
     })
   });
 
@@ -218,9 +234,9 @@ async function onChatSubmit(ev) {
   if (!apiKey) { alert("Paste your OpenRouter API key first."); return; }
   if (!q) return;
 
-  // persist locally
-  localStorage.setItem(KEY_K, apiKey);
-  localStorage.setItem(MODEL_K, model);
+  // the key for this tab only, the model id across visits
+  storageSet(sessionStorage, KEY_K, apiKey);
+  storageSet(localStorage, MODEL_K, model);
 
   appendMsg("user", esc(q));
   inputEl.value = "";
