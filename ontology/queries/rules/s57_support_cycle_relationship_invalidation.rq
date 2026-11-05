@@ -1,0 +1,24 @@
+# rule:      S57
+# name:      Support Cycle Relationship Invalidation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      Relationship(?R) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ 'supported by'(?A,
+#            ?B) ^ 'transitively supported by'(?B, ?A) -> valid(?R, false)
+# reads:     IF R is a Relationship from A to B AND A is supported by B AND B is transitively
+#            supported by A THEN R is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:valid ?old }
+INSERT { ?R gsn:valid false }
+WHERE {
+  ?R a gsn:Relationship ;
+     rdf:subject ?A ;
+     rdf:object ?B .
+  ?A gsn:supportedBy ?B .
+  ?B gsn:transitivelySupportedBy ?A .
+  OPTIONAL { ?R gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

@@ -103,7 +103,7 @@ All messages carry `@en`, so translations can be added as extra `sh:message` val
 
 ## Scope and deliberate deviations
 
-**Not covered.** The 52 SWRL rules in the ontology are *inference* rules: they derive new facts (validity, doubt, defeat, propagation of `gsn:true`) rather than reject data. They are left to a rule engine. Run the reasoner first, then validate — the two are complementary, and a couple of `sh:Info` shapes flag where a reasoner would have filled a gap.
+**Not covered.** The 58 SWRL rules in the ontology are *inference* rules: they derive new facts (validity, doubt, defeat, propagation of `gsn:true`) rather than reject data. They are left to a rule engine. Run the reasoner first, then validate — the two are complementary, and a couple of `sh:Info` shapes flag where a reasoner would have filled a gap.
 
 **Tightenings** — reasonable for data validation, but not stated in the ontology; each is marked with an `rdfs:comment` in place:
 

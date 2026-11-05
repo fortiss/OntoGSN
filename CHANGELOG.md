@@ -4,16 +4,28 @@ The ontology-level view: what changed between two values of `owl:versionInfo` in
 `ontology/serializations/ontogsn.ttl`, for a reader who downloaded the TTL and never looks at this
 repository. Repository-level changes live in the commit log; each `v*` git tag marks the
 **last commit at that version**, so `git diff v1.2.2 v1.2.3 -- serializations/ontogsn.ttl`
-shows exactly what a version changed. Entries up to 1.2.4 are reconstructed by hand from the
+shows exactly what a version changed. Entries up to 1.3.0 are reconstructed by hand from the
 commit log and `development/design/`; from the next release on, an entry is written when the version
 number moves.
+
+Each component of the repository has its own version number. Two components can have the same
+number, for example ontology 1.3.0 and design record 1.3.0, and that does not make them one
+release. These are the current versions:
+
+| Component | Version | File |
+| :--- | :--- | :--- |
+| Ontology | 1.3.0 | `ontology/serializations/ontogsn.ttl` |
+| SHACL shapes | 1.1.0 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
+| Augmentation, and its shapes | 0.3.2 | `augmentation/ontogsn-augmentation.ttl` |
+| Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
+| Design record | 1.3.0 | `development/design/ontogsn-design.ttl` |
 
 The SHACL shapes (`ontology/shapes/`) version independently, but a shapes release is only meaningful
 against an ontology version, so both are listed together.
 
 | Ontology | Date | Shapes | Breaking |
 | :--- | :--- | :--- | :--- |
-| 1.2.4 | unreleased | 1.0.3 | yes — for reasoners |
+| 1.3.0 | 2026-11-05 | 1.1.0 | yes — for reasoners |
 | 1.2.3 | 2026-08-15 | 1.0.0 | no |
 | 1.2.2 | 2026-08-05 | 1.0.0 (introduced 2026-08-06) | yes — for reasoners |
 | 1.2.1 | 2026-01-23 | — | no |
@@ -44,7 +56,133 @@ was built, not about any case, and the new name says so. The maintenance scripts
 
 ---
 
-## Ontology 1.2.4 (unreleased) — shapes 1.0.3
+## Ontology 1.3.0 — 2026-11-05 — shapes 1.1.0
+
+Version 1.2.4 was never released. Its changes ship as 1.3.0, because they add terms and
+change what a reasoner infers. Every reference to 1.2.4 in this repository now reads 1.3.0,
+including the version IRI `https://w3id.org/OntoGSN/ontology/1.3.0`.
+
+### Validity is not only a matter of syntax
+
+**Not breaking.** Annotation only; no axiom changed. The `skos:definition` of `gsn:valid`
+tied validity to the GSN argument syntax alone. It now names a rule or a manual evaluation
+as the source of the mark, and consistency with the argument as one of its grounds.
+
+*For case authors:* nothing to do.
+
+Reasoning: `dd-1057` added, `dd-0976` retired, rationale `why-0225`.
+
+### Protégé reads the SWRL rules again, and the rules that create nodes run
+
+**Breaking for reasoners.** Since 1.2.2, Protégé read none of the SWRL rules from
+`ontogsn.ttl` or `ontogsn.jsonld`. Eighteen rules also made the SWRLAPI Drools engine stop
+the whole run.
+
+- Every SWRL rule is a blank node again, as in 1.2.1. In 1.2.2 each rule got an IRI of its
+  own. The OWL API, which Protégé uses, reads a rule that has an IRI with an empty body and
+  head from Turtle and JSON-LD. Only `ontogsn.rdf` kept its rules. A rule is now identified by
+  its `rdfs:label` alone, as the design record already did. `development/dev_tools/build.py`
+  now fails if a rule has an IRI.
+- The nine rules that create a node with `swrlx:makeOWLThing` now name the new node first,
+  followed by both ends of the link that it stands for, for example
+  `swrlx:makeOWLThing(?R, ?A, ?B)` in Support Relation Creation (S18). SWRLAPI binds the new
+  node to the first argument. The old order made the Drools engine stop the whole run with
+  the error that the built-in "returned with unbound arguments". The affected rules are S18,
+  S19, S40, S42 to S45, S50 and S51.
+- Twelve rules that tell two individuals apart now use a `differentFrom` atom in place of
+  `swrlb:notEqual`, which compares literals only. The rules are S23, S24, S25, S30, S33 to
+  S36, S41, S44, S45 and S51. OWL does not assume that two names stand for two individuals,
+  so a `differentFrom` atom holds only for individuals that the case declares different.
+  The SPARQL copies of the rules compare IRIs and do not need the declaration.
+- Duplicate ACP Identifier Invalidation (S41) reads one identifier variable for both
+  assurance claim points, in place of comparing two variables with `swrlb:equal`. SWRLAPI
+  cannot compare untyped string literals with that built-in.
+
+*For case authors:* if you open the ontology in Protégé, the SWRL tab now lists the rules.
+Before you run the rules in Protégé, choose Edit, then Make all individuals different. That
+adds one `owl:AllDifferent` for every individual of the case. Without it, the twelve rules
+above draw no conclusion, but every other rule still runs. Choose it again after you add
+individuals. If you refer to a rule by IRI, refer to it by its label.
+
+Reasoning: `dd-1067` to `dd-1083` added, `dd-0302`, `dd-0304`, `dd-0496` to `dd-0499`,
+`dd-0560`, `dd-0580`, `dd-0596` to `dd-0598`, `dd-0663`, `dd-0685`, `dd-0687`, `dd-0690`,
+`dd-0692`, `dd-0742` and `dd-0746` retired, rationales `why-0228` and `why-0229`.
+
+### A challenge can target a relationship, and created nodes are named after IRIs
+
+**Breaking for reasoners.** One range is widened, and the SPARQL rules name their new nodes
+differently.
+
+- The `rdfs:range` of `gsn:challenges` gains `gsn:Relationship`, and so do the domain and
+  the range of `gsn:transitivelyChallenges`. Rule S51 challenges a support link. Before
+  this change, a reasoner inferred that each challenged relationship was a GSN element.
+- The nine SPARQL rules that create a node (S18, S19, S40, S42 to S45, S50 and S51) now build
+  its IRI from the IRIs of the elements, not from their `schema:identifier`. Two elements in
+  different modules can share an identifier, and the old IRIs then merged their nodes into
+  one. The `schema:identifier` of each new node is unchanged.
+
+*For case authors:* if you stored the output of the SPARQL rules, run them again. A created
+relationship or strategy can now have a different IRI.
+
+Reasoning: `dd-1058`, `dd-1059` and `dd-1066` added, `dd-0713`, `dd-1022` and `dd-1038`
+retired, rationale `why-0226`.
+
+### Cycles of any length are found, and modules keep their class
+
+**Breaking for reasoners.** Two rules are replaced by nine, and two domains are widened.
+
+- Three object properties are added, one for each link type that can form a cycle. Each
+  property is transitive, and a rule fills it. Nobody authors it.
+
+  | Property | Extension | Filled by |
+  | :--- | :--- | :--- |
+  | `gsn:transitivelySupportedBy` | Core GSN | Support Closure (S55) |
+  | `gsn:transitivelyInContextOf` | Modular Extension, modules only | Module Context Closure (S58) |
+  | `gsn:transitivelyChallenges` | Dialectic Extension | Challenge Closure (S61) |
+
+- For each property, one rule marks every element on a cycle as not valid (S56, S59, S62).
+  A second rule marks every relationship on a cycle as not valid (S57, S60, S63).
+- Predicate Conflict Invalidation (S7) and Circular Module Invalidation (S37) are removed.
+  They found a cycle only when it had exactly three nodes.
+- The `rdfs:domain` of `gsn:supportedBy` and of `gsn:inContextOf` gains `gsn:Module`. Rules
+  S34, S35 and S36 write these links between modules. Before this change, a reasoner inferred
+  that each such module was a goal or a strategy, and it reported no error.
+- Shapes: the comment on `gsnsh:SupportedByPropertyShape` and on
+  `gsnsh:InContextOfPropertyShape` is removed, because the OWL domain now names
+  `gsn:Module` too. No constraint changed.
+
+- `gsn:inferredOnly` is a new annotation property. It flags `gsn:inModule` and the three
+  new properties as properties that a rule derives and that a case never asserts. The
+  `pruned` and `skeletal` slices now drop the flagged properties together with the rules.
+
+*For case authors:* a cycle of two or more links of one type now makes every element and
+every reified relationship on it invalid. Before, only a cycle of exactly three did this. A
+cycle of challenges also does this now.
+
+Reasoning: `dd-1014`–`dd-1056` added, `dd-0211`, `dd-0222`, `dd-0226` and `dd-0604` retired,
+rationales `why-0222` to `why-0224`.
+
+### Two rules retired, one narrowed, one renamed
+
+**Breaking for reasoners.** The rule set has two fewer rules, and one rule now applies to
+fewer cases.
+
+- Tri-Goal Conflict (S9) is removed. Contradictory Goal Truth (S8) matches every case that
+  S9 matched and draws the same conclusion.
+- Conflicting Support (False) (S13) is removed. It was disabled in 1.2.3, because Solution
+  Propagation (False) (S11) draws the same conclusion.
+- Duplicate Name Invalidation (S41) is replaced by Duplicate ACP Identifier Invalidation. The
+  old rule marked any two nodes with the same `schema:identifier` as not valid. The new rule
+  does this only for two assurance claim points. Within one module, Duplicate Identifier
+  Invalidation (S25) still applies to all elements.
+- Goal Inference (S5) is renamed to Inferential Relation (Goal). The rule logic did not
+  change.
+
+*For case authors:* an identifier that you reuse in two different modules no longer makes
+either element invalid when you import the Confidence Argument Extension.
+
+Reasoning: `dd-0240` and `dd-0665` retired, `dd-1013` added, rationale `why-0221`. `dd-0246`
+was already retired.
 
 ### A view depicts a module
 
@@ -69,7 +207,7 @@ Reasoning per axiom: `dd-1003` to `dd-1010`, rationale `why-0219`, passage `src-
 assessor for ontologies, scored OntoGSN 75%: seven facts about the release were true but
 written down nowhere a machine could read them.
 
-- `owl:versionIRI` — `https://w3id.org/OntoGSN/ontology/1.2.4`. The ontology URI names the
+- `owl:versionIRI` — `https://w3id.org/OntoGSN/ontology/1.3.0`. The ontology URI names the
   ontology; the version IRI names *this* release of it, and is what a consumer pins to.
 - `vann:preferredNamespaceUri` — `https://w3id.org/OntoGSN/ontology#`. The prefix `gsn` was
   declared; the namespace it stands for was not.
@@ -172,6 +310,21 @@ rationale `why-0211`, passage `src-0140`.
   placeholder solution in a pattern, or an uninstantiated copy in an instantiated argument, is
   no longer warned about evidence it cannot have yet. Retires `dd-0798`; rationale `why-0220`.
 
+### SHACL shapes 1.0.3 → 1.1.0
+
+- `gsnsh:TrueClaimSolutionShape` (warning) reports a claim marked true that a solution not
+  marked true supports. Rules S10 and S11 give such a claim both truth values, and this shape
+  names the cause. Rationale `why-0227`.
+- `gsnsh:ModuleContextCycleShape` reports a module on a cycle of context links between
+  modules, and `gsnsh:ChallengeCycleShape` reports an element on a cycle of challenges. With
+  `gsnsh:SupportCycleShape`, SHACL now reports every cycle that rules S56, S59 and S62 mark.
+  Rationale `why-0222`.
+- The comment on `gsnsh:ChallengesRangePropertyShape` is removed, because the OWL range now
+  names `gsn:Relationship` too.
+
+Decisions `dd-1060` to `dd-1065`. The version moves to 1.1.0 and not to 1.0.4, because new
+shapes report findings that 1.0.0 did not.
+
 ---
 
 ## Ontology 1.2.3 — 2026-08-15 — shapes 1.0.0
@@ -189,7 +342,7 @@ extensions added rules that write to them.
   object, and `"dialectic"` as a `gsn:relationshipType` value, matching what rules S18–S21
   and S50 create.
 - The top-goal axiom's inverse `supportedBy` test now reads over `Goal or Strategy` — over
-  goals alone, every strategy-parented goal was a top goal. (Superseded again in 1.2.4 by
+  goals alone, every strategy-parented goal was a top goal. (Superseded again in 1.3.0 by
   the module scoping above.)
 - `gsn:inModule` added: the module an element belongs to. Inferred, never authored.
 - SWRL rule variables moved out of the published term namespace into `gsnswrl:`; they no

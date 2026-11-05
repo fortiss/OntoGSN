@@ -33,7 +33,7 @@ See our website for more information: https://fortiss.github.io/OntoGSN/
 ## Queries
 
 `ontology/queries/` holds 43 CRUD SPARQL queries — one per competency question, covering all five
-GSN sections — and `ontology/queries/rules/` holds all 51 SWRL rules as SPARQL updates, for stores
+GSN sections — and `ontology/queries/rules/` holds all 58 SWRL rules as SPARQL updates, for stores
 with no reasoner attached. Each query runs as-is against the example ABox in
 `ontology/example/example_case.ttl`, and is parameterised by element identifier so it can be pointed at a
 real case without editing a namespace into it.

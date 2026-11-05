@@ -228,6 +228,10 @@ def _atom(g, atom):
     b = g.value(atom, SWRL.builtin)
     if b is not None:
         return f"{ln(b)}({', '.join(arg(a) for a in rdf_list(g, g.value(atom, SWRL.arguments)))})"
+    for kind, name in ((SWRL.DifferentIndividualsAtom, "differentFrom"),
+                       (SWRL.SameIndividualAtom, "sameAs")):
+        if (atom, RDF.type, kind) in g:
+            return f"{name}({arg(g.value(atom, SWRL.argument1))}, {arg(g.value(atom, SWRL.argument2))})"
     return "?"
 
 
@@ -237,9 +241,13 @@ def rules(g):
         body = [_atom(g, a) for a in rdf_list(g, g.value(imp, SWRL.body))]
         head = [_atom(g, a) for a in rdf_list(g, g.value(imp, SWRL.head))]
         label = g.value(imp, RDFS.label)
+        # a rule is a blank node (Protege cannot read a named one from Turtle), so its
+        # section travels with the record rather than being looked up by IRI later
+        section = g.value(imp, GSN.coreOrExtension)
         out.append({"dl": " ^ ".join(body) + " -> " + " ^ ".join(head),
                     "body": frozenset(body), "head": frozenset(head),
-                    "label": str(label) if label else "", "node": imp})
+                    "label": str(label) if label else "", "node": imp,
+                    "section": str(section) if section else ""})
     return out
 
 

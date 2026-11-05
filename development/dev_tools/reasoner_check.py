@@ -33,7 +33,7 @@ defective ontology, and a machine that never had Java should not turn CI red.
 
 One limitation is recorded rather than hidden. This Pellet has no swrlx:makeOWLThing
 builtin, so every rule that mints an individual is dropped with a warning - nine of them at
-1.2.4. Those rules are exactly what the SWRLAPI's Drools engine covered in Protege and what
+1.3.0. Those rules are exactly what the SWRLAPI's Drools engine covered in Protege and what
 ontology/queries/rules/ executes here, so the gap is real and worth seeing. The baseline records
 which rules were dropped; a rule joining or leaving that list is a finding.
 """
@@ -55,6 +55,16 @@ BASELINE = os.path.join(TESTDATA, "reasoner_baseline.txt")
 
 # the banner the fixture puts in front of the section that is wrong on purpose
 MALFORMED_MARKER = "Deliberately malformed"
+
+
+def _ontology_rules():
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import ttl_model
+    from rdflib import Graph
+    return ttl_model.rules(Graph().parse(ONTOLOGY, format="turtle"))
+
+
+ONTOLOGY_RULES = _ontology_rules()
 
 JAVA_MEMORY = "2000"
 
@@ -143,7 +153,34 @@ def graph_for(scenario):
         graph.parse(RULE_FIXTURE, format="turtle")
     elif scenario == "whole fixture":
         graph.parse(FIXTURE, format="turtle")
+    if scenario != "ontology":
+        declare_all_different(graph)
     return graph
+
+
+def declare_all_different(graph):
+    """Declare every individual of the case different from every other one.
+
+    OWL does not assume that two names stand for two individuals, so a rule's
+    differentFrom atom holds only for individuals declared different. This does what
+    Protege's Edit > Make all individuals different does, so that the rules are checked
+    as a case author runs them.
+    """
+    from rdflib import BNode, OWL, RDF, URIRef
+    from rdflib.collection import Collection
+    terms = set(graph.subjects(RDF.type, OWL.Class)) | set(graph.subjects(RDF.type, OWL.Ontology))
+    for kind in (OWL.ObjectProperty, OWL.DatatypeProperty, OWL.AnnotationProperty,
+                 RDF.Property, OWL.Restriction):
+        terms |= set(graph.subjects(RDF.type, kind))
+    classes = set(graph.subjects(RDF.type, OWL.Class))
+    individuals = sorted({s for s, o in graph.subject_objects(RDF.type)
+                          if isinstance(s, URIRef) and s not in terms
+                          and (o in classes or o == OWL.NamedIndividual)})
+    if len(individuals) > 1:
+        node, members = BNode(), BNode()
+        Collection(graph, members, individuals)
+        graph.add((node, RDF.type, OWL.AllDifferent))
+        graph.add((node, OWL.distinctMembers, members))
 
 
 def run_pellet(subcommand, path, classpath, java):
@@ -156,9 +193,22 @@ def run_pellet(subcommand, path, classpath, java):
 
 
 def ignored_rules(stderr):
-    """The rules the reasoner dropped, and the builtin it lacked, as sorted lines."""
-    return sorted({f"{name} - no builtin {builtin.rsplit('#', 1)[-1]}"
-                   for name, builtin in IGNORED_RULE_RE.findall(stderr)})
+    """The rules the reasoner dropped, and the builtin it lacked, as sorted lines.
+
+    A rule is a blank node, so Pellet cannot name it. The rules of the ontology that use a
+    builtin Pellet reported missing are named by their rdfs:label instead, and the count
+    Pellet reported is checked against them.
+    """
+    hits = IGNORED_RULE_RE.findall(stderr)
+    missing = {builtin.rsplit("#", 1)[-1] for _, builtin in hits}
+    lines = set()
+    for builtin in missing:
+        labels = [r["label"] for r in ONTOLOGY_RULES if f"{builtin}(" in r["dl"]]
+        dropped = sum(1 for _, b in hits if b.rsplit("#", 1)[-1] == builtin)
+        lines |= {f"{label} - no builtin {builtin}" for label in labels}
+        if dropped != len(labels):
+            lines.add(f"{dropped} rules dropped for {builtin}, but {len(labels)} rules use it")
+    return sorted(lines)
 
 
 def verdict(stdout):

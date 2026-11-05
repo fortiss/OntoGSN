@@ -252,7 +252,7 @@ def run(query, pyoxigraph):
     """Execute one query against a fresh store and judge it against its 'expect:'.
 
     A rule also sees development/dev_tools/testdata/rule_cases.ttl - one minimal trigger per SWRL rule.
-    The example case alone does not fire all fifty-one, and contorting it until it did
+    The example case alone does not fire all fifty-eight, and contorting it until it did
     would leave an assurance case nobody could read as an example of anything.
     """
     fixtures = [FIXTURE, RULE_FIXTURE] if query.is_rule else [FIXTURE]

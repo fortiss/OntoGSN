@@ -22,13 +22,17 @@ any two of them has a single variable in it.
 | Scope | Contents | `0_full` size |
 | :--- | :--- | ---: |
 | `complete` | Declarations, logical axioms, annotations, SWRL rules | ~160 KB |
-| `pruned` | **minus the SWRL rules** and the ontology's publication metadata | ~35 KB |
+| `pruned` | **minus the SWRL rules**, the inferred-only properties and the ontology's publication metadata | ~35 KB |
 | `skeletal` | **minus all prose.** Declarations and logical axioms only | ~16 KB |
 
 `pruned` removes the rule layer, not the documentation: `rdfs:label`, `skos:definition`,
 `skos:note`, `skos:altLabel`, `gsn:renderedAs` and `gsn:coreOrExtension` all survive, so
-the terms stay readable. What goes is the 51 SWRL rules with their atoms and variables,
-and the licence/citation/disclaimer block on the ontology node.
+the terms stay readable. What goes is the 58 SWRL rules with their atoms and variables,
+the properties flagged `gsn:inferredOnly true`, and the licence/citation/disclaimer block
+on the ontology node. A rule derives each flagged property, and a case never asserts one,
+so the flagged properties belong to the rule layer. They are `gsn:inModule`,
+`gsn:transitivelySupportedBy`, `gsn:transitivelyInContextOf` and
+`gsn:transitivelyChallenges`.
 
 `skeletal` then drops the words and keeps the logic. It is not an opaque file — `gsn:Goal`,
 `gsn:Solution` and `gsn:supportedBy` say what they are, and every class expression survives

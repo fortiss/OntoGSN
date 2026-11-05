@@ -4,7 +4,7 @@
 # operation: rule
 # expect:    insert
 # swrl:      'supported by'(?G2, ?S) ^ 'Relationship with Confidence'(?R1) ^ rdf:subject(?R1, ?S)
-#            ^ 'supported by'(?S, ?G1) ^ swrlx:makeOWLThing(?G2, ?R2) ^ rdf:object(?R1, ?G1) ^
+#            ^ 'supported by'(?S, ?G1) ^ swrlx:makeOWLThing(?R2, ?G2, ?S) ^ rdf:object(?R1, ?G1) ^
 #            Strategy(?S) ^ Goal(?G1) ^ Goal(?G2) ^ 'associated with'(?R1, ?A) -> 'Relationship
 #            with Confidence'(?R2) ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2,
 #            true) ^ rdf:subject(?R2, ?G2) ^ rdf:object(?R2, ?S)
@@ -39,8 +39,11 @@ WHERE {
       gsn:supportedBy ?S ;
       schema:identifier ?idG2 .
   BIND(CONCAT("RC-", ?idG2, "-", ?idS) AS ?relationshipId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("RC-", REPLACE(STR(?G2), "^.*[#/]", ""), "-", REPLACE(STR(?S), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G2), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?relationshipId))) AS ?R2)
+                  ENCODE_FOR_URI(?iriKey))) AS ?R2)
   FILTER NOT EXISTS {
     ?existing a gsn:RelationshipWithConfidence ;
               rdf:subject ?G2 ;

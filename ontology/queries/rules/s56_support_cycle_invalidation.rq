@@ -1,0 +1,17 @@
+# rule:      S56
+# name:      Support Cycle Invalidation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      'transitively supported by'(?E, ?E) -> valid(?E, false)
+# reads:     IF E is transitively supported by itself THEN E is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?E gsn:valid ?old }
+INSERT { ?E gsn:valid false }
+WHERE {
+  ?E gsn:transitivelySupportedBy ?E .
+  OPTIONAL { ?E gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

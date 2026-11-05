@@ -15,7 +15,7 @@
     dc:description "SHACL shapes derived from the Core GSN section of the OntoGSN ontology (https://w3id.org/OntoGSN/ontology)."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     gsn:coreOrExtension "Core GSN"@en ;
-    owl:versionInfo "1.0.3" .
+    owl:versionInfo "1.1.0" .
 
 
 #################################################################
@@ -344,7 +344,6 @@ gsnsh:ContainsPropertyShape rdf:type sh:NodeShape ;
 ###  gsn:inContextOf
 gsnsh:InContextOfPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:inContextOf — domain"@en ;
-    rdfs:comment "gsn:Module is added to the declared domain (Goal, Strategy) because gsn:Module carries an owl:allValuesFrom restriction on gsn:inContextOf."@en ;
     sh:targetSubjectsOf gsn:inContextOf ;
     gsn:coreOrExtension "Core GSN"@en ;
     sh:or ( [ sh:class gsn:Goal ]
@@ -387,7 +386,6 @@ gsnsh:RefersToRangePropertyShape rdf:type sh:NodeShape ;
 ###  gsn:supportedBy
 gsnsh:SupportedByPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:supportedBy — domain"@en ;
-    rdfs:comment "gsn:Module is added to the declared domain (Goal, Strategy) because gsn:Module carries an owl:allValuesFrom restriction on gsn:supportedBy."@en ;
     sh:targetSubjectsOf gsn:supportedBy ;
     gsn:coreOrExtension "Core GSN"@en ;
     sh:or ( [ sh:class gsn:Goal ]
@@ -694,6 +692,30 @@ gsnsh:SupportCycleShape rdf:type sh:NodeShape ;
             SELECT $this
             WHERE {
                 $this gsn:supportedBy+ $this .
+            }
+        """ ;
+    ] .
+
+gsnsh:TrueClaimSolutionShape rdf:type sh:NodeShape ;
+    rdfs:label "A claim marked true rests only on solutions marked true"@en ;
+    sh:targetSubjectsOf gsn:supportedBy ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} is marked true, but the solution {?value} that supports it is not marked true."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
+        sh:severity sh:Warning ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:true ?claim ;
+                      gsn:supportedBy ?value .
+                FILTER ( STR(?claim) = "true" )
+                ?value a gsn:Solution .
+                FILTER NOT EXISTS {
+                    ?value gsn:true ?evidence .
+                    FILTER ( STR(?evidence) = "true" )
+                }
             }
         """ ;
     ] .

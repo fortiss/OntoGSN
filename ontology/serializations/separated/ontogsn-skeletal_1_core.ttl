@@ -21,9 +21,13 @@ schema:citation a owl:AnnotationProperty .
 
 schema:license a owl:AnnotationProperty .
 
+rdf:predicate a owl:ObjectProperty .
+
 xsd:date a rdfs:Datatype .
 
 gsn:coreOrExtension a owl:AnnotationProperty .
+
+gsn:inferredOnly a owl:AnnotationProperty .
 
 gsn:offDiagram a owl:DatatypeProperty ;
     rdfs:domain gsn:GSNElement ;
@@ -71,7 +75,7 @@ gsn:valid a owl:DatatypeProperty ;
     dc:description "The skeletal Core GSN section of OntoGSN. Generated from ontogsn.ttl by development/dev_tools/build_separated.py. Declarations and logical axioms only - no rules, no prose."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Core GSN"@en ;
-    owl:versionInfo "1.2.4" ;
+    owl:versionInfo "1.3.0" ;
     gsn:coreOrExtension "Core GSN"@en .
 
 rdf:Statement a owl:Class .
@@ -114,7 +118,7 @@ gsn:supportedBy a owl:AsymmetricProperty,
         owl:IrreflexiveProperty,
         owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Strategy ) ] ;
+            owl:unionOf ( gsn:Goal gsn:Module gsn:Strategy ) ] ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( gsn:Goal gsn:Module gsn:Solution gsn:Strategy ) ] .
 
@@ -134,7 +138,7 @@ gsn:inContextOf a owl:AsymmetricProperty,
         owl:IrreflexiveProperty,
         owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Strategy ) ] ;
+            owl:unionOf ( gsn:Goal gsn:Module gsn:Strategy ) ] ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( gsn:Assumption gsn:Context gsn:Justification gsn:Module ) ] .
 
@@ -205,8 +209,6 @@ gsn:Argument a owl:Class ;
                         owl:onProperty gsn:statement ;
                         owl:someValuesFrom xsd:string ] ) ] .
 
-gsn:Module a owl:Class .
-
 gsn:statement a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:GSNElement ) ] ;
@@ -232,6 +234,8 @@ gsn:Goal a owl:Class ;
                     owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
             owl:onProperty gsn:challenges ],
         gsn:GSNElement .
+
+gsn:Module a owl:Class .
 
 gsn:GSNElement a owl:Class ;
     rdfs:subClassOf [ a owl:Restriction ;

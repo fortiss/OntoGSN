@@ -448,7 +448,7 @@ gsndesign:cq-CQ-78
 
 
 #################################################################
-#    Stored queries (129)
+#    Stored queries (135)
 #    gsndesign:declaresNamespace records what each file binds its prefixes to, which is
 #    how a query pointing at the wrong namespace becomes findable.
 #    
@@ -3874,24 +3874,24 @@ WHERE {
 }
 """ .
 
-gsndesign:query-rules-s05-goal-inference
+gsndesign:query-rules-s05-inferential-relation-goal
     a gsndesign:Query ;
-    rdfs:label "rules/s05_goal_inference.rq"@en ;
+    rdfs:label "rules/s05_inferential_relation_goal.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:path "ontology/queries/rules/s05_goal_inference.rq" ;
-    gsndesign:fileChecksum "ded354f840d46de207ecdea2c5e4705a5d45221f7254d9f80eed2d83e77ff2c7" ;
+    gsndesign:path "ontology/queries/rules/s05_inferential_relation_goal.rq" ;
+    gsndesign:fileChecksum "b2775331f9d1465575aa5df193570f5cf66234277e5c2a62f45ad6ad3b647358" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
         gsn:relationshipType ,
         gsn:supportedBy ;
-    gsndesign:ruleName "Goal Inference" ;
+    gsndesign:ruleName "Inferential Relation (Goal)" ;
     gsndesign:translatesStatement gsndesign:st-0143 ;
     gsndesign:restsOnStatement gsndesign:st-0120 ,
         gsndesign:st-0161 ,
         gsndesign:st-0207 ;
     gsndesign:queryText """# rule:      S5
-# name:      Goal Inference
+# name:      Inferential Relation (Goal)
 # section:   Core GSN
 # operation: rule
 # expect:    insert
@@ -3983,48 +3983,6 @@ WHERE {
 }
 """ .
 
-gsndesign:query-rules-s07-predicate-conflict-invalidation
-    a gsndesign:Query ;
-    rdfs:label "rules/s07_predicate_conflict_invalidation.rq"@en ;
-    gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:path "ontology/queries/rules/s07_predicate_conflict_invalidation.rq" ;
-    gsndesign:fileChecksum "59d15530f0978c93f47252264aeb2912fb5730ae9b464bd795835e097d1f47d3" ;
-    gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
-        "https://w3id.org/OntoGSN/ontology#" ;
-    gsndesign:mentionsTerm gsn:valid ;
-    gsndesign:ruleName "Predicate Conflict Invalidation" ;
-    gsndesign:translatesStatement gsndesign:st-0226 ;
-    gsndesign:restsOnStatement gsndesign:st-0114 ;
-    gsndesign:queryText """# rule:      S7
-# name:      Predicate Conflict Invalidation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      rdf:object(?R3, ?A) ^ rdf:subject(?R1, ?A) ^ rdf:subject(?R2, ?B) ^ rdf:subject(?R3,
-#            ?C) ^ rdf:predicate(?R3, ?P) ^ rdf:predicate(?R2, ?P) ^ rdf:object(?R1, ?B) ^
-#            rdf:object(?R2, ?C) ^ rdf:predicate(?R1, ?P) -> valid(?R1, false) ^ valid(?R2,
-#            false) ^ valid(?R3, false)
-# reads:     IF R1 has subject A, predicate P, and object B AND R2 has subject B, predicate P,
-#            and object C AND R3 has subject C, predicate P, and object A THEN R1 is NOT valid
-#            AND R2 is NOT valid AND R3 is NOT valid
-
-PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-
-DELETE { ?R gsn:valid ?old }
-INSERT { ?R gsn:valid false }
-WHERE {
-  ?R1 rdf:subject ?A ; rdf:predicate ?P ; rdf:object ?B .
-  ?R2 rdf:subject ?B ; rdf:predicate ?P ; rdf:object ?C .
-  ?R3 rdf:subject ?C ; rdf:predicate ?P ; rdf:object ?A .
-  FILTER(?R1 != ?R2 && ?R1 != ?R3 && ?R2 != ?R3)
-  VALUES ?slot { 1 2 3 }
-  BIND(IF(?slot = 1, ?R1, IF(?slot = 2, ?R2, ?R3)) AS ?R)
-  OPTIONAL { ?R gsn:valid ?old }
-  FILTER(!BOUND(?old) || STR(?old) != "false")
-}
-""" .
-
 gsndesign:query-rules-s08-contradictory-goal-truth
     a gsndesign:Query ;
     rdfs:label "rules/s08_contradictory_goal_truth.rq"@en ;
@@ -4064,50 +4022,6 @@ WHERE {
      gsn:true ?tB .
   FILTER(STR(?tB) = "true")
   OPTIONAL { ?B gsn:valid ?old }
-  FILTER(!BOUND(?old) || STR(?old) != "false")
-}
-""" .
-
-gsndesign:query-rules-s09-tri-goal-conflict
-    a gsndesign:Query ;
-    rdfs:label "rules/s09_tri_goal_conflict.rq"@en ;
-    gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:path "ontology/queries/rules/s09_tri_goal_conflict.rq" ;
-    gsndesign:fileChecksum "45b728fc15ab75cb139a050bcaf522e8d3ad8f45b15d324ef1df1c08b4f9eb99" ;
-    gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
-    gsndesign:mentionsTerm gsn:Goal ,
-        gsn:supportedBy ,
-        gsn:true ,
-        gsn:valid ;
-    gsndesign:ruleName "Tri-Goal Conflict" ;
-    gsndesign:translatesStatement gsndesign:st-0240 ;
-    gsndesign:restsOnStatement gsndesign:st-0114 ,
-        gsndesign:st-0161 ,
-        gsndesign:st-0207 ,
-        gsndesign:st-0234 ;
-    gsndesign:queryText """# rule:      S9
-# name:      Tri-Goal Conflict
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      true(?C, true) ^ true(?B, false) ^ 'supported by'(?C, ?B) ^ true(?A, true) ^
-#            'supported by'(?C, ?A) ^ Goal(?A) ^ Goal(?B) -> valid(?C, false)
-# reads:     IF C is true AND B is false AND C is supported by B and A AND A is true AND A and B
-#            are Goals THEN C is NOT valid
-
-PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
-
-DELETE { ?C gsn:valid ?old }
-INSERT { ?C gsn:valid false }
-WHERE {
-  ?C gsn:true ?tC ;
-     gsn:supportedBy ?A , ?B .
-  FILTER(STR(?tC) = "true")
-  ?A a gsn:Goal ; gsn:true ?tA .
-  ?B a gsn:Goal ; gsn:true ?tB .
-  FILTER(STR(?tA) = "true")
-  FILTER(STR(?tB) = "false")
-  OPTIONAL { ?C gsn:valid ?old }
   FILTER(!BOUND(?old) || STR(?old) != "false")
 }
 """ .
@@ -4373,14 +4287,14 @@ gsndesign:query-rules-s18-support-relation-creation
     rdfs:label "rules/s18_support_relation_creation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s18_support_relation_creation.rq" ;
-    gsndesign:fileChecksum "7023c77fc6a796afa6f54ec298ec608df45ace1cbc61875bb4695361106a123e" ;
+    gsndesign:fileChecksum "4d23027aae7d266bf3835ce160e2a0f49b1308d6741df380df30a45d3eff129b" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Relationship ,
         gsn:supportedBy ;
     gsndesign:ruleName "Support Relation Creation" ;
-    gsndesign:translatesStatement gsndesign:st-0302 ;
+    gsndesign:translatesStatement gsndesign:st-1075 ;
     gsndesign:restsOnStatement gsndesign:st-0207 ,
         gsndesign:st-0291 ;
     gsndesign:queryText """# rule:      S18
@@ -4388,7 +4302,7 @@ gsndesign:query-rules-s18-support-relation-creation
 # section:   Core GSN
 # operation: rule
 # expect:    insert
-# swrl:      'supported by'(?A, ?B) ^ swrlx:makeOWLThing(?B, ?R) -> rdf:subject(?R, ?A) ^
+# swrl:      'supported by'(?A, ?B) ^ swrlx:makeOWLThing(?R, ?A, ?B) -> rdf:subject(?R, ?A) ^
 #            Relationship(?R) ^ rdf:object(?R, ?B)
 # reads:     IF A is supported by B THEN Create R AND R has subject A and object B
 
@@ -4408,8 +4322,11 @@ WHERE {
      schema:identifier ?idA .
   ?B schema:identifier ?idB .
   BIND(CONCAT("R-", ?idA, "-supportedBy-", ?idB) AS ?relationshipId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("R-", REPLACE(STR(?A), "^.*[#/]", ""), "-supportedBy-", REPLACE(STR(?B), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?relationshipId))) AS ?R)
+                  ENCODE_FOR_URI(?iriKey))) AS ?R)
   FILTER NOT EXISTS {
     ?existing rdf:subject ?A ;
               rdf:predicate gsn:supportedBy ;
@@ -4423,14 +4340,14 @@ gsndesign:query-rules-s19-context-relation-creation
     rdfs:label "rules/s19_context_relation_creation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s19_context_relation_creation.rq" ;
-    gsndesign:fileChecksum "73e9e703ab28d602e74fe9cbe4b737c977128ceda17cb7fbc78d0b3b48f2d8d5" ;
+    gsndesign:fileChecksum "a1ca4b5e82fc529394b3439a8463c73c979a7dd78adc2414b7bba23ca77bd150" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Relationship ,
         gsn:inContextOf ;
     gsndesign:ruleName "Context Relation Creation" ;
-    gsndesign:translatesStatement gsndesign:st-0304 ;
+    gsndesign:translatesStatement gsndesign:st-1074 ;
     gsndesign:restsOnStatement gsndesign:st-0218 ,
         gsndesign:st-0291 ;
     gsndesign:queryText """# rule:      S19
@@ -4438,7 +4355,7 @@ gsndesign:query-rules-s19-context-relation-creation
 # section:   Core GSN
 # operation: rule
 # expect:    insert
-# swrl:      'in context of'(?A, ?B) ^ swrlx:makeOWLThing(?B, ?R) -> rdf:subject(?R, ?A) ^
+# swrl:      'in context of'(?A, ?B) ^ swrlx:makeOWLThing(?R, ?A, ?B) -> rdf:subject(?R, ?A) ^
 #            Relationship(?R) ^ rdf:object(?R, ?B)
 # reads:     IF A is in context of B THEN Create R AND R has subject A and object B
 
@@ -4458,8 +4375,11 @@ WHERE {
      schema:identifier ?idA .
   ?B schema:identifier ?idB .
   BIND(CONCAT("R-", ?idA, "-inContextOf-", ?idB) AS ?relationshipId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("R-", REPLACE(STR(?A), "^.*[#/]", ""), "-inContextOf-", REPLACE(STR(?B), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?relationshipId))) AS ?R)
+                  ENCODE_FOR_URI(?iriKey))) AS ?R)
   FILTER NOT EXISTS {
     ?existing rdf:subject ?A ;
               rdf:predicate gsn:inContextOf ;
@@ -4614,13 +4534,13 @@ gsndesign:query-rules-s23-cross-module-away-support
     rdfs:label "rules/s23_cross_module_away_support.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s23_cross_module_away_support.rq" ;
-    gsndesign:fileChecksum "58dd7e5308047b40daac6a67e067cf0dc60238f84149ca67a7aa466d9f411894" ;
+    gsndesign:fileChecksum "ba0a1d8d87604a2123f8368b32f4c0ad99a93fb6a5368061d259814cfa99788b" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:away ,
         gsn:inModule ,
         gsn:supportedBy ;
     gsndesign:ruleName "Cross-Module Away Support" ;
-    gsndesign:translatesStatement gsndesign:st-0496 ;
+    gsndesign:translatesStatement gsndesign:st-1078 ;
     gsndesign:restsOnStatement gsndesign:st-0207 ,
         gsndesign:st-0490 ,
         gsndesign:st-0944 ;
@@ -4630,7 +4550,7 @@ gsndesign:query-rules-s23-cross-module-away-support
 # operation: rule
 # expect:    insert
 # swrl:      'in module'(?A, ?M) ^ 'in module'(?B, ?N) ^ 'supported by'(?A, ?B) ^ Module(?N) ^
-#            Module(?M) ^ swrlb:notEqual(?M, ?N) -> away(?B, true)
+#            Module(?M) ^ differentFrom(?M, ?N) -> away(?B, true)
 # reads:     IF M is a Module AND M contains A AND N is a Module AND N contains B AND A is
 #            supported by B AND M and N are distinct THEN B is away (in another Module)
 
@@ -4653,13 +4573,13 @@ gsndesign:query-rules-s24-cross-module-away-context
     rdfs:label "rules/s24_cross_module_away_context.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s24_cross_module_away_context.rq" ;
-    gsndesign:fileChecksum "6d26e0c8e06c0ea25f96526bccfdbb6c5efc968b190375cda13d43b8b92fe617" ;
+    gsndesign:fileChecksum "97fdbebd22d3f9582324d3761b4d4b1f812c369cf6091b66a6e2baba64e6dce9" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:away ,
         gsn:inContextOf ,
         gsn:inModule ;
     gsndesign:ruleName "Cross-Module Away Context" ;
-    gsndesign:translatesStatement gsndesign:st-0497 ;
+    gsndesign:translatesStatement gsndesign:st-1077 ;
     gsndesign:restsOnStatement gsndesign:st-0218 ,
         gsndesign:st-0490 ,
         gsndesign:st-0944 ;
@@ -4669,7 +4589,7 @@ gsndesign:query-rules-s24-cross-module-away-context
 # operation: rule
 # expect:    insert
 # swrl:      'in module'(?A, ?M) ^ 'in module'(?B, ?N) ^ Module(?N) ^ 'in context of'(?A, ?B) ^
-#            Module(?M) ^ swrlb:notEqual(?M, ?N) -> away(?B, true)
+#            Module(?M) ^ differentFrom(?M, ?N) -> away(?B, true)
 # reads:     IF Module M contains A AND Module N contains B AND A is in context of B AND M and N
 #            are distinct Modules THEN B is away (in another Module)
 
@@ -4692,13 +4612,13 @@ gsndesign:query-rules-s25-duplicate-identifier-invalidation
     rdfs:label "rules/s25_duplicate_identifier_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s25_duplicate_identifier_invalidation.rq" ;
-    gsndesign:fileChecksum "3d7246b6888994413d5cd446913747d8751ae80a614761d637852db26b2c5262" ;
+    gsndesign:fileChecksum "5318fb2bacb4d75bc6529b843160619cc7c059511c42b053511cb973f5847c79" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:inModule ,
         gsn:valid ;
     gsndesign:ruleName "Duplicate Identifier Invalidation" ;
-    gsndesign:translatesStatement gsndesign:st-0499 ;
+    gsndesign:translatesStatement gsndesign:st-1079 ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S25
@@ -4707,7 +4627,7 @@ gsndesign:query-rules-s25-duplicate-identifier-invalidation
 # operation: rule
 # expect:    insert
 # swrl:      'in module'(?B, ?M) ^ 'in module'(?A, ?M) ^ schema:identifier(?A, ?ID) ^ Module(?M) ^
-#            swrlb:notEqual(?A, ?B) ^ schema:identifier(?B, ?ID) -> valid(?A, false) ^ valid(?B,
+#            differentFrom(?A, ?B) ^ schema:identifier(?B, ?ID) -> valid(?A, false) ^ valid(?B,
 #            false)
 # reads:     IF Module M contains both A and B AND A and B share the same schema identifier ID
 #            AND A and B are distinct THEN A is NOT valid AND B is NOT valid
@@ -4931,7 +4851,7 @@ gsndesign:query-rules-s30-contract-activation
     rdfs:label "rules/s30_contract_activation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s30_contract_activation.rq" ;
-    gsndesign:fileChecksum "3ad33d65ce8fc72d1c8484c16158d8495d2b4c4574a6c6aad0058f26d8cfe346" ;
+    gsndesign:fileChecksum "028c399754d78407c423aed3117bd7fd79708ad2ff88658b9a3ef744a6280811" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:away ,
         gsn:contract ,
@@ -4939,7 +4859,7 @@ gsndesign:query-rules-s30-contract-activation
         gsn:supportedBy ,
         gsn:toBeSupportedByContract ;
     gsndesign:ruleName "Contract Activation" ;
-    gsndesign:translatesStatement gsndesign:st-0560 ;
+    gsndesign:translatesStatement gsndesign:st-1080 ;
     gsndesign:restsOnStatement gsndesign:st-0207 ,
         gsndesign:st-0490 ,
         gsndesign:st-0525 ,
@@ -4952,7 +4872,7 @@ gsndesign:query-rules-s30-contract-activation
 # expect:    insert
 # swrl:      away(?A, true) ^ 'to be supported by contract'(?A, true) ^ Module(?M1) ^ Module(?M2)
 #            ^ 'in module'(?A, ?M1) ^ 'in module'(?B, ?M2) ^ 'supported by'(?A, ?B) ^
-#            swrlb:notEqual(?M1, ?M2) -> contract(?M2, true)
+#            differentFrom(?M1, ?M2) -> contract(?M2, true)
 # reads:     IF A is away and must be supported by contract AND M1 and M2 are Modules AND A is in
 #            M1 AND B is in M2 AND A is supported by B AND M1 and M2 are distinct THEN M2 becomes
 #            a contract Module
@@ -5076,7 +4996,7 @@ gsndesign:query-rules-s33-substitution-invalidation
     rdfs:label "rules/s33_substitution_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s33_substitution_invalidation.rq" ;
-    gsndesign:fileChecksum "0733d7bb3f151debbdfc4f697ea26f880defe20ed142549a39b5790cd47258a4" ;
+    gsndesign:fileChecksum "ab0cab024db6fc0498c6fa5c38c35502d3e9559f3041c95bb820d21470d5caf1" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Justification ,
         gsn:inContextOf ,
@@ -5084,7 +5004,7 @@ gsndesign:query-rules-s33-substitution-invalidation
         gsn:substitutedBy ,
         gsn:valid ;
     gsndesign:ruleName "Substitution Invalidation" ;
-    gsndesign:translatesStatement gsndesign:st-0580 ;
+    gsndesign:translatesStatement gsndesign:st-1076 ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0194 ,
         gsndesign:st-0218 ,
@@ -5097,7 +5017,7 @@ gsndesign:query-rules-s33-substitution-invalidation
 # expect:    insert
 # swrl:      contains(?M2, ?G) ^ Module(?M1) ^ Module(?M2) ^ 'substituted by'(?J, ?G) ^
 #            contains(?M1, ?J) ^ Justification(?J) ^ 'in context of'(?E, ?J) ^
-#            swrlb:notEqual(?M1, ?M2) -> valid(?J, false)
+#            differentFrom(?M1, ?M2) -> valid(?J, false)
 # reads:     IF Module M2 contains Goal G AND M1 and M2 are Modules AND Justification J is
 #            substituted by G AND M1 contains J AND J is a Justification AND some element E is in
 #            context of J AND M1 and M2 are distinct THEN J is NOT valid
@@ -5123,12 +5043,12 @@ gsndesign:query-rules-s34-module-support-propagation
     rdfs:label "rules/s34_module_support_propagation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s34_module_support_propagation.rq" ;
-    gsndesign:fileChecksum "bceee32b8f09ff4cf060f7f1b2996d327da2b40d8493c3f2e2f53e7f9361f011" ;
+    gsndesign:fileChecksum "42a80cf6dc4df37929308c6b9cc2ac383b6b0695c6e3bd7f1743bf12c39a75b5" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:inModule ,
         gsn:supportedBy ;
     gsndesign:ruleName "Module Support Propagation" ;
-    gsndesign:translatesStatement gsndesign:st-0596 ;
+    gsndesign:translatesStatement gsndesign:st-1082 ;
     gsndesign:restsOnStatement gsndesign:st-0207 ,
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S34
@@ -5137,7 +5057,7 @@ gsndesign:query-rules-s34-module-support-propagation
 # operation: rule
 # expect:    insert
 # swrl:      Module(?M1) ^ Module(?M2) ^ 'supported by'(?E1, ?E2) ^ 'in module'(?E1, ?M1) ^
-#            contains(?M2, ?E2) ^ swrlb:notEqual(?M1, ?M2) -> 'supported by'(?M1, ?M2)
+#            contains(?M2, ?E2) ^ differentFrom(?M1, ?M2) -> 'supported by'(?M1, ?M2)
 # reads:     IF M1 and M2 are Modules AND E1 in M1 is supported by E2 in M2 AND M1 and M2 are
 #            distinct THEN M1 is supported by M2
 
@@ -5158,12 +5078,12 @@ gsndesign:query-rules-s35-module-context-propagation
     rdfs:label "rules/s35_module_context_propagation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s35_module_context_propagation.rq" ;
-    gsndesign:fileChecksum "68bc6a4c1324fd043ecc17970621ac709ac3c320ad58ed358c29eaa32eac5410" ;
+    gsndesign:fileChecksum "bc46a4b0820ef46dbea88d2e0a25efe3b61456fecc1005ca0a09e15e63d97e06" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:inContextOf ,
         gsn:inModule ;
     gsndesign:ruleName "Module Context Propagation" ;
-    gsndesign:translatesStatement gsndesign:st-0597 ;
+    gsndesign:translatesStatement gsndesign:st-1081 ;
     gsndesign:restsOnStatement gsndesign:st-0218 ,
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S35
@@ -5172,7 +5092,7 @@ gsndesign:query-rules-s35-module-context-propagation
 # operation: rule
 # expect:    insert
 # swrl:      Module(?M1) ^ Module(?M2) ^ 'in module'(?E1, ?M1) ^ 'in module'(?E2, ?M2) ^ 'in context
-#            of'(?E1, ?E2) ^ swrlb:notEqual(?M1, ?M2) -> 'in context of'(?M1, ?M2)
+#            of'(?E1, ?E2) ^ differentFrom(?M1, ?M2) -> 'in context of'(?M1, ?M2)
 # reads:     IF M1 and M2 are Modules AND E1 in M1 is in context of E2 in M2 AND M1 and M2 are
 #            distinct THEN M1 is in context of M2
 
@@ -5193,13 +5113,13 @@ gsndesign:query-rules-s36-cross-module-support
     rdfs:label "rules/s36_cross_module_support.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s36_cross_module_support.rq" ;
-    gsndesign:fileChecksum "0d9dfc162b6ff8ba4073d58a462328599a85587992b8c5582b64cceb73c2ef4e" ;
+    gsndesign:fileChecksum "1e8386ce11ae5342f7605265fed326d25ce0b1812baab592052a16b6e33dda60" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Module ,
         gsn:inModule ,
         gsn:supportedBy ;
     gsndesign:ruleName "Cross-Module Support" ;
-    gsndesign:translatesStatement gsndesign:st-0598 ;
+    gsndesign:translatesStatement gsndesign:st-1083 ;
     gsndesign:restsOnStatement gsndesign:st-0207 ,
         gsndesign:st-0469 ,
         gsndesign:st-0944 ;
@@ -5209,7 +5129,7 @@ gsndesign:query-rules-s36-cross-module-support
 # operation: rule
 # expect:    insert
 # swrl:      'supported by'(?E1, ?M2) ^ Module(?M1) ^ Module(?M2) ^ 'in module'(?E1, ?M1) ^
-#            swrlb:notEqual(?M1, ?M2) -> 'supported by'(?M1, ?M2)
+#            differentFrom(?M1, ?M2) -> 'supported by'(?M1, ?M2)
 # reads:     IF E1 is supported by Module M2 AND M1 and M2 are Modules AND M1 contains E1 AND M1
 #            and M2 are distinct THEN M1 is supported by M2
 
@@ -5222,50 +5142,6 @@ WHERE {
   FILTER(?M1 != ?M2)
   ?E1 gsn:supportedBy ?M2 .
   FILTER NOT EXISTS { ?M1 gsn:supportedBy ?M2 }
-}
-""" .
-
-gsndesign:query-rules-s37-circular-module-invalidation
-    a gsndesign:Query ;
-    rdfs:label "rules/s37_circular_module_invalidation.rq"@en ;
-    gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:path "ontology/queries/rules/s37_circular_module_invalidation.rq" ;
-    gsndesign:fileChecksum "d700dde2e37024d81d0fd8d7e601f90f92295d71d17496fb4d0e0f6c5533a229" ;
-    gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
-    gsndesign:mentionsTerm gsn:Module ,
-        gsn:supportedBy ,
-        gsn:valid ;
-    gsndesign:ruleName "Circular Module Invalidation" ;
-    gsndesign:translatesStatement gsndesign:st-0604 ;
-    gsndesign:restsOnStatement gsndesign:st-0114 ,
-        gsndesign:st-0207 ,
-        gsndesign:st-0469 ;
-    gsndesign:queryText """# rule:      S37
-# name:      Circular Module Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Module(?M3) ^ Module(?M1) ^ Module(?M2) ^ swrlb:notEqual(?M3, ?M1) ^ 'supported
-#            by'(?M1, ?M2) ^ 'supported by'(?M2, ?M3) ^ swrlb:notEqual(?M1, ?M2) ^
-#            swrlb:notEqual(?M2, ?M3) ^ 'supported by'(?M3, ?M1) -> valid(?M1, false) ^
-#            valid(?M3, false) ^ valid(?M2, false)
-# reads:     IF M1, M2 and M3 are Modules AND M1 is supported by M2 AND M2 is supported by M3 AND
-#            M3 is supported by M1 AND all three Modules are pairwise distinct THEN M1 is NOT
-#            valid AND M2 is NOT valid AND M3 is NOT valid
-
-PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
-
-DELETE { ?target gsn:valid ?old }
-INSERT { ?target gsn:valid false }
-WHERE {
-  ?M1 a gsn:Module ; gsn:supportedBy ?M2 .
-  ?M2 a gsn:Module ; gsn:supportedBy ?M3 .
-  ?M3 a gsn:Module ; gsn:supportedBy ?M1 .
-  FILTER(?M1 != ?M2 && ?M1 != ?M3 && ?M2 != ?M3)
-  VALUES ?slot { 1 2 3 }
-  BIND(IF(?slot = 1, ?M1, IF(?slot = 2, ?M2, ?M3)) AS ?target)
-  OPTIONAL { ?target gsn:valid ?old }
-  FILTER(!BOUND(?old) || STR(?old) != "false")
 }
 """ .
 
@@ -5351,7 +5227,7 @@ gsndesign:query-rules-s40-confidence-relation-creation
     rdfs:label "rules/s40_confidence_relation_creation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s40_confidence_relation_creation.rq" ;
-    gsndesign:fileChecksum "472dec8dd39f5f932ad411a13ac274fb3c60ed4c15bb36ef3f9669e6cc0f210e" ;
+    gsndesign:fileChecksum "e7acdfd56d256e8d5be3524b1a5e6be02b1875da7936a82770763c23083bef19" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
@@ -5360,7 +5236,7 @@ gsndesign:query-rules-s40-confidence-relation-creation
         gsn:RelationshipWithConfidence ,
         gsn:assuranceClaimPoint ;
     gsndesign:ruleName "Confidence Relation Creation" ;
-    gsndesign:translatesStatement gsndesign:st-0663 ;
+    gsndesign:translatesStatement gsndesign:st-1067 ;
     gsndesign:restsOnStatement gsndesign:st-0287 ,
         gsndesign:st-0635 ,
         gsndesign:st-0648 ;
@@ -5370,7 +5246,7 @@ gsndesign:query-rules-s40-confidence-relation-creation
 # operation: rule
 # expect:    insert
 # swrl:      'assurance claim point'(?A, true) ^ 'Artefact Reference'(?A) ^
-#            swrlx:makeOWLThing(?A, ?R) -> 'Relationship with Confidence'(?R) ^ rdf:subject(?R,
+#            swrlx:makeOWLThing(?R, ?A) -> 'Relationship with Confidence'(?R) ^ rdf:subject(?R,
 #            ?A) ^ 'assurance claim point'(?R, true)
 # reads:     IF A is an Artefact Reference marked as an assurance claim point AND we introduce a
 #            reified confidence Relationship R for A THEN R is a Relationship with Confidence
@@ -5393,8 +5269,11 @@ WHERE {
      schema:identifier ?idA .
   FILTER(STR(?acp) = "true")
   BIND(CONCAT("RC-", ?idA) AS ?relationshipId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("RC-", REPLACE(STR(?A), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?relationshipId))) AS ?R)
+                  ENCODE_FOR_URI(?iriKey))) AS ?R)
   FILTER NOT EXISTS {
     ?existing a gsn:RelationshipWithConfidence ;
               rdf:subject ?A .
@@ -5402,27 +5281,30 @@ WHERE {
 }
 """ .
 
-gsndesign:query-rules-s41-duplicate-name-invalidation
+gsndesign:query-rules-s41-duplicate-acp-identifier-invalidation
     a gsndesign:Query ;
-    rdfs:label "rules/s41_duplicate_name_invalidation.rq"@en ;
+    rdfs:label "rules/s41_duplicate_acp_identifier_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:path "ontology/queries/rules/s41_duplicate_name_invalidation.rq" ;
-    gsndesign:fileChecksum "5b588c776933e76d5768cda6f41f424989e2991b1669702eb9e107be91e6cc58" ;
+    gsndesign:path "ontology/queries/rules/s41_duplicate_acp_identifier_invalidation.rq" ;
+    gsndesign:fileChecksum "e74ed3f7be93cd760386fc3b3704ebdab2c51bdd0a0f30aefe5d93ed4409aaf7" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
-    gsndesign:mentionsTerm gsn:valid ;
-    gsndesign:ruleName "Duplicate Name Invalidation" ;
-    gsndesign:translatesStatement gsndesign:st-0665 ;
-    gsndesign:restsOnStatement gsndesign:st-0114 ;
+    gsndesign:mentionsTerm gsn:assuranceClaimPoint ,
+        gsn:valid ;
+    gsndesign:ruleName "Duplicate ACP Identifier Invalidation" ;
+    gsndesign:translatesStatement gsndesign:st-1013 ;
+    gsndesign:restsOnStatement gsndesign:st-0114 ,
+        gsndesign:st-0635 ;
     gsndesign:queryText """# rule:      S41
-# name:      Duplicate Name Invalidation
+# name:      Duplicate ACP Identifier Invalidation
 # section:   Confidence Argument Extension
 # operation: rule
 # expect:    insert
-# swrl:      schema:identifier(?A, ?N) ^ schema:identifier(?B, ?M) ^ swrlb:notEqual(?A, ?B) ^
-#            swrlb:equal(?N, ?M) -> valid(?A, false) ^ valid(?B, false)
-# reads:     IF A has schema identifier N AND B has schema identifier M AND A and B are distinct
-#            AND N and M are equal THEN A is NOT valid AND B is NOT valid
+# swrl:      'assurance claim point'(?A, true) ^ 'assurance claim point'(?B, true) ^
+#            schema:identifier(?A, ?N) ^ schema:identifier(?B, ?N) ^ differentFrom(?A, ?B)
+#            -> valid(?A, false) ^ valid(?B, false)
+# reads:     IF A and B are assurance claim points AND A and B have the same schema
+#            identifier N AND A and B are distinct THEN A is NOT valid AND B is NOT valid
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
@@ -5430,6 +5312,9 @@ PREFIX schema: <http://schema.org/>
 DELETE { ?target gsn:valid ?old }
 INSERT { ?target gsn:valid false }
 WHERE {
+  ?A gsn:assuranceClaimPoint ?acpA .
+  ?B gsn:assuranceClaimPoint ?acpB .
+  FILTER(STR(?acpA) = "true" && STR(?acpB) = "true")
   ?A schema:identifier ?id .
   ?B schema:identifier ?id .
   FILTER(?A != ?B)
@@ -5445,7 +5330,7 @@ gsndesign:query-rules-s42-strategy-confidence-relation
     rdfs:label "rules/s42_strategy_confidence_relation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s42_strategy_confidence_relation.rq" ;
-    gsndesign:fileChecksum "e6b557e0da9eecfbb72e2296490cef927127e4f2777a0b3c7ac5ee8b1701b211" ;
+    gsndesign:fileChecksum "948075273ddcf4bff6bf4688c5fd3e11d6d48c1d0a19fac4b6ed09fff6a16c23" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5456,7 +5341,7 @@ gsndesign:query-rules-s42-strategy-confidence-relation
         gsn:assuranceClaimPoint ,
         gsn:supportedBy ;
     gsndesign:ruleName "Strategy Confidence Relation" ;
-    gsndesign:translatesStatement gsndesign:st-0685 ;
+    gsndesign:translatesStatement gsndesign:st-1072 ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0167 ,
         gsndesign:st-0207 ,
@@ -5469,7 +5354,7 @@ gsndesign:query-rules-s42-strategy-confidence-relation
 # operation: rule
 # expect:    insert
 # swrl:      'supported by'(?G1, ?S) ^ 'supported by'(?S, ?G2) ^ 'Relationship with
-#            Confidence'(?R1) ^ swrlx:makeOWLThing(?G2, ?R2) ^ Strategy(?S) ^ Goal(?G1) ^
+#            Confidence'(?R1) ^ swrlx:makeOWLThing(?R2, ?S, ?G2) ^ Strategy(?S) ^ Goal(?G1) ^
 #            Goal(?G2) ^ rdf:object(?R1, ?S) ^ 'associated with'(?R1, ?A) ^ rdf:subject(?R1, ?G1)
 #            -> rdf:subject(?R2, ?S) ^ 'Relationship with Confidence'(?R2) ^ rdf:object(?R2, ?G2)
 #            ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2, true)
@@ -5504,8 +5389,11 @@ WHERE {
   ?G2 a gsn:Goal ;
       schema:identifier ?idG2 .
   BIND(CONCAT("RC-", ?idS, "-", ?idG2) AS ?relationshipId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("RC-", REPLACE(STR(?S), "^.*[#/]", ""), "-", REPLACE(STR(?G2), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?S), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?relationshipId))) AS ?R2)
+                  ENCODE_FOR_URI(?iriKey))) AS ?R2)
   FILTER NOT EXISTS {
     ?existing a gsn:RelationshipWithConfidence ;
               rdf:subject ?S ;
@@ -5519,7 +5407,7 @@ gsndesign:query-rules-s43-goal-strategy-confidence
     rdfs:label "rules/s43_goal_strategy_confidence.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s43_goal_strategy_confidence.rq" ;
-    gsndesign:fileChecksum "e2a8ae83d4c0142946811f914be5f186625c41b43d693493aa3f65a6320733c6" ;
+    gsndesign:fileChecksum "1e738120291a6e765463e2576a95862e953d77e55d12f814516a5d0170c0c875" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5530,7 +5418,7 @@ gsndesign:query-rules-s43-goal-strategy-confidence
         gsn:assuranceClaimPoint ,
         gsn:supportedBy ;
     gsndesign:ruleName "Goal-Strategy Confidence" ;
-    gsndesign:translatesStatement gsndesign:st-0687 ;
+    gsndesign:translatesStatement gsndesign:st-1071 ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0167 ,
         gsndesign:st-0207 ,
@@ -5543,7 +5431,7 @@ gsndesign:query-rules-s43-goal-strategy-confidence
 # operation: rule
 # expect:    insert
 # swrl:      'supported by'(?G2, ?S) ^ 'Relationship with Confidence'(?R1) ^ rdf:subject(?R1, ?S)
-#            ^ 'supported by'(?S, ?G1) ^ swrlx:makeOWLThing(?G2, ?R2) ^ rdf:object(?R1, ?G1) ^
+#            ^ 'supported by'(?S, ?G1) ^ swrlx:makeOWLThing(?R2, ?G2, ?S) ^ rdf:object(?R1, ?G1) ^
 #            Strategy(?S) ^ Goal(?G1) ^ Goal(?G2) ^ 'associated with'(?R1, ?A) -> 'Relationship
 #            with Confidence'(?R2) ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2,
 #            true) ^ rdf:subject(?R2, ?G2) ^ rdf:object(?R2, ?S)
@@ -5578,8 +5466,11 @@ WHERE {
       gsn:supportedBy ?S ;
       schema:identifier ?idG2 .
   BIND(CONCAT("RC-", ?idG2, "-", ?idS) AS ?relationshipId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("RC-", REPLACE(STR(?G2), "^.*[#/]", ""), "-", REPLACE(STR(?S), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G2), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?relationshipId))) AS ?R2)
+                  ENCODE_FOR_URI(?iriKey))) AS ?R2)
   FILTER NOT EXISTS {
     ?existing a gsn:RelationshipWithConfidence ;
               rdf:subject ?G2 ;
@@ -5593,7 +5484,7 @@ gsndesign:query-rules-s44-solution-confidence-relation
     rdfs:label "rules/s44_solution_confidence_relation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s44_solution_confidence_relation.rq" ;
-    gsndesign:fileChecksum "1b11a179e0e2ede02487bdc39da43181ed1d5c5846e73fab11898f55d0f1b29b" ;
+    gsndesign:fileChecksum "9375d33627f1e6b9f898b03a67df54c8287c4c0d0fcf6234635704692d5ad2b1" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5604,7 +5495,7 @@ gsndesign:query-rules-s44-solution-confidence-relation
         gsn:assuranceClaimPoint ,
         gsn:supportedBy ;
     gsndesign:ruleName "Solution Confidence Relation" ;
-    gsndesign:translatesStatement gsndesign:st-0690 ;
+    gsndesign:translatesStatement gsndesign:st-1069 ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0175 ,
         gsndesign:st-0207 ,
@@ -5617,8 +5508,8 @@ gsndesign:query-rules-s44-solution-confidence-relation
 # operation: rule
 # expect:    insert
 # swrl:      'supported by'(?G, ?S2) ^ Solution(?S1) ^ rdf:object(?R1, ?S1) ^ 'Relationship with
-#            Confidence'(?R1) ^ swrlx:makeOWLThing(?S2, ?R2) ^ 'supported by'(?G, ?S1) ^ Goal(?G)
-#            ^ swrlb:notEqual(?S1, ?S2) ^ 'associated with'(?R1, ?A) ^ rdf:subject(?R1, ?G) ^
+#            Confidence'(?R1) ^ swrlx:makeOWLThing(?R2, ?G, ?S2) ^ 'supported by'(?G, ?S1) ^ Goal(?G)
+#            ^ differentFrom(?S1, ?S2) ^ 'associated with'(?R1, ?A) ^ rdf:subject(?R1, ?G) ^
 #            Solution(?S2) -> rdf:object(?R2, ?S2) ^ 'Relationship with Confidence'(?R2) ^
 #            rdf:subject(?R2, ?G) ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2,
 #            true)
@@ -5653,8 +5544,11 @@ WHERE {
       schema:identifier ?idS2 .
   FILTER(?S1 != ?S2)
   BIND(CONCAT("RC-", ?idG, "-", ?idS2) AS ?relationshipId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("RC-", REPLACE(STR(?G), "^.*[#/]", ""), "-", REPLACE(STR(?S2), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?relationshipId))) AS ?R2)
+                  ENCODE_FOR_URI(?iriKey))) AS ?R2)
   FILTER NOT EXISTS {
     ?existing a gsn:RelationshipWithConfidence ;
               rdf:subject ?G ;
@@ -5668,7 +5562,7 @@ gsndesign:query-rules-s45-goal-confidence-relation
     rdfs:label "rules/s45_goal_confidence_relation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s45_goal_confidence_relation.rq" ;
-    gsndesign:fileChecksum "0052c2d2ea938aa8dcb1bd01db0c42347e800e1b4a357613697ffc38d482c6f0" ;
+    gsndesign:fileChecksum "c542fc6a24264514890eb08c3a5870a0932ee6d140858ac35f06c7a0ec0c6c13" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5678,7 +5572,7 @@ gsndesign:query-rules-s45-goal-confidence-relation
         gsn:assuranceClaimPoint ,
         gsn:supportedBy ;
     gsndesign:ruleName "Goal Confidence Relation" ;
-    gsndesign:translatesStatement gsndesign:st-0692 ;
+    gsndesign:translatesStatement gsndesign:st-1068 ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0207 ,
         gsndesign:st-0635 ,
@@ -5690,8 +5584,8 @@ gsndesign:query-rules-s45-goal-confidence-relation
 # operation: rule
 # expect:    insert
 # swrl:      'supported by'(?G, ?S2) ^ Goal(?S1) ^ rdf:object(?R1, ?S1) ^ 'Relationship with
-#            Confidence'(?R1) ^ swrlx:makeOWLThing(?S2, ?R2) ^ 'supported by'(?G, ?S1) ^
-#            Goal(?S2) ^ Goal(?G) ^ swrlb:notEqual(?S1, ?S2) ^ 'associated with'(?R1, ?A) ^
+#            Confidence'(?R1) ^ swrlx:makeOWLThing(?R2, ?G, ?S2) ^ 'supported by'(?G, ?S1) ^
+#            Goal(?S2) ^ Goal(?G) ^ differentFrom(?S1, ?S2) ^ 'associated with'(?R1, ?A) ^
 #            rdf:subject(?R1, ?G) -> rdf:object(?R2, ?S2) ^ 'Relationship with Confidence'(?R2) ^
 #            rdf:subject(?R2, ?G) ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2,
 #            true)
@@ -5726,8 +5620,11 @@ WHERE {
       schema:identifier ?idS2 .
   FILTER(?S1 != ?S2)
   BIND(CONCAT("RC-", ?idG, "-", ?idS2) AS ?relationshipId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("RC-", REPLACE(STR(?G), "^.*[#/]", ""), "-", REPLACE(STR(?S2), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?relationshipId))) AS ?R2)
+                  ENCODE_FOR_URI(?iriKey))) AS ?R2)
   FILTER NOT EXISTS {
     ?existing a gsn:RelationshipWithConfidence ;
               rdf:subject ?G ;
@@ -5899,7 +5796,7 @@ gsndesign:query-rules-s50-challenge-relation-creation
     rdfs:label "rules/s50_challenge_relation_creation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s50_challenge_relation_creation.rq" ;
-    gsndesign:fileChecksum "8be91377b34fcf100fa9977c14a1618de16a5e571fe24913787d58105220ad7d" ;
+    gsndesign:fileChecksum "30429beb5d23b2f88172eef97f0b6d91ab9dee6e40b5190ef5f4b46f21c7aaba" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5907,7 +5804,7 @@ gsndesign:query-rules-s50-challenge-relation-creation
         gsn:challenges ,
         gsn:relationshipType ;
     gsndesign:ruleName "Challenge Relation Creation" ;
-    gsndesign:translatesStatement gsndesign:st-0742 ;
+    gsndesign:translatesStatement gsndesign:st-1073 ;
     gsndesign:restsOnStatement gsndesign:st-0120 ,
         gsndesign:st-0291 ,
         gsndesign:st-0696 ,
@@ -5917,7 +5814,7 @@ gsndesign:query-rules-s50-challenge-relation-creation
 # section:   Dialectic Extension
 # operation: rule
 # expect:    insert
-# swrl:      challenges(?A, ?B) ^ swrlx:makeOWLThing(?B, ?R) -> rdf:subject(?R, ?A) ^
+# swrl:      challenges(?A, ?B) ^ swrlx:makeOWLThing(?R, ?A, ?B) -> rdf:subject(?R, ?A) ^
 #            Relationship(?R) ^ rdf:object(?R, ?B) ^ 'relationship type'(?R, dialectic)
 # reads:     IF A challenges B AND we reify this challenge as a Relationship R THEN R is a
 #            reified Relationship with subject A, object B and the dialectic type
@@ -5939,8 +5836,11 @@ WHERE {
      schema:identifier ?idA .
   ?B schema:identifier ?idB .
   BIND(CONCAT("R-", ?idA, "-challenges-", ?idB) AS ?relationshipId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("R-", REPLACE(STR(?A), "^.*[#/]", ""), "-challenges-", REPLACE(STR(?B), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?relationshipId))) AS ?R)
+                  ENCODE_FOR_URI(?iriKey))) AS ?R)
   FILTER NOT EXISTS {
     ?existing rdf:subject ?A ;
               rdf:predicate gsn:challenges ;
@@ -5954,7 +5854,7 @@ gsndesign:query-rules-s51-challenge-chain-invalidation
     rdfs:label "rules/s51_challenge_chain_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s51_challenge_chain_invalidation.rq" ;
-    gsndesign:fileChecksum "95f05c4a427eff3f36cf69d516ccb738e53353bc408029a66672d11fa0b90676" ;
+    gsndesign:fileChecksum "30da917bc49f4e833cc781c022d2f74e11455a63dfa41c697ff51bea5ba5df05" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5964,7 +5864,7 @@ gsndesign:query-rules-s51-challenge-chain-invalidation
         gsn:supportedBy ,
         gsn:valid ;
     gsndesign:ruleName "Challenge Chain Invalidation" ;
-    gsndesign:translatesStatement gsndesign:st-0746 ;
+    gsndesign:translatesStatement gsndesign:st-1070 ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0161 ,
         gsndesign:st-0167 ,
@@ -5977,8 +5877,8 @@ gsndesign:query-rules-s51-challenge-chain-invalidation
 # operation: rule
 # expect:    insert
 # swrl:      challenges(?D, ?R) ^ rdf:subject(?R, ?G3) ^ rdf:object(?R, ?G1) ^ Goal(?G1) ^
-#            Goal(?G3) ^ swrlx:makeOWLThing(?G3, ?S) ^ Goal(?G2) ^ 'supported by'(?G3, ?G1) ^
-#            'supported by'(?G3, ?G2) ^ swrlb:notEqual(?G1, ?G2) -> 'supported by'(?S, ?G2) ^
+#            Goal(?G3) ^ swrlx:makeOWLThing(?S, ?G3) ^ Goal(?G2) ^ 'supported by'(?G3, ?G1) ^
+#            'supported by'(?G3, ?G2) ^ differentFrom(?G1, ?G2) -> 'supported by'(?S, ?G2) ^
 #            'supported by'(?G3, ?S) ^ valid(?D, false) ^ 'supported by'(?S, ?G1) ^
 #            challenges(?D, ?S) ^ valid(?S, false) ^ valid(?R, false) ^ Strategy(?S)
 # reads:     IF Defeater D challenges Relationship R between Goals G3 (subject) and G1 (object)
@@ -6022,8 +5922,11 @@ WHERE {
   ?G2 a gsn:Goal .
   FILTER(?G1 != ?G2)
   BIND(CONCAT("St-", ?idG3, "-rebutted") AS ?strategyId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("St-", REPLACE(STR(?G3), "^.*[#/]", ""), "-rebutted") AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G3), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?strategyId))) AS ?S)
+                  ENCODE_FOR_URI(?iriKey))) AS ?S)
   OPTIONAL { ?D gsn:valid ?oldD }
   OPTIONAL { ?R gsn:valid ?oldR }
   FILTER NOT EXISTS { ?G3 gsn:supportedBy ?S }
@@ -6148,6 +6051,341 @@ WHERE {
 }
 """ .
 
+gsndesign:query-rules-s55-support-closure
+    a gsndesign:Query ;
+    rdfs:label "rules/s55_support_closure.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s55_support_closure.rq" ;
+    gsndesign:fileChecksum "5072aa8b102fc42030817e0da0a47c2dd3851d179d85b4c7596897e0342abc69" ;
+    gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:supportedBy ,
+        gsn:transitivelySupportedBy ;
+    gsndesign:ruleName "Support Closure" ;
+    gsndesign:translatesStatement gsndesign:st-1040 ;
+    gsndesign:restsOnStatement gsndesign:st-0207 ,
+        gsndesign:st-1023 ;
+    gsndesign:queryText """# rule:      S55
+# name:      Support Closure
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      'supported by'(?A, ?B) -> 'transitively supported by'(?A, ?B)
+# reads:     IF A is supported by B THEN A is transitively supported by B
+# note:      The SWRL rule states one step and leaves the chain to owl:TransitiveProperty.
+#            SPARQL has no such axiom, so the property path inserts the whole chain at once.
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?A gsn:transitivelySupportedBy ?B }
+WHERE {
+  ?A gsn:supportedBy+ ?B .
+  FILTER NOT EXISTS { ?A gsn:transitivelySupportedBy ?B }
+}
+""" .
+
+gsndesign:query-rules-s56-support-cycle-invalidation
+    a gsndesign:Query ;
+    rdfs:label "rules/s56_support_cycle_invalidation.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s56_support_cycle_invalidation.rq" ;
+    gsndesign:fileChecksum "ebd2aa9bd5e10baf0a8425f70eefb74e22277d8aa30e44c65b3b62587ee22547" ;
+    gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:transitivelySupportedBy ,
+        gsn:valid ;
+    gsndesign:ruleName "Support Cycle Invalidation" ;
+    gsndesign:translatesStatement gsndesign:st-1041 ;
+    gsndesign:restsOnStatement gsndesign:st-0114 ,
+        gsndesign:st-1023 ;
+    gsndesign:queryText """# rule:      S56
+# name:      Support Cycle Invalidation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      'transitively supported by'(?E, ?E) -> valid(?E, false)
+# reads:     IF E is transitively supported by itself THEN E is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?E gsn:valid ?old }
+INSERT { ?E gsn:valid false }
+WHERE {
+  ?E gsn:transitivelySupportedBy ?E .
+  OPTIONAL { ?E gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}
+""" .
+
+gsndesign:query-rules-s57-support-cycle-relationship-invalidation
+    a gsndesign:Query ;
+    rdfs:label "rules/s57_support_cycle_relationship_invalidation.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s57_support_cycle_relationship_invalidation.rq" ;
+    gsndesign:fileChecksum "b401c97aab8bcd2e5aaddd2038eb738f729ae0e77beb37ce39a9c8311b30c633" ;
+    gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:Relationship ,
+        gsn:supportedBy ,
+        gsn:transitivelySupportedBy ,
+        gsn:valid ;
+    gsndesign:ruleName "Support Cycle Relationship Invalidation" ;
+    gsndesign:translatesStatement gsndesign:st-1042 ;
+    gsndesign:restsOnStatement gsndesign:st-0114 ,
+        gsndesign:st-0207 ,
+        gsndesign:st-0291 ,
+        gsndesign:st-1023 ;
+    gsndesign:queryText """# rule:      S57
+# name:      Support Cycle Relationship Invalidation
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      Relationship(?R) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ 'supported by'(?A,
+#            ?B) ^ 'transitively supported by'(?B, ?A) -> valid(?R, false)
+# reads:     IF R is a Relationship from A to B AND A is supported by B AND B is transitively
+#            supported by A THEN R is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:valid ?old }
+INSERT { ?R gsn:valid false }
+WHERE {
+  ?R a gsn:Relationship ;
+     rdf:subject ?A ;
+     rdf:object ?B .
+  ?A gsn:supportedBy ?B .
+  ?B gsn:transitivelySupportedBy ?A .
+  OPTIONAL { ?R gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}
+""" .
+
+gsndesign:query-rules-s58-module-context-closure
+    a gsndesign:Query ;
+    rdfs:label "rules/s58_module_context_closure.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s58_module_context_closure.rq" ;
+    gsndesign:fileChecksum "64ac6de11070145232274205a84296854abf18379875fdb8b0a0bb75afee06ca" ;
+    gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:Module ,
+        gsn:inContextOf ,
+        gsn:transitivelyInContextOf ;
+    gsndesign:ruleName "Module Context Closure" ;
+    gsndesign:translatesStatement gsndesign:st-1043 ;
+    gsndesign:restsOnStatement gsndesign:st-0218 ,
+        gsndesign:st-0469 ,
+        gsndesign:st-1028 ;
+    gsndesign:queryText """# rule:      S58
+# name:      Module Context Closure
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      Module(?A) ^ Module(?B) ^ 'in context of'(?A, ?B) -> 'transitively in context
+#            of'(?A, ?B)
+# reads:     IF A and B are Modules AND A is in the context of B THEN A is transitively in the
+#            context of B
+# note:      The SWRL rule states one step and leaves the chain to owl:TransitiveProperty.
+#            SPARQL has no such axiom, so the property path inserts the whole chain at
+#            once. The path runs through modules only. A module is the only class in both
+#            the domain and the range of gsn:inContextOf, so every node inside a chain of
+#            in-context-of links between two modules is a module.
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?A gsn:transitivelyInContextOf ?B }
+WHERE {
+  ?A a gsn:Module .
+  ?B a gsn:Module .
+  ?A gsn:inContextOf+ ?B .
+  FILTER NOT EXISTS { ?A gsn:transitivelyInContextOf ?B }
+}
+""" .
+
+gsndesign:query-rules-s59-module-context-cycle-invalidation
+    a gsndesign:Query ;
+    rdfs:label "rules/s59_module_context_cycle_invalidation.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s59_module_context_cycle_invalidation.rq" ;
+    gsndesign:fileChecksum "2bc7e0587ac5df94a7a56ba6573ad0c2a088ffbe901f0b532c078d090f22a02f" ;
+    gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:transitivelyInContextOf ,
+        gsn:valid ;
+    gsndesign:ruleName "Module Context Cycle Invalidation" ;
+    gsndesign:translatesStatement gsndesign:st-1044 ;
+    gsndesign:restsOnStatement gsndesign:st-0114 ,
+        gsndesign:st-1028 ;
+    gsndesign:queryText """# rule:      S59
+# name:      Module Context Cycle Invalidation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      'transitively in context of'(?M, ?M) -> valid(?M, false)
+# reads:     IF M is transitively in the context of itself THEN M is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?M gsn:valid ?old }
+INSERT { ?M gsn:valid false }
+WHERE {
+  ?M gsn:transitivelyInContextOf ?M .
+  OPTIONAL { ?M gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}
+""" .
+
+gsndesign:query-rules-s60-module-context-cycle-relationship-invalidation
+    a gsndesign:Query ;
+    rdfs:label "rules/s60_module_context_cycle_relationship_invalidation.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s60_module_context_cycle_relationship_invalidation.rq" ;
+    gsndesign:fileChecksum "76fff7c85c5a689225dfc1436d2fe9ca004000b478fea72fe524033fea3064e6" ;
+    gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:Relationship ,
+        gsn:inContextOf ,
+        gsn:transitivelyInContextOf ,
+        gsn:valid ;
+    gsndesign:ruleName "Module Context Cycle Relationship Invalidation" ;
+    gsndesign:translatesStatement gsndesign:st-1045 ;
+    gsndesign:restsOnStatement gsndesign:st-0114 ,
+        gsndesign:st-0218 ,
+        gsndesign:st-0291 ,
+        gsndesign:st-1028 ;
+    gsndesign:queryText """# rule:      S60
+# name:      Module Context Cycle Relationship Invalidation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      Relationship(?R) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ 'in context of'(?A,
+#            ?B) ^ 'transitively in context of'(?B, ?A) -> valid(?R, false)
+# reads:     IF R is a Relationship from A to B AND A is in the context of B AND B is
+#            transitively in the context of A THEN R is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:valid ?old }
+INSERT { ?R gsn:valid false }
+WHERE {
+  ?R a gsn:Relationship ;
+     rdf:subject ?A ;
+     rdf:object ?B .
+  ?A gsn:inContextOf ?B .
+  ?B gsn:transitivelyInContextOf ?A .
+  OPTIONAL { ?R gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}
+""" .
+
+gsndesign:query-rules-s61-challenge-closure
+    a gsndesign:Query ;
+    rdfs:label "rules/s61_challenge_closure.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s61_challenge_closure.rq" ;
+    gsndesign:fileChecksum "a6862b6061020f8a5307a9d0bb8170c5b2c8dad0ccbd6789ea56ff5e97af7471" ;
+    gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:challenges ,
+        gsn:transitivelyChallenges ;
+    gsndesign:ruleName "Challenge Closure" ;
+    gsndesign:translatesStatement gsndesign:st-1046 ;
+    gsndesign:restsOnStatement gsndesign:st-0696 ,
+        gsndesign:st-0740 ,
+        gsndesign:st-1025 ;
+    gsndesign:queryText """# rule:      S61
+# name:      Challenge Closure
+# section:   Dialectic Extension
+# operation: rule
+# expect:    insert
+# swrl:      challenges(?A, ?B) -> 'transitively challenges'(?A, ?B)
+# reads:     IF A challenges B THEN A transitively challenges B
+# note:      The SWRL rule states one step and leaves the chain to owl:TransitiveProperty.
+#            SPARQL has no such axiom, so the property path inserts the whole chain at once.
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?A gsn:transitivelyChallenges ?B }
+WHERE {
+  ?A gsn:challenges+ ?B .
+  FILTER NOT EXISTS { ?A gsn:transitivelyChallenges ?B }
+}
+""" .
+
+gsndesign:query-rules-s62-challenge-cycle-invalidation
+    a gsndesign:Query ;
+    rdfs:label "rules/s62_challenge_cycle_invalidation.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s62_challenge_cycle_invalidation.rq" ;
+    gsndesign:fileChecksum "fce38a18d574a737fb7ae2c271f14cdcb31235e9923d439d7c56f3fac1e425d6" ;
+    gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:transitivelyChallenges ,
+        gsn:valid ;
+    gsndesign:ruleName "Challenge Cycle Invalidation" ;
+    gsndesign:translatesStatement gsndesign:st-1047 ;
+    gsndesign:restsOnStatement gsndesign:st-0114 ,
+        gsndesign:st-1025 ;
+    gsndesign:queryText """# rule:      S62
+# name:      Challenge Cycle Invalidation
+# section:   Dialectic Extension
+# operation: rule
+# expect:    insert
+# swrl:      'transitively challenges'(?E, ?E) -> valid(?E, false)
+# reads:     IF E transitively challenges itself THEN E is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?E gsn:valid ?old }
+INSERT { ?E gsn:valid false }
+WHERE {
+  ?E gsn:transitivelyChallenges ?E .
+  OPTIONAL { ?E gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}
+""" .
+
+gsndesign:query-rules-s63-challenge-cycle-relationship-invalidation
+    a gsndesign:Query ;
+    rdfs:label "rules/s63_challenge_cycle_relationship_invalidation.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s63_challenge_cycle_relationship_invalidation.rq" ;
+    gsndesign:fileChecksum "0c89c0d03bdb5df9abcb61487468de7eb0911f62517f93be70caff685ea65394" ;
+    gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:Relationship ,
+        gsn:challenges ,
+        gsn:transitivelyChallenges ,
+        gsn:valid ;
+    gsndesign:ruleName "Challenge Cycle Relationship Invalidation" ;
+    gsndesign:translatesStatement gsndesign:st-1048 ;
+    gsndesign:restsOnStatement gsndesign:st-0114 ,
+        gsndesign:st-0291 ,
+        gsndesign:st-0696 ,
+        gsndesign:st-0740 ,
+        gsndesign:st-1025 ;
+    gsndesign:queryText """# rule:      S63
+# name:      Challenge Cycle Relationship Invalidation
+# section:   Dialectic Extension
+# operation: rule
+# expect:    insert
+# swrl:      Relationship(?R) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ challenges(?A, ?B)
+#            ^ 'transitively challenges'(?B, ?A) -> valid(?R, false)
+# reads:     IF R is a Relationship from A to B AND A challenges B AND B transitively
+#            challenges A THEN R is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:valid ?old }
+INSERT { ?R gsn:valid false }
+WHERE {
+  ?R a gsn:Relationship ;
+     rdf:subject ?A ;
+     rdf:object ?B .
+  ?A gsn:challenges ?B .
+  ?B gsn:transitivelyChallenges ?A .
+  OPTIONAL { ?R gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}
+""" .
+
 gsndesign:query-update-element-statement
     a gsndesign:Query ;
     rdfs:label "update_element_statement.rq"@en ;
@@ -6265,14 +6503,14 @@ WHERE {
 gsndesign:file-ontogsn-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/ontogsn.ttl" ;
-    gsndesign:fileChecksum "241d3e5ace231334e36d360d31be76d26697d459ee3a84c645a7cf133db8067c" ;
-    gsndesign:declaredVersion "1.2.4" ;
+    gsndesign:fileChecksum "b03d16caac54eb33e8e2a8db942659098d88f27584281053f829edbddbd27b3d" ;
+    gsndesign:declaredVersion "1.3.0" ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> .
 
 gsndesign:file-ontogsn-rdf
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/ontogsn.rdf" ;
-    gsndesign:fileChecksum "7cd093fbb8cecde1779c1d05a3fe73e9313b34ecae3e30760a9d945aea5573c0" ;
+    gsndesign:fileChecksum "06fa5a43186b16e7c03e5c4ba38f0674c056c5a7ce97966d77ac963d2869ddec" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-serializations .
@@ -6280,7 +6518,7 @@ gsndesign:file-ontogsn-rdf
 gsndesign:file-ontogsn-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/ontogsn.jsonld" ;
-    gsndesign:fileChecksum "188dadbc4c3cef227303d9d7dde3dfa5d4334804ab3169cc3902c887b4a8e49c" ;
+    gsndesign:fileChecksum "71438ef13c1a9392286991670860ae1452bd8970d147e8b340863ad620458b75" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-serializations .
@@ -6302,43 +6540,43 @@ gsndesign:agent-build-py
 gsndesign:file-ontogsn-shapes-1-core
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_1_core.ttl" ;
-    gsndesign:fileChecksum "83d84e0e334c93c92cb4f635df9123203aebffd8557b17d37fca8d1890e14b43" ;
-    gsndesign:declaredVersion "1.0.3" ;
+    gsndesign:fileChecksum "581e7e589be071961a1a0b9841c5d4dd16f66f7d5b899f1bc40c8fe1528849e4" ;
+    gsndesign:declaredVersion "1.1.0" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
 gsndesign:file-ontogsn-shapes-2-pattern
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_2_pattern.ttl" ;
-    gsndesign:fileChecksum "d5c2603942df2d54a381ec92595d5e850620f9f2c44b9e320a7298d571c66e22" ;
-    gsndesign:declaredVersion "1.0.3" ;
+    gsndesign:fileChecksum "3195f69bc9a4f15fd06c46d80dc648e9fd545d596b85d57e056d07a55950f075" ;
+    gsndesign:declaredVersion "1.1.0" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
 gsndesign:file-ontogsn-shapes-3-modular
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_3_modular.ttl" ;
-    gsndesign:fileChecksum "1081e271608cb0a3a208deee1c53097d926c3e64f6125e2753ed1feff62a3a20" ;
-    gsndesign:declaredVersion "1.0.3" ;
+    gsndesign:fileChecksum "bad4052be52f28f33ecf339c6c12850e115b758ba55e9675d23f27c4f3ba78e2" ;
+    gsndesign:declaredVersion "1.1.0" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
 gsndesign:file-ontogsn-shapes-4-confidence
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_4_confidence.ttl" ;
-    gsndesign:fileChecksum "5b29504d9a5e8684dab3f1e5b249fa1f3d14794eed00a213a198405a3ce88458" ;
-    gsndesign:declaredVersion "1.0.3" ;
+    gsndesign:fileChecksum "379d73020d384d1b640a5a1be5b9228dd9ebd91d7db54c2cf89414987d00e481" ;
+    gsndesign:declaredVersion "1.1.0" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
 gsndesign:file-ontogsn-shapes-5-dialectic
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_5_dialectic.ttl" ;
-    gsndesign:fileChecksum "fade58c174342016dafc76c245a2411348db3db6322979c5de48d8f5d65f1c52" ;
-    gsndesign:declaredVersion "1.0.3" ;
+    gsndesign:fileChecksum "23b485bfa6a296ff1a4b42bf3971a26d08bef4a71338bd1e3283a6b5ed3d31f3" ;
+    gsndesign:declaredVersion "1.1.0" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
 gsndesign:file-ontogsn-shapes-0-full
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_0_full.ttl" ;
-    gsndesign:fileChecksum "29bf18cca94a7e682c7f050d0b9c53799159e55b8024463c8b599a6e25980d93" ;
-    gsndesign:declaredVersion "1.0.3" ;
+    gsndesign:fileChecksum "becee9cf0baab0e97c2fdeebc95ae718f0f1e74c2da4e93a9a91223a9392ee02" ;
+    gsndesign:declaredVersion "1.1.0" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-shapes-1-core ,
         gsndesign:file-ontogsn-shapes-2-pattern ,
         gsndesign:file-ontogsn-shapes-3-modular ,
@@ -6366,7 +6604,7 @@ gsndesign:agent-build-full-py
 gsndesign:file-ontogsn-complete-0-full-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_0_full.jsonld" ;
-    gsndesign:fileChecksum "f8a2c55744619937ec0def51d4bbb320d33530dd53cb34ea9b0b0b25d504c81e" ;
+    gsndesign:fileChecksum "7b8f01b8f572913a0c9150d66a620f3940100cab6e0f12d443415ab9611ab97d" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6374,16 +6612,16 @@ gsndesign:file-ontogsn-complete-0-full-jsonld
 gsndesign:file-ontogsn-complete-0-full-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_0_full.ttl" ;
-    gsndesign:fileChecksum "e4c54a3969e4fa9b2179004b74b79d59885eaf8d0ecad68907f41afef29551af" ;
+    gsndesign:fileChecksum "77f657bfb75e667732b7ce7339ceda8984b8cb750bc809af65b2cd7c546a386d" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-complete-1-core-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_1_core.jsonld" ;
-    gsndesign:fileChecksum "244d45806af9f0a8fa93afc3dd15d21cc2ea6b621520c582312f1c84f2568323" ;
+    gsndesign:fileChecksum "2915f77ebe42c32daf6977de6a895c62cfdd4778edd9aba94e8c28c33e3e7045" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6391,16 +6629,16 @@ gsndesign:file-ontogsn-complete-1-core-jsonld
 gsndesign:file-ontogsn-complete-1-core-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_1_core.ttl" ;
-    gsndesign:fileChecksum "f221de47e1256c9b885a42eb02e5fdc2a3185e289dcca68ca2b173f04fb9fbd8" ;
+    gsndesign:fileChecksum "af881a3d859223d36cb4fa3a295c87fe60f40516a82b8465ae25cf09b57b5dcb" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-complete-2-pattern-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_2_pattern.jsonld" ;
-    gsndesign:fileChecksum "f5ca042957ee6928b6f5a899bff5222955f0ca788d79eb9c3241d82ed68ab8f9" ;
+    gsndesign:fileChecksum "ca83c8d570614381c1767ce1e814a51ac3b77b419996beaff822faff08927890" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6408,16 +6646,16 @@ gsndesign:file-ontogsn-complete-2-pattern-jsonld
 gsndesign:file-ontogsn-complete-2-pattern-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_2_pattern.ttl" ;
-    gsndesign:fileChecksum "a20bda47e9cdcd33f8472fa478101392e0ac3cbb56269b9d7fcd7e1d3c9bf564" ;
+    gsndesign:fileChecksum "8014c2ef85106516d17419f615f7b91295d1e7df1807bb2f343644ff00f30b31" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-complete-3-modular-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_3_modular.jsonld" ;
-    gsndesign:fileChecksum "feb269467a69a6a047aebe7546fd4dc1d6ef8be0d0b4b8f42e7add5b7711319b" ;
+    gsndesign:fileChecksum "55cf03e5b633079886d04037291b09411a5b93da1a2970bece6c2796ffa516b4" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6425,16 +6663,16 @@ gsndesign:file-ontogsn-complete-3-modular-jsonld
 gsndesign:file-ontogsn-complete-3-modular-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_3_modular.ttl" ;
-    gsndesign:fileChecksum "20a9cfa8554dac60de83759eccb761fb7db0e29e9863c7490f8268edf357f80a" ;
+    gsndesign:fileChecksum "928aa458f6379064b5f44b04f3c7fa75b7181817a083d6201ce23aaa04837686" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-complete-4-confidence-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_4_confidence.jsonld" ;
-    gsndesign:fileChecksum "6c114be95136836f410eda5ada0e3c5774d7bcf41ba5652de1fed91d7ea90773" ;
+    gsndesign:fileChecksum "74ed0346e296f2f82bbeda5ec56aefeea5cf4b294286e88aad7dac440476100c" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6442,16 +6680,16 @@ gsndesign:file-ontogsn-complete-4-confidence-jsonld
 gsndesign:file-ontogsn-complete-4-confidence-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_4_confidence.ttl" ;
-    gsndesign:fileChecksum "f216563f7ba024b9f17ee0ccb6f72467e8a454b88d5575acdbd8a8dacb93eed2" ;
+    gsndesign:fileChecksum "359d1cdab9e4780ce970b2a8d29f119878ff8ee5476808700c698f4b249456e0" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-complete-5-dialectic-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_5_dialectic.jsonld" ;
-    gsndesign:fileChecksum "cf1e48d5e7a9e106f77293a17d94b05ae4ace9b2e441e820c05445f69beeceb9" ;
+    gsndesign:fileChecksum "6b2888c3d075e85cef5074e737312371e9553931669a3fdfe3a1a91a258b052a" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6459,16 +6697,16 @@ gsndesign:file-ontogsn-complete-5-dialectic-jsonld
 gsndesign:file-ontogsn-complete-5-dialectic-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_5_dialectic.ttl" ;
-    gsndesign:fileChecksum "0c3e38fc6f0e0efb35393dd8b880e9fa5c4f147fbe9fff7bdde764cd660b7447" ;
+    gsndesign:fileChecksum "e7c5bd158333e7d386dbf547e9d6fa6814fd5b7126384d50b1e939dedb3c9731" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-pruned-0-full-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_0_full.jsonld" ;
-    gsndesign:fileChecksum "3388d4cb1e8d1eddb8a194d3b5564fb84f6eb415182a0b82d7fe205e19cfdea1" ;
+    gsndesign:fileChecksum "08ba5626a41f0a3fe256db4cbfa60d2dcca6347f1296011a73c95645734e8e70" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6476,16 +6714,16 @@ gsndesign:file-ontogsn-pruned-0-full-jsonld
 gsndesign:file-ontogsn-pruned-0-full-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_0_full.ttl" ;
-    gsndesign:fileChecksum "4e3baa39ea3109073cefcf166eef0cd80713abc35deb2adfbeb2adb18230bbe8" ;
+    gsndesign:fileChecksum "a1b627cb75b2f89a28cf478bee4ff72f239ca96fe5b7b26d99792f15dddf5699" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-pruned-1-core-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_1_core.jsonld" ;
-    gsndesign:fileChecksum "676b4a0ef61abef0c82bd3aba22c098a3728e7431b53882f61437af9a33f80fd" ;
+    gsndesign:fileChecksum "f88b71365302fa2bf6a28727ef9a1d0cdb35f9e5de83a7777d6716be2da8e4fa" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6493,16 +6731,16 @@ gsndesign:file-ontogsn-pruned-1-core-jsonld
 gsndesign:file-ontogsn-pruned-1-core-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_1_core.ttl" ;
-    gsndesign:fileChecksum "7bb352d2741d85e895f5c78eeb88da56d29b804c62f5d3cf08b4d9214b15f314" ;
+    gsndesign:fileChecksum "04726442d4f831988f6afd4e3398c961732a81ef3ff1e22a5bf8a7203dfa0cd9" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-pruned-2-pattern-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_2_pattern.jsonld" ;
-    gsndesign:fileChecksum "462429ee1d94a06218264cc23b749eeaa7ef3d8d1233499f288bf7223ca2266e" ;
+    gsndesign:fileChecksum "dc6aacc5c918e3cf3894076e387182c0ccb978097ab32f4798a7d3ccc170e21c" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6510,16 +6748,16 @@ gsndesign:file-ontogsn-pruned-2-pattern-jsonld
 gsndesign:file-ontogsn-pruned-2-pattern-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_2_pattern.ttl" ;
-    gsndesign:fileChecksum "bd86c44cf6f0c3429e90e5c5e434f30ac9020a196a4000ecdee6127899b38fd1" ;
+    gsndesign:fileChecksum "14a7436eb1f947d2a3ca0e19227f98ff668dc4708e49588b8be242756ce4dd09" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-pruned-3-modular-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_3_modular.jsonld" ;
-    gsndesign:fileChecksum "3c51a7c3b3dc282e0d1ee9f41201c64f1b706675292be63cee18a0e2e1b9760e" ;
+    gsndesign:fileChecksum "1c2b7a19470168ddeab7d77440838c53b29382589da32cac5e4c534126e4d93d" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6527,16 +6765,16 @@ gsndesign:file-ontogsn-pruned-3-modular-jsonld
 gsndesign:file-ontogsn-pruned-3-modular-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_3_modular.ttl" ;
-    gsndesign:fileChecksum "815e8c1fae798f0b6e017e41be190792946632c2b8e4fd5fc285ec3702cee667" ;
+    gsndesign:fileChecksum "7a0fe1f9c176d134ebd9963641eb849421b656741a32e1dc8d5b3e8c0726b387" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-pruned-4-confidence-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_4_confidence.jsonld" ;
-    gsndesign:fileChecksum "68840f52938dcfb0d8dfdf064c638662a8f7a6f951cb9417ac47686d458d412d" ;
+    gsndesign:fileChecksum "fb65daf933dae18ff5278a91eef415ae5b2e73dc4686acccface3dfbca78d693" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6544,16 +6782,16 @@ gsndesign:file-ontogsn-pruned-4-confidence-jsonld
 gsndesign:file-ontogsn-pruned-4-confidence-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_4_confidence.ttl" ;
-    gsndesign:fileChecksum "1aa83dba4b68a3e59ef3f0e197b1d4c3d7954990a9f97c7c7f2ec9822359f164" ;
+    gsndesign:fileChecksum "1c45c3f026acd1989b689ae775720cd2e9f0d91f72a16c63453291ae4afaa0d3" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-pruned-5-dialectic-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_5_dialectic.jsonld" ;
-    gsndesign:fileChecksum "b73d5227b2e30f3818deef9605828e325ac5dfc30254d27c1b5a8f04a21ceacc" ;
+    gsndesign:fileChecksum "a07b325a88b983a2250c24463dcdaaaed1d70a964f0bc424c10cbe9ddad00669" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6561,16 +6799,16 @@ gsndesign:file-ontogsn-pruned-5-dialectic-jsonld
 gsndesign:file-ontogsn-pruned-5-dialectic-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-pruned_5_dialectic.ttl" ;
-    gsndesign:fileChecksum "143b1546e98140d5fce08660a1b0b9a16a365bd3b1d437b167cb993014aaf019" ;
+    gsndesign:fileChecksum "4e9bf44a664358283be5ad25bd5f59bd1dd60b9d5219ae84b4514584adf6db5a" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-skeletal-0-full-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_0_full.jsonld" ;
-    gsndesign:fileChecksum "935902a7a99be2e4ea65ebcd7b926ebe6e719f0d24b715b28b4de1aa5bf7a47d" ;
+    gsndesign:fileChecksum "dd2d6b3c29824bd4d9f1af2dd7bf57ced18b9edaef15f9e3a09e4a25c24e32b7" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6578,16 +6816,16 @@ gsndesign:file-ontogsn-skeletal-0-full-jsonld
 gsndesign:file-ontogsn-skeletal-0-full-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_0_full.ttl" ;
-    gsndesign:fileChecksum "da097496cff3d8a9f1c325eac13ef407ed79c24ca2841777ba5d259140a66a4c" ;
+    gsndesign:fileChecksum "5778d2d2ba0145a324895f0e26f1838cb96af7a1011036b80e77d5844031f47a" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-skeletal-1-core-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_1_core.jsonld" ;
-    gsndesign:fileChecksum "36f81ff13b061db981855765a7e1fcfc3e4c3877dfd4804ebe0428715e66a950" ;
+    gsndesign:fileChecksum "e4866413ffe461901adc2b497275a5a4afe3f2b3e6a45d1a090cb82da1316fdd" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6595,16 +6833,16 @@ gsndesign:file-ontogsn-skeletal-1-core-jsonld
 gsndesign:file-ontogsn-skeletal-1-core-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_1_core.ttl" ;
-    gsndesign:fileChecksum "e30452c7da49ccfeba8c5ac71409dee66c2ce2c4527b65469966971a4fcd81b7" ;
+    gsndesign:fileChecksum "6f9476c8c5230c8806c60ef3302a99bcc1d28cf6ce93c3c511185756de407563" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-skeletal-2-pattern-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_2_pattern.jsonld" ;
-    gsndesign:fileChecksum "de8ca55df22696f4c4bf4381e547bb510d3e65f1b5c157e8f85fa8da9444277c" ;
+    gsndesign:fileChecksum "dc4465cf95caca28903918df907a0bca63b8fbdde654fd86e311ae201a37995c" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6612,16 +6850,16 @@ gsndesign:file-ontogsn-skeletal-2-pattern-jsonld
 gsndesign:file-ontogsn-skeletal-2-pattern-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_2_pattern.ttl" ;
-    gsndesign:fileChecksum "ec890e1fbe5df1d66fa9c33994e1696e08b0f736fa1216d6efede76126c9825d" ;
+    gsndesign:fileChecksum "3d7ee591ffff1e50749d50ecd523c927642f67d3136fd795cdc9266fd8d7a116" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-skeletal-3-modular-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_3_modular.jsonld" ;
-    gsndesign:fileChecksum "bb29bc3e4e1979d99e0d691cd4670481422b3bc8c02b47fffa15af6eb89fb7ee" ;
+    gsndesign:fileChecksum "9f103bee9973f733bda1dd3e469d73a90137f5bf9820122471d259e9b4025b1c" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6629,16 +6867,16 @@ gsndesign:file-ontogsn-skeletal-3-modular-jsonld
 gsndesign:file-ontogsn-skeletal-3-modular-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_3_modular.ttl" ;
-    gsndesign:fileChecksum "8c0618b8d7f5fcee06006078fdb0133894a8d202f9be4cdbab7c1862ec7bee12" ;
+    gsndesign:fileChecksum "c05711e130ef920f4c3487ab8315c9ec9acc80627e5abd7891f7d60f8953756f" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-skeletal-4-confidence-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_4_confidence.jsonld" ;
-    gsndesign:fileChecksum "db76765689cc152d7a6cb4e5d2f86ab7a7f088d7138001451593c422e3a51459" ;
+    gsndesign:fileChecksum "84aa8ff938a01f3b9193f7f5f8b5c0f9325cbf9b3b39e67b2d646eab7008126b" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6646,16 +6884,16 @@ gsndesign:file-ontogsn-skeletal-4-confidence-jsonld
 gsndesign:file-ontogsn-skeletal-4-confidence-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_4_confidence.ttl" ;
-    gsndesign:fileChecksum "2064a72818863412f84c35f15336b29338f83ded5e44fe12d84f5f37d1db2500" ;
+    gsndesign:fileChecksum "4fd10c55cfca707c44167fd697688b04a6da96d11669ad7e83683dda200e8a39" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:file-ontogsn-skeletal-5-dialectic-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_5_dialectic.jsonld" ;
-    gsndesign:fileChecksum "81add2ff573ae60a148f04c12e5310738de059229305c078ebab33c99008b28b" ;
+    gsndesign:fileChecksum "4405a319194dde965f90c9ec494ba17efbb4e573966eb748d94324839fd35257" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -6663,11 +6901,11 @@ gsndesign:file-ontogsn-skeletal-5-dialectic-jsonld
 gsndesign:file-ontogsn-skeletal-5-dialectic-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-skeletal_5_dialectic.ttl" ;
-    gsndesign:fileChecksum "2c058621f011f0927a07541d70aeddc62acffe9acd8eca9e517f9991082965ea" ;
+    gsndesign:fileChecksum "ae84707a6d61ffe781eb22ede35035fb0a8d74bca8501680ea780f97188ba324" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
-    gsndesign:declaredVersion "1.2.4" .
+    gsndesign:declaredVersion "1.3.0" .
 
 gsndesign:build-separated
     a prov:Activity ;

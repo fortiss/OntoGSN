@@ -57,7 +57,25 @@
     ]
   },
   {
-    "@id": "_:genid0010",
+    "@id": "_:genid0009",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#Class"
+    ],
+    "http://www.w3.org/2002/07/owl#unionOf": [
+      {
+        "@list": [
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+          },
+          {
+            "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:genid0013",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
@@ -145,7 +163,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "https://w3id.org/OntoGSN/ontology#GSNElement"
+        "@id": "_:genid0009"
       }
     ]
   },
@@ -162,7 +180,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "_:genid0010"
+        "@id": "_:genid0013"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
@@ -211,7 +229,7 @@
     ],
     "http://www.w3.org/2002/07/owl#versionInfo": [
       {
-        "@value": "1.2.4"
+        "@value": "1.3.0"
       }
     ],
     "https://w3id.org/OntoGSN/ontology#coreOrExtension": [

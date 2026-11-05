@@ -4,7 +4,7 @@
 # operation: rule
 # expect:    insert
 # swrl:      'in module'(?B, ?M) ^ 'in module'(?A, ?M) ^ schema:identifier(?A, ?ID) ^ Module(?M) ^
-#            swrlb:notEqual(?A, ?B) ^ schema:identifier(?B, ?ID) -> valid(?A, false) ^ valid(?B,
+#            differentFrom(?A, ?B) ^ schema:identifier(?B, ?ID) -> valid(?A, false) ^ valid(?B,
 #            false)
 # reads:     IF Module M contains both A and B AND A and B share the same schema identifier ID
 #            AND A and B are distinct THEN A is NOT valid AND B is NOT valid

@@ -4,7 +4,7 @@
 # operation: rule
 # expect:    insert
 # swrl:      'in module'(?A, ?M) ^ 'in module'(?B, ?N) ^ 'supported by'(?A, ?B) ^ Module(?N) ^
-#            Module(?M) ^ swrlb:notEqual(?M, ?N) -> away(?B, true)
+#            Module(?M) ^ differentFrom(?M, ?N) -> away(?B, true)
 # reads:     IF M is a Module AND M contains A AND N is a Module AND N contains B AND A is
 #            supported by B AND M and N are distinct THEN B is away (in another Module)
 

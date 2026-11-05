@@ -51,7 +51,10 @@ rc:D49 a gsn:Goal ; schema:identifier "S49-D" ;
     gsn:true true ; gsn:undeveloped false ; gsn:challenges rc:G49 .
 
 
-###  S7  Predicate Conflict Invalidation - three relationships closing a triangle
+###  S55, S56, S57  Support Cycle - three goals and three relationships closing a triangle
+###  This was the S7 trigger. S7 was retired in 1.3.0, superseded by S55 to S63. The
+###  closure that S55 derives is asserted below, because each rule query runs once on
+###  this file and S56 and S57 read the closure.
 
 rc:G7a a gsn:Goal ; schema:identifier "S7-Ga" ; gsn:statement "A holds because B holds." ;
     gsn:supportedBy rc:G7b .
@@ -67,6 +70,10 @@ rc:R7b a gsn:Relationship ; schema:identifier "S7-Rb" ;
 rc:R7c a gsn:Relationship ; schema:identifier "S7-Rc" ;
     rdf:subject rc:G7c ; rdf:predicate gsn:supportedBy ; rdf:object rc:G7a .
 
+rc:G7a gsn:transitivelySupportedBy rc:G7a , rc:G7b , rc:G7c .
+rc:G7b gsn:transitivelySupportedBy rc:G7a , rc:G7b , rc:G7c .
+rc:G7c gsn:transitivelySupportedBy rc:G7a , rc:G7b , rc:G7c .
+
 
 ###  S8  Contradictory Goal Truth - a true claim resting on a false one
 
@@ -78,7 +85,9 @@ rc:G8child a gsn:Goal ; schema:identifier "S8-Gchild" ;
     gsn:true false .
 
 
-###  S9  Tri-Goal Conflict - a true claim resting on one true and one false claim
+###  S8  a true claim resting on one true and one false claim
+###  This was the S9 trigger. S9 was retired in 1.3.0 as subsumed by S8, which reaches the
+###  same conclusion from the false goal alone.
 
 rc:G9parent a gsn:Goal ; schema:identifier "S9-Gparent" ;
     gsn:statement "Both allocated targets are met." ;
@@ -269,7 +278,9 @@ rc:C32remote a gsn:Context ; schema:identifier "S32-Cremote" ;
     gsn:statement "The supplier's environment is defined in SUP-ENV-01." .
 
 
-###  S37  Circular Module Invalidation - three modules resting on each other
+###  S56  Support Cycle Invalidation - three modules resting on each other
+###  This was the S37 trigger. S37 was retired in 1.3.0, superseded by S56, which finds a
+###  support cycle of any length. Only the part of the closure that S56 reads is asserted.
 
 rc:M37a a gsn:Module ; schema:identifier "S37-Ma" ;
     gsn:statement "First module in the cycle." ; gsn:supportedBy rc:M37b ;
@@ -289,6 +300,53 @@ rc:M37c a gsn:Module ; schema:identifier "S37-Mc" ;
 rc:Arg37c a gsn:Argument ; schema:identifier "S37-Argc" ;
     gsn:statement "Argument of the third module in the cycle." ; gsn:contains rc:G37c .
 rc:G37c a gsn:Goal ; schema:identifier "S37-Gc" ; gsn:statement "Third claim in the cycle." .
+
+rc:M37a gsn:transitivelySupportedBy rc:M37a .
+rc:M37b gsn:transitivelySupportedBy rc:M37b .
+rc:M37c gsn:transitivelySupportedBy rc:M37c .
+
+
+###  S58, S59, S60  Module Context Cycle - three modules, each in the context of the next
+###  Only the part of the closure that S59 and S60 read is asserted, so that S58 still has
+###  links to derive.
+
+rc:M58a a gsn:Module ; schema:identifier "S58-Ma" ;
+    gsn:statement "First module in the context cycle." ; gsn:inContextOf rc:M58b ;
+    gsn:contains rc:Arg58a .
+rc:Arg58a a gsn:Argument ; schema:identifier "S58-Arga" ;
+    gsn:statement "Argument of the first module in the context cycle." .
+rc:M58b a gsn:Module ; schema:identifier "S58-Mb" ;
+    gsn:statement "Second module in the context cycle." ; gsn:inContextOf rc:M58c ;
+    gsn:contains rc:Arg58b .
+rc:Arg58b a gsn:Argument ; schema:identifier "S58-Argb" ;
+    gsn:statement "Argument of the second module in the context cycle." .
+rc:M58c a gsn:Module ; schema:identifier "S58-Mc" ;
+    gsn:statement "Third module in the context cycle." ; gsn:inContextOf rc:M58a ;
+    gsn:contains rc:Arg58c .
+rc:Arg58c a gsn:Argument ; schema:identifier "S58-Argc" ;
+    gsn:statement "Argument of the third module in the context cycle." .
+rc:R58 a gsn:Relationship ; schema:identifier "S58-R" ;
+    rdf:subject rc:M58a ; rdf:predicate gsn:inContextOf ; rdf:object rc:M58b .
+
+rc:M58a gsn:transitivelyInContextOf rc:M58a .
+rc:M58b gsn:transitivelyInContextOf rc:M58a , rc:M58b .
+rc:M58c gsn:transitivelyInContextOf rc:M58c .
+
+
+###  S61, S62, S63  Challenge Cycle - two goals that challenge each other
+###  The closure that S61 derives is asserted, because S62 and S63 read it.
+
+rc:D61a a gsn:Goal ; schema:identifier "S61-Da" ;
+    gsn:statement "The test campaign missed the low-temperature cases." ;
+    gsn:challenges rc:D61b .
+rc:D61b a gsn:Goal ; schema:identifier "S61-Db" ;
+    gsn:statement "The low-temperature cases are outside the operating range." ;
+    gsn:challenges rc:D61a .
+rc:R61 a gsn:Relationship ; schema:identifier "S61-R" ;
+    rdf:subject rc:D61a ; rdf:predicate gsn:challenges ; rdf:object rc:D61b .
+
+rc:D61a gsn:transitivelyChallenges rc:D61a , rc:D61b .
+rc:D61b gsn:transitivelyChallenges rc:D61a , rc:D61b .
 
 
 ###  S43  Goal-Strategy Confidence - a claim point below a strategy, propagated upwards
@@ -451,17 +509,25 @@ rc:G37c gsn:inModule rc:M37c .
 
 
 
-###  S41  Duplicate Name Invalidation - the same identifier in two different arguments
-###  S25 cannot reach this: it only looks within one module. Identifiers are unique within an
-###  argument, and an element of a nested argument is expected to carry a qualified identifier
-###  built from its argument's prefix. Two bare "G-1"s in different arguments are that
-###  qualification not having been done.
+###  S41  Duplicate ACP Identifier Invalidation - two assurance claim points, one identifier
+###  S25 cannot reach this: it only looks within one module. The two solutions are in
+###  different arguments and in no module, and both are assurance claim points.
 
 rc:Arg41a a gsn:Argument ; schema:identifier "S41-Arga" ;
-    gsn:statement "First argument." ; gsn:contains rc:G41a .
+    gsn:statement "First argument." ; gsn:contains rc:Sn41a .
 rc:Arg41b a gsn:Argument ; schema:identifier "S41-Argb" ;
-    gsn:statement "Second argument." ; gsn:contains rc:G41b .
-rc:G41a a gsn:Goal ; schema:identifier "G-1" ;
-    gsn:statement "A claim in the first argument." .
-rc:G41b a gsn:Goal ; schema:identifier "G-1" ;
-    gsn:statement "An unrelated claim in the second argument, sharing an identifier." .
+    gsn:statement "Second argument." ; gsn:contains rc:Sn41b .
+rc:Sn41a a gsn:Solution ; schema:identifier "ACP-1" ;
+    gsn:statement "Static analysis report." ;
+    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:ConfArg41a ; gsn:refersTo rc:Ev41 .
+rc:Sn41b a gsn:Solution ; schema:identifier "ACP-1" ;
+    gsn:statement "An unrelated review record, sharing the identifier." ;
+    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:ConfArg41b ; gsn:refersTo rc:Ev41 .
+rc:Ev41 a gsn:Artefact ; schema:identifier "S41-Ev" ;
+    schema:description "The artefact both solutions refer to." .
+rc:ConfArg41a a gsn:Argument ; schema:identifier "S41-ConfArga" ;
+    gsn:statement "Confidence in the static analysis report." ;
+    gsn:argumentType "confidence" ; gsn:structured true .
+rc:ConfArg41b a gsn:Argument ; schema:identifier "S41-ConfArgb" ;
+    gsn:statement "Confidence in the review record." ;
+    gsn:argumentType "confidence" ; gsn:structured true .

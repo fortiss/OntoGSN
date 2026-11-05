@@ -1,0 +1,17 @@
+# rule:      S62
+# name:      Challenge Cycle Invalidation
+# section:   Dialectic Extension
+# operation: rule
+# expect:    insert
+# swrl:      'transitively challenges'(?E, ?E) -> valid(?E, false)
+# reads:     IF E transitively challenges itself THEN E is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?E gsn:valid ?old }
+INSERT { ?E gsn:valid false }
+WHERE {
+  ?E gsn:transitivelyChallenges ?E .
+  OPTIONAL { ?E gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}
