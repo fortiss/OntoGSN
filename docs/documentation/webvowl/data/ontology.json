@@ -7,7 +7,7 @@
       "en" : "OntoGSN"
     },
     "iri" : "https://w3id.org/OntoGSN/ontology",
-    "version" : "1.2.4",
+    "version" : "1.3.0",
     "author" : [ "Tomas Bueno Momčilović" ],
     "description" : {
       "en" : "OntoGSN is an ontology for managing assurance cases in the Goal Structuring Notation (GSN). The goal of the ontology is to help users in linking the elements of their cases - claims and evidence - with the internationalized resource identifiers (IRIs) of represented concepts, events and data, and in evaluating the validity of their argument."
@@ -37,16 +37,16 @@
         "value" : "20th February 2025",
         "type" : "label"
       } ],
+      "versionInfo" : [ {
+        "identifier" : "versionInfo",
+        "language" : "undefined",
+        "value" : "1.3.0",
+        "type" : "label"
+      } ],
       "source" : [ {
         "identifier" : "source",
         "language" : "en",
         "value" : "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C",
-        "type" : "label"
-      } ],
-      "versionInfo" : [ {
-        "identifier" : "versionInfo",
-        "language" : "undefined",
-        "value" : "1.2.4",
         "type" : "label"
       } ],
       "title" : [ {
@@ -97,17 +97,17 @@
         "value" : "https://www.fortiss.org/",
         "type" : "label"
       } ],
-      "modified" : [ {
-        "identifier" : "modified",
-        "language" : "undefined",
-        "value" : "2026-08-18T00:00:00Z",
-        "type" : "label"
-      } ],
       "logo" : [ {
         "identifier" : "logo",
         "language" : "undefined",
         "value" : "https://fortiss.github.io/OntoGSN/assets/images/ontogsn-banner.png",
         "type" : "iri"
+      } ],
+      "modified" : [ {
+        "identifier" : "modified",
+        "language" : "undefined",
+        "value" : "2026-11-05T00:00:00Z",
+        "type" : "label"
       } ],
       "definition" : [ {
         "identifier" : "definition",
@@ -115,16 +115,16 @@
         "value" : "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence.",
         "type" : "label"
       } ],
-      "bibliographicCitation" : [ {
-        "identifier" : "bibliographicCitation",
-        "language" : "undefined",
-        "value" : "Bueno Momcilovic, T., Gallina, B., Kessler, I., Hendricks, J., & Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. Retrieved from https://fortiss.github.io/OntoGSN/",
-        "type" : "label"
-      } ],
       "preferredNamespaceUri" : [ {
         "identifier" : "preferredNamespaceUri",
         "language" : "undefined",
         "value" : "https://w3id.org/OntoGSN/ontology#",
+        "type" : "label"
+      } ],
+      "bibliographicCitation" : [ {
+        "identifier" : "bibliographicCitation",
+        "language" : "undefined",
+        "value" : "Bueno Momcilovic, T., Gallina, B., Kessler, I., Hendricks, J., & Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. Retrieved from https://fortiss.github.io/OntoGSN/",
         "type" : "label"
       } ],
       "issued" : [ {
@@ -164,146 +164,125 @@
     "id" : "5",
     "type" : "owl:Class"
   }, {
+    "id" : "18",
+    "type" : "owl:unionOf"
+  }, {
     "id" : "19",
     "type" : "owl:unionOf"
   }, {
-    "id" : "20",
+    "id" : "25",
     "type" : "owl:unionOf"
   }, {
-    "id" : "26",
-    "type" : "owl:unionOf"
-  }, {
-    "id" : "24",
+    "id" : "23",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "28",
+    "id" : "27",
     "type" : "rdfs:Datatype"
   }, {
     "id" : "32",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "39",
+    "id" : "40",
     "type" : "owl:Class"
   }, {
-    "id" : "1",
+    "id" : "49",
     "type" : "owl:Class"
   }, {
-    "id" : "51",
+    "id" : "52",
     "type" : "rdfs:Literal"
   }, {
-    "id" : "55",
-    "type" : "rdfs:Datatype"
-  }, {
-    "id" : "58",
+    "id" : "56",
     "type" : "rdfs:Datatype"
   }, {
     "id" : "59",
-    "type" : "owl:Class"
-  }, {
-    "id" : "60",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "14",
-    "type" : "owl:unionOf"
+    "id" : "60",
+    "type" : "owl:Class"
+  }, {
+    "id" : "61",
+    "type" : "rdfs:Datatype"
   }, {
     "id" : "63",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "15",
-    "type" : "rdfs:Datatype"
-  }, {
     "id" : "64",
-    "type" : "owl:Class"
+    "type" : "rdfs:Datatype"
   }, {
     "id" : "65",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "66",
     "type" : "owl:Class"
   }, {
-    "id" : "62",
+    "id" : "67",
     "type" : "owl:Class"
-  }, {
-    "id" : "69",
-    "type" : "rdfs:Datatype"
   }, {
     "id" : "70",
-    "type" : "owl:unionOf"
-  }, {
-    "id" : "54",
     "type" : "owl:Class"
-  }, {
-    "id" : "71",
-    "type" : "rdfs:Datatype"
-  }, {
-    "id" : "72",
-    "type" : "owl:unionOf"
-  }, {
-    "id" : "18",
-    "type" : "rdfs:Datatype"
-  }, {
-    "id" : "17",
-    "type" : "owl:unionOf"
-  }, {
-    "id" : "12",
-    "type" : "rdfs:Datatype"
   }, {
     "id" : "48",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "73",
+    "id" : "17",
     "type" : "rdfs:Datatype"
+  }, {
+    "id" : "55",
+    "type" : "owl:Class"
+  }, {
+    "id" : "72",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "11",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "73",
+    "type" : "owl:unionOf"
   }, {
     "id" : "74",
     "type" : "owl:unionOf"
   }, {
-    "id" : "86",
+    "id" : "16",
     "type" : "owl:unionOf"
   }, {
-    "id" : "21",
-    "type" : "owl:Class"
-  }, {
-    "id" : "88",
-    "type" : "owl:unionOf"
+    "id" : "76",
+    "type" : "rdfs:Datatype"
   }, {
     "id" : "77",
     "type" : "owl:unionOf"
   }, {
-    "id" : "89",
-    "type" : "owl:unionOf"
-  }, {
-    "id" : "84",
+    "id" : "78",
     "type" : "owl:unionOf"
   }, {
     "id" : "90",
     "type" : "owl:unionOf"
   }, {
+    "id" : "20",
+    "type" : "owl:Class"
+  }, {
+    "id" : "81",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "80",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "88",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "93",
+    "type" : "owl:unionOf"
+  }, {
     "id" : "30",
     "type" : "owl:unionOf"
   }, {
-    "id" : "76",
-    "type" : "owl:unionOf"
-  }, {
-    "id" : "91",
+    "id" : "29",
     "type" : "owl:unionOf"
   }, {
     "id" : "94",
-    "type" : "rdfs:Datatype"
+    "type" : "owl:unionOf"
   }, {
     "id" : "95",
     "type" : "owl:unionOf"
-  }, {
-    "id" : "42",
-    "type" : "rdfs:Literal"
-  }, {
-    "id" : "37",
-    "type" : "owl:Thing"
-  }, {
-    "id" : "96",
-    "type" : "owl:Class"
-  }, {
-    "id" : "9",
-    "type" : "rdfs:Datatype"
-  }, {
-    "id" : "2",
-    "type" : "owl:Class"
   }, {
     "id" : "45",
     "type" : "rdfs:Datatype"
@@ -311,44 +290,38 @@
     "id" : "44",
     "type" : "owl:unionOf"
   }, {
-    "id" : "93",
-    "type" : "rdfs:Datatype"
+    "id" : "98",
+    "type" : "owl:unionOf"
   }, {
-    "id" : "82",
+    "id" : "8",
     "type" : "rdfs:Datatype"
   }, {
     "id" : "99",
+    "type" : "owl:Class"
+  }, {
+    "id" : "100",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "98",
-    "type" : "owl:unionOf"
+    "id" : "75",
+    "type" : "owl:Class"
   }, {
     "id" : "104",
     "type" : "owl:unionOf"
   }, {
+    "id" : "97",
+    "type" : "rdfs:Datatype"
+  }, {
     "id" : "105",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "102",
+    "id" : "108",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "86",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "106",
+    "id" : "107",
     "type" : "rdfs:Datatype"
-  }, {
-    "id" : "27",
-    "type" : "owl:Class"
-  }, {
-    "id" : "8",
-    "type" : "owl:Class"
-  }, {
-    "id" : "6",
-    "type" : "owl:Class"
-  }, {
-    "id" : "47",
-    "type" : "owl:Class"
-  }, {
-    "id" : "50",
-    "type" : "owl:Class"
   }, {
     "id" : "110",
     "type" : "rdfs:Datatype"
@@ -356,49 +329,85 @@
     "id" : "111",
     "type" : "owl:unionOf"
   }, {
-    "id" : "23",
-    "type" : "owl:Class"
-  }, {
     "id" : "112",
-    "type" : "owl:unionOf"
+    "type" : "rdfs:Datatype"
   }, {
     "id" : "113",
-    "type" : "rdfs:Datatype"
+    "type" : "owl:unionOf"
   }, {
-    "id" : "114",
-    "type" : "rdfs:Datatype"
+    "id" : "26",
+    "type" : "owl:Class"
   }, {
-    "id" : "67",
-    "type" : "rdfs:Datatype"
+    "id" : "1",
+    "type" : "owl:Class"
+  }, {
+    "id" : "6",
+    "type" : "owl:Class"
+  }, {
+    "id" : "2",
+    "type" : "owl:Class"
+  }, {
+    "id" : "51",
+    "type" : "owl:Class"
   }, {
     "id" : "35",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "119",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "22",
+    "type" : "owl:Class"
+  }, {
+    "id" : "69",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "14",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "13",
+    "type" : "owl:unionOf"
+  }, {
+    "id" : "120",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "92",
     "type" : "rdfs:Datatype"
   }, {
     "id" : "4",
     "type" : "owl:Class"
   }, {
-    "id" : "118",
+    "id" : "126",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "125",
+    "id" : "133",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "130",
+    "id" : "138",
     "type" : "rdfs:Datatype"
   }, {
-    "id" : "85",
+    "id" : "89",
     "type" : "owl:Class"
   }, {
-    "id" : "11",
-    "type" : "owl:Class"
-  }, {
-    "id" : "116",
+    "id" : "83",
     "type" : "rdfs:Literal"
   }, {
-    "id" : "109",
+    "id" : "10",
+    "type" : "owl:Class"
+  }, {
+    "id" : "124",
+    "type" : "rdfs:Literal"
+  }, {
+    "id" : "37",
     "type" : "owl:Thing"
   }, {
-    "id" : "79",
+    "id" : "102",
+    "type" : "rdfs:Datatype"
+  }, {
+    "id" : "117",
+    "type" : "owl:Thing"
+  }, {
+    "id" : "42",
     "type" : "rdfs:Literal"
   } ],
   "classAttribute" : [ {
@@ -414,12 +423,12 @@
       "note" : [ {
         "identifier" : "note",
         "language" : "en",
-        "value" : "The goal and solution statements should be clearly expressed such that the crux of the challenge is unequivocally communicated. Thus, the link between the part of the argument that is being challenged (target) and the dialectic element (source) is self-evident.",
+        "value" : "Membership of this class is only meant to be inferred, not asserted! Please do not add individuals to this class manually (i.e., assertions).",
         "type" : "label"
       }, {
         "identifier" : "note",
         "language" : "en",
-        "value" : "Membership of this class is only meant to be inferred, not asserted! Please do not add individuals to this class manually (i.e., assertions).",
+        "value" : "The goal and solution statements should be clearly expressed such that the crux of the challenge is unequivocally communicated. Thus, the link between the part of the argument that is being challenged (target) and the dialectic element (source) is self-evident.",
         "type" : "label"
       } ],
       "coreOrExtension" : [ {
@@ -482,28 +491,28 @@
     "instances" : 0,
     "union" : [ "4", "5" ],
     "attributes" : [ "union", "anonymous" ],
+    "id" : "18"
+  }, {
+    "instances" : 0,
+    "union" : [ "20", "1" ],
+    "attributes" : [ "union", "anonymous" ],
     "id" : "19"
   }, {
     "instances" : 0,
-    "union" : [ "21", "8" ],
+    "union" : [ "26", "6" ],
     "attributes" : [ "union", "anonymous" ],
-    "id" : "20"
-  }, {
-    "instances" : 0,
-    "union" : [ "27", "6" ],
-    "attributes" : [ "union", "anonymous" ],
-    "id" : "26"
+    "id" : "25"
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#string",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "24",
+    "id" : "23",
     "label" : {
       "IRI-based" : "string"
     }
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#string",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "28",
+    "id" : "27",
     "label" : {
       "IRI-based" : "string"
     }
@@ -541,7 +550,7 @@
       "IRI-based" : "Argument",
       "en" : "Argument"
     },
-    "id" : "39"
+    "id" : "40"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#Context",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -570,12 +579,12 @@
       "IRI-based" : "Context",
       "en" : "Context"
     },
-    "id" : "1",
+    "id" : "49",
     "superClasses" : [ "6" ]
   }, {
     "iri" : "http://www.w3.org/2000/01/rdf-schema#Literal",
     "baseIri" : "http://www.w3.org/2000/01/rdf-schema",
-    "id" : "51",
+    "id" : "52",
     "label" : {
       "IRI-based" : "Literal",
       "undefined" : "Literal"
@@ -583,14 +592,14 @@
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#string",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "55",
+    "id" : "56",
     "label" : {
       "IRI-based" : "string"
     }
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#string",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "58",
+    "id" : "59",
     "label" : {
       "IRI-based" : "string"
     }
@@ -622,33 +631,33 @@
       "IRI-based" : "InstantiationDataReference",
       "en" : "Instantiation Data Reference"
     },
-    "id" : "59"
+    "id" : "60"
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#string",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "60",
+    "id" : "61",
     "label" : {
       "IRI-based" : "string"
     }
   }, {
-    "instances" : 0,
-    "union" : [ "62", "8", "47" ],
-    "attributes" : [ "union", "anonymous" ],
-    "id" : "14"
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
     "id" : "63",
     "label" : {
-      "IRI-based" : "nonNegativeInteger"
+      "IRI-based" : "boolean"
     }
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "15",
+    "id" : "64",
     "label" : {
       "IRI-based" : "boolean"
     }
+  }, {
+    "instances" : 0,
+    "union" : [ "40", "51" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "65"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#Catalogue",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -671,7 +680,7 @@
       "IRI-based" : "Catalogue",
       "en" : "Catalogue"
     },
-    "id" : "64"
+    "id" : "66"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#View",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -694,7 +703,7 @@
       "IRI-based" : "View",
       "en" : "View"
     },
-    "id" : "65"
+    "id" : "67"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#AssuranceCase",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -722,19 +731,21 @@
       "IRI-based" : "AssuranceCase",
       "en" : "Assurance Case"
     },
-    "id" : "62"
+    "id" : "70"
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "69",
+    "id" : "48",
     "label" : {
       "IRI-based" : "boolean"
     }
   }, {
-    "instances" : 0,
-    "union" : [ "8", "47" ],
-    "attributes" : [ "union", "anonymous" ],
-    "id" : "70"
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "17",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#Justification",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -763,63 +774,57 @@
       "IRI-based" : "Justification",
       "en" : "Justification"
     },
-    "id" : "54",
-    "superClasses" : [ "8" ]
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
-    "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "71",
-    "label" : {
-      "IRI-based" : "boolean"
-    }
+    "id" : "55",
+    "superClasses" : [ "1" ]
   }, {
     "instances" : 0,
-    "union" : [ "39", "50" ],
+    "union" : [ "1", "2" ],
     "attributes" : [ "union", "anonymous" ],
     "id" : "72"
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "18",
+    "id" : "11",
     "label" : {
       "IRI-based" : "boolean"
     }
   }, {
     "instances" : 0,
-    "union" : [ "4", "1", "5", "2", "54" ],
+    "union" : [ "26", "6" ],
     "attributes" : [ "union", "anonymous" ],
-    "id" : "17"
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
-    "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "12",
-    "label" : {
-      "IRI-based" : "boolean"
-    }
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
-    "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "48",
-    "label" : {
-      "IRI-based" : "boolean"
-    }
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
-    "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "73",
-    "label" : {
-      "IRI-based" : "boolean"
-    }
+    "id" : "73"
   }, {
     "instances" : 0,
-    "union" : [ "27", "6" ],
+    "union" : [ "1", "2" ],
     "attributes" : [ "union", "anonymous" ],
     "id" : "74"
   }, {
     "instances" : 0,
-    "union" : [ "4", "5", "11", "23" ],
+    "union" : [ "4", "49", "5", "75", "55" ],
     "attributes" : [ "union", "anonymous" ],
-    "id" : "86"
+    "id" : "16"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "76",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "instances" : 0,
+    "union" : [ "1", "2" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "77"
+  }, {
+    "instances" : 0,
+    "union" : [ "4", "5", "10", "22" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "78"
+  }, {
+    "instances" : 0,
+    "union" : [ "4", "10", "22" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "90"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#Template",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -842,73 +847,71 @@
       "IRI-based" : "Template",
       "en" : "Template"
     },
-    "id" : "21",
-    "superClasses" : [ "50" ]
+    "id" : "20",
+    "superClasses" : [ "51" ]
   }, {
     "instances" : 0,
-    "union" : [ "39", "8" ],
+    "union" : [ "49", "75", "10", "55" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "81"
+  }, {
+    "instances" : 0,
+    "union" : [ "4", "10", "22" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "80"
+  }, {
+    "instances" : 0,
+    "union" : [ "6", "60" ],
     "attributes" : [ "union", "anonymous" ],
     "id" : "88"
   }, {
     "instances" : 0,
-    "union" : [ "1", "2", "11", "54" ],
+    "union" : [ "40", "1" ],
     "attributes" : [ "union", "anonymous" ],
-    "id" : "77"
+    "id" : "93"
   }, {
     "instances" : 0,
-    "union" : [ "4", "23" ],
-    "attributes" : [ "union", "anonymous" ],
-    "id" : "89"
-  }, {
-    "instances" : 0,
-    "union" : [ "6", "59" ],
-    "attributes" : [ "union", "anonymous" ],
-    "id" : "84"
-  }, {
-    "instances" : 0,
-    "union" : [ "39", "62", "64", "50", "11" ],
-    "attributes" : [ "union", "anonymous" ],
-    "id" : "90"
-  }, {
-    "instances" : 0,
-    "union" : [ "1", "2" ],
+    "union" : [ "49", "75" ],
     "attributes" : [ "union", "anonymous" ],
     "id" : "30"
   }, {
     "instances" : 0,
-    "union" : [ "4", "23" ],
+    "union" : [ "49", "75" ],
     "attributes" : [ "union", "anonymous" ],
-    "id" : "76"
+    "id" : "29"
   }, {
     "instances" : 0,
-    "union" : [ "39", "50", "8", "85" ],
+    "union" : [ "40", "51", "1", "89" ],
     "attributes" : [ "union", "anonymous" ],
-    "id" : "91"
+    "id" : "94"
+  }, {
+    "instances" : 0,
+    "union" : [ "40", "70", "66", "51", "10" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "95"
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "94",
+    "id" : "45",
     "label" : {
       "IRI-based" : "boolean"
     }
   }, {
     "instances" : 0,
-    "union" : [ "39", "50", "8", "47" ],
+    "union" : [ "4", "22", "2" ],
     "attributes" : [ "union", "anonymous" ],
-    "id" : "95"
+    "id" : "44"
   }, {
-    "iri" : "http://www.w3.org/2000/01/rdf-schema#Literal",
-    "id" : "42",
-    "label" : {
-      "IRI-based" : "Literal",
-      "undefined" : "Literal"
-    }
+    "instances" : 0,
+    "union" : [ "40", "51", "1", "2" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "98"
   }, {
-    "iri" : "http://www.w3.org/2002/07/owl#Thing",
-    "baseIri" : "http://owl2vowl.de",
-    "id" : "37",
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "8",
     "label" : {
-      "undefined" : "Thing"
+      "IRI-based" : "boolean"
     }
   }, {
     "iri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement",
@@ -917,13 +920,13 @@
     "label" : {
       "IRI-based" : "Statement"
     },
-    "subClasses" : [ "47" ],
+    "subClasses" : [ "2" ],
     "attributes" : [ "external" ],
-    "id" : "96"
+    "id" : "99"
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "9",
+    "id" : "100",
     "label" : {
       "IRI-based" : "boolean"
     }
@@ -955,72 +958,70 @@
       "IRI-based" : "Assumption",
       "en" : "Assumption"
     },
-    "id" : "2",
-    "superClasses" : [ "8" ]
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
-    "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "45",
-    "label" : {
-      "IRI-based" : "boolean"
-    }
+    "id" : "75",
+    "superClasses" : [ "1" ]
   }, {
     "instances" : 0,
-    "union" : [ "4", "23", "47" ],
-    "attributes" : [ "union", "anonymous" ],
-    "id" : "44"
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
-    "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "93",
-    "label" : {
-      "IRI-based" : "boolean"
-    }
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
-    "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "82",
-    "label" : {
-      "IRI-based" : "boolean"
-    }
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
-    "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "99",
-    "label" : {
-      "IRI-based" : "boolean"
-    }
-  }, {
-    "instances" : 0,
-    "union" : [ "8", "47" ],
-    "attributes" : [ "union", "anonymous" ],
-    "id" : "98"
-  }, {
-    "instances" : 0,
-    "union" : [ "39", "62", "8" ],
+    "union" : [ "1", "2" ],
     "attributes" : [ "union", "anonymous" ],
     "id" : "104"
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "105",
-    "label" : {
-      "IRI-based" : "boolean"
-    }
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
-    "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "102",
+    "id" : "97",
     "label" : {
       "IRI-based" : "boolean"
     }
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#string",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "106",
+    "id" : "105",
     "label" : {
       "IRI-based" : "string"
     }
+  }, {
+    "instances" : 0,
+    "union" : [ "40", "70", "1" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "108"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "86",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "107",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "110",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "instances" : 0,
+    "union" : [ "4", "49", "5", "75", "55" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "111"
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "112",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "instances" : 0,
+    "union" : [ "40", "51" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "113"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -1049,8 +1050,8 @@
       "IRI-based" : "RelationshipWithConfidence",
       "en" : "Relationship with Confidence"
     },
-    "id" : "27",
-    "superClasses" : [ "47" ]
+    "id" : "26",
+    "superClasses" : [ "2" ]
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#GSNElement",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -1073,8 +1074,8 @@
       "IRI-based" : "GSNElement",
       "en" : "GSN Element"
     },
-    "subClasses" : [ "4", "2", "11", "54", "23", "6" ],
-    "id" : "8"
+    "subClasses" : [ "4", "75", "10", "55", "22", "6" ],
+    "id" : "1"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#ArtefactReference",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -1097,9 +1098,9 @@
       "IRI-based" : "ArtefactReference",
       "en" : "Artefact Reference"
     },
-    "subClasses" : [ "1", "5" ],
+    "subClasses" : [ "49", "5" ],
     "id" : "6",
-    "superClasses" : [ "8" ]
+    "superClasses" : [ "1" ]
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#Relationship",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -1122,9 +1123,9 @@
       "IRI-based" : "Relationship",
       "en" : "Relationship"
     },
-    "subClasses" : [ "27" ],
-    "id" : "47",
-    "superClasses" : [ "96" ]
+    "subClasses" : [ "26" ],
+    "id" : "2",
+    "superClasses" : [ "99" ]
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#Pattern",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -1147,20 +1148,22 @@
       "IRI-based" : "Pattern",
       "en" : "Pattern"
     },
-    "subClasses" : [ "21" ],
-    "id" : "50"
+    "subClasses" : [ "20" ],
+    "id" : "51"
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "110",
+    "id" : "35",
     "label" : {
       "IRI-based" : "boolean"
     }
   }, {
-    "instances" : 0,
-    "union" : [ "4", "1", "5", "2", "54" ],
-    "attributes" : [ "union", "anonymous" ],
-    "id" : "111"
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "119",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#Strategy",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -1189,40 +1192,40 @@
       "IRI-based" : "Strategy",
       "en" : "Strategy"
     },
-    "id" : "23",
-    "superClasses" : [ "8" ]
-  }, {
-    "instances" : 0,
-    "union" : [ "39", "50" ],
-    "attributes" : [ "union", "anonymous" ],
-    "id" : "112"
+    "id" : "22",
+    "superClasses" : [ "1" ]
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "113",
+    "id" : "69",
     "label" : {
       "IRI-based" : "boolean"
     }
   }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "14",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "instances" : 0,
+    "union" : [ "70", "1", "2" ],
+    "attributes" : [ "union", "anonymous" ],
+    "id" : "13"
+  }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "114",
+    "id" : "120",
     "label" : {
       "IRI-based" : "nonNegativeInteger"
     }
   }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "iri" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "67",
+    "id" : "92",
     "label" : {
-      "IRI-based" : "boolean"
-    }
-  }, {
-    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
-    "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "35",
-    "label" : {
-      "IRI-based" : "boolean"
+      "IRI-based" : "nonNegativeInteger"
     }
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#Goal",
@@ -1241,21 +1244,21 @@
         "value" : "Core GSN",
         "type" : "label"
       } ],
-      "altLabel" : [ {
-        "identifier" : "altLabel",
-        "language" : "en",
-        "value" : "Claim",
-        "type" : "label"
-      } ],
       "definition" : [ {
         "identifier" : "definition",
         "language" : "en",
-        "value" : "(Claim is) A proposition being asserted by the author that is a true or false statement.",
+        "value" : "A goal, rendered as a rectangle, presents a claim forming part of the argument.",
         "type" : "label"
       }, {
         "identifier" : "definition",
         "language" : "en",
-        "value" : "A goal, rendered as a rectangle, presents a claim forming part of the argument.",
+        "value" : "(Claim is) A proposition being asserted by the author that is a true or false statement.",
+        "type" : "label"
+      } ],
+      "altLabel" : [ {
+        "identifier" : "altLabel",
+        "language" : "en",
+        "value" : "Claim",
         "type" : "label"
       } ]
     },
@@ -1264,25 +1267,25 @@
       "en" : "Goal"
     },
     "id" : "4",
-    "superClasses" : [ "8" ]
+    "superClasses" : [ "1" ]
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#string",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "118",
+    "id" : "126",
     "label" : {
       "IRI-based" : "string"
     }
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#string",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "125",
+    "id" : "133",
     "label" : {
       "IRI-based" : "string"
     }
   }, {
     "iri" : "http://www.w3.org/2001/XMLSchema#string",
     "baseIri" : "http://www.w3.org/2001/XMLSchema",
-    "id" : "130",
+    "id" : "138",
     "label" : {
       "IRI-based" : "string"
     }
@@ -1314,7 +1317,14 @@
       "IRI-based" : "Artefact",
       "en" : "Artefact"
     },
-    "id" : "85"
+    "id" : "89"
+  }, {
+    "iri" : "http://www.w3.org/2000/01/rdf-schema#Literal",
+    "id" : "83",
+    "label" : {
+      "IRI-based" : "Literal",
+      "undefined" : "Literal"
+    }
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#Module",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -1343,11 +1353,11 @@
       "IRI-based" : "Module",
       "en" : "Module"
     },
-    "id" : "11",
-    "superClasses" : [ "8" ]
+    "id" : "10",
+    "superClasses" : [ "1" ]
   }, {
     "iri" : "http://www.w3.org/2000/01/rdf-schema#Literal",
-    "id" : "116",
+    "id" : "124",
     "label" : {
       "IRI-based" : "Literal",
       "undefined" : "Literal"
@@ -1355,13 +1365,27 @@
   }, {
     "iri" : "http://www.w3.org/2002/07/owl#Thing",
     "baseIri" : "http://owl2vowl.de",
-    "id" : "109",
+    "id" : "37",
+    "label" : {
+      "undefined" : "Thing"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2001/XMLSchema#boolean",
+    "baseIri" : "http://www.w3.org/2001/XMLSchema",
+    "id" : "102",
+    "label" : {
+      "IRI-based" : "boolean"
+    }
+  }, {
+    "iri" : "http://www.w3.org/2002/07/owl#Thing",
+    "baseIri" : "http://owl2vowl.de",
+    "id" : "117",
     "label" : {
       "undefined" : "Thing"
     }
   }, {
     "iri" : "http://www.w3.org/2000/01/rdf-schema#Literal",
-    "id" : "79",
+    "id" : "42",
     "label" : {
       "IRI-based" : "Literal",
       "undefined" : "Literal"
@@ -1371,22 +1395,22 @@
     "id" : "7",
     "type" : "owl:datatypeProperty"
   }, {
-    "id" : "10",
+    "id" : "9",
     "type" : "owl:datatypeProperty"
   }, {
-    "id" : "13",
+    "id" : "12",
     "type" : "owl:datatypeProperty"
   }, {
-    "id" : "16",
+    "id" : "15",
     "type" : "owl:datatypeProperty"
   }, {
-    "id" : "22",
+    "id" : "21",
     "type" : "owl:someValuesFrom"
   }, {
-    "id" : "25",
+    "id" : "24",
     "type" : "owl:allValuesFrom"
   }, {
-    "id" : "29",
+    "id" : "28",
     "type" : "owl:objectProperty"
   }, {
     "id" : "31",
@@ -1404,7 +1428,7 @@
     "id" : "38",
     "type" : "owl:objectProperty"
   }, {
-    "id" : "40",
+    "id" : "39",
     "type" : "owl:objectProperty"
   }, {
     "id" : "41",
@@ -1414,130 +1438,121 @@
     "type" : "owl:datatypeProperty"
   }, {
     "id" : "46",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "47",
     "type" : "owl:datatypeProperty"
   }, {
-    "id" : "49",
+    "id" : "50",
     "type" : "owl:someValuesFrom"
-  }, {
-    "id" : "52",
-    "type" : "owl:allValuesFrom"
   }, {
     "id" : "53",
-    "type" : "owl:someValuesFrom"
+    "type" : "owl:allValuesFrom"
   }, {
-    "id" : "56",
+    "id" : "54",
     "type" : "owl:someValuesFrom"
   }, {
     "id" : "57",
-    "type" : "owl:allValuesFrom"
-  }, {
-    "id" : "61",
     "type" : "owl:someValuesFrom"
   }, {
-    "id" : "66",
-    "type" : "owl:datatypeProperty"
+    "id" : "58",
+    "type" : "owl:allValuesFrom"
+  }, {
+    "id" : "62",
+    "type" : "owl:someValuesFrom"
   }, {
     "id" : "68",
-    "type" : "owl:objectProperty"
-  }, {
-    "id" : "75",
-    "type" : "owl:objectProperty"
-  }, {
-    "id" : "78",
     "type" : "owl:datatypeProperty"
   }, {
-    "id" : "80",
-    "type" : "owl:datatypeProperty"
-  }, {
-    "id" : "81",
-    "type" : "owl:datatypeProperty"
-  }, {
-    "id" : "83",
+    "id" : "71",
     "type" : "owl:objectProperty"
+  }, {
+    "id" : "79",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "82",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "84",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "85",
+    "type" : "owl:datatypeProperty"
   }, {
     "id" : "87",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "91",
     "type" : "owl:datatypeProperty"
   }, {
-    "id" : "92",
-    "type" : "owl:datatypeProperty"
-  }, {
-    "id" : "97",
-    "type" : "owl:datatypeProperty"
-  }, {
-    "id" : "100",
+    "id" : "96",
     "type" : "owl:datatypeProperty"
   }, {
     "id" : "101",
     "type" : "owl:datatypeProperty"
   }, {
     "id" : "103",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "106",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "109",
     "type" : "owl:objectProperty"
   }, {
-    "id" : "107",
-    "type" : "owl:objectProperty"
-  }, {
-    "id" : "108",
+    "id" : "114",
     "type" : "owl:objectProperty"
   }, {
     "id" : "115",
-    "type" : "owl:datatypeProperty"
-  }, {
-    "id" : "117",
-    "type" : "owl:someValuesFrom"
-  }, {
-    "id" : "119",
-    "type" : "owl:someValuesFrom"
-  }, {
-    "id" : "120",
-    "type" : "owl:someValuesFrom"
-  }, {
-    "id" : "121",
     "type" : "owl:objectProperty"
   }, {
+    "id" : "116",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "118",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "121",
+    "type" : "rdfs:SubClassOf"
+  }, {
     "id" : "122",
-    "type" : "owl:datatypeProperty"
+    "type" : "rdfs:SubClassOf"
   }, {
     "id" : "123",
-    "type" : "owl:allValuesFrom"
-  }, {
-    "id" : "124",
-    "type" : "owl:someValuesFrom"
-  }, {
-    "id" : "126",
     "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "125",
+    "type" : "owl:someValuesFrom"
   }, {
     "id" : "127",
     "type" : "owl:someValuesFrom"
   }, {
     "id" : "128",
-    "type" : "owl:objectProperty"
-  }, {
-    "id" : "129",
     "type" : "owl:someValuesFrom"
   }, {
+    "id" : "129",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "130",
+    "type" : "owl:datatypeProperty"
+  }, {
     "id" : "131",
-    "type" : "rdfs:SubClassOf"
+    "type" : "owl:allValuesFrom"
   }, {
     "id" : "132",
-    "type" : "rdfs:SubClassOf"
-  }, {
-    "id" : "133",
-    "type" : "rdfs:SubClassOf"
+    "type" : "owl:someValuesFrom"
   }, {
     "id" : "134",
-    "type" : "rdfs:SubClassOf"
+    "type" : "owl:datatypeProperty"
   }, {
     "id" : "135",
-    "type" : "rdfs:SubClassOf"
+    "type" : "owl:someValuesFrom"
   }, {
     "id" : "136",
     "type" : "owl:objectProperty"
   }, {
     "id" : "137",
-    "type" : "owl:objectProperty"
-  }, {
-    "id" : "138",
-    "type" : "rdfs:SubClassOf"
+    "type" : "owl:someValuesFrom"
   }, {
     "id" : "139",
     "type" : "rdfs:SubClassOf"
@@ -1549,36 +1564,54 @@
     "type" : "rdfs:SubClassOf"
   }, {
     "id" : "142",
-    "type" : "owl:datatypeProperty"
+    "type" : "rdfs:SubClassOf"
   }, {
     "id" : "143",
-    "type" : "owl:objectProperty"
+    "type" : "rdfs:SubClassOf"
   }, {
     "id" : "144",
-    "type" : "owl:datatypeProperty"
+    "type" : "rdfs:SubClassOf"
   }, {
     "id" : "145",
-    "type" : "owl:datatypeProperty"
+    "type" : "owl:objectProperty"
   }, {
     "id" : "146",
-    "type" : "owl:datatypeProperty"
+    "type" : "owl:objectProperty"
   }, {
     "id" : "147",
-    "type" : "owl:objectProperty"
+    "type" : "rdfs:SubClassOf"
   }, {
     "id" : "148",
     "type" : "rdfs:SubClassOf"
   }, {
     "id" : "149",
-    "type" : "owl:datatypeProperty"
+    "type" : "rdfs:SubClassOf"
   }, {
     "id" : "150",
-    "type" : "rdfs:SubClassOf"
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "151",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "152",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "153",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "154",
+    "type" : "owl:datatypeProperty"
+  }, {
+    "id" : "155",
+    "type" : "owl:objectProperty"
+  }, {
+    "id" : "156",
+    "type" : "owl:datatypeProperty"
   } ],
   "propertyAttribute" : [ {
     "iri" : "https://w3id.org/OntoGSN/ontology#uninstantiated",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "9",
+    "range" : "8",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -1603,23 +1636,23 @@
       "IRI-based" : "uninstantiated",
       "en" : "uninstantiated"
     },
-    "domain" : "8",
+    "domain" : "1",
     "attributes" : [ "datatype" ],
     "id" : "7"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#contract",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "12",
+    "range" : "11",
     "annotations" : {
       "note" : [ {
         "identifier" : "note",
         "language" : "en",
-        "value" : "Contract modules can be used in the support relationship between modules to aid decoupling. The de-coupling by use of a contract permits argument module construction in cases where the eventual source of support for an argument is unknown at the time of authoring or can be changed for example through re-use or planned product improvement or reconfiguration.",
+        "value" : "A contract may be described in textual form (e.g. as a table) or for more complex relationships may be described within a contract module using GSN.",
         "type" : "label"
       }, {
         "identifier" : "note",
         "language" : "en",
-        "value" : "A contract may be described in textual form (e.g. as a table) or for more complex relationships may be described within a contract module using GSN.",
+        "value" : "Contract modules can be used in the support relationship between modules to aid decoupling. The de-coupling by use of a contract permits argument module construction in cases where the eventual source of support for an argument is unknown at the time of authoring or can be changed for example through re-use or planned product improvement or reconfiguration.",
         "type" : "label"
       } ],
       "renderedAs" : [ {
@@ -1645,13 +1678,13 @@
       "IRI-based" : "contract",
       "en" : "contract"
     },
-    "domain" : "11",
+    "domain" : "10",
     "attributes" : [ "datatype" ],
-    "id" : "10"
+    "id" : "9"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#inDoubt",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "15",
+    "range" : "14",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -1670,13 +1703,13 @@
       "IRI-based" : "inDoubt",
       "en" : "in doubt"
     },
-    "domain" : "14",
+    "domain" : "13",
     "attributes" : [ "datatype" ],
-    "id" : "13"
+    "id" : "12"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#away",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "18",
+    "range" : "17",
     "description" : {
       "en" : "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."
     },
@@ -1704,13 +1737,13 @@
       "IRI-based" : "away",
       "en" : "away"
     },
-    "domain" : "17",
+    "domain" : "16",
     "attributes" : [ "datatype" ],
-    "id" : "16"
+    "id" : "15"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#statement",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "24",
+    "range" : "23",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -1729,9 +1762,9 @@
       "IRI-based" : "statement",
       "en" : "statement"
     },
-    "domain" : "23",
+    "domain" : "22",
     "attributes" : [ "datatype", "someValues" ],
-    "id" : "22"
+    "id" : "21"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#supportedBy",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -1760,9 +1793,9 @@
       "IRI-based" : "supportedBy",
       "en" : "supported by"
     },
-    "domain" : "23",
-    "attributes" : [ "object", "allValues", "irreflexive", "asymmetric" ],
-    "id" : "25"
+    "domain" : "22",
+    "attributes" : [ "asymmetric", "allValues", "irreflexive", "object" ],
+    "id" : "24"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#consistentWith",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -1785,18 +1818,18 @@
       "IRI-based" : "consistentWith",
       "en" : "consistent with"
     },
-    "domain" : "0",
-    "attributes" : [ "object", "symmetric" ],
-    "id" : "29"
+    "domain" : "29",
+    "attributes" : [ "symmetric", "object" ],
+    "id" : "28"
   }, {
     "iri" : "http://schema.org/identifier",
     "baseIri" : "http://schema.org",
-    "range" : "28",
+    "range" : "27",
     "label" : {
       "IRI-based" : "identifier"
     },
-    "domain" : "27",
-    "attributes" : [ "datatype", "someValues", "external" ],
+    "domain" : "26",
+    "attributes" : [ "external", "datatype", "someValues" ],
     "id" : "31"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#statement",
@@ -1845,7 +1878,7 @@
       "IRI-based" : "offDiagram",
       "en" : "off-diagram"
     },
-    "domain" : "8",
+    "domain" : "1",
     "attributes" : [ "datatype" ],
     "id" : "34"
   }, {
@@ -1856,37 +1889,12 @@
       "IRI-based" : "subject"
     },
     "domain" : "37",
-    "attributes" : [ "object", "external" ],
+    "attributes" : [ "external", "object" ],
     "id" : "36"
-  }, {
-    "iri" : "https://w3id.org/OntoGSN/ontology#associatedWith",
-    "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "39",
-    "annotations" : {
-      "coreOrExtension" : [ {
-        "identifier" : "coreOrExtension",
-        "language" : "en",
-        "value" : "Confidence Argument Extension",
-        "type" : "label"
-      } ],
-      "definition" : [ {
-        "identifier" : "definition",
-        "language" : "en",
-        "value" : "[OntoGSN] Links a relationship or an artefact reference to the confidence argument provided for it.",
-        "type" : "label"
-      } ]
-    },
-    "label" : {
-      "IRI-based" : "associatedWith",
-      "en" : "associated with"
-    },
-    "domain" : "26",
-    "attributes" : [ "object" ],
-    "id" : "38"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#inModule",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "11",
+    "range" : "10",
     "annotations" : {
       "note" : [ {
         "identifier" : "note",
@@ -1905,15 +1913,46 @@
         "language" : "en",
         "value" : "The module an element belongs to, whether the element sits in an argument the module contains or in a module nested inside it.",
         "type" : "label"
+      } ],
+      "inferredOnly" : [ {
+        "identifier" : "inferredOnly",
+        "language" : "undefined",
+        "value" : "true",
+        "type" : "label"
       } ]
     },
     "label" : {
       "IRI-based" : "inModule",
       "en" : "in module"
     },
-    "domain" : "8",
+    "domain" : "1",
     "attributes" : [ "object" ],
-    "id" : "40"
+    "id" : "38"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#associatedWith",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "40",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Confidence Argument Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "[OntoGSN] Links a relationship or an artefact reference to the confidence argument provided for it.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "associatedWith",
+      "en" : "associated with"
+    },
+    "domain" : "25",
+    "attributes" : [ "object" ],
+    "id" : "39"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#argumentType",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
@@ -1936,7 +1975,7 @@
       "IRI-based" : "argumentType",
       "en" : "argument type"
     },
-    "domain" : "39",
+    "domain" : "40",
     "attributes" : [ "datatype" ],
     "id" : "41"
   }, {
@@ -1971,6 +2010,43 @@
     "attributes" : [ "datatype" ],
     "id" : "43"
   }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#transitivelyInContextOf",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "10",
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "Inferred, never authored. It is derived by the Module Context Closure rule, and the Module Context Cycle rules read it.",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "[OntoGSN] Relates a module to every module that it reaches through a chain of one or more in-context-of links between modules.",
+        "type" : "label"
+      } ],
+      "inferredOnly" : [ {
+        "identifier" : "inferredOnly",
+        "language" : "undefined",
+        "value" : "true",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "transitivelyInContextOf",
+      "en" : "transitively in context of"
+    },
+    "domain" : "10",
+    "attributes" : [ "transitive", "object" ],
+    "id" : "46"
+  }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#choice",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
     "range" : "48",
@@ -1998,23 +2074,23 @@
       "IRI-based" : "choice",
       "en" : "choice"
     },
-    "domain" : "47",
+    "domain" : "2",
     "attributes" : [ "datatype" ],
-    "id" : "46"
+    "id" : "47"
   }, {
     "iri" : "http://schema.org/description",
     "baseIri" : "http://schema.org",
-    "range" : "51",
+    "range" : "52",
     "label" : {
       "IRI-based" : "description"
     },
-    "domain" : "50",
-    "attributes" : [ "datatype", "someValues", "external" ],
-    "id" : "49"
+    "domain" : "51",
+    "attributes" : [ "external", "datatype", "someValues" ],
+    "id" : "50"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#supportedBy",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "11",
+    "range" : "10",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -2039,38 +2115,38 @@
       "IRI-based" : "supportedBy",
       "en" : "supported by"
     },
-    "domain" : "11",
-    "attributes" : [ "object", "allValues", "irreflexive", "asymmetric" ],
-    "id" : "52"
-  }, {
-    "iri" : "https://w3id.org/OntoGSN/ontology#statement",
-    "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "55",
-    "annotations" : {
-      "coreOrExtension" : [ {
-        "identifier" : "coreOrExtension",
-        "language" : "en",
-        "value" : "Core GSN",
-        "type" : "label"
-      } ],
-      "definition" : [ {
-        "identifier" : "definition",
-        "language" : "en",
-        "value" : "[OntoGSN] The text the element asserts, written to the grammatical rules the standard sets for GSN statements.",
-        "type" : "label"
-      } ]
-    },
-    "label" : {
-      "IRI-based" : "statement",
-      "en" : "statement"
-    },
-    "domain" : "54",
-    "attributes" : [ "datatype", "someValues" ],
+    "domain" : "10",
+    "attributes" : [ "asymmetric", "allValues", "irreflexive", "object" ],
     "id" : "53"
   }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#statement",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "56",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "[OntoGSN] The text the element asserts, written to the grammatical rules the standard sets for GSN statements.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "statement",
+      "en" : "statement"
+    },
+    "domain" : "55",
+    "attributes" : [ "datatype", "someValues" ],
+    "id" : "54"
+  }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#inContextOf",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "1",
+    "range" : "49",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -2096,12 +2172,12 @@
       "en" : "in context of"
     },
     "domain" : "4",
-    "attributes" : [ "object", "someValues", "irreflexive", "asymmetric" ],
-    "id" : "56"
+    "attributes" : [ "asymmetric", "irreflexive", "object", "someValues" ],
+    "id" : "57"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#inContextOf",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "11",
+    "range" : "10",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -2126,13 +2202,13 @@
       "IRI-based" : "inContextOf",
       "en" : "in context of"
     },
-    "domain" : "11",
-    "attributes" : [ "object", "allValues", "irreflexive", "asymmetric" ],
-    "id" : "57"
+    "domain" : "10",
+    "attributes" : [ "asymmetric", "allValues", "irreflexive", "object" ],
+    "id" : "58"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#statement",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "60",
+    "range" : "61",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2153,11 +2229,11 @@
     },
     "domain" : "4",
     "attributes" : [ "datatype", "someValues" ],
-    "id" : "61"
+    "id" : "62"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#optional",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "67",
+    "range" : "69",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -2182,13 +2258,13 @@
       "IRI-based" : "optional",
       "en" : "optional"
     },
-    "domain" : "47",
+    "domain" : "2",
     "attributes" : [ "datatype" ],
-    "id" : "66"
+    "id" : "68"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#relatedTo",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "50",
+    "range" : "51",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2207,13 +2283,13 @@
       "IRI-based" : "relatedTo",
       "en" : "related to"
     },
-    "domain" : "50",
+    "domain" : "51",
     "attributes" : [ "object" ],
-    "id" : "68"
+    "id" : "71"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#inContextOf",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "77",
+    "range" : "81",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -2238,13 +2314,13 @@
       "IRI-based" : "inContextOf",
       "en" : "in context of"
     },
-    "domain" : "76",
-    "attributes" : [ "object", "irreflexive", "asymmetric" ],
-    "id" : "75"
+    "domain" : "80",
+    "attributes" : [ "asymmetric", "irreflexive", "object" ],
+    "id" : "79"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#viewType",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "79",
+    "range" : "83",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2263,13 +2339,13 @@
       "IRI-based" : "viewType",
       "en" : "view type"
     },
-    "domain" : "65",
+    "domain" : "67",
     "attributes" : [ "datatype" ],
-    "id" : "78"
+    "id" : "82"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#defeated",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "69",
+    "range" : "63",
     "description" : {
       "en" : "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."
     },
@@ -2297,13 +2373,13 @@
       "IRI-based" : "defeated",
       "en" : "defeated"
     },
-    "domain" : "70",
+    "domain" : "72",
     "attributes" : [ "datatype" ],
-    "id" : "80"
+    "id" : "84"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#toBeSupportedByContract",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "82",
+    "range" : "86",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -2330,11 +2406,11 @@
     },
     "domain" : "4",
     "attributes" : [ "datatype" ],
-    "id" : "81"
+    "id" : "85"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#refersTo",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "85",
+    "range" : "89",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2353,13 +2429,13 @@
       "IRI-based" : "refersTo",
       "en" : "refers to"
     },
-    "domain" : "84",
+    "domain" : "88",
     "attributes" : [ "object" ],
-    "id" : "83"
+    "id" : "87"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#maxCardinality",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "63",
+    "range" : "92",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -2384,13 +2460,13 @@
       "IRI-based" : "maxCardinality",
       "en" : "maximum cardinality"
     },
-    "domain" : "47",
+    "domain" : "2",
     "attributes" : [ "datatype" ],
-    "id" : "87"
+    "id" : "91"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#top",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "93",
+    "range" : "97",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2401,12 +2477,12 @@
       "definition" : [ {
         "identifier" : "definition",
         "language" : "en",
-        "value" : "A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure.",
+        "value" : "The top goal presents the overall claim asserted by the author and it is up to the reader to determine their belief that it is adequately supported.",
         "type" : "label"
       }, {
         "identifier" : "definition",
         "language" : "en",
-        "value" : "The top goal presents the overall claim asserted by the author and it is up to the reader to determine their belief that it is adequately supported.",
+        "value" : "A GSN Goal that presents the pinnacle claim in an argument. It is ‘top’ in terms of the argument hierarchy, rather than necessarily its physical layout. There may be more than one top goal in a GSN structure.",
         "type" : "label"
       } ]
     },
@@ -2416,11 +2492,36 @@
     },
     "domain" : "4",
     "attributes" : [ "datatype" ],
-    "id" : "92"
+    "id" : "96"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#valid",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "102",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "[OntoGSN] Marks whether the element is determined (e.g., by a rule or a manual evaluation) to be consistent with the argument, or otherwise correct with respect to the GSN argument syntax.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "valid",
+      "en" : "valid"
+    },
+    "domain" : "98",
+    "attributes" : [ "datatype" ],
+    "id" : "101"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#true",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "99",
+    "range" : "100",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2439,38 +2540,13 @@
       "IRI-based" : "true",
       "en" : "true"
     },
-    "domain" : "98",
+    "domain" : "104",
     "attributes" : [ "datatype" ],
-    "id" : "97"
-  }, {
-    "iri" : "https://w3id.org/OntoGSN/ontology#valid",
-    "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "94",
-    "annotations" : {
-      "coreOrExtension" : [ {
-        "identifier" : "coreOrExtension",
-        "language" : "en",
-        "value" : "Core GSN",
-        "type" : "label"
-      } ],
-      "definition" : [ {
-        "identifier" : "definition",
-        "language" : "en",
-        "value" : "[OntoGSN] Marks whether the element is determined (e.g., by a GSN rule) to be consistent or otherwise correct with respect to the GSN argument syntax.",
-        "type" : "label"
-      } ]
-    },
-    "label" : {
-      "IRI-based" : "valid",
-      "en" : "valid"
-    },
-    "domain" : "95",
-    "attributes" : [ "datatype" ],
-    "id" : "100"
+    "id" : "103"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#structured",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "102",
+    "range" : "107",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2489,9 +2565,9 @@
       "IRI-based" : "structured",
       "en" : "structured"
     },
-    "domain" : "39",
+    "domain" : "40",
     "attributes" : [ "datatype" ],
-    "id" : "101"
+    "id" : "106"
   }, {
     "iri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#object",
     "baseIri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns",
@@ -2500,8 +2576,45 @@
       "IRI-based" : "object"
     },
     "domain" : "37",
-    "attributes" : [ "object", "external" ],
-    "id" : "103"
+    "attributes" : [ "external", "object" ],
+    "id" : "109"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#transitivelyChallenges",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "74",
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "Inferred, never authored. It is derived by the Challenge Closure rule, and the Challenge Cycle rules read it.",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Dialectic Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "[OntoGSN] Relates an element to every element that it reaches through a chain of one or more challenges.",
+        "type" : "label"
+      } ],
+      "inferredOnly" : [ {
+        "identifier" : "inferredOnly",
+        "language" : "undefined",
+        "value" : "true",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "transitivelyChallenges",
+      "en" : "transitively challenges"
+    },
+    "domain" : "77",
+    "attributes" : [ "transitive", "object" ],
+    "id" : "114"
   }, {
     "iri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate",
     "baseIri" : "http://www.w3.org/1999/02/22-rdf-syntax-ns",
@@ -2510,12 +2623,12 @@
       "IRI-based" : "predicate"
     },
     "domain" : "37",
-    "attributes" : [ "object", "external" ],
-    "id" : "107"
+    "attributes" : [ "external", "object" ],
+    "id" : "115"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#substitutedBy",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "109",
+    "range" : "117",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2534,13 +2647,60 @@
       "IRI-based" : "substitutedBy",
       "en" : "substituted by"
     },
-    "domain" : "54",
+    "domain" : "55",
     "attributes" : [ "object" ],
-    "id" : "108"
+    "id" : "116"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#transitivelySupportedBy",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "1",
+    "annotations" : {
+      "note" : [ {
+        "identifier" : "note",
+        "language" : "en",
+        "value" : "Inferred, never authored. It is derived by the Support Closure rule, and the Support Cycle rules read it.",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "[OntoGSN] Relates an element to every element that it reaches through a chain of one or more supported-by links.",
+        "type" : "label"
+      } ],
+      "inferredOnly" : [ {
+        "identifier" : "inferredOnly",
+        "language" : "undefined",
+        "value" : "true",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "transitivelySupportedBy",
+      "en" : "transitively supported by"
+    },
+    "domain" : "1",
+    "attributes" : [ "transitive", "object" ],
+    "id" : "118"
+  }, {
+    "range" : "2",
+    "domain" : "26",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "121"
+  }, {
+    "range" : "51",
+    "domain" : "20",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "122"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#relationshipType",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "116",
+    "range" : "124",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2551,12 +2711,12 @@
       "definition" : [ {
         "identifier" : "definition",
         "language" : "en",
-        "value" : "SupportedBy relationships – represented by lines with solid arrowheads – indicate inferential or evidential relationships between elements. InContextOf relationships – represented as lines with hollow arrowheads – declare contextual relationships.",
+        "value" : "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information.",
         "type" : "label"
       }, {
         "identifier" : "definition",
         "language" : "en",
-        "value" : "An evidential relationship is a declared relationship between a claim and an evidence item by which the claim is substantiated. An inferential relationship is a declared inference between claims in the argument. A contextual relationship draws attention to explanatory contextual information.",
+        "value" : "SupportedBy relationships – represented by lines with solid arrowheads – indicate inferential or evidential relationships between elements. InContextOf relationships – represented as lines with hollow arrowheads – declare contextual relationships.",
         "type" : "label"
       } ]
     },
@@ -2564,13 +2724,13 @@
       "IRI-based" : "relationshipType",
       "en" : "relationship type"
     },
-    "domain" : "47",
+    "domain" : "2",
     "attributes" : [ "datatype" ],
-    "id" : "115"
+    "id" : "123"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#statement",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "118",
+    "range" : "126",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2589,13 +2749,13 @@
       "IRI-based" : "statement",
       "en" : "statement"
     },
-    "domain" : "2",
+    "domain" : "75",
     "attributes" : [ "datatype", "someValues" ],
-    "id" : "117"
+    "id" : "125"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#contains",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "39",
+    "range" : "89",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2614,13 +2774,13 @@
       "IRI-based" : "contains",
       "en" : "contains"
     },
-    "domain" : "62",
+    "domain" : "70",
     "attributes" : [ "object", "someValues" ],
-    "id" : "119"
+    "id" : "127"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#contains",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "85",
+    "range" : "40",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2639,13 +2799,13 @@
       "IRI-based" : "contains",
       "en" : "contains"
     },
-    "domain" : "62",
+    "domain" : "70",
     "attributes" : [ "object", "someValues" ],
-    "id" : "120"
+    "id" : "128"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#instantiationOf",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "50",
+    "range" : "51",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2664,13 +2824,13 @@
       "IRI-based" : "instantiationOf",
       "en" : "instantiation of"
     },
-    "domain" : "88",
+    "domain" : "93",
     "attributes" : [ "object" ],
-    "id" : "121"
+    "id" : "129"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#multiple",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "113",
+    "range" : "119",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -2695,13 +2855,13 @@
       "IRI-based" : "multiple",
       "en" : "multiple"
     },
-    "domain" : "47",
+    "domain" : "2",
     "attributes" : [ "datatype" ],
-    "id" : "122"
+    "id" : "130"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#contains",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "50",
+    "range" : "51",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2720,13 +2880,13 @@
       "IRI-based" : "contains",
       "en" : "contains"
     },
-    "domain" : "64",
-    "attributes" : [ "object", "allValues" ],
-    "id" : "123"
+    "domain" : "66",
+    "attributes" : [ "allValues", "object" ],
+    "id" : "131"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#statement",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "125",
+    "range" : "133",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2745,13 +2905,13 @@
       "IRI-based" : "statement",
       "en" : "statement"
     },
-    "domain" : "1",
+    "domain" : "49",
     "attributes" : [ "datatype", "someValues" ],
-    "id" : "124"
+    "id" : "132"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#minCardinality",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "114",
+    "range" : "120",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -2776,23 +2936,23 @@
       "IRI-based" : "minCardinality",
       "en" : "minimum cardinality"
     },
-    "domain" : "47",
+    "domain" : "2",
     "attributes" : [ "datatype" ],
-    "id" : "126"
+    "id" : "134"
   }, {
     "iri" : "http://schema.org/identifier",
     "baseIri" : "http://schema.org",
-    "range" : "58",
+    "range" : "59",
     "label" : {
       "IRI-based" : "identifier"
     },
-    "domain" : "8",
-    "attributes" : [ "datatype", "someValues", "external" ],
-    "id" : "127"
+    "domain" : "1",
+    "attributes" : [ "external", "datatype", "someValues" ],
+    "id" : "135"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#depicts",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "11",
+    "range" : "10",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -2811,48 +2971,78 @@
       "IRI-based" : "depicts",
       "en" : "depicts"
     },
-    "domain" : "65",
+    "domain" : "67",
     "attributes" : [ "object" ],
-    "id" : "128"
+    "id" : "136"
   }, {
     "iri" : "http://schema.org/identifier",
     "baseIri" : "http://schema.org",
-    "range" : "130",
+    "range" : "138",
     "label" : {
       "IRI-based" : "identifier"
     },
-    "domain" : "39",
-    "attributes" : [ "datatype", "someValues", "external" ],
-    "id" : "129"
+    "domain" : "40",
+    "attributes" : [ "external", "datatype", "someValues" ],
+    "id" : "137"
   }, {
-    "range" : "47",
-    "domain" : "27",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "131"
+    "range" : "1",
+    "domain" : "6",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "139"
+  }, {
+    "range" : "1",
+    "domain" : "22",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "140"
   }, {
     "range" : "6",
     "domain" : "5",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "132"
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "141"
   }, {
-    "range" : "50",
-    "domain" : "21",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "133"
+    "range" : "6",
+    "domain" : "49",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "142"
   }, {
-    "range" : "8",
-    "domain" : "23",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "134"
+    "range" : "1",
+    "domain" : "75",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "143"
   }, {
-    "range" : "8",
-    "domain" : "54",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "135"
+    "range" : "1",
+    "domain" : "4",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "144"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#contains",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "94",
+    "annotations" : {
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Core GSN",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "[OntoGSN] Relates a container (e.g., an assurance case, argument, module, catalogue or pattern) to its components (e.g., elements, arguments, patterns or artefacts).",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "contains",
+      "en" : "contains"
+    },
+    "domain" : "95",
+    "attributes" : [ "object" ],
+    "id" : "145"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#supportedBy",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "86",
+    "range" : "78",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -2877,89 +3067,28 @@
       "IRI-based" : "supportedBy",
       "en" : "supported by"
     },
-    "domain" : "89",
-    "attributes" : [ "object", "irreflexive", "asymmetric" ],
-    "id" : "136"
-  }, {
-    "iri" : "https://w3id.org/OntoGSN/ontology#contains",
-    "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "91",
-    "annotations" : {
-      "coreOrExtension" : [ {
-        "identifier" : "coreOrExtension",
-        "language" : "en",
-        "value" : "Core GSN",
-        "type" : "label"
-      } ],
-      "definition" : [ {
-        "identifier" : "definition",
-        "language" : "en",
-        "value" : "[OntoGSN] Relates a container (e.g., an assurance case, argument, module, catalogue or pattern) to its components (e.g., elements, arguments, patterns or artefacts).",
-        "type" : "label"
-      } ]
-    },
-    "label" : {
-      "IRI-based" : "contains",
-      "en" : "contains"
-    },
     "domain" : "90",
-    "attributes" : [ "object" ],
-    "id" : "137"
+    "attributes" : [ "asymmetric", "irreflexive", "object" ],
+    "id" : "146"
   }, {
-    "range" : "6",
-    "domain" : "1",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "138"
+    "range" : "1",
+    "domain" : "55",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "147"
   }, {
-    "range" : "8",
-    "domain" : "6",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "139"
+    "range" : "1",
+    "domain" : "10",
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "148"
   }, {
-    "range" : "8",
-    "domain" : "11",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "140"
-  }, {
-    "range" : "8",
+    "range" : "99",
     "domain" : "2",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "141"
-  }, {
-    "iri" : "https://w3id.org/OntoGSN/ontology#public",
-    "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "110",
-    "annotations" : {
-      "renderedAs" : [ {
-        "identifier" : "renderedAs",
-        "language" : "undefined",
-        "value" : "miniature module symbol superimposed on an element at the top right",
-        "type" : "label"
-      } ],
-      "coreOrExtension" : [ {
-        "identifier" : "coreOrExtension",
-        "language" : "en",
-        "value" : "Modular Extension",
-        "type" : "label"
-      } ],
-      "definition" : [ {
-        "identifier" : "definition",
-        "language" : "en",
-        "value" : "This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element.",
-        "type" : "label"
-      } ]
-    },
-    "label" : {
-      "IRI-based" : "public",
-      "en" : "public"
-    },
-    "domain" : "111",
-    "attributes" : [ "datatype" ],
-    "id" : "142"
+    "attributes" : [ "anonymous", "object" ],
+    "id" : "149"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#challenges",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "8",
+    "range" : "0",
     "annotations" : {
       "note" : [ {
         "identifier" : "note",
@@ -2990,13 +3119,44 @@
       "IRI-based" : "challenges",
       "en" : "challenges"
     },
-    "domain" : "19",
+    "domain" : "18",
     "attributes" : [ "object" ],
-    "id" : "143"
+    "id" : "150"
+  }, {
+    "iri" : "https://w3id.org/OntoGSN/ontology#public",
+    "baseIri" : "https://w3id.org/OntoGSN/ontology",
+    "range" : "110",
+    "annotations" : {
+      "renderedAs" : [ {
+        "identifier" : "renderedAs",
+        "language" : "undefined",
+        "value" : "miniature module symbol superimposed on an element at the top right",
+        "type" : "label"
+      } ],
+      "coreOrExtension" : [ {
+        "identifier" : "coreOrExtension",
+        "language" : "en",
+        "value" : "Modular Extension",
+        "type" : "label"
+      } ],
+      "definition" : [ {
+        "identifier" : "definition",
+        "language" : "en",
+        "value" : "This indicates that the element is publicly visible in one or more interfaces of the module and can be referenced as an away element.",
+        "type" : "label"
+      } ]
+    },
+    "label" : {
+      "IRI-based" : "public",
+      "en" : "public"
+    },
+    "domain" : "111",
+    "attributes" : [ "datatype" ],
+    "id" : "151"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#final",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "71",
+    "range" : "64",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -3015,13 +3175,13 @@
       "IRI-based" : "final",
       "en" : "final"
     },
-    "domain" : "72",
+    "domain" : "65",
     "attributes" : [ "datatype" ],
-    "id" : "144"
+    "id" : "152"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#statement",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "106",
+    "range" : "105",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -3040,13 +3200,13 @@
       "IRI-based" : "statement",
       "en" : "statement"
     },
-    "domain" : "104",
+    "domain" : "108",
     "attributes" : [ "datatype" ],
-    "id" : "145"
+    "id" : "153"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#assuranceClaimPoint",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "73",
+    "range" : "76",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -3071,13 +3231,13 @@
       "IRI-based" : "assuranceClaimPoint",
       "en" : "assurance claim point"
     },
-    "domain" : "74",
+    "domain" : "73",
     "attributes" : [ "datatype" ],
-    "id" : "146"
+    "id" : "154"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#attachedTo",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "20",
+    "range" : "19",
     "annotations" : {
       "renderedAs" : [ {
         "identifier" : "renderedAs",
@@ -3102,18 +3262,13 @@
       "IRI-based" : "attachedTo",
       "en" : "attached to"
     },
-    "domain" : "59",
+    "domain" : "60",
     "attributes" : [ "object" ],
-    "id" : "147"
-  }, {
-    "range" : "8",
-    "domain" : "4",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "148"
+    "id" : "155"
   }, {
     "iri" : "https://w3id.org/OntoGSN/ontology#published",
     "baseIri" : "https://w3id.org/OntoGSN/ontology",
-    "range" : "105",
+    "range" : "112",
     "annotations" : {
       "coreOrExtension" : [ {
         "identifier" : "coreOrExtension",
@@ -3132,13 +3287,8 @@
       "IRI-based" : "published",
       "en" : "published"
     },
-    "domain" : "112",
+    "domain" : "113",
     "attributes" : [ "datatype" ],
-    "id" : "149"
-  }, {
-    "range" : "96",
-    "domain" : "47",
-    "attributes" : [ "object", "anonymous" ],
-    "id" : "150"
+    "id" : "156"
   } ]
 }
