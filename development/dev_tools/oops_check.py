@@ -12,10 +12,25 @@ same scan over its REST interface so the report is a fact about the current vers
 than a memory of an old one.
 
 Why a baseline rather than "no pitfalls": several findings are correct and are not going to
-be fixed. P34 names the SWRL vocabulary, which Protege writes untyped and which is not
-OntoGSN's to declare. P11 names two schema.org properties, and putting a domain on somebody
-else's term would be worse than the pitfall. The useful question is not "are there
-findings?" but "did the findings change?", which is what a recorded baseline answers.
+be fixed. The useful question is not "are there findings?" but "did the findings change?",
+which is what a recorded baseline answers. Each line of the baseline has a reason:
+
+    P34  the SWRL vocabulary, which Protege writes untyped and which is not OntoGSN's to declare
+    P11  two schema.org properties. A domain on another vocabulary's term is worse than the pitfall
+    P08  the same two schema.org properties. OntoGSN's own terms all carry a definition
+    P13  no named inverses, a design decision: dd-1086 in development/design/
+    P24  self-reference in the restrictions on Goal, Module and Relationship, a design
+         decision: dd-1087
+    P30  rdf:Statement and gsn:Argument, a false match and a design decision: dd-1088
+    P10  no disjoint classes. Open, no decision yet
+    SUGGESTION  gsn:relatedTo as symmetric. Open, no decision yet
+
+P06 (cycles in the class hierarchy) is missing because OOPS! fails on it with a
+ConcurrentModificationException and reports it as not evaluated. This script therefore runs
+P06 itself, as one SPARQL query over the same file, before it asks the service. The query
+runs without the network, so a cycle fails --check even when OOPS! is down. The reasoner
+check does not catch a cycle, because a cycle only makes its classes equivalent and the
+ontology stays consistent. When OOPS! evaluates P06 again, the local query can go.
 
 Two things are deliberately normalised before submitting.
 
@@ -148,6 +163,23 @@ def findings(rdf_text, verbose):
     return lines
 
 
+CYCLE_QUERY = """
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?class WHERE {
+    ?class rdfs:subClassOf+ ?class .
+    FILTER(isIRI(?class))
+} ORDER BY ?class
+"""
+
+
+def class_cycles(path=ONTOLOGY_RDF):
+    """P06, run locally: every named class that is its own superclass through rdfs:subClassOf."""
+    from rdflib import Graph
+    graph = Graph()
+    graph.parse(path, format="xml" if path.endswith(".rdf") else None)
+    return [shorten(str(row[0])) for row in graph.query(CYCLE_QUERY)]
+
+
 def read_baseline():
     if not os.path.exists(BASELINE):
         return None
@@ -169,6 +201,17 @@ def main():
     # -v lists elements the baseline does not record, so the two cannot be combined
     if args.write_baseline and args.verbose:
         raise SystemExit("--write-baseline records the short listing; run it without -v")
+
+    cycles = class_cycles()
+    if cycles:
+        print(f"P06 (local)  FAILED: {len(cycles)} class(es) in a subclass cycle")
+        for name in cycles:
+            print(f"    {name}")
+        if args.check:
+            sys.exit(1)
+    else:
+        print("P06 (local)  no cycles in the class hierarchy")
+    print()
 
     lines = findings(scan(normalised_ontology()), args.verbose)
     print("\n".join(lines))
