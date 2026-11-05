@@ -70,8 +70,18 @@ a domain ontology or to a software bill of materials. The augmentation holds the
 ## Record what a check found
 
 `gsnaug:checkableWith` says that a mechanism can check an artefact. What the check found is a
-report. Keep the report in the case graph. The rules A6a to A6d set the status of the solution
-from it. Do not set `gsn:true` on a solution by hand.
+report. Keep the report in the case graph. The rules set the status of the solution from it. Do
+not set `gsn:true` or `gsn:valid` on a solution by hand.
+
+Say what the check decides with `gsnaug:decides` on the mechanism:
+
+1. If the check tests whether the evidence matches what the solution claims, use `"truth"`.
+   The rules A6a to A6d then set `gsn:true`.
+2. If the check tests whether the evidence is appropriate for the claim, use `"validity"`. The
+   rules A7a to A7d then set `gsn:valid`.
+3. If the check tests both, give both values.
+
+A mechanism with no value decides nothing, and the rules read none of its reports.
 
 A report is a `sh:ValidationReport`, the form every SHACL engine writes. The rules read three
 things off it:

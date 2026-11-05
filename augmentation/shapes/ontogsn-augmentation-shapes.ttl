@@ -358,6 +358,35 @@ gsnaugsh:MechanismRequirementShape rdf:type sh:NodeShape ;
         sh:severity sh:Violation ;
     ] .
 
+###  gsnaug:decides - a check decides truth, validity or both
+gsnaugsh:MechanismDecisionShape rdf:type sh:NodeShape ;
+    rdfs:label "Mechanism decision shape"@en ;
+    rdfs:comment "Targeted at whatever carries gsnaug:decides, so that a subject which is not a mechanism is reported rather than retyped. Both values on one mechanism are allowed."@en ;
+    sh:targetSubjectsOf gsnaug:decides ;
+    sh:class gsnaug:Mechanism ;
+    sh:message "Only a gsnaug:Mechanism decides the outcome of a check."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsnaug:decides ;
+        sh:in ( "truth" "validity" ) ;
+        sh:name "decides" ;
+        sh:message "A mechanism decides \"truth\", \"validity\" or both."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+###  A mechanism that checks evidence says what its checks decide
+gsnaugsh:CheckingMechanismShape rdf:type sh:NodeShape ;
+    rdfs:label "Checking mechanism shape"@en ;
+    rdfs:comment "Targeted at whatever an artefact or a part of one is checkable with. Without gsnaug:decides, the rules A6 and A7 read none of its reports."@en ;
+    sh:targetObjectsOf gsnaug:checkableWith ;
+    sh:property [
+        sh:path gsnaug:decides ;
+        sh:minCount 1 ;
+        sh:name "decides" ;
+        sh:message "A mechanism that checks evidence decides nothing until it names \"truth\", \"validity\" or both with gsnaug:decides. The rules read none of its reports."@en ;
+        sh:severity sh:Warning ;
+    ] .
+
 ###  gsnaug:implements - what a definition carries out is a mechanism
 gsnaugsh:MechanismDefinitionShape rdf:type sh:NodeShape ;
     rdfs:label "Mechanism definition shape"@en ;

@@ -450,3 +450,41 @@ ex:control-catalogue a gsn:Artefact .
 
 ex:ctrl-row-7 a gsnaug:ArtefactPart ; schema:name "Control 7" ;
     gsnaug:partOf ex:control-catalogue .
+
+#  What each check decides. Every check above tests whether the evidence matches what its
+#  solution claims, so each decides truth.
+ex:retention-rule  gsnaug:decides "truth" .
+ex:retention-shape gsnaug:decides "truth" .
+ex:expiry-rule     gsnaug:decides "truth" .
+ex:note-check      gsnaug:decides "truth" .
+ex:note-exists     gsnaug:decides "truth" .
+ex:key-check       gsnaug:decides "truth" .
+ex:rule-check      gsnaug:decides "truth" .
+
+#  Two checks that decide validity: whether the evidence is appropriate for the claim. They set
+#  gsn:valid and leave gsn:true alone. The review of the interview note passes, so Sn2 is valid
+#  although its note check fails. The scope review of the access log fails, so Sn1 is not valid,
+#  and Sn1 stays true: a failing validity check does not block a confirmation of truth.
+ex:interview-note gsnaug:checkableWith ex:relevance-review .
+
+ex:relevance-review a gsnaug:Mechanism ;
+    gsnaug:automated false ;
+    gsnaug:decides "validity" .
+
+ex:relevance-review-report-1 a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy ex:relevance-review ;
+    prov:used ex:interview-note ;
+    prov:generatedAtTime "2026-03-10T09:00:00Z"^^xsd:dateTime .
+
+ex:access-log gsnaug:checkableWith ex:scope-review .
+
+ex:scope-review a gsnaug:Mechanism ;
+    gsnaug:automated false ;
+    gsnaug:decides "validity" .
+
+ex:scope-review-report-1 a sh:ValidationReport ;
+    sh:conforms false ;
+    prov:wasGeneratedBy ex:scope-review ;
+    prov:used ex:access-log ;
+    prov:generatedAtTime "2026-03-10T10:00:00Z"^^xsd:dateTime .

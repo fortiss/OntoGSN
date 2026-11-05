@@ -9,7 +9,7 @@ domain or range.
 
 | File | Role |
 | :--- | :--- |
-| `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 9 SWRL rules |
+| `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 13 SWRL rules |
 | `shapes/ontogsn-augmentation-shapes.ttl` | 20 SHACL shapes |
 | `HOW-TO.md` | the manual: how to use the vocabulary on a case, for what the vocabulary does not enforce |
 | `rules/*.rq` | a SPARQL twin of each SWRL rule, runnable without a reasoner |
@@ -106,10 +106,12 @@ challenges. Only `gsn:defeated` has to be asserted here, because **S46** derives
 | `A4` | a part of an artefact is checkable with whatever its artefact is checkable with |
 | `A6a` / `A6b` | a solution is true / not true when the newest report that the mechanism that can check its artefact left over it conforms / fails |
 | `A6c` / `A6d` | the same, when the report is over a part of the artefact: the newest report the mechanism that can check the part left over the part |
+| `A7a` to `A7d` | the same four for `gsn:valid`, from a mechanism that decides validity. A6a to A6d read only a mechanism that decides truth |
 
 A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express "a goal **or** a
 solution" in one rule. A6 is four rules for the same reason: the report is over the artefact or over a
-part of it. A4 copies `checkableWith` only. The other seven provenance properties admit a
+part of it. A7 is A6 for `gsn:valid`, because a SWRL rule cannot take the property it writes from the
+data. A4 copies `checkableWith` only. The other seven provenance properties admit a
 part in their domain, but a part states them for itself.
 
 ## The result of a check stays in the graph
@@ -117,8 +119,12 @@ part in their domain, but a part states them for itself.
 `gsnaug:checkableWith` says that a mechanism can check an artefact. A6a and A6b read what the check
 found. The finding is a `sh:ValidationReport`, the form every SHACL engine writes, with two PROV links:
 `prov:wasGeneratedBy` names the mechanism, and `prov:used` names the artefact, or the part of it the
-check ran over. If the report conforms, the solution that refers to the artefact is `gsn:true`. If it
-does not conform, the solution is not. A report over a part reaches the solution through `gsnaug:partOf`,
+check ran over. `gsnaug:decides` on the mechanism says what the check decides: `"truth"`, whether the
+evidence matches what the solution claims, or `"validity"`, whether the evidence is appropriate for the
+claim. If a report of truth conforms, the solution that refers to the artefact is `gsn:true`. If it
+does not conform, the solution is not. A report of validity sets `gsn:valid` in the same way, except
+that a `false` stays: the core rules only ever write `gsn:valid false`, and A7a and A7c write `true`
+only where the solution has no validity value. A mechanism with no value decides nothing. A report over a part reaches the solution through `gsnaug:partOf`,
 because `gsn:refersTo` ranges on `gsn:Artefact` and a solution refers to the whole. The core rules S10
 and S11 then carry the result up to the goal. No term is added for this.
 

@@ -52,6 +52,13 @@ artefact. Truth is `gsn:true`, and appropriateness is `gsn:valid`. "Verify" name
 first of the two, so the properties now use the neutral verb "check".
 
 - The old terms are gone, with no alias.
+- New: `gsnaug:decides` on a mechanism, with the value `"truth"`, `"validity"` or both. It says
+  whether a check tests that the evidence matches what the solution claims, or that the evidence
+  is appropriate for the claim. A6a to A6d now read only a mechanism that decides truth. The new
+  rules A7a to A7d set `gsn:valid` from a mechanism that decides validity. A mechanism that an
+  artefact is checkable with and that decides nothing is a warning
+  (`gsnaugsh:CheckingMechanismShape`). Add `gsnaug:decides "truth"` to your checking mechanisms
+  to keep what A6 derived before.
 - New: `gsnaug:implements`, from a shape, a rule, a query or another definition to the
   mechanism that it carries out. The definition is now a separate node, and it can be a blank
   node. A mechanism that is still typed as its own shape, rule or query is a warning

@@ -321,7 +321,8 @@ pat:Ev3 a gsn:Artefact ;
 
 pat:evidence-retrieval a gsnaug:Mechanism ; rdfs:label "<how Ev1 is fetched>"@en .
 pat:effectiveness-test a gsnaug:Mechanism ; rdfs:label "<the test that produces Ev2>"@en .
-pat:evidence-check     a gsnaug:Mechanism ; rdfs:label "<the check both pass>"@en .
+pat:evidence-check     a gsnaug:Mechanism ; rdfs:label "<the check both pass>"@en ;
+    gsnaug:decides "truth" .
 
 #  Two agents, two roles. An organisation declares its own roles; these two are the ones every
 #  review has, whatever they are called.

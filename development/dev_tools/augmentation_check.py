@@ -92,7 +92,7 @@ for rule in rules:
             atoms += 1
             node = ontology.value(node, RDF.rest)
     print(f"  {str(label):38} {atoms} atoms")
-check(len(rules) == 9, f"{len(rules)} SWRL rules", f"expected 9 SWRL rules, found {len(rules)}")
+check(len(rules) == 13, f"{len(rules)} SWRL rules", f"expected 13 SWRL rules, found {len(rules)}")
 
 # Each SWRL rule needs a SPARQL twin, so the two never drift.
 sparql_rules = sorted(glob.glob(os.path.join(AUG_RULES, "*.rq")))
@@ -243,6 +243,12 @@ expected = [
     ("a failing report over a part makes the solution untrue",   (EX.Sn4, GSN.true, Literal(False)), True),
     ("a failing part report does not also confirm",              (EX.Sn4, GSN.true, Literal(True)), False),
     ("a part report leaves the whole artefact's status alone",   (EX["config-export"], GSN.true, None), False),
+    # A7: a check that decides validity sets gsn:valid, and leaves gsn:true to the checks of truth
+    ("a passing validity check makes the solution valid",        (EX.Sn2, GSN.valid, Literal(True)), True),
+    ("a validity check does not confirm the truth",              (EX.Sn2, GSN.true, Literal(True)), False),
+    ("a failing validity check makes the solution invalid",      (EX.Sn1, GSN.valid, Literal(False)), True),
+    ("a failing validity check does not refute the truth",       (EX.Sn1, GSN.true, Literal(True)), True),
+    ("a check of truth sets no validity",                        (EX.Sn3, GSN.valid, None), False),
 ]
 for name, triple, wanted in expected:
     found = (triple in data) if triple[2] is not None else bool(list(data.triples(triple)))
@@ -258,6 +264,9 @@ check(not reading_rules, "a rule that is not a mechanism derives nothing",
 two_valued = sorted(str(s).split("#")[-1] for s in data.subjects(RDF.type, GSN.Solution)
                     if len(set(data.objects(s, GSN.true))) > 1)
 check(not two_valued, "no solution carries two truth values", f"two truth values on {two_valued}")
+two_validities = sorted(str(s).split("#")[-1] for s in data.subjects(RDF.type, GSN.Solution)
+                        if len(set(data.objects(s, GSN.valid))) > 1)
+check(not two_validities, "no solution carries two validity values", f"two validity values on {two_validities}")
 
 # --------------------------------------------------------------------------- shapes
 
@@ -335,6 +344,8 @@ must_report = [
     ("a struck report that names no activity", BAD["report-struck-anonymously"]),
     ("a definition that implements something other than a mechanism", BAD["definition-of-nothing"]),
     ("a mechanism typed as its own rule",       BAD["self-defined"]),
+    ("a check that decides a word",             BAD["decides-a-word"]),
+    ("a check that decides nothing",            BAD["undecided"]),
 ]
 for name, node in must_report:
     check(str(node) in focus_nodes, f"reported: {name}", f"NOT reported: {name}")

@@ -185,3 +185,13 @@ bad:definition-of-nothing a sh:NodeShape ;
 
 #  MechanismSelfDefinitionShape (warning) - a mechanism typed as its own rule
 bad:self-defined a gsnaug:Mechanism , swrl:Imp .
+
+#  MechanismDecisionShape - a check decides a word that is neither truth nor validity
+bad:decides-a-word a gsnaug:Mechanism ;
+    gsnaug:decides "correctness" .
+
+#  CheckingMechanismShape (warning) - a mechanism that checks evidence and decides nothing
+bad:checked-artefact a gsn:Artefact ;
+    gsnaug:checkableWith bad:undecided .
+
+bad:undecided a gsnaug:Mechanism .

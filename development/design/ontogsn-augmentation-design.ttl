@@ -71,7 +71,7 @@ gsnaugdesign:augmentation-0.4.0
     rdfs:label "OntoGSN Augmentation 0.4.0"@en ;
     owl:versionInfo "0.4.0" ;
     gsndesign:path "augmentation/ontogsn-augmentation.ttl" ;
-    gsndesign:fileChecksum "9d09accb2c845a8716771c9f6045e99a7deca59d5d4828b9db3bbba4e7503e21" .
+    gsndesign:fileChecksum "9d75a9b3852227e05ca7b9f181f4f36e979f4e3212b2e3618b5b0aa7393ec3af" .
 
 gsnaugdesign:augmentation-shapes-0.4.0
     a gsndesign:FormalGraph ;
@@ -79,7 +79,7 @@ gsnaugdesign:augmentation-shapes-0.4.0
     rdfs:label "OntoGSN Augmentation SHACL shapes 0.4.0"@en ;
     owl:versionInfo "0.4.0" ;
     gsndesign:path "augmentation/shapes/ontogsn-augmentation-shapes.ttl" ;
-    gsndesign:fileChecksum "90bdbc5d3072e07782c17be45be084a3b5a7a32da815b0c64e1d4f48cb2fea87" .
+    gsndesign:fileChecksum "1e5a77affce035f6530ec7e8cbce9aeb1cececcdb5bc82bdd83f34ad2028ec8f" .
 
 gsnaugdesign:augmentation-queries-0.4.0
     a gsndesign:FormalGraph ;
@@ -1099,6 +1099,24 @@ lives in the stored query that reads it. A mechanism that is still typed as its 
 query is a warning, because the derivations no longer read it."""@en .
 
 
+gsnaugdesign:why-0060
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A check can decide two things about a solution. Whether the evidence matches what the
+solution claims is what gsn:true records. Whether the evidence is appropriate for the claim is what
+gsn:valid records. Which of the two a report decides depends on what the mechanism checks, so the
+person who defines the mechanism states it with gsnaug:decides, "truth", "validity" or both. The
+values are strings, as the values of gsnaug:issueOutcome are, because a concept scheme for two
+values is not worth its terms. There is no default. SWRL has no negation, so a rule cannot read a
+missing value as truth, and a mechanism with no value decides nothing. A shape warns about it.
+A6a to A6d read only a mechanism that decides truth, and a failing report of validity does not
+block a confirmation of truth. A7a to A7d are the same four rules for gsn:valid, because a SWRL
+rule cannot take the property it writes from the data. The core rules only ever write gsn:valid
+false, and they never lift it. A7a and A7c write true only where the solution has no validity
+value, so they cannot alternate with a core rule or with A7b and A7d, and they need no
+composition guard. A mechanism checks evidence only. A check of a relationship or of a GSN element
+by a mechanism is future work."""@en .
+
+
 
 #################################################################
 #    Decisions - the vocabulary
@@ -1643,7 +1661,7 @@ gsnaugdesign:st-0025
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0025 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.4.0 ;
-    gsndesign:statementText "augmentation/rules/a02a, a02b, a03a, a03b, a04, a06a, a06b, a06c, a06d - one per SWRL rule, count asserted by development/dev_tools/augmentation_check.py." .
+    gsndesign:statementText "augmentation/rules/a02a, a02b, a03a, a03b, a04, a06a, a06b, a06c, a06d, a07a, a07b, a07c, a07d - one per SWRL rule, count asserted by development/dev_tools/augmentation_check.py." .
 
 
 #################################################################
@@ -2294,7 +2312,7 @@ gsnaugdesign:st-0069
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0069 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.4.0 ;
-    gsndesign:statementText "A6a: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, true) -> true(?S, true). SPARQL twin in augmentation/rules/a06a." ;
+    gsndesign:statementText "A6a: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, true) ^ decides(?M, \"truth\") -> true(?S, true). SPARQL twin in augmentation/rules/a06a." ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:checkableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
 
 gsnaugdesign:dd-0070
@@ -2309,7 +2327,7 @@ gsnaugdesign:st-0070
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0070 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.4.0 ;
-    gsndesign:statementText "A6b: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, false) -> true(?S, false). SPARQL twin in augmentation/rules/a06b." ;
+    gsndesign:statementText "A6b: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, false) ^ decides(?M, \"truth\") -> true(?S, false). SPARQL twin in augmentation/rules/a06b." ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:checkableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
 
 gsnaugdesign:dd-0071
@@ -2473,7 +2491,7 @@ gsnaugdesign:st-0080
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0080 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.4.0 ;
-    gsndesign:statementText "A6c: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, true) -> true(?S, true). SPARQL twin in augmentation/rules/a06c." ;
+    gsndesign:statementText "A6c: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, true) ^ decides(?M, \"truth\") -> true(?S, true). SPARQL twin in augmentation/rules/a06c." ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
         gsnaug:partOf , gsnaug:checkableWith , prov:used ,
         prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
@@ -2490,7 +2508,7 @@ gsnaugdesign:st-0081
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0081 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.4.0 ;
-    gsndesign:statementText "A6d: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, false) -> true(?S, false). SPARQL twin in augmentation/rules/a06d." ;
+    gsndesign:statementText "A6d: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, false) ^ decides(?M, \"truth\") -> true(?S, false). SPARQL twin in augmentation/rules/a06d." ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
         gsnaug:partOf , gsnaug:checkableWith , prov:used ,
         prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
@@ -2725,3 +2743,91 @@ gsnaugdesign:st-0095
     gsndesign:aboutTerm gsnaugsh:MechanismDefinitionShape ;
     gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:implements , gsnaugsh:MechanismDefinitionShape ,
         gsnaugsh:MechanismSelfDefinitionShape .
+
+
+#################################################################
+#    Decisions - what a check decides
+#################################################################
+
+gsnaugdesign:dd-0096
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A mechanism states what its checks decide, truth, validity or both, as string values."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0060 ;
+    prov:generated gsnaugdesign:st-0096 .
+
+gsnaugdesign:st-0096
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0096 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.4.0 ;
+    gsndesign:statementText "gsnaug:decides a owl:DatatypeProperty ; rdfs:domain gsnaug:Mechanism ; rdfs:range [ owl:oneOf ( \"truth\" \"validity\" ) ] ." ;
+    gsndesign:aboutTerm gsnaug:decides ;
+    gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:decides .
+
+gsnaugdesign:dd-0097
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "The rules that set the truth of a solution from a report read only a mechanism that decides truth."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0060 ;
+    prov:generated gsnaugdesign:st-0097 .
+
+gsnaugdesign:st-0097
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0097 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.4.0 ;
+    gsndesign:statementText "A6a to A6d: decides(?M, \"truth\") in the body." ;
+    gsndesign:aboutTerm gsnaug:decides ;
+    gsndesign:mentionsTerm gsn:true , gsnaug:decides .
+
+gsnaugdesign:dd-0098
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "A solution is valid or not valid from the newest report of a mechanism that decides validity, over its artefact or over a part of it."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0060 ;
+    prov:generated gsnaugdesign:st-0098 .
+
+gsnaugdesign:st-0098
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0098 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.4.0 ;
+    gsndesign:statementText "A7a: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, true) ^ decides(?M, \"validity\") -> valid(?S, true). A7b: the same with conforms(?R, false) -> valid(?S, false). A7c and A7d: the same over ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) and used(?R, ?P). SPARQL twins in augmentation/rules/a07a to a07d." ;
+    gsndesign:aboutTerm gsn:valid ;
+    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:valid , gsnaug:ArtefactPart ,
+        gsnaug:checkableWith , gsnaug:decides , gsnaug:partOf , prov:used , prov:wasGeneratedBy ,
+        sh:ValidationReport , sh:conforms .
+
+gsnaugdesign:dd-0099
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "A confirmation of validity never lifts a false, and a failing report of validity does not block a confirmation of truth."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0060 ;
+    prov:generated gsnaugdesign:st-0099 .
+
+gsnaugdesign:st-0099
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0099 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.4.0 ;
+    gsndesign:statementText "augmentation/rules/a07a to a07d: the struck-report and newest-report guards of A6; a07a and a07c INSERT gsn:valid true only under FILTER NOT EXISTS { ?S gsn:valid ?any }, with no DELETE and no composition guard; a07b and a07d DELETE the old value and INSERT false. In a06a and a06c, the composition guard counts only a failing report of a mechanism that decides truth." ;
+    gsndesign:aboutTerm gsn:valid ;
+    gsndesign:mentionsTerm gsn:true , gsn:valid , gsnaug:decides , sh:ValidationReport .
+
+gsnaugdesign:dd-0100
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "What a check decides is truth or validity, and a mechanism that checks evidence and decides nothing is a warning."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0060 ;
+    prov:generated gsnaugdesign:st-0100 .
+
+gsnaugdesign:st-0100
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0100 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.4.0 ;
+    gsndesign:statementText "gsnaugsh:MechanismDecisionShape sh:targetSubjectsOf gsnaug:decides ; sh:class gsnaug:Mechanism ; gsnaug:decides sh:in ( \"truth\" \"validity\" ) ; sh:severity sh:Violation . gsnaugsh:CheckingMechanismShape sh:targetObjectsOf gsnaug:checkableWith ; gsnaug:decides sh:minCount 1 ; sh:severity sh:Warning ." ;
+    gsndesign:aboutTerm gsnaugsh:MechanismDecisionShape ;
+    gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:checkableWith , gsnaug:decides ,
+        gsnaugsh:CheckingMechanismShape , gsnaugsh:MechanismDecisionShape .
