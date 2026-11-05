@@ -24,7 +24,7 @@
 <https://w3id.org/OntoGSN/design/data> a owl:Ontology ;
     owl:imports <https://w3id.org/OntoGSN/design> ;
     dc:title "OntoGSN Design Record - the decisions"@en ;
-    dc:description "Why each of the 937 axioms, rules and constraints of OntoGSN exists."@en ;
+    dc:description "Why each of the 949 axioms, rules and constraints of OntoGSN exists."@en ;
     owl:versionInfo "1.0.0" .
 
 
@@ -2595,7 +2595,7 @@ gsndesign:src-0297
 
 
 #################################################################
-#    Rationales (194)
+#    Rationales (228)
 #    The editorial record: why something was included, excluded or reshaped.
 #    Shared, because the same reasoning decided several axioms.
 #################################################################
@@ -3500,8 +3500,20 @@ gsndesign:why-0230
     a gsndesign:Rationale ;
     gsndesign:rationaleText "SHACL takes the severity of a validation result from the shape, and a SHACL engine ignores sh:severity on a SPARQL constraint. The check that a gsn:consistentWith statement has its reverse is a warning, because gsn:consistentWith is an owl:SymmetricProperty and a reasoner derives the reverse. The check was a constraint of gsnsh:ConsistentWithPropertyShape, whose domain check is a violation, so pyshacl reported a missing reverse as a violation. A shape has one severity. The symmetry check therefore has a shape of its own, with sh:severity sh:Warning on the shape."@en .
 
+gsndesign:why-0231
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "OOPS! reports pitfall P13 on fourteen object properties, because OntoGSN declares no named inverse for them, and this decision overrules the pitfall. The standard draws each link as an arrow in one direction, for example SupportedBy and InContextOf (0:4.9), and each object property follows that direction. A named inverse such as gsn:supports gives the link a second name that the standard does not use, and a case can then assert either name. The SHACL shapes run without a reasoner, so they see only the name that the author wrote. An axiom that needs the other direction uses an anonymous inverse, for example inverse(gsn:supportedBy) in the general axiom on gsn:Goal. A SPARQL query uses the ^ operator."@en .
+
+gsndesign:why-0232
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "OOPS! reports pitfall P24 on gsn:Goal, gsn:Module and gsn:Relationship, because each class names itself in a restriction of its own rdfs:subClassOf axioms, and this decision overrules the pitfall. Each such restriction follows a recursion in the standard. A goal is supported by sub-goals (1:2.2.4), and a module can contain other modules (1:4.1.3). A relationship can point at another relationship, because a challenge can target any relationship (1:6.3.9). The restrictions state what a member of the class must satisfy, and they do not define the class, so no definition is circular. Without the self-reference, the restrictions admit fewer classes than the standard allows."@en .
+
+gsndesign:why-0233
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "OOPS! reports pitfall P30 on the pair rdf:Statement and gsn:Argument, because the two class names are synonyms in one sense of English: an argument can mean a statement offered as evidence. This decision overrules the pitfall. rdf:Statement is the class of reified triples, and OntoGSN uses it as the superclass of gsn:Relationship, so that a link between two elements can carry its own values. gsn:Argument is a container that holds goals, strategies and artefact references. An equivalence makes every argument a triple with a subject, a predicate and an object, and every relationship an argument. Every relationship then needs its own identifier, which the restrictions on gsn:Argument require."@en .
+
 #################################################################
-#    Design decisions (937)
+#    Design decisions (950)
 #    Each decision prov:used the passages it rests on and prov:generated the statement
 #    it produced. A decision that produced nothing simply generated nothing - that is
 #    why a decision is an Activity and not an Entity.
@@ -27580,4 +27592,36 @@ gsndesign:st-1085
     gsndesign:aboutTerm gsnsh:ConsistentWithSymmetricShape ;
     gsndesign:mentionsTerm gsn:consistentWith ,
         gsnsh:ConsistentWithSymmetricShape .
+
+gsndesign:dd-1086
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R52" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:NoFormalism ;
+    gsndesign:naturalLanguage "No object property has a named inverse."@en ;
+    prov:used gsndesign:src-0034 ;
+    gsndesign:hasRationale gsndesign:why-0231 .
+
+gsndesign:dd-1087
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R53" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:NoFormalism ;
+    gsndesign:naturalLanguage "‘Goal’, ‘Module’ and ‘Relationship’ keep the restrictions that name the class itself."@en ;
+    prov:used gsndesign:src-0061 ;
+    prov:used gsndesign:src-0140 ;
+    prov:used gsndesign:src-0282 ;
+    gsndesign:hasRationale gsndesign:why-0232 .
+
+gsndesign:dd-1088
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R54" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:NoFormalism ;
+    gsndesign:naturalLanguage "‘Argument’ is not equivalent to ‘Statement’."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0233 .
 

@@ -82,7 +82,7 @@ query_check.py     the stored queries vs an actual SPARQL engine
 ontology/example/run_rules.py   apply ontology/queries/rules/ to a case until nothing more is derived (user-facing, so it lives in ontology/example/)
 shacl_check.py     the fixtures vs ontology/shapes/, before and after the rules run
 reasoner_check.py  the ontology and the fixtures vs an OWL-DL reasoner (needs a JVM)
-oops_check.py      the ontology vs the OOPS! pitfall scanner (needs the network)
+oops_check.py      the ontology vs the OOPS! pitfall scanner (needs the network, except for P06)
 reports.py         regenerate the WIDOCO, OOPS! and FOOPS! reports the website publishes
 prov_check.py      the design record vs the ontology, the shapes and the queries
 graffoo_check.py   the Graffoo diagrams vs the ontologies they draw
@@ -177,10 +177,10 @@ python development/dev_tools/oops_check.py --write-baseline
 | | `reasoner_check.py` | `oops_check.py` |
 | :--- | :--- | :--- |
 | Needs | a JVM on the `PATH`, and `owlready2`, which ships the Pellet it runs | `requests`, and `oops.linkeddata.es` to be up |
-| Asks | is the ontology consistent, is any class unsatisfiable, does a real case still reason | does the pitfall scanner find anything new |
+| Asks | is the ontology consistent, is any class unsatisfiable, does a real case still reason | does the pitfall scanner find anything new, and is a class its own superclass (P06, a local query, because OOPS! fails on P06) |
 | Costs | about eleven seconds | one round trip |
 | Baseline | `development/dev_tools/testdata/reasoner_baseline.txt` | `development/dev_tools/testdata/oops_baseline.txt` |
-| When it cannot run | prints `SKIPPED`, exits 0 | prints `SKIPPED`, exits 0 |
+| When it cannot run | prints `SKIPPED`, exits 0 | prints `SKIPPED`, exits 0. The local P06 query runs first and still fails `--check` on a cycle |
 
 Neither gates, and neither runs in the pre-commit hook. `check_all.py` runs both; an entry
 marked `"in_hook": False` is skipped under `--staged`.
