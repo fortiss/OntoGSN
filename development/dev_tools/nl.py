@@ -363,12 +363,18 @@ def rule_sentence(dl, labels):
         if len(args) == 1:
             return f"{args[0]} is {_a(_noun(name))}"
         x, y = args[0], args[1]
-        if name == "notEqual":
+        if name in ("notEqual", "differentFrom"):
             return f"{x} is not the same as {y}"
+        if name == "sameAs":
+            return f"{x} is the same individual as {y}"
         if name == "equal":
             return f"{x} is the same as {y}"
         if name == "makeOWLThing":
-            return f"a new {y} is created for {x}"
+            # SWRLAPI binds the new individual to the first argument and creates one
+            # for each combination of values of the others
+            rest = args[1:]
+            each = rest[0] if len(rest) == 1 else "pair of " + " and ".join(rest) if len(rest) == 2                 else "combination of " + ", ".join(rest)
+            return f"a new {x} is created for each {each}"
         if y in ("true", "false"):
             return f"{x} is{'' if y == 'true' else ' NOT'} {label}"
         if name in OBJ_PHRASE:

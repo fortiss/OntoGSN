@@ -4,8 +4,8 @@
 # operation: rule
 # expect:    insert
 # swrl:      challenges(?D, ?R) ^ rdf:subject(?R, ?G3) ^ rdf:object(?R, ?G1) ^ Goal(?G1) ^
-#            Goal(?G3) ^ swrlx:makeOWLThing(?G3, ?S) ^ Goal(?G2) ^ 'supported by'(?G3, ?G1) ^
-#            'supported by'(?G3, ?G2) ^ swrlb:notEqual(?G1, ?G2) -> 'supported by'(?S, ?G2) ^
+#            Goal(?G3) ^ swrlx:makeOWLThing(?S, ?G3) ^ Goal(?G2) ^ 'supported by'(?G3, ?G1) ^
+#            'supported by'(?G3, ?G2) ^ differentFrom(?G1, ?G2) -> 'supported by'(?S, ?G2) ^
 #            'supported by'(?G3, ?S) ^ valid(?D, false) ^ 'supported by'(?S, ?G1) ^
 #            challenges(?D, ?S) ^ valid(?S, false) ^ valid(?R, false) ^ Strategy(?S)
 # reads:     IF Defeater D challenges Relationship R between Goals G3 (subject) and G1 (object)
@@ -49,8 +49,11 @@ WHERE {
   ?G2 a gsn:Goal .
   FILTER(?G1 != ?G2)
   BIND(CONCAT("St-", ?idG3, "-rebutted") AS ?strategyId)
+  # the IRI is built from the IRIs of the elements, not from their identifiers,
+  # because two elements in different modules may share an identifier
+  BIND(CONCAT("St-", REPLACE(STR(?G3), "^.*[#/]", ""), "-rebutted") AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G3), "[^#/]*$", ""),
-                  ENCODE_FOR_URI(?strategyId))) AS ?S)
+                  ENCODE_FOR_URI(?iriKey))) AS ?S)
   OPTIONAL { ?D gsn:valid ?oldD }
   OPTIONAL { ?R gsn:valid ?oldR }
   FILTER NOT EXISTS { ?G3 gsn:supportedBy ?S }

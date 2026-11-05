@@ -15,7 +15,8 @@ SCOPE - what is included. Three levels, one thing removed at each step, so that 
 comparison between any two of them has a single variable in it:
 
     complete   everything: declarations, logical axioms, annotations, SWRL rules
-    pruned     complete minus the SWRL rules and minus the ontology node's own
+    pruned     complete minus the rule layer (the SWRL rules and the properties
+               flagged gsn:inferredOnly) and minus the ontology node's own
                metadata. Term-level annotations (rdfs:label, skos:definition,
                skos:note, skos:altLabel, gsn:renderedAs, gsn:coreOrExtension) are
                KEPT - the point of pruning is to drop the rule layer and the
@@ -160,15 +161,26 @@ def assign(graph):
     return sections, unassigned
 
 
+def inferred_only(graph):
+    """The properties flagged gsn:inferredOnly true: a rule derives them, a case never
+    asserts them, so they belong to the rule layer."""
+    return {s for s, o in graph.subject_objects(GSN.inferredOnly)
+            if isinstance(o, Literal) and o.toPython() is True}
+
+
 def prune(graph, triples):
-    """Drop the rule layer. The ontology node's metadata is excluded separately, by
-    never copying it into the section header."""
+    """Drop the rule layer: the rules and the inferred-only properties that only the
+    rules use. The ontology node's metadata is excluded separately, by never copying it
+    into the section header."""
+    helpers = inferred_only(graph)
     kept = set()
     for triple in triples:
         subject, predicate, obj = triple
         if str(predicate).startswith(str(SWRL)) or predicate == SWRLA.isRuleEnabled:
             continue
         if is_swrl(graph, subject):
+            continue
+        if subject in helpers or obj in helpers:
             continue
         if isinstance(obj, URIRef) and str(obj).startswith(str(SWRL)):
             continue
@@ -217,7 +229,7 @@ def header(graph, module, value, suffix, scope, version):
     title = "OntoGSN" if module == "0_full" else f"OntoGSN — {value}"
     out.add((iri, DC.title, Literal(title, lang="en")))
     carries = {"complete": "Includes the SWRL rules and every annotation.",
-               "pruned": "Excludes the SWRL rules; the term annotations are kept.",
+               "pruned": "Excludes the SWRL rules and the inferred-only properties; the term annotations are kept.",
                "skeletal": "Declarations and logical axioms only - no rules, no prose."}
     out.add((iri, DC.description, Literal(
         f"The {scope} "

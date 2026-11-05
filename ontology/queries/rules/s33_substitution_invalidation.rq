@@ -5,7 +5,7 @@
 # expect:    insert
 # swrl:      contains(?M2, ?G) ^ Module(?M1) ^ Module(?M2) ^ 'substituted by'(?J, ?G) ^
 #            contains(?M1, ?J) ^ Justification(?J) ^ 'in context of'(?E, ?J) ^
-#            swrlb:notEqual(?M1, ?M2) -> valid(?J, false)
+#            differentFrom(?M1, ?M2) -> valid(?J, false)
 # reads:     IF Module M2 contains Goal G AND M1 and M2 are Modules AND Justification J is
 #            substituted by G AND M1 contains J AND J is a Justification AND some element E is in
 #            context of J AND M1 and M2 are distinct THEN J is NOT valid

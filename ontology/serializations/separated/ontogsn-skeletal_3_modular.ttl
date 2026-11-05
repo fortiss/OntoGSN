@@ -29,10 +29,6 @@ gsn:depicts a owl:ObjectProperty ;
     rdfs:domain gsn:View ;
     rdfs:range gsn:Module .
 
-gsn:inModule a owl:ObjectProperty ;
-    rdfs:domain gsn:GSNElement ;
-    rdfs:range gsn:Module .
-
 gsn:public a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Assumption gsn:Context gsn:Goal gsn:Justification gsn:Solution ) ] ;
@@ -63,8 +59,10 @@ gsn:viewType a owl:DatatypeProperty ;
     dc:description "The skeletal Modular Extension section of OntoGSN. Generated from ontogsn.ttl by development/dev_tools/build_separated.py. Declarations and logical axioms only - no rules, no prose."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Modular Extension"@en ;
-    owl:versionInfo "1.2.4" ;
+    owl:versionInfo "1.3.0" ;
     gsn:coreOrExtension "Modular Extension"@en .
+
+gsn:GSNElement a owl:Class .
 
 gsn:away a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
@@ -76,8 +74,6 @@ gsn:inContextOf a owl:ObjectProperty .
 gsn:supportedBy a owl:ObjectProperty .
 
 gsn:Argument a owl:Class .
-
-gsn:GSNElement a owl:Class .
 
 gsn:Solution a owl:Class .
 

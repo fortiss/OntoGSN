@@ -4,7 +4,7 @@
 # operation: rule
 # expect:    insert
 # swrl:      'in module'(?A, ?M) ^ 'in module'(?B, ?N) ^ Module(?N) ^ 'in context of'(?A, ?B) ^
-#            Module(?M) ^ swrlb:notEqual(?M, ?N) -> away(?B, true)
+#            Module(?M) ^ differentFrom(?M, ?N) -> away(?B, true)
 # reads:     IF Module M contains A AND Module N contains B AND A is in context of B AND M and N
 #            are distinct Modules THEN B is away (in another Module)
 

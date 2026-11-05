@@ -1,0 +1,17 @@
+# rule:      S55
+# name:      Support Closure
+# section:   Core GSN
+# operation: rule
+# expect:    insert
+# swrl:      'supported by'(?A, ?B) -> 'transitively supported by'(?A, ?B)
+# reads:     IF A is supported by B THEN A is transitively supported by B
+# note:      The SWRL rule states one step and leaves the chain to owl:TransitiveProperty.
+#            SPARQL has no such axiom, so the property path inserts the whole chain at once.
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?A gsn:transitivelySupportedBy ?B }
+WHERE {
+  ?A gsn:supportedBy+ ?B .
+  FILTER NOT EXISTS { ?A gsn:transitivelySupportedBy ?B }
+}

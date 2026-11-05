@@ -22,7 +22,7 @@ import os
 import sys
 from xml.etree import ElementTree
 
-from rdflib import RDF, BNode, Graph
+from rdflib import RDF, BNode, Graph, URIRef
 from rdflib.compare import to_isomorphic
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -31,6 +31,8 @@ SOURCE = os.path.join(HERE, "ontogsn.ttl")
 
 # derived file -> rdflib serializer
 TARGETS = {"ontogsn.rdf": "xml", "ontogsn.jsonld": "json-ld"}
+
+SWRL_IMP = URIRef("http://www.w3.org/2003/11/swrl#Imp")
 
 
 def _signatures(graph, rounds=8):
@@ -158,6 +160,14 @@ def main():
     source = Graph()
     source.parse(SOURCE, format="turtle")
     print(f"{os.path.basename(SOURCE)}: {len(source)} triples")
+
+    # The OWL API, and so Protege, reads a SWRL rule that has an IRI of its own with an
+    # empty body and head from Turtle and JSON-LD; only a blank-node rule survives. rdflib
+    # reads both, so nothing else here would notice.
+    named = sorted(str(r) for r in source.subjects(RDF.type, SWRL_IMP) if not isinstance(r, BNode))
+    if named:
+        sys.exit(f"{len(named)} SWRL rule(s) have an IRI, which Protege cannot read from "
+                 f"Turtle - write each rule as a blank node: {', '.join(named[:5])}")
 
     graph = canonical(source)
     if to_isomorphic(graph) != to_isomorphic(source):

@@ -15,7 +15,7 @@
     dc:description "SHACL shapes derived from the Dialectic Extension section of the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape carries gsn:coreOrExtension \"Dialectic Extension\" so that provenance survives merging with the other shape modules."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
-    owl:versionInfo "1.0.3" .
+    owl:versionInfo "1.1.0" .
 
 
 #################################################################
@@ -67,7 +67,6 @@ gsnsh:ChallengesPropertyShape rdf:type sh:NodeShape ;
 
 gsnsh:ChallengesRangePropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:challenges — range"@en ;
-    rdfs:comment "The declared rdfs:range is gsn:GSNElement only, but gsn:Goal and gsn:Solution both carry an owl:allValuesFrom restriction admitting gsn:Relationship as well, and the standard states that a challenge can be directed at any part of an argument. gsn:Relationship is therefore admitted here."@en ;
     sh:targetObjectsOf gsn:challenges ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
     sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
@@ -165,6 +164,23 @@ gsnsh:SuccessfulChallengeCastsDoubtShape rdf:type sh:NodeShape ;
                 $this gsn:true true ;
                       gsn:challenges ?value .
                 FILTER NOT EXISTS { ?value gsn:inDoubt true }
+            }
+        """ ;
+    ] .
+
+gsnsh:ChallengeCycleShape rdf:type sh:NodeShape ;
+    rdfs:label "The challenges are acyclic"@en ;
+    sh:targetSubjectsOf gsn:challenges ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} takes part in a cycle of challenges."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this gsn:challenges+ $this .
             }
         """ ;
     ] .

@@ -53,7 +53,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `development/design/ontogsn-design-data.ttl` | **the design record** — ~36,000 words of quoted standard passages, rationale and prose that exist nowhere else |
 | `development/design/Competency Questions.xlsx` | the questions `ontology/queries/` and `augmentation/queries/` answer |
 | `ontology/queries/*.rq` | the stored CRUD queries, one per competency question |
-| `ontology/queries/rules/*.rq` | the 51 SWRL rules as SPARQL updates |
+| `ontology/queries/rules/*.rq` | the 58 SWRL rules as SPARQL updates |
 | `ontology/example/example_case.ttl` | the example ABox the queries and checks run against |
 | `development/dev_tools/testdata/*.ttl` | one trigger per rule, and the recorded baselines |
 
@@ -190,10 +190,11 @@ the malformed banner, where the expectation is *consistent*, and whole, where it
 *inconsistent, for that reason*.
 
 **Pellet does not run nine of the rules.** It has no `swrlx:makeOWLThing` builtin, so every
-rule that mints an individual is dropped with a warning — `SupportRelationCreation`,
-`ContextRelationCreation`, `ChallengeRelationCreation`, the four confidence-relation rules
-and two others. Those are exactly the rules the SWRLAPI's Drools engine covered in Protégé,
-and exactly the ones `ontology/queries/rules/` executes here. The baseline lists them so the gap is
+rule that mints an individual is dropped with a warning — Support Relation Creation,
+Context Relation Creation, Challenge Relation Creation, the four confidence-relation rules
+and two others. A rule is a blank node, so Pellet cannot name it, and the check names the
+dropped rules by their `rdfs:label`. Those are exactly the rules the SWRLAPI's Drools engine
+covers in Protégé, and exactly the ones `ontology/queries/rules/` executes here. The baseline lists them so the gap is
 visible; a rule joining or leaving that list is a finding about the rule set.
 
 `oops_check.py` rewrites the ontology node as a typed `<owl:Ontology>` element before

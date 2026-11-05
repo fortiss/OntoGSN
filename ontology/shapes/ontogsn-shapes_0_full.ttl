@@ -25,7 +25,7 @@
     dc:title "OntoGSN SHACL Shapes"@en ;
     dc:description "SHACL shapes for validating assurance-case data expressed with the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape is annotated with gsn:coreOrExtension, so the graph can be sliced back into its GSN Community Standard v3 sections."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
-    owl:versionInfo "1.0.3" ;
+    owl:versionInfo "1.1.0" ;
     owl:imports <https://w3id.org/OntoGSN/shapes/core> ,
                 <https://w3id.org/OntoGSN/shapes/pattern> ,
                 <https://w3id.org/OntoGSN/shapes/modular> ,
@@ -382,7 +382,6 @@ gsnsh:ContainsPropertyShape rdf:type sh:NodeShape ;
 ###  gsn:inContextOf
 gsnsh:InContextOfPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:inContextOf — domain"@en ;
-    rdfs:comment "gsn:Module is added to the declared domain (Goal, Strategy) because gsn:Module carries an owl:allValuesFrom restriction on gsn:inContextOf."@en ;
     sh:targetSubjectsOf gsn:inContextOf ;
     gsn:coreOrExtension "Core GSN"@en ;
     sh:or ( [ sh:class gsn:Goal ]
@@ -425,7 +424,6 @@ gsnsh:RefersToRangePropertyShape rdf:type sh:NodeShape ;
 ###  gsn:supportedBy
 gsnsh:SupportedByPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:supportedBy — domain"@en ;
-    rdfs:comment "gsn:Module is added to the declared domain (Goal, Strategy) because gsn:Module carries an owl:allValuesFrom restriction on gsn:supportedBy."@en ;
     sh:targetSubjectsOf gsn:supportedBy ;
     gsn:coreOrExtension "Core GSN"@en ;
     sh:or ( [ sh:class gsn:Goal ]
@@ -732,6 +730,30 @@ gsnsh:SupportCycleShape rdf:type sh:NodeShape ;
             SELECT $this
             WHERE {
                 $this gsn:supportedBy+ $this .
+            }
+        """ ;
+    ] .
+
+gsnsh:TrueClaimSolutionShape rdf:type sh:NodeShape ;
+    rdfs:label "A claim marked true rests only on solutions marked true"@en ;
+    sh:targetSubjectsOf gsn:supportedBy ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} is marked true, but the solution {?value} that supports it is not marked true."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
+        sh:severity sh:Warning ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:true ?claim ;
+                      gsn:supportedBy ?value .
+                FILTER ( STR(?claim) = "true" )
+                ?value a gsn:Solution .
+                FILTER NOT EXISTS {
+                    ?value gsn:true ?evidence .
+                    FILTER ( STR(?evidence) = "true" )
+                }
             }
         """ ;
     ] .
@@ -1407,6 +1429,23 @@ gsnsh:ViewTypePropertyShape rdf:type sh:NodeShape ;
         sh:message "A view type must be exactly one of \"architecture\" or \"argument\"."@en ;
     ] .
 
+gsnsh:ModuleContextCycleShape rdf:type sh:NodeShape ;
+    rdfs:label "The context links between modules are acyclic"@en ;
+    sh:targetClass gsn:Module ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} takes part in a cycle of context links between modules."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this gsn:inContextOf+ $this .
+            }
+        """ ;
+    ] .
+
 
 # ###########################################################################
 # Confidence Argument Extension
@@ -1639,7 +1678,6 @@ gsnsh:ChallengesPropertyShape rdf:type sh:NodeShape ;
 
 gsnsh:ChallengesRangePropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:challenges — range"@en ;
-    rdfs:comment "The declared rdfs:range is gsn:GSNElement only, but gsn:Goal and gsn:Solution both carry an owl:allValuesFrom restriction admitting gsn:Relationship as well, and the standard states that a challenge can be directed at any part of an argument. gsn:Relationship is therefore admitted here."@en ;
     sh:targetObjectsOf gsn:challenges ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
     sh:or ( [ sh:class gsn:GSNElement ] [ sh:class gsn:Relationship ] ) ;
@@ -1737,6 +1775,23 @@ gsnsh:SuccessfulChallengeCastsDoubtShape rdf:type sh:NodeShape ;
                 $this gsn:true true ;
                       gsn:challenges ?value .
                 FILTER NOT EXISTS { ?value gsn:inDoubt true }
+            }
+        """ ;
+    ] .
+
+gsnsh:ChallengeCycleShape rdf:type sh:NodeShape ;
+    rdfs:label "The challenges are acyclic"@en ;
+    sh:targetSubjectsOf gsn:challenges ;
+    gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} takes part in a cycle of challenges."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ;
+        sh:severity sh:Violation ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this gsn:challenges+ $this .
             }
         """ ;
     ] .

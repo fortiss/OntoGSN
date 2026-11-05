@@ -1,0 +1,17 @@
+# rule:      S59
+# name:      Module Context Cycle Invalidation
+# section:   Modular Extension
+# operation: rule
+# expect:    insert
+# swrl:      'transitively in context of'(?M, ?M) -> valid(?M, false)
+# reads:     IF M is transitively in the context of itself THEN M is NOT valid
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?M gsn:valid ?old }
+INSERT { ?M gsn:valid false }
+WHERE {
+  ?M gsn:transitivelyInContextOf ?M .
+  OPTIONAL { ?M gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

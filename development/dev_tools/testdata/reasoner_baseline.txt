@@ -9,32 +9,32 @@
 # the bundled Pellet has no swrlx:makeOWLThing builtin, so rules that mint an individual
 # are dropped. ontology/queries/rules/ executes them instead.
 
-## ontology (3963 triples)
+## ontology (3962 triples)
 ## ontology/serializations/ontogsn.ttl alone - the TBox
 consistent: yes
 unsatisfiable classes: none
 
-## well-formed case (4305 triples)
+## well-formed case (4394 triples)
 ## the ontology and example_case.ttl up to the malformed section
 consistent: yes
 
-## rule triggers (4467 triples)
+## rule triggers (4793 triples)
 ## the ontology and rule_cases.ttl
 consistent: yes
 
-## whole fixture (4359 triples)
+## whole fixture (4464 triples)
 ## the ontology and all of example_case.ttl, malformed tail included
 consistent: no
 reason: Antisymmetric property supportedBy
 
 ## rules this reasoner dropped, in every graph above
 ## not a defect in the ontology - see the header
-ignored rule: ChallengeChainInvalidation - no builtin makeOWLThing
-ignored rule: ChallengeRelationCreation - no builtin makeOWLThing
-ignored rule: ConfidenceRelationCreation - no builtin makeOWLThing
-ignored rule: ContextRelationCreation - no builtin makeOWLThing
-ignored rule: GoalConfidenceRelation - no builtin makeOWLThing
-ignored rule: GoalStrategyConfidence - no builtin makeOWLThing
-ignored rule: SolutionConfidenceRelation - no builtin makeOWLThing
-ignored rule: StrategyConfidenceRelation - no builtin makeOWLThing
-ignored rule: SupportRelationCreation - no builtin makeOWLThing
+ignored rule: Challenge Chain Invalidation - no builtin makeOWLThing
+ignored rule: Challenge Relation Creation - no builtin makeOWLThing
+ignored rule: Confidence Relation Creation - no builtin makeOWLThing
+ignored rule: Context Relation Creation - no builtin makeOWLThing
+ignored rule: Goal Confidence Relation - no builtin makeOWLThing
+ignored rule: Goal-Strategy Confidence - no builtin makeOWLThing
+ignored rule: Solution Confidence Relation - no builtin makeOWLThing
+ignored rule: Strategy Confidence Relation - no builtin makeOWLThing
+ignored rule: Support Relation Creation - no builtin makeOWLThing

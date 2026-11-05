@@ -209,8 +209,6 @@ expected = [
     ("a rule mechanism reads its body",            (EX["expiry-rule"], AUG.readsTerm, EX.retainedUntil), True),
     ("a rule mechanism writes its head",           (EX["expiry-rule"], AUG.writesTerm, EX.Expiring), True),
     ("a rule mechanism does not read its head",    (EX["expiry-rule"], AUG.readsTerm, EX.Expiring), False),
-    ("a rule that is not a mechanism derives nothing",
-                                                   (AUG.ReviseIssueChallengesGoal, AUG.readsTerm, None), False),
     ("a query mechanism derives nothing",          (EX["log-query"], AUG.readsTerm, EX.AccessLogEntry), True),
     # A4: a part is verifiable with whatever verifies its artefact, and inherits nothing else
     ("a part is verifiable with what checks its artefact",   (EX["access-log-row-42"], AUG.verifiableWith, EX["retention-rule"]), True),
@@ -246,6 +244,12 @@ expected = [
 for name, triple, wanted in expected:
     found = (triple in data) if triple[2] is not None else bool(list(data.triples(triple)))
     check(found == wanted, name, f"{name} - expected {wanted}, got {found}")
+
+# A rule is a blank node, so it is checked as a class: no rule that is not a mechanism reads a term.
+reading_rules = [r for r in data.subjects(RDF.type, SWRL.Imp)
+                 if (r, AUG.readsTerm, None) in data and (r, RDF.type, AUG.Mechanism) not in data]
+check(not reading_rules, "a rule that is not a mechanism derives nothing",
+      f"{len(reading_rules)} rule(s) that are not mechanisms read a term")
 
 # A6 deletes the old value before it writes the new one, so no solution ends up both ways.
 two_valued = sorted(str(s).split("#")[-1] for s in data.subjects(RDF.type, GSN.Solution)

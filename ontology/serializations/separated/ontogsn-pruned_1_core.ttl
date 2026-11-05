@@ -22,6 +22,8 @@ schema:citation a owl:AnnotationProperty .
 
 schema:license a owl:AnnotationProperty .
 
+rdf:predicate a owl:ObjectProperty .
+
 xsd:date a rdfs:Datatype .
 
 skos:altLabel a owl:AnnotationProperty .
@@ -31,6 +33,11 @@ skos:definition a owl:AnnotationProperty .
 gsn:coreOrExtension a owl:AnnotationProperty ;
     rdfs:label "core or extension"@en ;
     skos:definition "Indicator of the sourcing section in the GSN Community Standard v3."@en .
+
+gsn:inferredOnly a owl:AnnotationProperty ;
+    rdfs:label "inferred only"@en ;
+    skos:definition "[OntoGSN] Marks a property that a rule derives and that a case never asserts."@en ;
+    gsn:coreOrExtension "Core GSN"@en .
 
 gsn:offDiagram a owl:DatatypeProperty ;
     rdfs:label "off-diagram"@en ;
@@ -96,14 +103,14 @@ gsn:valid a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:GSNElement gsn:Pattern gsn:Relationship ) ] ;
     rdfs:range xsd:boolean ;
-    skos:definition "[OntoGSN] Marks whether the element is determined (e.g., by a GSN rule) to be consistent or otherwise correct with respect to the GSN argument syntax."@en ;
+    skos:definition "[OntoGSN] Marks whether the element is determined (e.g., by a rule or a manual evaluation) to be consistent with the argument, or otherwise correct with respect to the GSN argument syntax."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 <https://w3id.org/OntoGSN/ontology/core> a owl:Ontology ;
-    dc:description "The pruned Core GSN section of OntoGSN. Generated from ontogsn.ttl by development/dev_tools/build_separated.py. Excludes the SWRL rules; the term annotations are kept."@en ;
+    dc:description "The pruned Core GSN section of OntoGSN. Generated from ontogsn.ttl by development/dev_tools/build_separated.py. Excludes the SWRL rules and the inferred-only properties; the term annotations are kept."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Core GSN"@en ;
-    owl:versionInfo "1.2.4" ;
+    owl:versionInfo "1.3.0" ;
     gsn:coreOrExtension "Core GSN"@en .
 
 rdf:Statement a owl:Class .
@@ -155,7 +162,7 @@ gsn:supportedBy a owl:AsymmetricProperty,
         owl:ObjectProperty ;
     rdfs:label "supported by"@en ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Strategy ) ] ;
+            owl:unionOf ( gsn:Goal gsn:Module gsn:Strategy ) ] ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( gsn:Goal gsn:Module gsn:Solution gsn:Strategy ) ] ;
     skos:definition "SupportedBy, rendered as a line with a solid arrowhead, allows support relationships between elements to be documented."@en ;
@@ -187,7 +194,7 @@ gsn:inContextOf a owl:AsymmetricProperty,
         owl:ObjectProperty ;
     rdfs:label "in context of"@en ;
     rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Strategy ) ] ;
+            owl:unionOf ( gsn:Goal gsn:Module gsn:Strategy ) ] ;
     rdfs:range [ a owl:Class ;
             owl:unionOf ( gsn:Assumption gsn:Context gsn:Justification gsn:Module ) ] ;
     skos:definition "InContextOf, rendered as a line with a hollow arrowhead, declares a contextual relationship."@en ;
@@ -286,8 +293,6 @@ gsn:Argument a owl:Class ;
         "A connected series of claims intended to establish an overall claim."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
-gsn:Module a owl:Class .
-
 gsn:statement a owl:DatatypeProperty ;
     rdfs:label "statement"@en ;
     rdfs:domain [ a owl:Class ;
@@ -322,6 +327,8 @@ gsn:Goal a owl:Class ;
         "A goal, rendered as a rectangle, presents a claim forming part of the argument."@en ;
     gsn:coreOrExtension "Core GSN"@en ;
     gsn:renderedAs "rectangle"@en .
+
+gsn:Module a owl:Class .
 
 gsn:GSNElement a owl:Class ;
     rdfs:label "GSN Element"@en ;
