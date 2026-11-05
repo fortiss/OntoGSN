@@ -85,6 +85,11 @@ reasoner_check.py  the ontology and the fixtures vs an OWL-DL reasoner (needs a 
 oops_check.py      the ontology vs the OOPS! pitfall scanner (needs the network)
 reports.py         regenerate the WIDOCO, OOPS! and FOOPS! reports the website publishes
 prov_check.py      the design record vs the ontology, the shapes and the queries
+graffoo_check.py   the Graffoo diagrams vs the ontologies they draw
+graffoo_export.py  the diagram pages as PNG or SVG, optionally before and after a change
+                   (needs the draw.io desktop app)
+graffoo_edit.py    layout-preserving edits to the diagram, and the rebuild of
+                   "All Extensions" from the four extension pages
 prov_add.py        draft a decision for an axiom nobody has documented
 prov_retire.py     retire a decision, or bring it back
 prov_augment.py    rebuild the requirements / questions / queries / build-chain graph
