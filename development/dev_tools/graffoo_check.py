@@ -75,7 +75,7 @@ PREFIXES = {"gsn": str(GSN),
 # "All Extensions" is the four extension pages side by side, each moved by (dx, dy).
 # Edit the four pages, then rebuild it with graffoo_edit's Diagram.compose(*ALL_EXTENSIONS).
 ALL_EXTENSIONS = ("All Extensions", [("Argument Pattern Ext", -1470, -1110),
-                                     ("Modular Ext", -390, 790),
+                                     ("Modular Ext", -390, 880),
                                      ("Confidence Argument Ext", 634.02, -95.5),
                                      ("Dialectic Extension", 521, 174)])
 
