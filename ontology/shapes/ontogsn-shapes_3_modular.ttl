@@ -15,7 +15,7 @@
     dc:description "SHACL shapes derived from the Modular Extension section of the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape carries gsn:coreOrExtension \"Modular Extension\" so that provenance survives merging with the other shape modules."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     gsn:coreOrExtension "Modular Extension"@en ;
-    owl:versionInfo "1.1.0" .
+    owl:versionInfo "1.1.1" .
 
 
 #################################################################
@@ -108,20 +108,7 @@ gsnsh:ConsistentWithPropertyShape rdf:type sh:NodeShape ;
     gsn:coreOrExtension "Modular Extension"@en ;
     sh:or ( [ sh:class gsn:Assumption ] [ sh:class gsn:Context ] ) ;
     sh:message "Only an assumption or a context may be declared consistent with something."@en ;
-    sh:severity sh:Violation ;
-    sh:sparql [
-        rdf:type sh:SPARQLConstraint ;
-        sh:message "Consistency runs both ways: {?value} should also be declared consistent with {$this}. Run the reasoner, or state the other direction as well."@en ;
-        sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ;
-        sh:severity sh:Warning ;
-        sh:select """
-            SELECT $this ?value
-            WHERE {
-                $this gsn:consistentWith ?value .
-                FILTER NOT EXISTS { ?value gsn:consistentWith $this }
-            }
-        """ ;
-    ] .
+    sh:severity sh:Violation .
 
 gsnsh:ConsistentWithRangePropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:consistentWith — range"@en ;
@@ -130,6 +117,24 @@ gsnsh:ConsistentWithRangePropertyShape rdf:type sh:NodeShape ;
     sh:or ( [ sh:class gsn:Assumption ] [ sh:class gsn:Context ] ) ;
     sh:message "An element can only be consistent with an assumption or a context."@en ;
     sh:severity sh:Violation .
+
+gsnsh:ConsistentWithSymmetricShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:consistentWith is symmetric"@en ;
+    sh:targetSubjectsOf gsn:consistentWith ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "Consistency runs both ways: {?value} should also be declared consistent with {$this}. Run the reasoner, or state the other direction as well."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:consistentWith ?value .
+                FILTER NOT EXISTS { ?value gsn:consistentWith $this }
+            }
+        """ ;
+    ] .
 
 
 ###  gsn:depicts

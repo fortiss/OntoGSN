@@ -25,7 +25,7 @@
     dc:title "OntoGSN SHACL Shapes"@en ;
     dc:description "SHACL shapes for validating assurance-case data expressed with the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape is annotated with gsn:coreOrExtension, so the graph can be sliced back into its GSN Community Standard v3 sections."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
-    owl:versionInfo "1.1.0" ;
+    owl:versionInfo "1.1.1" ;
     owl:imports <https://w3id.org/OntoGSN/shapes/core> ,
                 <https://w3id.org/OntoGSN/shapes/pattern> ,
                 <https://w3id.org/OntoGSN/shapes/modular> ,
@@ -738,11 +738,11 @@ gsnsh:TrueClaimSolutionShape rdf:type sh:NodeShape ;
     rdfs:label "A claim marked true rests only on solutions marked true"@en ;
     sh:targetSubjectsOf gsn:supportedBy ;
     gsn:coreOrExtension "Core GSN"@en ;
+    sh:severity sh:Warning ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} is marked true, but the solution {?value} that supports it is not marked true."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Warning ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -1264,20 +1264,7 @@ gsnsh:ConsistentWithPropertyShape rdf:type sh:NodeShape ;
     gsn:coreOrExtension "Modular Extension"@en ;
     sh:or ( [ sh:class gsn:Assumption ] [ sh:class gsn:Context ] ) ;
     sh:message "Only an assumption or a context may be declared consistent with something."@en ;
-    sh:severity sh:Violation ;
-    sh:sparql [
-        rdf:type sh:SPARQLConstraint ;
-        sh:message "Consistency runs both ways: {?value} should also be declared consistent with {$this}. Run the reasoner, or state the other direction as well."@en ;
-        sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ;
-        sh:severity sh:Warning ;
-        sh:select """
-            SELECT $this ?value
-            WHERE {
-                $this gsn:consistentWith ?value .
-                FILTER NOT EXISTS { ?value gsn:consistentWith $this }
-            }
-        """ ;
-    ] .
+    sh:severity sh:Violation .
 
 gsnsh:ConsistentWithRangePropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:consistentWith — range"@en ;
@@ -1286,6 +1273,24 @@ gsnsh:ConsistentWithRangePropertyShape rdf:type sh:NodeShape ;
     sh:or ( [ sh:class gsn:Assumption ] [ sh:class gsn:Context ] ) ;
     sh:message "An element can only be consistent with an assumption or a context."@en ;
     sh:severity sh:Violation .
+
+gsnsh:ConsistentWithSymmetricShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:consistentWith is symmetric"@en ;
+    sh:targetSubjectsOf gsn:consistentWith ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "Consistency runs both ways: {?value} should also be declared consistent with {$this}. Run the reasoner, or state the other direction as well."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsn:consistentWith ?value .
+                FILTER NOT EXISTS { ?value gsn:consistentWith $this }
+            }
+        """ ;
+    ] .
 
 
 ###  gsn:depicts
@@ -1689,11 +1694,11 @@ gsnsh:ChallengesIrreflexiveShape rdf:type sh:NodeShape ;
     rdfs:comment "GSN convention rather than an explicit OWL axiom: the link between the part of the argument that is being challenged (target) and the dialectic element (source) must be self-evident, so an element cannot challenge itself."@en ;
     sh:targetSubjectsOf gsn:challenges ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:severity sh:Warning ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} challenges itself; the challenged part of the argument and the element raising the challenge must be different."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ;
-        sh:severity sh:Warning ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -1764,11 +1769,11 @@ gsnsh:SuccessfulChallengeCastsDoubtShape rdf:type sh:NodeShape ;
     rdfs:comment "Complements, rather than replaces, the SWRL rules of the Dialectic Extension: if the claim presented in the challenging goal is true then this is sufficient to establish that the claim in the challenged element is in doubt. Run the reasoner if the assertion is expected to be inferred."@en ;
     sh:targetSubjectsOf gsn:challenges ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:severity sh:Info ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} is true and challenges {?value}, which has not been marked as in doubt."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ;
-        sh:severity sh:Info ;
         sh:select """
             SELECT $this ?value
             WHERE {

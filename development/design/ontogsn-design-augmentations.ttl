@@ -1617,7 +1617,7 @@ gsndesign:query-augmentation-queries-fc38-inspectable-mechanisms
     rdfs:label "augmentation/queries/fc38_inspectable_mechanisms.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc38_inspectable_mechanisms.rq" ;
-    gsndesign:fileChecksum "66ed876784ab0a20b1bef00f5a3b3b812bdd95bee74ea77e6172e96ad3f35fbf" ;
+    gsndesign:fileChecksum "47d24384bbdaed7273bada6e482a94fa0224d64bd5fed1a78608d50e59d9a486" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://spinrdf.org/sp#" ,
         "http://www.w3.org/2003/11/swrl#" ,
@@ -1635,13 +1635,13 @@ gsndesign:query-augmentation-queries-fc38-inspectable-mechanisms
 #            each mechanism declare?
 # expect:    rows
 #
-# Four states per mechanism. In the graph: the mechanism is a shape, a rule or a query, so what
-# it depends on can be read off the node. Script in the graph: a person can read what it does,
+# Four states per mechanism. In the graph: a shape, a rule or a query implements the mechanism,
+# so what it depends on can be read off that node. Script in the graph: a person can read what it does,
 # but no tool derives the terms, so any listed are declared by hand. Declared by hand: terms are
 # listed but nothing in the graph says what the mechanism does, so the list has to be trusted.
 # Opaque: none of the above, so only a run tells.
 #
-# "In the graph" is read off the type. The list below is what this query knows: SHACL shapes,
+# "In the graph" is read off the type of the node that implements the mechanism. The list below is what this query knows: SHACL shapes,
 # SHACL-AF SPARQL executables, SWRL rules and SPIN queries. A new formalism is a line here.
 
 PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
@@ -1662,7 +1662,8 @@ WHERE {
                      gsnaug:generableWith,   gsnaug:generatedWith,
                      gsnaug:checkableWith,   gsnaug:checkedWith ) )
   OPTIONAL {
-    ?mechanism a ?formalism .
+    ?definition gsnaug:implements ?mechanism ;
+                a ?formalism .
     FILTER ( ?formalism IN ( sh:NodeShape, sh:PropertyShape,
                              sh:SPARQLSelectExecutable, sh:SPARQLAskExecutable,
                              sh:SPARQLConstructExecutable, sh:SPARQLUpdateExecutable,
@@ -6540,43 +6541,43 @@ gsndesign:agent-build-py
 gsndesign:file-ontogsn-shapes-1-core
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_1_core.ttl" ;
-    gsndesign:fileChecksum "581e7e589be071961a1a0b9841c5d4dd16f66f7d5b899f1bc40c8fe1528849e4" ;
-    gsndesign:declaredVersion "1.1.0" ;
+    gsndesign:fileChecksum "9a6e6c28379cffd0eb11fd1f60ec3fa9f9bc9d53236d3545a293cf9d19a7bd22" ;
+    gsndesign:declaredVersion "1.1.1" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
 gsndesign:file-ontogsn-shapes-2-pattern
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_2_pattern.ttl" ;
-    gsndesign:fileChecksum "3195f69bc9a4f15fd06c46d80dc648e9fd545d596b85d57e056d07a55950f075" ;
-    gsndesign:declaredVersion "1.1.0" ;
+    gsndesign:fileChecksum "e1f5cd592b5625f220c1d6154420221002966b563b793b833a359ba53ca1a9b6" ;
+    gsndesign:declaredVersion "1.1.1" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
 gsndesign:file-ontogsn-shapes-3-modular
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_3_modular.ttl" ;
-    gsndesign:fileChecksum "bad4052be52f28f33ecf339c6c12850e115b758ba55e9675d23f27c4f3ba78e2" ;
-    gsndesign:declaredVersion "1.1.0" ;
+    gsndesign:fileChecksum "366b662d3ad33ca71a8c323cdaa6e0d2fc1349e1ed150939a528d67f415a8e32" ;
+    gsndesign:declaredVersion "1.1.1" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
 gsndesign:file-ontogsn-shapes-4-confidence
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_4_confidence.ttl" ;
-    gsndesign:fileChecksum "379d73020d384d1b640a5a1be5b9228dd9ebd91d7db54c2cf89414987d00e481" ;
-    gsndesign:declaredVersion "1.1.0" ;
+    gsndesign:fileChecksum "c51eff87782e198506065c40dca97273c5ae822a4ffa6535797a8ccdc8aed7a1" ;
+    gsndesign:declaredVersion "1.1.1" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
 gsndesign:file-ontogsn-shapes-5-dialectic
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_5_dialectic.ttl" ;
-    gsndesign:fileChecksum "23b485bfa6a296ff1a4b42bf3971a26d08bef4a71338bd1e3283a6b5ed3d31f3" ;
-    gsndesign:declaredVersion "1.1.0" ;
+    gsndesign:fileChecksum "e6c68f9fdac37a4731c948ae7388fc4c571da2cffbe1e0efb38ce7b067ae49d5" ;
+    gsndesign:declaredVersion "1.1.1" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl .
 
 gsndesign:file-ontogsn-shapes-0-full
     a gsndesign:File ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_0_full.ttl" ;
-    gsndesign:fileChecksum "becee9cf0baab0e97c2fdeebc95ae718f0f1e74c2da4e93a9a91223a9392ee02" ;
-    gsndesign:declaredVersion "1.1.0" ;
+    gsndesign:fileChecksum "5cb762d21c652db3a87012a9dbd8204d928d8c6926a5847ec01e73587e5778fc" ;
+    gsndesign:declaredVersion "1.1.1" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-shapes-1-core ,
         gsndesign:file-ontogsn-shapes-2-pattern ,
         gsndesign:file-ontogsn-shapes-3-modular ,
