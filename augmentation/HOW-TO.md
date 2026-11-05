@@ -179,6 +179,7 @@ An issue with no outcome is open, however many responses it has. The raiser deci
 "resolved". The holder decides on the other three.
 
 ```turtle
+ex:Sn1 a gsn:Solution .
 ex:I3 a gsnaug:Issue ; gsnaug:issueType gsnaug:revise ; gsnaug:raisedAgainst ex:Sn1 .
 ex:R1 a gsnaug:Response ; gsnaug:respondsTo ex:I3 ; schema:description "Log retention set to 12 months." .
 ex:I3 gsnaug:issueOutcome "resolved" .

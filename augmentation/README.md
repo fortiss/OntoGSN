@@ -9,8 +9,8 @@ domain or range.
 
 | File | Role |
 | :--- | :--- |
-| `ontogsn-augmentation.ttl` | the vocabulary. 14 classes, 30 properties, 6 SKOS concepts, 13 SWRL rules |
-| `shapes/ontogsn-augmentation-shapes.ttl` | 20 SHACL shapes |
+| `ontogsn-augmentation.ttl` | the vocabulary. 8 classes, 37 properties, 3 issue types, 13 SWRL rules |
+| `shapes/ontogsn-augmentation-shapes.ttl` | 25 SHACL shapes |
 | `HOW-TO.md` | the manual: how to use the vocabulary on a case, for what the vocabulary does not enforce |
 | `rules/*.rq` | a SPARQL twin of each SWRL rule, runnable without a reasoner |
 | `testdata/example_issues.ttl` | a minimal case exercising every rule branch |

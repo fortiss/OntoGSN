@@ -767,7 +767,9 @@ a list of what the tooling knows belongs. The shape reports an undeclared term a
 than a violation, because a term absent from the loaded ontologies is either a withdrawn term or an
 ontology that was not loaded, and the shape cannot tell which. Deriving the terms from a
 SHACL shape or a SWRL rule is done by the three derivations in augmentation/derivations/, which
-why-0045 explains."""@en .
+why-0045 explains. Since 0.4.0, a mechanism is no longer typed as its own shape, rule or query.
+The definition is a separate node that names the mechanism with gsnaug:implements, and why-0059
+explains why."""@en .
 
 
 gsnaugdesign:why-0044
