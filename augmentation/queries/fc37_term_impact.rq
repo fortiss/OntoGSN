@@ -21,7 +21,7 @@ WHERE {
   ?artefact  ?use ?mechanism .
   FILTER ( ?use IN ( gsnaug:retrievableWith, gsnaug:retrievedWith,
                      gsnaug:generableWith,   gsnaug:generatedWith,
-                     gsnaug:verifiableWith,  gsnaug:verifiedWith ) )
+                     gsnaug:checkableWith,   gsnaug:checkedWith ) )
   OPTIONAL {
     ?solution a gsn:Solution ;
               schema:identifier ?solutionId ;

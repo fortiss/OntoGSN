@@ -30,7 +30,7 @@ WHERE {
   ?artefact ?use ?mechanism .
   FILTER ( ?use IN ( gsnaug:retrievableWith, gsnaug:retrievedWith,
                      gsnaug:generableWith,   gsnaug:generatedWith,
-                     gsnaug:verifiableWith,  gsnaug:verifiedWith ) )
+                     gsnaug:checkableWith,   gsnaug:checkedWith ) )
   OPTIONAL {
     ?mechanism a ?formalism .
     FILTER ( ?formalism IN ( sh:NodeShape, sh:PropertyShape,

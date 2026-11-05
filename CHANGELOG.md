@@ -16,7 +16,7 @@ release. These are the current versions:
 | :--- | :--- | :--- |
 | Ontology | 1.3.0 | `ontology/serializations/ontogsn.ttl` |
 | SHACL shapes | 1.1.0 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
-| Augmentation, and its shapes | 0.3.2 | `augmentation/ontogsn-augmentation.ttl` |
+| Augmentation, and its shapes | 0.4.0 | `augmentation/ontogsn-augmentation.ttl` |
 | Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
 | Design record | 1.3.0 | `development/design/ontogsn-design.ttl` |
 
@@ -33,6 +33,40 @@ against an ontology version, so both are listed together.
 
 Versions 1.0 and 1.1 predate this repository; no artefact of either survives here to diff.
 The ontology as published is described in the paper (arXiv:2506.11023).
+
+---
+
+## Augmentation 0.4.0 (2026-11-05)
+
+A mechanism now checks an artefact. Two properties and the label of one rule are renamed.
+Their definitions, domains and ranges do not change.
+
+| Old | New | Note |
+| :--- | :--- | :--- |
+| `gsnaug:verifiableWith` | `gsnaug:checkableWith` | The label is now "checkable with". The old label was "verified with", the same as the label of the other property. |
+| `gsnaug:verifiedWith` | `gsnaug:checkedWith` | The label is now "checked with". |
+| "Part Inherits Verifiable With" (the label of rule A4) | "Part Inherits Checkable With" | The rule is a blank node, so it has no IRI to rename. The SPARQL twin is now `augmentation/rules/a04_part_inherits_checkable_with.rq`. |
+
+The definitions already said that the mechanism checks the truth or the appropriateness of the
+artefact. Truth is `gsn:true`, and appropriateness is `gsn:valid`. "Verify" names only the
+first of the two, so the properties now use the neutral verb "check".
+
+- The old terms are gone, with no alias.
+- The rules A4 and A6a to A6d, and the stored queries FC10, FC37 and FC38, read the new
+  terms. The question of FC10 is now "Was this evidence checked, by whom, with what mechanism,
+  and did it pass?".
+
+*For case authors:* the rules and the queries do not see data that uses an old term. A solution
+whose artefact names its mechanism with `gsnaug:verifiableWith` gets no truth value from A6a to
+A6d. This update rewrites a graph to the new terms:
+
+```sparql
+PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
+DELETE { ?s gsnaug:verifiableWith ?m } INSERT { ?s gsnaug:checkableWith ?m }
+WHERE  { ?s gsnaug:verifiableWith ?m } ;
+DELETE { ?s gsnaug:verifiedWith ?m }   INSERT { ?s gsnaug:checkedWith ?m }
+WHERE  { ?s gsnaug:verifiedWith ?m }
+```
 
 ---
 

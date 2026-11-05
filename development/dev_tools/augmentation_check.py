@@ -119,13 +119,13 @@ def closure(source, node, target):
 
 
 def run_shape_mechanisms(graph):
-    """Run each mechanism that is a shape over the artefact it verifies; keep the report.
+    """Run each mechanism that is a shape over the artefact it checks; keep the report.
 
     pyshacl returns the report as a graph. Three triples are added to it - which mechanism
     produced it, which artefact it looked at, and when - and the result is merged into the data.
     Those three lines are the whole adapter between an engine and rules A6a/A6b."""
     runs = 0
-    for artefact, mechanism in graph.subject_objects(AUG.verifiableWith):
+    for artefact, mechanism in graph.subject_objects(AUG.checkableWith):
         if (mechanism, RDF.type, SH.NodeShape) not in graph:
             continue
         shape = Graph()
@@ -210,12 +210,12 @@ expected = [
     ("a rule mechanism writes its head",           (EX["expiry-rule"], AUG.writesTerm, EX.Expiring), True),
     ("a rule mechanism does not read its head",    (EX["expiry-rule"], AUG.readsTerm, EX.Expiring), False),
     ("a query mechanism derives nothing",          (EX["log-query"], AUG.readsTerm, EX.AccessLogEntry), True),
-    # A4: a part is verifiable with whatever verifies its artefact, and inherits nothing else
-    ("a part is verifiable with what checks its artefact",   (EX["access-log-row-42"], AUG.verifiableWith, EX["retention-rule"]), True),
-    ("a part inherits every verifier, not just one",         (EX["access-log-row-42"], AUG.verifiableWith, EX["expiry-rule"]), True),
-    ("a part does not inherit what verified its artefact",   (EX["access-log-row-42"], AUG.verifiedWith, None), False),
+    # A4: a part is checkable with whatever checks its artefact, and inherits nothing else
+    ("a part is checkable with what checks its artefact",    (EX["access-log-row-42"], AUG.checkableWith, EX["retention-rule"]), True),
+    ("a part inherits every checker, not just one",          (EX["access-log-row-42"], AUG.checkableWith, EX["expiry-rule"]), True),
+    ("a part does not inherit what checked its artefact",    (EX["access-log-row-42"], AUG.checkedWith, None), False),
     ("a part does not inherit how its artefact is fetched",  (EX["access-log-row-42"], AUG.retrievableWith, None), False),
-    ("a part of an artefact with no provenance inherits none", (EX["ctrl-row-7"], AUG.verifiableWith, None), False),
+    ("a part of an artefact with no provenance inherits none", (EX["ctrl-row-7"], AUG.checkableWith, None), False),
     ("inheritance does not retype the part as an artefact",  (EX["access-log-row-42"], RDF.type, GSN.Artefact), False),
     # A6: a solution's truth is read off the report its artefact's mechanism left behind
     ("a conforming engine report makes the solution true",     (EX.Sn1, GSN.true, Literal(True)), True),
@@ -231,7 +231,7 @@ expected = [
     ("a conforming second check does not lift a refuted solution",    (EX.Sn2, GSN.true, Literal(True)), False),
     ("a goal with no checked solution under it is untouched",  (EX.G2, GSN.true, None), False),
     # A6c/A6d: a report over a part reaches the solution through the artefact it refers to.
-    # The key's verifier is inherited by A4, so the chain A4 -> A6c needs a second round.
+    # The key's checker is inherited by A4, so the chain A4 -> A6c needs a second round.
     ("a conforming report over a part makes the solution true",  (EX.Sn3, GSN.true, Literal(True)), True),
     # The key check's later failing run is struck. Were it counted, Sn3 would be untrue; were
     # it skipped but still the newest, it would retire the conforming run and Sn3 would have

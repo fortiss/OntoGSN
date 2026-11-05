@@ -28,7 +28,7 @@ never sees this directory — the augmentation cannot break the core checks.
 
 | Group | Terms | Idea |
 | :--- | :--- | :--- |
-| **Artefact provenance** | `storedIn`, `retrievableWith`, `generatedBy`, `generatedWith`, `generatedFrom`, `verifiedWith`, `revisionOf`, `containsElement` | how a piece of evidence came to be, and how to get it again |
+| **Artefact provenance** | `storedIn`, `retrievableWith`, `generatedBy`, `generatedWith`, `generatedFrom`, `checkedWith`, `revisionOf`, `containsElement` | how a piece of evidence came to be, and how to get it again |
 | **Roles** | `assures`/`assuredBy`, `owns`/`ownedBy`, `reviews`/`reviewedBy`, `hasRole` | who stands behind what |
 | **Issues** | `Issue`, `Response`, `raisedAgainst`, `issueType`, `respondsTo`, `issueOutcome`, `supersedes`, `raisedIn`, `coveredIn` | what was asked of the case, by whom, and whether it has been closed |
 
@@ -51,13 +51,13 @@ a requirement *is* still belongs to the user's domain ontology.
 ## Three decisions worth knowing before reading the file
 
 **Provenance hangs off `gsn:Artefact`, never off `gsn:Solution`.** A solution is the GSN element that
-*references* an artefact; the storage location, the generating tool and the verification script are
+*references* an artefact; the storage location, the generating tool and the script that checks it are
 facts about the file. Nothing extra is needed to query from the argument side, because the solution
 already carries the hop:
 
 ```sparql
 ?claim gsn:supportedBy/gsn:refersTo ?artefact .
-?artefact gsnaug:generatedWith ?tool ; gsnaug:verifiedWith ?rule .
+?artefact gsnaug:generatedWith ?tool ; gsnaug:checkedWith ?rule .
 ```
 
 Hanging any of the six on a solution is reported as a warning rather than a violation, since the
@@ -101,18 +101,18 @@ challenges. Only `gsn:defeated` has to be asserted here, because **S46** derives
 | :--- | :--- |
 | `A2a` / `A2b` | a revise issue against a goal / a solution becomes a true goal challenging it |
 | `A3a` / `A3b` | a resolve issue against a goal / a solution becomes a goal challenging it, and defeats it |
-| `A4` | a part of an artefact is verifiable with whatever its artefact is verifiable with |
-| `A6a` / `A6b` | a solution is true / not true when the newest report that the mechanism that can verify its artefact left over it conforms / fails |
-| `A6c` / `A6d` | the same, when the report is over a part of the artefact: the newest report the mechanism that can verify the part left over the part |
+| `A4` | a part of an artefact is checkable with whatever its artefact is checkable with |
+| `A6a` / `A6b` | a solution is true / not true when the newest report that the mechanism that can check its artefact left over it conforms / fails |
+| `A6c` / `A6d` | the same, when the report is over a part of the artefact: the newest report the mechanism that can check the part left over the part |
 
 A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express "a goal **or** a
 solution" in one rule. A6 is four rules for the same reason: the report is over the artefact or over a
-part of it. A4 copies `verifiableWith` only. The other seven provenance properties admit a
+part of it. A4 copies `checkableWith` only. The other seven provenance properties admit a
 part in their domain, but a part states them for itself.
 
 ## The result of a check stays in the graph
 
-`gsnaug:verifiableWith` says that a mechanism can check an artefact. A6a and A6b read what the check
+`gsnaug:checkableWith` says that a mechanism can check an artefact. A6a and A6b read what the check
 found. The finding is a `sh:ValidationReport`, the form every SHACL engine writes, with two PROV links:
 `prov:wasGeneratedBy` names the mechanism, and `prov:used` names the artefact, or the part of it the
 check ran over. If the report conforms, the solution that refers to the artefact is `gsn:true`. If it
@@ -154,7 +154,7 @@ Subproperties, because bare `prov:wasAttributedTo` cannot tell the author from t
 domain may be declared on our own term but never restated on a `prov:` one, and because a shape can
 then constrain this repository's cases without constraining everyone's PROV.
 
-`storedIn`, `retrievableWith` and `verifiedWith` have no PROV anchor and are minted outright: PROV
+`storedIn`, `retrievableWith` and `checkedWith` have no PROV anchor and are minted outright: PROV
 records what happened, and those three describe future access.
 
 This is why the file carries one axiom whose subject is a `gsn:` term:
@@ -200,3 +200,7 @@ A case that marks its top-level contexts in a diagram loses nothing: the context
 before that release: `gsnaug:instantiatedFrom` assumes an `InstantiationDataReference` may carry
 `gsn:refersTo`, and A2/A3 assume `gsn:challenges` reaches the class of target the rule matches.
 Re-check this directory whenever that string moves.
+
+Version 0.4.0 renames the two properties that link an artefact to the mechanism that checks it.
+They are now `gsnaug:checkableWith` and `gsnaug:checkedWith`, and the old terms are gone. The
+changelog names the old terms and gives an update that rewrites data to the new ones.

@@ -60,13 +60,13 @@ ex:access-log a gsn:Artefact ;
     gsnaug:generatedBy     ex:dev-anna ;
     gsnaug:generatedWith   ex:logging-function ;
     gsnaug:generatedFrom   ex:it-system ;
-    gsnaug:verifiableWith  ex:retention-rule ;
-    gsnaug:verifiedWith    ex:retention-rule .
+    gsnaug:checkableWith   ex:retention-rule ;
+    gsnaug:checkedWith     ex:retention-rule .
 
 ex:evidence-store   a gsnaug:System .
 ex:log-query        a gsnaug:Mechanism .
 
-# A part of the access log. It declares nothing of its own: A4 copies gsnaug:verifiableWith
+# A part of the access log. It declares nothing of its own: A4 copies gsnaug:checkableWith
 # down from ex:access-log.
 ex:access-log-row-42 a gsnaug:ArtefactPart ; schema:name "Access log, row 42" ;
     gsnaug:partOf ex:access-log .
@@ -230,7 +230,7 @@ ex:entry-1 a ex:AccessLogEntry ;
     ex:inLog ex:access-log ;
     ex:retainedUntil "2027-01-01"^^xsd:date .
 
-ex:access-log gsnaug:verifiableWith ex:retention-shape , ex:expiry-rule .
+ex:access-log gsnaug:checkableWith ex:retention-shape , ex:expiry-rule .
 
 #  An earlier run of the retention shape failed, before the policy was attached to the log.
 #  The report stays: a case keeps its history. The run check.py makes now is later, so the
@@ -285,12 +285,12 @@ ex:interview-note a gsn:Artefact ;
 
 ex:interview a gsnaug:Mechanism ; gsnaug:automated false .
 
-#  The note is also verifiable with a script. A script leaves no report of its own, so the one
+#  The note is also checkable with a script. A script leaves no report of its own, so the one
 #  here is written by hand in the form a SHACL engine would produce: the adapter a scripted
 #  mechanism needs. It does not conform, so A6b marks Sn2 not true. The two gaps it reports are
 #  the ones I9 asks about.
 
-ex:interview-note gsnaug:verifiableWith ex:note-check .
+ex:interview-note gsnaug:checkableWith ex:note-check .
 
 ex:note-check a gsnaug:Mechanism ;
     gsnaug:automated true ;
@@ -311,7 +311,7 @@ ex:note-check-report-1 a sh:ValidationReport ;
 #  the note check's newest report does not. Support is a composition, so the composition guard
 #  in A6a keeps Sn2 untrue: one failing check is enough, and the two rules do not alternate.
 
-ex:interview-note gsnaug:verifiableWith ex:note-exists .
+ex:interview-note gsnaug:checkableWith ex:note-exists .
 
 ex:note-exists a gsnaug:Mechanism ;
     gsnaug:automated true ;
@@ -335,7 +335,7 @@ ex:Sn3 a gsn:Solution ; schema:identifier "Sn3" ;
     gsn:refersTo ex:config-export .
 
 ex:config-export a gsn:Artefact ;
-    gsnaug:verifiableWith ex:key-check .
+    gsnaug:checkableWith ex:key-check .
 
 ex:config-export-key-7 a gsnaug:ArtefactPart ; schema:name "Configuration export, key 7" ;
     gsnaug:partOf ex:config-export .
@@ -380,7 +380,7 @@ ex:firewall-ruleset a gsn:Artefact .
 
 ex:firewall-rule-12 a gsnaug:ArtefactPart ; schema:name "Firewall ruleset, rule 12" ;
     gsnaug:partOf ex:firewall-ruleset ;
-    gsnaug:verifiableWith ex:rule-check .
+    gsnaug:checkableWith ex:rule-check .
 
 ex:rule-check a gsnaug:Mechanism ;
     gsnaug:automated true ;
