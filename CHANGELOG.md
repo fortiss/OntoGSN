@@ -15,7 +15,7 @@ release. These are the current versions:
 | Component | Version | File |
 | :--- | :--- | :--- |
 | Ontology | 1.3.0 | `ontology/serializations/ontogsn.ttl` |
-| SHACL shapes | 1.1.0 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
+| SHACL shapes | 1.1.1 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
 | Augmentation, and its shapes | 0.4.0 | `augmentation/ontogsn-augmentation.ttl` |
 | Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
 | Design record | 1.3.0 | `development/design/ontogsn-design.ttl` |
@@ -25,7 +25,7 @@ against an ontology version, so both are listed together.
 
 | Ontology | Date | Shapes | Breaking |
 | :--- | :--- | :--- | :--- |
-| 1.3.0 | 2026-11-05 | 1.1.0 | yes — for reasoners |
+| 1.3.0 | 2026-11-05 | 1.1.0, 1.1.1 | yes — for reasoners |
 | 1.2.3 | 2026-08-15 | 1.0.0 | no |
 | 1.2.2 | 2026-08-05 | 1.0.0 (introduced 2026-08-06) | yes — for reasoners |
 | 1.2.1 | 2026-01-23 | — | no |
@@ -33,6 +33,34 @@ against an ontology version, so both are listed together.
 
 Versions 1.0 and 1.1 predate this repository; no artefact of either survives here to diff.
 The ontology as published is described in the paper (arXiv:2506.11023).
+
+---
+
+## SHACL shapes 1.1.1 (2026-11-05)
+
+Four checks now report at the severity that they declare. Before this fix, a SHACL engine
+reported each of them as a violation.
+
+Each of the four checks put `sh:severity` on its SPARQL constraint. SHACL reads `sh:severity`
+only on a shape. pyshacl ignored the value on the constraint and used the default,
+`sh:Violation`. The value is now on the shape.
+
+| Shape | Severity in 1.1.1 | Severity reported by 1.1.0 |
+| :--- | :--- | :--- |
+| `gsnsh:TrueClaimSolutionShape` | warning | violation |
+| `gsnsh:ChallengesIrreflexiveShape` | warning | violation |
+| `gsnsh:SuccessfulChallengeCastsDoubtShape` | info | violation |
+| `gsnsh:ConsistentWithSymmetricShape` (new) | warning | violation, from `gsnsh:ConsistentWithPropertyShape` |
+
+- `gsnsh:ConsistentWithPropertyShape` keeps only its domain check, at violation. A shape has
+  one severity, so the symmetry check moved to the new `gsnsh:ConsistentWithSymmetricShape`.
+  The symmetry check reports a `gsn:consistentWith` statement without its reverse. Retires
+  `dd-0896`. Decisions `dd-1084` and `dd-1085`, rationale `why-0230`.
+- The records of the other three shapes change only in where `sh:severity` stands.
+
+*For case authors:* a report from shapes 1.1.0 lists these findings as violations. With 1.1.1,
+the same findings are warnings or info. If you filter results by `sh:sourceShape`, the
+symmetry finding now comes from `gsnsh:ConsistentWithSymmetricShape`.
 
 ---
 

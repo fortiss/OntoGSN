@@ -15,7 +15,7 @@
     dc:description "SHACL shapes derived from the Core GSN section of the OntoGSN ontology (https://w3id.org/OntoGSN/ontology)."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     gsn:coreOrExtension "Core GSN"@en ;
-    owl:versionInfo "1.1.0" .
+    owl:versionInfo "1.1.1" .
 
 
 #################################################################
@@ -700,11 +700,11 @@ gsnsh:TrueClaimSolutionShape rdf:type sh:NodeShape ;
     rdfs:label "A claim marked true rests only on solutions marked true"@en ;
     sh:targetSubjectsOf gsn:supportedBy ;
     gsn:coreOrExtension "Core GSN"@en ;
+    sh:severity sh:Warning ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} is marked true, but the solution {?value} that supports it is not marked true."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Warning ;
         sh:select """
             SELECT $this ?value
             WHERE {
