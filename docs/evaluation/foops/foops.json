@@ -250,11 +250,11 @@
     "category_id": "Reusable",
     "status": "ok",
     "title": "Ontology documentation: all terms have labels",
-    "explanation": "Labels found for all ontology terms (58 terms found)",
+    "explanation": "Labels found for all ontology terms (61 terms found)",
     "abbreviation": "VOC3",
     "description": "\u003cp\u003eThis test verifies the extent to which all ontology terms have labels.\nThe test will pass if all classes, properties and data properties have either an \u003ca href\u003d\"http://www.w3.org/2000/01/rdf-schema#label\"\u003erdfs:label\u003c/a\u003e or \u003ca href\u003d\"http://www.w3.org/2004/02/skos/core#prefLabel\"\u003eskos:prefLabel\u003c/a\u003e.\nFor skos vocabularies, only the skos:Concepts are assessed.\nOtherwise, the test will fail, indicating the level of completeness found (i.e., percentage of documented terms) \u003c/p\u003e",
-    "total_passed_tests": 58,
-    "total_tests_run": 58
+    "total_passed_tests": 61,
+    "total_tests_run": 61
   },
   {
     "id": "https://w3id.org/foops/test/VOC4",
@@ -262,11 +262,11 @@
     "category_id": "Reusable",
     "status": "ok",
     "title": "Ontology documentation: all terms have definitions",
-    "explanation": "Descriptions found for all ontology terms (58 terms found)",
+    "explanation": "Descriptions found for all ontology terms (61 terms found)",
     "abbreviation": "VOC4",
     "description": "\u003cp\u003eThis check verifies whether all ontology terms have descriptions. \nThe test will pass if all classes, properties and data properties have at least one \u003ca href\u003d\"http://www.w3.org/2000/01/rdf-schema#comment\"\u003erdfs:comment\u003c/a\u003e, \u003ca href\u003d\"http://www.w3.org/2004/02/skos/core#definition\"\u003eskos:definition\u003c/a\u003e or \u003ca href\u003d\"http://purl.obolibrary.org/obo/IAO_0000118\"\u003eobo:IAO_0000118\u003c/a\u003e annotation.\nFor skos vocabularies, only the skos:Concepts are assessed.\u003c/p\u003e\n\u003cp\u003eThe test will fail otherwise, showing the level of completeness obtained (i.e. the percentage of documented terms).\u003c/p\u003e",
-    "total_passed_tests": 58,
-    "total_tests_run": 58
+    "total_passed_tests": 61,
+    "total_tests_run": 61
   },
   {
     "id": "https://w3id.org/foops/test/VER1",
@@ -274,7 +274,7 @@
     "category_id": "Findable",
     "status": "ok",
     "title": "A version IRI is declared in the ontology metadata",
-    "explanation": "Version IRI defined, IRI is different from ontology URI. Version info found (1.2.4).",
+    "explanation": "Version IRI defined, IRI is different from ontology URI. Version info found (1.3.0).",
     "abbreviation": "VER1",
     "description": "\u003cp\u003eThis test verifies whether there is an id for this ontology version, and whether the id is unique (i.e., different from the ontology URI). The test will pass if: \u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eThe ontology has a versionIRI (\u003ca href\u003d\"http://www.w3.org/2002/07/owl#versionIRI\"\u003eowl:versionIRI\u003c/a\u003e) and \u003c/li\u003e\n\u003cli\u003eThe versionIRI used is different from the ontology URI.\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003eOtherwise the test will fail. The test will also verify whether version information is present (through \u003ca href\u003d\"http://www.w3.org/2002/07/owl#versionInfo\"\u003eowl:versionInfo\u003c/a\u003e), but this is optional.\u003c/p\u003e",
     "total_passed_tests": 2,
