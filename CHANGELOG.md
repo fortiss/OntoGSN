@@ -56,6 +56,20 @@ was built, not about any case, and the new name says so. The maintenance scripts
 
 ---
 
+## Augmentation 0.3.2 — 2026-11-05 — first release
+
+The augmentation (`augmentation/`) is released for the first time, together with ontology
+1.3.0. It names `gsnaug:augmentedOntoGSNVersion "1.3.0"`.
+
+- Its nine SWRL rules (A2a to A6d) are blank nodes, as the rules of the ontology are since
+  1.3.0. Before this change, each rule had an IRI of its own, and Protégé read every one with
+  an empty body and head. A rule is identified by its `rdfs:label`.
+- `development/dev_tools/augmentation_check.py` no longer names a rule by IRI.
+
+*For users:* if you open the augmentation in Protégé, the SWRL tab lists the nine rules.
+
+---
+
 ## Ontology 1.3.0 — 2026-11-05 — shapes 1.1.0
 
 Version 1.2.4 was never released. Its changes ship as 1.3.0, because they add terms and

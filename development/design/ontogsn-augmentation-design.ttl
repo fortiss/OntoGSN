@@ -71,7 +71,7 @@ gsnaugdesign:augmentation-0.3.2
     rdfs:label "OntoGSN Augmentation 0.3.2"@en ;
     owl:versionInfo "0.3.2" ;
     gsndesign:path "augmentation/ontogsn-augmentation.ttl" ;
-    gsndesign:fileChecksum "d30d8ab1fc7a4d30400fd562d096cb699a07911ac52b1dd0fded5f2659f82c21" .
+    gsndesign:fileChecksum "979177a0a0c64916e16303f715e34d793dfb250ec696ed7cd9e538601fe97c32" .
 
 gsnaugdesign:augmentation-shapes-0.3.2
     a gsndesign:FormalGraph ;
@@ -546,7 +546,7 @@ closure."""@en .
 gsnaugdesign:why-0024
     a gsndesign:Rationale ;
     gsndesign:rationaleText """An augmentation is only valid against the version of the augmented ontology it was written for, and
-two things here would not hold before OntoGSN 1.2.4: gsnaug:instantiatedFrom assumes an
+two things here would not hold before OntoGSN 1.3.0: gsnaug:instantiatedFrom assumes an
 InstantiationDataReference may carry gsn:refersTo, which the widened domain of that release first
 permitted, and rules A2 and A3 assume gsn:challenges reaches the class of target they match.
 Recording the version as an annotation makes the dependency checkable rather than folkloric."""@en .
@@ -1050,7 +1050,7 @@ that is not there."""@en .
 gsnaugdesign:why-0057
     a gsndesign:Rationale ;
     gsndesign:rationaleText """The standard says that an instantiation data reference points at the information used to
-instantiate a template argument, and since OntoGSN 1.2.4 gsn:refersTo says which artefact that is.
+instantiate a template argument, and since OntoGSN 1.3.0 gsn:refersTo says which artefact that is.
 Nothing said how the information becomes elements, so the step that does it, a SPARQL query or a
 SWRL rule, had nowhere to be recorded, and gsnaug:instantiatedFrom named the row an element came
 from but not what read the row. The augmentation already records mechanisms on artefacts in pairs,
@@ -1377,14 +1377,14 @@ gsnaugdesign:st-0018
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0018 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
-    gsndesign:statementText "gsnaug:augmentedOntoGSNVersion \"1.2.4\" ." ;
+    gsndesign:statementText "gsnaug:augmentedOntoGSNVersion \"1.3.0\" ." ;
     gsndesign:aboutTerm gsnaug:augmentedOntoGSNVersion ;
     gsndesign:mentionsTerm gsnaug:augmentedOntoGSNVersion .
 
 gsnaugdesign:dd-0019
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:OWL ;
-    gsndesign:naturalLanguage "Which row of instantiation data produced an element is recorded on the element, and depends on the widened reference domain of OntoGSN 1.2.4."@en ;
+    gsndesign:naturalLanguage "Which row of instantiation data produced an element is recorded on the element, and depends on the widened reference domain of OntoGSN 1.3.0."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0024 ;
     prov:generated gsnaugdesign:st-0019 .
@@ -1553,8 +1553,7 @@ gsnaugdesign:st-0021
     prov:wasGeneratedBy gsnaugdesign:dd-0021 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "Issue(?I) ^ issueType(?I, revise) ^ raisedAgainst(?I, ?E) ^ Goal(?E) -> Goal(?I) ^ true(?I, true) ^ challenges(?I, ?E)" ;
-    gsndesign:aboutTerm gsnaug:ReviseIssueChallengesGoal ;
-    gsndesign:mentionsTerm gsn:challenges , gsn:true , gsnaug:ReviseIssueChallengesGoal , gsnaug:ReviseIssueChallengesSolution .
+    gsndesign:mentionsTerm gsn:challenges , gsn:true  .
 
 gsnaugdesign:dd-0022
     a gsndesign:DesignDecision ;
@@ -1569,8 +1568,7 @@ gsnaugdesign:st-0022
     prov:wasGeneratedBy gsnaugdesign:dd-0022 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "Issue(?I) ^ issueType(?I, resolve) ^ raisedAgainst(?I, ?E) ^ Goal(?E) -> Goal(?I) ^ challenges(?I, ?E) ^ defeated(?E, true)" ;
-    gsndesign:aboutTerm gsnaug:ResolveIssueDefeatsGoal ;
-    gsndesign:mentionsTerm gsn:challenges , gsn:defeated , gsnaug:ResolveIssueDefeatsGoal , gsnaug:ResolveIssueDefeatsSolution .
+    gsndesign:mentionsTerm gsn:challenges , gsn:defeated  .
 
 gsnaugdesign:dd-0023
     a gsndesign:DesignDecision ;
@@ -1584,9 +1582,7 @@ gsnaugdesign:st-0023
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0023 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
-    gsndesign:statementText "A2a and A2b; A3a and A3b." ;
-    gsndesign:aboutTerm gsnaug:ReviseIssueChallengesSolution ;
-    gsndesign:mentionsTerm gsnaug:ResolveIssueDefeatsSolution , gsnaug:ReviseIssueChallengesSolution .
+    gsndesign:statementText "A2a and A2b; A3a and A3b." .
 
 gsnaugdesign:dd-0024
     a gsndesign:RetiredDecision ;
@@ -1618,9 +1614,7 @@ gsnaugdesign:st-0025
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0025 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.2 ;
-    gsndesign:statementText "augmentation/rules/a02a, a02b, a03a, a03b, a04, a06a, a06b, a06c, a06d - one per SWRL rule, count asserted by development/dev_tools/augmentation_check.py." ;
-    gsndesign:aboutTerm gsnaug:ReviseIssueChallengesGoal ;
-    gsndesign:mentionsTerm gsnaug:ResolveIssueDefeatsGoal , gsnaug:ReviseIssueChallengesGoal .
+    gsndesign:statementText "augmentation/rules/a02a, a02b, a03a, a03b, a04, a06a, a06b, a06c, a06d - one per SWRL rule, count asserted by development/dev_tools/augmentation_check.py." .
 
 
 #################################################################
@@ -1924,9 +1918,7 @@ gsnaugdesign:st-0049
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0049 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.2 ;
-    gsndesign:statementText "augmentation/rules/a03a and a03b: DELETE/INSERT of gsn:defeated guarded on the target, then INSERT of gsn:challenges guarded on the pair." ;
-    gsndesign:aboutTerm gsnaug:ResolveIssueDefeatsGoal ;
-    gsndesign:mentionsTerm gsnaug:ResolveIssueDefeatsGoal , gsnaug:ResolveIssueDefeatsSolution .
+    gsndesign:statementText "augmentation/rules/a03a and a03b: DELETE/INSERT of gsn:defeated guarded on the target, then INSERT of gsn:challenges guarded on the pair." .
 
 
 #################################################################
@@ -2233,8 +2225,7 @@ gsnaugdesign:st-0067
     prov:wasGeneratedBy gsnaugdesign:dd-0067 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A4: ArtefactPart(?P) ^ partOf(?P, ?A) ^ Artefact(?A) ^ verifiableWith(?A, ?X) -> verifiableWith(?P, ?X). SPARQL twin in augmentation/rules/a04." ;
-    gsndesign:aboutTerm gsnaug:PartInheritsVerifiableWith ;
-    gsndesign:mentionsTerm gsn:Artefact , gsnaug:ArtefactPart , gsnaug:PartInheritsVerifiableWith , gsnaug:partOf ,
+    gsndesign:mentionsTerm gsn:Artefact , gsnaug:ArtefactPart , gsnaug:partOf ,
         gsnaug:verifiableWith .
 
 gsnaugdesign:dd-0068
@@ -2271,9 +2262,7 @@ gsnaugdesign:st-0069
     prov:wasGeneratedBy gsnaugdesign:dd-0069 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A6a: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ verifiableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, true) -> true(?S, true). SPARQL twin in augmentation/rules/a06a." ;
-    gsndesign:aboutTerm gsnaug:ConformingReportConfirmsSolution ;
-    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ConformingReportConfirmsSolution ,
-        gsnaug:verifiableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
+    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:verifiableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
 
 gsnaugdesign:dd-0070
     a gsndesign:DesignDecision ;
@@ -2288,9 +2277,7 @@ gsnaugdesign:st-0070
     prov:wasGeneratedBy gsnaugdesign:dd-0070 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A6b: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ verifiableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, false) -> true(?S, false). SPARQL twin in augmentation/rules/a06b." ;
-    gsndesign:aboutTerm gsnaug:FailingReportRefutesSolution ;
-    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:FailingReportRefutesSolution ,
-        gsnaug:verifiableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
+    gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:verifiableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
 
 gsnaugdesign:dd-0071
     a gsndesign:DesignDecision ;
@@ -2454,9 +2441,8 @@ gsnaugdesign:st-0080
     prov:wasGeneratedBy gsnaugdesign:dd-0080 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A6c: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ verifiableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, true) -> true(?S, true). SPARQL twin in augmentation/rules/a06c." ;
-    gsndesign:aboutTerm gsnaug:ConformingPartReportConfirmsSolution ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
-        gsnaug:ConformingPartReportConfirmsSolution , gsnaug:partOf , gsnaug:verifiableWith , prov:used ,
+        gsnaug:partOf , gsnaug:verifiableWith , prov:used ,
         prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
 
 gsnaugdesign:dd-0081
@@ -2472,9 +2458,8 @@ gsnaugdesign:st-0081
     prov:wasGeneratedBy gsnaugdesign:dd-0081 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.3.2 ;
     gsndesign:statementText "A6d: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ verifiableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, false) -> true(?S, false). SPARQL twin in augmentation/rules/a06d." ;
-    gsndesign:aboutTerm gsnaug:FailingPartReportRefutesSolution ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
-        gsnaug:FailingPartReportRefutesSolution , gsnaug:partOf , gsnaug:verifiableWith , prov:used ,
+        gsnaug:partOf , gsnaug:verifiableWith , prov:used ,
         prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
 
 gsnaugdesign:dd-0082
@@ -2511,9 +2496,7 @@ gsnaugdesign:st-0083
     prov:wasGeneratedBy gsnaugdesign:dd-0083 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.2 ;
     gsndesign:statementText "augmentation/rules/a06a, a06b, a06c, a06d: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime; in a06a and a06c a second FILTER NOT EXISTS on a current failing report over the artefact or a part of it; DELETE { ?S gsn:true ?old } before INSERT. Each file marks the guards as not in the SWRL. The SWRL rules are unchanged." ;
-    gsndesign:aboutTerm gsnaug:ConformingReportConfirmsSolution ;
-    gsndesign:mentionsTerm gsn:true , gsnaug:ConformingPartReportConfirmsSolution , gsnaug:ConformingReportConfirmsSolution ,
-        gsnaug:FailingPartReportRefutesSolution , gsnaug:FailingReportRefutesSolution , gsnaug:partOf , gsnaug:verifiableWith ,
+    gsndesign:mentionsTerm gsn:true , gsnaug:partOf , gsnaug:verifiableWith ,
         prov:generatedAtTime , sh:ValidationReport , sh:conforms .
 
 gsnaugdesign:dd-0084
@@ -2561,9 +2544,7 @@ gsnaugdesign:st-0086
     prov:wasGeneratedBy gsnaugdesign:dd-0086 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.3.2 ;
     gsndesign:statementText "augmentation/rules/a06a, a06b, a06c, a06d: FILTER NOT EXISTS { ?R prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck } on the report read, on every candidate for a newer report, and in a06a and a06c on the failing reports of the composition guard." ;
-    gsndesign:aboutTerm gsnaug:ConformingReportConfirmsSolution ;
-    gsndesign:mentionsTerm gsnaug:ConformingPartReportConfirmsSolution , gsnaug:ConformingReportConfirmsSolution ,
-        gsnaug:FailingPartReportRefutesSolution , gsnaug:FailingReportRefutesSolution , prov:invalidatedAtTime ,
+    gsndesign:mentionsTerm prov:invalidatedAtTime ,
         prov:wasInvalidatedBy , sh:ValidationReport .
 
 gsnaugdesign:dd-0087
