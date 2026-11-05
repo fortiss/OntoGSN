@@ -43,12 +43,12 @@ bad:artefact a gsn:Artefact ;
     gsnaug:storedIn        bad:a-person ;
     gsnaug:retrievableWith bad:a-person ;
     gsnaug:generatedWith   bad:a-person ;
-    gsnaug:verifiedWith    bad:a-person .
+    gsnaug:checkedWith     bad:a-person .
 
 #  ArtefactPartShape - a part is part of an artefact, not of a person
 bad:part a gsnaug:ArtefactPart ;
     gsnaug:partOf bad:a-person ;
-    gsnaug:verifiableWith bad:a-person .
+    gsnaug:checkableWith bad:a-person .
 
 #  SolutionProvenanceShape (warning) - provenance belongs on the artefact
 bad:Sn1 a gsn:Solution ; schema:identifier "SnB1" ;

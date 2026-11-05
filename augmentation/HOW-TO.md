@@ -18,11 +18,11 @@ The examples use these prefixes:
 
 ## Register a mechanism
 
-A mechanism is a way to generate, retrieve or verify a piece of evidence. Create one
+A mechanism is a way to generate, retrieve or check a piece of evidence. Create one
 individual of `gsnaug:Mechanism` per way. Link the artefact to it with the property that
-names the task: `gsnaug:generableWith`, `gsnaug:retrievableWith` or `gsnaug:verifiableWith`.
+names the task: `gsnaug:generableWith`, `gsnaug:retrievableWith` or `gsnaug:checkableWith`.
 After the mechanism ran, add the past-tense twin: `gsnaug:generatedWith`,
-`gsnaug:retrievedWith` or `gsnaug:verifiedWith`.
+`gsnaug:retrievedWith` or `gsnaug:checkedWith`.
 
 Then say how the mechanism runs:
 
@@ -54,9 +54,9 @@ ex:note-check a gsnaug:Mechanism ;
 Stop there. What a tool or a package is, which version, and what it needs in turn, belongs to
 a domain ontology or to a software bill of materials. The augmentation holds the link only.
 
-## Record what a verification found
+## Record what a check found
 
-`gsnaug:verifiableWith` says that a mechanism can check an artefact. What the check found is a
+`gsnaug:checkableWith` says that a mechanism can check an artefact. What the check found is a
 report. Keep the report in the case graph. The rules A6a to A6d set the status of the solution
 from it. Do not set `gsn:true` on a solution by hand.
 
@@ -293,7 +293,7 @@ effectiveness claim and nothing else. Never cite the same artefact under both cl
 
 If a piece of evidence rests on one function, one sheet or one row, name that part as a
 `gsnaug:ArtefactPart` and link it to the whole with `gsnaug:partOf`. Record the mechanism on
-the part. The rules copy `gsnaug:verifiableWith` down from the whole to the part. The other
+the part. The rules copy `gsnaug:checkableWith` down from the whole to the part. The other
 provenance properties stay where you put them.
 
 ```turtle
@@ -302,7 +302,7 @@ ex:access-log-row-42 a gsnaug:ArtefactPart ; gsnaug:partOf ex:access-log .
 
 A report over the part confirms or refutes the solution that refers to the whole artefact, in
 the same way as a report over the whole. Link the report to the part with `prov:used`. The
-section on recording what a verification found says what else the report must carry.
+section on recording what a check found says what else the report must carry.
 
 `gsnaug:partOf` is a `dcterms:isPartOf`. A tool that knows Dublin Core and not this vocabulary
 reads the relation.

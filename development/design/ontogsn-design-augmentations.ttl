@@ -288,7 +288,7 @@ gsndesign:cq-CQ-52
     a gsndesign:CompetencyQuestion ;
     rdfs:label "CQ-52"@en ;
     gsndesign:role "Process/Software Owner"@en ;
-    gsndesign:questionText "Was this evidence verified - by whom, with what mechanism, and did it pass?"@en .
+    gsndesign:questionText "Was this evidence checked, by whom, with what mechanism, and did it pass?"@en .
 
 gsndesign:cq-CQ-53
     a gsndesign:CompetencyQuestion ;
@@ -654,7 +654,7 @@ gsndesign:query-augmentation-queries-fc10-evidence-verification
     rdfs:label "augmentation/queries/fc10_evidence_verification.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc10_evidence_verification.rq" ;
-    gsndesign:fileChecksum "7c7ca56b191fd4d09296f8e19208e4777fadb245f93539d8282f585f5457e0d5" ;
+    gsndesign:fileChecksum "2663b9e483185bb95cd849b62ffebdff48eb96f66e63b1a8de7bd9c6152698e4" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -668,7 +668,7 @@ gsndesign:query-augmentation-queries-fc10-evidence-verification
     gsndesign:queryText """# id:        CQ-52
 # role:      Process/Software Owner
 # operation: read
-# question:  Was this evidence verified - by whom, with what mechanism, and did it pass?
+# question:  Was this evidence checked, by whom, with what mechanism, and did it pass?
 # expect:    rows
 
 PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
@@ -680,7 +680,7 @@ WHERE {
   ?solution a gsn:Solution ;
             schema:identifier ?solutionId ;
             gsn:refersTo ?artefact .
-  OPTIONAL { ?artefact gsnaug:verifiedWith ?mechanism }
+  OPTIONAL { ?artefact gsnaug:checkedWith  ?mechanism }
   OPTIONAL { ?artefact gsnaug:reviewedBy   ?reviewer }
   OPTIONAL { ?solution gsn:valid ?valid }
 }
@@ -1568,7 +1568,7 @@ gsndesign:query-augmentation-queries-fc37-term-impact
     rdfs:label "augmentation/queries/fc37_term_impact.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc37_term_impact.rq" ;
-    gsndesign:fileChecksum "50604a257d6098af5b904f13f83ea69c35059abb91f7235681417117a83d103e" ;
+    gsndesign:fileChecksum "521cad626d2634742635582ca22fbb0c50d584ca881dd4cd8f6a27df5d466cca" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1601,7 +1601,7 @@ WHERE {
   ?artefact  ?use ?mechanism .
   FILTER ( ?use IN ( gsnaug:retrievableWith, gsnaug:retrievedWith,
                      gsnaug:generableWith,   gsnaug:generatedWith,
-                     gsnaug:verifiableWith,  gsnaug:verifiedWith ) )
+                     gsnaug:checkableWith,   gsnaug:checkedWith ) )
   OPTIONAL {
     ?solution a gsn:Solution ;
               schema:identifier ?solutionId ;
@@ -1617,7 +1617,7 @@ gsndesign:query-augmentation-queries-fc38-inspectable-mechanisms
     rdfs:label "augmentation/queries/fc38_inspectable_mechanisms.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc38_inspectable_mechanisms.rq" ;
-    gsndesign:fileChecksum "d779cff55e49f415f3375877febd0afbd1ac1c3baf14a6413d5ad90506335129" ;
+    gsndesign:fileChecksum "66ed876784ab0a20b1bef00f5a3b3b812bdd95bee74ea77e6172e96ad3f35fbf" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://spinrdf.org/sp#" ,
         "http://www.w3.org/2003/11/swrl#" ,
@@ -1660,7 +1660,7 @@ WHERE {
   ?artefact ?use ?mechanism .
   FILTER ( ?use IN ( gsnaug:retrievableWith, gsnaug:retrievedWith,
                      gsnaug:generableWith,   gsnaug:generatedWith,
-                     gsnaug:verifiableWith,  gsnaug:verifiedWith ) )
+                     gsnaug:checkableWith,   gsnaug:checkedWith ) )
   OPTIONAL {
     ?mechanism a ?formalism .
     FILTER ( ?formalism IN ( sh:NodeShape, sh:PropertyShape,

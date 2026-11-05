@@ -26,11 +26,11 @@
     dc:creator "Tomas Bueno Momčilović"@en ;
     dc:publisher "https://www.fortiss.org/"@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
-    dc:description """OntoGSN Augmentation is a container for custom extensions to the OntoGSN ontology. It contains the terms for linking a GSN assurance case to external non-GSN elements. Current version includes elements that are common to software auditing processes: the people and roles behind an element; the mechanisms for generating, retrieving and verifying an evidence artefact, or verifying that the context still holds; the mechanisms for instantiating a template argument from its data; the issues raised against the case as defeaters, and their answers; the (regulatory) requirement a claim answers to; and the system that the case assures."""@en ;
+    dc:description """OntoGSN Augmentation is a container for custom extensions to the OntoGSN ontology. It contains the terms for linking a GSN assurance case to external non-GSN elements. Current version includes elements that are common to software auditing processes: the people and roles behind an element; the mechanisms for generating, retrieving and checking an evidence artefact, or checking that the context still holds; the mechanisms for instantiating a template argument from its data; the issues raised against the case as defeaters, and their answers; the (regulatory) requirement a claim answers to; and the system that the case assures."""@en ;
     terms:created "2026-08-17"^^xsd:date ;
     vann:preferredNamespacePrefix "gsnaug" ;
     vann:preferredNamespaceUri "https://w3id.org/OntoGSN/augmentation#" ;
-    owl:versionInfo "0.3.2" ;
+    owl:versionInfo "0.4.0" ;
     gsnaug:augmentedOntoGSNVersion "1.3.0" .
 
 gsnaug:augmentedOntoGSNVersion rdf:type owl:AnnotationProperty ;
@@ -50,7 +50,7 @@ gsnaug:ArtefactPart rdf:type owl:Class ;
 
 gsnaug:Mechanism rdf:type owl:Class ;
     rdfs:label "Mechanism"@en ;
-    skos:definition "Means through which some GSN-linked artefact is generated, retrieved or verified."@en ;
+    skos:definition "Means through which some GSN-linked artefact is generated, retrieved or checked."@en ;
     skos:note "Used for maintaining the continuity between a gsn:Artefact and a gsn:GSNElement, and automating the respective activities with rules (where possible). A mechanism states which domain terms it depends on with gsnaug:readsTerm and gsnaug:writesTerm. A mechanism can be a SHACL shape, a SWRL rule, or a SPARQL query. A mechanism that is code carries its text in gsnaug:script. One that is neither, such as an interview, carries only its provenance. What a mechanism needs in order to run, such as an interpreter, a package or a credential, is dcterms:requires, with the far end left to a domain ontology."@en .
 
 gsnaug:Issue rdf:type owl:Class ;
@@ -154,24 +154,24 @@ gsnaug:generatedWith rdf:type owl:ObjectProperty ;
     rdfs:label "generated with"@en ;
     skos:definition "How was the artefact produced."@en .
 
-gsnaug:verifiableWith rdf:type owl:ObjectProperty ;
+gsnaug:checkableWith rdf:type owl:ObjectProperty ;
     rdfs:domain [ rdf:type owl:Class ;
                   owl:unionOf ( gsn:Artefact
                                 gsnaug:ArtefactPart
                               )
                 ] ;
     rdfs:range gsnaug:Mechanism ;
-    rdfs:label "verified with"@en ;
+    rdfs:label "checkable with"@en ;
     skos:definition "What can check the truth or appropriateness of the artefact."@en .
 
-gsnaug:verifiedWith rdf:type owl:ObjectProperty ;
+gsnaug:checkedWith rdf:type owl:ObjectProperty ;
     rdfs:domain [ rdf:type owl:Class ;
                   owl:unionOf ( gsn:Artefact
                                 gsnaug:ArtefactPart
                               )
                 ] ;
     rdfs:range gsnaug:Mechanism ;
-    rdfs:label "verified with"@en ;
+    rdfs:label "checked with"@en ;
     skos:definition "What checked the truth or appropriateness of the artefact."@en ;
     skos:note "The mechanism that ran, which is provenance. Distinct from a shape or a rule that decides whether a claim holds."@en .
 
@@ -395,7 +395,7 @@ gsnaug:automated rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:boolean ;
     rdfs:label "automated"@en ;
     skos:definition "Whether the mechanism can be executed without manual intervention."@en ;
-    skos:note "Used for automating the execution of retrieval, generation or verification of artefacts."@en .
+    skos:note "Used for automating the execution of retrieval, generation or check of artefacts."@en .
 
 gsnaug:script rdf:type owl:DatatypeProperty ;
     rdfs:domain gsnaug:Mechanism ;
@@ -677,8 +677,8 @@ gsnaugswrl:R  rdf:type swrl:Variable .
 
 ###  A4
 [ swrla:isRuleEnabled "true"^^xsd:boolean ;
-   rdfs:label "Part Inherits Verifiable With" ;
-   rdfs:comment "IF ArtefactPart P is part of Artefact A AND A is verifiable with X THEN P is verifiable with X"@en ;
+   rdfs:label "Part Inherits Checkable With" ;
+   rdfs:comment "IF ArtefactPart P is part of Artefact A AND A is checkable with X THEN P is checkable with X"@en ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:ClassAtom ;
@@ -698,7 +698,7 @@ gsnaugswrl:R  rdf:type swrl:Variable .
                                                ] ;
                                      rdf:rest [ rdf:type swrl:AtomList ;
                                                 rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                            swrl:propertyPredicate gsnaug:verifiableWith ;
+                                                            swrl:propertyPredicate gsnaug:checkableWith ;
                                                             swrl:argument1 gsnaugswrl:A ;
                                                             swrl:argument2 gsnaugswrl:X
                                                           ] ;
@@ -709,7 +709,7 @@ gsnaugswrl:R  rdf:type swrl:Variable .
              ] ;
    swrl:head [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate gsnaug:verifiableWith ;
+                           swrl:propertyPredicate gsnaug:checkableWith ;
                            swrl:argument1 gsnaugswrl:P ;
                            swrl:argument2 gsnaugswrl:X
                          ] ;
@@ -720,7 +720,7 @@ gsnaugswrl:R  rdf:type swrl:Variable .
 ###  A6a
 [ swrla:isRuleEnabled "true"^^xsd:boolean ;
    rdfs:label "Conforming Report Confirms Solution" ;
-   rdfs:comment "IF Solution S refers to Artefact A AND A is verifiable with Mechanism M AND a report R generated by M over A conforms THEN S is true"@en ;
+   rdfs:comment "IF Solution S refers to Artefact A AND A is checkable with Mechanism M AND a report R generated by M over A conforms THEN S is true"@en ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:ClassAtom ;
@@ -740,7 +740,7 @@ gsnaugswrl:R  rdf:type swrl:Variable .
                                                ] ;
                                      rdf:rest [ rdf:type swrl:AtomList ;
                                                 rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                            swrl:propertyPredicate gsnaug:verifiableWith ;
+                                                            swrl:propertyPredicate gsnaug:checkableWith ;
                                                             swrl:argument1 gsnaugswrl:A ;
                                                             swrl:argument2 gsnaugswrl:M
                                                           ] ;
@@ -789,7 +789,7 @@ gsnaugswrl:R  rdf:type swrl:Variable .
 ###  A6b
 [ swrla:isRuleEnabled "true"^^xsd:boolean ;
    rdfs:label "Failing Report Refutes Solution" ;
-   rdfs:comment "IF Solution S refers to Artefact A AND A is verifiable with Mechanism M AND a report R generated by M over A does not conform THEN S is not true"@en ;
+   rdfs:comment "IF Solution S refers to Artefact A AND A is checkable with Mechanism M AND a report R generated by M over A does not conform THEN S is not true"@en ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:ClassAtom ;
@@ -809,7 +809,7 @@ gsnaugswrl:R  rdf:type swrl:Variable .
                                                ] ;
                                      rdf:rest [ rdf:type swrl:AtomList ;
                                                 rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                            swrl:propertyPredicate gsnaug:verifiableWith ;
+                                                            swrl:propertyPredicate gsnaug:checkableWith ;
                                                             swrl:argument1 gsnaugswrl:A ;
                                                             swrl:argument2 gsnaugswrl:M
                                                           ] ;
@@ -858,7 +858,7 @@ gsnaugswrl:R  rdf:type swrl:Variable .
 ###  A6c
 [ swrla:isRuleEnabled "true"^^xsd:boolean ;
    rdfs:label "Conforming Part Report Confirms Solution" ;
-   rdfs:comment "IF Solution S refers to Artefact A AND ArtefactPart P is part of A AND P is verifiable with Mechanism M AND a report R generated by M over P conforms THEN S is true"@en ;
+   rdfs:comment "IF Solution S refers to Artefact A AND ArtefactPart P is part of A AND P is checkable with Mechanism M AND a report R generated by M over P conforms THEN S is true"@en ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:ClassAtom ;
@@ -889,7 +889,7 @@ gsnaugswrl:R  rdf:type swrl:Variable .
                                                                      ] ;
                                                            rdf:rest [ rdf:type swrl:AtomList ;
                                                                       rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                                                  swrl:propertyPredicate gsnaug:verifiableWith ;
+                                                                                  swrl:propertyPredicate gsnaug:checkableWith ;
                                                                                   swrl:argument1 gsnaugswrl:P ;
                                                                                   swrl:argument2 gsnaugswrl:M
                                                                                 ] ;
@@ -940,7 +940,7 @@ gsnaugswrl:R  rdf:type swrl:Variable .
 ###  A6d
 [ swrla:isRuleEnabled "true"^^xsd:boolean ;
    rdfs:label "Failing Part Report Refutes Solution" ;
-   rdfs:comment "IF Solution S refers to Artefact A AND ArtefactPart P is part of A AND P is verifiable with Mechanism M AND a report R generated by M over P does not conform THEN S is not true"@en ;
+   rdfs:comment "IF Solution S refers to Artefact A AND ArtefactPart P is part of A AND P is checkable with Mechanism M AND a report R generated by M over P does not conform THEN S is not true"@en ;
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:ClassAtom ;
@@ -971,7 +971,7 @@ gsnaugswrl:R  rdf:type swrl:Variable .
                                                                      ] ;
                                                            rdf:rest [ rdf:type swrl:AtomList ;
                                                                       rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                                                  swrl:propertyPredicate gsnaug:verifiableWith ;
+                                                                                  swrl:propertyPredicate gsnaug:checkableWith ;
                                                                                   swrl:argument1 gsnaugswrl:P ;
                                                                                   swrl:argument2 gsnaugswrl:M
                                                                                 ] ;
