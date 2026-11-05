@@ -172,7 +172,7 @@ gsn:Artefact rdfs:subClassOf prov:Entity .
 ```
 
 Asserted here and never in `ontology/serializations/ontogsn.ttl` — same call, for the same reason, as the two
-`gsn:` axioms in `alignments/gsnalign.ttl`. Without it the three subproperties have a domain of
+`gsn:` axioms in `alignments/ontogsn-align.ttl`. Without it the three subproperties have a domain of
 `gsn:Artefact` under superproperties whose domain is `prov:Entity`, and a PROV-aware consumer sees
 nothing.
 
