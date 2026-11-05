@@ -5,13 +5,13 @@
 #            each mechanism declare?
 # expect:    rows
 #
-# Four states per mechanism. In the graph: the mechanism is a shape, a rule or a query, so what
-# it depends on can be read off the node. Script in the graph: a person can read what it does,
+# Four states per mechanism. In the graph: a shape, a rule or a query implements the mechanism,
+# so what it depends on can be read off that node. Script in the graph: a person can read what it does,
 # but no tool derives the terms, so any listed are declared by hand. Declared by hand: terms are
 # listed but nothing in the graph says what the mechanism does, so the list has to be trusted.
 # Opaque: none of the above, so only a run tells.
 #
-# "In the graph" is read off the type. The list below is what this query knows: SHACL shapes,
+# "In the graph" is read off the type of the node that implements the mechanism. The list below is what this query knows: SHACL shapes,
 # SHACL-AF SPARQL executables, SWRL rules and SPIN queries. A new formalism is a line here.
 
 PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
@@ -32,7 +32,8 @@ WHERE {
                      gsnaug:generableWith,   gsnaug:generatedWith,
                      gsnaug:checkableWith,   gsnaug:checkedWith ) )
   OPTIONAL {
-    ?mechanism a ?formalism .
+    ?definition gsnaug:implements ?mechanism ;
+                a ?formalism .
     FILTER ( ?formalism IN ( sh:NodeShape, sh:PropertyShape,
                              sh:SPARQLSelectExecutable, sh:SPARQLAskExecutable,
                              sh:SPARQLConstructExecutable, sh:SPARQLUpdateExecutable,

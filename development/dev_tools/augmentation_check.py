@@ -9,7 +9,7 @@ Three things, in the order they can fail:
     2. the SPARQL rules reach a fixpoint, and each SWRL rule has a SPARQL twin
     3. the SHACL shapes validate the fixture before and after the rules run
 
-Before the rules run, every mechanism in the fixture that is a SHACL shape is run over the data,
+Before the rules run, every mechanism in the fixture that a SHACL shape implements is run over the data,
 and the report it produces is kept in the graph, linked to the mechanism and the artefact. That
 is what A6a and A6b read: the status of a solution is derived from a report, not asserted.
 A6c and A6d read the same kind of report over a part of the artefact; the fixture carries two of
@@ -119,17 +119,20 @@ def closure(source, node, target):
 
 
 def run_shape_mechanisms(graph):
-    """Run each mechanism that is a shape over the artefact it checks; keep the report.
+    """Run each mechanism that a shape implements over the artefact it checks; keep the report.
 
     pyshacl returns the report as a graph. Three triples are added to it - which mechanism
     produced it, which artefact it looked at, and when - and the result is merged into the data.
     Those three lines are the whole adapter between an engine and rules A6a/A6b."""
     runs = 0
     for artefact, mechanism in graph.subject_objects(AUG.checkableWith):
-        if (mechanism, RDF.type, SH.NodeShape) not in graph:
+        definitions = [d for d in graph.subjects(AUG.implements, mechanism)
+                       if (d, RDF.type, SH.NodeShape) in graph]
+        if not definitions:
             continue
         shape = Graph()
-        closure(graph, mechanism, shape)
+        for definition in definitions:
+            closure(graph, definition, shape)
         conforms, report, text = validate(graph, shacl_graph=shape, advanced=True, inference="none")
         if not isinstance(report, Graph):
             failures.append(f"{mechanism} could not run: {text}")
@@ -330,6 +333,8 @@ must_report = [
     ("a conforming report that disagrees with a failing one at the same time", BAD["report-yes"]),
     ("a failing report that disagrees with a conforming one at the same time", BAD["report-no"]),
     ("a struck report that names no activity", BAD["report-struck-anonymously"]),
+    ("a definition that implements something other than a mechanism", BAD["definition-of-nothing"]),
+    ("a mechanism typed as its own rule",       BAD["self-defined"]),
 ]
 for name, node in must_report:
     check(str(node) in focus_nodes, f"reported: {name}", f"NOT reported: {name}")

@@ -4,8 +4,8 @@
 # operation: rule
 # expect:    insert
 # swrl:      none. The head is an RDF list, walked with rdf:rest*, which SWRL cannot express.
-# reads:     IF a mechanism is a SWRL rule THEN it writes every class predicate and property
-#            predicate in its head
+# reads:     IF a SWRL rule implements a mechanism THEN the mechanism writes every class predicate
+#            and property predicate in the head of the rule
 #
 # The twin of D2: what a rule concludes is what it writes. A term in both body and head is read
 # and written, which is the case for every rule that narrows a class it also tests.
@@ -16,8 +16,10 @@ PREFIX swrl:   <http://www.w3.org/2003/11/swrl#>
 
 INSERT { ?mechanism gsnaug:writesTerm ?term }
 WHERE {
-  ?mechanism a gsnaug:Mechanism , swrl:Imp ;
-             swrl:head/rdf:rest*/rdf:first ?atom .
+  ?definition a swrl:Imp ;
+              gsnaug:implements ?mechanism ;
+              swrl:head/rdf:rest*/rdf:first ?atom .
+  ?mechanism a gsnaug:Mechanism .
   ?atom swrl:classPredicate|swrl:propertyPredicate ?term .
   FILTER ( isIRI(?term) )
 }

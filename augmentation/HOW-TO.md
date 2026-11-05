@@ -30,14 +30,27 @@ Then say how the mechanism runs:
 2. If a person has to run it, set `gsnaug:automated false`.
 3. If the mechanism is a script or a command, put its text in `gsnaug:script`. Name the
    interpreter in the text itself, as a shebang line or a PowerShell `#requires` line.
-4. If the mechanism is a SHACL shape, a SWRL rule or a SPARQL query, type the same node as
-   both. The check tool then reads what it depends on off the node.
+4. If a SHACL shape, a SWRL rule, a SPARQL query or another definition carries out the
+   mechanism, write the definition as a separate node. Link it to the mechanism with
+   `gsnaug:implements`. The definition can be a blank node. Write a SWRL rule as one, because
+   Protege reads the body and the head of a rule that has an IRI as empty. The check tool reads
+   what the mechanism depends on off the definition.
 5. If the mechanism is a script or a query, list the domain terms it reads by hand with
    `gsnaug:readsTerm`.
 
 Together, these separate four states. A mechanism that runs by itself. A mechanism that a
 person runs from its text. A mechanism that needs something the case names. A mechanism that
 is an interview, with no text at all.
+
+```turtle
+ex:retention-check a gsnaug:Mechanism ;
+    gsnaug:automated true .
+
+[] a sh:NodeShape ;
+    gsnaug:implements ex:retention-check ;
+    sh:targetClass ex:AccessLogEntry ;
+    sh:property [ sh:path ex:retainedUntil ; sh:minCount 1 ] .
+```
 
 ## Say what a mechanism needs in order to run
 

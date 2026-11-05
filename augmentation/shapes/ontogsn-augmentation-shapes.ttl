@@ -8,6 +8,8 @@
 @prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+@prefix sp:       <http://spinrdf.org/sp#> .
+@prefix swrl:     <http://www.w3.org/2003/11/swrl#> .
 @prefix terms:    <http://purl.org/dc/terms/> .
 @prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
 @base <https://w3id.org/OntoGSN/augmentation/shapes> .
@@ -355,6 +357,35 @@ gsnaugsh:MechanismRequirementShape rdf:type sh:NodeShape ;
         sh:message "What a mechanism requires in order to run is a resource, not a literal."@en ;
         sh:severity sh:Violation ;
     ] .
+
+###  gsnaug:implements - what a definition carries out is a mechanism
+gsnaugsh:MechanismDefinitionShape rdf:type sh:NodeShape ;
+    rdfs:label "Mechanism definition shape"@en ;
+    rdfs:comment "Targeted at whatever carries gsnaug:implements: a SHACL shape, a SWRL rule, a SPARQL query or a definition in any other form. The form is not restricted, and the definition can be a blank node."@en ;
+    sh:targetSubjectsOf gsnaug:implements ;
+    sh:property [
+        sh:path gsnaug:implements ;
+        sh:class gsnaug:Mechanism ;
+        sh:name "implements" ;
+        sh:message "A definition implements a gsnaug:Mechanism."@en ;
+        sh:severity sh:Violation ;
+    ] .
+
+###  gsnaug:Mechanism - a mechanism is not its own shape, rule or query
+gsnaugsh:MechanismSelfDefinitionShape rdf:type sh:NodeShape ;
+    rdfs:label "Mechanism self-definition shape"@en ;
+    rdfs:comment "The derivations and the stored queries read a definition through gsnaug:implements only. A mechanism that is also typed as its own shape, rule or query gets no derived terms."@en ;
+    sh:targetClass gsnaug:Mechanism ;
+    sh:not [ sh:or ( [ sh:class sh:NodeShape ]
+                     [ sh:class sh:PropertyShape ]
+                     [ sh:class sh:SPARQLSelectExecutable ]
+                     [ sh:class sh:SPARQLAskExecutable ]
+                     [ sh:class sh:SPARQLConstructExecutable ]
+                     [ sh:class sh:SPARQLUpdateExecutable ]
+                     [ sh:class swrl:Imp ]
+                     [ sh:class sp:Query ] ) ] ;
+    sh:message "A mechanism is not its own shape, rule or query. Write the definition as a separate node, which can be a blank node, and link it to the mechanism with gsnaug:implements."@en ;
+    sh:severity sh:Warning .
 
 
 #################################################################

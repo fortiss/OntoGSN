@@ -36,6 +36,8 @@ Plus four link properties — `instantiatedFrom`, `requiredBy`, `linksTo`, `tag`
 
 An `InstantiationDataReference` names the `Mechanism` that turns its data into elements, such as a SPARQL query or a SWRL rule: `instantiableWith` for the one meant to do it, `instantiatedWith` for the one that did.
 
+A SHACL shape, a SWRL rule or a SPARQL query that carries out a mechanism is a separate node. It names the mechanism with `implements`, and it can be a blank node. The mechanism keeps its IRI, so that an artefact and a report in another file can name it.
+
 Every link names what sits at its far end:
 
 | Class | Reached by | Is |
@@ -120,7 +122,7 @@ does not conform, the solution is not. A report over a part reaches the solution
 because `gsn:refersTo` ranges on `gsn:Artefact` and a solution refers to the whole. The core rules S10
 and S11 then carry the result up to the goal. No term is added for this.
 
-A mechanism that is a SHACL shape produces the report by itself. `augmentation_check.py` runs each such mechanism in
+A mechanism that a SHACL shape implements produces the report by itself. `augmentation_check.py` runs each such mechanism in
 the fixture over its artefact and keeps the report that the engine returns, plus the two links and a
 timestamp. A mechanism that is a script needs a wrapper that writes the same form, or a person writes
 the report by hand. The fixture has one of each.

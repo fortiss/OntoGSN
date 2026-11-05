@@ -206,9 +206,11 @@ ex:inLog          a owl:ObjectProperty .
 ex:retainedUntil  a owl:DatatypeProperty .
 ex:retentionPolicy a owl:ObjectProperty .
 
-ex:log-query a sh:SPARQLSelectExecutable ;
-    sh:select """SELECT ?entry ?until WHERE { ?entry a ex:AccessLogEntry ; ex:retainedUntil ?until }""" ;
-    gsnaug:readsTerm ex:AccessLogEntry , ex:retainedUntil .
+[] a sh:SPARQLSelectExecutable ;
+    gsnaug:implements ex:log-query ;
+    sh:select """SELECT ?entry ?until WHERE { ?entry a ex:AccessLogEntry ; ex:retainedUntil ?until }""" .
+
+ex:log-query gsnaug:readsTerm ex:AccessLogEntry , ex:retainedUntil .
 
 ex:logging-function gsnaug:writesTerm ex:AccessLogEntry .
 
@@ -217,8 +219,9 @@ ex:retention-rule gsnaug:readsTerm ex:retainedUntil .
 ex:logging-function gsnaug:script """#requires -Version 7
 Get-WinEvent -LogName Security | Export-Csv -Path access-log.csv""" .
 
-#  Two mechanisms that are in the graph as what they are: a shape and a rule. Neither declares a
-#  term; the rules in derivations/ read the terms off the node. The shape has a plain path, a
+#  Two mechanisms that a shape and a rule carry out. The shape and the rule are blank nodes that
+#  name their mechanism with gsnaug:implements. Neither mechanism declares a term; the rules in
+#  derivations/ read the terms off the shape and the rule. The shape has a plain path, a
 #  path with sh:class, and a sequence path, so that all three branches of D1 are exercised.
 #  The log carries one entry, so that the shape has a focus node when check.py runs it: the
 #  report the run leaves behind is what A6a reads to mark Sn1 true.
@@ -246,15 +249,21 @@ ex:retention-report-0 a sh:ValidationReport ;
     prov:used ex:access-log ;
     prov:generatedAtTime "2026-03-01T09:00:00Z"^^xsd:dateTime .
 
-ex:retention-shape a gsnaug:Mechanism , sh:NodeShape ;
-    gsnaug:automated true ;
+ex:retention-shape a gsnaug:Mechanism ;
+    gsnaug:automated true .
+
+[] a sh:NodeShape ;
+    gsnaug:implements ex:retention-shape ;
     sh:targetClass ex:AccessLogEntry ;
     sh:property [ sh:path ex:retainedUntil ; sh:minCount 1 ] ;
     sh:property [ sh:path ex:inLog ; sh:class ex:AccessLog ] ;
     sh:property [ sh:path ( ex:inLog ex:retentionPolicy ) ; sh:minCount 1 ] .
 
-ex:expiry-rule a gsnaug:Mechanism , swrl:Imp ;
-    gsnaug:automated true ;
+ex:expiry-rule a gsnaug:Mechanism ;
+    gsnaug:automated true .
+
+[ a swrl:Imp ;
+    gsnaug:implements ex:expiry-rule ;
     swrl:body [ a swrl:AtomList ;
                 rdf:first [ a swrl:ClassAtom ;
                             swrl:classPredicate ex:AccessLogEntry ;
@@ -269,7 +278,8 @@ ex:expiry-rule a gsnaug:Mechanism , swrl:Imp ;
                 rdf:first [ a swrl:ClassAtom ;
                             swrl:classPredicate ex:Expiring ;
                             swrl:argument1 ex:e ] ;
-                rdf:rest rdf:nil ] .
+                rdf:rest rdf:nil ]
+] .
 
 ex:e a swrl:Variable .
 ex:d a swrl:Variable .
@@ -427,8 +437,11 @@ ex:IDR1 a gsn:InstantiationDataReference ; schema:identifier "IDR1" ;
     gsnaug:instantiatedWith ex:control-instantiation .
 
 #  The query that turns each row of the catalogue into a goal. It is in the graph, not run.
-ex:control-instantiation a gsnaug:Mechanism , sh:SPARQLConstructExecutable ;
-    gsnaug:automated true ;
+ex:control-instantiation a gsnaug:Mechanism ;
+    gsnaug:automated true .
+
+[] a sh:SPARQLConstructExecutable ;
+    gsnaug:implements ex:control-instantiation ;
     sh:construct """CONSTRUCT { ?goal a gsn:Goal ; gsn:statement ?name ; gsnaug:instantiatedFrom ?row }
 WHERE { ?row gsnaug:partOf ex:control-catalogue ; schema:name ?name .
         BIND (IRI(CONCAT(STR(?row), "-goal")) AS ?goal) }""" .

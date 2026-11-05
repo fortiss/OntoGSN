@@ -52,6 +52,11 @@ artefact. Truth is `gsn:true`, and appropriateness is `gsn:valid`. "Verify" name
 first of the two, so the properties now use the neutral verb "check".
 
 - The old terms are gone, with no alias.
+- New: `gsnaug:implements`, from a shape, a rule, a query or another definition to the
+  mechanism that it carries out. The definition is now a separate node, and it can be a blank
+  node. A mechanism that is still typed as its own shape, rule or query is a warning
+  (`gsnaugsh:MechanismSelfDefinitionShape`), and the derivations D1 to D3 and the query FC38
+  read only the new link.
 - The rules A4 and A6a to A6d, and the stored queries FC10, FC37 and FC38, read the new
   terms. The question of FC10 is now "Was this evidence checked, by whom, with what mechanism,
   and did it pass?".

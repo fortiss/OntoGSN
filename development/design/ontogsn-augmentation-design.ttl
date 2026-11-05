@@ -71,7 +71,7 @@ gsnaugdesign:augmentation-0.4.0
     rdfs:label "OntoGSN Augmentation 0.4.0"@en ;
     owl:versionInfo "0.4.0" ;
     gsndesign:path "augmentation/ontogsn-augmentation.ttl" ;
-    gsndesign:fileChecksum "8bb32bc499a1433f8036981d4dd32daca08c917fd58e3577bbd6ed7b9e3ae3fc" .
+    gsndesign:fileChecksum "9d09accb2c845a8716771c9f6045e99a7deca59d5d4828b9db3bbba4e7503e21" .
 
 gsnaugdesign:augmentation-shapes-0.4.0
     a gsndesign:FormalGraph ;
@@ -79,7 +79,7 @@ gsnaugdesign:augmentation-shapes-0.4.0
     rdfs:label "OntoGSN Augmentation SHACL shapes 0.4.0"@en ;
     owl:versionInfo "0.4.0" ;
     gsndesign:path "augmentation/shapes/ontogsn-augmentation-shapes.ttl" ;
-    gsndesign:fileChecksum "6994fb921665c29f04fcf82dc1af6d5ed74216e72c0a21f52262c1446f0fe7e2" .
+    gsndesign:fileChecksum "90bdbc5d3072e07782c17be45be084a3b5a7a32da815b0c64e1d4f48cb2fea87" .
 
 gsnaugdesign:augmentation-queries-0.4.0
     a gsndesign:FormalGraph ;
@@ -1083,6 +1083,20 @@ The old label of gsnaug:verifiableWith was "verified with", the label of the oth
 the rename corrects it. The old terms are removed with no deprecated alias, because no case data
 outside the repository uses them. Rule A4 is a blank node with no IRI, so only its label
 changes."""@en .
+
+
+gsnaugdesign:why-0059
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """A mechanism and the shape, rule or query that carries it out are two nodes since 0.4.0.
+Until then they were one node with two types, and why-0043 records why a separate specification
+node, gsnaug:specifiedBy, was withdrawn before 0.3.2. Two facts reverse that. Protege reads a SWRL
+rule that has an IRI of its own with an empty body and head from Turtle and JSON-LD, so a rule is
+a blank node. A mechanism needs an IRI, because an artefact in one file and a report in another
+name it. One node cannot be both. The link points from the definition to the mechanism. On a SWRL
+rule it is then an annotation of the rule, as its label is, and nothing points to the rule. The
+definition can be in any form, so the shapes do not restrict its type, and the list of forms still
+lives in the stored query that reads it. A mechanism that is still typed as its own shape, rule or
+query is a warning, because the derivations no longer read it."""@en .
 
 
 
@@ -2161,7 +2175,9 @@ gsnaugdesign:st-0062
         gsnaugsh:MechanismInterfaceShape .
 
 gsnaugdesign:dd-0063
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired in 0.4.0: FC38 reads the formalism off the node that implements the mechanism, not off the mechanism."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0094 ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:naturalLanguage "Two stored queries read the interface: one walks from a domain term to the claims that rest on it, the other sorts each mechanism under a solution into in the graph, script in the graph, declared by hand, or opaque."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
@@ -2194,7 +2210,9 @@ gsnaugdesign:st-0064
         gsnaugsh:MechanismInterfaceShape .
 
 gsnaugdesign:dd-0065
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Retired in 0.4.0: D1 to D3 read the shape or the rule that implements the mechanism, not the mechanism."@en ;
+    gsndesign:supersededBy gsnaugdesign:dd-0093 ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:naturalLanguage "The terms a shape or rule mechanism reads, and the terms a rule mechanism writes, are derived from the node by SPARQL updates that have no SWRL twin."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
@@ -2637,3 +2655,73 @@ gsnaugdesign:st-0090
     gsndesign:statementText "gsnaug:checkableWith rdfs:label \"checkable with\"@en . gsnaug:checkedWith rdfs:label \"checked with\"@en . Rule A4 is labelled \"Part Inherits Checkable With\"." ;
     gsndesign:aboutTerm gsnaug:checkableWith ;
     gsndesign:mentionsTerm gsnaug:checkableWith , gsnaug:checkedWith .
+
+
+#################################################################
+#    Decisions - a definition implements a mechanism
+#################################################################
+
+gsnaugdesign:dd-0092
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "A shape, a rule or a query that carries out a mechanism is a separate node, which names the mechanism with gsnaug:implements and can be a blank node."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0059 ;
+    prov:generated gsnaugdesign:st-0092 .
+
+gsnaugdesign:st-0092
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0092 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-0.4.0 ;
+    gsndesign:statementText "gsnaug:implements a owl:AnnotationProperty ; rdfs:range gsnaug:Mechanism ." ;
+    gsndesign:aboutTerm gsnaug:implements ;
+    gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:implements .
+
+gsnaugdesign:dd-0093
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The terms that a shape or a rule reads, and the terms that a rule writes, are derived onto the mechanism that it implements, by SPARQL updates that have no SWRL twin."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0045 , gsnaugdesign:why-0059 ;
+    prov:generated gsnaugdesign:st-0093 .
+
+gsnaugdesign:st-0093
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0093 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-derivations-0.4.0 ;
+    gsndesign:statementText "augmentation/derivations/d01_shape_mechanism_reads.rq: a sh:NodeShape or sh:PropertyShape that gsnaug:implements a gsnaug:Mechanism gives the mechanism readsTerm every IRI reached by sh:targetClass, sh:targetSubjectsOf, sh:targetObjectsOf, sh:class and sh:path (unwrapping sh:inversePath, sh:zeroOrMorePath, sh:oneOrMorePath, sh:zeroOrOnePath, sh:alternativePath and sequence lists) on the shape and on shapes reached by sh:property, sh:node, sh:not, sh:and, sh:or, sh:xone. d02_rule_mechanism_reads.rq: a swrl:Imp that gsnaug:implements a gsnaug:Mechanism gives the mechanism readsTerm every IRI swrl:classPredicate or swrl:propertyPredicate in its swrl:body. d03_rule_mechanism_writes.rq: the same over swrl:head, into gsnaug:writesTerm." ;
+    gsndesign:aboutTerm gsnaug:readsTerm ;
+    gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:implements , gsnaug:readsTerm , gsnaug:writesTerm .
+
+gsnaugdesign:dd-0094
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "Two stored queries read the interface: one walks from a domain term to the claims that rest on it, the other sorts each mechanism under a solution into in the graph, script in the graph, declared by hand, or opaque, where in the graph means that a shape, a rule or a query implements it."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0043 , gsnaugdesign:why-0059 ;
+    prov:generated gsnaugdesign:st-0094 .
+
+gsnaugdesign:st-0094
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0094 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.4.0 ;
+    gsndesign:statementText "augmentation/queries/fc37_term_impact.rq (CQ-79): ?mechanism gsnaug:readsTerm ?term, then any of the six mechanism properties to the artefact, gsn:refersTo to the solution and gsn:supportedBy+ to the goals. augmentation/queries/fc38_inspectable_mechanisms.rq (CQ-80): per solution, artefact and mechanism, state = in the graph if a node typed sh:NodeShape, sh:PropertyShape, a sh:SPARQL*Executable, swrl:Imp or sp:Query gsnaug:implements the mechanism; script in the graph if gsnaug:script is bound; terms declared by hand if only gsnaug:readsTerm is; else opaque." ;
+    gsndesign:aboutTerm gsnaug:readsTerm ;
+    gsndesign:mentionsTerm gsnaug:implements , gsnaug:readsTerm , gsnaug:script .
+
+gsnaugdesign:dd-0095
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "A definition implements a mechanism, and a mechanism that is typed as its own shape, rule or query is a warning."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0059 ;
+    prov:generated gsnaugdesign:st-0095 .
+
+gsnaugdesign:st-0095
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0095 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-shapes-0.4.0 ;
+    gsndesign:statementText "gsnaugsh:MechanismDefinitionShape sh:targetSubjectsOf gsnaug:implements ; gsnaug:implements sh:class gsnaug:Mechanism ; sh:severity sh:Violation . gsnaugsh:MechanismSelfDefinitionShape sh:targetClass gsnaug:Mechanism ; sh:not [ sh:or ( sh:NodeShape, sh:PropertyShape, the four sh:SPARQL*Executable classes, swrl:Imp, sp:Query ) ] ; sh:severity sh:Warning ." ;
+    gsndesign:aboutTerm gsnaugsh:MechanismDefinitionShape ;
+    gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:implements , gsnaugsh:MechanismDefinitionShape ,
+        gsnaugsh:MechanismSelfDefinitionShape .

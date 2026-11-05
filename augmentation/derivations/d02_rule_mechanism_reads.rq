@@ -4,8 +4,8 @@
 # operation: rule
 # expect:    insert
 # swrl:      none. The body is an RDF list, walked with rdf:rest*, which SWRL cannot express.
-# reads:     IF a mechanism is a SWRL rule THEN it reads every class predicate and property
-#            predicate in its body
+# reads:     IF a SWRL rule implements a mechanism THEN the mechanism reads every class predicate
+#            and property predicate in the body of the rule
 #
 # Built-in atoms are not terms of a domain ontology and are left out. A class expression in a
 # class atom is a blank node and is left out.
@@ -16,8 +16,10 @@ PREFIX swrl:   <http://www.w3.org/2003/11/swrl#>
 
 INSERT { ?mechanism gsnaug:readsTerm ?term }
 WHERE {
-  ?mechanism a gsnaug:Mechanism , swrl:Imp ;
-             swrl:body/rdf:rest*/rdf:first ?atom .
+  ?definition a swrl:Imp ;
+              gsnaug:implements ?mechanism ;
+              swrl:body/rdf:rest*/rdf:first ?atom .
+  ?mechanism a gsnaug:Mechanism .
   ?atom swrl:classPredicate|swrl:propertyPredicate ?term .
   FILTER ( isIRI(?term) )
 }

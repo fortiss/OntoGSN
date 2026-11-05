@@ -5,6 +5,7 @@
 @prefix schema: <http://schema.org/> .
 @prefix terms:  <http://purl.org/dc/terms/> .
 @prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix swrl:   <http://www.w3.org/2003/11/swrl#> .
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 
 #  Deliberately wrong. Every node here must be reported by exactly the shape named above it;
@@ -177,3 +178,10 @@ bad:report-struck-anonymously a sh:ValidationReport ;
     prov:used bad:evidence-3 ;
     prov:generatedAtTime "2026-03-08T12:00:00Z"^^xsd:dateTime ;
     prov:invalidatedAtTime "2026-03-09T12:00:00Z"^^xsd:dateTime .
+
+#  MechanismDefinitionShape - a definition implements something that is not a mechanism
+bad:definition-of-nothing a sh:NodeShape ;
+    gsnaug:implements bad:nothing .
+
+#  MechanismSelfDefinitionShape (warning) - a mechanism typed as its own rule
+bad:self-defined a gsnaug:Mechanism , swrl:Imp .

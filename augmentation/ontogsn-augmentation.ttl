@@ -51,7 +51,7 @@ gsnaug:ArtefactPart rdf:type owl:Class ;
 gsnaug:Mechanism rdf:type owl:Class ;
     rdfs:label "Mechanism"@en ;
     skos:definition "Means through which some GSN-linked artefact is generated, retrieved or checked."@en ;
-    skos:note "Used for maintaining the continuity between a gsn:Artefact and a gsn:GSNElement, and automating the respective activities with rules (where possible). A mechanism states which domain terms it depends on with gsnaug:readsTerm and gsnaug:writesTerm. A mechanism can be a SHACL shape, a SWRL rule, or a SPARQL query. A mechanism that is code carries its text in gsnaug:script. One that is neither, such as an interview, carries only its provenance. What a mechanism needs in order to run, such as an interpreter, a package or a credential, is dcterms:requires, with the far end left to a domain ontology."@en .
+    skos:note "Used for maintaining the continuity between a gsn:Artefact and a gsn:GSNElement, and automating the respective activities with rules (where possible). A mechanism states which domain terms it depends on with gsnaug:readsTerm and gsnaug:writesTerm. A SHACL shape, a SWRL rule or a SPARQL query that carries a mechanism out is a separate node, which names the mechanism with gsnaug:implements. A mechanism that is code carries its text in gsnaug:script. One that is neither, such as an interview, carries only its provenance. What a mechanism needs in order to run, such as an interpreter, a package or a credential, is dcterms:requires, with the far end left to a domain ontology."@en .
 
 gsnaug:Issue rdf:type owl:Class ;
     rdfs:label "Issue"@en ;
@@ -345,7 +345,7 @@ gsnaug:instantiableWith rdf:type owl:ObjectProperty ;
     rdfs:range gsnaug:Mechanism ;
     rdfs:label "instantiable with"@en ;
     skos:definition "What can instantiate the template argument below the reference from its data."@en ;
-    skos:note "The mechanism is a SPARQL query, such as a sh:SPARQLConstructExecutable, or a SWRL rule, in the graph as that node. It reads the artefact that the reference reaches by gsn:refersTo and writes the elements of the argument. gsnaug:readsTerm and gsnaug:writesTerm on the mechanism name the terms on either side."@en .
+    skos:note "A SPARQL query, such as a sh:SPARQLConstructExecutable, or a SWRL rule carries the mechanism out and names it with gsnaug:implements. It reads the artefact that the reference reaches by gsn:refersTo and writes the elements of the argument. gsnaug:readsTerm and gsnaug:writesTerm on the mechanism name the terms on either side."@en .
 
 gsnaug:instantiatedWith rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:InstantiationDataReference ;
@@ -386,6 +386,12 @@ gsnaug:tag rdf:type owl:DatatypeProperty ;
     skos:note "Informal. Used for custom filtering and grouping."@en .
 
 
+gsnaug:implements rdf:type owl:AnnotationProperty ;
+    rdfs:range gsnaug:Mechanism ;
+    rdfs:label "implements"@en ;
+    skos:definition "The mechanism that this shape, rule, query or other definition carries out."@en ;
+    skos:note "The definition is a separate node from the mechanism, and it can be a blank node. A SWRL rule is one, because Protege reads a rule that has an IRI of its own with an empty body and head from Turtle. The mechanism keeps its IRI, so that an artefact and a report in another file can name it. On a SWRL rule, the link is an annotation of the rule, as its label is."@en .
+
 #################################################################
 #    Data properties
 #################################################################
@@ -402,7 +408,7 @@ gsnaug:script rdf:type owl:DatatypeProperty ;
     rdfs:range xsd:string ;
     rdfs:label "script"@en ;
     skos:definition "The text of the script or command that carries the mechanism out."@en ;
-    skos:note "For a mechanism that is code rather than a shape, a rule or a query, which would be in the graph as that node. A PowerShell or shell script, a command line, a pipeline definition. Name the interpreter in the text itself, as a shebang or a PowerShell #requires line, since the literal carries no language tag. A person can read the text, but no tool here derives gsnaug:readsTerm from it, so the terms are declared by hand."@en .
+    skos:note "For a mechanism that is code rather than a shape, a rule or a query, which would be in the graph as a separate node that names the mechanism with gsnaug:implements. A PowerShell or shell script, a command line, a pipeline definition. Name the interpreter in the text itself, as a shebang or a PowerShell #requires line, since the literal carries no language tag. A person can read the text, but no tool here derives gsnaug:readsTerm from it, so the terms are declared by hand."@en .
 
 gsnaug:issueOutcome rdf:type owl:DatatypeProperty ;
     rdfs:domain gsnaug:Issue ;
