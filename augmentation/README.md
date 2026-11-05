@@ -28,8 +28,8 @@ never sees this directory — the augmentation cannot break the core checks.
 
 | Group | Terms | Idea |
 | :--- | :--- | :--- |
-| **Artefact provenance** | `storedIn`, `retrievableWith`, `generatedBy`, `generatedWith`, `generatedFrom`, `checkedWith`, `revisionOf`, `containsElement` | how a piece of evidence came to be, and how to get it again |
-| **Roles** | `assures`/`assuredBy`, `owns`/`ownedBy`, `reviews`/`reviewedBy`, `hasRole` | who stands behind what |
+| **Artefact provenance** | `storedIn`, `retrievableWith`/`retrievedWith`, `generableWith`/`generatedWith`, `generatedBy`, `generatedFrom`, `checkableWith`/`checkedWith`, `replaces`, `partOf` | how a piece of evidence came to be, and how to get it again |
+| **Roles** | `assures`, `ownedBy`, `reviewedBy`, `hasRole` | who stands behind what |
 | **Issues** | `Issue`, `Response`, `raisedAgainst`, `issueType`, `respondsTo`, `issueOutcome`, `supersedes`, `raisedIn`, `coveredIn` | what was asked of the case, by whom, and whether it has been closed |
 
 Plus four link properties — `instantiatedFrom`, `requiredBy`, `linksTo`, `tag`.
@@ -45,7 +45,7 @@ Every link names what sits at its far end:
 | `System` | `assures` | the system, service or organisation the case is about |
 | `Requirement` | `requiredBy` | the regulation or obligation an element answers to |
 | `Role` | `hasRole` | what an agent is in the review process |
-| `ArtefactElement` | `instantiatedFrom`, `containsElement` | the row, clause or section of an artefact a claim was drawn from |
+| `ArtefactPart` | `instantiatedFrom` | the row, clause or section of an artefact a claim was drawn from |
 
 None of the four carries a taxonomy. They name the far end so a shape can check it; what a system or
 a requirement *is* still belongs to the user's domain ontology.
@@ -172,7 +172,7 @@ gsn:Artefact rdfs:subClassOf prov:Entity .
 ```
 
 Asserted here and never in `ontology/serializations/ontogsn.ttl` — same call, for the same reason, as the two
-`gsn:` axioms in `alignments/gsnalign.ttl`. Without it the three subproperties have a domain of
+`gsn:` axioms in `alignments/ontogsn-align.ttl`. Without it the three subproperties have a domain of
 `gsn:Artefact` under superproperties whose domain is `prov:Entity`, and a PROV-aware consumer sees
 nothing.
 

@@ -6,14 +6,16 @@
     python development/dev_tools/check_all.py --strict --staged   # only the checks the commit affects
 
 Nothing regenerates anything here. This answers one question: is what is committed
-self-consistent? Three of the seven checks are about derived files being current, one is
+self-consistent? Three of the eight checks are about derived files being current, one is
 about every stored query having been verified against what is committed, one is about the
-design record still agreeing with the ontology, and the last two ask an OWL-DL reasoner
-and the OOPS! pitfall scanner what they make of the ontology as it now stands.
+design record still agreeing with the ontology, one is about the Graffoo diagrams still
+drawing the ontologies, and the last two ask an OWL-DL reasoner and the OOPS! pitfall
+scanner what they make of the ontology as it now stands.
 
 Only the first four gate. The design-record report lists things a person has to judge - an
 axiom nobody has documented, a sentence that needs rewriting - and a build should not fail
-because a human decision is outstanding; pass --strict-design when you want it to. The
+because a human decision is outstanding; pass --strict-design when you want it to. A
+diagram difference is the same kind of thing: somebody has to redraw a page. The
 reasoner and OOPS! checks compare against a recorded baseline, and both baselines contain
 findings that are correct and deliberate, so a difference there is a prompt to look, not a
 verdict. Both also depend on something outside this repository - a JVM, somebody else's
@@ -68,6 +70,14 @@ CHECKS = [
      # the input prov_augment.py reads
      "triggers": ("development/design/", "ontology/serializations/ontogsn.ttl", "ontology/shapes/",
                   "ontology/queries/")},
+    # The diagrams are drawn by hand, so a difference is a drawing job for a person, not a
+    # broken build. It reads the drawio file and the ontologies, nothing else.
+    {"name": "Graffoo diagrams",
+     "command": ["development/dev_tools/graffoo_check.py", "--check"],
+     "gating": False,
+     "triggers": ("development/design/Graffoo Diagram.drawio", "ontology/serializations/ontogsn.ttl",
+                  "alignments/ontogsn-align.ttl", "augmentation/ontogsn-augmentation.ttl",
+                  "development/design/ontogsn-design.ttl", "development/dev_tools/graffoo_check.py")},
     # The two below reach outside Python: one wants a JVM, the other wants oops.linkeddata.es
     # to be up. Both report SKIPPED and exit 0 when what they need is absent, and neither
     # gates - an ontology is not broken because a machine has no Java or a service is down.
