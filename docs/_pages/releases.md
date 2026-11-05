@@ -1,0 +1,24 @@
+---
+layout: single
+title: "Releases"
+permalink: /releases/
+classes: [wide, og-page]
+---
+
+Each part of OntoGSN has its own version number: the ontology, the SHACL shapes, the augmentation, the alignment and the design record. The [changelog](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md) has the full entry for each release. This page lists the releases, newest first.
+
+| Date | Part | Version | Breaking | Summary |
+| :--- | :--- | :--- | :--- | :--- |
+| 2026-11-05 | SHACL shapes | [1.1.1](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#shacl-shapes-111-2026-11-05) | no | Four checks report at the severity that they declare, not as violations. |
+| 2026-11-05 | Augmentation | [0.4.0](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#augmentation-040-2026-11-05) | yes, two properties are renamed | A mechanism checks an artefact. |
+| 2026-11-05 | Ontology | [1.3.0](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#ontology-130--2026-11-05--shapes-110) | yes, for reasoners | Protégé reads the SWRL rules again. The rules find support cycles of any length. Top goals are scoped to their module. Twenty-four terms gain a definition. |
+| 2026-11-05 | Augmentation | [0.3.2](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#augmentation-032--2026-11-05--first-release) | first release | Released together with ontology 1.3.0. |
+| 2026-10-16 | Design record | [1.3.0](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#design-record-130-2026-10-16) | yes, for importers | The record moved to `development/design/`, and its namespace to `https://w3id.org/OntoGSN/design`. |
+| 2026-08-15 | Ontology | [1.2.3](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#ontology-123--2026-08-15--shapes-100) | no | The domains of the decorators, for example `gsn:valid`, include each class that a rule writes them onto. |
+| 2026-08-05 | Ontology | [1.2.2](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#ontology-122--2026-08-05--shapes-100-introduced-2026-08-06) | yes, for reasoners | `gsn:Defeater` is a subclass of goal or solution, not equal to it. The prefix `ontology:` becomes `gsn:`. SHACL shapes 1.0.0 follow on 2026-08-06. |
+| 2026-01-23 | Ontology | [1.2.1](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#ontology-121--2026-01-23) | no | Fixes rule S9 and adds annotations. |
+| 2025-07-10 | Ontology | [1.2](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#ontology-12--2025-07-10) | first version in the repository | |
+
+Versions 1.0 and 1.1 came before the repository. The [paper](https://arxiv.org/abs/2506.11023) describes them.
+
+Each release of the ontology is archived on Zenodo. The DOI [10.5281/zenodo.17808330](https://doi.org/10.5281/zenodo.17808330) always resolves to the newest release.

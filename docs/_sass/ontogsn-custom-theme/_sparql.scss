@@ -12,7 +12,7 @@ body.page-playground {
 
   /* Design tokens */
   --gap: 12px;
-  --pane-height: 520px;
+  --pane-height: clamp(420px, calc(100vh - 230px), 1000px); /* fill the window below the toolbars */
 
   --border: #ddd;
   --border-soft: #eee;
@@ -57,7 +57,8 @@ body.page-playground {
   }
 
   /* push right button bars to the edge */
-  #rightButtons {
+  #rightButtons,
+  #rightOptions {
     margin-left: auto;
   }
 
@@ -125,6 +126,15 @@ body.page-playground {
     border-radius: 8px;
     min-height: 1.2rem;
     white-space: pre-wrap;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  /* Shown only on narrow screens, where the panes do not fit */
+  .pg-narrow-note {
+    display: none;
   }
 
   /* -------------------------------------------------------------- */
@@ -294,6 +304,15 @@ body.page-playground {
   /* -------------------------------------------------------------- */
 
   @media (max-width: 900px) {
+    .pg-narrow-note {
+      display: block;
+      margin: 0 0 12px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-soft);
+    }
+
     .split {
       flex-direction: column;
     }

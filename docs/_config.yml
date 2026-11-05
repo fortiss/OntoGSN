@@ -53,7 +53,7 @@ reCaptcha:
   secret                 :
 atom_feed:
   path                   : # blank (default) uses feed.xml
-  hide                   : # true, false (default)
+  hide                   : true # no posts since the News page became Releases
 search                   : true # true, false (default)
 search_full_content      : true # true, false (default)
 search_provider          : # lunr (default), algolia, google
@@ -186,9 +186,6 @@ permalink: /:categories/:title/
 timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
-# Pagination with jekyll-paginate
-paginate: 5 # amount of posts to show
-paginate_path: /blog/page:num/
 
 # Pagination with jekyll-paginate-v2
 # See https://github.com/sverrirs/jekyll-paginate-v2/blob/master/README-GENERATOR.md#site-configuration
@@ -264,18 +261,3 @@ compress_html:
   clippings: all
   ignore:
     envs: development
-
-
-# Defaults
-defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: # true
-      share: true
-      related: true
