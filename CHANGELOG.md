@@ -4,7 +4,9 @@ The ontology-level view: what changed between two values of `owl:versionInfo` in
 `ontology/serializations/ontogsn.ttl`, for a reader who downloaded the TTL and never looks at this
 repository. Repository-level changes live in the commit log; each `v*` git tag marks the
 **last commit at that version**, so `git diff v1.2.2 v1.2.3 -- serializations/ontogsn.ttl`
-shows exactly what a version changed. Entries up to 1.3.0 are reconstructed by hand from the
+shows exactly what a version changed. A tag with a build suffix, such as `v1.3.0+1`, marks later
+changes around an unchanged ontology version: the shapes, the augmentation, the design record or
+the header metadata. Entries up to 1.3.0 are reconstructed by hand from the
 commit log and `development/design/`; from the next release on, an entry is written when the version
 number moves.
 
@@ -16,7 +18,7 @@ release. These are the current versions:
 | :--- | :--- | :--- |
 | Ontology | 1.3.0 | `ontology/serializations/ontogsn.ttl` |
 | SHACL shapes | 1.1.1 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
-| Augmentation, and its shapes | 0.4.0 | `augmentation/ontogsn-augmentation.ttl` |
+| Augmentation, and its shapes | 0.5.0 | `augmentation/ontogsn-augmentation.ttl` |
 | Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
 | Design record | 1.3.0 | `development/design/ontogsn-design.ttl` |
 
@@ -33,6 +35,38 @@ against an ontology version, so both are listed together.
 
 Versions 1.0 and 1.1 predate this repository; no artefact of either survives here to diff.
 The ontology as published is described in the paper (arXiv:2506.11023).
+
+---
+
+## Augmentation 0.5.0 (2026-11-06)
+
+The goal that an issue becomes gets a statement and a context, and a solution can name the parts
+of an artefact that it relies on. No term is added, renamed or removed. The FinComp hub proposed
+these changes and used them first.
+
+- New rules A8a to A8c. The goal that a revise or a resolve issue becomes takes the issue's
+  `schema:description` as its `gsn:statement` (A8a). It takes the contexts of the goal that it
+  challenges (A8b), or of the goal that the challenged solution supports (A8c). Before this
+  change, the core shapes warned about every such goal, because it had no statement and no
+  context. The SPARQL copies write a statement or a context only to a goal that has none. The
+  SWRL rules have no such test, so they add the values next to the ones a person wrote.
+- A solution can name the parts of an artefact that it relies on, with `gsn:refersTo` next to the
+  artefact. A report over a part then counts for the solution only if the solution names that
+  part, or names no part of the artefact. This applies to A6c, A6d, A7c and A7d, and to the
+  composition guard of A6a and A6c. A part that a solution names is also a `gsn:Artefact`,
+  because that is the range of `gsn:refersTo`. Only the SPARQL copies have this test.
+- The SPARQL copies of A6a and A6c write their composition guard as two guards, one over the
+  artefact and one over its parts. Each guard starts from the artefact, so an engine no longer
+  walks every checkable target of the case for each solution. This alone changes no answer.
+- FC24 (CQ-66) also reads resolve issues, because a resolution can replace an artefact too.
+- FC29 (CQ-71) lists only evidence: an artefact that a solution refers to. Data that a mechanism
+  generates for an instantiation is no longer listed.
+
+*For case authors:* if an issue that becomes a goal has a description, that text is now its
+statement. Write a `gsn:statement` on the issue to use other words. If a solution refers to a
+part, type the part as a `gsn:Artefact` too, or the core shapes report the reference.
+
+Reasoning: `dd-0101` to `dd-0103`, rationales `why-0061` and `why-0062`, passage `src-0018`.
 
 ---
 

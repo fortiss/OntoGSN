@@ -8,6 +8,9 @@
 # note:      THE GUARDS BELOW ARE NOT IN THE SWRL. The struck-report guard and the
 #            newest-report guard are those of A6d. The old validity value is deleted before
 #            false is written, as the core rules do.
+#            The part guard: a part counts for a solution that refers to it, or that refers
+#            to no part of the artefact. A solution that names the parts it relies on is
+#            not decided by a part that it does not use.
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
@@ -33,6 +36,9 @@ WHERE {
      prov:used ?P ;
      sh:conforms ?conforms .
   FILTER(STR(?conforms) = "false")
+  # part guard: the part counts for the solution when the solution refers to it, or refers
+  # to no part of the artefact
+  FILTER(EXISTS { ?S gsn:refersTo ?P } || NOT EXISTS { ?S gsn:refersTo ?namedPart . ?namedPart gsnaug:partOf ?A })
   # struck-report guard: a struck report never counts
   FILTER NOT EXISTS { ?R prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
   # newest-report guard: no later unstruck report from the same mechanism over the same target

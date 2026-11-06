@@ -1,0 +1,31 @@
+# rule:      A8a
+# name:      Issue Goal Statement
+# section:   Augmentation
+# operation: rule
+# expect:    insert
+# swrl:      Issue(?I) ^ Goal(?I) ^ description(?I, ?D) -> statement(?I, ?D)
+# reads:     IF Issue I is a goal AND has a description D THEN D is the statement of I
+# note:      THE GUARD BELOW IS NOT IN THE SWRL. The translation writes the statement only
+#            when the goal has none, which needs negation as failure. The SWRL adds the
+#            description as one more statement next to one that a person wrote.
+#            The nested SELECT makes the engine finish the WHERE clause before it inserts.
+#            rdflib otherwise tests the guard again after the first insert, and copies only
+#            one value.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema: <http://schema.org/>
+
+INSERT {
+  ?I gsn:statement ?D .
+}
+WHERE {
+  {
+    SELECT DISTINCT ?I ?D
+    WHERE {
+      ?I a gsnaug:Issue , gsn:Goal ;
+         schema:description ?D .
+      FILTER NOT EXISTS { ?I gsn:statement ?any }
+    }
+  }
+}

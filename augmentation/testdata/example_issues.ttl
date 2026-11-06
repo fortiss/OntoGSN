@@ -488,3 +488,35 @@ ex:scope-review-report-1 a sh:ValidationReport ;
     prov:wasGeneratedBy ex:scope-review ;
     prov:used ex:access-log ;
     prov:generatedAtTime "2026-03-10T10:00:00Z"^^xsd:dateTime .
+
+#  A solution that names the part it relies on. Sn5 refers to the firewall ruleset and to rule 7,
+#  which is a part and an artefact at once, because gsn:refersTo points at an artefact. The
+#  conforming report over rule 7 marks Sn5 true by A6c. The failing report over rule 12 does not
+#  refute Sn5 by A6d, because Sn5 names a part and rule 12 is not that part. Sn4 names no part,
+#  so every part of the ruleset counts for it, and rule 12 still refutes it.
+
+ex:G1 gsn:supportedBy ex:Sn5 .
+
+ex:Sn5 a gsn:Solution ; schema:identifier "Sn5" ;
+    gsn:statement "Firewall rule 7 of the reporting system." ;
+    gsn:refersTo ex:firewall-ruleset , ex:firewall-rule-7 .
+
+ex:firewall-rule-7 a gsnaug:ArtefactPart , gsn:Artefact ; schema:name "Firewall ruleset, rule 7" ;
+    gsnaug:partOf ex:firewall-ruleset ;
+    gsnaug:checkableWith ex:rule-check .
+
+ex:rule-check-report-2 a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy ex:rule-check ;
+    prov:used ex:firewall-rule-7 ;
+    prov:generatedAtTime "2026-03-08T17:25:00Z"^^xsd:dateTime .
+
+#  The goals that issues become. I4 gets its description as its statement by A8a, and the
+#  contexts of G1 by A8b. I3 challenges the solution Sn1, so it gets the contexts of G1, the goal
+#  that Sn1 supports, by A8c. I7 already has a statement and a context, so it keeps them.
+
+ex:I4 schema:description "The access log misses the first week of March." .
+
+ex:I7 schema:description "Encrypt the backups of the reporting system." ;
+    gsn:statement "The backups of the reporting system are not encrypted." ;
+    gsn:inContextOf ex:C-subject .

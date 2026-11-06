@@ -21,6 +21,9 @@
 #            artefact whose mechanisms disagree.
 #            The old truth value is deleted before the new one is written, as S10 does, so
 #            that a status flips rather than accumulates.
+#            The part guard: a part counts for a solution that refers to it, or that refers
+#            to no part of the artefact. A solution that names the parts it relies on is
+#            not decided by a part that it does not use.
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
@@ -46,6 +49,9 @@ WHERE {
      prov:used ?P ;
      sh:conforms ?conforms .
   FILTER(STR(?conforms) = "true")
+  # part guard: the part counts for the solution when the solution refers to it, or refers
+  # to no part of the artefact
+  FILTER(EXISTS { ?S gsn:refersTo ?P } || NOT EXISTS { ?S gsn:refersTo ?namedPart . ?namedPart gsnaug:partOf ?A })
   # struck-report guard: a struck report never counts
   FILTER NOT EXISTS { ?R prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
   # newest-report guard: no later unstruck report from the same mechanism over the same target
@@ -59,11 +65,34 @@ WHERE {
     FILTER NOT EXISTS { ?newer prov:invalidatedAtTime|prov:wasInvalidatedBy ?struckNewer }
   }
   # composition guard: no current failing report, from a mechanism that decides truth, over the
-  # artefact or over a part of it
+  # artefact or over a part of it. Written as two guards, one over the artefact and one over its
+  # parts, so that each starts from ?A instead of walking every checkable target of the case.
+  # ... over the artefact
   FILTER NOT EXISTS {
-    ?T2 gsnaug:checkableWith ?M2 .
+    ?A gsnaug:checkableWith ?M2 .
     ?M2 gsnaug:decides "truth" .
-    FILTER(?T2 = ?A || EXISTS { ?T2 gsnaug:partOf ?A })
+    ?R2 a sh:ValidationReport ;
+        prov:wasGeneratedBy ?M2 ;
+        prov:used ?A ;
+        sh:conforms ?c2 .
+    FILTER(STR(?c2) = "false")
+    FILTER NOT EXISTS { ?R2 prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck2 }
+    OPTIONAL { ?R2 prov:generatedAtTime ?t2 }
+    FILTER NOT EXISTS {
+      ?newer2 a sh:ValidationReport ;
+             prov:wasGeneratedBy ?M2 ;
+             prov:used ?A ;
+             prov:generatedAtTime ?tNewer2 .
+      FILTER(?tNewer2 > ?t2)
+      FILTER NOT EXISTS { ?newer2 prov:invalidatedAtTime|prov:wasInvalidatedBy ?struckNewer2 }
+    }
+  }
+  # ... over a part of it that counts for the solution
+  FILTER NOT EXISTS {
+    ?T2 gsnaug:partOf ?A ;
+        gsnaug:checkableWith ?M2 .
+    FILTER(EXISTS { ?S gsn:refersTo ?T2 } || NOT EXISTS { ?S gsn:refersTo ?namedPart . ?namedPart gsnaug:partOf ?A })
+    ?M2 gsnaug:decides "truth" .
     ?R2 a sh:ValidationReport ;
         prov:wasGeneratedBy ?M2 ;
         prov:used ?T2 ;

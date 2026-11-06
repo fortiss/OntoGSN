@@ -328,6 +328,19 @@ A report over the part confirms or refutes the solution that refers to the whole
 the same way as a report over the whole. Link the report to the part with `prov:used`. The
 section on recording what a check found says what else the report must carry.
 
+If a solution relies on some parts of the artefact and not on others, name those parts with
+`gsn:refersTo`, next to the whole. Then a report over another part does not decide that
+solution. Type each named part as a `gsn:Artefact` too, because `gsn:refersTo` points at an
+artefact. If you leave the type out, the core shapes report the reference.
+
+```turtle
+ex:Sn5 gsn:refersTo ex:firewall-ruleset , ex:firewall-rule-7 .
+ex:firewall-rule-7 a gsnaug:ArtefactPart , gsn:Artefact ; gsnaug:partOf ex:firewall-ruleset .
+```
+
+A solution that names no part is decided by every part of its artefact. Only the SPARQL rules
+read this. The SWRL rules cannot test what a solution does not name.
+
 `gsnaug:partOf` is a `dcterms:isPartOf`. A tool that knows Dublin Core and not this vocabulary
 reads the relation.
 
@@ -350,5 +363,7 @@ That is a judgement, and the case records who made it.
    the new system, or point the context at the new artefact, so that the row disappears.
 
 A revise issue against a goal or a solution becomes a challenge, and the target goes
-`gsn:inDoubt`. The same path serves an auditor's ask and a developer's change. No separate
+`gsn:inDoubt`. The goal that the issue becomes takes the issue's `schema:description` as its
+statement, and the contexts of what it challenges. Write a `gsn:statement` or a
+`gsn:inContextOf` on the issue yourself if you want other words or another context. The same path serves an auditor's ask and a developer's change. No separate
 flag for "stale" exists, and none is needed.

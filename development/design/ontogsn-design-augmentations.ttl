@@ -1082,7 +1082,7 @@ gsndesign:query-augmentation-queries-fc24-revision-diff
     rdfs:label "augmentation/queries/fc24_revision_diff.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc24_revision_diff.rq" ;
-    gsndesign:fileChecksum "61308164405318a62e17caa21d2461b9d136d844c6efc9297c082da9c7aeafb0" ;
+    gsndesign:fileChecksum "9a397469ddf06b74db4eecba5980445fade19cff9c4ae7f47d7df4d670a29ed3" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1099,9 +1099,10 @@ gsndesign:query-augmentation-queries-fc24-revision-diff
 #
 # Artefact versions only. A reworded claim is not a revision in this sense.
 #
-# The issue is the revise issue raised against an element that still refers to the older
-# artefact, or the revise issue in context of one that does. A case that points the revised
-# solution at the newer artefact can keep the older one in the context of the issue.
+# The issue is a revise or a resolve issue, because a resolution can also replace an artefact.
+# It is raised against an element that still refers to the older artefact, or it is in
+# context of one that does. A case that points the revised solution at the newer artefact
+# can keep the older one in the context of the issue.
 
 PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
@@ -1121,8 +1122,9 @@ WHERE {
       ?context gsn:refersTo ?older .
       ?issue gsn:inContextOf ?context .
     }
-    ?issue gsnaug:issueType gsnaug:revise ;
-           schema:identifier ?issueId
+    ?issue gsnaug:issueType ?type ;
+           schema:identifier ?issueId .
+    FILTER(?type IN (gsnaug:revise, gsnaug:resolve))
   }
 }
 ORDER BY ?newer
@@ -1244,23 +1246,32 @@ gsndesign:query-augmentation-queries-fc29-automated-evidence
     rdfs:label "augmentation/queries/fc29_automated_evidence.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc29_automated_evidence.rq" ;
-    gsndesign:fileChecksum "20b2cf4d152ad135206acb9bb8bede9a8f2d4bb5b0df992dc0f7afd912d29215" ;
+    gsndesign:fileChecksum "a05d99bdcecd985eee9dd3fe372bd5ab3ec40a165c3e63c353d93b87bd8d00be" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:Solution ,
+        gsn:refersTo ;
+    gsndesign:restsOnStatement gsndesign:st-0175 ,
+        gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-71 ;
     gsndesign:queryText """# id:        CQ-71
 # role:      Developer
 # operation: read
 # question:  Which evidence is generated automatically, and how or where from can it be retrieved?
 # expect:    rows
+#
+# Evidence is an artefact that a solution refers to. Generated data that no solution refers
+# to, such as the data of an instantiation, is not listed.
 
 PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 
-SELECT ?artefact ?mechanism ?source ?storage ?retrieval
+SELECT DISTINCT ?artefact ?mechanism ?source ?storage ?retrieval
 WHERE {
   ?artefact gsnaug:generatedWith ?mechanism .
   ?mechanism gsnaug:automated true .
+  ?solution a gsn:Solution ;
+            gsn:refersTo ?artefact .
   OPTIONAL { ?artefact gsnaug:generatedFrom  ?source }
   OPTIONAL { ?artefact gsnaug:storedIn       ?storage }
   OPTIONAL { ?artefact gsnaug:retrievableWith ?retrieval }
