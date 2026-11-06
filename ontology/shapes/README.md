@@ -8,7 +8,7 @@ Every shape carries `gsn:coreOrExtension`, exactly as the ontology terms do, so 
 
 The shapes carry no editorial comments. Why a constraint is written the way it is —
 including the cases where a shape deliberately departs from the ontology — is recorded in
-[`development/design/ontogsn-design-data.ttl`](../development/design/ontogsn-design-data.ttl), one
+[`development/design/ontogsn-design-data.ttl`](../../development/design/ontogsn-design-data.ttl), one
 design decision per constraint, holding the constraint's Turtle, the passage of the
 standard behind it, and the reasoning. `development/design/Design Documentation.xlsx` is the same
 record as a spreadsheet, generated from it.
