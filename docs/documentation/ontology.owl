@@ -19,19 +19,21 @@
      xmlns:ontology="https://w3id.org/OntoGSN/ontology#">
     <owl:Ontology rdf:about="https://w3id.org/OntoGSN/ontology">
         <owl:versionIRI rdf:resource="https://w3id.org/OntoGSN/ontology/1.3.0"/>
-        <ns:license>https://creativecommons.org/licenses/by/4.0/</ns:license>
-        <dc:contributor xml:lang="en">Barbara Gallina, Dian Balta, Ingmar Kessler</dc:contributor>
+        <ns:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+        <dc:contributor xml:lang="en">Barbara Gallina</dc:contributor>
+        <dc:contributor xml:lang="en">Dian Balta</dc:contributor>
+        <dc:contributor xml:lang="en">Ingmar Kessler</dc:contributor>
+        <dc:contributor xml:lang="en">Jule Hendricks</dc:contributor>
         <dc:creator xml:lang="en">Tomas Bueno Momčilović</dc:creator>
         <dc:description xml:lang="en">OntoGSN is an ontology for managing assurance cases in the Goal Structuring Notation (GSN). The goal of the ontology is to help users in linking the elements of their cases - claims and evidence - with the internationalized resource identifiers (IRIs) of represented concepts, events and data, and in evaluating the validity of their argument.</dc:description>
-        <dc:identifier>SCSC-141C</dc:identifier>
-        <dc:publisher xml:lang="en">https://www.fortiss.org/</dc:publisher>
-        <dc:source xml:lang="en">The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C</dc:source>
+        <dc:publisher rdf:nodeID="genid1"/>
+        <dc:source rdf:resource="https://scsc.uk/SCSC-141C"/>
         <dc:title xml:lang="en">OntoGSN</dc:title>
-        <terms:bibliographicCitation>Bueno Momcilovic, T., Gallina, B., Kessler, I., Hendricks, J., &amp; Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. Retrieved from https://fortiss.github.io/OntoGSN/</terms:bibliographicCitation>
-        <terms:created xml:lang="en">20th February 2025</terms:created>
-        <terms:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-02-24</terms:issued>
-        <terms:modified>2026-11-05T00:00:00Z</terms:modified>
-        <bibo:doi>https://doi.org/10.5281/zenodo.17808330</bibo:doi>
+        <terms:bibliographicCitation>Bueno Momčilović, T. (2026). OntoGSN (Version 1.3.0) [Ontology]. https://doi.org/10.5281/zenodo.17808330</terms:bibliographicCitation>
+        <terms:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-02-20</terms:created>
+        <terms:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-11-05</terms:issued>
+        <terms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2026-11-05</terms:modified>
+        <bibo:doi>10.5281/zenodo.17808330</bibo:doi>
         <bibo:status rdf:resource="http://purl.org/ontology/bibo/status/published"/>
         <vann:preferredNamespacePrefix>gsn</vann:preferredNamespacePrefix>
         <vann:preferredNamespaceUri>https://w3id.org/OntoGSN/ontology#</vann:preferredNamespaceUri>
@@ -39,11 +41,16 @@
         <schema:includedInDataCatalog rdf:resource="https://zenodo.org/"/>
         <schema:logo rdf:resource="https://fortiss.github.io/OntoGSN/assets/images/ontogsn-banner.png"/>
         <schema:url rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/OntoGSN/</schema:url>
-        <schema:version rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3.0</schema:version>
+        <rdfs:seeAlso rdf:resource="https://doi.org/10.48550/arXiv.2506.11023"/>
+        <owl:priorVersion rdf:resource="https://w3id.org/OntoGSN/ontology/1.2.3"/>
         <owl:versionInfo>1.3.0</owl:versionInfo>
         <skos:definition xml:lang="en">GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence.</skos:definition>
-        <skos:note xml:lang="en">A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the design record under development/design/ naming the passage it rests on, or stating that it rests on none.</skos:note>
+        <skos:scopeNote xml:lang="en">A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the design record under development/design/ naming the passage it rests on, or stating that it rests on none.</skos:scopeNote>
     </owl:Ontology>
+    <rdf:Description rdf:nodeID="genid1">
+        <schema:name>fortiss GmbH</schema:name>
+        <schema:url rdf:resource="https://www.fortiss.org/"/>
+    </rdf:Description>
     
 
 
@@ -73,13 +80,6 @@
     
 
 
-    <!-- http://purl.org/dc/elements/1.1/created -->
-
-
-    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/created"/>
-    
-
-
     <!-- http://purl.org/dc/elements/1.1/creator -->
 
 
@@ -91,13 +91,6 @@
 
 
     <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/description"/>
-    
-
-
-    <!-- http://purl.org/dc/elements/1.1/identifier -->
-
-
-    <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/identifier"/>
     
 
 
@@ -227,17 +220,17 @@
     
 
 
+    <!-- http://schema.org/name -->
+
+
+    <owl:AnnotationProperty rdf:about="http://schema.org/name"/>
+    
+
+
     <!-- http://schema.org/url -->
 
 
     <owl:AnnotationProperty rdf:about="http://schema.org/url"/>
-    
-
-
-    <!-- http://schema.org/version -->
-
-
-    <owl:AnnotationProperty rdf:about="http://schema.org/version"/>
     
 
 
@@ -266,6 +259,13 @@
 
 
     <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#note"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#scopeNote -->
+
+
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#scopeNote"/>
     
 
 
@@ -1390,7 +1390,7 @@
 
 
     <owl:Class rdf:about="https://w3id.org/OntoGSN/ontology#Argument">
-        <rdfs:subClassOf rdf:nodeID="genid120"/>
+        <rdfs:subClassOf rdf:nodeID="genid121"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="https://w3id.org/OntoGSN/ontology#contains"/>
@@ -1422,7 +1422,7 @@
         <skos:definition xml:lang="en">A connected series of claims intended to establish an overall claim.</skos:definition>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
     </owl:Class>
-    <owl:Class rdf:nodeID="genid120">
+    <owl:Class rdf:nodeID="genid121">
         <owl:unionOf rdf:parseType="Collection">
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
@@ -1445,7 +1445,7 @@
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="https://w3id.org/OntoGSN/ontology#Argument"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid120"/>
+        <owl:annotatedTarget rdf:nodeID="genid121"/>
         <skos:definition xml:lang="en">The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module.</skos:definition>
         <coreOrExtension>Confidence Argument Extension</coreOrExtension>
     </owl:Axiom>
@@ -1481,20 +1481,20 @@
 
     <owl:Class rdf:about="https://w3id.org/OntoGSN/ontology#Assumption">
         <rdfs:subClassOf rdf:resource="https://w3id.org/OntoGSN/ontology#GSNElement"/>
-        <rdfs:subClassOf rdf:nodeID="genid136"/>
+        <rdfs:subClassOf rdf:nodeID="genid137"/>
         <rdfs:label xml:lang="en">Assumption</rdfs:label>
         <skos:definition xml:lang="en">An assumption, rendered as an oval with the letter &apos;A&apos; at the top- or bottom-right, presents an intentionally unsubstantiated statement.</skos:definition>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">oval</renderedAs>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid136">
+    <owl:Restriction rdf:nodeID="genid137">
         <owl:onProperty rdf:resource="https://w3id.org/OntoGSN/ontology#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="https://w3id.org/OntoGSN/ontology#Assumption"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid136"/>
+        <owl:annotatedTarget rdf:nodeID="genid137"/>
         <skos:definition xml:lang="en">GSN assumptions provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase.</skos:definition>
     </owl:Axiom>
     
@@ -1559,20 +1559,20 @@
 
     <owl:Class rdf:about="https://w3id.org/OntoGSN/ontology#Context">
         <rdfs:subClassOf rdf:resource="https://w3id.org/OntoGSN/ontology#ArtefactReference"/>
-        <rdfs:subClassOf rdf:nodeID="genid145"/>
+        <rdfs:subClassOf rdf:nodeID="genid146"/>
         <rdfs:label xml:lang="en">Context</rdfs:label>
         <skos:definition xml:lang="en">A context, rendered as shown left, presents a contextual artefact. This can be a reference to contextual information, or a statement.</skos:definition>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">rounded rectangle</renderedAs>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid145">
+    <owl:Restriction rdf:nodeID="genid146">
         <owl:onProperty rdf:resource="https://w3id.org/OntoGSN/ontology#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="https://w3id.org/OntoGSN/ontology#Context"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid145"/>
+        <owl:annotatedTarget rdf:nodeID="genid146"/>
         <skos:definition xml:lang="en">Two kinds of GSN context statement exist. Where a context statement draws attention to explanatory contextual information (such as the definition of some term), this information shall be stated briefly using complete sentences of a noun-phrase + verb-phrase structure. Where a context statement is a reference to an artefact of some kind, which informs the reasoning step, the context statement shall be expressed as a noun phrase.</skos:definition>
     </owl:Axiom>
     
@@ -1678,7 +1678,7 @@
                 </owl:allValuesFrom>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf rdf:nodeID="genid169"/>
+        <rdfs:subClassOf rdf:nodeID="genid170"/>
         <rdfs:label xml:lang="en">Goal</rdfs:label>
         <skos:altLabel xml:lang="en">Claim</skos:altLabel>
         <skos:definition xml:lang="en">(Claim is) A proposition being asserted by the author that is a true or false statement.</skos:definition>
@@ -1686,14 +1686,14 @@
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">rectangle</renderedAs>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid169">
+    <owl:Restriction rdf:nodeID="genid170">
         <owl:onProperty rdf:resource="https://w3id.org/OntoGSN/ontology#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="https://w3id.org/OntoGSN/ontology#Goal"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid169"/>
+        <owl:annotatedTarget rdf:nodeID="genid170"/>
         <skos:definition xml:lang="en">GSN goals document the claims made in the argument (i.e. premises and conclusions). Each goal shall contain a single goal statement, expressed as a proposition in the form of a noun phrase + verb-phrase sentence.</skos:definition>
     </owl:Axiom>
     
@@ -1716,20 +1716,20 @@
 
     <owl:Class rdf:about="https://w3id.org/OntoGSN/ontology#Justification">
         <rdfs:subClassOf rdf:resource="https://w3id.org/OntoGSN/ontology#GSNElement"/>
-        <rdfs:subClassOf rdf:nodeID="genid171"/>
+        <rdfs:subClassOf rdf:nodeID="genid172"/>
         <rdfs:label xml:lang="en">Justification</rdfs:label>
         <skos:definition xml:lang="en">A justification, rendered as an oval with the letter &apos;J&apos; at the top- or bottom-right, presents a statement of rationale.</skos:definition>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">oval</renderedAs>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid171">
+    <owl:Restriction rdf:nodeID="genid172">
         <owl:onProperty rdf:resource="https://w3id.org/OntoGSN/ontology#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="https://w3id.org/OntoGSN/ontology#Justification"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid171"/>
+        <owl:annotatedTarget rdf:nodeID="genid172"/>
         <skos:definition xml:lang="en">GSN justifications provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase.</skos:definition>
     </owl:Axiom>
     
@@ -1927,20 +1927,20 @@
                 </owl:allValuesFrom>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf rdf:nodeID="genid214"/>
+        <rdfs:subClassOf rdf:nodeID="genid215"/>
         <rdfs:label xml:lang="en">Solution</rdfs:label>
         <skos:definition xml:lang="en">A solution, rendered as a circle, presents a reference to an evidence item.</skos:definition>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">circle</renderedAs>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid214">
+    <owl:Restriction rdf:nodeID="genid215">
         <owl:onProperty rdf:resource="https://w3id.org/OntoGSN/ontology#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="https://w3id.org/OntoGSN/ontology#Solution"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid214"/>
+        <owl:annotatedTarget rdf:nodeID="genid215"/>
         <skos:definition xml:lang="en">GSN solutions make no claim, but are simply references to evidence items that provide support for a particular claim. They shall therefore be stated as noun-phrases.</skos:definition>
     </owl:Axiom>
     
@@ -1972,20 +1972,20 @@
                 <owl:allValuesFrom rdf:resource="https://w3id.org/OntoGSN/ontology#Goal"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:subClassOf rdf:nodeID="genid223"/>
+        <rdfs:subClassOf rdf:nodeID="genid224"/>
         <rdfs:label xml:lang="en">Strategy</rdfs:label>
         <skos:definition xml:lang="en">A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s).</skos:definition>
         <coreOrExtension xml:lang="en">Core GSN</coreOrExtension>
         <renderedAs xml:lang="en">parallelogram</renderedAs>
     </owl:Class>
-    <owl:Restriction rdf:nodeID="genid223">
+    <owl:Restriction rdf:nodeID="genid224">
         <owl:onProperty rdf:resource="https://w3id.org/OntoGSN/ontology#statement"/>
         <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:Restriction>
     <owl:Axiom>
         <owl:annotatedSource rdf:resource="https://w3id.org/OntoGSN/ontology#Strategy"/>
         <owl:annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <owl:annotatedTarget rdf:nodeID="genid223"/>
+        <owl:annotatedTarget rdf:nodeID="genid224"/>
         <skos:definition xml:lang="en">GSN strategy statements describe the reasoning that connects parent goals and their supporting goals, but the core claims and the structure connecting those claims remain unchanged. Strategy statements contain a brief description of the argument approach.</skos:definition>
     </owl:Axiom>
     
@@ -2156,6 +2156,40 @@
     </rdf:Description>
     <rdf:Description rdf:about="https://w3id.org/OntoGSN/swrl#X">
         <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
+        <rdfs:label>Defeated Invalidation</rdfs:label>
+        <coreOrExtension>Dialectic Extension</coreOrExtension>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="https://w3id.org/OntoGSN/ontology#defeated"/>
+                        <swrl:argument1 rdf:resource="https://w3id.org/OntoGSN/swrl#E"/>
+                        <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl:argument2>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="https://w3id.org/OntoGSN/ontology#valid"/>
+                        <swrl:argument1 rdf:resource="https://w3id.org/OntoGSN/swrl#E"/>
+                        <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
     </rdf:Description>
     <rdf:Description>
         <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
@@ -7202,40 +7236,6 @@
                         </rdf:rest>
                     </rdf:Description>
                 </rdf:rest>
-            </rdf:Description>
-        </swrl:body>
-        <swrl:head>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="https://w3id.org/OntoGSN/ontology#valid"/>
-                        <swrl:argument1 rdf:resource="https://w3id.org/OntoGSN/swrl#E"/>
-                        <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</swrl:argument2>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-            </rdf:Description>
-        </swrl:head>
-    </rdf:Description>
-    <rdf:Description>
-        <swrla:isRuleEnabled rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrla:isRuleEnabled>
-        <rdfs:label>Defeated Invalidation</rdfs:label>
-        <coreOrExtension>Dialectic Extension</coreOrExtension>
-        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
-        <swrl:body>
-            <rdf:Description>
-                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
-                <rdf:first>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom"/>
-                        <swrl:propertyPredicate rdf:resource="https://w3id.org/OntoGSN/ontology#defeated"/>
-                        <swrl:argument1 rdf:resource="https://w3id.org/OntoGSN/swrl#E"/>
-                        <swrl:argument2 rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</swrl:argument2>
-                    </rdf:Description>
-                </rdf:first>
-                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
             </rdf:Description>
         </swrl:body>
         <swrl:head>

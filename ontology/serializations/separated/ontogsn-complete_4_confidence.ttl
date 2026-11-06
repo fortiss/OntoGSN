@@ -22,8 +22,6 @@ dc:creator a owl:AnnotationProperty .
 
 dc:description a owl:AnnotationProperty .
 
-dc:identifier a owl:AnnotationProperty .
-
 dc:publisher a owl:AnnotationProperty .
 
 dc:source a owl:AnnotationProperty .
@@ -52,9 +50,9 @@ schema:includedInDataCatalog a owl:AnnotationProperty .
 
 schema:logo a owl:AnnotationProperty .
 
-schema:url a owl:AnnotationProperty .
+schema:name a owl:AnnotationProperty .
 
-schema:version a owl:AnnotationProperty .
+schema:url a owl:AnnotationProperty .
 
 swrla:isRuleEnabled a owl:AnnotationProperty .
 
@@ -62,24 +60,29 @@ skos:definition a owl:AnnotationProperty .
 
 skos:note a owl:AnnotationProperty .
 
+skos:scopeNote a owl:AnnotationProperty .
+
 gsn:coreOrExtension a owl:AnnotationProperty .
 
 gsn:renderedAs a owl:AnnotationProperty .
 
 <https://w3id.org/OntoGSN/ontology/confidence> a owl:Ontology ;
-    cc:license "https://creativecommons.org/licenses/by/4.0/" ;
-    dc:contributor "Barbara Gallina, Dian Balta, Ingmar Kessler"@en ;
+    cc:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dc:contributor "Barbara Gallina"@en,
+        "Dian Balta"@en,
+        "Ingmar Kessler"@en,
+        "Jule Hendricks"@en ;
     dc:creator "Tomas Bueno Momčilović"@en ;
     dc:description "The complete Confidence Argument Extension section of OntoGSN. Generated from ontogsn.ttl by development/dev_tools/build_separated.py. Includes the SWRL rules and every annotation."@en ;
-    dc:identifier "SCSC-141C" ;
-    dc:publisher "https://www.fortiss.org/"@en ;
+    dc:publisher [ schema:name "fortiss GmbH" ;
+            schema:url <https://www.fortiss.org/> ] ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Confidence Argument Extension"@en ;
-    terms:bibliographicCitation "Bueno Momcilovic, T., Gallina, B., Kessler, I., Hendricks, J., & Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. Retrieved from https://fortiss.github.io/OntoGSN/" ;
-    terms:created "20th February 2025"@en ;
-    terms:issued "2025-02-24"^^xsd:date ;
-    terms:modified "2026-11-05T00:00:00Z" ;
-    bibo:doi "https://doi.org/10.5281/zenodo.17808330" ;
+    terms:bibliographicCitation "Bueno Momčilović, T. (2026). OntoGSN (Version 1.3.0) [Ontology]. https://doi.org/10.5281/zenodo.17808330" ;
+    terms:created "2025-02-20"^^xsd:date ;
+    terms:issued "2026-11-05"^^xsd:date ;
+    terms:modified "2026-11-05"^^xsd:date ;
+    bibo:doi "10.5281/zenodo.17808330" ;
     bibo:status <http://purl.org/ontology/bibo/status/published> ;
     vann:preferredNamespacePrefix "gsn" ;
     vann:preferredNamespaceUri "https://w3id.org/OntoGSN/ontology#" ;
@@ -87,11 +90,12 @@ gsn:renderedAs a owl:AnnotationProperty .
     schema:includedInDataCatalog <https://zenodo.org/> ;
     schema:logo <https://fortiss.github.io/OntoGSN/assets/images/ontogsn-banner.png> ;
     schema:url "https://w3id.org/OntoGSN/"^^xsd:anyURI ;
-    schema:version 3.0 ;
+    rdfs:seeAlso <https://doi.org/10.48550/arXiv.2506.11023> ;
+    owl:priorVersion <https://w3id.org/OntoGSN/ontology/1.2.3> ;
     owl:versionIRI <https://w3id.org/OntoGSN/ontology/1.3.0> ;
     owl:versionInfo "1.3.0" ;
     skos:definition "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."@en ;
-    skos:note "A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the design record under development/design/ naming the passage it rests on, or stating that it rests on none."@en ;
+    skos:scopeNote "A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the design record under development/design/ naming the passage it rests on, or stating that it rests on none."@en ;
     gsn:coreOrExtension "Confidence Argument Extension"@en .
 
 gsn:Context a owl:Class .

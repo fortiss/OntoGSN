@@ -39,7 +39,7 @@ gsndesign:ontology-1.3.0
     rdfs:label "OntoGSN ontology 1.3.0"@en ;
     owl:versionInfo "1.3.0" ;
     gsndesign:path "ontology/serializations/ontogsn.ttl" ;
-    gsndesign:fileChecksum "b03d16caac54eb33e8e2a8db942659098d88f27584281053f829edbddbd27b3d" ;
+    gsndesign:fileChecksum "8d61a834247e140f3d5bbd9ce2101e2642f997af35f4f5b2eceb2ee447496aa8" ;
     prov:generatedAtTime "2026-08-18T12:30:41Z"^^xsd:dateTime .
 
 gsndesign:shapes-1.1.1
@@ -3690,7 +3690,9 @@ gsndesign:dd-0017
     gsndesign:hasRationale gsndesign:why-0002 .
 
 gsndesign:dd-0018
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "dc:created was never a Dublin Core Elements 1.1 term - DCMI defines created only in DCMI Metadata Terms - and the ontology never used it. The header states its creation date with terms:created."@en ;
+    gsndesign:supersededBy gsndesign:dd-0022 ;
     gsndesign:positionKey "S01.R018" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -3964,7 +3966,8 @@ gsndesign:st-0030
     gsndesign:aboutTerm dc:creator .
 
 gsndesign:dd-0031
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Nothing uses dc:identifier any more. Its only use was the ontology's dc:identifier SCSC-141C, which is the identifier of the GSN Community Standard, not of the ontology (see dd-0058)."@en ;
     gsndesign:positionKey "S01.R020" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -4133,7 +4136,8 @@ gsndesign:st-0038
     gsndesign:aboutTerm schema:url .
 
 gsndesign:dd-0039
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Nothing uses schema:version any more. Its only use was the ontology's schema:version 3.0, which is the version of the GSN Community Standard, not of the ontology (see dd-0065)."@en ;
     gsndesign:positionKey "S01.R027" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -4322,7 +4326,8 @@ gsndesign:st-0047
     gsndesign:aboutTerm <https://w3id.org/OntoGSN/ontology> .
 
 gsndesign:dd-0048
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S01.R036" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -4448,7 +4453,8 @@ gsndesign:st-0053
     gsndesign:aboutTerm <https://w3id.org/OntoGSN/ontology> .
 
 gsndesign:dd-0054
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S01.R042" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -4469,7 +4475,8 @@ gsndesign:st-0054
     gsndesign:aboutTerm <https://w3id.org/OntoGSN/ontology> .
 
 gsndesign:dd-0055
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S01.R043" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -4534,7 +4541,8 @@ gsndesign:st-0057
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0001 ; prov:hadActivity gsndesign:dd-0057 ] .
 
 gsndesign:dd-0058
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "SCSC-141C identifies the GSN Community Standard, not the ontology. The ontology names the standard with dc:source <https://scsc.uk/SCSC-141C> instead."@en ;
     gsndesign:positionKey "S02.R002" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-preamble ;
@@ -4580,7 +4588,8 @@ gsndesign:st-0059
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0003 ; prov:hadActivity gsndesign:dd-0059 ] .
 
 gsndesign:dd-0060
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S02.R004" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-preamble ;
@@ -4603,7 +4612,8 @@ gsndesign:st-0060
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0004 ; prov:hadActivity gsndesign:dd-0060 ] .
 
 gsndesign:dd-0061
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S02.R005" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-preamble ;
@@ -4649,7 +4659,8 @@ gsndesign:st-0062
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0006 ; prov:hadActivity gsndesign:dd-0062 ] .
 
 gsndesign:dd-0063
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S02.R007" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-preamble ;
@@ -4696,7 +4707,8 @@ gsndesign:st-0064
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0008 ; prov:hadActivity gsndesign:dd-0064 ] .
 
 gsndesign:dd-0065
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "3.0 is the version of the GSN Community Standard, not of the ontology, and a FAIR assessor reads schema:version as the ontology's version. The ontology states its own version with owl:versionInfo, and names the standard with dc:source."@en ;
     gsndesign:positionKey "S02.R009" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-preamble ;
@@ -27625,3 +27637,54 @@ gsndesign:dd-1088
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0233 .
 
+
+#################################################################
+#    Added by prov_add.py (2 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1089
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R55" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "‘name’ is defined as an annotation."@en ;
+    gsndesign:nlWrittenFor "d17d10ef" ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0234 ;
+    prov:generated gsndesign:st-1089 .
+
+gsndesign:st-1089
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1089 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.0 ;
+    gsndesign:statementText "schema:name rdf:type owl:AnnotationProperty ." ;
+    gsndesign:statementChecksum "d17d10ef" ;
+    gsndesign:structuralKey "name|a|AnnotationProperty" ;
+    gsndesign:aboutTerm schema:name .
+
+gsndesign:dd-1090
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R56" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "‘scopeNote’ is defined as an annotation."@en ;
+    gsndesign:nlWrittenFor "482814ce" ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0234 ;
+    prov:generated gsndesign:st-1090 .
+
+gsndesign:st-1090
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1090 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.0 ;
+    gsndesign:statementText "skos:scopeNote rdf:type owl:AnnotationProperty ." ;
+    gsndesign:statementChecksum "482814ce" ;
+    gsndesign:structuralKey "scopeNote|a|AnnotationProperty" ;
+    gsndesign:aboutTerm skos:scopeNote .
+
+gsndesign:why-0234
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "Two annotation properties imported so that WIDOCO shows the ontology header correctly. schema:name gives the publisher a name on its own node, next to schema:url. Before, the publisher was the string https://www.fortiss.org/, and WIDOCO showed that string as plain text, without a name and without a link. skos:scopeNote carries the note on the ontology node that explains the [OntoGSN] prefix. WIDOCO reads skos:note, rdfs:comment and dc:description as one field, the ontology description, and keeps the last English value that it reads. The 1.3.0 documentation therefore showed the note in place of the description. WIDOCO does not read skos:scopeNote, and SKOS defines it as a note that clarifies the meaning or the use of a concept, which is what the note does."@en .
