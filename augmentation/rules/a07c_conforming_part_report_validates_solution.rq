@@ -11,6 +11,9 @@
 #            never lifted, so A7c writes true only where the solution has no validity
 #            value. It cannot alternate with a core rule, or with A7b and A7d, which
 #            overwrite its true with false.
+#            The part guard: a part counts for a solution that refers to it, or that refers
+#            to no part of the artefact. A solution that names the parts it relies on is
+#            not decided by a part that it does not use.
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
@@ -33,6 +36,9 @@ WHERE {
      prov:used ?P ;
      sh:conforms ?conforms .
   FILTER(STR(?conforms) = "true")
+  # part guard: the part counts for the solution when the solution refers to it, or refers
+  # to no part of the artefact
+  FILTER(EXISTS { ?S gsn:refersTo ?P } || NOT EXISTS { ?S gsn:refersTo ?namedPart . ?namedPart gsnaug:partOf ?A })
   # struck-report guard: a struck report never counts
   FILTER NOT EXISTS { ?R prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
   # newest-report guard: no later unstruck report from the same mechanism over the same target

@@ -92,7 +92,7 @@ for rule in rules:
             atoms += 1
             node = ontology.value(node, RDF.rest)
     print(f"  {str(label):38} {atoms} atoms")
-check(len(rules) == 13, f"{len(rules)} SWRL rules", f"expected 13 SWRL rules, found {len(rules)}")
+check(len(rules) == 16, f"{len(rules)} SWRL rules", f"expected 16 SWRL rules, found {len(rules)}")
 
 # Each SWRL rule needs a SPARQL twin, so the two never drift.
 sparql_rules = sorted(glob.glob(os.path.join(AUG_RULES, "*.rq")))
@@ -249,6 +249,25 @@ expected = [
     ("a failing validity check makes the solution invalid",      (EX.Sn1, GSN.valid, Literal(False)), True),
     ("a failing validity check does not refute the truth",       (EX.Sn1, GSN.true, Literal(True)), True),
     ("a check of truth sets no validity",                        (EX.Sn3, GSN.valid, None), False),
+    # The part guard: a solution that names a part is decided only by the parts it names.
+    ("a conforming report over a named part makes the solution true", (EX.Sn5, GSN.true, Literal(True)), True),
+    ("a failing report over a part the solution does not name does not refute it",
+                                                                  (EX.Sn5, GSN.true, Literal(False)), False),
+    ("a solution that names no part is still refuted by any part", (EX.Sn4, GSN.true, Literal(False)), True),
+    ("a conforming part does not lift a solution that names no part", (EX.Sn4, GSN.true, Literal(True)), False),
+    # A8: the goal that an issue becomes gets a statement and the contexts it is read in
+    ("an issue goal gets its description as its statement",
+        (EX.I4, GSN.statement, Literal("The access log misses the first week of March.")), True),
+    ("an issue goal gets the contexts of the goal it challenges", (EX.I4, GSN.inContextOf, EX["C-object"]), True),
+    # Both contexts, not only the first: the guard must not see the first copy.
+    ("an issue goal gets every context, not just one",           (EX.I4, GSN.inContextOf, EX["C-subject"]), True),
+    ("an issue goal on a solution gets the contexts of the goal above it",
+                                                                  (EX.I3, GSN.inContextOf, EX["C-subject"]), True),
+    ("an issue goal with no description gets no statement",       (EX.I3, GSN.statement, None), False),
+    ("an issue goal keeps the statement a person wrote",
+        (EX.I7, GSN.statement, Literal("Encrypt the backups of the reporting system.")), False),
+    ("an issue goal keeps the contexts a person gave it",         (EX.I7, GSN.inContextOf, EX["C-object"]), False),
+    ("a clarify issue gets no statement",                         (EX.I1, GSN.statement, None), False),
 ]
 for name, triple, wanted in expected:
     found = (triple in data) if triple[2] is not None else bool(list(data.triples(triple)))

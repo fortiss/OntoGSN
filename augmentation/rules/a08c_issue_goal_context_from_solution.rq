@@ -1,0 +1,32 @@
+# rule:      A8c
+# name:      Issue Goal Context From Solution
+# section:   Augmentation
+# operation: rule
+# expect:    insert
+# swrl:      Issue(?I) ^ Goal(?I) ^ challenges(?I, ?E) ^ Solution(?E) ^ supportedBy(?P, ?E) ^ inContextOf(?P, ?C) -> inContextOf(?I, ?C)
+# reads:     IF Issue I is a goal AND challenges Solution E AND E supports P AND P is in context of C THEN I is in context of C
+# note:      A solution has no context of its own, so the contexts come from the goal that it
+#            supports. THE GUARD BELOW IS NOT IN THE SWRL, as in A8b.
+#            The nested SELECT makes the engine finish the WHERE clause before it inserts.
+#            rdflib otherwise tests the guard again after the first insert, and copies only
+#            one value.
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
+
+INSERT {
+  ?I gsn:inContextOf ?C .
+}
+WHERE {
+  {
+    SELECT DISTINCT ?I ?C
+    WHERE {
+      ?I a gsnaug:Issue , gsn:Goal ;
+         gsn:challenges ?E .
+      ?E a gsn:Solution .
+      ?P gsn:supportedBy ?E ;
+         gsn:inContextOf ?C .
+      FILTER NOT EXISTS { ?I gsn:inContextOf ?any }
+    }
+  }
+}

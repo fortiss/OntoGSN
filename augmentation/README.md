@@ -9,7 +9,7 @@ domain or range.
 
 | File | Role |
 | :--- | :--- |
-| `ontogsn-augmentation.ttl` | the vocabulary. 8 classes, 37 properties, 3 issue types, 13 SWRL rules |
+| `ontogsn-augmentation.ttl` | the vocabulary. 8 classes, 37 properties, 3 issue types, 16 SWRL rules |
 | `shapes/ontogsn-augmentation-shapes.ttl` | 25 SHACL shapes |
 | `HOW-TO.md` | the manual: how to use the vocabulary on a case, for what the vocabulary does not enforce |
 | `rules/*.rq` | a SPARQL twin of each SWRL rule, runnable without a reasoner |
@@ -107,12 +107,16 @@ challenges. Only `gsn:defeated` has to be asserted here, because **S46** derives
 | `A6a` / `A6b` | a solution is true / not true when the newest report that the mechanism that can check its artefact left over it conforms / fails |
 | `A6c` / `A6d` | the same, when the report is over a part of the artefact: the newest report the mechanism that can check the part left over the part |
 | `A7a` to `A7d` | the same four for `gsn:valid`, from a mechanism that decides validity. A6a to A6d read only a mechanism that decides truth |
+| `A8a` | the goal that an issue becomes takes the issue's `schema:description` as its statement |
+| `A8b` / `A8c` | that goal takes the contexts of the goal it challenges / of the goal above the solution it challenges |
 
 A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express "a goal **or** a
 solution" in one rule. A6 is four rules for the same reason: the report is over the artefact or over a
 part of it. A7 is A6 for `gsn:valid`, because a SWRL rule cannot take the property it writes from the
 data. A4 copies `checkableWith` only. The other seven provenance properties admit a
-part in their domain, but a part states them for itself.
+part in their domain, but a part states them for itself. A8 gives the goal that an issue becomes
+the statement and the context that the core shapes ask of every goal. Its SPARQL twins write them
+only to a goal that has none, so a statement or a context that a person wrote wins.
 
 ## The result of a check stays in the graph
 
@@ -125,7 +129,9 @@ claim. If a report of truth conforms, the solution that refers to the artefact i
 does not conform, the solution is not. A report of validity sets `gsn:valid` in the same way, except
 that a `false` stays: the core rules only ever write `gsn:valid false`, and A7a and A7c write `true`
 only where the solution has no validity value. A mechanism with no value decides nothing. A report over a part reaches the solution through `gsnaug:partOf`,
-because `gsn:refersTo` ranges on `gsn:Artefact` and a solution refers to the whole. The core rules S10
+because `gsn:refersTo` ranges on `gsn:Artefact` and a solution refers to the whole. A solution can
+also name the parts it relies on, with `gsn:refersTo` next to the whole. Then only the reports over
+those parts count for it. A solution that names no part is decided by every part. The core rules S10
 and S11 then carry the result up to the goal. No term is added for this.
 
 A mechanism that a SHACL shape implements produces the report by itself. `augmentation_check.py` runs each such mechanism in
@@ -138,7 +144,8 @@ file marks them as not in the SWRL, and each deletes the old truth value before 
 The newest-report guard reads `prov:generatedAtTime`: a report counts only while no report from the
 same mechanism over the same target is later, so a re-run retires the run before it and the history
 stays in the graph. The composition guard, on A6a and A6c only: a conforming report confirms the
-solution only while no current report over the artefact or over a part of it fails. One failing check
+solution only while no current report over the artefact, or over a part of it that counts for the
+solution, fails. One failing check
 is enough, two mechanisms that disagree do not make the rules alternate, and no solution ends up both
 true and not true. A report without a timestamp is never retired and retires nothing;
 `gsnaugsh:ReportTimestampShape` warns about it, and `gsnaugsh:ReportConflictShape` names two reports
@@ -212,3 +219,6 @@ Re-check this directory whenever that string moves.
 Version 0.4.0 renames the two properties that link an artefact to the mechanism that checks it.
 They are now `gsnaug:checkableWith` and `gsnaug:checkedWith`, and the old terms are gone. The
 changelog names the old terms and gives an update that rewrites data to the new ones.
+
+Version 0.5.0 adds A8a to A8c, and lets a solution name the parts of an artefact it relies on.
+No term changes.

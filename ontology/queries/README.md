@@ -3,7 +3,7 @@
 CRUD SPARQL for a graph database holding an assurance case built on
 [`ontology/serializations/ontogsn.ttl`](../serializations/ontogsn.ttl). One file per competency
 question; the question itself is in the file's header, and the same set is tabulated in
-[`development/design/Competency Questions.xlsx`](../development/design/Competency%20Questions.xlsx) - on
+[`development/design/Competency Questions.xlsx`](../../development/design/Competency%20Questions.xlsx) - on
 the "Competency Questions" sheet where a compliance process asks the question, and on
 "Extra" otherwise.
 
@@ -120,4 +120,4 @@ driver detects that, stops, and names the rules involved.
 
 `development/dev_tools/query_check.py` runs each query against the ontology and the example ABox in
 Oxigraph and records the outcome in `development/design/ontogsn-design-queries.ttl`. See
-[`development/dev_tools/README.md`](../development/dev_tools/README.md#stored-queries).
+[`development/dev_tools/README.md`](../../development/dev_tools/README.md#stored-queries).

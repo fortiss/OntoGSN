@@ -30,7 +30,7 @@
     terms:created "2026-08-17"^^xsd:date ;
     vann:preferredNamespacePrefix "gsnaug" ;
     vann:preferredNamespaceUri "https://w3id.org/OntoGSN/augmentation#" ;
-    owl:versionInfo "0.4.0" ;
+    owl:versionInfo "0.5.0" ;
     gsnaug:augmentedOntoGSNVersion "1.3.0" .
 
 gsnaug:augmentedOntoGSNVersion rdf:type owl:AnnotationProperty ;
@@ -464,6 +464,8 @@ gsnaugswrl:X  rdf:type swrl:Variable .
 gsnaugswrl:S  rdf:type swrl:Variable .
 gsnaugswrl:M  rdf:type swrl:Variable .
 gsnaugswrl:R  rdf:type swrl:Variable .
+gsnaugswrl:C  rdf:type swrl:Variable .
+gsnaugswrl:D  rdf:type swrl:Variable .
 
 
 ###  A2a
@@ -1387,6 +1389,147 @@ gsnaugswrl:R  rdf:type swrl:Variable .
                            swrl:propertyPredicate gsn:valid ;
                            swrl:argument1 gsnaugswrl:S ;
                            swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+
+###  A8a
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Issue Goal Statement" ;
+   rdfs:comment "IF Issue I is a goal AND has a description D THEN D is the statement of I"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsnaug:Issue ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate gsn:Goal ;
+                                      swrl:argument1 gsnaugswrl:I
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                 swrl:propertyPredicate schema:description ;
+                                                 swrl:argument1 gsnaugswrl:I ;
+                                                 swrl:argument2 gsnaugswrl:D
+                                               ] ;
+                                     rdf:rest rdf:nil
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:statement ;
+                           swrl:argument1 gsnaugswrl:I ;
+                           swrl:argument2 gsnaugswrl:D
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+
+###  A8b
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Issue Goal Context" ;
+   rdfs:comment "IF Issue I is a goal AND challenges Goal E AND E is in context of C THEN I is in context of C"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsnaug:Issue ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate gsn:Goal ;
+                                      swrl:argument1 gsnaugswrl:I
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:challenges ;
+                                                 swrl:argument1 gsnaugswrl:I ;
+                                                 swrl:argument2 gsnaugswrl:E
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsn:Goal ;
+                                                            swrl:argument1 gsnaugswrl:E
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate gsn:inContextOf ;
+                                                                       swrl:argument1 gsnaugswrl:E ;
+                                                                       swrl:argument2 gsnaugswrl:C
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsn:inContextOf ;
+                           swrl:argument1 gsnaugswrl:I ;
+                           swrl:argument2 gsnaugswrl:C
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+
+###  A8c
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Issue Goal Context From Solution" ;
+   rdfs:comment "IF Issue I is a goal AND challenges Solution E AND E supports P AND P is in context of C THEN I is in context of C"@en ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsnaug:Issue ;
+                           swrl:argument1 gsnaugswrl:I
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate gsn:Goal ;
+                                      swrl:argument1 gsnaugswrl:I
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate gsn:challenges ;
+                                                 swrl:argument1 gsnaugswrl:I ;
+                                                 swrl:argument2 gsnaugswrl:E
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:ClassAtom ;
+                                                            swrl:classPredicate gsn:Solution ;
+                                                            swrl:argument1 gsnaugswrl:E
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate gsn:supportedBy ;
+                                                                       swrl:argument1 gsnaugswrl:P ;
+                                                                       swrl:argument2 gsnaugswrl:E
+                                                                     ] ;
+                                                           rdf:rest [ rdf:type swrl:AtomList ;
+                                                                      rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                                  swrl:propertyPredicate gsn:inContextOf ;
+                                                                                  swrl:argument1 gsnaugswrl:P ;
+                                                                                  swrl:argument2 gsnaugswrl:C
+                                                                                ] ;
+                                                                      rdf:rest rdf:nil
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsn:inContextOf ;
+                           swrl:argument1 gsnaugswrl:I ;
+                           swrl:argument2 gsnaugswrl:C
                          ] ;
                rdf:rest rdf:nil
              ]
