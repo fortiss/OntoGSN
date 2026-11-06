@@ -57,6 +57,12 @@ only on a shape. pyshacl ignored the value on the constraint and used the defaul
   The symmetry check reports a `gsn:consistentWith` statement without its reverse. Retires
   `dd-0896`. Decisions `dd-1084` and `dd-1085`, rationale `why-0230`.
 - The records of the other three shapes change only in where `sh:severity` stands.
+- Six more shapes put `sh:severity sh:Violation` on a SPARQL constraint. The value moved to the
+  shape on 2026-11-06, after the 1.1.1 release, and ships as part of 1.1.1. A SHACL engine
+  reports these findings as violations before and after the move, so no result changes. The
+  shapes are `gsnsh:SupportedByIrreflexiveShape`, `gsnsh:InContextOfIrreflexiveShape`,
+  `gsnsh:SupportCycleShape`, `gsnsh:CatalogueShape`, `gsnsh:ModuleContextCycleShape` and
+  `gsnsh:ChallengeCycleShape`.
 
 *For case authors:* a report from shapes 1.1.0 lists these findings as violations. With 1.1.1,
 the same findings are warnings or info. If you filter results by `sh:sourceShape`, the
@@ -95,6 +101,9 @@ first of the two, so the properties now use the neutral verb "check".
 - The rules A4 and A6a to A6d, and the stored queries FC10, FC37 and FC38, read the new
   terms. The question of FC10 is now "Was this evidence checked, by whom, with what mechanism,
   and did it pass?".
+- `gsnaugsh:ReportConflictShape` has `sh:severity sh:Violation` on the shape, not on its SPARQL
+  constraint. This change was made on 2026-11-06, after the 0.4.0 release, and ships as part
+  of 0.4.0. The shape reports a violation before and after the change.
 
 *For case authors:* the rules and the queries do not see data that uses an old term. A solution
 whose artefact names its mechanism with `gsnaug:verifiableWith` gets no truth value from A6a to

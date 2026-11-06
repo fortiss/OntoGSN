@@ -656,11 +656,11 @@ gsnsh:SupportedByIrreflexiveShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:supportedBy is irreflexive and asymmetric"@en ;
     sh:targetSubjectsOf gsn:supportedBy ;
     gsn:coreOrExtension "Core GSN"@en ;
+    sh:severity sh:Violation ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} cannot be supported by itself."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -673,7 +673,6 @@ gsnsh:SupportedByIrreflexiveShape rdf:type sh:NodeShape ;
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} and {?value} cannot support each other; support runs in one direction only."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -688,11 +687,11 @@ gsnsh:InContextOfIrreflexiveShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:inContextOf is irreflexive and asymmetric"@en ;
     sh:targetSubjectsOf gsn:inContextOf ;
     gsn:coreOrExtension "Core GSN"@en ;
+    sh:severity sh:Violation ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} cannot be placed in the context of itself."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -705,7 +704,6 @@ gsnsh:InContextOfIrreflexiveShape rdf:type sh:NodeShape ;
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} and {?value} cannot be placed in the context of each other."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -721,11 +719,11 @@ gsnsh:SupportCycleShape rdf:type sh:NodeShape ;
     rdfs:comment "Not an explicit OWL axiom, but implied by GSN: a goal structure is a directed acyclic graph rooted in one or more top goals."@en ;
     sh:targetClass gsn:GSNElement ;
     gsn:coreOrExtension "Core GSN"@en ;
+    sh:severity sh:Violation ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} takes part in a support cycle; a goal structure must not contain loops."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this
             WHERE {
@@ -787,6 +785,7 @@ gsnsh:CatalogueShape rdf:type sh:NodeShape ;
     rdfs:comment "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
     sh:targetClass gsn:Catalogue ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:contains ;
         sh:class gsn:Pattern ;
@@ -805,7 +804,6 @@ gsnsh:CatalogueShape rdf:type sh:NodeShape ;
         rdf:type sh:SPARQLConstraint ;
         sh:message "Two patterns in this catalogue share the identifier {?id}; each pattern definition in a catalogue must have a unique pattern identifier."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/pattern> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?id
             WHERE {
@@ -1438,11 +1436,11 @@ gsnsh:ModuleContextCycleShape rdf:type sh:NodeShape ;
     rdfs:label "The context links between modules are acyclic"@en ;
     sh:targetClass gsn:Module ;
     gsn:coreOrExtension "Modular Extension"@en ;
+    sh:severity sh:Violation ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} takes part in a cycle of context links between modules."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this
             WHERE {
@@ -1788,11 +1786,11 @@ gsnsh:ChallengeCycleShape rdf:type sh:NodeShape ;
     rdfs:label "The challenges are acyclic"@en ;
     sh:targetSubjectsOf gsn:challenges ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:severity sh:Violation ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} takes part in a cycle of challenges."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this
             WHERE {

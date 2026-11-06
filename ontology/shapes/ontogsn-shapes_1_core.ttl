@@ -618,11 +618,11 @@ gsnsh:SupportedByIrreflexiveShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:supportedBy is irreflexive and asymmetric"@en ;
     sh:targetSubjectsOf gsn:supportedBy ;
     gsn:coreOrExtension "Core GSN"@en ;
+    sh:severity sh:Violation ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} cannot be supported by itself."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -635,7 +635,6 @@ gsnsh:SupportedByIrreflexiveShape rdf:type sh:NodeShape ;
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} and {?value} cannot support each other; support runs in one direction only."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -650,11 +649,11 @@ gsnsh:InContextOfIrreflexiveShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:inContextOf is irreflexive and asymmetric"@en ;
     sh:targetSubjectsOf gsn:inContextOf ;
     gsn:coreOrExtension "Core GSN"@en ;
+    sh:severity sh:Violation ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} cannot be placed in the context of itself."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -667,7 +666,6 @@ gsnsh:InContextOfIrreflexiveShape rdf:type sh:NodeShape ;
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} and {?value} cannot be placed in the context of each other."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -683,11 +681,11 @@ gsnsh:SupportCycleShape rdf:type sh:NodeShape ;
     rdfs:comment "Not an explicit OWL axiom, but implied by GSN: a goal structure is a directed acyclic graph rooted in one or more top goals."@en ;
     sh:targetClass gsn:GSNElement ;
     gsn:coreOrExtension "Core GSN"@en ;
+    sh:severity sh:Violation ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} takes part in a support cycle; a goal structure must not contain loops."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this
             WHERE {
