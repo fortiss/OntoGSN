@@ -8,19 +8,21 @@
 
 <https://w3id.org/OntoGSN/ontology> rdf:type owl:Ontology ;
                                      owl:versionIRI <https://w3id.org/OntoGSN/ontology/1.3.0> ;
-                                     <http://creativecommons.org/ns#license> "https://creativecommons.org/licenses/by/4.0/" ;
-                                     <http://purl.org/dc/elements/1.1/contributor> "Barbara Gallina, Dian Balta, Ingmar Kessler"@en ;
+                                     <http://creativecommons.org/ns#license> <https://creativecommons.org/licenses/by/4.0/> ;
+                                     <http://purl.org/dc/elements/1.1/contributor> "Barbara Gallina"@en ,
+                                                                                   "Dian Balta"@en ,
+                                                                                   "Ingmar Kessler"@en ,
+                                                                                   "Jule Hendricks"@en ;
                                      <http://purl.org/dc/elements/1.1/creator> "Tomas Bueno Momčilović"@en ;
                                      <http://purl.org/dc/elements/1.1/description> "OntoGSN is an ontology for managing assurance cases in the Goal Structuring Notation (GSN). The goal of the ontology is to help users in linking the elements of their cases - claims and evidence - with the internationalized resource identifiers (IRIs) of represented concepts, events and data, and in evaluating the validity of their argument."@en ;
-                                     <http://purl.org/dc/elements/1.1/identifier> "SCSC-141C" ;
-                                     <http://purl.org/dc/elements/1.1/publisher> "https://www.fortiss.org/"@en ;
-                                     <http://purl.org/dc/elements/1.1/source> "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C"@en ;
+                                     <http://purl.org/dc/elements/1.1/publisher> _:genid1 ;
+                                     <http://purl.org/dc/elements/1.1/source> <https://scsc.uk/SCSC-141C> ;
                                      <http://purl.org/dc/elements/1.1/title> "OntoGSN"@en ;
-                                     <http://purl.org/dc/terms/bibliographicCitation> "Bueno Momcilovic, T., Gallina, B., Kessler, I., Hendricks, J., & Balta, D. (2025). OntoGSN: An Ontology-Based Framework for Semantic Management and Extension of Assurance Cases. Retrieved from https://fortiss.github.io/OntoGSN/" ;
-                                     <http://purl.org/dc/terms/created> "20th February 2025"@en ;
-                                     <http://purl.org/dc/terms/issued> "2025-02-24"^^xsd:date ;
-                                     <http://purl.org/dc/terms/modified> "2026-11-05T00:00:00Z" ;
-                                     <http://purl.org/ontology/bibo/doi> "https://doi.org/10.5281/zenodo.17808330" ;
+                                     <http://purl.org/dc/terms/bibliographicCitation> "Bueno Momčilović, T. (2026). OntoGSN (Version 1.3.0) [Ontology]. https://doi.org/10.5281/zenodo.17808330" ;
+                                     <http://purl.org/dc/terms/created> "2025-02-20"^^xsd:date ;
+                                     <http://purl.org/dc/terms/issued> "2026-11-05"^^xsd:date ;
+                                     <http://purl.org/dc/terms/modified> "2026-11-05"^^xsd:date ;
+                                     <http://purl.org/ontology/bibo/doi> "10.5281/zenodo.17808330" ;
                                      <http://purl.org/ontology/bibo/status> <http://purl.org/ontology/bibo/status/published> ;
                                      <http://purl.org/vocab/vann/preferredNamespacePrefix> "gsn" ;
                                      <http://purl.org/vocab/vann/preferredNamespaceUri> "https://w3id.org/OntoGSN/ontology#" ;
@@ -28,10 +30,14 @@
                                      <http://schema.org/includedInDataCatalog> <https://zenodo.org/> ;
                                      <http://schema.org/logo> <https://fortiss.github.io/OntoGSN/assets/images/ontogsn-banner.png> ;
                                      <http://schema.org/url> "https://w3id.org/OntoGSN/"^^xsd:anyURI ;
-                                     <http://schema.org/version> 3.0 ;
+                                     rdfs:seeAlso <https://doi.org/10.48550/arXiv.2506.11023> ;
+                                     owl:priorVersion <https://w3id.org/OntoGSN/ontology/1.2.3> ;
                                      owl:versionInfo "1.3.0" ;
                                      <http://www.w3.org/2004/02/skos/core#definition> "GSN is a graphical argument notation which can be used to document explicitly the elements and structure of an argument and the argument’s relationship to evidence."@en ;
-                                     <http://www.w3.org/2004/02/skos/core#note> "A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the design record under development/design/ naming the passage it rests on, or stating that it rests on none."@en .
+                                     <http://www.w3.org/2004/02/skos/core#scopeNote> "A definition prefixed [OntoGSN] is this ontology’s wording, not the GSN Community Standard’s. Every definition, tagged or not, has a record in the design record under development/design/ naming the passage it rests on, or stating that it rests on none."@en .
+
+_:genid1 <http://schema.org/name> "fortiss GmbH" ;
+          <http://schema.org/url> <https://www.fortiss.org/> .
 
 #################################################################
 #    Annotation properties
@@ -45,20 +51,12 @@
 <http://purl.org/dc/elements/1.1/contributor> rdf:type owl:AnnotationProperty .
 
 
-###  http://purl.org/dc/elements/1.1/created
-<http://purl.org/dc/elements/1.1/created> rdf:type owl:AnnotationProperty .
-
-
 ###  http://purl.org/dc/elements/1.1/creator
 <http://purl.org/dc/elements/1.1/creator> rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/dc/elements/1.1/description
 <http://purl.org/dc/elements/1.1/description> rdf:type owl:AnnotationProperty .
-
-
-###  http://purl.org/dc/elements/1.1/identifier
-<http://purl.org/dc/elements/1.1/identifier> rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/dc/elements/1.1/publisher
@@ -133,12 +131,12 @@
 <http://schema.org/logo> rdf:type owl:AnnotationProperty .
 
 
+###  http://schema.org/name
+<http://schema.org/name> rdf:type owl:AnnotationProperty .
+
+
 ###  http://schema.org/url
 <http://schema.org/url> rdf:type owl:AnnotationProperty .
-
-
-###  http://schema.org/version
-<http://schema.org/version> rdf:type owl:AnnotationProperty .
 
 
 ###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
@@ -155,6 +153,10 @@
 
 ###  http://www.w3.org/2004/02/skos/core#note
 <http://www.w3.org/2004/02/skos/core#note> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#scopeNote
+<http://www.w3.org/2004/02/skos/core#scopeNote> rdf:type owl:AnnotationProperty .
 
 
 ###  https://w3id.org/OntoGSN/ontology#applicability
@@ -887,7 +889,7 @@ rdf:Statement rdf:type owl:Class .
 
 ###  https://w3id.org/OntoGSN/ontology#Argument
 :Argument rdf:type owl:Class ;
-          rdfs:subClassOf _:genid120 ,
+          rdfs:subClassOf _:genid121 ,
                           [ rdf:type owl:Restriction ;
                             owl:onProperty :contains ;
                             owl:allValuesFrom [ rdf:type owl:Class ;
@@ -910,7 +912,7 @@ rdf:Statement rdf:type owl:Class .
                                                            "A connected series of claims intended to establish an overall claim."@en ;
           :coreOrExtension "Core GSN"@en .
 
-_:genid120 rdf:type owl:Class ;
+_:genid121 rdf:type owl:Class ;
             owl:unionOf ( [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
                                                    owl:onProperty :contains ;
                                                    owl:someValuesFrom :ArtefactReference
@@ -931,7 +933,7 @@ _:genid120 rdf:type owl:Class ;
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :Argument ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid120 ;
+   owl:annotatedTarget _:genid121 ;
    <http://www.w3.org/2004/02/skos/core#definition> "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
    :coreOrExtension "Confidence Argument Extension"
  ] .
@@ -956,20 +958,20 @@ _:genid120 rdf:type owl:Class ;
 ###  https://w3id.org/OntoGSN/ontology#Assumption
 :Assumption rdf:type owl:Class ;
             rdfs:subClassOf :GSNElement ,
-                            _:genid136 ;
+                            _:genid137 ;
             rdfs:label "Assumption"@en ;
             <http://www.w3.org/2004/02/skos/core#definition> "An assumption, rendered as an oval with the letter 'A' at the top- or bottom-right, presents an intentionally unsubstantiated statement."@en ;
             :coreOrExtension "Core GSN"@en ;
             :renderedAs "oval"@en .
 
-_:genid136 rdf:type owl:Restriction ;
+_:genid137 rdf:type owl:Restriction ;
             owl:onProperty :statement ;
             owl:someValuesFrom xsd:string .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :Assumption ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid136 ;
+   owl:annotatedTarget _:genid137 ;
    <http://www.w3.org/2004/02/skos/core#definition> "GSN assumptions provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase."@en
  ] .
 
@@ -1012,20 +1014,20 @@ _:genid136 rdf:type owl:Restriction ;
 ###  https://w3id.org/OntoGSN/ontology#Context
 :Context rdf:type owl:Class ;
          rdfs:subClassOf :ArtefactReference ,
-                         _:genid145 ;
+                         _:genid146 ;
          rdfs:label "Context"@en ;
          <http://www.w3.org/2004/02/skos/core#definition> "A context, rendered as shown left, presents a contextual artefact. This can be a reference to contextual information, or a statement."@en ;
          :coreOrExtension "Core GSN"@en ;
          :renderedAs "rounded rectangle"@en .
 
-_:genid145 rdf:type owl:Restriction ;
+_:genid146 rdf:type owl:Restriction ;
             owl:onProperty :statement ;
             owl:someValuesFrom xsd:string .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :Context ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid145 ;
+   owl:annotatedTarget _:genid146 ;
    <http://www.w3.org/2004/02/skos/core#definition> "Two kinds of GSN context statement exist. Where a context statement draws attention to explanatory contextual information (such as the definition of some term), this information shall be stated briefly using complete sentences of a noun-phrase + verb-phrase structure. Where a context statement is a reference to an artefact of some kind, which informs the reasoning step, the context statement shall be expressed as a noun phrase."@en
  ] .
 
@@ -1096,7 +1098,7 @@ _:genid145 rdf:type owl:Restriction ;
                                                         )
                                           ]
                       ] ,
-                      _:genid169 ;
+                      _:genid170 ;
       rdfs:label "Goal"@en ;
       <http://www.w3.org/2004/02/skos/core#altLabel> "Claim"@en ;
       <http://www.w3.org/2004/02/skos/core#definition> "(Claim is) A proposition being asserted by the author that is a true or false statement."@en ,
@@ -1104,14 +1106,14 @@ _:genid145 rdf:type owl:Restriction ;
       :coreOrExtension "Core GSN"@en ;
       :renderedAs "rectangle"@en .
 
-_:genid169 rdf:type owl:Restriction ;
+_:genid170 rdf:type owl:Restriction ;
             owl:onProperty :statement ;
             owl:someValuesFrom xsd:string .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :Goal ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid169 ;
+   owl:annotatedTarget _:genid170 ;
    <http://www.w3.org/2004/02/skos/core#definition> "GSN goals document the claims made in the argument (i.e. premises and conclusions). Each goal shall contain a single goal statement, expressed as a proposition in the form of a noun phrase + verb-phrase sentence."@en
  ] .
 
@@ -1127,20 +1129,20 @@ _:genid169 rdf:type owl:Restriction ;
 ###  https://w3id.org/OntoGSN/ontology#Justification
 :Justification rdf:type owl:Class ;
                rdfs:subClassOf :GSNElement ,
-                               _:genid171 ;
+                               _:genid172 ;
                rdfs:label "Justification"@en ;
                <http://www.w3.org/2004/02/skos/core#definition> "A justification, rendered as an oval with the letter 'J' at the top- or bottom-right, presents a statement of rationale."@en ;
                :coreOrExtension "Core GSN"@en ;
                :renderedAs "oval"@en .
 
-_:genid171 rdf:type owl:Restriction ;
+_:genid172 rdf:type owl:Restriction ;
             owl:onProperty :statement ;
             owl:someValuesFrom xsd:string .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :Justification ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid171 ;
+   owl:annotatedTarget _:genid172 ;
    <http://www.w3.org/2004/02/skos/core#definition> "GSN justifications provide additional information necessary for the correct understanding of the argument. This information is stated as fully as necessary, using complete sentences in the form noun phrase + verb phrase."@en
  ] .
 
@@ -1274,20 +1276,20 @@ _:genid171 rdf:type owl:Restriction ;
                                                             )
                                               ]
                           ] ,
-                          _:genid214 ;
+                          _:genid215 ;
           rdfs:label "Solution"@en ;
           <http://www.w3.org/2004/02/skos/core#definition> "A solution, rendered as a circle, presents a reference to an evidence item."@en ;
           :coreOrExtension "Core GSN"@en ;
           :renderedAs "circle"@en .
 
-_:genid214 rdf:type owl:Restriction ;
+_:genid215 rdf:type owl:Restriction ;
             owl:onProperty :statement ;
             owl:someValuesFrom xsd:string .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :Solution ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid214 ;
+   owl:annotatedTarget _:genid215 ;
    <http://www.w3.org/2004/02/skos/core#definition> "GSN solutions make no claim, but are simply references to evidence items that provide support for a particular claim. They shall therefore be stated as noun-phrases."@en
  ] .
 
@@ -1309,20 +1311,20 @@ _:genid214 rdf:type owl:Restriction ;
                             owl:onProperty :supportedBy ;
                             owl:allValuesFrom :Goal
                           ] ,
-                          _:genid223 ;
+                          _:genid224 ;
           rdfs:label "Strategy"@en ;
           <http://www.w3.org/2004/02/skos/core#definition> "A strategy, rendered as a parallelogram, describes the inference that exists between a goal and its supporting goal(s)."@en ;
           :coreOrExtension "Core GSN"@en ;
           :renderedAs "parallelogram"@en .
 
-_:genid223 rdf:type owl:Restriction ;
+_:genid224 rdf:type owl:Restriction ;
             owl:onProperty :statement ;
             owl:someValuesFrom xsd:string .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :Strategy ;
    owl:annotatedProperty rdfs:subClassOf ;
-   owl:annotatedTarget _:genid223 ;
+   owl:annotatedTarget _:genid224 ;
    <http://www.w3.org/2004/02/skos/core#definition> "GSN strategy statements describe the reasoning that connects parent goals and their supporting goals, but the core claims and the structure connecting those claims remain unchanged. Strategy statements contain a brief description of the argument approach."@en
  ] .
 
@@ -1433,6 +1435,28 @@ _:genid223 rdf:type owl:Restriction ;
 <https://w3id.org/OntoGSN/swrl#ID> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
 <https://w3id.org/OntoGSN/swrl#X> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:label "Defeated Invalidation" ;
+   :coreOrExtension "Dialectic Extension" ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :defeated ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <https://w3id.org/OntoGSN/swrl#E> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> "true"^^xsd:boolean
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :valid ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> <https://w3id.org/OntoGSN/swrl#E> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> "false"^^xsd:boolean
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
 
 [ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
    rdfs:label "Undeveloped Defeat" ;
@@ -4316,28 +4340,6 @@ _:genid223 rdf:type owl:Restriction ;
                                                                  rdf:rest rdf:nil
                                                                ]
                                                     ]
-                                         ] ;
-   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :valid ;
-                                                       <http://www.w3.org/2003/11/swrl#argument1> <https://w3id.org/OntoGSN/swrl#E> ;
-                                                       <http://www.w3.org/2003/11/swrl#argument2> "false"^^xsd:boolean
-                                                     ] ;
-                                           rdf:rest rdf:nil
-                                         ]
- ] .
-
-[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
-   rdfs:label "Defeated Invalidation" ;
-   :coreOrExtension "Dialectic Extension" ;
-   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
-   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :defeated ;
-                                                       <http://www.w3.org/2003/11/swrl#argument1> <https://w3id.org/OntoGSN/swrl#E> ;
-                                                       <http://www.w3.org/2003/11/swrl#argument2> "true"^^xsd:boolean
-                                                     ] ;
-                                           rdf:rest rdf:nil
                                          ] ;
    <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;

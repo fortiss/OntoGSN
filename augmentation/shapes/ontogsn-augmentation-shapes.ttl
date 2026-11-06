@@ -599,7 +599,6 @@ gsnaugsh:ReportConflictShape rdf:type sh:NodeShape ;
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} and {?value} come from the same mechanism over the same target and disagree, and no prov:generatedAtTime puts one after the other. Add the timestamps, or remove the report that no longer counts."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?value
             WHERE {
@@ -619,7 +618,8 @@ gsnaugsh:ReportConflictShape rdf:type sh:NodeShape ;
                 FILTER(!BOUND(?t1) || !BOUND(?t2) || ?t1 = ?t2)
             }
         """ ;
-    ] .
+    ] ;
+    sh:severity sh:Violation .
 
 ###  A struck report names the activity that struck it
 gsnaugsh:ReportInvalidationShape rdf:type sh:NodeShape ;

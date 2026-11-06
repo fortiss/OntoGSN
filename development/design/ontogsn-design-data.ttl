@@ -39,7 +39,7 @@ gsndesign:ontology-1.3.0
     rdfs:label "OntoGSN ontology 1.3.0"@en ;
     owl:versionInfo "1.3.0" ;
     gsndesign:path "ontology/serializations/ontogsn.ttl" ;
-    gsndesign:fileChecksum "b03d16caac54eb33e8e2a8db942659098d88f27584281053f829edbddbd27b3d" ;
+    gsndesign:fileChecksum "8d61a834247e140f3d5bbd9ce2101e2642f997af35f4f5b2eceb2ee447496aa8" ;
     prov:generatedAtTime "2026-08-18T12:30:41Z"^^xsd:dateTime .
 
 gsndesign:shapes-1.1.1
@@ -48,7 +48,7 @@ gsndesign:shapes-1.1.1
     rdfs:label "OntoGSN SHACL shapes 1.1.1"@en ;
     owl:versionInfo "1.1.1" ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_0_full.ttl" ;
-    gsndesign:fileChecksum "5cb762d21c652db3a87012a9dbd8204d928d8c6926a5847ec01e73587e5778fc" ;
+    gsndesign:fileChecksum "e0ef29a1865bc9613d5369205ecc6f09bc447d8af82d0c8c1c54184d10993813" ;
     prov:generatedAtTime "2026-11-05T14:53:43Z"^^xsd:dateTime .
 
 
@@ -3690,7 +3690,9 @@ gsndesign:dd-0017
     gsndesign:hasRationale gsndesign:why-0002 .
 
 gsndesign:dd-0018
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "dc:created was never a Dublin Core Elements 1.1 term - DCMI defines created only in DCMI Metadata Terms - and the ontology never used it. The header states its creation date with terms:created."@en ;
+    gsndesign:supersededBy gsndesign:dd-0022 ;
     gsndesign:positionKey "S01.R018" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -3964,7 +3966,8 @@ gsndesign:st-0030
     gsndesign:aboutTerm dc:creator .
 
 gsndesign:dd-0031
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Nothing uses dc:identifier any more. Its only use was the ontology's dc:identifier SCSC-141C, which is the identifier of the GSN Community Standard, not of the ontology (see dd-0058)."@en ;
     gsndesign:positionKey "S01.R020" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -4133,7 +4136,8 @@ gsndesign:st-0038
     gsndesign:aboutTerm schema:url .
 
 gsndesign:dd-0039
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Nothing uses schema:version any more. Its only use was the ontology's schema:version 3.0, which is the version of the GSN Community Standard, not of the ontology (see dd-0065)."@en ;
     gsndesign:positionKey "S01.R027" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -4322,7 +4326,8 @@ gsndesign:st-0047
     gsndesign:aboutTerm <https://w3id.org/OntoGSN/ontology> .
 
 gsndesign:dd-0048
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S01.R036" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -4448,7 +4453,8 @@ gsndesign:st-0053
     gsndesign:aboutTerm <https://w3id.org/OntoGSN/ontology> .
 
 gsndesign:dd-0054
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S01.R042" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -4469,7 +4475,8 @@ gsndesign:st-0054
     gsndesign:aboutTerm <https://w3id.org/OntoGSN/ontology> .
 
 gsndesign:dd-0055
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S01.R043" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
@@ -4534,7 +4541,8 @@ gsndesign:st-0057
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0001 ; prov:hadActivity gsndesign:dd-0057 ] .
 
 gsndesign:dd-0058
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "SCSC-141C identifies the GSN Community Standard, not the ontology. The ontology names the standard with dc:source <https://scsc.uk/SCSC-141C> instead."@en ;
     gsndesign:positionKey "S02.R002" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-preamble ;
@@ -4580,7 +4588,8 @@ gsndesign:st-0059
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0003 ; prov:hadActivity gsndesign:dd-0059 ] .
 
 gsndesign:dd-0060
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S02.R004" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-preamble ;
@@ -4603,7 +4612,8 @@ gsndesign:st-0060
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0004 ; prov:hadActivity gsndesign:dd-0060 ] .
 
 gsndesign:dd-0061
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S02.R005" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-preamble ;
@@ -4649,7 +4659,8 @@ gsndesign:st-0062
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0006 ; prov:hadActivity gsndesign:dd-0062 ] .
 
 gsndesign:dd-0063
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "ontology file metadata, not a design decision; it re-drifts every release and is recoverable from ontogsn.ttl."@en ;
     gsndesign:positionKey "S02.R007" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-preamble ;
@@ -4696,7 +4707,8 @@ gsndesign:st-0064
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0008 ; prov:hadActivity gsndesign:dd-0064 ] .
 
 gsndesign:dd-0065
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "3.0 is the version of the GSN Community Standard, not of the ontology, and a FAIR assessor reads schema:version as the ontology's version. The ontology states its own version with owl:versionInfo, and names the standard with dc:source."@en ;
     gsndesign:positionKey "S02.R009" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-preamble ;
@@ -20888,7 +20900,7 @@ gsndesign:dd-0829
     gsndesign:section gsndesign:sec-core ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "Validation shape “gsn:supportedBy is irreflexive and asymmetric”, applied to gsn:supportedBy."@en ;
-    gsndesign:nlWrittenFor "2a44f621" ;
+    gsndesign:nlWrittenFor "c285ab72" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:noRationaleRecorded "true"^^xsd:boolean ;
     prov:generated gsndesign:st-0829 .
@@ -20900,8 +20912,9 @@ gsndesign:st-0829
     gsndesign:statementText """gsnsh:SupportedByIrreflexiveShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:supportedBy is irreflexive and asymmetric"@en ;
+    sh:severity sh:Violation ;
     sh:targetSubjectsOf gsn:supportedBy .""" ;
-    gsndesign:statementChecksum "2a44f621" ;
+    gsndesign:statementChecksum "c285ab72" ;
     gsndesign:structuralKey "gsnsh:SupportedByIrreflexiveShape|node|" ;
     gsndesign:aboutTerm gsnsh:SupportedByIrreflexiveShape ;
     gsndesign:mentionsTerm gsn:coreOrExtension ,
@@ -20915,7 +20928,7 @@ gsndesign:dd-0830
     gsndesign:section gsndesign:sec-core ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "{$this} and {?value} cannot support each other; support runs in one direction only."@en ;
-    gsndesign:nlWrittenFor "7568ef0c" ;
+    gsndesign:nlWrittenFor "c51e25ad" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:noRationaleRecorded "true"^^xsd:boolean ;
     prov:generated gsndesign:st-0830 .
@@ -20924,8 +20937,8 @@ gsndesign:st-0830
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsndesign:dd-0830 ;
     gsndesign:inGraph gsndesign:shapes-1.1.1 ;
-    gsndesign:statementText "gsnsh:SupportedByIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} and {?value} cannot support each other; support runs in one direction only.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:supportedBy ?value . ?value gsn:supportedBy $this . FILTER ( !sameTerm($this, ?value) ) }\" ; sh:severity sh:Violation ] ." ;
-    gsndesign:statementChecksum "7568ef0c" ;
+    gsndesign:statementText "gsnsh:SupportedByIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} and {?value} cannot support each other; support runs in one direction only.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:supportedBy ?value . ?value gsn:supportedBy $this . FILTER ( !sameTerm($this, ?value) ) }\" ] ." ;
+    gsndesign:statementChecksum "c51e25ad" ;
     gsndesign:structuralKey "gsnsh:SupportedByIrreflexiveShape|sparql|{$this} and {?value} cannot support each" ;
     gsndesign:aboutTerm gsnsh:SupportedByIrreflexiveShape ;
     gsndesign:mentionsTerm gsn:supportedBy ,
@@ -20938,7 +20951,7 @@ gsndesign:dd-0831
     gsndesign:section gsndesign:sec-core ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "{$this} cannot be supported by itself."@en ;
-    gsndesign:nlWrittenFor "882456fc" ;
+    gsndesign:nlWrittenFor "bdad638e" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:noRationaleRecorded "true"^^xsd:boolean ;
     prov:generated gsndesign:st-0831 .
@@ -20947,8 +20960,8 @@ gsndesign:st-0831
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsndesign:dd-0831 ;
     gsndesign:inGraph gsndesign:shapes-1.1.1 ;
-    gsndesign:statementText "gsnsh:SupportedByIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} cannot be supported by itself.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:supportedBy ?value . FILTER ( sameTerm($this, ?value) ) }\" ; sh:severity sh:Violation ] ." ;
-    gsndesign:statementChecksum "882456fc" ;
+    gsndesign:statementText "gsnsh:SupportedByIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} cannot be supported by itself.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:supportedBy ?value . FILTER ( sameTerm($this, ?value) ) }\" ] ." ;
+    gsndesign:statementChecksum "bdad638e" ;
     gsndesign:structuralKey "gsnsh:SupportedByIrreflexiveShape|sparql|{$this} cannot be supported by itself." ;
     gsndesign:aboutTerm gsnsh:SupportedByIrreflexiveShape ;
     gsndesign:mentionsTerm gsn:supportedBy ,
@@ -20961,7 +20974,7 @@ gsndesign:dd-0832
     gsndesign:section gsndesign:sec-core ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "Validation shape “gsn:inContextOf is irreflexive and asymmetric”, applied to gsn:inContextOf."@en ;
-    gsndesign:nlWrittenFor "b2893fb9" ;
+    gsndesign:nlWrittenFor "6abf63e0" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:noRationaleRecorded "true"^^xsd:boolean ;
     prov:generated gsndesign:st-0832 .
@@ -20973,8 +20986,9 @@ gsndesign:st-0832
     gsndesign:statementText """gsnsh:InContextOfIrreflexiveShape gsn:coreOrExtension "Core GSN"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "gsn:inContextOf is irreflexive and asymmetric"@en ;
+    sh:severity sh:Violation ;
     sh:targetSubjectsOf gsn:inContextOf .""" ;
-    gsndesign:statementChecksum "b2893fb9" ;
+    gsndesign:statementChecksum "6abf63e0" ;
     gsndesign:structuralKey "gsnsh:InContextOfIrreflexiveShape|node|" ;
     gsndesign:aboutTerm gsnsh:InContextOfIrreflexiveShape ;
     gsndesign:mentionsTerm gsn:coreOrExtension ,
@@ -20988,7 +21002,7 @@ gsndesign:dd-0833
     gsndesign:section gsndesign:sec-core ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "{$this} and {?value} cannot be placed in the context of each other."@en ;
-    gsndesign:nlWrittenFor "8a4703c8" ;
+    gsndesign:nlWrittenFor "8975e166" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:noRationaleRecorded "true"^^xsd:boolean ;
     prov:generated gsndesign:st-0833 .
@@ -20997,8 +21011,8 @@ gsndesign:st-0833
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsndesign:dd-0833 ;
     gsndesign:inGraph gsndesign:shapes-1.1.1 ;
-    gsndesign:statementText "gsnsh:InContextOfIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} and {?value} cannot be placed in the context of each other.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:inContextOf ?value . ?value gsn:inContextOf $this . FILTER ( !sameTerm($this, ?value) ) }\" ; sh:severity sh:Violation ] ." ;
-    gsndesign:statementChecksum "8a4703c8" ;
+    gsndesign:statementText "gsnsh:InContextOfIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} and {?value} cannot be placed in the context of each other.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:inContextOf ?value . ?value gsn:inContextOf $this . FILTER ( !sameTerm($this, ?value) ) }\" ] ." ;
+    gsndesign:statementChecksum "8975e166" ;
     gsndesign:structuralKey "gsnsh:InContextOfIrreflexiveShape|sparql|{$this} and {?value} cannot be placed in" ;
     gsndesign:aboutTerm gsnsh:InContextOfIrreflexiveShape ;
     gsndesign:mentionsTerm gsn:inContextOf ,
@@ -21011,7 +21025,7 @@ gsndesign:dd-0834
     gsndesign:section gsndesign:sec-core ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "{$this} cannot be placed in the context of itself."@en ;
-    gsndesign:nlWrittenFor "2ed60c87" ;
+    gsndesign:nlWrittenFor "9bede9ec" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:noRationaleRecorded "true"^^xsd:boolean ;
     prov:generated gsndesign:st-0834 .
@@ -21020,8 +21034,8 @@ gsndesign:st-0834
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsndesign:dd-0834 ;
     gsndesign:inGraph gsndesign:shapes-1.1.1 ;
-    gsndesign:statementText "gsnsh:InContextOfIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} cannot be placed in the context of itself.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:inContextOf ?value . FILTER ( sameTerm($this, ?value) ) }\" ; sh:severity sh:Violation ] ." ;
-    gsndesign:statementChecksum "2ed60c87" ;
+    gsndesign:statementText "gsnsh:InContextOfIrreflexiveShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} cannot be placed in the context of itself.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this ?value WHERE { $this gsn:inContextOf ?value . FILTER ( sameTerm($this, ?value) ) }\" ] ." ;
+    gsndesign:statementChecksum "9bede9ec" ;
     gsndesign:structuralKey "gsnsh:InContextOfIrreflexiveShape|sparql|{$this} cannot be placed in the context " ;
     gsndesign:aboutTerm gsnsh:InContextOfIrreflexiveShape ;
     gsndesign:mentionsTerm gsn:inContextOf ,
@@ -21034,7 +21048,7 @@ gsndesign:dd-0835
     gsndesign:section gsndesign:sec-core ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "Validation shape “The support structure is acyclic”, applied to gsn:GSNElement."@en ;
-    gsndesign:nlWrittenFor "dfb0b769" ;
+    gsndesign:nlWrittenFor "3d62457c" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0172 ;
     prov:generated gsndesign:st-0835 .
@@ -21047,8 +21061,9 @@ gsndesign:st-0835
     rdf:type sh:NodeShape ;
     rdfs:comment "Not an explicit OWL axiom, but implied by GSN: a goal structure is a directed acyclic graph rooted in one or more top goals."@en ;
     rdfs:label "The support structure is acyclic"@en ;
+    sh:severity sh:Violation ;
     sh:targetClass gsn:GSNElement .""" ;
-    gsndesign:statementChecksum "dfb0b769" ;
+    gsndesign:statementChecksum "3d62457c" ;
     gsndesign:structuralKey "gsnsh:SupportCycleShape|node|" ;
     gsndesign:aboutTerm gsnsh:SupportCycleShape ;
     gsndesign:mentionsTerm gsn:GSNElement ,
@@ -21062,7 +21077,7 @@ gsndesign:dd-0836
     gsndesign:section gsndesign:sec-core ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "{$this} takes part in a support cycle; a goal structure must not contain loops."@en ;
-    gsndesign:nlWrittenFor "7edc1c13" ;
+    gsndesign:nlWrittenFor "91bd6804" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:noRationaleRecorded "true"^^xsd:boolean ;
     prov:generated gsndesign:st-0836 .
@@ -21071,8 +21086,8 @@ gsndesign:st-0836
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsndesign:dd-0836 ;
     gsndesign:inGraph gsndesign:shapes-1.1.1 ;
-    gsndesign:statementText "gsnsh:SupportCycleShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} takes part in a support cycle; a goal structure must not contain loops.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this WHERE { $this gsn:supportedBy+ $this . }\" ; sh:severity sh:Violation ] ." ;
-    gsndesign:statementChecksum "7edc1c13" ;
+    gsndesign:statementText "gsnsh:SupportCycleShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} takes part in a support cycle; a goal structure must not contain loops.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this WHERE { $this gsn:supportedBy+ $this . }\" ] ." ;
+    gsndesign:statementChecksum "91bd6804" ;
     gsndesign:structuralKey "gsnsh:SupportCycleShape|sparql|{$this} takes part in a support cycle; a" ;
     gsndesign:aboutTerm gsnsh:SupportCycleShape ;
     gsndesign:mentionsTerm gsn:supportedBy ,
@@ -21085,7 +21100,7 @@ gsndesign:dd-0837
     gsndesign:section gsndesign:sec-pattern ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "Validation shape “Catalogue shape”, applied to gsn:Catalogue."@en ;
-    gsndesign:nlWrittenFor "403a709c" ;
+    gsndesign:nlWrittenFor "89ac155c" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0173 ;
     prov:generated gsndesign:st-0837 .
@@ -21098,8 +21113,9 @@ gsndesign:st-0837
     rdf:type sh:NodeShape ;
     rdfs:comment "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
     rdfs:label "Catalogue shape"@en ;
+    sh:severity sh:Violation ;
     sh:targetClass gsn:Catalogue .""" ;
-    gsndesign:statementChecksum "403a709c" ;
+    gsndesign:statementChecksum "89ac155c" ;
     gsndesign:structuralKey "gsnsh:CatalogueShape|node|" ;
     gsndesign:aboutTerm gsnsh:CatalogueShape ;
     gsndesign:mentionsTerm gsn:Catalogue ,
@@ -21160,7 +21176,7 @@ gsndesign:dd-0840
     gsndesign:section gsndesign:sec-pattern ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "Two patterns in this catalogue share the identifier {?id}; each pattern definition in a catalogue must have a unique pattern identifier."@en ;
-    gsndesign:nlWrittenFor "401822d6" ;
+    gsndesign:nlWrittenFor "5da018d4" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:noRationaleRecorded "true"^^xsd:boolean ;
     prov:generated gsndesign:st-0840 .
@@ -21169,8 +21185,8 @@ gsndesign:st-0840
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsndesign:dd-0840 ;
     gsndesign:inGraph gsndesign:shapes-1.1.1 ;
-    gsndesign:statementText "gsnsh:CatalogueShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"Two patterns in this catalogue share the identifier {?id}; each pattern definition in a catalogue must have a unique pattern identifier.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/pattern> ; sh:select \"SELECT $this ?id WHERE { $this gsn:contains ?p1 , ?p2 . ?p1 schema:identifier ?id . ?p2 schema:identifier ?id . FILTER ( !sameTerm(?p1, ?p2) ) }\" ; sh:severity sh:Violation ] ." ;
-    gsndesign:statementChecksum "401822d6" ;
+    gsndesign:statementText "gsnsh:CatalogueShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"Two patterns in this catalogue share the identifier {?id}; each pattern definition in a catalogue must have a unique pattern identifier.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/pattern> ; sh:select \"SELECT $this ?id WHERE { $this gsn:contains ?p1 , ?p2 . ?p1 schema:identifier ?id . ?p2 schema:identifier ?id . FILTER ( !sameTerm(?p1, ?p2) ) }\" ] ." ;
+    gsndesign:statementChecksum "5da018d4" ;
     gsndesign:structuralKey "gsnsh:CatalogueShape|sparql|Two patterns in this catalogue share the" ;
     gsndesign:aboutTerm gsnsh:CatalogueShape ;
     gsndesign:mentionsTerm gsn:contains ,
@@ -26859,7 +26875,7 @@ gsndesign:dd-1060
     gsndesign:section gsndesign:sec-dialectic ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "The challenges in a case must not form a cycle."@en ;
-    gsndesign:nlWrittenFor "d8ce081e" ;
+    gsndesign:nlWrittenFor "2398f160" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0222 ;
     prov:generated gsndesign:st-1060 .
@@ -26871,8 +26887,9 @@ gsndesign:st-1060
     gsndesign:statementText """gsnsh:ChallengeCycleShape gsn:coreOrExtension "Dialectic Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "The challenges are acyclic"@en ;
+    sh:severity sh:Violation ;
     sh:targetSubjectsOf gsn:challenges .""" ;
-    gsndesign:statementChecksum "d8ce081e" ;
+    gsndesign:statementChecksum "2398f160" ;
     gsndesign:structuralKey "gsnsh:ChallengeCycleShape|node|" ;
     gsndesign:aboutTerm gsnsh:ChallengeCycleShape ;
     gsndesign:mentionsTerm gsn:challenges ,
@@ -26886,7 +26903,7 @@ gsndesign:dd-1061
     gsndesign:section gsndesign:sec-dialectic ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "An element that takes part in a cycle of challenges is reported."@en ;
-    gsndesign:nlWrittenFor "cb9dd9a8" ;
+    gsndesign:nlWrittenFor "9202ff05" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0222 ;
     prov:generated gsndesign:st-1061 .
@@ -26895,8 +26912,8 @@ gsndesign:st-1061
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsndesign:dd-1061 ;
     gsndesign:inGraph gsndesign:shapes-1.1.1 ;
-    gsndesign:statementText "gsnsh:ChallengeCycleShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} takes part in a cycle of challenges.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ; sh:select \"SELECT $this WHERE { $this gsn:challenges+ $this . }\" ; sh:severity sh:Violation ] ." ;
-    gsndesign:statementChecksum "cb9dd9a8" ;
+    gsndesign:statementText "gsnsh:ChallengeCycleShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} takes part in a cycle of challenges.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ; sh:select \"SELECT $this WHERE { $this gsn:challenges+ $this . }\" ] ." ;
+    gsndesign:statementChecksum "9202ff05" ;
     gsndesign:structuralKey "gsnsh:ChallengeCycleShape|sparql|{$this} takes part in a cycle of challen" ;
     gsndesign:aboutTerm gsnsh:ChallengeCycleShape ;
     gsndesign:mentionsTerm gsn:challenges ,
@@ -26909,7 +26926,7 @@ gsndesign:dd-1062
     gsndesign:section gsndesign:sec-modular ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "The context links between modules must not form a cycle."@en ;
-    gsndesign:nlWrittenFor "3bbedea3" ;
+    gsndesign:nlWrittenFor "a7ea053d" ;
     prov:used gsndesign:src-0205 ;
     gsndesign:hasRationale gsndesign:why-0222 ;
     prov:generated gsndesign:st-1062 .
@@ -26921,8 +26938,9 @@ gsndesign:st-1062
     gsndesign:statementText """gsnsh:ModuleContextCycleShape gsn:coreOrExtension "Modular Extension"@en ;
     rdf:type sh:NodeShape ;
     rdfs:label "The context links between modules are acyclic"@en ;
+    sh:severity sh:Violation ;
     sh:targetClass gsn:Module .""" ;
-    gsndesign:statementChecksum "3bbedea3" ;
+    gsndesign:statementChecksum "a7ea053d" ;
     gsndesign:structuralKey "gsnsh:ModuleContextCycleShape|node|" ;
     gsndesign:aboutTerm gsnsh:ModuleContextCycleShape ;
     gsndesign:mentionsTerm gsn:Module ,
@@ -26938,7 +26956,7 @@ gsndesign:dd-1063
     gsndesign:section gsndesign:sec-modular ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "A module that takes part in a cycle of context links between modules is reported."@en ;
-    gsndesign:nlWrittenFor "fb347043" ;
+    gsndesign:nlWrittenFor "e83deddc" ;
     prov:used gsndesign:src-0205 ;
     gsndesign:hasRationale gsndesign:why-0222 ;
     prov:generated gsndesign:st-1063 .
@@ -26947,8 +26965,8 @@ gsndesign:st-1063
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsndesign:dd-1063 ;
     gsndesign:inGraph gsndesign:shapes-1.1.1 ;
-    gsndesign:statementText "gsnsh:ModuleContextCycleShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} takes part in a cycle of context links between modules.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ; sh:select \"SELECT $this WHERE { $this gsn:inContextOf+ $this . }\" ; sh:severity sh:Violation ] ." ;
-    gsndesign:statementChecksum "fb347043" ;
+    gsndesign:statementText "gsnsh:ModuleContextCycleShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} takes part in a cycle of context links between modules.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ; sh:select \"SELECT $this WHERE { $this gsn:inContextOf+ $this . }\" ] ." ;
+    gsndesign:statementChecksum "e83deddc" ;
     gsndesign:structuralKey "gsnsh:ModuleContextCycleShape|sparql|{$this} takes part in a cycle of context" ;
     gsndesign:aboutTerm gsnsh:ModuleContextCycleShape ;
     gsndesign:mentionsTerm gsn:inContextOf ,
@@ -27625,3 +27643,54 @@ gsndesign:dd-1088
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0233 .
 
+
+#################################################################
+#    Added by prov_add.py (2 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1089
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R55" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "‘name’ is defined as an annotation."@en ;
+    gsndesign:nlWrittenFor "d17d10ef" ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0234 ;
+    prov:generated gsndesign:st-1089 .
+
+gsndesign:st-1089
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1089 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.0 ;
+    gsndesign:statementText "schema:name rdf:type owl:AnnotationProperty ." ;
+    gsndesign:statementChecksum "d17d10ef" ;
+    gsndesign:structuralKey "name|a|AnnotationProperty" ;
+    gsndesign:aboutTerm schema:name .
+
+gsndesign:dd-1090
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R56" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "‘scopeNote’ is defined as an annotation."@en ;
+    gsndesign:nlWrittenFor "482814ce" ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0234 ;
+    prov:generated gsndesign:st-1090 .
+
+gsndesign:st-1090
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1090 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.0 ;
+    gsndesign:statementText "skos:scopeNote rdf:type owl:AnnotationProperty ." ;
+    gsndesign:statementChecksum "482814ce" ;
+    gsndesign:structuralKey "scopeNote|a|AnnotationProperty" ;
+    gsndesign:aboutTerm skos:scopeNote .
+
+gsndesign:why-0234
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "Two annotation properties imported so that WIDOCO shows the ontology header correctly. schema:name gives the publisher a name on its own node, next to schema:url. Before, the publisher was the string https://www.fortiss.org/, and WIDOCO showed that string as plain text, without a name and without a link. skos:scopeNote carries the note on the ontology node that explains the [OntoGSN] prefix. WIDOCO reads skos:note, rdfs:comment and dc:description as one field, the ontology description, and keeps the last English value that it reads. The 1.3.0 documentation therefore showed the note in place of the description. WIDOCO does not read skos:scopeNote, and SKOS defines it as a note that clarifies the meaning or the use of a concept, which is what the note does."@en .

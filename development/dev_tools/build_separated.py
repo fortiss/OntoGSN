@@ -244,6 +244,9 @@ def header(graph, module, value, suffix, scope, version):
                              DC.source):
                 continue
             out.add((iri, predicate, obj))
+            # an agent node, such as the publisher with its name and URL
+            if isinstance(obj, BNode):
+                out |= closure(graph, obj)
     if module == "0_full":
         for _, section_value, section_suffix in MODULES:
             out.add((iri, RDFS.seeAlso,

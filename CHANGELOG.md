@@ -57,6 +57,12 @@ only on a shape. pyshacl ignored the value on the constraint and used the defaul
   The symmetry check reports a `gsn:consistentWith` statement without its reverse. Retires
   `dd-0896`. Decisions `dd-1084` and `dd-1085`, rationale `why-0230`.
 - The records of the other three shapes change only in where `sh:severity` stands.
+- Six more shapes put `sh:severity sh:Violation` on a SPARQL constraint. The value moved to the
+  shape on 2026-11-06, after the 1.1.1 release, and ships as part of 1.1.1. A SHACL engine
+  reports these findings as violations before and after the move, so no result changes. The
+  shapes are `gsnsh:SupportedByIrreflexiveShape`, `gsnsh:InContextOfIrreflexiveShape`,
+  `gsnsh:SupportCycleShape`, `gsnsh:CatalogueShape`, `gsnsh:ModuleContextCycleShape` and
+  `gsnsh:ChallengeCycleShape`.
 
 *For case authors:* a report from shapes 1.1.0 lists these findings as violations. With 1.1.1,
 the same findings are warnings or info. If you filter results by `sh:sourceShape`, the
@@ -95,6 +101,9 @@ first of the two, so the properties now use the neutral verb "check".
 - The rules A4 and A6a to A6d, and the stored queries FC10, FC37 and FC38, read the new
   terms. The question of FC10 is now "Was this evidence checked, by whom, with what mechanism,
   and did it pass?".
+- `gsnaugsh:ReportConflictShape` has `sh:severity sh:Violation` on the shape, not on its SPARQL
+  constraint. This change was made on 2026-11-06, after the 0.4.0 release, and ships as part
+  of 0.4.0. The shape reports a violation before and after the change.
 
 *For case authors:* the rules and the queries do not see data that uses an old term. A solution
 whose artefact names its mechanism with `gsnaug:verifiableWith` gets no truth value from A6a to
@@ -307,7 +316,8 @@ written down nowhere a machine could read them.
 - `dcterms:issued` and `dcterms:modified` **replace `dc:issued` and `dc:modified`.** Dublin
   Core Elements 1.1 never defined either term — DCMI defines `issued` and `modified` only in
   DCMI Metadata Terms — so the two properties the header had been using resolved to nothing
-  and no tool read them. The dates themselves are unchanged.
+  and no tool read them. The values of the dates were corrected after the release, see
+  [The header says what the documentation shows](#the-header-says-what-the-documentation-shows).
 
 *For case authors:* nothing to do. Seven annotation properties are declared that were not
 before (`bibo:doi`, `bibo:status`, `dcterms:issued`, `dcterms:modified`,
@@ -316,6 +326,45 @@ gone (`dc:issued`, `dc:modified`); a case that annotated itself with either of t
 none should have — would need to move to the `dcterms` spelling.
 
 Reasoning: `dd-0996`–`dd-1002`, `dd-0019` and `dd-0032` retired, rationale `why-0218`.
+
+### The header says what the documentation shows
+
+**Not breaking.** Header metadata only. No term and no axiom changed. These corrections were
+made on 2026-11-05, after the `v1.3.0` tag, and ship as part of 1.3.0. The WIDOCO
+documentation copies each row from one header annotation, and in the tagged header nine of
+those annotations had a wrong value or a wrong form.
+
+| Annotation | Tagged 1.3.0 | Now |
+| :--- | :--- | :--- |
+| `dcterms:issued` | `2025-02-24`, the first issue of the ontology | `"2026-11-05"^^xsd:date`, the issue of this version |
+| `dcterms:created` | the text `"20th February 2025"@en` | `"2025-02-20"^^xsd:date` |
+| `dcterms:modified` | the string `"2026-11-05T00:00:00Z"` | `"2026-11-05"^^xsd:date` |
+| `dc:contributor` | one value, `"Barbara Gallina, Dian Balta, Ingmar Kessler"` | one value per person, with Jule Hendricks added |
+| `dc:publisher` | the string `"https://www.fortiss.org/"` | a node with `schema:name "fortiss GmbH"` and `schema:url <https://www.fortiss.org/>` |
+| `dc:source` | the citation of the GSN Community Standard, as text | the IRI `<https://scsc.uk/SCSC-141C>` |
+| `bibo:doi` | `"https://doi.org/10.5281/zenodo.17808330"`, so the DOI link had the resolver twice | `"10.5281/zenodo.17808330"` |
+| `cc:license` | the string `"https://creativecommons.org/licenses/by/4.0/"` | the IRI `<https://creativecommons.org/licenses/by/4.0/>` |
+| `dcterms:bibliographicCitation` | the citation of the paper | the citation of the ontology, with its version and DOI |
+
+- The paper has its own link on the header, `rdfs:seeAlso
+  <https://doi.org/10.48550/arXiv.2506.11023>`. `CITATION.cff` keeps the paper as the
+  preferred citation.
+- `owl:priorVersion <https://w3id.org/OntoGSN/ontology/1.2.3>` is new.
+- The note that explains the `[OntoGSN]` prefix moves from `skos:note` to `skos:scopeNote`.
+  WIDOCO reads `skos:note` as the ontology description, so the documentation showed the note
+  in place of the `dc:description`.
+- `dc:identifier "SCSC-141C"` and `schema:version 3.0` are gone. Both values belong to the GSN
+  Community Standard, not to the ontology, and the header names the standard with
+  `dc:source`.
+
+*For case authors:* nothing to do, unless a tool reads `dc:identifier` or `schema:version` from
+the ontology header. The declarations of `dc:created`, `dc:identifier` and `schema:version`
+are gone, and `schema:name` and `skos:scopeNote` are new. `dc:created` was never a Dublin Core
+Elements 1.1 term, and the ontology never used it.
+
+Reasoning: `dd-0018`, `dd-0031`, `dd-0039`, `dd-0048`, `dd-0054`, `dd-0055`, `dd-0058`,
+`dd-0060`, `dd-0061`, `dd-0063` and `dd-0065` retired. Decisions `dd-1089` and `dd-1090`,
+rationale `why-0234`.
 
 ### Twenty-four terms gain a definition
 
@@ -326,7 +375,7 @@ the decorators and the container properties. Every one of them now has a `skos:d
 A definition prefixed **`[OntoGSN]`** is this ontology's wording rather than the standard's.
 Twenty-one are tagged; three — `gsn:GSNElement`, `gsn:toBeSupportedByContract` and
 `gsn:uninstantiated` — are the standard's own sentence and are not. The convention is stated
-in a `skos:note` on the ontology node, so a reader who never opens `development/design/` can still
+in a `skos:scopeNote` on the ontology node, so a reader who never opens `development/design/` can still
 decode it.
 
 Every definition has a decision record naming the passage it was drawn from. One,

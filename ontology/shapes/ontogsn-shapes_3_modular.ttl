@@ -282,11 +282,11 @@ gsnsh:ModuleContextCycleShape rdf:type sh:NodeShape ;
     rdfs:label "The context links between modules are acyclic"@en ;
     sh:targetClass gsn:Module ;
     gsn:coreOrExtension "Modular Extension"@en ;
+    sh:severity sh:Violation ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} takes part in a cycle of context links between modules."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/modular> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this
             WHERE {

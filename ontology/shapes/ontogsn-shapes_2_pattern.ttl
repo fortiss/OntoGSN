@@ -41,6 +41,7 @@ gsnsh:CatalogueShape rdf:type sh:NodeShape ;
     rdfs:comment "A pattern catalogue may be created to collate a series of patterns; where such a catalogue is created the structure and format of the definition should be consistent and each pattern’s definition should have a unique {pattern identifier}."@en ;
     sh:targetClass gsn:Catalogue ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:severity sh:Violation ;
     sh:property [
         sh:path gsn:contains ;
         sh:class gsn:Pattern ;
@@ -59,7 +60,6 @@ gsnsh:CatalogueShape rdf:type sh:NodeShape ;
         rdf:type sh:SPARQLConstraint ;
         sh:message "Two patterns in this catalogue share the identifier {?id}; each pattern definition in a catalogue must have a unique pattern identifier."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/pattern> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this ?id
             WHERE {

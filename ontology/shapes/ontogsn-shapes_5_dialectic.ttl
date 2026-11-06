@@ -172,11 +172,11 @@ gsnsh:ChallengeCycleShape rdf:type sh:NodeShape ;
     rdfs:label "The challenges are acyclic"@en ;
     sh:targetSubjectsOf gsn:challenges ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
+    sh:severity sh:Violation ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
         sh:message "{$this} takes part in a cycle of challenges."@en ;
         sh:prefixes <https://w3id.org/OntoGSN/shapes/dialectic> ;
-        sh:severity sh:Violation ;
         sh:select """
             SELECT $this
             WHERE {
