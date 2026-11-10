@@ -1,8 +1,3 @@
-# id:        CQ-30
-# operation: create
-# question:  How is a context element added to a goal or strategy, pointing at an artefact?
-# expect:    insert
-
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
@@ -16,7 +11,7 @@ INSERT {
            gsn:refersTo ?artefact .
 }
 WHERE {
-  VALUES (?elementId ?contextId ?contextStatement ?artefactId) {   # PARAMETERS
+  VALUES (?elementId ?contextId ?contextStatement ?artefactId) {
     ("G1.2" "C4" "The braking demand arbitration is specified in ARB-SPEC-02." "Ev3")
   }
   ?element schema:identifier ?elementId .

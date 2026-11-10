@@ -469,21 +469,11 @@ gsndesign:query-augmentation-queries-fc01-requirement-source
     rdfs:label "augmentation/queries/fc01_requirement_source.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc01_requirement_source.rq" ;
-    gsndesign:fileChecksum "613bfc2cafc07c8bf3289eb756857500e1f9fedfb239344f5d5c8ecd5c71293c" ;
+    gsndesign:fileChecksum "c8623f5c45ce91a120d744a50588c8ec6e7a2841d1154eefdae86ad8af617900" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-44 ;
-    gsndesign:queryText """# id:        CQ-44
-# role:      Auditor
-# operation: read
-# question:  What law or requirement source does the case answer to?
-# expect:    rows
-#
-# Any element may answer to a requirement, not only the top goal: a control claim usually names
-# the clause it implements. A case that names none reads through CQ-07 instead, which returns
-# every context in scope without saying which of them is the requirement.
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?elementId ?source
@@ -499,20 +489,11 @@ gsndesign:query-augmentation-queries-fc02-assured-system
     rdfs:label "augmentation/queries/fc02_assured_system.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc02_assured_system.rq" ;
-    gsndesign:fileChecksum "e806043db229bd89d64ed0f07b7fedb2b597e9dab039888d358b06536e882530" ;
+    gsndesign:fileChecksum "551139a79e738b3192c6aff8f4572c282436b7cf00ce65c74deb0b89afd8b5ae" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-45 ;
-    gsndesign:queryText """# id:        CQ-45
-# role:      Auditor
-# operation: read
-# question:  What system and organisation is this case about?
-# expect:    rows
-#
-# The subject is an argument, an assurance case or a goal - the three granularities at which a
-# reader would say the case is about something.
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?subjectId ?system
@@ -528,7 +509,7 @@ gsndesign:query-augmentation-queries-fc03-undeveloped-claims-for-system
     rdfs:label "augmentation/queries/fc03_undeveloped_claims_for_system.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc03_undeveloped_claims_for_system.rq" ;
-    gsndesign:fileChecksum "9a2f5d1a47a97f94b204cd8d40c1425ee3ddbbcaff2d09aa00c7d201407db500" ;
+    gsndesign:fileChecksum "0404042ee2a8902a6f2bf934134c759f49985e610229365fe33336052649edc7" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
@@ -542,21 +523,12 @@ gsndesign:query-augmentation-queries-fc03-undeveloped-claims-for-system
         gsndesign:st-0218 ,
         gsndesign:st-0265 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-46 ;
-    gsndesign:queryText """# id:        CQ-46
-# role:      Compliance Officer
-# operation: read
-# question:  Which low-level claims need development for each system?
-# expect:    rows
-#
-# The inverse-path walk does the context inheritance in the query, so the answer does not depend
-# on S17 having been run first.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT DISTINCT ?goalId ?statement ?contextStatement
 WHERE {
-  VALUES ?system { "IT system" }                    # PARAMETER
+  VALUES ?system { "IT system" }
 
   ?goal a gsn:Goal ;
         schema:identifier ?goalId ;
@@ -576,7 +548,7 @@ gsndesign:query-augmentation-queries-fc07-evidence-location
     rdfs:label "augmentation/queries/fc07_evidence_location.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc07_evidence_location.rq" ;
-    gsndesign:fileChecksum "a90a0950a38884929a40ac42adac81d8e222c56b1a8efd53b5f3071bfe17135f" ;
+    gsndesign:fileChecksum "1deec5046e487fe03c4a88ec763498abb1df85679f5e11a11a0f7b40c61e4f37" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -585,13 +557,7 @@ gsndesign:query-augmentation-queries-fc07-evidence-location
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-49 ;
-    gsndesign:queryText """# id:        CQ-49
-# role:      Developer
-# operation: read
-# question:  Where is the requested evidence kept and how is it fetched?
-# expect:    rows
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -614,7 +580,7 @@ gsndesign:query-augmentation-queries-fc08-evidence-production
     rdfs:label "augmentation/queries/fc08_evidence_production.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc08_evidence_production.rq" ;
-    gsndesign:fileChecksum "1952ca8d5d24f60c84cd1a5eaf48f2f7301a3d4406fe62085fbe1e633a6855a2" ;
+    gsndesign:fileChecksum "5f7a9228ebbc81d09c5bb6e70d86b1da8a3783db9ea809c5c7d181559efc6176" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -623,15 +589,7 @@ gsndesign:query-augmentation-queries-fc08-evidence-production
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-50 ;
-    gsndesign:queryText """# id:        CQ-50
-# role:      Developer
-# operation: read
-# question:  Does the evidence exist yet, and how was it produced - by whom, with what, from what?
-# expect:    rows
-#
-# A solution with no artefact is evidence that does not exist yet, so the artefact is optional.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -654,7 +612,7 @@ gsndesign:query-augmentation-queries-fc10-evidence-verification
     rdfs:label "augmentation/queries/fc10_evidence_verification.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc10_evidence_verification.rq" ;
-    gsndesign:fileChecksum "2663b9e483185bb95cd849b62ffebdff48eb96f66e63b1a8de7bd9c6152698e4" ;
+    gsndesign:fileChecksum "127d23eaade6bccc51fa83554fb19038093f3f889dceceb9e5aef6a90d0b4819" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -665,13 +623,7 @@ gsndesign:query-augmentation-queries-fc10-evidence-verification
         gsndesign:st-0175 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-52 ;
-    gsndesign:queryText """# id:        CQ-52
-# role:      Process/Software Owner
-# operation: read
-# question:  Was this evidence checked, by whom, with what mechanism, and did it pass?
-# expect:    rows
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -692,7 +644,7 @@ gsndesign:query-augmentation-queries-fc11-controls-ready-for-review
     rdfs:label "augmentation/queries/fc11_controls_ready_for_review.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc11_controls_ready_for_review.rq" ;
-    gsndesign:fileChecksum "cb4037bd18bc1fcf2a84fbd1ade2f042ced516596c143ac31b6bbbb3dfa4d806" ;
+    gsndesign:fileChecksum "91beca0a9c115514aeadf15d1cb26a70ca6d0401a812c007eba52d95f33bd18a" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
@@ -706,16 +658,7 @@ gsndesign:query-augmentation-queries-fc11-controls-ready-for-review
         gsndesign:st-0207 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-53 ;
-    gsndesign:queryText """# id:        CQ-53
-# role:      Auditor
-# operation: read
-# question:  Which controls are ready for review?
-# expect:    rows
-#
-# Ready means developed and backed by an artefact. Whether it passed is CQ-54; what is still
-# missing is CQ-26 and CQ-16.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?goalId ?solutionId ?artefact
@@ -737,7 +680,7 @@ gsndesign:query-augmentation-queries-fc13-case-compliance
     rdfs:label "augmentation/queries/fc13_case_compliance.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc13_case_compliance.rq" ;
-    gsndesign:fileChecksum "bbeba3fce2ae17b274c483e4a9bb41a2550771501dcd84480f26e1fd5f7daab5" ;
+    gsndesign:fileChecksum "acd606468cbb4826d9440f39912bf3ed1959a1975e5f5c517402656719771345" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:defeated ,
@@ -745,16 +688,7 @@ gsndesign:query-augmentation-queries-fc13-case-compliance
     gsndesign:restsOnStatement gsndesign:st-0699 ,
         gsndesign:st-0731 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-55 ;
-    gsndesign:queryText """# id:        CQ-55
-# role:      Auditor
-# operation: read
-# question:  Is the case fully compliant?
-# expect:    rows
-#
-# Compliant is all three counts at zero. The status is derived on every run rather than stored,
-# so it cannot go stale; the price is that it cannot be reproduced for a past report entry.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 
 SELECT ?openIssues ?defeated ?inDoubt
@@ -776,20 +710,12 @@ gsndesign:query-augmentation-queries-fc14-open-clarifications
     rdfs:label "augmentation/queries/fc14_open_clarifications.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc14_open_clarifications.rq" ;
-    gsndesign:fileChecksum "6b246685a88236b7a9e99634f2d5a20c9e83db85050dc33b395ffee4c7f5112a" ;
+    gsndesign:fileChecksum "04b6c8a96f605328da4684e9addbfbd9ff5275065e79cc732b3f6c7301b41f46" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-56 ;
-    gsndesign:queryText """# id:        CQ-56
-# role:      Auditor
-# operation: read
-# question:  Which elements have an open clarification against them?
-# expect:    rows
-#
-# Open means neither ended by an outcome nor closed by an answer.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -812,20 +738,14 @@ gsndesign:query-augmentation-queries-fc15-who-answers-for-element
     rdfs:label "augmentation/queries/fc15_who_answers_for_element.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc15_who_answers_for_element.rq" ;
-    gsndesign:fileChecksum "bbe67cbd29a910db9178e31e73313daae411d3e3b28abbba342ff401d2e40bf7" ;
+    gsndesign:fileChecksum "e01582968748a5aeb20ef2a7e44d62466229312a755ecf47a9a6b2ed036905e8" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:refersTo ;
     gsndesign:restsOnStatement gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-57 ;
-    gsndesign:queryText """# id:        CQ-57
-# role:      Process/Software Owner
-# operation: read
-# question:  Who can answer for this element - its owner, or the author of its evidence?
-# expect:    rows
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -847,20 +767,11 @@ gsndesign:query-augmentation-queries-fc16-clarification-answers
     rdfs:label "augmentation/queries/fc16_clarification_answers.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc16_clarification_answers.rq" ;
-    gsndesign:fileChecksum "2cc302761e9e533493eed9256f5e00287a33831b63877b0aa9d65ab18dd0a2ba" ;
+    gsndesign:fileChecksum "4e28e65d8bfb059117933343f5d378267a98e5b41bcc2159e328610ae7feb5f7" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-58 ;
-    gsndesign:queryText """# id:        CQ-58
-# role:      Auditor
-# operation: read
-# question:  What was said in reply to a clarification, and was the reply accepted?
-# expect:    rows
-#
-# A response does not close an ask. The outcome does: "resolved" means the raiser accepted a
-# response; no outcome means the ask is still open, replies or not.
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?response ?issueId ?description ?outcome
@@ -880,19 +791,11 @@ gsndesign:query-augmentation-queries-fc17-rounds-per-element
     rdfs:label "augmentation/queries/fc17_rounds_per_element.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc17_rounds_per_element.rq" ;
-    gsndesign:fileChecksum "bea2d09322bf380b7587c778f04ccbfc5306efd95763a1a9b4ba74ca029eb939" ;
+    gsndesign:fileChecksum "609e8627943a3df30ad7c1f6e814fa4a3c4f1cb9e03786bea3d906ea1bcfd46a" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-59 ;
-    gsndesign:queryText """# id:        CQ-59
-# role:      Auditor
-# operation: read
-# question:  How many rounds has this element taken, and of which kind?
-# expect:    rows
-#
-# One issue per round is what makes this a COUNT. A flag on the target would report one.
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?targetId ?type (COUNT(DISTINCT ?issue) AS ?rounds)
@@ -911,17 +814,11 @@ gsndesign:query-augmentation-queries-fc18-superseded-asks
     rdfs:label "augmentation/queries/fc18_superseded_asks.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc18_superseded_asks.rq" ;
-    gsndesign:fileChecksum "8b0b361fe8d6d8ce38d08aaaeea6eb0342f682e25b6cb3279a5d89e462a80720" ;
+    gsndesign:fileChecksum "76fe0797346e3bdbd33e99ba84bb58c1c63b7e1e0b61a7ab914ada15d677e183" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-60 ;
-    gsndesign:queryText """# id:        CQ-60
-# role:      Auditor
-# operation: read
-# question:  Which pending ask was displaced by a newer one?
-# expect:    rows
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?newerId ?olderId ?outcome ?holder
@@ -940,17 +837,11 @@ gsndesign:query-augmentation-queries-fc19-who-holds-the-ask
     rdfs:label "augmentation/queries/fc19_who_holds_the_ask.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc19_who_holds_the_ask.rq" ;
-    gsndesign:fileChecksum "b9d51ac12884c568d1531548ca004d6ad4aa7ceffac44f2e5bd2f355cabc48af" ;
+    gsndesign:fileChecksum "5613870afc07ec9d24558e099947db6635bba501c128cf7c5730ef89eb5c9232" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-61 ;
-    gsndesign:queryText """# id:        CQ-61
-# role:      Auditor
-# operation: read
-# question:  Who currently holds a relayed ask - where is it stuck?
-# expect:    rows
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?issueId ?holder ?raiser ?targetId
@@ -971,20 +862,11 @@ gsndesign:query-augmentation-queries-fc20-escalation-count
     rdfs:label "augmentation/queries/fc20_escalation_count.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc20_escalation_count.rq" ;
-    gsndesign:fileChecksum "d72eeb0143a282e055615fcd2d9b0bf99d3708a0d4d9be992434334bfeb3f028" ;
+    gsndesign:fileChecksum "13abdc05111667bc0e788ae00244b667f89db6fc33f8bb8ea6776f205100f812" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-62 ;
-    gsndesign:queryText """# id:        CQ-62
-# role:      Auditor
-# operation: read
-# question:  How many times was an ask escalated because the holder could not answer?
-# expect:    rows
-#
-# An escalation is a hop whose predecessor was closed as cannot-answer, counted from the first
-# ask in the chain - the one that supersedes nothing.
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?originalId (COUNT(DISTINCT ?later) AS ?escalations)
@@ -1006,7 +888,7 @@ gsndesign:query-augmentation-queries-fc22-what-to-revise
     rdfs:label "augmentation/queries/fc22_what_to_revise.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc22_what_to_revise.rq" ;
-    gsndesign:fileChecksum "1458aaebd0722a11c764f04545d3603c68d367150708a157645069046d02683f" ;
+    gsndesign:fileChecksum "777cebb4fb31501d0dfc7e92efab84559c0694feb903075b61c60411c5776055" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1015,16 +897,7 @@ gsndesign:query-augmentation-queries-fc22-what-to-revise
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0175 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-64 ;
-    gsndesign:queryText """# id:        CQ-64
-# role:      Compliance Officer
-# operation: read
-# question:  What has to be revised, and by whom?
-# expect:    rows
-#
-# The class of the target says whether the claim or the evidence is at fault. A revise issue
-# against a context is a remark about wording and is deliberately not returned here.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -1048,17 +921,11 @@ gsndesign:query-augmentation-queries-fc23-revision-rounds
     rdfs:label "augmentation/queries/fc23_revision_rounds.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc23_revision_rounds.rq" ;
-    gsndesign:fileChecksum "caa4a7ed7db0a7355d38c56e01ba0796bd200bc42da6d3125ef3e4b709fa0ec3" ;
+    gsndesign:fileChecksum "cb9c138034c993dc55f1a56ff602603f74843c77cfcdc0014c09da244b8e8bdf" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-65 ;
-    gsndesign:queryText """# id:        CQ-65
-# role:      Compliance Officer
-# operation: read
-# question:  How many revision rounds, and what was offered in reply to each ask?
-# expect:    rows
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?targetId (COUNT(DISTINCT ?issue) AS ?rounds)
@@ -1082,7 +949,7 @@ gsndesign:query-augmentation-queries-fc24-revision-diff
     rdfs:label "augmentation/queries/fc24_revision_diff.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc24_revision_diff.rq" ;
-    gsndesign:fileChecksum "9a397469ddf06b74db4eecba5980445fade19cff9c4ae7f47d7df4d670a29ed3" ;
+    gsndesign:fileChecksum "077b65741c694234118715e5976e94242a67148d180bc3438e5e23a73fc63884" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1091,20 +958,7 @@ gsndesign:query-augmentation-queries-fc24-revision-diff
     gsndesign:restsOnStatement gsndesign:st-0218 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-66 ;
-    gsndesign:queryText """# id:        CQ-66
-# role:      Developer
-# operation: read
-# question:  What did a revision actually change - which artefact replaced which?
-# expect:    rows
-#
-# Artefact versions only. A reworded claim is not a revision in this sense.
-#
-# The issue is a revise or a resolve issue, because a resolution can also replace an artefact.
-# It is raised against an element that still refers to the older artefact, or it is in
-# context of one that does. A case that points the revised solution at the newer artefact
-# can keep the older one in the context of the issue.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -1135,21 +989,12 @@ gsndesign:query-augmentation-queries-fc26-unresolved-at-audit
     rdfs:label "augmentation/queries/fc26_unresolved_at_audit.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc26_unresolved_at_audit.rq" ;
-    gsndesign:fileChecksum "d5f4c684e64389ce38f911b0c0770d9a11664e1d2ac6878cd6be75591e780c2c" ;
+    gsndesign:fileChecksum "e44e3f0acd776fd756ab5e373c9c2beb1a0c571b317fff1738f28bb2b50ef964" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/ns/prov#" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-68 ;
-    gsndesign:queryText """# id:        CQ-68
-# role:      Auditor
-# operation: read
-# question:  What was left unresolved at the last audit, and what is due by the next one?
-# expect:    rows
-#
-# Scoped by cycle rather than by date, because two audits may overlap in time and the question
-# asked is always which round.
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 PREFIX prov:    <http://www.w3.org/ns/prov#>
 
@@ -1173,20 +1018,11 @@ gsndesign:query-augmentation-queries-fc27-resolution-state
     rdfs:label "augmentation/queries/fc27_resolution_state.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc27_resolution_state.rq" ;
-    gsndesign:fileChecksum "d6ccf525db705ed201b5c5b7b2e1dccc8883f35b6c185776b889c994d4eed52a" ;
+    gsndesign:fileChecksum "652aee1c2c2b9e19b215f658d1cfcf62ff1eb2cd250357f849eeb13e68a0ca73" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-69 ;
-    gsndesign:queryText """# id:        CQ-69
-# role:      Auditor
-# operation: read
-# question:  Was a resolution implemented, declined, or infeasible?
-# expect:    rows
-#
-# The state is the outcome. A response that the auditor has not accepted leaves the ask open,
-# and the last column says whether one is on record.
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?issueId ?targetId ?state ?responded
@@ -1208,7 +1044,7 @@ gsndesign:query-augmentation-queries-fc28-manual-evidence
     rdfs:label "augmentation/queries/fc28_manual_evidence.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc28_manual_evidence.rq" ;
-    gsndesign:fileChecksum "bf666727ba643822fa84bfcd6d93ee7fc834e7ab3821abc55373235a3cad3a1c" ;
+    gsndesign:fileChecksum "11a023a4ef8d11e995408f2205b5d89a0b877a92222cecb3f5661f6dbca3a023" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1217,13 +1053,7 @@ gsndesign:query-augmentation-queries-fc28-manual-evidence
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-70 ;
-    gsndesign:queryText """# id:        CQ-70
-# role:      Developer
-# operation: read
-# question:  Which evidence needs to be generated manually?
-# expect:    rows
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -1246,7 +1076,7 @@ gsndesign:query-augmentation-queries-fc29-automated-evidence
     rdfs:label "augmentation/queries/fc29_automated_evidence.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc29_automated_evidence.rq" ;
-    gsndesign:fileChecksum "a05d99bdcecd985eee9dd3fe372bd5ab3ec40a165c3e63c353d93b87bd8d00be" ;
+    gsndesign:fileChecksum "0a38e4df8193d99d397942b0a341bd4a91535074e92fb88af41aef6dd50c48ff" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Solution ,
@@ -1254,16 +1084,7 @@ gsndesign:query-augmentation-queries-fc29-automated-evidence
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-71 ;
-    gsndesign:queryText """# id:        CQ-71
-# role:      Developer
-# operation: read
-# question:  Which evidence is generated automatically, and how or where from can it be retrieved?
-# expect:    rows
-#
-# Evidence is an artefact that a solution refers to. Generated data that no solution refers
-# to, such as the data of an instantiation, is not listed.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 
 SELECT DISTINCT ?artefact ?mechanism ?source ?storage ?retrieval
@@ -1284,7 +1105,7 @@ gsndesign:query-augmentation-queries-fc30-alternative-provision
     rdfs:label "augmentation/queries/fc30_alternative_provision.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc30_alternative_provision.rq" ;
-    gsndesign:fileChecksum "d2767b8a22796ebc2cec10d2d99539d0b1eb3c9d9eb410e8ddde964bb805f552" ;
+    gsndesign:fileChecksum "dd23b8539b4dca53923a06901a657b1c33f5564b02b2a96bda64f5e8e5635930" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1293,16 +1114,7 @@ gsndesign:query-augmentation-queries-fc30-alternative-provision
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-72 ;
-    gsndesign:queryText """# id:        CQ-72
-# role:      Process/Software Owner
-# operation: read
-# question:  Which evidence needs an alternative provision mechanism - an interview, a call, paper?
-# expect:    rows
-#
-# Which mechanism it is - interview, paper, call - is a subclass of gsnaug:Mechanism in the
-# domain ontology; this returns the ones a person has to run.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -1325,24 +1137,11 @@ gsndesign:query-augmentation-queries-fc31-evidence-cannot-be-produced
     rdfs:label "augmentation/queries/fc31_evidence_cannot_be_produced.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc31_evidence_cannot_be_produced.rq" ;
-    gsndesign:fileChecksum "1084831fcbc4626d6a3c09a39fad0318c2af9d614b873dc7f3dec1842c28e126" ;
+    gsndesign:fileChecksum "d9ccf7ad8d0c63d6788b95753ebc3e1d2bf4fa9b1e82dc3dfeeeccd4b07a3ed6" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
-    gsndesign:mentionsTerm gsn:undeveloped ,
-        gsn:uninstantiated ;
-    gsndesign:restsOnStatement gsndesign:st-0200 ,
-        gsndesign:st-0358 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-73 ;
-    gsndesign:queryText """# id:        CQ-73
-# role:      Developer
-# operation: read
-# question:  Which evidence cannot be produced at all, as opposed to not yet produced?
-# expect:    rows
-#
-# Not yet produced is gsn:undeveloped and gsn:uninstantiated, which CQ-26 and CQ-27 report.
-# Cannot be produced is an ask closed as infeasible, which is a different answer.
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?targetId ?issueId ?cycleId
@@ -1365,17 +1164,11 @@ gsndesign:query-augmentation-queries-fc32-cannot-resolve
     rdfs:label "augmentation/queries/fc32_cannot_resolve.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc32_cannot_resolve.rq" ;
-    gsndesign:fileChecksum "0186cce648bd6db8837cef0a543dcfa9501c150b9c2b4dc535c387a3c8ac4138" ;
+    gsndesign:fileChecksum "0680b0d46c61a9599043cd530bd5c4057a6b842ad1de91026a98dd7e92adb5e5" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-74 ;
-    gsndesign:queryText """# id:        CQ-74
-# role:      Auditor
-# operation: read
-# question:  Which issue cannot be resolved at all, as opposed to not yet resolved?
-# expect:    rows
-
-PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT ?issueId ?targetId ?outcome ?holder
@@ -1397,7 +1190,7 @@ gsndesign:query-augmentation-queries-fc33-instantiated-elements
     rdfs:label "augmentation/queries/fc33_instantiated_elements.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc33_instantiated_elements.rq" ;
-    gsndesign:fileChecksum "3c5c78b0ba8477f430b8cdf65c5fe7a049fdba7f2f058f5719922ffc3145491a" ;
+    gsndesign:fileChecksum "7519763974d6e8d05ae1db611dacdd1a0e6093140366f4855db49752555bc834" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1413,16 +1206,7 @@ gsndesign:query-augmentation-queries-fc33-instantiated-elements
         gsndesign:st-0462 ,
         gsndesign:st-0463 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-75 ;
-    gsndesign:queryText """# id:        CQ-75
-# role:      Compliance Officer
-# operation: read
-# question:  How is the interpretation instantiated into claims and evidence?
-# expect:    rows
-#
-# The reference says which data governs the subtree; gsnaug:instantiatedFrom says which row of it
-# produced this element.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -1444,7 +1228,7 @@ gsndesign:query-augmentation-queries-fc34-who-retrieves-evidence
     rdfs:label "augmentation/queries/fc34_who_retrieves_evidence.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc34_who_retrieves_evidence.rq" ;
-    gsndesign:fileChecksum "52c599061645f893691388c4c022e89da10283c72d05e5b6701b80b5e0a10aaf" ;
+    gsndesign:fileChecksum "b564797330a0b5dba3dbbe70ea3037f32e1a883429e1e07d7c02406f044ca80b" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1455,16 +1239,7 @@ gsndesign:query-augmentation-queries-fc34-who-retrieves-evidence
         gsndesign:st-0207 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-76 ;
-    gsndesign:queryText """# id:        CQ-76
-# role:      Compliance Officer
-# operation: read
-# question:  Who is responsible for retrieving the evidence for a particular system?
-# expect:    rows
-#
-# gsnaug:assures is asserted, not derived. It names a gsnaug:System directly, so the answer does
-# not depend on how - or whether - the case draws its top-level context.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -1488,7 +1263,7 @@ gsndesign:query-augmentation-queries-fc35-artefacts-to-change
     rdfs:label "augmentation/queries/fc35_artefacts_to_change.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc35_artefacts_to_change.rq" ;
-    gsndesign:fileChecksum "e89a580b48ba45bc8675d710e860b3d8ef2da76a93a8f7a02fb3dc3c7707b788" ;
+    gsndesign:fileChecksum "4a48e8f760442968ab0d1e6644a956745d7150ae6a97ed426f4c29e4278567c0" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1501,15 +1276,7 @@ gsndesign:query-augmentation-queries-fc35-artefacts-to-change
         gsndesign:st-0289 ,
         gsndesign:st-0699 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-77 ;
-    gsndesign:queryText """# id:        CQ-77
-# role:      Developer
-# operation: read
-# question:  Which artefacts need changing, and who owns the change?
-# expect:    rows
-#
-# The last column is the impact of the change, which CQ-15 answers in full for a given artefact.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -1535,7 +1302,7 @@ gsndesign:query-augmentation-queries-fc36-automation-feasibility
     rdfs:label "augmentation/queries/fc36_automation_feasibility.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc36_automation_feasibility.rq" ;
-    gsndesign:fileChecksum "9817ed9644f22dd997e0e2d4a529d9f806bc92e8f182273b3a2b98195eb83585" ;
+    gsndesign:fileChecksum "1dc946a2d1139eea745545ed6fa6d69c45e4fd178956e6aa332465615087bf1b" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1544,16 +1311,7 @@ gsndesign:query-augmentation-queries-fc36-automation-feasibility
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-78 ;
-    gsndesign:queryText """# id:        CQ-78
-# role:      Developer
-# operation: read
-# question:  Which evidence can be generated automatically, and which has been assessed as manual?
-# expect:    rows
-#
-# No mechanism at all means nobody has looked; a mechanism flagged false means automation was
-# assessed and rejected. The two are different answers.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
@@ -1579,7 +1337,7 @@ gsndesign:query-augmentation-queries-fc37-term-impact
     rdfs:label "augmentation/queries/fc37_term_impact.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc37_term_impact.rq" ;
-    gsndesign:fileChecksum "521cad626d2634742635582ca22fbb0c50d584ca881dd4cd8f6a27df5d466cca" ;
+    gsndesign:fileChecksum "394a1aaf73e1cdfbb49727e5b862bf8c9c4ba12da302218664fbe16ca11b0843" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1589,24 +1347,13 @@ gsndesign:query-augmentation-queries-fc37-term-impact
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0207 ,
         gsndesign:st-0289 ;
-    gsndesign:queryText """# id:        CQ-79
-# role:      Developer
-# operation: read
-# question:  If this domain term changes, which mechanisms, artefacts and claims are affected?
-# expect:    rows
-#
-# Answerable without running anything, for every mechanism that declares what it reads. A
-# mechanism that declares nothing is absent from the answer, so the answer is only as complete
-# as the declarations are. For a mechanism that is a shape, a rule or a query in the graph the
-# declaration can be derived from the node itself; for a script it has to be written by hand.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT DISTINCT ?term ?mechanism ?use ?artefact ?solutionId ?goalId
 WHERE {
-  VALUES ?term { <https://example.org/case#retainedUntil> }    # PARAMETER
+  VALUES ?term { <https://example.org/case#retainedUntil> }
 
   ?mechanism gsnaug:readsTerm ?term .
   ?artefact  ?use ?mechanism .
@@ -1628,7 +1375,7 @@ gsndesign:query-augmentation-queries-fc38-inspectable-mechanisms
     rdfs:label "augmentation/queries/fc38_inspectable_mechanisms.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc38_inspectable_mechanisms.rq" ;
-    gsndesign:fileChecksum "47d24384bbdaed7273bada6e482a94fa0224d64bd5fed1a78608d50e59d9a486" ;
+    gsndesign:fileChecksum "b0ca5bab1ce00cdc1d4e97beaaa52e7292aa027c39dce5f2db53e0f58842ea4e" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://spinrdf.org/sp#" ,
         "http://www.w3.org/2003/11/swrl#" ,
@@ -1639,23 +1386,7 @@ gsndesign:query-augmentation-queries-fc38-inspectable-mechanisms
         gsn:refersTo ;
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0289 ;
-    gsndesign:queryText """# id:        CQ-80
-# role:      Compliance Officer
-# operation: read
-# question:  Which evidence rests on a mechanism that can be read without being run, and what does
-#            each mechanism declare?
-# expect:    rows
-#
-# Four states per mechanism. In the graph: a shape, a rule or a query implements the mechanism,
-# so what it depends on can be read off that node. Script in the graph: a person can read what it does,
-# but no tool derives the terms, so any listed are declared by hand. Declared by hand: terms are
-# listed but nothing in the graph says what the mechanism does, so the list has to be trusted.
-# Opaque: none of the above, so only a run tells.
-#
-# "In the graph" is read off the type of the node that implements the mechanism. The list below is what this query knows: SHACL shapes,
-# SHACL-AF SPARQL executables, SWRL rules and SPIN queries. A new formalism is a line here.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 PREFIX sh:      <http://www.w3.org/ns/shacl#>
@@ -1696,23 +1427,12 @@ gsndesign:query-augmentation-queries-fc39-requirement-revised
     rdfs:label "augmentation/queries/fc39_requirement_revised.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc39_requirement_revised.rq" ;
-    gsndesign:fileChecksum "dc74c1eb978af124b4e8b92f3ace23da59af6f4777629c84ed21fe78108e996e" ;
+    gsndesign:fileChecksum "4a61dbd17d3087ee4262fc45f8fcd9b7e749aa0dbde2d3fd1c2f46e345f22ec7" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/ns/prov#" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
-    gsndesign:queryText """# id:        CQ-81
-# role:      Compliance Officer
-# operation: read
-# question:  Which elements answer to a requirement that has a newer revision?
-# expect:    rows
-#
-# A changed requirement is a new gsnaug:Requirement that is prov:wasRevisionOf the old one. An
-# element still linked to the old one by gsnaug:requiredBy, and not yet to the new one, is in the
-# answer. Whether the change matters to the element is a judgement: whoever makes it raises a
-# revise issue on the element, and rule A2 takes it from there.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX prov:    <http://www.w3.org/ns/prov#>
 PREFIX schema:  <http://schema.org/>
@@ -1733,7 +1453,7 @@ gsndesign:query-augmentation-queries-fc40-system-revised
     rdfs:label "augmentation/queries/fc40_system_revised.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc40_system_revised.rq" ;
-    gsndesign:fileChecksum "50733d04c0475b6d20a45d3f265669ec01f38b8d1ae06e6c6c54fea0a4a97d85" ;
+    gsndesign:fileChecksum "299403a904ff433e9244190ef296d0b347ef0e4bf809ce488b28df60146e1c99" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/ns/prov#" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
@@ -1744,20 +1464,7 @@ gsndesign:query-augmentation-queries-fc40-system-revised
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0207 ,
         gsndesign:st-0289 ;
-    gsndesign:queryText """# id:        CQ-82
-# role:      Developer
-# operation: read
-# question:  Which evidence was drawn from a system, or a part of one, that has a newer revision?
-# expect:    rows
-#
-# A changed system, or a changed part of one, is a new individual that is prov:wasRevisionOf the
-# old one; how fine the parts are is the domain ontology's choice. An artefact drawn from the old
-# one by gsnaug:generatedFrom is in the answer until a replacement drawn from the new one exists.
-# The last two columns are the solution that cites the artefact and the goals above it, which
-# is the reach of the change. Whether the change matters to them is a judgement: whoever makes
-# it raises a revise issue on the solution, and rule A2 takes it from there.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX prov:    <http://www.w3.org/ns/prov#>
 PREFIX schema:  <http://schema.org/>
@@ -1785,7 +1492,7 @@ gsndesign:query-augmentation-queries-fc41-context-revised
     rdfs:label "augmentation/queries/fc41_context_revised.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/fc41_context_revised.rq" ;
-    gsndesign:fileChecksum "f520d326eb105880af3f10d1c58330f1c8471879e23b6ffebf3ccf799c9eeabb" ;
+    gsndesign:fileChecksum "d5b71ac31679e3fc7ba517d5673786555cf120c976b83a84d790a18659d6388b" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/ns/prov#" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
@@ -1800,22 +1507,7 @@ gsndesign:query-augmentation-queries-fc41-context-revised
         gsndesign:st-0207 ,
         gsndesign:st-0218 ,
         gsndesign:st-0289 ;
-    gsndesign:queryText """# id:        CQ-83
-# role:      Process Owner
-# operation: read
-# question:  Which goals sit under a context whose artefact has a newer revision?
-# expect:    rows
-#
-# The environment of a claim is what GSN puts in a context. A context that gsn:refersTo an
-# artefact - a deployment list, an operating design domain, a configuration - is the hook: the
-# artefact is revised with gsnaug:replaces or prov:wasRevisionOf, and the context still refers
-# to the old one. A context applies to the element it is attached to and to everything that
-# element supports, so the query walks gsn:supportedBy down from the holder of the context; the
-# core rules do not materialise that for contexts, only for assumptions. Whether the change
-# matters to a goal is a judgement: whoever makes it raises a revise issue on the goal, and rule
-# A2 takes it from there.
-
-PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX prov:    <http://www.w3.org/ns/prov#>
 PREFIX schema:  <http://schema.org/>
@@ -1840,7 +1532,7 @@ gsndesign:query-create-assurance-case-skeleton
     rdfs:label "create_assurance_case_skeleton.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/create_assurance_case_skeleton.rq" ;
-    gsndesign:fileChecksum "99fe96c7562077dc87a8e58131a464b386ca5eaa4a264ec372fe4e7c9ce56b53" ;
+    gsndesign:fileChecksum "ee5e36c9563dd610b7e75651db7cf3fa7e603f23c9ff42a4b5b54db2599f7ea9" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://example.org/my-assurance-case#" ,
@@ -1868,15 +1560,7 @@ gsndesign:query-create-assurance-case-skeleton
         gsndesign:st-0474 ,
         gsndesign:st-0640 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-28 ;
-    gsndesign:queryText """# id:        CQ-28
-# operation: create
-# question:  How is a new, empty assurance case started?
-# expect:    insert
-#
-# The only query in the set that names a case namespace of its own, because there is no
-# existing element to derive one from. Change the case: prefix below before running it.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 PREFIX case:   <https://example.org/my-assurance-case#>
@@ -1912,12 +1596,11 @@ gsndesign:query-create-challenge-to-element
     rdfs:label "create_challenge_to_element.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/create_challenge_to_element.rq" ;
-    gsndesign:fileChecksum "9ecdaa6b9abd7310973e4c4e31e6f1930e94c572371b073a4431ec61b37dfe24" ;
+    gsndesign:fileChecksum "6a6110c5e839184ba00ee840ea49d7f197eb393871ccabf6adaecdf0ad6d1d93" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
-    gsndesign:mentionsTerm gsn:Defeater ,
-        gsn:Goal ,
+    gsndesign:mentionsTerm gsn:Goal ,
         gsn:challenges ,
         gsn:statement ,
         gsn:undeveloped ;
@@ -1925,19 +1608,9 @@ gsndesign:query-create-challenge-to-element
         gsndesign:st-0200 ,
         gsndesign:st-0265 ,
         gsndesign:st-0696 ,
-        gsndesign:st-0740 ,
-        gsndesign:st-0760 ;
+        gsndesign:st-0740 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-29 ;
-    gsndesign:queryText """# id:        CQ-29
-# operation: create
-# question:  How is a challenge recorded against part of the argument?
-# expect:    insert
-#
-# A challenge shaped as a goal asserts a counter-claim and puts its target in doubt; one
-# shaped as a solution cites evidence and defeats it. Change ?challengeType to pick.
-# gsn:Defeater is inferred from gsn:challenges, never asserted - see the class's note.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
@@ -1950,7 +1623,7 @@ INSERT {
              gsn:challenges ?target .
 }
 WHERE {
-  VALUES (?targetId ?challengeId ?challengeType ?challengeStatement) {   # PARAMETERS
+  VALUES (?targetId ?challengeId ?challengeType ?challengeStatement) {
     ("G1.1" "CG3" gsn:Goal
      "The field trial did not cover the night-time subset of the operational design domain.")
   }
@@ -1966,7 +1639,7 @@ gsndesign:query-create-context-for-goal
     rdfs:label "create_context_for_goal.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/create_context_for_goal.rq" ;
-    gsndesign:fileChecksum "25305ea9b02f68914c2b8c42b6b3e8346df9123a572d3f5dfcf6ff71babdcb2a" ;
+    gsndesign:fileChecksum "e2b836e1c0ba7428d8c3aa550c648f82722a24567f6f770b8841b51781f9c053" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -1981,12 +1654,7 @@ gsndesign:query-create-context-for-goal
         gsndesign:st-0265 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-30 ;
-    gsndesign:queryText """# id:        CQ-30
-# operation: create
-# question:  How is a context element added to a goal or strategy, pointing at an artefact?
-# expect:    insert
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
@@ -1999,7 +1667,7 @@ INSERT {
            gsn:refersTo ?artefact .
 }
 WHERE {
-  VALUES (?elementId ?contextId ?contextStatement ?artefactId) {   # PARAMETERS
+  VALUES (?elementId ?contextId ?contextStatement ?artefactId) {
     ("G1.2" "C4" "The braking demand arbitration is specified in ARB-SPEC-02." "Ev3")
   }
   ?element schema:identifier ?elementId .
@@ -2016,7 +1684,7 @@ gsndesign:query-create-goal-under-parent
     rdfs:label "create_goal_under_parent.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/create_goal_under_parent.rq" ;
-    gsndesign:fileChecksum "3a7e7e1d22a180c5af67bb4c25cd9d0edc866fda20b2c1df3482efdea68ff3a7" ;
+    gsndesign:fileChecksum "9c9acac741a77db904a73332b426131dc80455e3fd7105175d0f123722cff6d4" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2031,15 +1699,7 @@ gsndesign:query-create-goal-under-parent
         gsndesign:st-0207 ,
         gsndesign:st-0265 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-31 ;
-    gsndesign:queryText """# id:        CQ-31
-# operation: create
-# question:  How is a sub-goal added beneath an existing goal or strategy?
-# expect:    insert
-#
-# The new element's IRI is minted in the parent's own namespace, so the query never has
-# to know which case it is being run against. Every create query below does the same.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
@@ -2053,7 +1713,7 @@ INSERT {
        gsn:undeveloped true .
 }
 WHERE {
-  VALUES (?parentId ?newId ?newStatement) {           # PARAMETERS
+  VALUES (?parentId ?newId ?newStatement) {
     ("St1" "G1.4" "Sensor occlusion is detected before it affects the detection rate.")
   }
   ?parent schema:identifier ?parentId .
@@ -2068,7 +1728,7 @@ gsndesign:query-create-solution-with-artefact
     rdfs:label "create_solution_with_artefact.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/create_solution_with_artefact.rq" ;
-    gsndesign:fileChecksum "66c5f770e616e3857d1c28332a5377b63d2570f441bf5c15d8eea3cadb3cc50f" ;
+    gsndesign:fileChecksum "01c250ead5667f00f1db03dafd6a389e4be858a23146e2c739ed8a302c2f968e" ;
     gsndesign:declaresNamespace "http://purl.org/dc/terms/" ,
         "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
@@ -2085,15 +1745,7 @@ gsndesign:query-create-solution-with-artefact
         gsndesign:st-0265 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-32 ;
-    gsndesign:queryText """# id:        CQ-32
-# operation: create
-# question:  How is a new piece of evidence attached to a goal?
-# expect:    insert
-#
-# Evidence enters as two nodes, not one: the artefact is the thing that exists, the
-# solution is the argument's reference to it. Conflating them is the commonest ABox error.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 PREFIX terms:  <http://purl.org/dc/terms/>
@@ -2115,7 +1767,7 @@ INSERT {
 WHERE {
   VALUES (?goalId ?solutionId ?solutionStatement ?artefactId ?artefactLabel ?created) {
     ("G1.2" "Sn6" "Degraded-mode arbitration test report."
-     "Ev7" "ARBITRATION-TEST-2026-07" "2026-07-14"^^xsd:date)     # PARAMETERS
+     "Ev7" "ARBITRATION-TEST-2026-07" "2026-07-14"^^xsd:date)
   }
   ?goal schema:identifier ?goalId .
   FILTER NOT EXISTS { ?existing schema:identifier ?solutionId }
@@ -2129,7 +1781,7 @@ gsndesign:query-create-solutions-for-unreferenced-artefacts
     rdfs:label "create_solutions_for_unreferenced_artefacts.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/create_solutions_for_unreferenced_artefacts.rq" ;
-    gsndesign:fileChecksum "92851d627daf4938cb6f24150e2c8ad6a3c34db63231003009712c89ec589776" ;
+    gsndesign:fileChecksum "e06d5e41282a86057f16b27ab65a1d96df6a368ada7c369d5c3470870bfc2c63" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2142,16 +1794,7 @@ gsndesign:query-create-solutions-for-unreferenced-artefacts
         gsndesign:st-0265 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-33 ;
-    gsndesign:queryText """# id:        CQ-33
-# operation: create
-# question:  How are artefacts already in the store turned into solutions in bulk?
-# expect:    insert
-#
-# The import case: evidence arrives from a test pipeline as artefacts, and each one needs
-# a solution before the argument can cite it. The identifier is derived from the artefact's,
-# so re-running the query adds nothing the second time.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
@@ -2182,7 +1825,7 @@ gsndesign:query-create-strategy-between-goals
     rdfs:label "create_strategy_between_goals.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/create_strategy_between_goals.rq" ;
-    gsndesign:fileChecksum "7c789447d74acb77fffb07656e2da2e92bfa4d3c650d0e871f85835d2b782776" ;
+    gsndesign:fileChecksum "ea487b6e555e15e5c5deb169beeddb12535d5c67f2c62568fec51351d388b2a3" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2195,15 +1838,7 @@ gsndesign:query-create-strategy-between-goals
         gsndesign:st-0207 ,
         gsndesign:st-0265 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-34 ;
-    gsndesign:queryText """# id:        CQ-34
-# operation: create
-# question:  How is a strategy inserted between a goal and the sub-goals it already has?
-# expect:    change
-#
-# Inserting a strategy is a re-parenting, not an addition: the parent's existing support
-# links move onto the strategy, or the argument ends up with two routes to the same place.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
@@ -2220,7 +1855,7 @@ INSERT {
             gsn:supportedBy ?child .
 }
 WHERE {
-  VALUES (?parentId ?strategyId ?strategyStatement) {   # PARAMETERS
+  VALUES (?parentId ?strategyId ?strategyStatement) {
     ("G1.1" "St2" "Argument over each detection failure mode in turn.")
   }
   ?parent schema:identifier ?parentId ;
@@ -2236,7 +1871,7 @@ gsndesign:query-delete-assurance-case
     rdfs:label "delete_assurance_case.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/delete_assurance_case.rq" ;
-    gsndesign:fileChecksum "444ee763c1ae3f5d3b019eea266e843f539df40af41cd360317d1e80652e3454" ;
+    gsndesign:fileChecksum "8af34a5c3c2f930d0a394be11a8443841715644a99beeb51c22cc52e35dafcb0" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Artefact ,
@@ -2253,16 +1888,7 @@ gsndesign:query-delete-assurance-case
         gsndesign:st-0696 ,
         gsndesign:st-0740 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-38 ;
-    gsndesign:queryText """# id:        CQ-38
-# operation: delete
-# question:  How is a whole assurance case and everything under it removed?
-# expect:    delete
-#
-# Follows reachability, not gsn:contains alone, which misses elements reached only through
-# supportedBy. Artefacts are spared - another case may cite them; use
-# delete_unreferenced_artefacts.rq for those.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 DELETE {
@@ -2270,7 +1896,7 @@ DELETE {
   ?subject ?incoming ?node .
 }
 WHERE {
-  VALUES ?caseId { "AC1" }                            # PARAMETER
+  VALUES ?caseId { "AC1" }
   ?case a gsn:AssuranceCase ;
         schema:identifier ?caseId .
   ?case (gsn:contains|gsn:supportedBy|gsn:inContextOf|gsn:challenges)* ?node .
@@ -2288,7 +1914,7 @@ gsndesign:query-delete-challenge-and-its-effects
     rdfs:label "delete_challenge_and_its_effects.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/delete_challenge_and_its_effects.rq" ;
-    gsndesign:fileChecksum "3248e8f70f1a0fc69c5e0ee3f9ce1db854a6cc0b324562a13497504b9b1c614d" ;
+    gsndesign:fileChecksum "d1e0934e635041d94637d258c26ce1aef205bd007afd38aa5a647a9377007098" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2300,16 +1926,7 @@ gsndesign:query-delete-challenge-and-its-effects
         gsndesign:st-0731 ,
         gsndesign:st-0740 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-39 ;
-    gsndesign:queryText """# id:        CQ-39
-# operation: delete
-# question:  How is a challenge withdrawn, together with the doubt and defeat it caused?
-# expect:    delete
-#
-# Withdrawing the challenge is not enough on its own: gsn:inDoubt and gsn:defeated were
-# written onto the target by a rule, and nothing retracts them when the reason goes away.
-# Clear them here, then re-run the dialectic updates to re-derive what still holds.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX schema: <http://schema.org/>
 
@@ -2321,7 +1938,7 @@ DELETE {
   ?target gsn:defeated ?defeated .
 }
 WHERE {
-  VALUES ?challengeId { "CG1" }                       # PARAMETER
+  VALUES ?challengeId { "CG1" }
   ?challenge schema:identifier ?challengeId .
   {
     ?challenge gsn:challenges ?target .
@@ -2343,20 +1960,12 @@ gsndesign:query-delete-element-and-its-links
     rdfs:label "delete_element_and_its_links.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/delete_element_and_its_links.rq" ;
-    gsndesign:fileChecksum "aaa56b36759483509e238e594c89017d77ad5367c95fca14d0e446e31cf5cfbf" ;
+    gsndesign:fileChecksum "c5a9fda9adb025eadff2b09d5f0348c426cf630f635c5343eb0bcc3f2eb7ec8c" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:answersQuestion gsndesign:cq-CQ-40 ;
-    gsndesign:queryText """# id:        CQ-40
-# operation: delete
-# question:  How is an element removed without leaving dangling references to it?
-# expect:    delete
-#
-# Both directions and the reifications. Deleting only the outgoing triples leaves the
-# element's identifier gone but its parents still pointing at a node with no type.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX schema: <http://schema.org/>
 
@@ -2366,7 +1975,7 @@ DELETE {
   ?relationship ?relationshipProperty ?relationshipValue .
 }
 WHERE {
-  VALUES ?elementId { "G1.2" }                        # PARAMETER
+  VALUES ?elementId { "G1.2" }
   ?element schema:identifier ?elementId .
   {
     ?element ?outgoing ?object .
@@ -2384,45 +1993,21 @@ gsndesign:query-delete-materialised-inferences
     rdfs:label "delete_materialised_inferences.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/delete_materialised_inferences.rq" ;
-    gsndesign:fileChecksum "a2ce80edf1d45ceaa9b74ed95c8b5b7112e39c10dd1b8e65549f117142927643" ;
+    gsndesign:fileChecksum "bc8cde8fa7aa285f0e898356fba6a059e9b2a937f89ba1fa777e8a0152e027ad" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Defeater ,
-        gsn:away ,
         gsn:consistentWith ,
-        gsn:contract ,
         gsn:defeated ,
         gsn:inDoubt ,
-        gsn:public ,
-        gsn:relationshipType ,
-        gsn:top ,
-        gsn:true ,
-        gsn:valid ;
-    gsndesign:restsOnStatement gsndesign:st-0114 ,
-        gsndesign:st-0120 ,
-        gsndesign:st-0144 ,
-        gsndesign:st-0234 ,
-        gsndesign:st-0490 ,
-        gsndesign:st-0525 ,
-        gsndesign:st-0534 ,
+        gsn:relationshipType ;
+    gsndesign:restsOnStatement gsndesign:st-0120 ,
         gsndesign:st-0565 ,
         gsndesign:st-0699 ,
         gsndesign:st-0731 ,
         gsndesign:st-0760 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-41 ;
-    gsndesign:queryText """# id:        CQ-41
-# operation: delete
-# question:  How are the conclusions written by ontology/queries/rules/ cleared before re-running them?
-# expect:    delete
-#
-# Only the four things nothing but a rule ever writes. gsn:valid, gsn:true, gsn:away,
-# gsn:top, gsn:public and gsn:contract are also set by hand, so clearing them would destroy
-# assertions; the reified relationships the rules mint cannot be told from hand-drawn ones.
-#
-# To keep derived and asserted apart, run ontology/example/run_rules.py --out on a copy instead of
-# materialising in place.
-
-PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 DELETE {
@@ -2450,22 +2035,14 @@ gsndesign:query-delete-support-link
     rdfs:label "delete_support_link.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/delete_support_link.rq" ;
-    gsndesign:fileChecksum "0416f4d84351725f716521677b455fb5343e9c6b0f88b987bc26ce979cf3ba6c" ;
+    gsndesign:fileChecksum "161c91e194cba1f516705d120aafa4198b96befcd74af8426d8002a5f9a0c9ad" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:supportedBy ;
     gsndesign:restsOnStatement gsndesign:st-0207 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-42 ;
-    gsndesign:queryText """# id:        CQ-42
-# operation: delete
-# question:  How is one support or context link removed, leaving both elements in place?
-# expect:    delete
-#
-# Detaching a branch rather than deleting it - the sub-argument survives and can be
-# re-parented. The reification of the link goes with it, or it outlives what it describes.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX schema: <http://schema.org/>
 
@@ -2474,7 +2051,7 @@ DELETE {
   ?relationship ?relationshipProperty ?relationshipValue .
 }
 WHERE {
-  VALUES (?fromId ?toId ?predicate) {                 # PARAMETERS
+  VALUES (?fromId ?toId ?predicate) {
     ("G1.1" "Sn2" gsn:supportedBy)
   }
   ?from schema:identifier ?fromId .
@@ -2493,22 +2070,14 @@ gsndesign:query-delete-unreferenced-artefacts
     rdfs:label "delete_unreferenced_artefacts.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/delete_unreferenced_artefacts.rq" ;
-    gsndesign:fileChecksum "ecfbe561c95d89139bdf90f61683681b4bfa65c9aa44c3aba7a47b22b534c040" ;
+    gsndesign:fileChecksum "4b494c50b57794091f037f84a65766cd20f4139cfee5b733e66af0446565258e" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Artefact ,
         gsn:refersTo ;
     gsndesign:restsOnStatement gsndesign:st-0111 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-43 ;
-    gsndesign:queryText """# id:        CQ-43
-# operation: delete
-# question:  How are artefacts no solution or context cites any more cleared out?
-# expect:    delete
-#
-# Run read_solutions_without_artefact first. An artefact that looks unreferenced because
-# the solution meant to cite it was never linked is not rubbish, it is a broken link.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 
 DELETE {
   ?artefact ?property ?value .
@@ -2530,7 +2099,7 @@ gsndesign:query-read-assurance-case-inventory
     rdfs:label "read_assurance_case_inventory.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_assurance_case_inventory.rq" ;
-    gsndesign:fileChecksum "2f59a0919c604d195396dd58797947023cf2e40f040ed2a4527b00f26e5e737a" ;
+    gsndesign:fileChecksum "8b613a58418e9825b3aa8c4e7ee001b57c3ceec43612df3aff09c696f36cb844" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2543,14 +2112,7 @@ gsndesign:query-read-assurance-case-inventory
         gsndesign:st-0265 ,
         gsndesign:st-0474 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-01 ;
-    gsndesign:queryText """# id:        CQ-01
-# operation: read
-# question:  What assurance cases are in the store, and what arguments does each contain?
-# expect:    rows
-#
-# The orientation query: run this first against an unfamiliar store.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
@@ -2574,7 +2136,7 @@ gsndesign:query-read-assurance-claim-points
     rdfs:label "read_assurance_claim_points.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_assurance_claim_points.rq" ;
-    gsndesign:fileChecksum "b6b8ea7624ad201071feb9436e1625bf752ecf13a05fbbbc1b20eaf5ce490bc7" ;
+    gsndesign:fileChecksum "135632e42b5ffa69af57a9ff714086f3b43aed52ae91f4f27d20b80bcce77ec6" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2585,12 +2147,7 @@ gsndesign:query-read-assurance-claim-points
         gsndesign:st-0635 ,
         gsndesign:st-0658 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-02 ;
-    gsndesign:queryText """# id:        CQ-02
-# operation: read
-# question:  Where are the assurance claim points, and what confidence argument backs each?
-# expect:    rows
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX schema: <http://schema.org/>
 
@@ -2615,7 +2172,7 @@ gsndesign:query-read-away-elements
     rdfs:label "read_away_elements.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_away_elements.rq" ;
-    gsndesign:fileChecksum "ed83828a1994547893bad1f18f35f7139c61133bb21e3ffdcb05a2a99fd18bad" ;
+    gsndesign:fileChecksum "05fa94c0240bffca7e1670d6fb74c631877f101d6a632a547309eee08de8697d" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Module ,
@@ -2627,15 +2184,7 @@ gsndesign:query-read-away-elements
         gsndesign:st-0490 ,
         gsndesign:st-0534 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-03 ;
-    gsndesign:queryText """# id:        CQ-03
-# operation: read
-# question:  Which away elements are referenced, and does the module they come from exist?
-# expect:    rows
-#
-# An away element repeats something declared elsewhere. If the elsewhere is not in the
-# store, the reference is dangling and the argument is not self-contained.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?elementId ?type ?homeModuleId ?public
@@ -2659,21 +2208,13 @@ gsndesign:query-read-case-summary-counts
     rdfs:label "read_case_summary_counts.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_case_summary_counts.rq" ;
-    gsndesign:fileChecksum "83e367a79bafed47fc4c678a116cef186e8bce7cf566aba82c29ae20f1fb4ba0" ;
+    gsndesign:fileChecksum "c56d5e5a76ade0f102197b9bf3cac921d6451df667e33d3f762e8c3ee68a50a5" ;
     gsndesign:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:GSNElement ;
     gsndesign:restsOnStatement gsndesign:st-0132 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-04 ;
-    gsndesign:queryText """# id:        CQ-04
-# operation: read
-# question:  How many elements of each GSN type does the case contain?
-# expect:    rows
-#
-# rdfs:subClassOf* walks the TBox, so a Solution is counted as a Solution and the query
-# still knows it is a GSN element. Nothing here needs a reasoner to have run first.
-
-PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
 SELECT ?type (COUNT(DISTINCT ?element) AS ?count)
@@ -2690,7 +2231,7 @@ gsndesign:query-read-challenges-and-their-targets
     rdfs:label "read_challenges_and_their_targets.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_challenges_and_their_targets.rq" ;
-    gsndesign:fileChecksum "230d55b9f4a3f4e5124a52fa306af604a00fde65535fdc58aec7322e5999e5d1" ;
+    gsndesign:fileChecksum "b09c1db2f8e31eee67ed80a3279462de8d3f27748b853ed7d2618a387d38aac2" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Defeater ,
@@ -2705,15 +2246,7 @@ gsndesign:query-read-challenges-and-their-targets
         gsndesign:st-0740 ,
         gsndesign:st-0760 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-63 ;
-    gsndesign:queryText """# id:        CQ-05
-# operation: read
-# question:  What challenges have been raised, against what, and by what kind of defeater?
-# expect:    rows
-#
-# A goal-shaped challenge puts its target in doubt; a solution-shaped one cites evidence
-# and defeats it. The distinction decides how urgent the row is.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?challengeId ?challengeKind ?challengeStatement ?targetId ?targetType
@@ -2736,7 +2269,7 @@ gsndesign:query-read-claim-points-without-confidence-argument
     rdfs:label "read_claim_points_without_confidence_argument.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_claim_points_without_confidence_argument.rq" ;
-    gsndesign:fileChecksum "471a118c45f8bc641f08e337f6692c785a05a0b80eedda99953956d9d5cbac47" ;
+    gsndesign:fileChecksum "ebe7b28cc9962882b774e129734088fd4648bb19ef9dae76801a635ba3e3c2ed" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2747,15 +2280,7 @@ gsndesign:query-read-claim-points-without-confidence-argument
         gsndesign:st-0640 ,
         gsndesign:st-0658 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-06 ;
-    gsndesign:queryText """# id:        CQ-06
-# operation: read
-# question:  Which assurance claim points have no confidence argument behind them?
-# expect:    rows
-#
-# An assurance claim point is a promise that confidence in this step has been argued
-# somewhere. One with nothing associated is the promise unkept.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX schema: <http://schema.org/>
 
@@ -2780,7 +2305,7 @@ gsndesign:query-read-context-in-scope-for-goal
     rdfs:label "read_context_in_scope_for_goal.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_context_in_scope_for_goal.rq" ;
-    gsndesign:fileChecksum "4608835e631e66d96c5c2d70139a3c57bdcb0c65f0c1b1aedcac83980958319e" ;
+    gsndesign:fileChecksum "9acd8d350b47667799552b091fb67a3cdf718e057b33d332e78172e4d822c288" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2795,21 +2320,13 @@ gsndesign:query-read-context-in-scope-for-goal
     gsndesign:answersQuestion gsndesign:cq-CQ-44 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-45 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-46 ;
-    gsndesign:queryText """# id:        CQ-07
-# operation: read
-# question:  What context, assumptions and justifications are in scope for a given goal?
-# expect:    rows
-#
-# Context is inherited down the support chain (SWRL rule "Context Inheritance"), so a
-# goal is read in the context declared on it AND on everything above it.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
 SELECT DISTINCT ?contextId ?type ?statement ?declaredOnId ?inherited
 WHERE {
-  VALUES ?goalId { "G1.1" }           # PARAMETER: the goal being read
+  VALUES ?goalId { "G1.1" }
 
   ?goal schema:identifier ?goalId .
   ?ancestor gsn:supportedBy* ?goal .
@@ -2829,7 +2346,7 @@ gsndesign:query-read-duplicate-identifiers
     rdfs:label "read_duplicate_identifiers.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_duplicate_identifiers.rq" ;
-    gsndesign:fileChecksum "e4877600a29008497c46ad7528f8d38f20d9e2d392907d53af064ec140501079" ;
+    gsndesign:fileChecksum "7767a14e8414965841f69f31325dc027451de8cf88df42436eac1b42e89fbf27" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2846,15 +2363,7 @@ gsndesign:query-read-duplicate-identifiers
         gsndesign:st-0291 ,
         gsndesign:st-0369 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-08 ;
-    gsndesign:queryText """# id:        CQ-08
-# operation: read
-# question:  Do two distinct elements share a schema:identifier?
-# expect:    rows
-#
-# The ontology requires exactly one identifier per element and the SWRL rules invalidate
-# both parties to a clash (S25, S41), because every other query addresses elements by it.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
@@ -2875,7 +2384,7 @@ gsndesign:query-read-element-by-identifier
     rdfs:label "read_element_by_identifier.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_element_by_identifier.rq" ;
-    gsndesign:fileChecksum "665b5562757baf278d6632c8de9521066b33ded437130f6f8708e5e0e9e38397" ;
+    gsndesign:fileChecksum "3fb57ee244a4a14ddf843f1a4a176a69fb8210cbd3cb9847cd435f0b908a64d0" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2897,21 +2406,13 @@ gsndesign:query-read-element-by-identifier
         gsndesign:st-0696 ,
         gsndesign:st-0740 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-09 ;
-    gsndesign:queryText """# id:        CQ-09
-# operation: read
-# question:  What does the element with a given identifier say, and what is it linked to?
-# expect:    rows
-#
-# The addressing primitive. Every GSN element carries exactly one schema:identifier, so
-# that - not the IRI - is how a person refers to an element.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?element ?type ?label ?statement ?property ?linkedId
 WHERE {
-  VALUES ?elementId { "G1" }          # PARAMETER: the identifier to look up
+  VALUES ?elementId { "G1" }
 
   ?element schema:identifier ?elementId ;
            a ?type .
@@ -2932,7 +2433,7 @@ gsndesign:query-read-element-status-flags
     rdfs:label "read_element_status_flags.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_element_status_flags.rq" ;
-    gsndesign:fileChecksum "1f5c76ac39a52f90207843d019b52c9d1f8ac2531c25d28b6a989cdfa144cde8" ;
+    gsndesign:fileChecksum "2f3cc8e9d6bfe7c198ab5651a76ba548f10f2699bf92440b96722836a3b24799" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:defeated ,
@@ -2945,15 +2446,7 @@ gsndesign:query-read-element-status-flags
         gsndesign:st-0731 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-54 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-67 ;
-    gsndesign:queryText """# id:        CQ-10
-# operation: read
-# question:  What is the current status of every element - valid, true, in doubt, defeated?
-# expect:    rows
-#
-# One row per flag rather than one row per element, because the flags are set by different
-# rules at different times and the useful question is usually about one of them.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?elementId ?flag ?value
@@ -2970,7 +2463,7 @@ gsndesign:query-read-elements-unreachable-from-top-goal
     rdfs:label "read_elements_unreachable_from_top_goal.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_elements_unreachable_from_top_goal.rq" ;
-    gsndesign:fileChecksum "33caeb3a5a6ba6b0b02733f9c4a8034d7cd41535edd6c9b716e6f82a79e59edc" ;
+    gsndesign:fileChecksum "6ed158158f1a7867861a99708045291c01ea3cb3cfe2c52b668e0cd7b63c3a02" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -2989,15 +2482,7 @@ gsndesign:query-read-elements-unreachable-from-top-goal
         gsndesign:st-0265 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-11 ;
-    gsndesign:queryText """# id:        CQ-11
-# operation: read
-# question:  Which elements are not reachable from any top goal - present but unargued?
-# expect:    rows
-#
-# Reachability is over support and context together, since a context element is part of
-# the argument without ever being supported by anything.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
@@ -3023,7 +2508,7 @@ gsndesign:query-read-evidence-supporting-goal
     rdfs:label "read_evidence_supporting_goal.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_evidence_supporting_goal.rq" ;
-    gsndesign:fileChecksum "f5add6cda83ba879c298b56f8e1d95cf40247564a68b72b98313eea44fe92a58" ;
+    gsndesign:fileChecksum "9754924885e4db88d8f7794481cc5a5f6864c95309b38af4e9dcab0368532fd8" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -3036,21 +2521,13 @@ gsndesign:query-read-evidence-supporting-goal
         gsndesign:st-0265 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-51 ;
-    gsndesign:queryText """# id:        CQ-12
-# operation: read
-# question:  What evidence ultimately supports a given goal?
-# expect:    rows
-#
-# Solutions are references to evidence; the artefact behind the reference is what an
-# auditor actually asks to see, so both are returned.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
 SELECT DISTINCT ?solutionId ?solutionStatement ?artefactId ?artefactLabel
 WHERE {
-  VALUES ?goalId { "G1" }             # PARAMETER: the goal to trace
+  VALUES ?goalId { "G1" }
 
   ?goal schema:identifier ?goalId .
   ?goal gsn:supportedBy+ ?solution .
@@ -3071,7 +2548,7 @@ gsndesign:query-read-goal-support-tree
     rdfs:label "read_goal_support_tree.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_goal_support_tree.rq" ;
-    gsndesign:fileChecksum "9d9dc8c5968292ba00c14b18c96064a868c50c4bcd34289b22edb21fd7031caa" ;
+    gsndesign:fileChecksum "f4e5e7f368affc6533d9dc1a6cf8482809b0c98518fd7e653a5212f49a670092" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:statement ,
@@ -3079,20 +2556,12 @@ gsndesign:query-read-goal-support-tree
     gsndesign:restsOnStatement gsndesign:st-0207 ,
         gsndesign:st-0265 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-47 ;
-    gsndesign:queryText """# id:        CQ-13
-# operation: read
-# question:  What is the whole argument beneath a given goal?
-# expect:    rows
-#
-# ?depth is the length of the shortest support chain from the root, which is what makes
-# the result readable as a tree rather than a bag of elements.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?descendantId ?type ?statement (MIN(?hops) AS ?depth)
 WHERE {
-  VALUES ?rootId { "G1" }             # PARAMETER: the goal to expand
+  VALUES ?rootId { "G1" }
 
   ?root schema:identifier ?rootId .
   ?root gsn:supportedBy+ ?descendant .
@@ -3117,7 +2586,7 @@ gsndesign:query-read-goals-affected-by-challenge
     rdfs:label "read_goals_affected_by_challenge.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_goals_affected_by_challenge.rq" ;
-    gsndesign:fileChecksum "5416f069e4c972b3e8e218f861cf7ec7e9e2e780b7a359b1cc0a78412f193923" ;
+    gsndesign:fileChecksum "d94578056afe7d9eb4f4e83b6c4fc5362125559090189a0aa7a76335978a132f" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
@@ -3132,14 +2601,7 @@ gsndesign:query-read-goals-affected-by-challenge
         gsndesign:st-0696 ,
         gsndesign:st-0740 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-63 ;
-    gsndesign:queryText """# id:        CQ-14
-# operation: read
-# question:  Which claims above a challenged element lose support if the challenge stands?
-# expect:    rows
-#
-# The challenge is levied at one element; what matters is everything resting on it.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT DISTINCT ?affectedId ?type ?statement ?challengeId ?targetId
@@ -3161,7 +2623,7 @@ gsndesign:query-read-goals-resting-on-artefact
     rdfs:label "read_goals_resting_on_artefact.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_goals_resting_on_artefact.rq" ;
-    gsndesign:fileChecksum "31dad7722729a2ee585e5393d75ebec3903ca8a35ff136c714b8e883db17d98d" ;
+    gsndesign:fileChecksum "93ae3da95607b6384df066c7c5c32ddf92a2de102930f63cdb9096b358196e0d" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
@@ -3173,19 +2635,12 @@ gsndesign:query-read-goals-resting-on-artefact
         gsndesign:st-0265 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-77 ;
-    gsndesign:queryText """# id:        CQ-15
-# operation: read
-# question:  If a given artefact is withdrawn or superseded, which claims are affected?
-# expect:    rows
-#
-# The impact analysis that has to be run before any evidence item is replaced.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT DISTINCT ?goalId ?statement ?solutionId
 WHERE {
-  VALUES ?artefactId { "Ev2" }        # PARAMETER: the artefact in question
+  VALUES ?artefactId { "Ev2" }
 
   ?artefact schema:identifier ?artefactId .
   ?solution gsn:refersTo ?artefact ;
@@ -3203,7 +2658,7 @@ gsndesign:query-read-goals-without-support
     rdfs:label "read_goals_without_support.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_goals_without_support.rq" ;
-    gsndesign:fileChecksum "0fb730490c0b533ecb77bbf85d3b986fc7763f768190076e7ef7f5b0a9e54e60" ;
+    gsndesign:fileChecksum "1b7c64416b5490a3f83634ccd03c70038ad14879a30c98d202a2bcf1dc4b0808" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
@@ -3220,15 +2675,7 @@ gsndesign:query-read-goals-without-support
         gsndesign:st-0542 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-46 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-48 ;
-    gsndesign:queryText """# id:        CQ-16
-# operation: read
-# question:  Which goals have no support at all and are not admitted to be undeveloped?
-# expect:    rows
-#
-# An unadmitted gap: the argument stops, and nothing on the diagram says so. This is the
-# single most useful completeness check in the set.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?goalId ?statement
@@ -3250,7 +2697,7 @@ gsndesign:query-read-invalid-elements
     rdfs:label "read_invalid_elements.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_invalid_elements.rq" ;
-    gsndesign:fileChecksum "03b4c76fd1e749ef9a44d4886bb4ce178fe466406d079bb0b7de800f29dd52e0" ;
+    gsndesign:fileChecksum "e70dff52de55386c1c392fee897120a255162129678a8dc9ad612513691ed9a2" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:defeated ,
@@ -3265,14 +2712,7 @@ gsndesign:query-read-invalid-elements
         gsndesign:st-0731 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-54 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-67 ;
-    gsndesign:queryText """# id:        CQ-17
-# operation: read
-# question:  Which elements or relationships are currently invalid, in doubt or defeated?
-# expect:    rows
-#
-# The three dialectic and validity flags collapsed into one worklist, with the reason.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT DISTINCT ?elementId ?reason ?statement
@@ -3301,7 +2741,7 @@ gsndesign:query-read-module-dependencies
     rdfs:label "read_module_dependencies.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_module_dependencies.rq" ;
-    gsndesign:fileChecksum "ab7348099f64abe9d2bcd827e009bc50440cd5cd86cd7480fc74196dc5bbc06d" ;
+    gsndesign:fileChecksum "f8160693e4c66db434d271eabfd5e6416b5506b371c84bb96f37ea7066eea13d" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Module ,
@@ -3313,15 +2753,7 @@ gsndesign:query-read-module-dependencies
         gsndesign:st-0469 ,
         gsndesign:st-0474 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-18 ;
-    gsndesign:queryText """# id:        CQ-18
-# operation: read
-# question:  Which modules depend on which, and through which elements?
-# expect:    rows
-#
-# The module-level edge is derived from the element-level one, so the witness element is
-# returned with it: a dependency nobody can point at an element for is a modelling error.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT DISTINCT ?fromModuleId ?kind ?toModuleId ?viaFromId ?viaToId
@@ -3347,7 +2779,7 @@ gsndesign:query-read-pattern-instantiations
     rdfs:label "read_pattern_instantiations.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_pattern_instantiations.rq" ;
-    gsndesign:fileChecksum "99bb0072389050021722288ead795489c9cbf5a8749497fed6b0df94e7be1973" ;
+    gsndesign:fileChecksum "d5c5f8856f99c2049d5d46104da0e0fc752f380ea5f89d48c235d3a599c3262e" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -3362,16 +2794,7 @@ gsndesign:query-read-pattern-instantiations
         gsndesign:st-0407 ,
         gsndesign:st-0412 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-75 ;
-    gsndesign:queryText """# id:        CQ-19
-# operation: read
-# question:  Which elements instantiate which argument pattern, and is the pattern's own
-#            documentation complete?
-# expect:    rows
-#
-# The standard asks a pattern to state its intent, applicability and consequences before
-# anyone reuses it. Missing sections are how a pattern gets applied out of context.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
@@ -3396,7 +2819,7 @@ gsndesign:query-read-public-elements-in-contract-modules
     rdfs:label "read_public_elements_in_contract_modules.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_public_elements_in_contract_modules.rq" ;
-    gsndesign:fileChecksum "c50bf6532d81502e06248f087f7060711f663bc5e740ddf5a8b493f8ac59431c" ;
+    gsndesign:fileChecksum "3e1f443c32dbb0ac0872b4fcced46d0bd52c46d3ec12efaea9382663643226c8" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:contains ,
@@ -3406,15 +2829,7 @@ gsndesign:query-read-public-elements-in-contract-modules
         gsndesign:st-0525 ,
         gsndesign:st-0534 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-20 ;
-    gsndesign:queryText """# id:        CQ-20
-# operation: read
-# question:  Which public elements sit inside a contract module, where they must not?
-# expect:    rows
-#
-# SWRL rule "Public Contract Invalidation" (S39) as a read: a contract module mediates
-# between interfaces and has no interface of its own to publish through.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?moduleId ?elementId ?type
@@ -3436,7 +2851,7 @@ gsndesign:query-read-relationship-decorators
     rdfs:label "read_relationship_decorators.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_relationship_decorators.rq" ;
-    gsndesign:fileChecksum "1d4a8fd283db36e9fe6bfc76594f398facd6783f068cffd92386f2aae23aa7fb" ;
+    gsndesign:fileChecksum "40f53d7e0fb37f9d6e1c0691271b093bd8e990c1378e3fef77d5901c96113465" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
@@ -3455,15 +2870,7 @@ gsndesign:query-read-relationship-decorators
         gsndesign:st-0340 ,
         gsndesign:st-0353 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-21 ;
-    gsndesign:queryText """# id:        CQ-21
-# operation: read
-# question:  Which relationships carry pattern decorators - optional, multiple, cardinality?
-# expect:    rows
-#
-# These say how a pattern is to be instantiated, and are the part most often lost when a
-# pattern is copied into a concrete case by hand.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
@@ -3490,7 +2897,7 @@ gsndesign:query-read-solutions-without-artefact
     rdfs:label "read_solutions_without_artefact.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_solutions_without_artefact.rq" ;
-    gsndesign:fileChecksum "9153b986a67079d7673790e1a5d80c6b211c3e5d73425aece6b77d7699a15924" ;
+    gsndesign:fileChecksum "20413b36a45a739eaab485073e484f40547cd9dd5bb446e9cc2141049dd22ac5" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Solution ,
@@ -3501,12 +2908,7 @@ gsndesign:query-read-solutions-without-artefact
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-48 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-51 ;
-    gsndesign:queryText """# id:        CQ-22
-# operation: read
-# question:  Which solutions cite no artefact - evidence claimed but not identified?
-# expect:    rows
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?solutionId ?statement
@@ -3524,7 +2926,7 @@ gsndesign:query-read-stale-evidence
     rdfs:label "read_stale_evidence.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_stale_evidence.rq" ;
-    gsndesign:fileChecksum "5a30c0d76ec94ad1424e205c9e72bbe278acd49496044564d97b3cce655d4e78" ;
+    gsndesign:fileChecksum "71903acb220d47689d1bbbf0a391ae3765e07a6b5839009073b086c2f33f75c5" ;
     gsndesign:declaresNamespace "http://purl.org/dc/terms/" ,
         "http://schema.org/" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
@@ -3539,15 +2941,7 @@ gsndesign:query-read-stale-evidence
         gsndesign:st-0207 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-23 ;
-    gsndesign:queryText """# id:        CQ-23
-# operation: read
-# question:  Which artefacts predate a given date, and which claims still rest on them?
-# expect:    rows
-#
-# OntoGSN dates nothing itself - an artefact is dated by whatever the ABox uses, here
-# dcterms:created. Change the property below if your case records it differently.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 PREFIX terms:  <http://purl.org/dc/terms/>
@@ -3555,7 +2949,7 @@ PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
 
 SELECT ?artefactId ?artefactLabel ?created ?solutionId ?goalId
 WHERE {
-  VALUES ?cutoff { "2025-01-01"^^xsd:date }   # PARAMETER: anything older than this
+  VALUES ?cutoff { "2025-01-01"^^xsd:date }
 
   ?artefact a gsn:Artefact ;
             schema:identifier ?artefactId ;
@@ -3580,22 +2974,13 @@ gsndesign:query-read-support-cycles
     rdfs:label "read_support_cycles.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_support_cycles.rq" ;
-    gsndesign:fileChecksum "44a990e8ba2dc1566333c02caf9a47f55048e15e147feedf93361e3dd9a68e8f" ;
+    gsndesign:fileChecksum "e09073b1c7e285ae0aa3ebc252755e0f8fa10fc89f6defcff8694fcc8881bbcd" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:supportedBy ;
     gsndesign:restsOnStatement gsndesign:st-0207 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-24 ;
-    gsndesign:queryText """# id:        CQ-24
-# operation: read
-# question:  Does any element support itself through a chain - a circular argument?
-# expect:    rows
-#
-# gsn:supportedBy is asymmetric and irreflexive, so a cycle is a contradiction rather
-# than a warning; an OWL reasoner would report the whole ABox inconsistent instead of
-# telling you where. This says where.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT DISTINCT ?elementId ?type ?viaId
@@ -3614,7 +2999,7 @@ gsndesign:query-read-top-goals
     rdfs:label "read_top_goals.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_top_goals.rq" ;
-    gsndesign:fileChecksum "6bfd41458019a2d218a2029403362f6152e81c0a4055bbd2e8b8ff31966d2eba" ;
+    gsndesign:fileChecksum "5710b1881bfc9781e2d712537c9eec978d9ff70088f4012205488fbc6b562267" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
@@ -3626,15 +3011,7 @@ gsndesign:query-read-top-goals
         gsndesign:st-0207 ,
         gsndesign:st-0265 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-25 ;
-    gsndesign:queryText """# id:        CQ-25
-# operation: read
-# question:  What is the top goal of each argument - the claim everything else supports?
-# expect:    rows
-#
-# Two ways of being top are accepted: the gsn:top decorator, and being a goal that no
-# other element supports. A case where the two disagree is worth looking at.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT DISTINCT ?goalId ?statement ?flaggedTop ?unsupportedFromAbove
@@ -3654,7 +3031,7 @@ gsndesign:query-read-undeveloped-elements
     rdfs:label "read_undeveloped_elements.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_undeveloped_elements.rq" ;
-    gsndesign:fileChecksum "7641554bc40a94a8311abb4182b500e5f4073c0d316f95b26374d24940f78f43" ;
+    gsndesign:fileChecksum "3d3ccdc20b56a455b8235be1cbe4979566915f5ed6d8e5c1d34de033ff2f4923" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:statement ,
@@ -3665,15 +3042,7 @@ gsndesign:query-read-undeveloped-elements
         gsndesign:st-0265 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-46 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-53 ;
-    gsndesign:queryText """# id:        CQ-26
-# operation: read
-# question:  Which lines of argument are declared undeveloped, and are still undeveloped?
-# expect:    rows
-#
-# The decorator is a promise. This finds the ones still outstanding, and separately the
-# ones that have since been developed and whose decorator nobody cleared.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?elementId ?type ?statement ?stillUndeveloped
@@ -3693,7 +3062,7 @@ gsndesign:query-read-uninstantiated-elements
     rdfs:label "read_uninstantiated_elements.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/read_uninstantiated_elements.rq" ;
-    gsndesign:fileChecksum "c49b4655a01f2e1744e5ab50b3a61a58acd37743cb1d6c4b20184746ce4ae4cc" ;
+    gsndesign:fileChecksum "9c2c68bbf27f42730d3775bf25fb6e60cd3791ae527484378ababa89f4a43c3c" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:instantiationOf ,
@@ -3703,14 +3072,7 @@ gsndesign:query-read-uninstantiated-elements
         gsndesign:st-0305 ,
         gsndesign:st-0358 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-48 ;
-    gsndesign:queryText """# id:        CQ-27
-# operation: read
-# question:  Which elements are still uninstantiated placeholders from a pattern?
-# expect:    rows
-#
-# The hollow triangle. A published case carrying one is a case that was never finished.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?elementId ?type ?statement ?patternId
@@ -3733,7 +3095,7 @@ gsndesign:query-rules-s01-assumption-invalidation
     rdfs:label "rules/s01_assumption_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s01_assumption_invalidation.rq" ;
-    gsndesign:fileChecksum "c68a5497b161a2566d2cc29467a1b9c462f582e5517f6878278ff2dfe9e5f3e1" ;
+    gsndesign:fileChecksum "1880e66429fc69c2c11e87b2d574b78a9943aa9c56b3290d588395fd671ae5c3" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Assumption ,
         gsn:inContextOf ,
@@ -3745,12 +3107,6 @@ gsndesign:query-rules-s01-assumption-invalidation
         gsndesign:st-0218 ;
     gsndesign:queryText """# rule:      S1
 # name:      Assumption Invalidation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      Assumption(?A) ^ valid(?A, false) ^ 'in context of'(?B, ?A) -> valid(?B, false)
-# reads:     IF A is an Assumption AND A is NOT valid AND B is in context of A THEN B is NOT
-#            valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -3771,7 +3127,7 @@ gsndesign:query-rules-s02-contextual-relation
     rdfs:label "rules/s02_contextual_relation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s02_contextual_relation.rq" ;
-    gsndesign:fileChecksum "44e2e3ae3803341ed59e5d9748defead46234c2d33bbac9b39bc0ac9b2cfcc47" ;
+    gsndesign:fileChecksum "d5b163a7d0564c756533d99a1834baf037e537876ad76ef7e945625f40604c73" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:inContextOf ,
@@ -3782,13 +3138,6 @@ gsndesign:query-rules-s02-contextual-relation
         gsndesign:st-0218 ;
     gsndesign:queryText """# rule:      S2
 # name:      Contextual Relation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      rdf:subject(?R, ?A) ^ 'in context of'(?A, ?B) ^ rdf:object(?R, ?B) -> 'relationship
-#            type'(?R, "contextual")
-# reads:     IF R has subject A AND A is in context of B AND R has object B THEN R is a
-#            contextual relationship
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -3809,7 +3158,7 @@ gsndesign:query-rules-s03-evidential-relation
     rdfs:label "rules/s03_evidential_relation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s03_evidential_relation.rq" ;
-    gsndesign:fileChecksum "136ca93ad4f8aee65664ad63ee4358a27f9ff578c7f62b94c01e45a8f557b799" ;
+    gsndesign:fileChecksum "18a6dad3bf59cc7dfc2be8ea0d79610bc997f72465eb2b30c856a318acab0a89" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Solution ,
@@ -3822,13 +3171,6 @@ gsndesign:query-rules-s03-evidential-relation
         gsndesign:st-0207 ;
     gsndesign:queryText """# rule:      S3
 # name:      Evidential Relation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      Solution(?B) ^ 'supported by'(?A, ?B) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ->
-#            'relationship type'(?R, "evidential")
-# reads:     IF B is a Solution AND A is supported by B AND R has subject A AND R has object B
-#            THEN R is an evidential relationship
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -3850,7 +3192,7 @@ gsndesign:query-rules-s04-inferential-relation
     rdfs:label "rules/s04_inferential_relation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s04_inferential_relation.rq" ;
-    gsndesign:fileChecksum "70d11bb3e28c9343c21ea81c214e046922b57628ab2a2458e88f52e251de34bc" ;
+    gsndesign:fileChecksum "8386589cfc7281d4f7629cb9c4a55d7953dd8c3a29d05d3b52c1f814183c0ccf" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Strategy ,
@@ -3863,13 +3205,6 @@ gsndesign:query-rules-s04-inferential-relation
         gsndesign:st-0207 ;
     gsndesign:queryText """# rule:      S4
 # name:      Inferential Relation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      Strategy(?B) ^ 'supported by'(?A, ?B) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ->
-#            'relationship type'(?R, "inferential")
-# reads:     IF B is a Strategy AND A is supported by B AND R has subject A AND R has object B
-#            THEN R is an inferential relationship
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -3891,7 +3226,7 @@ gsndesign:query-rules-s05-inferential-relation-goal
     rdfs:label "rules/s05_inferential_relation_goal.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s05_inferential_relation_goal.rq" ;
-    gsndesign:fileChecksum "b2775331f9d1465575aa5df193570f5cf66234277e5c2a62f45ad6ad3b647358" ;
+    gsndesign:fileChecksum "8ea561b3d8f4bd9db44a6ca8a0955e8aee029fdf9b6d15871dff825d4e4c83b3" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
@@ -3904,13 +3239,6 @@ gsndesign:query-rules-s05-inferential-relation-goal
         gsndesign:st-0207 ;
     gsndesign:queryText """# rule:      S5
 # name:      Inferential Relation (Goal)
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?A, ?B) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ Goal(?B) ->
-#            'relationship type'(?R, "inferential")
-# reads:     IF B is a Goal AND A is supported by B AND R has subject A AND R has object B THEN R
-#            is an inferential relationship
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -3932,13 +3260,12 @@ gsndesign:query-rules-s06-goal-top-flag
     rdfs:label "rules/s06_goal_top_flag.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s06_goal_top_flag.rq" ;
-    gsndesign:fileChecksum "092563c3216778aaad4d3856dd9f20488cdfa3aba0f9cddc952d3a12f6fca0b2" ;
+    gsndesign:fileChecksum "9fb9374ff4a71d4098a674b61b241b5294f3be654cf28d93bc5395d007622e23" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
         gsn:Module ,
         gsn:challenges ,
         gsn:contains ,
-        gsn:inModule ,
         gsn:supportedBy ,
         gsn:top ;
     gsndesign:ruleName "Goal Top Flag" ;
@@ -3949,33 +3276,12 @@ gsndesign:query-rules-s06-goal-top-flag
         gsndesign:st-0469 ,
         gsndesign:st-0474 ,
         gsndesign:st-0696 ,
-        gsndesign:st-0740 ,
-        gsndesign:st-0944 ;
+        gsndesign:st-0740 ;
     gsndesign:queryText """# rule:      S6
 # name:      Goal Top Flag
-# section:   Core GSN
-# operation: rule
-# expect:    change
-# swrl:      'supported by'(?X, ?A) ^ Goal(?A) -> 'top (goal)'(?A, false)
-# reads:     IF X is supported by A AND A is a Goal AND X is in scope for A THEN A is NOT a
-#            top-level goal; likewise IF A challenges anything THEN A is NOT a top-level goal
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
-# ?X is a Goal or a Strategy without saying so: those are the rdfs:domain of gsn:supportedBy.
-# A strategy parent counts, which is the whole point - a goal reached through a strategy is
-# not the pinnacle claim, and the earlier form of this rule missed every one of them.
-#
-# A parent counts only when it is IN SCOPE. The top goal is the pinnacle claim of an
-# argument, not of the whole store, so an away goal reached from another module stays the top
-# goal of its own module: a parent is discounted exactly when some module holds the parent and
-# not the goal. Written as containment rather than gsn:inModule so that the rule does not
-# depend on S53 and S54 having run first. With no modules in the graph nothing is ever
-# discounted, which is the unscoped reading this rule used to have.
-#
-# A goal that challenges something is never a top goal either. It is the root of a dialectic
-# structure, not the overall claim the author is asserting, and nothing supports it precisely
-# because it is levied against the argument rather than part of it.
 DELETE { ?A gsn:top ?old }
 INSERT { ?A gsn:top false }
 WHERE {
@@ -4000,7 +3306,7 @@ gsndesign:query-rules-s08-contradictory-goal-truth
     rdfs:label "rules/s08_contradictory_goal_truth.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s08_contradictory_goal_truth.rq" ;
-    gsndesign:fileChecksum "be6df26573c3d9c4d348a15e28820187cb995d266427d0dc764443bdf97c7ee3" ;
+    gsndesign:fileChecksum "89d694f5fa5301950821f0cc26371121cebaa0dd0becdfd97cfd4155c74d4b87" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
         gsn:supportedBy ,
@@ -4014,13 +3320,6 @@ gsndesign:query-rules-s08-contradictory-goal-truth
         gsndesign:st-0234 ;
     gsndesign:queryText """# rule:      S8
 # name:      Contradictory Goal Truth
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      true(?A, false) ^ true(?B, true) ^ 'supported by'(?B, ?A) ^ Goal(?A) -> valid(?B,
-#            false)
-# reads:     IF A is NOT true AND B is true AND B is supported by A AND A is a Goal THEN B is NOT
-#            valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4043,7 +3342,7 @@ gsndesign:query-rules-s10-solution-propagation-true
     rdfs:label "rules/s10_solution_propagation_true.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s10_solution_propagation_true.rq" ;
-    gsndesign:fileChecksum "d9d359414893c2b3f99d3d4fcb0c362708c1e2c870ec2c461c7505a4ae217d75" ;
+    gsndesign:fileChecksum "46c92eeb40543640c93672238ddc498486fb3fbe1ad9f55b52a54d99aefbdce5" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Assumption ,
         gsn:Solution ,
@@ -4059,19 +3358,6 @@ gsndesign:query-rules-s10-solution-propagation-true
         gsndesign:st-0234 ;
     gsndesign:queryText """# rule:      S10
 # name:      Solution Propagation (True)
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      Solution(?A) ^ 'supported by'(?B, ?A) ^ true(?A, true) -> true(?B, true)
-# reads:     IF A is a Solution AND B is supported by A AND A is true AND no other solution
-#            supporting B is untrue or undetermined AND no assumption B sits in the context of
-#            is untrue THEN B becomes true
-# note:      THE GUARD BELOW IS NOT IN THE SWRL. Support in GSN is a composition: a claim
-#            follows only when everything supporting it holds. Expressing "and nothing else
-#            supporting it fails" needs negation as failure, which SWRL does not have, so the
-#            source rule states the positive half and this translation adds the guard. See
-#            NOTES-tbox-corrections.md, Part C. Without it S10 and S11/S13/S16 alternate
-#            forever on any claim with mixed support.
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4083,13 +3369,11 @@ WHERE {
   FILTER(STR(?tA) = "true")
   ?B gsn:supportedBy ?A .
 
-  # no sibling solution that is untrue, or that has no truth value yet
   FILTER NOT EXISTS {
     ?B gsn:supportedBy ?other .
     ?other a gsn:Solution .
     FILTER NOT EXISTS { ?other gsn:true ?tOther . FILTER(STR(?tOther) = "true") }
   }
-  # and nothing S16 would turn false underneath us
   FILTER NOT EXISTS {
     ?B gsn:inContextOf ?asm .
     ?asm a gsn:Assumption ; gsn:true ?tAsm .
@@ -4106,7 +3390,7 @@ gsndesign:query-rules-s11-solution-propagation-false
     rdfs:label "rules/s11_solution_propagation_false.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s11_solution_propagation_false.rq" ;
-    gsndesign:fileChecksum "9f719838865b7570129b57174c5756085d4a725e8b0fa84acf060118d602c888" ;
+    gsndesign:fileChecksum "6fd8e030873d3be4838b56d97b295d6ff8f0d180ad07b51c79a12ef20eb109d4" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Solution ,
         gsn:supportedBy ,
@@ -4118,11 +3402,6 @@ gsndesign:query-rules-s11-solution-propagation-false
         gsndesign:st-0234 ;
     gsndesign:queryText """# rule:      S11
 # name:      Solution Propagation (False)
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      Solution(?A) ^ true(?A, false) ^ 'supported by'(?B, ?A) -> true(?B, false)
-# reads:     IF A is a Solution AND A is NOT true AND B is supported by A THEN B becomes NOT true
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4143,7 +3422,7 @@ gsndesign:query-rules-s12-mixed-support-invalidation
     rdfs:label "rules/s12_mixed_support_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s12_mixed_support_invalidation.rq" ;
-    gsndesign:fileChecksum "ce877d80c7823912c91c97d04c12d024d58129a2e00b9c8086df5a0c9a2a425c" ;
+    gsndesign:fileChecksum "808d803005739c203581e0b2ca3777ca9fc2e1ae8255185f29fbe2915c0a0143" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:supportedBy ,
         gsn:valid ;
@@ -4153,12 +3432,6 @@ gsndesign:query-rules-s12-mixed-support-invalidation
         gsndesign:st-0207 ;
     gsndesign:queryText """# rule:      S12
 # name:      Mixed Support Invalidation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      valid(?B, false) ^ valid(?A, true) ^ 'supported by'(?C, ?B) ^ 'supported by'(?C, ?A)
-#            -> valid(?C, false)
-# reads:     IF B is NOT valid AND A is valid AND C is supported by B and A THEN C is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4180,7 +3453,7 @@ gsndesign:query-rules-s14-relation-false-propagation
     rdfs:label "rules/s14_relation_false_propagation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s14_relation_false_propagation.rq" ;
-    gsndesign:fileChecksum "37b40fd510b7aa5b3770264939f60f3bfde092139178caf03940b6ce91ffa645" ;
+    gsndesign:fileChecksum "d41805a4f471c061c3ca36bbd854d257a570addbfc573f630be119f3681cb576" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Relationship ,
@@ -4193,13 +3466,6 @@ gsndesign:query-rules-s14-relation-false-propagation
         gsndesign:st-0291 ;
     gsndesign:queryText """# rule:      S14
 # name:      Relation False Propagation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      true(?R, false) ^ rdf:subject(?R, ?A) ^ 'in context of'(?A, ?B) ^ Relationship(?R) ^
-#            rdf:object(?R, ?B) -> true(?A, false)
-# reads:     IF R is NOT true AND R has subject A and object B AND A is in context of B AND R is
-#            a Relationship THEN A is NOT true
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -4223,7 +3489,7 @@ gsndesign:query-rules-s16-assumption-false-propagation
     rdfs:label "rules/s16_assumption_false_propagation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s16_assumption_false_propagation.rq" ;
-    gsndesign:fileChecksum "619637eeca98bf0e19a5e94f09aabacbfa7c5aa7693cdb3778aa502aadf9635e" ;
+    gsndesign:fileChecksum "8aa1f375beb8afdc823b4a1052227d13adde4d6a0aeeaa05ccb63de81752bc67" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Assumption ,
         gsn:inContextOf ,
@@ -4235,11 +3501,6 @@ gsndesign:query-rules-s16-assumption-false-propagation
         gsndesign:st-0234 ;
     gsndesign:queryText """# rule:      S16
 # name:      Assumption False Propagation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      Assumption(?A) ^ true(?A, false) ^ 'in context of'(?B, ?A) -> true(?B, false)
-# reads:     IF A is an Assumption AND A is NOT true AND B is in context of A THEN B is NOT true
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4260,7 +3521,7 @@ gsndesign:query-rules-s17-context-inheritance
     rdfs:label "rules/s17_context_inheritance.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s17_context_inheritance.rq" ;
-    gsndesign:fileChecksum "3938d52ca10ae2e4f4e5e83047b85a6905c1dfadcf009578cbb3a923b4ebb43d" ;
+    gsndesign:fileChecksum "7ca5dd655ecbd1a12bd1670478014d203dc1938676c3c73a9935bd6320f5c33d" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Assumption ,
         gsn:Goal ,
@@ -4274,13 +3535,6 @@ gsndesign:query-rules-s17-context-inheritance
         gsndesign:st-0218 ;
     gsndesign:queryText """# rule:      S17
 # name:      Context Inheritance
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?B, ?C) ^ 'in context of'(?B, ?A) ^ Assumption(?A) ^ Goal(?C) -> 'in
-#            context of'(?C, ?A)
-# reads:     IF B is supported by C AND B is in context of A AND A is an Assumption AND C is a
-#            Goal THEN C is in context of A
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4299,7 +3553,7 @@ gsndesign:query-rules-s18-support-relation-creation
     rdfs:label "rules/s18_support_relation_creation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s18_support_relation_creation.rq" ;
-    gsndesign:fileChecksum "4d23027aae7d266bf3835ce160e2a0f49b1308d6741df380df30a45d3eff129b" ;
+    gsndesign:fileChecksum "d4197e7b2fa6ee4d8d511a3f64a10e4283d7a853e720f9f6b65f7bf93811f9a2" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -4311,12 +3565,6 @@ gsndesign:query-rules-s18-support-relation-creation
         gsndesign:st-0291 ;
     gsndesign:queryText """# rule:      S18
 # name:      Support Relation Creation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?A, ?B) ^ swrlx:makeOWLThing(?R, ?A, ?B) -> rdf:subject(?R, ?A) ^
-#            Relationship(?R) ^ rdf:object(?R, ?B)
-# reads:     IF A is supported by B THEN Create R AND R has subject A and object B
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -4334,8 +3582,6 @@ WHERE {
      schema:identifier ?idA .
   ?B schema:identifier ?idB .
   BIND(CONCAT("R-", ?idA, "-supportedBy-", ?idB) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("R-", REPLACE(STR(?A), "^.*[#/]", ""), "-supportedBy-", REPLACE(STR(?B), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R)
@@ -4352,7 +3598,7 @@ gsndesign:query-rules-s19-context-relation-creation
     rdfs:label "rules/s19_context_relation_creation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s19_context_relation_creation.rq" ;
-    gsndesign:fileChecksum "a1ca4b5e82fc529394b3439a8463c73c979a7dd78adc2414b7bba23ca77bd150" ;
+    gsndesign:fileChecksum "7d8b0596ef74405f5ab9ca04e7ec7acb94be08d293eac42dbd235c0dfbf7e380" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -4364,12 +3610,6 @@ gsndesign:query-rules-s19-context-relation-creation
         gsndesign:st-0291 ;
     gsndesign:queryText """# rule:      S19
 # name:      Context Relation Creation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      'in context of'(?A, ?B) ^ swrlx:makeOWLThing(?R, ?A, ?B) -> rdf:subject(?R, ?A) ^
-#            Relationship(?R) ^ rdf:object(?R, ?B)
-# reads:     IF A is in context of B THEN Create R AND R has subject A and object B
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -4387,8 +3627,6 @@ WHERE {
      schema:identifier ?idA .
   ?B schema:identifier ?idB .
   BIND(CONCAT("R-", ?idA, "-inContextOf-", ?idB) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("R-", REPLACE(STR(?A), "^.*[#/]", ""), "-inContextOf-", REPLACE(STR(?B), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R)
@@ -4405,7 +3643,7 @@ gsndesign:query-rules-s20-final-pattern-invalidation
     rdfs:label "rules/s20_final_pattern_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s20_final_pattern_invalidation.rq" ;
-    gsndesign:fileChecksum "c9052a30731006d77faca56571b38bdc6328152f674ec6bdbb06b126eac046d0" ;
+    gsndesign:fileChecksum "0b1bad8a529ed1a6cae05468b6a087b1830f80d8e8f7d7f69026987852c16e91" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Pattern ,
         gsn:contains ,
@@ -4421,13 +3659,6 @@ gsndesign:query-rules-s20-final-pattern-invalidation
         gsndesign:st-0474 ;
     gsndesign:queryText """# rule:      S20
 # name:      Final Pattern Invalidation
-# section:   Argument Pattern Extension
-# operation: rule
-# expect:    insert
-# swrl:      'instantiation of'(?B, ?C) ^ final(?A, true) ^ Pattern(?C) ^ contains(?A, ?B) ^
-#            contains(?A, ?C) -> valid(?A, false)
-# reads:     IF B is an instantiation of Pattern C inside container A AND A is marked final AND A
-#            contains both B and C AND C is a Pattern THEN A is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4449,7 +3680,7 @@ gsndesign:query-rules-s21-template-undeveloped-invalidation-a
     rdfs:label "rules/s21_template_undeveloped_invalidation_a.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s21_template_undeveloped_invalidation_a.rq" ;
-    gsndesign:fileChecksum "00dd085415a8aaabf70717a800ee4012d2921d6cd536cca21320553f52202e28" ;
+    gsndesign:fileChecksum "ab3b37495627a7ab581bc72328c9e237eb2c55fe40a553982dff201b14facaa6" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Template ,
@@ -4464,13 +3695,6 @@ gsndesign:query-rules-s21-template-undeveloped-invalidation-a
         gsndesign:st-0444 ;
     gsndesign:queryText """# rule:      S21
 # name:      Template Undeveloped Invalidation (A)
-# section:   Argument Pattern Extension
-# operation: rule
-# expect:    insert
-# swrl:      Template(?A) ^ undeveloped(?R, true) ^ rdf:subject(?R, ?A) ^ published(?A, true) ->
-#            valid(?A, false) ^ valid(?R, false)
-# reads:     IF A is a Template AND there is an undeveloped Relation R whose subject is A AND A
-#            is published THEN A is NOT valid AND R is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -4496,7 +3720,7 @@ gsndesign:query-rules-s22-template-undeveloped-invalidation-b
     rdfs:label "rules/s22_template_undeveloped_invalidation_b.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s22_template_undeveloped_invalidation_b.rq" ;
-    gsndesign:fileChecksum "e43d8162d6b0b5be2a08f81d2ffcd181613baf50542d97f2529faab3ec7d196e" ;
+    gsndesign:fileChecksum "680286cedcd654f85f768c2f8e5eacf36f5949c44585ef1c602473034599502e" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Template ,
@@ -4513,13 +3737,6 @@ gsndesign:query-rules-s22-template-undeveloped-invalidation-b
         gsndesign:st-0474 ;
     gsndesign:queryText """# rule:      S22
 # name:      Template Undeveloped Invalidation (B)
-# section:   Argument Pattern Extension
-# operation: rule
-# expect:    insert
-# swrl:      Template(?A) ^ undeveloped(?R, true) ^ rdf:subject(?R, ?B) ^ published(?A, true) ^
-#            contains(?A, ?B) -> valid(?A, false) ^ valid(?R, false)
-# reads:     IF A is a Template AND there is an undeveloped Relation R whose subject is B AND A
-#            is published and contains B THEN A is NOT valid AND R is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -4546,7 +3763,7 @@ gsndesign:query-rules-s23-cross-module-away-support
     rdfs:label "rules/s23_cross_module_away_support.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s23_cross_module_away_support.rq" ;
-    gsndesign:fileChecksum "ba0a1d8d87604a2123f8368b32f4c0ad99a93fb6a5368061d259814cfa99788b" ;
+    gsndesign:fileChecksum "e60a7bf1577d62b66727a2324464ef606f544622b5ae1a3ff2699b99fc95e21d" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:away ,
         gsn:inModule ,
@@ -4558,13 +3775,6 @@ gsndesign:query-rules-s23-cross-module-away-support
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S23
 # name:      Cross-Module Away Support
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      'in module'(?A, ?M) ^ 'in module'(?B, ?N) ^ 'supported by'(?A, ?B) ^ Module(?N) ^
-#            Module(?M) ^ differentFrom(?M, ?N) -> away(?B, true)
-# reads:     IF M is a Module AND M contains A AND N is a Module AND N contains B AND A is
-#            supported by B AND M and N are distinct THEN B is away (in another Module)
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4585,7 +3795,7 @@ gsndesign:query-rules-s24-cross-module-away-context
     rdfs:label "rules/s24_cross_module_away_context.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s24_cross_module_away_context.rq" ;
-    gsndesign:fileChecksum "97fdbebd22d3f9582324d3761b4d4b1f812c369cf6091b66a6e2baba64e6dce9" ;
+    gsndesign:fileChecksum "5a1fcc5ff7f8a25805cebdab02ff40e94e346aea27f9e416d44eaa9d2c9603f7" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:away ,
         gsn:inContextOf ,
@@ -4597,13 +3807,6 @@ gsndesign:query-rules-s24-cross-module-away-context
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S24
 # name:      Cross-Module Away Context
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      'in module'(?A, ?M) ^ 'in module'(?B, ?N) ^ Module(?N) ^ 'in context of'(?A, ?B) ^
-#            Module(?M) ^ differentFrom(?M, ?N) -> away(?B, true)
-# reads:     IF Module M contains A AND Module N contains B AND A is in context of B AND M and N
-#            are distinct Modules THEN B is away (in another Module)
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4624,7 +3827,7 @@ gsndesign:query-rules-s25-duplicate-identifier-invalidation
     rdfs:label "rules/s25_duplicate_identifier_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s25_duplicate_identifier_invalidation.rq" ;
-    gsndesign:fileChecksum "5318fb2bacb4d75bc6529b843160619cc7c059511c42b053511cb973f5847c79" ;
+    gsndesign:fileChecksum "cb74c6936e62b536586ade53f790ed1c8b01864768c32c46cb2ea20d59446ce2" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:inModule ,
@@ -4635,14 +3838,6 @@ gsndesign:query-rules-s25-duplicate-identifier-invalidation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S25
 # name:      Duplicate Identifier Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      'in module'(?B, ?M) ^ 'in module'(?A, ?M) ^ schema:identifier(?A, ?ID) ^ Module(?M) ^
-#            differentFrom(?A, ?B) ^ schema:identifier(?B, ?ID) -> valid(?A, false) ^ valid(?B,
-#            false)
-# reads:     IF Module M contains both A and B AND A and B share the same schema identifier ID
-#            AND A and B are distinct THEN A is NOT valid AND B is NOT valid
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
@@ -4667,7 +3862,7 @@ gsndesign:query-rules-s26-contract-violation-relation
     rdfs:label "rules/s26_contract_violation_relation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s26_contract_violation_relation.rq" ;
-    gsndesign:fileChecksum "33107bf9d973079520560100478e38d30ec9762183269df02c9f8d1e12771792" ;
+    gsndesign:fileChecksum "304276d297f32735caf3493fdbe52f6ecace0b7177dd2b62ac2c718c1e04d0c0" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Module ,
@@ -4684,14 +3879,6 @@ gsndesign:query-rules-s26-contract-violation-relation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S26
 # name:      Contract Violation Relation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      rdf:object(?R, ?M1) ^ Module(?M1) ^ Module(?M2) ^ 'in module'(?A, ?M2) ^ 'supported
-#            by'(?A, ?M1) ^ rdf:subject(?R, ?A) ^ contract(?M2, true) -> valid(?R, false)
-# reads:     IF Relationship R has object Module M1 AND M1 and M2 are Modules AND M2 contains A
-#            AND A is supported by M1 AND R has subject A AND M2 is under contract THEN R is NOT
-#            valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -4717,7 +3904,7 @@ gsndesign:query-rules-s27-context-contract-invalidation
     rdfs:label "rules/s27_context_contract_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s27_context_contract_invalidation.rq" ;
-    gsndesign:fileChecksum "7693fd377c48937ac9d20c997ac829f5ba04eb6abf5e9631f675c5ec25ba5b02" ;
+    gsndesign:fileChecksum "781371debb35928feefec37f476adf17b3b7f3be1bb62f2265905341d6f00945" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Module ,
@@ -4734,14 +3921,6 @@ gsndesign:query-rules-s27-context-contract-invalidation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S27
 # name:      Context Contract Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      'in context of'(?A, ?M1) ^ rdf:object(?R, ?M1) ^ Module(?M1) ^ Module(?M2) ^
-#            'in module'(?A, ?M2) ^ rdf:subject(?R, ?A) ^ contract(?M2, true) -> valid(?R, false)
-# reads:     IF A is in context of Module M1 AND Relationship R has object M1 AND M1 and M2 are
-#            Modules AND M2 contains A AND R has subject A AND M2 is under contract THEN R is NOT
-#            valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -4767,7 +3946,7 @@ gsndesign:query-rules-s28-contract-support-invalidation
     rdfs:label "rules/s28_contract_support_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s28_contract_support_invalidation.rq" ;
-    gsndesign:fileChecksum "115a146d57309af705784647607c9f56657da168d980c5fe76c81601083eb3ce" ;
+    gsndesign:fileChecksum "00f4bf7eddb3d9c2aa1f80768014e06490ecdd5176f538346e3ec553a90009c2" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Module ,
         gsn:contract ,
@@ -4783,13 +3962,6 @@ gsndesign:query-rules-s28-contract-support-invalidation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S28
 # name:      Contract Support Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      'in module'(?A, ?M) ^ 'to be supported by contract'(?A, true) ^ contract(?M, true) ^
-#            Module(?M) -> valid(?A, false)
-# reads:     IF Module M contains A AND A is to be supported by contract AND M is under contract
-#            THEN A is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4812,7 +3984,7 @@ gsndesign:query-rules-s29-away-goal-invalidation
     rdfs:label "rules/s29_away_goal_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s29_away_goal_invalidation.rq" ;
-    gsndesign:fileChecksum "c5c50511b0131a4a6cacb0e1cb122f00867170cda41af1d4f650d667c5ab3a88" ;
+    gsndesign:fileChecksum "1943696377e9740eb641b82ca84347e8fbd93fbbdc6ce452cd32040ff6e3aceb" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
@@ -4829,15 +4001,6 @@ gsndesign:query-rules-s29-away-goal-invalidation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S29
 # name:      Away Goal Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      rdf:subject(?R, ?G1) ^ Module(?M1) ^ Goal(?G1) ^ rdf:object(?R, ?G2) ^ Module(?M2) ^
-#            'supported by'(?G1, ?G2) ^ away(?G1, true) ^ 'in module'(?G1, ?M1) ^ 'in module'(?G2, ?M2)
-#            -> valid(?R, false)
-# reads:     IF Relationship R links Goal G1 to Goal G2 AND M1 and M2 are Modules AND G1 is a
-#            Goal contained in M1 AND G2 is a Goal contained in M2 AND G1 is away and supported
-#            by G2 THEN R is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -4863,7 +4026,7 @@ gsndesign:query-rules-s30-contract-activation
     rdfs:label "rules/s30_contract_activation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s30_contract_activation.rq" ;
-    gsndesign:fileChecksum "028c399754d78407c423aed3117bd7fd79708ad2ff88658b9a3ef744a6280811" ;
+    gsndesign:fileChecksum "a4d0d81a0d8a7c52eb9f4d358c4e7e871a1a836957b0624f91dfdfbebfaee2b0" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:away ,
         gsn:contract ,
@@ -4879,15 +4042,6 @@ gsndesign:query-rules-s30-contract-activation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S30
 # name:      Contract Activation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      away(?A, true) ^ 'to be supported by contract'(?A, true) ^ Module(?M1) ^ Module(?M2)
-#            ^ 'in module'(?A, ?M1) ^ 'in module'(?B, ?M2) ^ 'supported by'(?A, ?B) ^
-#            differentFrom(?M1, ?M2) -> contract(?M2, true)
-# reads:     IF A is away and must be supported by contract AND M1 and M2 are Modules AND A is in
-#            M1 AND B is in M2 AND A is supported by B AND M1 and M2 are distinct THEN M2 becomes
-#            a contract Module
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -4912,7 +4066,7 @@ gsndesign:query-rules-s31-contract-relation-invalidation
     rdfs:label "rules/s31_contract_relation_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s31_contract_relation_invalidation.rq" ;
-    gsndesign:fileChecksum "6fb854f6c01944250720917dc8114ee96d621828a414824a5ca62f67a436189e" ;
+    gsndesign:fileChecksum "f35c4668375a3a56b3b74e79c99e8f876a8b93dc18da510d433e1b155b29ddd2" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:inModule ,
@@ -4927,14 +4081,6 @@ gsndesign:query-rules-s31-contract-relation-invalidation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S31
 # name:      Contract Relation Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      'in module'(?B, ?M) ^ 'in module'(?A, ?M) ^ 'to be supported by contract'(?A, true) ^
-#            'supported by'(?A, ?B) ^ rdf:subject(?R, ?A) ^ Module(?M) ^ rdf:object(?R, ?B) ->
-#            valid(?R, false)
-# reads:     IF Module M contains both A and B AND A is to be supported by contract and is
-#            supported by B AND Relationship R links A to B THEN R is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -4959,7 +4105,7 @@ gsndesign:query-rules-s32-context-consistency
     rdfs:label "rules/s32_context_consistency.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s32_context_consistency.rq" ;
-    gsndesign:fileChecksum "f556f5a729d6c3980671fc3e1ae83333c38f8a2152c4fe171eb29d1db3e40211" ;
+    gsndesign:fileChecksum "cbba2fa8221229e3fa7623a136c4b566f1ff71cb40a846078829893205b5b35d" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Context ,
         gsn:Goal ,
@@ -4977,14 +4123,6 @@ gsndesign:query-rules-s32-context-consistency
         gsndesign:st-0565 ;
     gsndesign:queryText """# rule:      S32
 # name:      Context Consistency
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      'in context of'(?G1, ?C1) ^ 'in context of'(?G2, ?C2) ^ Goal(?G1) ^ Goal(?G2) ^
-#            away(?G2, true) ^ 'supported by'(?G1, ?G2) ^ Context(?C2) -> 'consistent with'(?C1,
-#            ?C2)
-# reads:     IF G1 is in context of C1 AND G2 is in context of C2 AND G1 and G2 are Goals AND G2
-#            is away AND G1 is supported by G2 AND C2 is a Context THEN C1 is consistent with C2
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5008,7 +4146,7 @@ gsndesign:query-rules-s33-substitution-invalidation
     rdfs:label "rules/s33_substitution_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s33_substitution_invalidation.rq" ;
-    gsndesign:fileChecksum "ab0cab024db6fc0498c6fa5c38c35502d3e9559f3041c95bb820d21470d5caf1" ;
+    gsndesign:fileChecksum "f79abbbdb49688eb7871a9c382f57547368d8f4e42879232ef908b5f49c34e68" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Justification ,
         gsn:inContextOf ,
@@ -5024,15 +4162,6 @@ gsndesign:query-rules-s33-substitution-invalidation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S33
 # name:      Substitution Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      contains(?M2, ?G) ^ Module(?M1) ^ Module(?M2) ^ 'substituted by'(?J, ?G) ^
-#            contains(?M1, ?J) ^ Justification(?J) ^ 'in context of'(?E, ?J) ^
-#            differentFrom(?M1, ?M2) -> valid(?J, false)
-# reads:     IF Module M2 contains Goal G AND M1 and M2 are Modules AND Justification J is
-#            substituted by G AND M1 contains J AND J is a Justification AND some element E is in
-#            context of J AND M1 and M2 are distinct THEN J is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5055,7 +4184,7 @@ gsndesign:query-rules-s34-module-support-propagation
     rdfs:label "rules/s34_module_support_propagation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s34_module_support_propagation.rq" ;
-    gsndesign:fileChecksum "42a80cf6dc4df37929308c6b9cc2ac383b6b0695c6e3bd7f1743bf12c39a75b5" ;
+    gsndesign:fileChecksum "c801114e50fded69923b2cb5c4957bb30c46bbea430a765c271455485debbfb6" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:inModule ,
         gsn:supportedBy ;
@@ -5065,13 +4194,6 @@ gsndesign:query-rules-s34-module-support-propagation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S34
 # name:      Module Support Propagation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Module(?M1) ^ Module(?M2) ^ 'supported by'(?E1, ?E2) ^ 'in module'(?E1, ?M1) ^
-#            contains(?M2, ?E2) ^ differentFrom(?M1, ?M2) -> 'supported by'(?M1, ?M2)
-# reads:     IF M1 and M2 are Modules AND E1 in M1 is supported by E2 in M2 AND M1 and M2 are
-#            distinct THEN M1 is supported by M2
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5090,7 +4212,7 @@ gsndesign:query-rules-s35-module-context-propagation
     rdfs:label "rules/s35_module_context_propagation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s35_module_context_propagation.rq" ;
-    gsndesign:fileChecksum "bc46a4b0820ef46dbea88d2e0a25efe3b61456fecc1005ca0a09e15e63d97e06" ;
+    gsndesign:fileChecksum "502fbbf51aaaf3c015d8d456b561f23807cf19503d39f7775639f146121c4bce" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:inContextOf ,
         gsn:inModule ;
@@ -5100,13 +4222,6 @@ gsndesign:query-rules-s35-module-context-propagation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S35
 # name:      Module Context Propagation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Module(?M1) ^ Module(?M2) ^ 'in module'(?E1, ?M1) ^ 'in module'(?E2, ?M2) ^ 'in context
-#            of'(?E1, ?E2) ^ differentFrom(?M1, ?M2) -> 'in context of'(?M1, ?M2)
-# reads:     IF M1 and M2 are Modules AND E1 in M1 is in context of E2 in M2 AND M1 and M2 are
-#            distinct THEN M1 is in context of M2
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5125,7 +4240,7 @@ gsndesign:query-rules-s36-cross-module-support
     rdfs:label "rules/s36_cross_module_support.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s36_cross_module_support.rq" ;
-    gsndesign:fileChecksum "1e8386ce11ae5342f7605265fed326d25ce0b1812baab592052a16b6e33dda60" ;
+    gsndesign:fileChecksum "04e1b2005cc021a497edc66363fa95e81313910e898c54d9dca137cd1309df6c" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Module ,
         gsn:inModule ,
@@ -5137,13 +4252,6 @@ gsndesign:query-rules-s36-cross-module-support
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S36
 # name:      Cross-Module Support
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?E1, ?M2) ^ Module(?M1) ^ Module(?M2) ^ 'in module'(?E1, ?M1) ^
-#            differentFrom(?M1, ?M2) -> 'supported by'(?M1, ?M2)
-# reads:     IF E1 is supported by Module M2 AND M1 and M2 are Modules AND M1 contains E1 AND M1
-#            and M2 are distinct THEN M1 is supported by M2
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5162,7 +4270,7 @@ gsndesign:query-rules-s38-public-context-propagation
     rdfs:label "rules/s38_public_context_propagation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s38_public_context_propagation.rq" ;
-    gsndesign:fileChecksum "a45b82184ba34d5ce299d0ed932ca2f63ac38213d546dd25765c4a5c3b4c6849" ;
+    gsndesign:fileChecksum "391dc58c70d6d9cd1c9ba6647831d1aaf77ba31d74cbb23da7ff4f30c369b169" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
         gsn:inContextOf ,
@@ -5174,11 +4282,6 @@ gsndesign:query-rules-s38-public-context-propagation
         gsndesign:st-0534 ;
     gsndesign:queryText """# rule:      S38
 # name:      Public Context Propagation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      public(?G, true) ^ 'in context of'(?G, ?C) ^ Goal(?G) -> public(?C, true)
-# reads:     IF G is a public Goal AND G is in context of C THEN C is public
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5199,7 +4302,7 @@ gsndesign:query-rules-s39-public-contract-invalidation
     rdfs:label "rules/s39_public_contract_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s39_public_contract_invalidation.rq" ;
-    gsndesign:fileChecksum "a7f2a96abbba7a16c4ab783290ce600823198a6156003f4128ac851ce335e3ed" ;
+    gsndesign:fileChecksum "88f7052fc3a99149d29355958f50eb4dab06c15910b87d2a4b9a7c468e574047" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:contract ,
         gsn:inModule ,
@@ -5213,11 +4316,6 @@ gsndesign:query-rules-s39-public-contract-invalidation
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S39
 # name:      Public Contract Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      contract(?C, true) ^ public(?E, true) ^ 'in module'(?E, ?C) -> valid(?E, false)
-# reads:     IF C is a contract AND E is public AND C contains E THEN E is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5239,7 +4337,7 @@ gsndesign:query-rules-s40-confidence-relation-creation
     rdfs:label "rules/s40_confidence_relation_creation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s40_confidence_relation_creation.rq" ;
-    gsndesign:fileChecksum "e7acdfd56d256e8d5be3524b1a5e6be02b1875da7936a82770763c23083bef19" ;
+    gsndesign:fileChecksum "b762127813572d2c9b6d04bf69b3a0af0d129921f97a0dbbca6b3136c0cba074" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "http://www.w3.org/2000/01/rdf-schema#" ,
@@ -5254,15 +4352,6 @@ gsndesign:query-rules-s40-confidence-relation-creation
         gsndesign:st-0648 ;
     gsndesign:queryText """# rule:      S40
 # name:      Confidence Relation Creation
-# section:   Confidence Argument Extension
-# operation: rule
-# expect:    insert
-# swrl:      'assurance claim point'(?A, true) ^ 'Artefact Reference'(?A) ^
-#            swrlx:makeOWLThing(?R, ?A) -> 'Relationship with Confidence'(?R) ^ rdf:subject(?R,
-#            ?A) ^ 'assurance claim point'(?R, true)
-# reads:     IF A is an Artefact Reference marked as an assurance claim point AND we introduce a
-#            reified confidence Relationship R for A THEN R is a Relationship with Confidence
-#            whose subject is A and which is itself an assurance claim point
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -5281,8 +4370,6 @@ WHERE {
      schema:identifier ?idA .
   FILTER(STR(?acp) = "true")
   BIND(CONCAT("RC-", ?idA) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("RC-", REPLACE(STR(?A), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R)
@@ -5298,7 +4385,7 @@ gsndesign:query-rules-s41-duplicate-acp-identifier-invalidation
     rdfs:label "rules/s41_duplicate_acp_identifier_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s41_duplicate_acp_identifier_invalidation.rq" ;
-    gsndesign:fileChecksum "e74ed3f7be93cd760386fc3b3704ebdab2c51bdd0a0f30aefe5d93ed4409aaf7" ;
+    gsndesign:fileChecksum "47d10897a64bb755079a052108f5532027c2debee3bda24b7fcd5f2bd2685cc6" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:assuranceClaimPoint ,
@@ -5309,14 +4396,6 @@ gsndesign:query-rules-s41-duplicate-acp-identifier-invalidation
         gsndesign:st-0635 ;
     gsndesign:queryText """# rule:      S41
 # name:      Duplicate ACP Identifier Invalidation
-# section:   Confidence Argument Extension
-# operation: rule
-# expect:    insert
-# swrl:      'assurance claim point'(?A, true) ^ 'assurance claim point'(?B, true) ^
-#            schema:identifier(?A, ?N) ^ schema:identifier(?B, ?N) ^ differentFrom(?A, ?B)
-#            -> valid(?A, false) ^ valid(?B, false)
-# reads:     IF A and B are assurance claim points AND A and B have the same schema
-#            identifier N AND A and B are distinct THEN A is NOT valid AND B is NOT valid
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
@@ -5342,7 +4421,7 @@ gsndesign:query-rules-s42-strategy-confidence-relation
     rdfs:label "rules/s42_strategy_confidence_relation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s42_strategy_confidence_relation.rq" ;
-    gsndesign:fileChecksum "948075273ddcf4bff6bf4688c5fd3e11d6d48c1d0a19fac4b6ed09fff6a16c23" ;
+    gsndesign:fileChecksum "b9ad02195c3f253245f17a1ca5a735a8a4a4aa42561c7649f50e0ebf19f0cf21" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5362,18 +4441,6 @@ gsndesign:query-rules-s42-strategy-confidence-relation
         gsndesign:st-0658 ;
     gsndesign:queryText """# rule:      S42
 # name:      Strategy Confidence Relation
-# section:   Confidence Argument Extension
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?G1, ?S) ^ 'supported by'(?S, ?G2) ^ 'Relationship with
-#            Confidence'(?R1) ^ swrlx:makeOWLThing(?R2, ?S, ?G2) ^ Strategy(?S) ^ Goal(?G1) ^
-#            Goal(?G2) ^ rdf:object(?R1, ?S) ^ 'associated with'(?R1, ?A) ^ rdf:subject(?R1, ?G1)
-#            -> rdf:subject(?R2, ?S) ^ 'Relationship with Confidence'(?R2) ^ rdf:object(?R2, ?G2)
-#            ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2, true)
-# reads:     IF Goal G1 is supported by Strategy S AND S is supported by Goal G2 AND there is a
-#            Relationship with Confidence R1 from G1 to S associated with A THEN we create a
-#            Relationship with Confidence R2 from S to G2 associated with the same A AND mark R2
-#            as an assurance claim point
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -5401,8 +4468,6 @@ WHERE {
   ?G2 a gsn:Goal ;
       schema:identifier ?idG2 .
   BIND(CONCAT("RC-", ?idS, "-", ?idG2) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("RC-", REPLACE(STR(?S), "^.*[#/]", ""), "-", REPLACE(STR(?G2), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?S), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R2)
@@ -5419,7 +4484,7 @@ gsndesign:query-rules-s43-goal-strategy-confidence
     rdfs:label "rules/s43_goal_strategy_confidence.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s43_goal_strategy_confidence.rq" ;
-    gsndesign:fileChecksum "1e738120291a6e765463e2576a95862e953d77e55d12f814516a5d0170c0c875" ;
+    gsndesign:fileChecksum "748e791d51e21a6be94ed8b2a98458335745d1889ee6756705a69efa379e8cbe" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5439,18 +4504,6 @@ gsndesign:query-rules-s43-goal-strategy-confidence
         gsndesign:st-0658 ;
     gsndesign:queryText """# rule:      S43
 # name:      Goal-Strategy Confidence
-# section:   Confidence Argument Extension
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?G2, ?S) ^ 'Relationship with Confidence'(?R1) ^ rdf:subject(?R1, ?S)
-#            ^ 'supported by'(?S, ?G1) ^ swrlx:makeOWLThing(?R2, ?G2, ?S) ^ rdf:object(?R1, ?G1) ^
-#            Strategy(?S) ^ Goal(?G1) ^ Goal(?G2) ^ 'associated with'(?R1, ?A) -> 'Relationship
-#            with Confidence'(?R2) ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2,
-#            true) ^ rdf:subject(?R2, ?G2) ^ rdf:object(?R2, ?S)
-# reads:     IF Goal G2 is supported by Strategy S AND S is supported by Goal G1 AND there is a
-#            Relationship with Confidence R1 from S to G1 associated with A THEN we create a
-#            Relationship with Confidence R2 from G2 to S associated with the same A AND mark R2
-#            as an assurance claim point
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -5478,8 +4531,6 @@ WHERE {
       gsn:supportedBy ?S ;
       schema:identifier ?idG2 .
   BIND(CONCAT("RC-", ?idG2, "-", ?idS) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("RC-", REPLACE(STR(?G2), "^.*[#/]", ""), "-", REPLACE(STR(?S), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G2), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R2)
@@ -5496,7 +4547,7 @@ gsndesign:query-rules-s44-solution-confidence-relation
     rdfs:label "rules/s44_solution_confidence_relation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s44_solution_confidence_relation.rq" ;
-    gsndesign:fileChecksum "9375d33627f1e6b9f898b03a67df54c8287c4c0d0fcf6234635704692d5ad2b1" ;
+    gsndesign:fileChecksum "8a35abbc47d2cc72d4701179c65e43e0cf927d8043b7557e01e3d4e36bdd089a" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5516,19 +4567,6 @@ gsndesign:query-rules-s44-solution-confidence-relation
         gsndesign:st-0658 ;
     gsndesign:queryText """# rule:      S44
 # name:      Solution Confidence Relation
-# section:   Confidence Argument Extension
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?G, ?S2) ^ Solution(?S1) ^ rdf:object(?R1, ?S1) ^ 'Relationship with
-#            Confidence'(?R1) ^ swrlx:makeOWLThing(?R2, ?G, ?S2) ^ 'supported by'(?G, ?S1) ^ Goal(?G)
-#            ^ differentFrom(?S1, ?S2) ^ 'associated with'(?R1, ?A) ^ rdf:subject(?R1, ?G) ^
-#            Solution(?S2) -> rdf:object(?R2, ?S2) ^ 'Relationship with Confidence'(?R2) ^
-#            rdf:subject(?R2, ?G) ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2,
-#            true)
-# reads:     IF Goal G is supported by two distinct Solutions S1 and S2 AND there is a
-#            Relationship with Confidence R1 from G to S1 associated with A THEN we create a
-#            Relationship with Confidence R2 from G to S2 associated with the same A AND mark R2
-#            as an assurance claim point
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -5556,8 +4594,6 @@ WHERE {
       schema:identifier ?idS2 .
   FILTER(?S1 != ?S2)
   BIND(CONCAT("RC-", ?idG, "-", ?idS2) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("RC-", REPLACE(STR(?G), "^.*[#/]", ""), "-", REPLACE(STR(?S2), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R2)
@@ -5574,7 +4610,7 @@ gsndesign:query-rules-s45-goal-confidence-relation
     rdfs:label "rules/s45_goal_confidence_relation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s45_goal_confidence_relation.rq" ;
-    gsndesign:fileChecksum "c542fc6a24264514890eb08c3a5870a0932ee6d140858ac35f06c7a0ec0c6c13" ;
+    gsndesign:fileChecksum "a98effb99724a706445caf78ded1815eca7fd1a979c2da1f78bfdbb196462030" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5592,19 +4628,6 @@ gsndesign:query-rules-s45-goal-confidence-relation
         gsndesign:st-0658 ;
     gsndesign:queryText """# rule:      S45
 # name:      Goal Confidence Relation
-# section:   Confidence Argument Extension
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?G, ?S2) ^ Goal(?S1) ^ rdf:object(?R1, ?S1) ^ 'Relationship with
-#            Confidence'(?R1) ^ swrlx:makeOWLThing(?R2, ?G, ?S2) ^ 'supported by'(?G, ?S1) ^
-#            Goal(?S2) ^ Goal(?G) ^ differentFrom(?S1, ?S2) ^ 'associated with'(?R1, ?A) ^
-#            rdf:subject(?R1, ?G) -> rdf:object(?R2, ?S2) ^ 'Relationship with Confidence'(?R2) ^
-#            rdf:subject(?R2, ?G) ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2,
-#            true)
-# reads:     IF Goal G is supported by two distinct Goals S1 and S2 AND there is a Relationship
-#            with Confidence R1 from G to S1 associated with A THEN we create a Relationship with
-#            Confidence R2 from G to S2 associated with the same A AND mark R2 as an assurance
-#            claim point
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -5632,8 +4655,6 @@ WHERE {
       schema:identifier ?idS2 .
   FILTER(?S1 != ?S2)
   BIND(CONCAT("RC-", ?idG, "-", ?idS2) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("RC-", REPLACE(STR(?G), "^.*[#/]", ""), "-", REPLACE(STR(?S2), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R2)
@@ -5650,7 +4671,7 @@ gsndesign:query-rules-s46-challenge-defeat
     rdfs:label "rules/s46_challenge_defeat.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s46_challenge_defeat.rq" ;
-    gsndesign:fileChecksum "0a7f4bf2607a40887e01e3d92d28bf68cb73d991d4a87b04420ea014b5e39ec0" ;
+    gsndesign:fileChecksum "f6e6d6441091f9949a5c8fb689d9f85e4a5a9c96b3f7bfa6b3622e5ff3fc550c" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Solution ,
         gsn:challenges ,
@@ -5665,11 +4686,6 @@ gsndesign:query-rules-s46-challenge-defeat
         gsndesign:st-0740 ;
     gsndesign:queryText """# rule:      S46
 # name:      Challenge Defeat
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      valid(?S, true) ^ challenges(?S, ?E) ^ Solution(?S) -> defeated(?E, true)
-# reads:     IF S is a valid Solution AND S challenges E THEN E is defeated
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5690,7 +4706,7 @@ gsndesign:query-rules-s47-defeated-invalidation
     rdfs:label "rules/s47_defeated_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s47_defeated_invalidation.rq" ;
-    gsndesign:fileChecksum "6f77396ae7f820b378ceb4e6ccf74fa3024219daa5015316e787b2fffe1db35c" ;
+    gsndesign:fileChecksum "9b2c357d16bb5e1ff68c0e885eea252c9aa866b42af6d3868dda89dbe06e3f33" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:defeated ,
         gsn:valid ;
@@ -5700,11 +4716,6 @@ gsndesign:query-rules-s47-defeated-invalidation
         gsndesign:st-0699 ;
     gsndesign:queryText """# rule:      S47
 # name:      Defeated Invalidation
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      defeated(?E, true) -> valid(?E, false)
-# reads:     IF E is defeated THEN E is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5723,7 +4734,7 @@ gsndesign:query-rules-s48-challenge-doubt
     rdfs:label "rules/s48_challenge_doubt.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s48_challenge_doubt.rq" ;
-    gsndesign:fileChecksum "bbc230404c06f0b0969a234f9204945d9982f505e72535a0078835620289ef1a" ;
+    gsndesign:fileChecksum "62156e4f28c009e6be8ae810114b76ded82150c78e726088dde7ec3f568b7741" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
         gsn:challenges ,
@@ -5738,11 +4749,6 @@ gsndesign:query-rules-s48-challenge-doubt
         gsndesign:st-0740 ;
     gsndesign:queryText """# rule:      S48
 # name:      Challenge Doubt
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      challenges(?G, ?E) ^ true(?G, true) ^ Goal(?G) -> 'in doubt'(?E, true)
-# reads:     IF Goal G challenges E AND G is true THEN E is in doubt
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5763,7 +4769,7 @@ gsndesign:query-rules-s49-undeveloped-defeat
     rdfs:label "rules/s49_undeveloped_defeat.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s49_undeveloped_defeat.rq" ;
-    gsndesign:fileChecksum "0fdcbb5cfe29b42d66747c4fa35d10fd3e0a7eb7102bf47903cc91f8bd43d2d5" ;
+    gsndesign:fileChecksum "98547b0a319403ee84d97389f102bff7b832ccd28b9580368b79165cb77a39b2" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
         gsn:challenges ,
@@ -5780,12 +4786,6 @@ gsndesign:query-rules-s49-undeveloped-defeat
         gsndesign:st-0740 ;
     gsndesign:queryText """# rule:      S49
 # name:      Undeveloped Defeat
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      undeveloped(?G, false) ^ challenges(?G, ?E) ^ Goal(?G) ^ 'in doubt'(?E, true) ->
-#            defeated(?E, true)
-# reads:     IF Goal G challenges E AND G is NOT undeveloped AND E is in doubt THEN E is defeated
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5808,7 +4808,7 @@ gsndesign:query-rules-s50-challenge-relation-creation
     rdfs:label "rules/s50_challenge_relation_creation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s50_challenge_relation_creation.rq" ;
-    gsndesign:fileChecksum "30429beb5d23b2f88172eef97f0b6d91ab9dee6e40b5190ef5f4b46f21c7aaba" ;
+    gsndesign:fileChecksum "14bf89bda314eb1a31b0152f1c2497ec0b13424630de185070b921688ae901b0" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5823,13 +4823,6 @@ gsndesign:query-rules-s50-challenge-relation-creation
         gsndesign:st-0740 ;
     gsndesign:queryText """# rule:      S50
 # name:      Challenge Relation Creation
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      challenges(?A, ?B) ^ swrlx:makeOWLThing(?R, ?A, ?B) -> rdf:subject(?R, ?A) ^
-#            Relationship(?R) ^ rdf:object(?R, ?B) ^ 'relationship type'(?R, dialectic)
-# reads:     IF A challenges B AND we reify this challenge as a Relationship R THEN R is a
-#            reified Relationship with subject A, object B and the dialectic type
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -5848,8 +4841,6 @@ WHERE {
      schema:identifier ?idA .
   ?B schema:identifier ?idB .
   BIND(CONCAT("R-", ?idA, "-challenges-", ?idB) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("R-", REPLACE(STR(?A), "^.*[#/]", ""), "-challenges-", REPLACE(STR(?B), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R)
@@ -5866,7 +4857,7 @@ gsndesign:query-rules-s51-challenge-chain-invalidation
     rdfs:label "rules/s51_challenge_chain_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s51_challenge_chain_invalidation.rq" ;
-    gsndesign:fileChecksum "30da917bc49f4e833cc781c022d2f74e11455a63dfa41c697ff51bea5ba5df05" ;
+    gsndesign:fileChecksum "c2dfd3c4aeedf1eea28da2104ad04eaff98f5d8b68f68a40a11272b2e8b942bc" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -5885,24 +4876,6 @@ gsndesign:query-rules-s51-challenge-chain-invalidation
         gsndesign:st-0740 ;
     gsndesign:queryText """# rule:      S51
 # name:      Challenge Chain Invalidation
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      challenges(?D, ?R) ^ rdf:subject(?R, ?G3) ^ rdf:object(?R, ?G1) ^ Goal(?G1) ^
-#            Goal(?G3) ^ swrlx:makeOWLThing(?S, ?G3) ^ Goal(?G2) ^ 'supported by'(?G3, ?G1) ^
-#            'supported by'(?G3, ?G2) ^ differentFrom(?G1, ?G2) -> 'supported by'(?S, ?G2) ^
-#            'supported by'(?G3, ?S) ^ valid(?D, false) ^ 'supported by'(?S, ?G1) ^
-#            challenges(?D, ?S) ^ valid(?S, false) ^ valid(?R, false) ^ Strategy(?S)
-# reads:     IF Defeater D challenges Relationship R between Goals G3 (subject) and G1 (object)
-#            AND G3 is ALSO supported by a second Goal G2 distinct from G1 AND we introduce a
-#            Strategy S for G3 THEN Strategy S is supported by G1 and G2 AND G3 is supported by S
-#            AND D now challenges S AND D, S and R are all marked NOT valid
-#
-# The inference between a goal and its supporting goals is indivisible, so a challenge aimed at
-# one SupportedBy link where the goal has several is not a challenge that can be made; the
-# standard says such a challenge requires a strategy to be inserted (1:6.3.12, page 54). ?G2 is
-# therefore a sibling supporter of ?G3, not any goal in the store. Without the supportedBy(?G3,
-# ?G2) atom it was unconstrained, and the rule attached the new strategy to every other goal.
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -5934,8 +4907,6 @@ WHERE {
   ?G2 a gsn:Goal .
   FILTER(?G1 != ?G2)
   BIND(CONCAT("St-", ?idG3, "-rebutted") AS ?strategyId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("St-", REPLACE(STR(?G3), "^.*[#/]", ""), "-rebutted") AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G3), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?S)
@@ -5950,7 +4921,7 @@ gsndesign:query-rules-s52-defeater-declaration
     rdfs:label "rules/s52_defeater_declaration.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s52_defeater_declaration.rq" ;
-    gsndesign:fileChecksum "dbeeb2e321f40ed231e79f121e82dad4149808829fa6060e383a98e60307a6e4" ;
+    gsndesign:fileChecksum "44992de50f3f867014cffdfb8e28ee866380cb04e14aa033b8f277815c595704" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Defeater ,
         gsn:challenges ;
@@ -5961,11 +4932,6 @@ gsndesign:query-rules-s52-defeater-declaration
         gsndesign:st-0760 ;
     gsndesign:queryText """# rule:      S52
 # name:      Defeater Declaration
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      challenges(?A, ?B) -> Defeater(?A)
-# reads:     IF A challenges B THEN A is a Defeater
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -5981,7 +4947,7 @@ gsndesign:query-rules-s53-module-membership
     rdfs:label "rules/s53_module_membership.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s53_module_membership.rq" ;
-    gsndesign:fileChecksum "022d4c800a27efdb6b6502b797e3f0bd4c67253751449c6a9c950ced8131ef4c" ;
+    gsndesign:fileChecksum "d57097387b23f028e514c8585b8dc40855e89d8b8aadb0a28b6b864958d36f6b" ;
     gsndesign:declaresNamespace "http://www.w3.org/2000/01/rdf-schema#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Argument ,
@@ -5998,20 +4964,10 @@ gsndesign:query-rules-s53-module-membership
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S53
 # name:      Module Membership
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Module(?M) ^ contains(?M, ?Arg) ^ Argument(?Arg) ^ contains(?Arg, ?E) ^
-#            GSNElement(?E) -> 'in module'(?E, ?M)
-# reads:     IF M is a Module AND M contains Argument Arg AND Arg contains GSN element E THEN E
-#            is in module M
 
 PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-# A module contains arguments and other modules, never elements directly, so the module an
-# element belongs to is always two steps away. Every rule of the Modular Extension needs that
-# traversal, so it is derived once here and stated in one atom everywhere else.
 INSERT { ?E gsn:inModule ?M }
 WHERE {
   ?M a gsn:Module ;
@@ -6028,7 +4984,7 @@ gsndesign:query-rules-s54-nested-module-membership
     rdfs:label "rules/s54_nested_module_membership.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s54_nested_module_membership.rq" ;
-    gsndesign:fileChecksum "88eb75622173d6954f7b43fc65fdf88775b15c49cf243790742d8162e4628880" ;
+    gsndesign:fileChecksum "3a0b62540611abe44663a50ee8bd9c8d36f55402d021c9ba6bdc07ade46a5fb1" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Module ,
         gsn:contains ,
@@ -6040,19 +4996,9 @@ gsndesign:query-rules-s54-nested-module-membership
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S54
 # name:      Nested Module Membership
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Module(?M) ^ contains(?M, ?N) ^ Module(?N) ^ 'in module'(?E, ?N) ->
-#            'in module'(?E, ?M)
-# reads:     IF M is a Module AND M contains Module N AND E is in module N THEN E is also in
-#            module M
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
-# A module may contain other modules, so membership carries upward. Applied to a fixpoint by
-# ontology/example/run_rules.py this reaches any depth of nesting; on its own it advances one level, which
-# is why its trigger in rule_cases.ttl states the inner membership S53 would otherwise derive.
 INSERT { ?E gsn:inModule ?M }
 WHERE {
   ?M a gsn:Module ;
@@ -6068,7 +5014,7 @@ gsndesign:query-rules-s55-support-closure
     rdfs:label "rules/s55_support_closure.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s55_support_closure.rq" ;
-    gsndesign:fileChecksum "5072aa8b102fc42030817e0da0a47c2dd3851d179d85b4c7596897e0342abc69" ;
+    gsndesign:fileChecksum "bf9db94ee2192e018a8fecc6bfb4724eb5a2578eb03df49f5c369648dd5e17fd" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:supportedBy ,
         gsn:transitivelySupportedBy ;
@@ -6078,13 +5024,6 @@ gsndesign:query-rules-s55-support-closure
         gsndesign:st-1023 ;
     gsndesign:queryText """# rule:      S55
 # name:      Support Closure
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?A, ?B) -> 'transitively supported by'(?A, ?B)
-# reads:     IF A is supported by B THEN A is transitively supported by B
-# note:      The SWRL rule states one step and leaves the chain to owl:TransitiveProperty.
-#            SPARQL has no such axiom, so the property path inserts the whole chain at once.
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -6100,7 +5039,7 @@ gsndesign:query-rules-s56-support-cycle-invalidation
     rdfs:label "rules/s56_support_cycle_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s56_support_cycle_invalidation.rq" ;
-    gsndesign:fileChecksum "ebd2aa9bd5e10baf0a8425f70eefb74e22277d8aa30e44c65b3b62587ee22547" ;
+    gsndesign:fileChecksum "88354efad2b6b5a3613baf6d845ad164f4b4eaf7a9d9d0620316e9e2ec53ed08" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:transitivelySupportedBy ,
         gsn:valid ;
@@ -6110,11 +5049,6 @@ gsndesign:query-rules-s56-support-cycle-invalidation
         gsndesign:st-1023 ;
     gsndesign:queryText """# rule:      S56
 # name:      Support Cycle Invalidation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      'transitively supported by'(?E, ?E) -> valid(?E, false)
-# reads:     IF E is transitively supported by itself THEN E is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -6132,7 +5066,7 @@ gsndesign:query-rules-s57-support-cycle-relationship-invalidation
     rdfs:label "rules/s57_support_cycle_relationship_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s57_support_cycle_relationship_invalidation.rq" ;
-    gsndesign:fileChecksum "b401c97aab8bcd2e5aaddd2038eb738f729ae0e77beb37ce39a9c8311b30c633" ;
+    gsndesign:fileChecksum "84dc37a9be805bcdb32673a483764be27c34dd50888fdd6a4b299378c1fbb73c" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Relationship ,
@@ -6147,13 +5081,6 @@ gsndesign:query-rules-s57-support-cycle-relationship-invalidation
         gsndesign:st-1023 ;
     gsndesign:queryText """# rule:      S57
 # name:      Support Cycle Relationship Invalidation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      Relationship(?R) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ 'supported by'(?A,
-#            ?B) ^ 'transitively supported by'(?B, ?A) -> valid(?R, false)
-# reads:     IF R is a Relationship from A to B AND A is supported by B AND B is transitively
-#            supported by A THEN R is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -6176,7 +5103,7 @@ gsndesign:query-rules-s58-module-context-closure
     rdfs:label "rules/s58_module_context_closure.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s58_module_context_closure.rq" ;
-    gsndesign:fileChecksum "64ac6de11070145232274205a84296854abf18379875fdb8b0a0bb75afee06ca" ;
+    gsndesign:fileChecksum "e50946b5e887edc46ecae94e2fe6ce13eaf93f288bbda89ee8bfa4576bb102c9" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Module ,
         gsn:inContextOf ,
@@ -6188,18 +5115,6 @@ gsndesign:query-rules-s58-module-context-closure
         gsndesign:st-1028 ;
     gsndesign:queryText """# rule:      S58
 # name:      Module Context Closure
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Module(?A) ^ Module(?B) ^ 'in context of'(?A, ?B) -> 'transitively in context
-#            of'(?A, ?B)
-# reads:     IF A and B are Modules AND A is in the context of B THEN A is transitively in the
-#            context of B
-# note:      The SWRL rule states one step and leaves the chain to owl:TransitiveProperty.
-#            SPARQL has no such axiom, so the property path inserts the whole chain at
-#            once. The path runs through modules only. A module is the only class in both
-#            the domain and the range of gsn:inContextOf, so every node inside a chain of
-#            in-context-of links between two modules is a module.
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -6217,7 +5132,7 @@ gsndesign:query-rules-s59-module-context-cycle-invalidation
     rdfs:label "rules/s59_module_context_cycle_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s59_module_context_cycle_invalidation.rq" ;
-    gsndesign:fileChecksum "2bc7e0587ac5df94a7a56ba6573ad0c2a088ffbe901f0b532c078d090f22a02f" ;
+    gsndesign:fileChecksum "5a3b22234de2d500d9a13c45ac23ee4ef54219821feee50e7c72afb5f141b2cb" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:transitivelyInContextOf ,
         gsn:valid ;
@@ -6227,11 +5142,6 @@ gsndesign:query-rules-s59-module-context-cycle-invalidation
         gsndesign:st-1028 ;
     gsndesign:queryText """# rule:      S59
 # name:      Module Context Cycle Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      'transitively in context of'(?M, ?M) -> valid(?M, false)
-# reads:     IF M is transitively in the context of itself THEN M is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -6249,7 +5159,7 @@ gsndesign:query-rules-s60-module-context-cycle-relationship-invalidation
     rdfs:label "rules/s60_module_context_cycle_relationship_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s60_module_context_cycle_relationship_invalidation.rq" ;
-    gsndesign:fileChecksum "76fff7c85c5a689225dfc1436d2fe9ca004000b478fea72fe524033fea3064e6" ;
+    gsndesign:fileChecksum "6dcdfa2fad2c6d6e1fc6f56bf0cd0f900979ad3d178832250a30d50dc48c7363" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Relationship ,
@@ -6264,13 +5174,6 @@ gsndesign:query-rules-s60-module-context-cycle-relationship-invalidation
         gsndesign:st-1028 ;
     gsndesign:queryText """# rule:      S60
 # name:      Module Context Cycle Relationship Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Relationship(?R) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ 'in context of'(?A,
-#            ?B) ^ 'transitively in context of'(?B, ?A) -> valid(?R, false)
-# reads:     IF R is a Relationship from A to B AND A is in the context of B AND B is
-#            transitively in the context of A THEN R is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -6293,7 +5196,7 @@ gsndesign:query-rules-s61-challenge-closure
     rdfs:label "rules/s61_challenge_closure.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s61_challenge_closure.rq" ;
-    gsndesign:fileChecksum "a6862b6061020f8a5307a9d0bb8170c5b2c8dad0ccbd6789ea56ff5e97af7471" ;
+    gsndesign:fileChecksum "ba69991234d753d47be3c55a67a34278fa04cab6ccd1ca4558a49d8fea2624df" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:challenges ,
         gsn:transitivelyChallenges ;
@@ -6304,13 +5207,6 @@ gsndesign:query-rules-s61-challenge-closure
         gsndesign:st-1025 ;
     gsndesign:queryText """# rule:      S61
 # name:      Challenge Closure
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      challenges(?A, ?B) -> 'transitively challenges'(?A, ?B)
-# reads:     IF A challenges B THEN A transitively challenges B
-# note:      The SWRL rule states one step and leaves the chain to owl:TransitiveProperty.
-#            SPARQL has no such axiom, so the property path inserts the whole chain at once.
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -6326,7 +5222,7 @@ gsndesign:query-rules-s62-challenge-cycle-invalidation
     rdfs:label "rules/s62_challenge_cycle_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s62_challenge_cycle_invalidation.rq" ;
-    gsndesign:fileChecksum "fce38a18d574a737fb7ae2c271f14cdcb31235e9923d439d7c56f3fac1e425d6" ;
+    gsndesign:fileChecksum "42e97fe6f6ef4ca526a35f79aaa0d4e678181a09e81dcbec898ebd1d97b2402a" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:transitivelyChallenges ,
         gsn:valid ;
@@ -6336,11 +5232,6 @@ gsndesign:query-rules-s62-challenge-cycle-invalidation
         gsndesign:st-1025 ;
     gsndesign:queryText """# rule:      S62
 # name:      Challenge Cycle Invalidation
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      'transitively challenges'(?E, ?E) -> valid(?E, false)
-# reads:     IF E transitively challenges itself THEN E is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
@@ -6358,7 +5249,7 @@ gsndesign:query-rules-s63-challenge-cycle-relationship-invalidation
     rdfs:label "rules/s63_challenge_cycle_relationship_invalidation.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/s63_challenge_cycle_relationship_invalidation.rq" ;
-    gsndesign:fileChecksum "0c89c0d03bdb5df9abcb61487468de7eb0911f62517f93be70caff685ea65394" ;
+    gsndesign:fileChecksum "f39c5c2dda941b25e44244aea2584b1ffbb8950d2a9b285cf5f48c368148ef74" ;
     gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Relationship ,
@@ -6374,13 +5265,6 @@ gsndesign:query-rules-s63-challenge-cycle-relationship-invalidation
         gsndesign:st-1025 ;
     gsndesign:queryText """# rule:      S63
 # name:      Challenge Cycle Relationship Invalidation
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      Relationship(?R) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ challenges(?A, ?B)
-#            ^ 'transitively challenges'(?B, ?A) -> valid(?R, false)
-# reads:     IF R is a Relationship from A to B AND A challenges B AND B transitively
-#            challenges A THEN R is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -6403,27 +5287,19 @@ gsndesign:query-update-element-statement
     rdfs:label "update_element_statement.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/update_element_statement.rq" ;
-    gsndesign:fileChecksum "c177ba4cecde245cfbb8048e48d263d23dfff6a154d12255aa12bd110ffe194c" ;
+    gsndesign:fileChecksum "38373fa64b73bdf085535c716e51d544b56120b45e3feaab1a982a97032624e3" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:statement ;
     gsndesign:restsOnStatement gsndesign:st-0265 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-35 ;
-    gsndesign:queryText """# id:        CQ-35
-# operation: update
-# question:  How is the wording of a claim, strategy or context corrected?
-# expect:    change
-#
-# DELETE then INSERT in one operation, not two: gsn:statement is single-valued in
-# practice, and a bare INSERT would leave the element asserting both wordings at once.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 DELETE { ?element gsn:statement ?old }
 INSERT { ?element gsn:statement ?new }
 WHERE {
-  VALUES (?elementId ?new) {                          # PARAMETERS
+  VALUES (?elementId ?new) {
     ("G1.2" "False positive detections do not lead to unsafe braking demands in any operating mode.")
   }
   ?element schema:identifier ?elementId .
@@ -6436,27 +5312,19 @@ gsndesign:query-update-mark-element-invalid
     rdfs:label "update_mark_element_invalid.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/update_mark_element_invalid.rq" ;
-    gsndesign:fileChecksum "02906314d29470cc5b70107fdc6fa598671a3e9b184ced793dd3c2274ffa82a4" ;
+    gsndesign:fileChecksum "dab630905ef114db3c79a2612e5d00e7d96c561d59870b14207e5c0d271e6f4c" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:valid ;
     gsndesign:restsOnStatement gsndesign:st-0114 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-36 ;
-    gsndesign:queryText """# id:        CQ-36
-# operation: update
-# question:  How is a single element marked invalid?
-# expect:    change
-#
-# The flag-setting idiom used by every update below: delete whatever value is there,
-# insert the new one, and skip the row entirely if it already says what you want.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 DELETE { ?element gsn:valid ?old }
 INSERT { ?element gsn:valid false }
 WHERE {
-  VALUES ?elementId { "G1.1" }                        # PARAMETER
+  VALUES ?elementId { "G1.1" }
   ?element schema:identifier ?elementId .
   OPTIONAL { ?element gsn:valid ?old }
   FILTER(!BOUND(?old) || STR(?old) != "false")
@@ -6468,7 +5336,7 @@ gsndesign:query-update-retarget-solution-to-new-artefact
     rdfs:label "update_retarget_solution_to_new_artefact.rq"@en ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/update_retarget_solution_to_new_artefact.rq" ;
-    gsndesign:fileChecksum "32ca5229a5433bb3b2ee52c587f9afb54ec6a19b9c29f177ead266ce122edf00" ;
+    gsndesign:fileChecksum "aebd6469d6efae0593082c4deba32d435a51dc0319d104cc577c65e3848714a2" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Artefact ,
@@ -6478,21 +5346,13 @@ gsndesign:query-update-retarget-solution-to-new-artefact
         gsndesign:st-0175 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-CQ-37 ;
-    gsndesign:queryText """# id:        CQ-37
-# operation: update
-# question:  How is a solution repointed when its evidence is superseded by a new version?
-# expect:    change
-#
-# The re-baselining operation. The solution - the argument's reference - stays put and
-# keeps its identifier; only the artefact behind it moves.
-
-PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+    gsndesign:queryText """PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 DELETE { ?solution gsn:refersTo ?oldArtefact }
 INSERT { ?solution gsn:refersTo ?newArtefact }
 WHERE {
-  VALUES (?solutionId ?newArtefactId) {               # PARAMETERS
+  VALUES (?solutionId ?newArtefactId) {
     ("Sn3" "Ev1")
   }
   ?solution a gsn:Solution ;

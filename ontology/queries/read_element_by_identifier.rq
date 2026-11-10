@@ -1,18 +1,10 @@
-# id:        CQ-09
-# operation: read
-# question:  What does the element with a given identifier say, and what is it linked to?
-# expect:    rows
-#
-# The addressing primitive. Every GSN element carries exactly one schema:identifier, so
-# that - not the IRI - is how a person refers to an element.
-
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?element ?type ?label ?statement ?property ?linkedId
 WHERE {
-  VALUES ?elementId { "G1" }          # PARAMETER: the identifier to look up
+  VALUES ?elementId { "G1" }
 
   ?element schema:identifier ?elementId ;
            a ?type .

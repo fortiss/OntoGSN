@@ -5,12 +5,10 @@ SELECT ?lang ?filePath WHERE {
   BIND(<${solutionIri}> AS ?sol)
 
   {
-    # Case 1: Solution → code
     ?sol py:providedByCode ?code .
   }
   UNION
   {
-    # Case 2: Code → solution
     ?code py:implements ?sol .
   }
 

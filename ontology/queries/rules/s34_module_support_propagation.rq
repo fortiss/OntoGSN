@@ -1,12 +1,5 @@
 # rule:      S34
 # name:      Module Support Propagation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Module(?M1) ^ Module(?M2) ^ 'supported by'(?E1, ?E2) ^ 'in module'(?E1, ?M1) ^
-#            contains(?M2, ?E2) ^ differentFrom(?M1, ?M2) -> 'supported by'(?M1, ?M2)
-# reads:     IF M1 and M2 are Modules AND E1 in M1 is supported by E2 in M2 AND M1 and M2 are
-#            distinct THEN M1 is supported by M2
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 

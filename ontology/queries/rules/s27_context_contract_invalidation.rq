@@ -1,13 +1,5 @@
 # rule:      S27
 # name:      Context Contract Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      'in context of'(?A, ?M1) ^ rdf:object(?R, ?M1) ^ Module(?M1) ^ Module(?M2) ^
-#            'in module'(?A, ?M2) ^ rdf:subject(?R, ?A) ^ contract(?M2, true) -> valid(?R, false)
-# reads:     IF A is in context of Module M1 AND Relationship R has object M1 AND M1 and M2 are
-#            Modules AND M2 contains A AND R has subject A AND M2 is under contract THEN R is NOT
-#            valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

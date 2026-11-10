@@ -1,11 +1,5 @@
 # rule:      S19
 # name:      Context Relation Creation
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      'in context of'(?A, ?B) ^ swrlx:makeOWLThing(?R, ?A, ?B) -> rdf:subject(?R, ?A) ^
-#            Relationship(?R) ^ rdf:object(?R, ?B)
-# reads:     IF A is in context of B THEN Create R AND R has subject A and object B
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -23,8 +17,6 @@ WHERE {
      schema:identifier ?idA .
   ?B schema:identifier ?idB .
   BIND(CONCAT("R-", ?idA, "-inContextOf-", ?idB) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("R-", REPLACE(STR(?A), "^.*[#/]", ""), "-inContextOf-", REPLACE(STR(?B), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R)

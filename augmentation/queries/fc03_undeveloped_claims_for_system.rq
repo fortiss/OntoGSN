@@ -1,18 +1,9 @@
-# id:        CQ-46
-# role:      Compliance Officer
-# operation: read
-# question:  Which low-level claims need development for each system?
-# expect:    rows
-#
-# The inverse-path walk does the context inheritance in the query, so the answer does not depend
-# on S17 having been run first.
-
 PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT DISTINCT ?goalId ?statement ?contextStatement
 WHERE {
-  VALUES ?system { "IT system" }                    # PARAMETER
+  VALUES ?system { "IT system" }
 
   ?goal a gsn:Goal ;
         schema:identifier ?goalId ;

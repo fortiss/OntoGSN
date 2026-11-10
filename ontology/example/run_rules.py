@@ -34,19 +34,32 @@ ONTOLOGY = os.path.join(REPO, "ontology", "serializations", "ontogsn.ttl")
 EXAMPLE = os.path.join(REPO, "ontology", "example", "example_case.ttl")
 TESTDATA = os.path.join(REPO, "development", "dev_tools", "testdata")
 
-HEADER_RE = re.compile(r"(?m)^#\s+(\w+):\s+(.*)$")
+HEADER_RE = re.compile(r"(?m)^#\s+(rule|name):\s+(.*)$")
+SECTIONS = """
+PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX swrl: <http://www.w3.org/2003/11/swrl#>
+SELECT ?name ?section WHERE { ?rule a swrl:Imp ; rdfs:label ?name ; gsn:coreOrExtension ?section }
+"""
 
 
-def load_rules():
+def load_rules(store):
+    """Each rule file, with the section of the SWRL rule it translates.
+
+    A rule file names its rule in '# rule:' and '# name:'. The section is read from the
+    ontology in the store, from the gsn:coreOrExtension of the SWRL rule with that name.
+    """
+    sections = {row["name"].value: row["section"].value for row in store.query(SECTIONS)}
     rules = []
     for path in sorted(glob.glob(os.path.join(RULE_DIR, "*.rq"))):
         with open(path, encoding="utf-8") as fh:
             text = fh.read()
         header = {k.lower(): v.strip() for k, v in HEADER_RE.findall(text)}
+        name = header.get("name", "")
         rules.append({"path": path,
                       "id": header.get("rule", os.path.basename(path)),
-                      "name": header.get("name", ""),
-                      "section": header.get("section", ""),
+                      "name": name,
+                      "section": sections.get(name, ""),
                       "text": text})
     return rules
 
@@ -80,7 +93,10 @@ def main():
     if not inputs:
         sys.exit("no input files")
 
-    rules = load_rules()
+    store = pyoxigraph.Store()
+    store.load(path=ONTOLOGY, format=pyoxigraph.RdfFormat.TURTLE)
+
+    rules = load_rules(store)
     if args.only:
         wanted = {r.strip().upper() for r in args.only.split(",")}
         rules = [r for r in rules if r["id"].upper() in wanted]
@@ -89,8 +105,6 @@ def main():
     if not rules:
         sys.exit("no rules selected")
 
-    store = pyoxigraph.Store()
-    store.load(path=ONTOLOGY, format=pyoxigraph.RdfFormat.TURTLE)
     for path in inputs:
         store.load(path=path, format=pyoxigraph.RdfFormat.TURTLE)
     start = len(store)

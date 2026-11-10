@@ -6,13 +6,11 @@ SELECT
   (COALESCE(SUM(xsd:float(?currentLoadWeight)), 0.0) AS ?currentLoadWeight)
   ?maxLoadWeight
 WHERE {
-  # Always get the max roof load for the car
   ?car a schema:Car ;
        schema:roofLoad ?roofCollection .
   ?roofCollection schema:value    ?maxLoadWeight ;
                   schema:unitCode ?maxLoadUnit .
 
-  # Only *optionally* add active loads
   OPTIONAL {
     ?loadIRI a schema:Product ;
              ex:isActiveLoad true ;

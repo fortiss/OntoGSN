@@ -1,14 +1,5 @@
 # rule:      S30
 # name:      Contract Activation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      away(?A, true) ^ 'to be supported by contract'(?A, true) ^ Module(?M1) ^ Module(?M2)
-#            ^ 'in module'(?A, ?M1) ^ 'in module'(?B, ?M2) ^ 'supported by'(?A, ?B) ^
-#            differentFrom(?M1, ?M2) -> contract(?M2, true)
-# reads:     IF A is away and must be supported by contract AND M1 and M2 are Modules AND A is in
-#            M1 AND B is in M2 AND A is supported by B AND M1 and M2 are distinct THEN M2 becomes
-#            a contract Module
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 

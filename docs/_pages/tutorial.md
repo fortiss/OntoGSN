@@ -146,7 +146,7 @@ A warning is not a violation. To accept the warnings, add `--allow-warnings`. A 
 
 ## 5. Ask questions
 
-The folder `ontology/queries/` has 43 stored SPARQL queries. Each query answers one question about a case. The question is in the header of the file. Parameters are in a `VALUES` block marked `# PARAMETER`.
+The folder `ontology/queries/` has 43 stored SPARQL queries. Each query answers one question about a case. The questions are in the [query catalogue](https://github.com/fortiss/OntoGSN/blob/main/ontology/queries/README.md). Parameters are in a `VALUES` block near the top of the query.
 
 Save this script as `query.py`:
 

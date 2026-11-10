@@ -1,18 +1,5 @@
 # rule:      S45
 # name:      Goal Confidence Relation
-# section:   Confidence Argument Extension
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?G, ?S2) ^ Goal(?S1) ^ rdf:object(?R1, ?S1) ^ 'Relationship with
-#            Confidence'(?R1) ^ swrlx:makeOWLThing(?R2, ?G, ?S2) ^ 'supported by'(?G, ?S1) ^
-#            Goal(?S2) ^ Goal(?G) ^ differentFrom(?S1, ?S2) ^ 'associated with'(?R1, ?A) ^
-#            rdf:subject(?R1, ?G) -> rdf:object(?R2, ?S2) ^ 'Relationship with Confidence'(?R2) ^
-#            rdf:subject(?R2, ?G) ^ 'associated with'(?R2, ?A) ^ 'assurance claim point'(?R2,
-#            true)
-# reads:     IF Goal G is supported by two distinct Goals S1 and S2 AND there is a Relationship
-#            with Confidence R1 from G to S1 associated with A THEN we create a Relationship with
-#            Confidence R2 from G to S2 associated with the same A AND mark R2 as an assurance
-#            claim point
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -40,8 +27,6 @@ WHERE {
       schema:identifier ?idS2 .
   FILTER(?S1 != ?S2)
   BIND(CONCAT("RC-", ?idG, "-", ?idS2) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("RC-", REPLACE(STR(?G), "^.*[#/]", ""), "-", REPLACE(STR(?S2), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?G), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R2)

@@ -1,12 +1,5 @@
 # rule:      S20
 # name:      Final Pattern Invalidation
-# section:   Argument Pattern Extension
-# operation: rule
-# expect:    insert
-# swrl:      'instantiation of'(?B, ?C) ^ final(?A, true) ^ Pattern(?C) ^ contains(?A, ?B) ^
-#            contains(?A, ?C) -> valid(?A, false)
-# reads:     IF B is an instantiation of Pattern C inside container A AND A is marked final AND A
-#            contains both B and C AND C is a Pattern THEN A is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 

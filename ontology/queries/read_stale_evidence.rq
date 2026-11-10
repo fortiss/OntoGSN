@@ -1,11 +1,3 @@
-# id:        CQ-23
-# operation: read
-# question:  Which artefacts predate a given date, and which claims still rest on them?
-# expect:    rows
-#
-# OntoGSN dates nothing itself - an artefact is dated by whatever the ABox uses, here
-# dcterms:created. Change the property below if your case records it differently.
-
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
@@ -14,7 +6,7 @@ PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
 
 SELECT ?artefactId ?artefactLabel ?created ?solutionId ?goalId
 WHERE {
-  VALUES ?cutoff { "2025-01-01"^^xsd:date }   # PARAMETER: anything older than this
+  VALUES ?cutoff { "2025-01-01"^^xsd:date }
 
   ?artefact a gsn:Artefact ;
             schema:identifier ?artefactId ;

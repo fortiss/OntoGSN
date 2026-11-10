@@ -1,10 +1,5 @@
 # rule:      A3a
 # name:      Resolve Issue Defeats Goal
-# section:   Augmentation
-# operation: rule
-# expect:    insert
-# swrl:      Issue(?I) ^ issueType(?I, resolve) ^ raisedAgainst(?I, ?E) ^ Goal(?E) -> Goal(?I) ^ challenges(?I, ?E) ^ defeated(?E, true)
-# reads:     IF Issue I is of type resolve AND is raised against Goal E THEN I is a goal challenging E, and E is defeated
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
@@ -20,9 +15,6 @@ WHERE {
   FILTER(!BOUND(?old) || STR(?old) != "true")
 } ;
 
-# A second operation, not a second rule. Written separately because the guard above is on the
-# target and this one is on the pair: one issue's challenge must not suppress another's when
-# both are raised against the same element.
 INSERT {
   ?I a gsn:Goal ;
      gsn:challenges ?E .

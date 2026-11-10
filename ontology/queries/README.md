@@ -2,7 +2,8 @@
 
 CRUD SPARQL for a graph database holding an assurance case built on
 [`ontology/serializations/ontogsn.ttl`](../serializations/ontogsn.ttl). One file per competency
-question; the question itself is in the file's header, and the same set is tabulated in
+question. The question and the other header fields of each file are in
+[`QUERY-COMMENTS.md`](../../QUERY-COMMENTS.md), and the same set is tabulated in
 [`development/design/Competency Questions.xlsx`](../../development/design/Competency%20Questions.xlsx) - on
 the "Competency Questions" sheet where a compliance process asks the question, and on
 "Extra" otherwise.
@@ -16,13 +17,15 @@ with no reasoner attached.
 Load the ontology **and** your case into the same graph — some queries walk
 `rdfs:subClassOf*` and need the class hierarchy.
 
-Parameters are literals in a `VALUES` block marked `# PARAMETER`, addressed by
+Parameters are literals in a `VALUES` block near the top of the query, addressed by
 `schema:identifier` rather than IRI, so a query runs against any case unedited:
 
 ```sparql
-VALUES ?goalId { "G1" }             # PARAMETER: the goal to trace
+VALUES ?goalId { "G1" }
 ?goal schema:identifier ?goalId .
 ```
+
+[`QUERY-COMMENTS.md`](../../QUERY-COMMENTS.md) says what each parameter is.
 
 The defaults point at [`ontology/example/example_case.ttl`](../example/example_case.ttl),
 so every query runs as-is and returns something.
@@ -99,9 +102,10 @@ Everything else that changes flags is a rule — see below.
 
 ## Rules
 
-`rules/` has one file per SWRL rule, named `s<NN>_<rule_name>.rq`. Each header carries the
-rule number, its name and section, and the original SWRL, so the file and the workbook row
-can be read side by side.
+`rules/` has one file per SWRL rule, named `s<NN>_<rule_name>.rq`. Each file starts with the
+rule number (`# rule:`) and the rule name (`# name:`). Its section and the original SWRL are
+in [`QUERY-COMMENTS.md`](../../QUERY-COMMENTS.md), so the file and the workbook row can be
+read side by side.
 
 Run them with:
 

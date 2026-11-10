@@ -1,12 +1,5 @@
 # rule:      S50
 # name:      Challenge Relation Creation
-# section:   Dialectic Extension
-# operation: rule
-# expect:    insert
-# swrl:      challenges(?A, ?B) ^ swrlx:makeOWLThing(?R, ?A, ?B) -> rdf:subject(?R, ?A) ^
-#            Relationship(?R) ^ rdf:object(?R, ?B) ^ 'relationship type'(?R, dialectic)
-# reads:     IF A challenges B AND we reify this challenge as a Relationship R THEN R is a
-#            reified Relationship with subject A, object B and the dialectic type
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -25,8 +18,6 @@ WHERE {
      schema:identifier ?idA .
   ?B schema:identifier ?idB .
   BIND(CONCAT("R-", ?idA, "-challenges-", ?idB) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("R-", REPLACE(STR(?A), "^.*[#/]", ""), "-challenges-", REPLACE(STR(?B), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R)

@@ -1,14 +1,5 @@
 # rule:      S40
 # name:      Confidence Relation Creation
-# section:   Confidence Argument Extension
-# operation: rule
-# expect:    insert
-# swrl:      'assurance claim point'(?A, true) ^ 'Artefact Reference'(?A) ^
-#            swrlx:makeOWLThing(?R, ?A) -> 'Relationship with Confidence'(?R) ^ rdf:subject(?R,
-#            ?A) ^ 'assurance claim point'(?R, true)
-# reads:     IF A is an Artefact Reference marked as an assurance claim point AND we introduce a
-#            reified confidence Relationship R for A THEN R is a Relationship with Confidence
-#            whose subject is A and which is itself an assurance claim point
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -27,8 +18,6 @@ WHERE {
      schema:identifier ?idA .
   FILTER(STR(?acp) = "true")
   BIND(CONCAT("RC-", ?idA) AS ?relationshipId)
-  # the IRI is built from the IRIs of the elements, not from their identifiers,
-  # because two elements in different modules may share an identifier
   BIND(CONCAT("RC-", REPLACE(STR(?A), "^.*[#/]", "")) AS ?iriKey)
   BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
                   ENCODE_FOR_URI(?iriKey))) AS ?R)

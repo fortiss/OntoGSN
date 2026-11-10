@@ -1,12 +1,5 @@
 # rule:      S60
 # name:      Module Context Cycle Relationship Invalidation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Relationship(?R) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ 'in context of'(?A,
-#            ?B) ^ 'transitively in context of'(?B, ?A) -> valid(?R, false)
-# reads:     IF R is a Relationship from A to B AND A is in the context of B AND B is
-#            transitively in the context of A THEN R is NOT valid
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

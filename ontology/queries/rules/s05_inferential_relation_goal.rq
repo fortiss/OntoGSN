@@ -1,12 +1,5 @@
 # rule:      S5
 # name:      Inferential Relation (Goal)
-# section:   Core GSN
-# operation: rule
-# expect:    insert
-# swrl:      'supported by'(?A, ?B) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ Goal(?B) ->
-#            'relationship type'(?R, "inferential")
-# reads:     IF B is a Goal AND A is supported by B AND R has subject A AND R has object B THEN R
-#            is an inferential relationship
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>

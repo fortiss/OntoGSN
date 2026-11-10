@@ -134,7 +134,7 @@ axiom is gone), `undocumented` (the new one has no decision), and `release-edite
 
 ## Stored queries
 
-`ontology/queries/` holds one SPARQL file per competency question; `ontology/queries/rules/` holds the 51
+`ontology/queries/` holds one SPARQL file per competency question; `ontology/queries/rules/` holds the 58
 SWRL rules as SPARQL updates. Both are verified by executing them against
 `ontology/serializations/ontogsn.ttl` and the fixtures in `development/dev_tools/testdata/`, in Oxigraph:
 
@@ -145,11 +145,18 @@ python development/dev_tools/query_check.py --check    # CI: is the record curre
 python development/dev_tools/query_check.py -v         # one line per query
 ```
 
-It checks the header, the `gsn:` namespace, that every `gsn:` term named exists in the
-ontology, and that the query does what its `expect:` line says when run.
+The SPARQL files hold no comments. The header of each query (`id`, `operation`, `question`,
+`expect`, and for a rule `section` and `swrl`) is a table in its section of
+[`QUERY-COMMENTS.md`](../../QUERY-COMMENTS.md), and the script reads it from there. A rule
+file keeps only its `# rule:` and `# name:` lines.
+
+The script makes sure that the header fields are complete, that the `gsn:` namespace is
+correct, and that every `gsn:` term named exists in the ontology. It runs the query and makes
+sure that the result is what `expect` says. It fails when any SPARQL file in `ontology/queries/`,
+`augmentation/` or `docs/assets/data/queries/` holds a comment.
 
 `development/design/ontogsn-design-queries.ttl` records a `gsndesign:verificationKey` per query,
-hashed over the query, the ontology, the fixtures and `CHECKER_VERSION`. Edit one query and
+hashed over the query, its header fields, the ontology, the fixtures and `CHECKER_VERSION`. Edit one query and
 one query re-runs; edit the ontology and all of them do. `--check` only compares keys, so a
 stale key means "not verified since it changed" — re-run without `--check` and commit the
 record.

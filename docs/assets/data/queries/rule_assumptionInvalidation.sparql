@@ -14,7 +14,4 @@ WHERE {
     ?A gsn:valid ?vA .
     FILTER(xsd:boolean(?vA) = false)
     BIND(?A AS ?s)}
-    #{BIND(?B AS ?s)}
-    #UNION
-    #{BIND(?A AS ?s)}
 }

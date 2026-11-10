@@ -1,11 +1,3 @@
-# id:        CQ-40
-# operation: delete
-# question:  How is an element removed without leaving dangling references to it?
-# expect:    delete
-#
-# Both directions and the reifications. Deleting only the outgoing triples leaves the
-# element's identifier gone but its parents still pointing at a node with no type.
-
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX schema: <http://schema.org/>
@@ -16,7 +8,7 @@ DELETE {
   ?relationship ?relationshipProperty ?relationshipValue .
 }
 WHERE {
-  VALUES ?elementId { "G1.2" }                        # PARAMETER
+  VALUES ?elementId { "G1.2" }
   ?element schema:identifier ?elementId .
   {
     ?element ?outgoing ?object .

@@ -58,9 +58,13 @@ CHECKS = [
     {"name": "stored queries verified",
      "command": ["development/dev_tools/query_check.py", "--check"],
      "gating": True,
+     # It also fails on a comment in any SPARQL file, because the comments of the queries
+     # are in QUERY-COMMENTS.md, and it reads the header fields from there.
      "triggers": ("ontology/queries/", "ontology/example/", "development/dev_tools/testdata/", "development/dev_tools/query_check.py",
                   "ontology/serializations/ontogsn.ttl",
-                  "development/design/ontogsn-design-queries.ttl")},
+                  "development/design/ontogsn-design-queries.ttl",
+                  "QUERY-COMMENTS.md", "augmentation/queries/", "augmentation/rules/",
+                  "augmentation/derivations/", "docs/assets/data/queries/")},
     {"name": "design record",
      "command": ["development/dev_tools/prov_check.py"],
      "gating": False,

@@ -1,16 +1,5 @@
 # rule:      D1
 # name:      Shape Mechanism Reads Terms
-# section:   Augmentation derivations
-# operation: rule
-# expect:    insert
-# swrl:      none. Sequence and alternative paths are RDF lists, walked with rdf:rest*, which SWRL
-#            cannot express, and a blank-node path has to be skipped, which SWRL cannot test.
-# reads:     IF a SHACL shape implements a mechanism THEN the mechanism reads every target class,
-#            target property, IRI property path (also inside inverse, repeated, alternative and
-#            sequence paths) and sh:class, on the shape and on every shape nested in it
-#
-# What is not derived: anything inside sh:sparql, which is text, and sh:datatype, which is a
-# datatype rather than a class or property of a domain ontology.
 
 PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
 PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -23,7 +12,6 @@ WHERE {
   ?mechanism a gsnaug:Mechanism .
   FILTER ( ?shapeType IN ( sh:NodeShape, sh:PropertyShape ) )
 
-  # the shape itself, and every shape reached from it through property, node, not, and, or, xone
   ?definition ( sh:property | sh:node | sh:not | (sh:and|sh:or|sh:xone)/rdf:rest*/rdf:first )* ?shape .
 
   {

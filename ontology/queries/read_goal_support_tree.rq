@@ -1,17 +1,9 @@
-# id:        CQ-13
-# operation: read
-# question:  What is the whole argument beneath a given goal?
-# expect:    rows
-#
-# ?depth is the length of the shortest support chain from the root, which is what makes
-# the result readable as a tree rather than a bag of elements.
-
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
 SELECT ?descendantId ?type ?statement (MIN(?hops) AS ?depth)
 WHERE {
-  VALUES ?rootId { "G1" }             # PARAMETER: the goal to expand
+  VALUES ?rootId { "G1" }
 
   ?root schema:identifier ?rootId .
   ?root gsn:supportedBy+ ?descendant .

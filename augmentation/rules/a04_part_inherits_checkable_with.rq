@@ -1,10 +1,5 @@
 # rule:      A4
 # name:      Part Inherits Checkable With
-# section:   Augmentation
-# operation: rule
-# expect:    insert
-# swrl:      ArtefactPart(?P) ^ partOf(?P, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?X) -> checkableWith(?P, ?X)
-# reads:     IF ArtefactPart P is part of Artefact A AND A is checkable with X THEN P is checkable with X
 
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>

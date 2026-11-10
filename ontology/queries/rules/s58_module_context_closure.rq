@@ -1,17 +1,5 @@
 # rule:      S58
 # name:      Module Context Closure
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Module(?A) ^ Module(?B) ^ 'in context of'(?A, ?B) -> 'transitively in context
-#            of'(?A, ?B)
-# reads:     IF A and B are Modules AND A is in the context of B THEN A is transitively in the
-#            context of B
-# note:      The SWRL rule states one step and leaves the chain to owl:TransitiveProperty.
-#            SPARQL has no such axiom, so the property path inserts the whole chain at
-#            once. The path runs through modules only. A module is the only class in both
-#            the domain and the range of gsn:inContextOf, so every node inside a chain of
-#            in-context-of links between two modules is a module.
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 

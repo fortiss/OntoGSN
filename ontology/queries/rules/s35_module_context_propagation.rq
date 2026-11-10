@@ -1,12 +1,5 @@
 # rule:      S35
 # name:      Module Context Propagation
-# section:   Modular Extension
-# operation: rule
-# expect:    insert
-# swrl:      Module(?M1) ^ Module(?M2) ^ 'in module'(?E1, ?M1) ^ 'in module'(?E2, ?M2) ^ 'in context
-#            of'(?E1, ?E2) ^ differentFrom(?M1, ?M2) -> 'in context of'(?M1, ?M2)
-# reads:     IF M1 and M2 are Modules AND E1 in M1 is in context of E2 in M2 AND M1 and M2 are
-#            distinct THEN M1 is in context of M2
 
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
 
