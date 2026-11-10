@@ -222,3 +222,6 @@ changelog names the old terms and gives an update that rewrites data to the new 
 
 Version 0.5.0 adds A8a to A8c, and lets a solution name the parts of an artefact it relies on.
 No term changes.
+
+Version 0.5.1 makes a part of an artefact an artefact, and widens the composition guard of A6a
+and A6c to every artefact a solution refers to. No term changes.

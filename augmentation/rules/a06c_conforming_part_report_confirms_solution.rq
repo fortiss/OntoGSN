@@ -37,11 +37,12 @@ WHERE {
     FILTER NOT EXISTS { ?newer prov:invalidatedAtTime|prov:wasInvalidatedBy ?struckNewer }
   }
   FILTER NOT EXISTS {
-    ?A gsnaug:checkableWith ?M2 .
+    ?S gsn:refersTo ?A2 .
+    ?A2 gsnaug:checkableWith ?M2 .
     ?M2 gsnaug:decides "truth" .
     ?R2 a sh:ValidationReport ;
         prov:wasGeneratedBy ?M2 ;
-        prov:used ?A ;
+        prov:used ?A2 ;
         sh:conforms ?c2 .
     FILTER(STR(?c2) = "false")
     FILTER NOT EXISTS { ?R2 prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck2 }
@@ -49,16 +50,17 @@ WHERE {
     FILTER NOT EXISTS {
       ?newer2 a sh:ValidationReport ;
              prov:wasGeneratedBy ?M2 ;
-             prov:used ?A ;
+             prov:used ?A2 ;
              prov:generatedAtTime ?tNewer2 .
       FILTER(?tNewer2 > ?t2)
       FILTER NOT EXISTS { ?newer2 prov:invalidatedAtTime|prov:wasInvalidatedBy ?struckNewer2 }
     }
   }
   FILTER NOT EXISTS {
-    ?T2 gsnaug:partOf ?A ;
+    ?S gsn:refersTo ?A2 .
+    ?T2 gsnaug:partOf ?A2 ;
         gsnaug:checkableWith ?M2 .
-    FILTER(EXISTS { ?S gsn:refersTo ?T2 } || NOT EXISTS { ?S gsn:refersTo ?namedPart . ?namedPart gsnaug:partOf ?A })
+    FILTER(EXISTS { ?S gsn:refersTo ?T2 } || NOT EXISTS { ?S gsn:refersTo ?namedPart . ?namedPart gsnaug:partOf ?A2 })
     ?M2 gsnaug:decides "truth" .
     ?R2 a sh:ValidationReport ;
         prov:wasGeneratedBy ?M2 ;

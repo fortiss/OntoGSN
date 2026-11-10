@@ -520,3 +520,43 @@ ex:I4 schema:description "The access log misses the first week of March." .
 ex:I7 schema:description "Encrypt the backups of the reporting system." ;
     gsn:statement "The backups of the reporting system are not encrypted." ;
     gsn:inContextOf ex:C-subject .
+
+#  A solution that refers to two artefacts. The newest report over the backup log conforms, and
+#  the newest report over the backup configuration fails. The composition guard of A6a covers
+#  every artefact that Sn6 refers to, so the conforming report does not confirm Sn6, and A6b
+#  makes it untrue. A guard over one artefact at a time lets A6a and A6b undo each other on
+#  every pass, and the last rule to run decides.
+
+ex:G1 gsn:supportedBy ex:Sn6 .
+
+ex:Sn6 a gsn:Solution ; schema:identifier "Sn6" ;
+    gsn:statement "Backup log and backup configuration of the reporting system." ;
+    gsn:refersTo ex:backup-log , ex:backup-config .
+
+ex:backup-log a gsn:Artefact ;
+    gsnaug:checkableWith ex:backup-log-check .
+
+ex:backup-config a gsn:Artefact ;
+    gsnaug:checkableWith ex:backup-config-check .
+
+ex:backup-log-check a gsnaug:Mechanism ;
+    gsnaug:automated true ;
+    gsnaug:decides "truth" ;
+    gsnaug:script "Test-Path backup.log -PathType Leaf" .
+
+ex:backup-config-check a gsnaug:Mechanism ;
+    gsnaug:automated true ;
+    gsnaug:decides "truth" ;
+    gsnaug:script """Select-String -Path backup.conf -Pattern '^encrypt=true$' | Measure-Object""" .
+
+ex:backup-log-check-report-1 a sh:ValidationReport ;
+    sh:conforms true ;
+    prov:wasGeneratedBy ex:backup-log-check ;
+    prov:used ex:backup-log ;
+    prov:generatedAtTime "2026-03-08T18:00:00Z"^^xsd:dateTime .
+
+ex:backup-config-check-report-1 a sh:ValidationReport ;
+    sh:conforms false ;
+    prov:wasGeneratedBy ex:backup-config-check ;
+    prov:used ex:backup-config ;
+    prov:generatedAtTime "2026-03-08T18:05:00Z"^^xsd:dateTime .

@@ -18,7 +18,7 @@ release. These are the current versions:
 | :--- | :--- | :--- |
 | Ontology | 1.3.0 | `ontology/serializations/ontogsn.ttl` |
 | SHACL shapes | 1.1.1 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
-| Augmentation, and its shapes | 0.5.0 | `augmentation/ontogsn-augmentation.ttl` |
+| Augmentation, and its shapes | 0.5.1 | `augmentation/ontogsn-augmentation.ttl` |
 | Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
 | Design record | 1.3.0 | `development/design/ontogsn-design.ttl` |
 
@@ -35,6 +35,31 @@ against an ontology version, so both are listed together.
 
 Versions 1.0 and 1.1 predate this repository; no artefact of either survives here to diff.
 The ontology as published is described in the paper (arXiv:2506.11023).
+
+---
+
+## Augmentation 0.5.1 (2026-11-10)
+
+A part of an artefact is an artefact, and one failing artefact of a solution outweighs a
+conforming one. No term is added, renamed or removed. The FinComp hub proposed both changes.
+
+- `gsnaug:ArtefactPart rdfs:subClassOf gsn:Artefact`. The domains of the eight provenance
+  properties, such as `gsnaug:checkableWith`, now name `gsn:Artefact` alone. The unions of
+  `gsnaug:raisedAgainst`, `gsnaug:linksTo` and `gsnaug:tag` no longer name the part. Under a
+  reasoner, every part is now an artefact. A query that counts artefacts then also counts parts,
+  unless it leaves out the subjects of `gsnaug:partOf`.
+- The composition guard of A6a and A6c reads every artefact that the solution refers to, and every
+  part of one of them that counts for the solution. Before this change, it read one artefact and
+  its parts. A solution that referred to one artefact with a conforming report and one with a
+  failing report was made true by A6a and untrue by A6b on every pass, and the last rule to run
+  decided. Now the solution is untrue in every order. Only the SPARQL copies have the guard.
+
+*For case authors:* a solution with a failing check over one of its artefacts is now untrue, even
+when a check over another artefact passes. The SPARQL rules do no reasoning. So in a store without
+a reasoner, still type a part that a solution refers to as a `gsn:Artefact` too.
+
+Reasoning: `dd-0104` and `dd-0105`, rationales `why-0063` and `why-0064`. They retire `dd-0066`
+and `dd-0083`.
 
 ---
 

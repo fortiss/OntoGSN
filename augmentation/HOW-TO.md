@@ -330,8 +330,10 @@ section on recording what a check found says what else the report must carry.
 
 If a solution relies on some parts of the artefact and not on others, name those parts with
 `gsn:refersTo`, next to the whole. Then a report over another part does not decide that
-solution. Type each named part as a `gsn:Artefact` too, because `gsn:refersTo` points at an
-artefact. If you leave the type out, the core shapes report the reference.
+solution. A part is an artefact (`gsnaug:ArtefactPart rdfs:subClassOf gsn:Artefact`), and a
+reasoner infers the type. The SPARQL rules do no reasoning. So in a store without a reasoner, type
+each named part as a `gsn:Artefact` too. If you leave the type out there, the core shapes report
+the reference.
 
 ```turtle
 ex:Sn5 gsn:refersTo ex:firewall-ruleset , ex:firewall-rule-7 .

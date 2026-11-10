@@ -2625,7 +2625,7 @@
         <mxCell id="mYOcJqWGn18KluODRW6H-1" parent="1" style="graphMlID=n4;shape=rect;rounded=1;arcsize=30;fillColor=light-dark(#FFFF00,#323200);strokeColor=#000000;strokeWidth=1.0" value="prov:Entity" vertex="1">
           <mxGeometry height="44" width="100" x="400" y="40" as="geometry" />
         </mxCell>
-        <mxCell id="FXA7p3tfwWTYxjpFRSWq-1" parent="1" style="graphMlID=n5;shape=rect;rounded=1;arcsize=30;fillColor=light-dark(#FFFF99,#1F1F00);strokeColor=#000000;strokeWidth=1.0;dashed=1;dashPattern=1 3" value="(gsn:Artefact or &#xa;gsnaug:ArtefactPart)" vertex="1">
+        <mxCell id="FXA7p3tfwWTYxjpFRSWq-1" parent="1" style="graphMlID=n4;shape=rect;rounded=1;arcsize=30;fillColor=light-dark(#FFFF00,#323200);strokeColor=#000000;strokeWidth=1.0" value="gsn:Artefact" vertex="1">
           <mxGeometry height="44" width="300" x="200" y="150" as="geometry" />
         </mxCell>
         <mxCell id="sdOA6NMZJcmhI9nsxA4k-1" parent="1" style="graphMlID=n4;shape=rect;rounded=1;arcsize=30;fillColor=light-dark(#FFFF00,#323200);strokeColor=#000000;strokeWidth=1.0" value="gsnaug:Mechanism" vertex="1">
@@ -2866,7 +2866,7 @@
         <mxCell id="ucXvlnZRxIzJb8OPUcGG-1" parent="1" style="graphMlID=n7;shape=parallelogram;fillColor=light-dark(#ECFFEC,#0F1F0F);strokeColor=#000000;strokeWidth=1;dashed=1;dashPattern=1 3;size=0.07594367884961044;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fontColor=default;whiteSpace=wrap;" value="{&quot;resolved&quot;, &quot;cannot answer&quot;, &#xa;&quot;declined&quot;, &quot;infeasible&quot;}" vertex="1">
           <mxGeometry height="44" width="200" x="675" y="1010" as="geometry" />
         </mxCell>
-        <mxCell id="HbDSeW1tTKdpVk2UTQv2-1" parent="1" style="graphMlID=n5;shape=rect;rounded=1;arcsize=30;fillColor=light-dark(#FFFF99,#1F1F00);strokeColor=#000000;strokeWidth=1.0;dashed=1;dashPattern=1 3" value="(gsn:Argument or gsn:Artefact &#xa;or gsnaug:ArtefactPart &#xa;or gsn:AssuranceCase or gsn:GSNElement &#xa;or gsn:Pattern or gsn:Relationship)" vertex="1">
+        <mxCell id="HbDSeW1tTKdpVk2UTQv2-1" parent="1" style="graphMlID=n5;shape=rect;rounded=1;arcsize=30;fillColor=light-dark(#FFFF99,#1F1F00);strokeColor=#000000;strokeWidth=1.0;dashed=1;dashPattern=1 3" value="(gsn:Argument or gsn:Artefact&#xa;or gsn:AssuranceCase or gsn:GSNElement&#xa;or gsn:Pattern or gsn:Relationship)" vertex="1">
           <mxGeometry height="74" width="260" x="940" y="1010" as="geometry" />
         </mxCell>
         <mxCell id="A3xdJDSE4mHrVHqBbndp-1" parent="1" style="graphMlID=n4;shape=rect;rounded=1;arcsize=30;fillColor=light-dark(#FFFF00,#323200);strokeColor=#000000;strokeWidth=1.0" value="owl:Thing" vertex="1">
@@ -2987,6 +2987,19 @@
         </mxCell>
         <mxCell id="YTiXGQaVx11p6iT48XNU-1" parent="1" style="shape=note;html=1;backgroundOutline=1;darkOpacity=0.05;strokeColor=#A9C4EB;fillColor=light-dark(#CCFFFF,#002525);gradientColor=none;align=left;spacingLeft=1;fontSize=11;whiteSpace=wrap;size=0;verticalAlign=top;" value="&lt;span style=&quot;font-family: &amp;quot;courier new&amp;quot;;&quot;&gt;gsnaug:supersedes is irreflexive.&lt;br&gt;terms:requires is reused on a mechanism&lt;br&gt;for what it needs to run; no axiom&lt;br&gt;is stated on it.&lt;/span&gt;" vertex="1">
           <mxGeometry height="78" width="400" x="-10" y="976" as="geometry" />
+        </mxCell>
+        <mxCell id="QPtRTqfqqLSf4xLqjo4l-1" edge="1" parent="1" source="JIZNV4jSMnwEPCW972Ya-1" target="X3J53tZ9JVhYfKz1NfgJ-1" style="endArrow=classic;html=1;textDirection=ltr;rounded=0;jumpStyle=sharp;edgeStyle=orthogonalEdgeStyle;exitX=0.2;exitY=0;exitDx=0;exitDy=0;entryX=0.82;entryY=0;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="450" y="305" />
+              <mxPoint x="290" y="305" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ro5MapiDOXXqKMdjoIsW-1" vertex="1" connectable="0" parent="QPtRTqfqqLSf4xLqjo4l-1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="rdfs:subClassOf">
+          <mxGeometry x="0.0" relative="1" as="geometry">
+            <mxPoint x="0" y="0" as="offset" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

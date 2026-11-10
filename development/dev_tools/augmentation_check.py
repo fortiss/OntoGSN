@@ -255,6 +255,10 @@ expected = [
                                                                   (EX.Sn5, GSN.true, Literal(False)), False),
     ("a solution that names no part is still refuted by any part", (EX.Sn4, GSN.true, Literal(False)), True),
     ("a conforming part does not lift a solution that names no part", (EX.Sn4, GSN.true, Literal(True)), False),
+    # The composition guard covers every artefact a solution refers to: one failing artefact
+    # outweighs a conforming one.
+    ("a solution with one failing artefact is untrue",            (EX.Sn6, GSN.true, Literal(False)), True),
+    ("a conforming second artefact does not make it true",        (EX.Sn6, GSN.true, Literal(True)), False),
     # A8: the goal that an issue becomes gets a statement and the contexts it is read in
     ("an issue goal gets its description as its statement",
         (EX.I4, GSN.statement, Literal("The access log misses the first week of March.")), True),
@@ -272,6 +276,17 @@ expected = [
 for name, triple, wanted in expected:
     found = (triple in data) if triple[2] is not None else bool(list(data.triples(triple)))
     check(found == wanted, name, f"{name} - expected {wanted}, got {found}")
+
+# The fixpoint above compares the graph after a whole round, so A6a writing true and A6b writing
+# false again in the same round would pass for one. Applied once more on its own, A6a must leave
+# Sn6 alone, whatever order the rules run in.
+probe = Graph()
+probe += data
+probe.update(open(os.path.join(AUG_RULES, "a06a_conforming_report_confirms_solution.rq"),
+                  encoding="utf-8").read())
+check((EX.Sn6, GSN.true, Literal(True)) not in probe,
+      "A6a alone does not confirm a solution that another of its artefacts refutes",
+      "A6a confirms Sn6 although the report over its second artefact fails")
 
 # A rule is a blank node, so it is checked as a class: no rule that is not a mechanism reads a term.
 reading_rules = [r for r in data.subjects(RDF.type, SWRL.Imp)
