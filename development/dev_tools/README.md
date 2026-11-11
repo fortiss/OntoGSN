@@ -79,6 +79,7 @@ before committing.
 ```
 check_all.py       every check, one command
 query_check.py     the stored queries vs an actual SPARQL engine
+release_check.py   every place that states a version or a rule count vs the ontology header
 ontology/example/run_rules.py   apply ontology/queries/rules/ to a case until nothing more is derived (user-facing, so it lives in ontology/example/)
 shacl_check.py     the fixtures vs ontology/shapes/, before and after the rules run
 reasoner_check.py  the ontology and the fixtures vs an OWL-DL reasoner (needs a JVM)

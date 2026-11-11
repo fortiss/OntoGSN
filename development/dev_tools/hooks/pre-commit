@@ -21,5 +21,7 @@ python development/dev_tools/check_all.py --strict --staged || {
     echo "    python development/dev_tools/build_separated.py"
     echo "    python development/dev_tools/build_full.py"
     echo "    python development/dev_tools/query_check.py"
+    echo "If two files state different versions or rule counts, release_check.py names them:"
+    echo "    python development/dev_tools/release_check.py"
     exit 1
 }

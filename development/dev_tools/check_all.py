@@ -6,13 +6,14 @@
     python development/dev_tools/check_all.py --strict --staged   # only the checks the commit affects
 
 Nothing regenerates anything here. This answers one question: is what is committed
-self-consistent? Three of the eight checks are about derived files being current, one is
-about every stored query having been verified against what is committed, one is about the
+self-consistent? Three of the nine checks are about derived files being current, one is
+about every stored query having been verified against what is committed, one is about
+every file stating the same version and the same number of rules, one is about the
 design record still agreeing with the ontology, one is about the Graffoo diagrams still
 drawing the ontologies, and the last two ask an OWL-DL reasoner and the OOPS! pitfall
 scanner what they make of the ontology as it now stands.
 
-Only the first four gate. The design-record report lists things a person has to judge - an
+Only the first five gate. The design-record report lists things a person has to judge - an
 axiom nobody has documented, a sentence that needs rewriting - and a build should not fail
 because a human decision is outstanding; pass --strict-design when you want it to. A
 diagram difference is the same kind of thing: somebody has to redraw a page. The
@@ -65,6 +66,19 @@ CHECKS = [
                   "development/design/ontogsn-design-queries.ttl",
                   "QUERY-COMMENTS.md", "augmentation/queries/", "augmentation/rules/",
                   "augmentation/derivations/", "docs/assets/data/queries/")},
+    # Reads header lines only, so it costs a fraction of a second. It gates because a
+    # version that two files state differently is a mistake, not a judgement.
+    {"name": "version fields and rule counts agree",
+     "command": ["development/dev_tools/release_check.py", "--check"],
+     "gating": True,
+     "triggers": ("ontology/serializations/ontogsn.ttl", "ontology/shapes/",
+                  "ontology/queries/rules/", "augmentation/ontogsn-augmentation.ttl",
+                  "augmentation/shapes/", "augmentation/README.md", "alignments/",
+                  "development/design/", "CITATION.cff", "CHANGELOG.md", "README.md",
+                  "docs/_pages/", "docs/index.html", "docs/evaluation/index.md",
+                  "ontology/queries/README.md", "ontology/serializations/separated/README.md",
+                  "development/dev_tools/README.md",
+                  "development/dev_tools/release_check.py")},
     {"name": "design record",
      "command": ["development/dev_tools/prov_check.py"],
      "gating": False,
