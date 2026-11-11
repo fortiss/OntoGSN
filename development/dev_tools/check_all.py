@@ -4,15 +4,17 @@
     python development/dev_tools/check_all.py                     # report
     python development/dev_tools/check_all.py --strict            # exit 1 if a derived file is stale
     python development/dev_tools/check_all.py --strict --staged   # only the checks the commit affects
+    python development/dev_tools/check_all.py --fix               # regenerate the derived files, then check
 
-Nothing regenerates anything here. This answers one question: is what is committed
-self-consistent? Three of the eight checks are about derived files being current, one is
-about every stored query having been verified against what is committed, one is about the
+Without --fix, nothing regenerates anything here. This answers one question: is what is
+committed self-consistent? Three of the nine checks are about derived files being current, one is
+about every stored query having been verified against what is committed, one is about
+every file stating the same version and the same number of rules, one is about the
 design record still agreeing with the ontology, one is about the Graffoo diagrams still
 drawing the ontologies, and the last two ask an OWL-DL reasoner and the OOPS! pitfall
 scanner what they make of the ontology as it now stands.
 
-Only the first four gate. The design-record report lists things a person has to judge - an
+Only the first five gate. The design-record report lists things a person has to judge - an
 axiom nobody has documented, a sentence that needs rewriting - and a build should not fail
 because a human decision is outstanding; pass --strict-design when you want it to. A
 diagram difference is the same kind of thing: somebody has to redraw a page. The
@@ -27,6 +29,12 @@ them. That is fine in CI and far too slow for a pre-commit hook, so the hook che
 what the commit touches: editing a shape does not require re-verifying the RDF/XML. The
 reasoner and OOPS! checks never run in the hook at all - eleven seconds and a network round
 trip are not what a commit should cost - which is what "in_hook" below says.
+
+--fix runs the three generators before the checks: build.py, build_separated.py and
+build_full.py. Each one writes only the files that changed and refuses to write a file that
+does not say what its source says. A person still starts it, and a person still stages the
+result. CI never passes --fix. It does not run query_check.py, because that script executes
+the stored queries and is a verification, not a build.
 """
 import argparse
 import os
@@ -39,16 +47,19 @@ REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 CHECKS = [
     {"name": "derived serializations",
      "command": ["development/dev_tools/build.py", "--check"],
+     "fix": ["development/dev_tools/build.py"],
      "gating": True,
      "triggers": ("ontology/serializations/ontogsn.ttl", "ontology/serializations/ontogsn.rdf",
                   "ontology/serializations/ontogsn.jsonld", "development/dev_tools/build.py")},
     {"name": "separated serializations",
      "command": ["development/dev_tools/build_separated.py", "--check"],
+     "fix": ["development/dev_tools/build_separated.py"],
      "gating": True,
      "triggers": ("ontology/serializations/ontogsn.ttl", "ontology/serializations/separated/",
                   "development/dev_tools/build_separated.py")},
     {"name": "full SHACL shapes file",
      "command": ["development/dev_tools/build_full.py", "--check"],
+     "fix": ["development/dev_tools/build_full.py"],
      "gating": True,
      "triggers": ("ontology/shapes/", "development/dev_tools/build_full.py")},
     # Executes nothing: it recomputes each query's verification key and compares it with
@@ -65,6 +76,19 @@ CHECKS = [
                   "development/design/ontogsn-design-queries.ttl",
                   "QUERY-COMMENTS.md", "augmentation/queries/", "augmentation/rules/",
                   "augmentation/derivations/", "docs/assets/data/queries/")},
+    # Reads header lines only, so it costs a fraction of a second. It gates because a
+    # version that two files state differently is a mistake, not a judgement.
+    {"name": "version fields and rule counts agree",
+     "command": ["development/dev_tools/release_check.py", "--check"],
+     "gating": True,
+     "triggers": ("ontology/serializations/ontogsn.ttl", "ontology/shapes/",
+                  "ontology/queries/rules/", "augmentation/ontogsn-augmentation.ttl",
+                  "augmentation/shapes/", "augmentation/README.md", "alignments/",
+                  "development/design/", "CITATION.cff", "CHANGELOG.md", "README.md",
+                  "docs/_pages/", "docs/index.html", "docs/evaluation/index.md",
+                  "ontology/queries/README.md", "ontology/serializations/separated/README.md",
+                  "development/dev_tools/README.md",
+                  "development/dev_tools/release_check.py")},
     {"name": "design record",
      "command": ["development/dev_tools/prov_check.py"],
      "gating": False,
@@ -115,6 +139,9 @@ def main():
                     help="also exit 1 when the design record needs attention")
     ap.add_argument("--staged", action="store_true",
                     help="only run the checks affected by the staged changes")
+    ap.add_argument("--fix", action="store_true",
+                    help="regenerate the derived files first: build.py, "
+                         "build_separated.py and build_full.py")
     args = ap.parse_args()
 
     checks = CHECKS
@@ -126,7 +153,17 @@ def main():
             print(f"{len(paths)} staged file(s), none affecting a derived artefact")
             return
 
-    failures = []
+    if args.fix:
+        for check in checks:
+            if "fix" not in check:
+                continue
+            print(f"\n{'=' * 72}\n  regenerate: {check['name']}\n{'=' * 72}")
+            result = subprocess.run([sys.executable] + check["fix"], cwd=REPO)
+            if result.returncode != 0:
+                # a generator that refuses to write has found a real problem in its source
+                sys.exit(f"\n{check['fix'][0]} failed - nothing was checked")
+
+    failures, stale = [], False
     for check in checks:
         command = list(check["command"])
         if args.strict_design and command[0].endswith("prov_check.py"):
@@ -136,13 +173,19 @@ def main():
         if result.returncode != 0:
             failures.append((check["name"],
                              check["gating"] or args.strict_design))
+            stale = stale or "fix" in check
 
     print(f"\n{'=' * 72}")
+    if args.fix:
+        print("  --fix ran the generators. Stage any file that they rewrote.")
     if not failures:
         print(f"  {len(checks)} check(s) passed - everything is current and consistent")
         return
     for name, gating in failures:
         print(f"  {'FAILED  ' if gating else 'needs a look:  '}{name}")
+    if stale and not args.fix:
+        print("  To regenerate the derived files, run:\n"
+              "      python development/dev_tools/check_all.py --fix")
     if args.strict and any(gating for _, gating in failures):
         sys.exit(1)
 

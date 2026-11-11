@@ -7,7 +7,12 @@ honest against each other.
 pip install -r development/dev_tools/requirements.txt -c development/dev_tools/constraints.txt
 python development/dev_tools/check_all.py            # is everything current and consistent?
 python development/dev_tools/check_all.py --strict   # exit 1 if any derived file is out of date
+python development/dev_tools/check_all.py --fix      # regenerate the derived files, then check
 ```
+
+`--fix` runs `build.py`, `build_separated.py` and `build_full.py` before the checks. Each
+script writes only the files that changed. Stage the files that it rewrote. `--fix` does not
+run `query_check.py`, because that script executes the stored queries.
 
 ## Automation
 
@@ -79,6 +84,7 @@ before committing.
 ```
 check_all.py       every check, one command
 query_check.py     the stored queries vs an actual SPARQL engine
+release_check.py   every place that states a version or a rule count vs the ontology header
 ontology/example/run_rules.py   apply ontology/queries/rules/ to a case until nothing more is derived (user-facing, so it lives in ontology/example/)
 shacl_check.py     the fixtures vs ontology/shapes/, before and after the rules run
 reasoner_check.py  the ontology and the fixtures vs an OWL-DL reasoner (needs a JVM)

@@ -17,9 +17,9 @@ python development/dev_tools/check_all.py --strict --staged || {
     echo
     echo "A generated file is out of date, or a stored query has not been verified since"
     echo "it changed. Regenerate, stage the result, and commit again:"
-    echo "    python development/dev_tools/build.py"
-    echo "    python development/dev_tools/build_separated.py"
-    echo "    python development/dev_tools/build_full.py"
+    echo "    python development/dev_tools/check_all.py --fix    # the three build scripts"
     echo "    python development/dev_tools/query_check.py"
+    echo "If two files state different versions or rule counts, release_check.py names them:"
+    echo "    python development/dev_tools/release_check.py"
     exit 1
 }

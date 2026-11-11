@@ -7,6 +7,7 @@ it to use the ontology, the shapes, the queries, the alignments or the augmentat
 | :--- | :--- |
 | `design/` | The design record: why each axiom, shape, rule and query exists, as a PROV-O graph. See [`design/README.md`](design/README.md). |
 | `dev_tools/` | The checks and generators that keep the repository consistent. See [`dev_tools/README.md`](dev_tools/README.md). |
+| `TODO.md` | Possible improvements that a change inside this folder alone can close. |
 
 The build scripts that generate derived files stay next to the files they generate:
 `development/dev_tools/build.py`, `development/dev_tools/build_separated.py` and `development/dev_tools/build_full.py`.
