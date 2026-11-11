@@ -89,11 +89,11 @@ both versions, and both matter:
 
 ```turtle
 owl:versionInfo                 "0.1.0" ;
-gsnalign:alignedOntoGSNVersion  "1.2.3" ;
+gsnalign:alignedOntoGSNVersion  "1.3.1" ;
 gsnalign:alignedARGOVersion     "ArgO v.4 development release; git 59dd512f58cf, 2025-12-03" ;
 ```
 
-ARGO is a development release, and OntoGSN is before 1.3. Either can move a term under this
+ARGO is a development release, and OntoGSN changes with each release. Either can move a term under this
 graph without warning. If either string changes, review the alignment again. The limitations
 below apply to these two versions and can stop applying after them.
 
