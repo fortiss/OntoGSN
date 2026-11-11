@@ -4359,4 +4359,102 @@ gsnswrl:Arg rdf:type swrl:Variable .
              ]
  ] .
 
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Support Doubt Propagation" ;
+   gsn:coreOrExtension "Dialectic Extension" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Relationship ;
+                           swrl:argument1 gsnswrl:R
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:inDoubt ;
+                                      swrl:argument1 gsnswrl:R ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate rdf:subject ;
+                                                 swrl:argument1 gsnswrl:R ;
+                                                 swrl:argument2 gsnswrl:A
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                            swrl:propertyPredicate rdf:object ;
+                                                            swrl:argument1 gsnswrl:R ;
+                                                            swrl:argument2 gsnswrl:B
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate gsn:supportedBy ;
+                                                                       swrl:argument1 gsnswrl:A ;
+                                                                       swrl:argument2 gsnswrl:B
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:inDoubt ;
+                           swrl:argument1 gsnswrl:A ;
+                           swrl:argument2 "true"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Context Doubt Propagation" ;
+   gsn:coreOrExtension "Dialectic Extension" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:ClassAtom ;
+                           swrl:classPredicate gsn:Relationship ;
+                           swrl:argument1 gsnswrl:R
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                      swrl:propertyPredicate gsn:inDoubt ;
+                                      swrl:argument1 gsnswrl:R ;
+                                      swrl:argument2 "true"^^xsd:boolean
+                                    ] ;
+                          rdf:rest [ rdf:type swrl:AtomList ;
+                                     rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                 swrl:propertyPredicate rdf:subject ;
+                                                 swrl:argument1 gsnswrl:R ;
+                                                 swrl:argument2 gsnswrl:A
+                                               ] ;
+                                     rdf:rest [ rdf:type swrl:AtomList ;
+                                                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                            swrl:propertyPredicate rdf:object ;
+                                                            swrl:argument1 gsnswrl:R ;
+                                                            swrl:argument2 gsnswrl:B
+                                                          ] ;
+                                                rdf:rest [ rdf:type swrl:AtomList ;
+                                                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                                                                       swrl:propertyPredicate gsn:inContextOf ;
+                                                                       swrl:argument1 gsnswrl:A ;
+                                                                       swrl:argument2 gsnswrl:B
+                                                                     ] ;
+                                                           rdf:rest rdf:nil
+                                                         ]
+                                              ]
+                                   ]
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:inDoubt ;
+                           swrl:argument1 gsnswrl:A ;
+                           swrl:argument2 "true"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
 ###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

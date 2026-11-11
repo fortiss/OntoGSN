@@ -27,7 +27,7 @@ any two of them has a single variable in it.
 
 `pruned` removes the rule layer, not the documentation: `rdfs:label`, `skos:definition`,
 `skos:note`, `skos:altLabel`, `gsn:renderedAs` and `gsn:coreOrExtension` all survive, so
-the terms stay readable. What goes is the 58 SWRL rules with their atoms and variables,
+the terms stay readable. What goes is the 60 SWRL rules with their atoms and variables,
 the properties flagged `gsn:inferredOnly true`, and the licence/citation/disclaimer block
 on the ontology node. A rule derives each flagged property, and a case never asserts one,
 so the flagged properties belong to the rule layer. They are `gsn:inModule`,

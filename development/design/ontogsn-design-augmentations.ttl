@@ -448,7 +448,7 @@ gsndesign:cq-CQ-78
 
 
 #################################################################
-#    Stored queries (135)
+#    Stored queries (137)
 #    gsndesign:declaresNamespace records what each file binds its prefixes to, which is
 #    how a query pointing at the wrong namespace becomes findable.
 #    
@@ -5282,6 +5282,78 @@ WHERE {
 }
 """ .
 
+gsndesign:query-rules-s64-support-doubt-propagation
+    a gsndesign:Query ;
+    rdfs:label "rules/s64_support_doubt_propagation.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s64_support_doubt_propagation.rq" ;
+    gsndesign:fileChecksum "df51819309de338585d83377256d7420856319082e4a030867af9122e7e09a50" ;
+    gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:Relationship ,
+        gsn:inDoubt ,
+        gsn:supportedBy ;
+    gsndesign:ruleName "Support Doubt Propagation" ;
+    gsndesign:translatesStatement gsndesign:st-1099 ;
+    gsndesign:restsOnStatement gsndesign:st-0207 ,
+        gsndesign:st-0291 ,
+        gsndesign:st-0731 ;
+    gsndesign:queryText """# rule:      S64
+# name:      Support Doubt Propagation
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?A gsn:inDoubt ?old }
+INSERT { ?A gsn:inDoubt true }
+WHERE {
+  ?R a gsn:Relationship ;
+     gsn:inDoubt ?dR ;
+     rdf:subject ?A ;
+     rdf:object ?B .
+  FILTER(STR(?dR) = "true")
+  ?A gsn:supportedBy ?B .
+  OPTIONAL { ?A gsn:inDoubt ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}
+""" .
+
+gsndesign:query-rules-s65-context-doubt-propagation
+    a gsndesign:Query ;
+    rdfs:label "rules/s65_context_doubt_propagation.rq"@en ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/s65_context_doubt_propagation.rq" ;
+    gsndesign:fileChecksum "2fc44280c3d27c5686f5774412911caa5f57afe4ac7a1ccf6f90aabd84aed4a0" ;
+    gsndesign:declaresNamespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:Relationship ,
+        gsn:inContextOf ,
+        gsn:inDoubt ;
+    gsndesign:ruleName "Context Doubt Propagation" ;
+    gsndesign:translatesStatement gsndesign:st-1100 ;
+    gsndesign:restsOnStatement gsndesign:st-0218 ,
+        gsndesign:st-0291 ,
+        gsndesign:st-0731 ;
+    gsndesign:queryText """# rule:      S65
+# name:      Context Doubt Propagation
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?A gsn:inDoubt ?old }
+INSERT { ?A gsn:inDoubt true }
+WHERE {
+  ?R a gsn:Relationship ;
+     gsn:inDoubt ?dR ;
+     rdf:subject ?A ;
+     rdf:object ?B .
+  FILTER(STR(?dR) = "true")
+  ?A gsn:inContextOf ?B .
+  OPTIONAL { ?A gsn:inDoubt ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}
+""" .
+
 gsndesign:query-update-element-statement
     a gsndesign:Query ;
     rdfs:label "update_element_statement.rq"@en ;
@@ -5375,14 +5447,14 @@ WHERE {
 gsndesign:file-ontogsn-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/ontogsn.ttl" ;
-    gsndesign:fileChecksum "f624ea8a604d8104bca844b3bd9079c68a7dc0384cb29f386832c34dadca04eb" ;
+    gsndesign:fileChecksum "2de2a4c2337a011945988569dc55f0da133fa1c5b15eb540aa6a9a4df40a2576" ;
     gsndesign:declaredVersion "1.3.0" ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> .
 
 gsndesign:file-ontogsn-rdf
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/ontogsn.rdf" ;
-    gsndesign:fileChecksum "22a004710821f983cb497ed9960f4c53172bc1c64b2d0aae3f04c61444196fff" ;
+    gsndesign:fileChecksum "439433a0eb5012a7226aec559c99a3571ce3f9de892c47fe05d1369fefa47b31" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-serializations .
@@ -5390,7 +5462,7 @@ gsndesign:file-ontogsn-rdf
 gsndesign:file-ontogsn-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/ontogsn.jsonld" ;
-    gsndesign:fileChecksum "fa12235a00598846eb2394964f7696739805815767a86e9d381ffc14230a3f09" ;
+    gsndesign:fileChecksum "3a46ad7f6446a540df47120edae8b9d0fbbdaaeabe7bb161ef4c78e84d80b10d" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-serializations .
@@ -5476,7 +5548,7 @@ gsndesign:agent-build-full-py
 gsndesign:file-ontogsn-complete-0-full-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_0_full.jsonld" ;
-    gsndesign:fileChecksum "aa8de81351daf159aa1b85d67ab934abaa51efb5e65de59ddce215728db6c1fc" ;
+    gsndesign:fileChecksum "48e1f80cd7678e120800f3ce97ddb5bcc5e5bcbb824460f7c9102d01c10a0503" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -5484,7 +5556,7 @@ gsndesign:file-ontogsn-complete-0-full-jsonld
 gsndesign:file-ontogsn-complete-0-full-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_0_full.ttl" ;
-    gsndesign:fileChecksum "8579c21c83f7c4ed30157692456d599029d8a0228dc76004d1bf280c01a6d8e6" ;
+    gsndesign:fileChecksum "626768dad977aad9716196a1b6cda548bcd8bf4fd4197254f2929c3a7d8ff5cc" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
@@ -5561,7 +5633,7 @@ gsndesign:file-ontogsn-complete-4-confidence-ttl
 gsndesign:file-ontogsn-complete-5-dialectic-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_5_dialectic.jsonld" ;
-    gsndesign:fileChecksum "7170f440349d4fe60f5ceb2b1feb084f02d0cb0c827731f7110cb0e4a166f2f4" ;
+    gsndesign:fileChecksum "7bad8c1fc1f55888ef41cb2c83c9cc3968c2ea5662bd32456d1d71ab322d7a0c" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -5569,7 +5641,7 @@ gsndesign:file-ontogsn-complete-5-dialectic-jsonld
 gsndesign:file-ontogsn-complete-5-dialectic-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_5_dialectic.ttl" ;
-    gsndesign:fileChecksum "07ac8263817d481593f0739010ad25827e3aacaca26d3308aadb1592864e9fb8" ;
+    gsndesign:fileChecksum "fe39cf2ae45555de22d4e4480f3aaae303794959dbf44414e7f5f68b2c0c914e" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;

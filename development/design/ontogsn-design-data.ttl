@@ -27961,3 +27961,67 @@ gsndesign:why-0237
 gsndesign:why-0238
     a gsndesign:Rationale ;
     gsndesign:rationaleText "A pattern that names itself as a related pattern is an authoring mistake. owl:IrreflexiveProperty states the same rule, but one such triple then makes the whole case inconsistent, and the reasoner reports nothing else. A SHACL shape reports a violation on that one pattern, and the rules and the other shapes still run. The support cycle shape handles a loop of support in the same way. The shape reads the asserted triples, so it needs no reasoner."@en .
+
+
+#################################################################
+#    Added by prov_add.py (2 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1099
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S08.R077" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-dialectic ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF R is a relationship AND R is in doubt AND R has as its subject A AND R has as its object B AND A is supported by B THEN A is in doubt"@en ;
+    gsndesign:nlWrittenFor "e851a871" ;
+    prov:used gsndesign:src-0282 ;
+    gsndesign:hasRationale gsndesign:why-0239 ;
+    prov:generated gsndesign:st-1099 .
+
+gsndesign:st-1099
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1099 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.0 ;
+    gsndesign:statementText """# Support Doubt Propagation
+Relationship(?R) ^ inDoubt(?R, true) ^ subject(?R, ?A) ^ object(?R, ?B) ^ supportedBy(?A, ?B) -> inDoubt(?A, true)""" ;
+    gsndesign:statementChecksum "e851a871" ;
+    gsndesign:structuralKey "rule|Support Doubt Propagation" ;
+    gsndesign:ruleName "Support Doubt Propagation" ;
+    gsndesign:mentionsTerm gsn:Relationship ,
+        gsn:inDoubt ,
+        gsn:supportedBy ;
+    prov:wasDerivedFrom gsndesign:src-0282 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0282 ; prov:hadActivity gsndesign:dd-1099 ] .
+
+gsndesign:dd-1100
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S08.R078" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-dialectic ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF R is a relationship AND R is in doubt AND R has as its subject A AND R has as its object B AND A is in the context of B THEN A is in doubt"@en ;
+    gsndesign:nlWrittenFor "7cb83656" ;
+    prov:used gsndesign:src-0282 ;
+    gsndesign:hasRationale gsndesign:why-0239 ;
+    prov:generated gsndesign:st-1100 .
+
+gsndesign:st-1100
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1100 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.0 ;
+    gsndesign:statementText """# Context Doubt Propagation
+Relationship(?R) ^ inDoubt(?R, true) ^ subject(?R, ?A) ^ object(?R, ?B) ^ inContextOf(?A, ?B) -> inDoubt(?A, true)""" ;
+    gsndesign:statementChecksum "7cb83656" ;
+    gsndesign:structuralKey "rule|Context Doubt Propagation" ;
+    gsndesign:ruleName "Context Doubt Propagation" ;
+    gsndesign:mentionsTerm gsn:Relationship ,
+        gsn:inContextOf ,
+        gsn:inDoubt ;
+    prov:wasDerivedFrom gsndesign:src-0282 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0282 ; prov:hadActivity gsndesign:dd-1100 ] .
+
+gsndesign:why-0239
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The standard lets a goal or a solution challenge any relationship (1:6.3.9), but it does not say what a challenged link does to the element that relies on it. Since 1.3.0 gsn:challenges ranges over gsn:Relationship, and the Challenge Doubt rule puts a challenged link in doubt when the challenging goal is true. Without a further rule, the element that rests on the link stays untouched, so a claim whose only support link is in doubt looks sound. The two rules carry the doubt from the link to its subject. For a supported-by link the subject is the parent, which is as weak as the weakest link below it. For an in-context-of link the subject is the element that is read in that context. The rules do not decide when a challenge counts. The Challenge Doubt rule still decides that, so a challenge to a link and a challenge to an element have the same condition. There are two rules because SWRL has no disjunction. A challenges link is left out on purpose: its subject is the challenger, and doubt in a challenge is not doubt in the claim of the challenger. No rule clears the doubt, as with the Challenge Doubt rule. The FinComp hub proposed the rule on 2026-11-06, after an audit pattern in which an issue challenges the link between a control goal and its evidence."@en .

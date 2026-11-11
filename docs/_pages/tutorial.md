@@ -102,7 +102,7 @@ The case uses these terms:
 
 ## 3. Apply the rules
 
-The ontology has 58 SWRL rules from the standard. Each rule is also a SPARQL update in `ontology/queries/rules/`, for stores with no reasoner. The script `run_rules.py` applies the updates until no rule adds a new fact.
+The ontology has 60 SWRL rules from the standard. Each rule is also a SPARQL update in `ontology/queries/rules/`, for stores with no reasoner. The script `run_rules.py` applies the updates until no rule adds a new fact.
 
 ```sh
 python ontology/example/run_rules.py my-case.ttl --out my-case-materialised.ttl
@@ -113,7 +113,7 @@ The script reports which rules fired:
 ```text
 reached a fixpoint after 3 pass(es)
 
-9 of 58 rules fired; 4,008 -> 4,058 triples
+9 of 60 rules fired; 4,106 -> 4,156 triples
     S6  Goal Top Flag
    S11  Solution Propagation (False)
    ...

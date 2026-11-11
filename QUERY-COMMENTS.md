@@ -1554,6 +1554,26 @@ Note:
 | swrl | Relationship(?R) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ challenges(?A, ?B) ^ 'transitively challenges'(?B, ?A) -> valid(?R, false) |
 | reads | IF R is a Relationship from A to B AND A challenges B AND B transitively challenges A THEN R is NOT valid |
 
+### `ontology/queries/rules/s64_support_doubt_propagation.rq`
+
+| Field | Value |
+| :--- | :--- |
+| operation | rule |
+| expect | insert |
+| section | Dialectic Extension |
+| swrl | Relationship(?R) ^ 'in doubt'(?R, true) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ 'supported by'(?A, ?B) -> 'in doubt'(?A, true) |
+| reads | IF R is a Relationship from A to B AND R is in doubt AND A is supported by B THEN A is in doubt |
+
+### `ontology/queries/rules/s65_context_doubt_propagation.rq`
+
+| Field | Value |
+| :--- | :--- |
+| operation | rule |
+| expect | insert |
+| section | Dialectic Extension |
+| swrl | Relationship(?R) ^ 'in doubt'(?R, true) ^ rdf:subject(?R, ?A) ^ rdf:object(?R, ?B) ^ 'in context of'(?A, ?B) -> 'in doubt'(?A, true) |
+| reads | IF R is a Relationship from A to B AND R is in doubt AND A is in context of B THEN A is in doubt |
+
 
 ## `augmentation/queries/`
 

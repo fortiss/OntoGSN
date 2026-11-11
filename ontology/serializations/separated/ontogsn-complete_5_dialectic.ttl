@@ -116,23 +116,13 @@ gsn:Defeater a owl:Class ;
 
 gsn:Strategy a owl:Class .
 
+gsn:inContextOf a owl:ObjectProperty .
+
 gsn:relationshipType a owl:DatatypeProperty .
 
 gsn:true a owl:DatatypeProperty .
 
 gsn:undeveloped a owl:DatatypeProperty .
-
-gsn:inDoubt a owl:DatatypeProperty ;
-    rdfs:label "in doubt"@en ;
-    rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:AssuranceCase gsn:GSNElement gsn:Relationship ) ] ;
-    rdfs:range xsd:boolean ;
-    skos:definition "The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt."@en ;
-    gsn:coreOrExtension "Dialectic Extension"@en .
-
-rdf:object a owl:ObjectProperty .
-
-rdf:subject a owl:ObjectProperty .
 
 gsn:Solution a owl:Class .
 
@@ -162,11 +152,23 @@ gsnswrl:D a swrl:Variable .
 
 gsnswrl:G2 a swrl:Variable .
 
+rdf:object a owl:ObjectProperty .
+
+rdf:subject a owl:ObjectProperty .
+
 gsn:GSNElement a owl:Class .
 
-gsn:supportedBy a owl:ObjectProperty .
-
 gsnswrl:G1 a swrl:Variable .
+
+gsn:inDoubt a owl:DatatypeProperty ;
+    rdfs:label "in doubt"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:AssuranceCase gsn:GSNElement gsn:Relationship ) ] ;
+    rdfs:range xsd:boolean ;
+    skos:definition "The dialectic challenge within this structure asserts that if the claim presented in Goal CG1 is true then this is sufficient to establish that the claim in Goal G1 in the original structure is in doubt."@en ;
+    gsn:coreOrExtension "Dialectic Extension"@en .
+
+gsn:supportedBy a owl:ObjectProperty .
 
 gsnswrl:G a swrl:Variable .
 
@@ -174,9 +176,9 @@ gsnswrl:G3 a swrl:Variable .
 
 gsn:Goal a owl:Class .
 
-gsn:Relationship a owl:Class .
-
 gsn:valid a owl:DatatypeProperty .
+
+gsn:Relationship a owl:Class .
 
 gsn:challenges a owl:ObjectProperty ;
     rdfs:label "challenges"@en ;
@@ -189,15 +191,51 @@ gsn:challenges a owl:ObjectProperty ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
     gsn:renderedAs "dashed line with an open arrowhead" .
 
-gsnswrl:B a swrl:Variable .
-
-gsnswrl:A a swrl:Variable .
-
 gsnswrl:S a swrl:Variable .
 
 gsnswrl:E a swrl:Variable .
 
+gsnswrl:B a swrl:Variable .
+
+gsnswrl:A a swrl:Variable .
+
 gsnswrl:R a swrl:Variable .
+
+[] a swrl:Imp ;
+    rdfs:label "Context Doubt Propagation" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:ClassAtom ;
+                    swrl:argument1 gsnswrl:R ;
+                    swrl:classPredicate gsn:Relationship ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                            swrl:argument1 gsnswrl:R ;
+                            swrl:argument2 true ;
+                            swrl:propertyPredicate gsn:inDoubt ] ;
+                    rdf:rest [ a swrl:AtomList ;
+                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                    swrl:argument1 gsnswrl:R ;
+                                    swrl:argument2 gsnswrl:A ;
+                                    swrl:propertyPredicate rdf:subject ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:IndividualPropertyAtom ;
+                                            swrl:argument1 gsnswrl:R ;
+                                            swrl:argument2 gsnswrl:B ;
+                                            swrl:propertyPredicate rdf:object ] ;
+                                    rdf:rest [ a swrl:AtomList ;
+                                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                    swrl:argument1 gsnswrl:A ;
+                                                    swrl:argument2 gsnswrl:B ;
+                                                    swrl:propertyPredicate gsn:inContextOf ] ;
+                                            rdf:rest () ] ] ] ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsnswrl:A ;
+                    swrl:argument2 true ;
+                    swrl:propertyPredicate gsn:inDoubt ] ;
+            rdf:rest () ] ;
+    gsn:coreOrExtension "Dialectic Extension" .
 
 [] a swrl:Imp ;
     rdfs:label "Challenge Cycle Relationship Invalidation" ;
@@ -232,6 +270,42 @@ gsnswrl:R a swrl:Variable .
                     swrl:argument1 gsnswrl:R ;
                     swrl:argument2 false ;
                     swrl:propertyPredicate gsn:valid ] ;
+            rdf:rest () ] ;
+    gsn:coreOrExtension "Dialectic Extension" .
+
+[] a swrl:Imp ;
+    rdfs:label "Support Doubt Propagation" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:ClassAtom ;
+                    swrl:argument1 gsnswrl:R ;
+                    swrl:classPredicate gsn:Relationship ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                            swrl:argument1 gsnswrl:R ;
+                            swrl:argument2 true ;
+                            swrl:propertyPredicate gsn:inDoubt ] ;
+                    rdf:rest [ a swrl:AtomList ;
+                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                    swrl:argument1 gsnswrl:R ;
+                                    swrl:argument2 gsnswrl:A ;
+                                    swrl:propertyPredicate rdf:subject ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:IndividualPropertyAtom ;
+                                            swrl:argument1 gsnswrl:R ;
+                                            swrl:argument2 gsnswrl:B ;
+                                            swrl:propertyPredicate rdf:object ] ;
+                                    rdf:rest [ a swrl:AtomList ;
+                                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                    swrl:argument1 gsnswrl:A ;
+                                                    swrl:argument2 gsnswrl:B ;
+                                                    swrl:propertyPredicate gsn:supportedBy ] ;
+                                            rdf:rest () ] ] ] ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsnswrl:A ;
+                    swrl:argument2 true ;
+                    swrl:propertyPredicate gsn:inDoubt ] ;
             rdf:rest () ] ;
     gsn:coreOrExtension "Dialectic Extension" .
 

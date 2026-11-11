@@ -1,0 +1,18 @@
+# rule:      S65
+# name:      Context Doubt Propagation
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?A gsn:inDoubt ?old }
+INSERT { ?A gsn:inDoubt true }
+WHERE {
+  ?R a gsn:Relationship ;
+     gsn:inDoubt ?dR ;
+     rdf:subject ?A ;
+     rdf:object ?B .
+  FILTER(STR(?dR) = "true")
+  ?A gsn:inContextOf ?B .
+  OPTIONAL { ?A gsn:inDoubt ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}

@@ -8,7 +8,7 @@ question. The question and the other header fields of each file are in
 the "Competency Questions" sheet where a compliance process asks the question, and on
 "Extra" otherwise.
 
-[`rules/`](rules/) holds all 58 SWRL rules of
+[`rules/`](rules/) holds all 60 SWRL rules of
 [`ontology/serializations/ontogsn.ttl`](../serializations/ontogsn.ttl) as SPARQL updates, for stores
 with no reasoner attached.
 

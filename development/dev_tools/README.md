@@ -53,7 +53,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `development/design/ontogsn-design-data.ttl` | **the design record** — ~36,000 words of quoted standard passages, rationale and prose that exist nowhere else |
 | `development/design/Competency Questions.xlsx` | the questions `ontology/queries/` and `augmentation/queries/` answer |
 | `ontology/queries/*.rq` | the stored CRUD queries, one per competency question |
-| `ontology/queries/rules/*.rq` | the 58 SWRL rules as SPARQL updates |
+| `ontology/queries/rules/*.rq` | the 60 SWRL rules as SPARQL updates |
 | `ontology/example/example_case.ttl` | the example ABox the queries and checks run against |
 | `development/dev_tools/testdata/*.ttl` | one trigger per rule, and the recorded baselines |
 
@@ -135,7 +135,7 @@ axiom is gone), `undocumented` (the new one has no decision), and `release-edite
 
 ## Stored queries
 
-`ontology/queries/` holds one SPARQL file per competency question; `ontology/queries/rules/` holds the 58
+`ontology/queries/` holds one SPARQL file per competency question; `ontology/queries/rules/` holds the 60
 SWRL rules as SPARQL updates. Both are verified by executing them against
 `ontology/serializations/ontogsn.ttl` and the fixtures in `development/dev_tools/testdata/`, in Oxigraph:
 

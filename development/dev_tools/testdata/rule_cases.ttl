@@ -349,6 +349,36 @@ rc:D61a gsn:transitivelyChallenges rc:D61a , rc:D61b .
 rc:D61b gsn:transitivelyChallenges rc:D61a , rc:D61b .
 
 
+###  S64, S65  Doubt Propagation - a link in doubt puts the element that relies on it in doubt
+###  Each link is asserted in doubt, as S48 leaves it after a true goal challenges it.
+###  rc:D64 is the subject of a challenge link in doubt. No rule puts it in doubt.
+
+rc:G64 a gsn:Goal ; schema:identifier "S64-G" ;
+    gsn:statement "The controller meets its timing budget." ;
+    gsn:supportedBy rc:G64sub .
+rc:G64sub a gsn:Goal ; schema:identifier "S64-Gsub" ;
+    gsn:statement "The worst-case execution time is below the budget." .
+rc:R64 a gsn:Relationship ; schema:identifier "S64-R" ;
+    rdf:subject rc:G64 ; rdf:predicate gsn:supportedBy ; rdf:object rc:G64sub ;
+    gsn:inDoubt true .
+
+rc:G65 a gsn:Goal ; schema:identifier "S65-G" ;
+    gsn:statement "The timing budget holds on the target hardware." ;
+    gsn:inContextOf rc:C65 .
+rc:C65 a gsn:Context ; schema:identifier "S65-C" ;
+    gsn:statement "The target hardware is given in HW-SPEC-02." .
+rc:R65 a gsn:Relationship ; schema:identifier "S65-R" ;
+    rdf:subject rc:G65 ; rdf:predicate gsn:inContextOf ; rdf:object rc:C65 ;
+    gsn:inDoubt true .
+
+rc:D64 a gsn:Goal ; schema:identifier "S64-D" ;
+    gsn:statement "The measurements were taken on a different board revision." ;
+    gsn:challenges rc:G64sub .
+rc:R64c a gsn:Relationship ; schema:identifier "S64-Rc" ;
+    rdf:subject rc:D64 ; rdf:predicate gsn:challenges ; rdf:object rc:G64sub ;
+    gsn:inDoubt true .
+
+
 ###  S43  Goal-Strategy Confidence - a claim point below a strategy, propagated upwards
 
 rc:ConfArg43 a gsn:Argument ; schema:identifier "S43-ConfArg" ;

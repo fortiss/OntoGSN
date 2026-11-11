@@ -53,13 +53,15 @@ DESIGN_RECORDS = (
 RULE_COUNT_FILES = (
     "README.md",
     "alignments/README.md",
+    "development/design/README.md",
     "development/dev_tools/README.md",
     "docs/_pages/tutorial.md",
     "ontology/queries/README.md",
     "ontology/serializations/separated/README.md",
     "ontology/shapes/README.md",
 )
-RULE_COUNT_PATTERNS = (r"\b(\d+) SWRL rules\b", r"\bof (\d+) rules fired\b")
+RULE_COUNT_PATTERNS = (r"\b(\d+)\s+SWRL rules\b", r"\bof (\d+) rules fired\b",
+                       r"\bthe (\d+) rule queries\b")
 
 # Pages that show the output of a report or of a run. They follow a release, so a
 # difference here is a note.
