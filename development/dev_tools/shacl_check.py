@@ -94,7 +94,7 @@ def materialise(paths):
     # returns the store to a state it has already been in is a contradiction between rules.
     # Counting triples is not enough - these rules DELETE the opposing flag before INSERT-ing
     # theirs, so a pass can flip a value while leaving the total unchanged.
-    rules = load_rules()
+    rules = load_rules(store)
     seen = {fingerprint(store)}
     converged = False
     for _ in range(MAX_PASSES):
