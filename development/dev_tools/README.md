@@ -99,6 +99,7 @@ graffoo_edit.py    layout-preserving edits to the diagram, and the rebuild of
 prov_add.py        draft a decision for an axiom nobody has documented
 prov_retire.py     retire a decision, or bring it back
 prov_augment.py    rebuild the requirements / questions / queries / build-chain graph
+                   (--check compares the committed file and writes nothing)
 prov_to_workbook.py  rebuild the readable spreadsheet
 prov_ttl.py        deterministic Turtle writer (rdflib's ordering is not stable)
 ttl_model.py       ontogsn.ttl -> a flat inventory of statements and rules

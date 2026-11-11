@@ -2,7 +2,8 @@
 """Record the rest of what OntoGSN is made of: requirements, competency questions,
 stored queries, and the files that are generated from other files.
 
-    python development/dev_tools/prov_augment.py
+    python development/dev_tools/prov_augment.py            # rebuild the file
+    python development/dev_tools/prov_augment.py --check    # is the committed file current? writes nothing
 
 Writes development/design/ontogsn-design-augmentations.ttl. Unlike the design decisions, all
 of this is recoverable from the repository, so this file IS regenerated - re-run it after
@@ -31,6 +32,7 @@ import hashlib
 import os
 import re
 import sys
+import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -154,6 +156,8 @@ def statement_index():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=OUT)
+    ap.add_argument("--check", action="store_true",
+                    help="verify that the generated file is current; write nothing")
     args = ap.parse_args()
 
     graph = ttl_model.load()
@@ -376,6 +380,24 @@ def main():
         "    owl:imports <https://w3id.org/OntoGSN/design> ;\n"
         "    dc:title \"OntoGSN Design Record - requirements, questions, queries and builds\"@en ;\n"
         "    owl:versionInfo \"1.0.0\" .\n\n")
+
+    if args.check:
+        # Build the file in a temporary folder and compare it with the committed one. Line
+        # endings are ignored, because a Windows checkout can hold the file with CRLF.
+        with tempfile.TemporaryDirectory() as folder:
+            fresh = os.path.join(folder, os.path.basename(args.out))
+            prov_ttl.write(fresh, blocks, preamble)
+            with open(fresh, "rb") as handle:
+                expected = handle.read().replace(b"\r\n", b"\n")
+        current = b""
+        if os.path.exists(args.out):
+            with open(args.out, "rb") as handle:
+                current = handle.read().replace(b"\r\n", b"\n")
+        name = os.path.relpath(args.out, REPO).replace(os.sep, "/")
+        if current != expected:
+            sys.exit(f"{name} is out of date - run python development/dev_tools/prov_augment.py")
+        print(f"{name} is current")
+        return
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     prov_ttl.write(args.out, blocks, preamble)
