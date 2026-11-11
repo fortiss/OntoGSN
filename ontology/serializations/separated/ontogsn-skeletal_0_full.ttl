@@ -145,7 +145,8 @@ gsn:refersTo a owl:ObjectProperty ;
             owl:unionOf ( gsn:ArtefactReference gsn:InstantiationDataReference ) ] ;
     rdfs:range gsn:Artefact .
 
-gsn:relatedTo a owl:ObjectProperty ;
+gsn:relatedTo a owl:ObjectProperty,
+        owl:SymmetricProperty ;
     rdfs:domain gsn:Pattern ;
     rdfs:range gsn:Pattern .
 

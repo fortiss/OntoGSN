@@ -86,7 +86,8 @@ gsn:published a owl:DatatypeProperty ;
             owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean .
 
-gsn:relatedTo a owl:ObjectProperty ;
+gsn:relatedTo a owl:ObjectProperty,
+        owl:SymmetricProperty ;
     rdfs:domain gsn:Pattern ;
     rdfs:range gsn:Pattern .
 

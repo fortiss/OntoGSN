@@ -247,7 +247,8 @@ gsn:refersTo a owl:ObjectProperty ;
     skos:definition "[OntoGSN] Relates an artefact reference or an instantiation data reference to the artefact it points at."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
-gsn:relatedTo a owl:ObjectProperty ;
+gsn:relatedTo a owl:ObjectProperty,
+        owl:SymmetricProperty ;
     rdfs:label "related to"@en ;
     rdfs:domain gsn:Pattern ;
     rdfs:range gsn:Pattern ;

@@ -445,7 +445,8 @@ gsn:refersTo rdf:type owl:ObjectProperty ;
 
 
 ###  https://w3id.org/OntoGSN/ontology#relatedTo
-gsn:relatedTo rdf:type owl:ObjectProperty ;
+gsn:relatedTo rdf:type owl:ObjectProperty ,
+                            owl:SymmetricProperty ;
                    rdfs:domain gsn:Pattern ;
                    rdfs:range gsn:Pattern ;
                    rdfs:label "related to"@en ;

@@ -27868,3 +27868,96 @@ gsndesign:st-1095
 gsndesign:why-0236
     a gsndesign:Rationale ;
     gsndesign:rationaleText "The standard defines the undeveloped decorator in Table 1:2-1, Core GSN Elements. Up to 1.3.0 the term carried the tag of the Argument Pattern Extension, so the separated serializations put it in the pattern files, and a case that used only Core GSN did not find it there. The tag is now Core GSN. The two shapes that target gsn:undeveloped carry the same tag and are in the core shapes file, because a shape is filed with the element that it targets. The Graffoo diagram already drew the term on the Core page."@en .
+
+
+#################################################################
+#    Added by prov_add.py (3 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1096
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S05.R165" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-pattern ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "If one element can be related to another, the reverse is also true."@en ;
+    gsndesign:nlWrittenFor "db570d54" ;
+    prov:used gsndesign:src-0126 ;
+    gsndesign:hasRationale gsndesign:why-0237 ;
+    prov:generated gsndesign:st-1096 .
+
+gsndesign:st-1096
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1096 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.0 ;
+    gsndesign:statementText "gsn:relatedTo rdf:type owl:SymmetricProperty ." ;
+    gsndesign:statementChecksum "db570d54" ;
+    gsndesign:structuralKey "relatedTo|a|SymmetricProperty" ;
+    gsndesign:aboutTerm gsn:relatedTo ;
+    gsndesign:mentionsTerm gsn:relatedTo ;
+    prov:wasDerivedFrom gsndesign:src-0126 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0126 ; prov:hadActivity gsndesign:dd-1096 ] .
+
+gsndesign:dd-1097
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S05.SH051" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-pattern ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "Validation shape “A pattern is not related to itself”, applied to the subjects of gsn:relatedTo."@en ;
+    gsndesign:nlWrittenFor "ab414d76" ;
+    prov:used gsndesign:src-0126 ;
+    gsndesign:hasRationale gsndesign:why-0238 ;
+    prov:generated gsndesign:st-1097 .
+
+gsndesign:st-1097
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1097 ;
+    gsndesign:inGraph gsndesign:shapes-1.1.1 ;
+    gsndesign:statementText """gsnsh:RelatedToSelfShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    rdf:type sh:NodeShape ;
+    rdfs:label "A pattern is not related to itself"@en ;
+    sh:severity sh:Violation ;
+    sh:targetSubjectsOf gsn:relatedTo .""" ;
+    gsndesign:statementChecksum "ab414d76" ;
+    gsndesign:structuralKey "gsnsh:RelatedToSelfShape|node|" ;
+    gsndesign:aboutTerm gsnsh:RelatedToSelfShape ;
+    gsndesign:mentionsTerm gsn:coreOrExtension ,
+        gsn:relatedTo ,
+        gsnsh:RelatedToSelfShape ;
+    prov:wasDerivedFrom gsndesign:src-0126 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0126 ; prov:hadActivity gsndesign:dd-1097 ] .
+
+gsndesign:dd-1098
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S05.SH052" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-pattern ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "{$this} is related to itself; a related pattern must be another pattern."@en ;
+    gsndesign:nlWrittenFor "c4d8f487" ;
+    prov:used gsndesign:src-0126 ;
+    gsndesign:hasRationale gsndesign:why-0238 ;
+    prov:generated gsndesign:st-1098 .
+
+gsndesign:st-1098
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1098 ;
+    gsndesign:inGraph gsndesign:shapes-1.1.1 ;
+    gsndesign:statementText "gsnsh:RelatedToSelfShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} is related to itself; a related pattern must be another pattern.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/pattern> ; sh:select \"SELECT $this WHERE { $this gsn:relatedTo $this . }\" ] ." ;
+    gsndesign:statementChecksum "c4d8f487" ;
+    gsndesign:structuralKey "gsnsh:RelatedToSelfShape|sparql|{$this} is related to itself; a related " ;
+    gsndesign:aboutTerm gsnsh:RelatedToSelfShape ;
+    gsndesign:mentionsTerm gsn:relatedTo ,
+        gsnsh:RelatedToSelfShape ;
+    prov:wasDerivedFrom gsndesign:src-0126 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0126 ; prov:hadActivity gsndesign:dd-1098 ] .
+
+gsndesign:why-0237
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The standard says that the Related patterns section references patterns that address the same intent in a different context. That relation has no direction. Each pattern lists its own related patterns, so an author can list P1 under P2 and not list P2 under P1. With the symmetric characteristic, a reasoner adds the reverse link. gsn:consistentWith is symmetric for the same reason. The property is not transitive. Two patterns can each share a concern with a third pattern and share nothing with each other. A property that is symmetric and transitive also relates every linked pattern to itself. The OOPS! scan suggested a characteristic for this property under pitfall P13, and the definition is the reason for the choice."@en .
+
+gsndesign:why-0238
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A pattern that names itself as a related pattern is an authoring mistake. owl:IrreflexiveProperty states the same rule, but one such triple then makes the whole case inconsistent, and the reasoner reports nothing else. A SHACL shape reports a violation on that one pattern, and the rules and the other shapes still run. The support cycle shape handles a loop of support in the same way. The shape reads the asserted triples, so it needs no reasoner."@en .

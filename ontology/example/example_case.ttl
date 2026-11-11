@@ -513,3 +513,11 @@ ex:Sn5 a gsn:Solution ;
     gsn:true false .
 
 ex:Orphan1 gsn:supportedBy ex:Sn5 .
+
+# A pattern that names itself as a related pattern.
+ex:PSelf a gsn:Pattern ;
+    schema:identifier "PSelf" ;
+    rdfs:label "Self-related pattern"@en ;
+    schema:description "Argues that a diagnostic covers its own failure modes." ;
+    gsn:intent "Establish that the diagnostic detects a fault in the diagnostic."@en ;
+    gsn:relatedTo ex:PSelf .

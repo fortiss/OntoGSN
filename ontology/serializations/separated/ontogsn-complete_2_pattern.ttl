@@ -173,7 +173,8 @@ gsn:participants a owl:AnnotationProperty ;
     skos:definition "The participants section augments the structure by providing a description of each element. This can provide more complete descriptions, clarify the role of the element in the overall argument and emphasise the aspects that require development or instantiation."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:relatedTo a owl:ObjectProperty ;
+gsn:relatedTo a owl:ObjectProperty,
+        owl:SymmetricProperty ;
     rdfs:label "related to"@en ;
     rdfs:domain gsn:Pattern ;
     rdfs:range gsn:Pattern ;

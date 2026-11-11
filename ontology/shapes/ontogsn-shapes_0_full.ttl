@@ -999,6 +999,23 @@ gsnsh:RelatedToRangePropertyShape rdf:type sh:NodeShape ;
     sh:message "A related item must be another pattern."@en ;
     sh:severity sh:Violation .
 
+gsnsh:RelatedToSelfShape rdf:type sh:NodeShape ;
+    rdfs:label "A pattern is not related to itself"@en ;
+    sh:targetSubjectsOf gsn:relatedTo ;
+    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    sh:severity sh:Violation ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} is related to itself; a related pattern must be another pattern."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/pattern> ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                $this gsn:relatedTo $this .
+            }
+        """ ;
+    ] .
+
 
 ###  gsn:choice
 gsnsh:ChoicePropertyShape rdf:type sh:NodeShape ;

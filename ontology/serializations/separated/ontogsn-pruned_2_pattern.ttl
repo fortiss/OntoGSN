@@ -152,7 +152,8 @@ gsn:published a owl:DatatypeProperty ;
     skos:definition "[OntoGSN] Determines whether the argument or pattern is in its published form, in which the undeveloped decorator is not permitted."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:relatedTo a owl:ObjectProperty ;
+gsn:relatedTo a owl:ObjectProperty,
+        owl:SymmetricProperty ;
     rdfs:label "related to"@en ;
     rdfs:domain gsn:Pattern ;
     rdfs:range gsn:Pattern ;
