@@ -14224,7 +14224,9 @@ gsndesign:dd-0504
     gsndesign:retirementReason "Struck through in the design document and absent from the current ontology: the statement was withdrawn during development. Where a reason was given, it is in the rationale column."@en .
 
 gsndesign:dd-0505
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The text moved from schema:description to skos:note in 1.3.1, with the same wording, because schema:description is no longer an annotation property."@en ;
+    gsndesign:supersededBy gsndesign:dd-1092 ;
     gsndesign:positionKey "S06.R036" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-modular ;
@@ -15835,7 +15837,8 @@ gsndesign:st-0585
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0192 ; prov:hadActivity gsndesign:dd-0585 ] .
 
 gsndesign:dd-0586
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "Removed in 1.3.1. schema:description is also a data property, and OWL 2 DL does not allow one IRI to be both an annotation property and a data property. The data property stays, because the restriction on gsn:Pattern needs it. The two annotation values moved to skos:note, see dd-1091 and dd-1092."@en ;
     gsndesign:positionKey "S06.R114a" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-modular ;
@@ -18319,7 +18322,9 @@ gsndesign:st-0718
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0272 ; prov:hadActivity gsndesign:dd-0718 ] .
 
 gsndesign:dd-0719
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The text moved from schema:description to skos:note in 1.3.1, with the same wording, because schema:description is no longer an annotation property."@en ;
+    gsndesign:supersededBy gsndesign:dd-1091 ;
     gsndesign:positionKey "S08.R026" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-dialectic ;
@@ -18343,7 +18348,9 @@ gsndesign:st-0719
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0272 ; prov:hadActivity gsndesign:dd-0719 ] .
 
 gsndesign:dd-0720
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The text moved from schema:description to skos:note in 1.3.1, with the same wording, because schema:description is no longer an annotation property."@en ;
+    gsndesign:supersededBy gsndesign:dd-1091 ;
     gsndesign:positionKey "S08.R027" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-dialectic ;
@@ -27694,3 +27701,64 @@ gsndesign:st-1090
 gsndesign:why-0234
     a gsndesign:Rationale ;
     gsndesign:rationaleText "Two annotation properties imported so that WIDOCO shows the ontology header correctly. schema:name gives the publisher a name on its own node, next to schema:url. Before, the publisher was the string https://www.fortiss.org/, and WIDOCO showed that string as plain text, without a name and without a link. skos:scopeNote carries the note on the ontology node that explains the [OntoGSN] prefix. WIDOCO reads skos:note, rdfs:comment and dc:description as one field, the ontology description, and keeps the last English value that it reads. The 1.3.0 documentation therefore showed the note in place of the description. WIDOCO does not read skos:scopeNote, and SKOS defines it as a note that clarifies the meaning or the use of a concept, which is what the note does."@en .
+
+
+#################################################################
+#    Added by prov_add.py (2 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1091
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S08.R076" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-dialectic ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Note on ‘defeated’: “Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships.”"@en ;
+    gsndesign:nlWrittenFor "6746acdb" ;
+    prov:used gsndesign:src-0272 ;
+    prov:used gsndesign:src-0273 ;
+    gsndesign:hasRationale gsndesign:why-0235 ;
+    prov:generated gsndesign:st-1091 .
+
+gsndesign:st-1091
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1091 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.0 ;
+    gsndesign:statementText "gsn:defeated skos:note \"Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships.\"@en ." ;
+    gsndesign:statementChecksum "6746acdb" ;
+    gsndesign:structuralKey "defeated|note|Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships." ;
+    gsndesign:aboutTerm gsn:defeated ;
+    gsndesign:mentionsTerm gsn:defeated ;
+    prov:wasDerivedFrom gsndesign:src-0272 ;
+    prov:wasDerivedFrom gsndesign:src-0273 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0272 ; prov:hadActivity gsndesign:dd-1091 ] ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0273 ; prov:hadActivity gsndesign:dd-1091 ] .
+
+gsndesign:dd-1092
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R200" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Note on ‘away’: “An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module.”"@en ;
+    gsndesign:nlWrittenFor "334cadda" ;
+    prov:used gsndesign:src-0151 ;
+    gsndesign:hasRationale gsndesign:why-0235 ;
+    prov:generated gsndesign:st-1092 .
+
+gsndesign:st-1092
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1092 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.0 ;
+    gsndesign:statementText "gsn:away skos:note \"An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in…\"@en ." ;
+    gsndesign:statementChecksum "334cadda" ;
+    gsndesign:structuralKey "away|note|An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module." ;
+    gsndesign:aboutTerm gsn:away ;
+    gsndesign:mentionsTerm gsn:away ;
+    prov:wasDerivedFrom gsndesign:src-0151 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0151 ; prov:hadActivity gsndesign:dd-1092 ] .
+
+gsndesign:why-0235
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "These two texts were values of schema:description, used as an annotation property. The ontology also declares schema:description as a data property, because the restriction on gsn:Pattern needs one. OWL 2 DL does not allow one IRI to be both an annotation property and a data property, and Protégé reported the second declaration as an illegal redeclaration. The annotation declaration is removed, and schema:description is a data property only. The two texts were the only annotation values, so they move to skos:note. Other terms of this ontology already use skos:note for text that adds detail to a skos:definition. The wording of both texts is unchanged, and each still rests on the passage that the retired decision named."@en .

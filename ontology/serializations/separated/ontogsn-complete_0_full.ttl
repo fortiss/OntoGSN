@@ -294,8 +294,7 @@ gsnswrl:P a swrl:Variable .
 
 gsnswrl:R3 a swrl:Variable .
 
-schema:description a owl:AnnotationProperty,
-        owl:DatatypeProperty .
+schema:description a owl:DatatypeProperty .
 
 rdf:Statement a owl:Class .
 
@@ -432,11 +431,11 @@ gsn:Template a owl:Class ;
 
 gsn:defeated a owl:DatatypeProperty ;
     rdfs:label "defeated"@en ;
-    schema:description "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
     rdfs:range xsd:boolean ;
     skos:definition "This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements."@en ;
+    skos:note "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
     gsn:renderedAs "cross (‘X’) superimposed on a GSN element or relationship" .
 
@@ -545,11 +544,11 @@ gsnswrl:J a swrl:Variable .
 
 gsn:away a owl:DatatypeProperty ;
     rdfs:label "away"@en ;
-    schema:description "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Assumption gsn:Context gsn:Goal gsn:Justification gsn:Solution ) ] ;
     rdfs:range xsd:boolean ;
     skos:definition "An away element reference repeats a claim or evidence presented in another argument module."@en ;
+    skos:note "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en ;
     gsn:coreOrExtension "Modular Extension"@en ;
     gsn:renderedAs "bisecting line in the lower half" .
 

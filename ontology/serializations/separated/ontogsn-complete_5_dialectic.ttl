@@ -44,9 +44,6 @@ vann:preferredNamespacePrefix a owl:AnnotationProperty .
 
 vann:preferredNamespaceUri a owl:AnnotationProperty .
 
-schema:description a owl:AnnotationProperty,
-        owl:DatatypeProperty .
-
 schema:disclaimer a owl:AnnotationProperty .
 
 schema:includedInDataCatalog a owl:AnnotationProperty .
@@ -141,11 +138,11 @@ gsn:Solution a owl:Class .
 
 gsn:defeated a owl:DatatypeProperty ;
     rdfs:label "defeated"@en ;
-    schema:description "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
     rdfs:range xsd:boolean ;
     skos:definition "This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements."@en ;
+    skos:note "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
     gsn:renderedAs "cross (‘X’) superimposed on a GSN element or relationship" .
 

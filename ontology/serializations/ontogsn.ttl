@@ -122,10 +122,6 @@ vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
 schema:citation rdf:type owl:AnnotationProperty .
 
 
-###  http://schema.org/description
-schema:description rdf:type owl:AnnotationProperty .
-
-
 ###  http://schema.org/disclaimer
 schema:disclaimer rdf:type owl:AnnotationProperty .
 
@@ -597,9 +593,9 @@ gsn:away rdf:type owl:DatatypeProperty ;
                                         )
                           ] ;
               rdfs:range xsd:boolean ;
-              schema:description "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en ;
               rdfs:label "away"@en ;
               skos:definition "An away element reference repeats a claim or evidence presented in another argument module."@en ;
+              skos:note "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en ;
               gsn:coreOrExtension "Modular Extension"@en ;
               gsn:renderedAs "bisecting line in the lower half" .
 
@@ -635,9 +631,9 @@ gsn:defeated rdf:type owl:DatatypeProperty ;
                                             )
                               ] ;
                   rdfs:range xsd:boolean ;
-                  schema:description "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
                   rdfs:label "defeated"@en ;
                   skos:definition "This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements."@en ;
+                  skos:note "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
                   gsn:coreOrExtension "Dialectic Extension"@en ;
                   gsn:renderedAs "cross (‘X’) superimposed on a GSN element or relationship" .
 

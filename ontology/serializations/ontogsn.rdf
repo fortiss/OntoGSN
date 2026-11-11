@@ -52,7 +52,6 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty" />
   </rdf:Description>
   <rdf:Description rdf:about="http://schema.org/description">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty" />
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty" />
   </rdf:Description>
   <rdf:Description rdf:about="http://schema.org/disclaimer">
@@ -363,12 +362,12 @@
     <gsn:renderedAs>dotted line</gsn:renderedAs>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#away">
-    <schema1:description xml:lang="en">An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module.</schema1:description>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty" />
     <rdfs:domain rdf:nodeID="genid0701" />
     <rdfs:label xml:lang="en">away</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
     <skos:definition xml:lang="en">An away element reference repeats a claim or evidence presented in another argument module.</skos:definition>
+    <skos:note xml:lang="en">An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module.</skos:note>
     <gsn:coreOrExtension xml:lang="en">Modular Extension</gsn:coreOrExtension>
     <gsn:renderedAs>bisecting line in the lower half</gsn:renderedAs>
   </rdf:Description>
@@ -440,12 +439,12 @@
     <skos:definition xml:lang="en">Indicator of the sourcing section in the GSN Community Standard v3.</skos:definition>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/OntoGSN/ontology#defeated">
-    <schema1:description xml:lang="en">Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships.</schema1:description>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty" />
     <rdfs:domain rdf:nodeID="genid0796" />
     <rdfs:label xml:lang="en">defeated</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean" />
     <skos:definition xml:lang="en">This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements.</skos:definition>
+    <skos:note xml:lang="en">Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships.</skos:note>
     <gsn:coreOrExtension xml:lang="en">Dialectic Extension</gsn:coreOrExtension>
     <gsn:renderedAs>cross (‘X’) superimposed on a GSN element or relationship</gsn:renderedAs>
   </rdf:Description>

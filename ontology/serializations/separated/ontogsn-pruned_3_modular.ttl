@@ -3,7 +3,6 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix schema: <http://schema.org/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -12,9 +11,6 @@ dc:description a owl:AnnotationProperty .
 dc:source a owl:AnnotationProperty .
 
 dc:title a owl:AnnotationProperty .
-
-schema:description a owl:AnnotationProperty,
-        owl:DatatypeProperty .
 
 skos:definition a owl:AnnotationProperty .
 
@@ -103,11 +99,11 @@ gsn:GSNElement a owl:Class .
 
 gsn:away a owl:DatatypeProperty ;
     rdfs:label "away"@en ;
-    schema:description "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Assumption gsn:Context gsn:Goal gsn:Justification gsn:Solution ) ] ;
     rdfs:range xsd:boolean ;
     skos:definition "An away element reference repeats a claim or evidence presented in another argument module."@en ;
+    skos:note "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en ;
     gsn:coreOrExtension "Modular Extension"@en ;
     gsn:renderedAs "bisecting line in the lower half" .
 
