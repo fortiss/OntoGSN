@@ -47,6 +47,8 @@ Local checks ensure that everything is current and consistent: derived serializa
 | anything in `ontology/queries/` | `development/dev_tools/query_check.py` |
 | `development/design/ontogsn-design-data.ttl` or `development/design/Competency Questions.xlsx` | `development/dev_tools/prov_augment.py` |
 
+`python development/dev_tools/check_all.py --fix` runs the three build scripts of the first two rows, and then every check.
+
 Commit the regenerated files alongside your change. Never hand-edit a generated file.
 
 The website reports in `docs/documentation/` and `docs/evaluation/` are generated too, but you do not regenerate them. When your change reaches `main`, CI regenerates them and opens a pull request.
