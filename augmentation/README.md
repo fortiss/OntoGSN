@@ -4,7 +4,7 @@ Terms for linking a GSN assurance case to the things GSN deliberately does not m
 and roles behind an element, the tool that produced a piece of evidence and where it is kept, the
 review issues raised against the case, and the regulatory requirement a claim answers to.
 
-Written against **OntoGSN 1.3.0**. Nothing in this repository imports it, and it restates no `gsn:`
+Written against **OntoGSN 1.3.1**. Nothing in this repository imports it, and it restates no `gsn:`
 domain or range.
 
 | File | Role |
@@ -211,7 +211,7 @@ A case that marks its top-level contexts in a diagram loses nothing: the context
 
 ## Versioning
 
-`gsnaug:augmentedOntoGSNVersion "1.3.0"` scopes the whole file, and two things in it would not hold
+`gsnaug:augmentedOntoGSNVersion "1.3.1"` scopes the whole file, and two things in it would not hold
 before that release: `gsnaug:instantiatedFrom` assumes an `InstantiationDataReference` may carry
 `gsn:refersTo`, and A2/A3 assume `gsn:challenges` reaches the class of target the rule matches.
 Re-check this directory whenever that string moves.

@@ -16,8 +16,8 @@ release. These are the current versions:
 
 | Component | Version | File |
 | :--- | :--- | :--- |
-| Ontology | 1.3.0 | `ontology/serializations/ontogsn.ttl` |
-| SHACL shapes | 1.1.1 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
+| Ontology | 1.3.1 | `ontology/serializations/ontogsn.ttl` |
+| SHACL shapes | 1.2.0 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
 | Augmentation, and its shapes | 0.5.1 | `augmentation/ontogsn-augmentation.ttl` |
 | Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
 | Design record | 1.3.0 | `development/design/ontogsn-design.ttl` |
@@ -27,6 +27,7 @@ against an ontology version, so both are listed together.
 
 | Ontology | Date | Shapes | Breaking |
 | :--- | :--- | :--- | :--- |
+| 1.3.1 | 2026-11-11 | 1.2.0 | yes — for reasoners |
 | 1.3.0 | 2026-11-05 | 1.1.0, 1.1.1 | yes — for reasoners |
 | 1.2.3 | 2026-08-15 | 1.0.0 | no |
 | 1.2.2 | 2026-08-05 | 1.0.0 (introduced 2026-08-06) | yes — for reasoners |
@@ -35,6 +36,88 @@ against an ontology version, so both are listed together.
 
 Versions 1.0 and 1.1 predate this repository; no artefact of either survives here to diff.
 The ontology as published is described in the paper (arXiv:2506.11023).
+
+---
+
+## Ontology 1.3.1 — 2026-11-11 — shapes 1.2.0
+
+Four changes that waited for an ontology release. Two of them change what a reasoner infers.
+The ontology now has 60 SWRL rules.
+
+### Doubt on a link reaches the element that relies on it
+
+**Breaking for reasoners.** Since 1.3.0, a goal can challenge a relationship, and the Challenge
+Doubt rule (S48) puts that relationship in doubt. The element that rests on the link was not
+affected. Two new rules in the Dialectic Extension carry the doubt to it.
+
+| Rule | Reads | Writes |
+| :--- | :--- | :--- |
+| S64 Support Doubt Propagation | a `gsn:supportedBy` relationship that is in doubt | `gsn:inDoubt true` on its subject, the parent |
+| S65 Context Doubt Propagation | a `gsn:inContextOf` relationship that is in doubt | `gsn:inDoubt true` on its subject |
+
+- S48 still decides when a challenge counts. The new rules only carry the doubt.
+- A `gsn:challenges` relationship is not covered. Its subject is the challenger, and these
+  rules never put a challenger in doubt.
+- No rule clears the doubt, as with S48.
+- Each rule is also a SPARQL update in `ontology/queries/rules/`. The run over the fixtures
+  reaches a fixpoint after 4 passes, and 60 of 60 rules fire.
+
+*For case authors:* a goal or a strategy can now be in doubt because a link below it is in
+doubt. The rules read the `gsn:Relationship` node of the link. S18 and S19 create that node
+for each support link and context link.
+
+Reasoning: `dd-1099` and `dd-1100`, source `src-0282` (1:6.3.9), rationale `why-0239`. The
+FinComp hub proposed the rule.
+
+### `gsn:relatedTo` is symmetric
+
+**Breaking for reasoners.** `gsn:relatedTo` is an `owl:SymmetricProperty`. A reasoner adds the
+reverse of each link between two patterns. The property is not transitive.
+
+- New shape `gsnsh:RelatedToSelfShape` (shapes 1.2.0) reports a violation on a pattern that
+  names itself as a related pattern. The property is not declared irreflexive, because one
+  such triple then makes the whole case inconsistent.
+- OOPS! no longer lists the property under P13. P13 goes from 14 to 13 cases.
+
+*For case authors:* list a related pattern on one of the two patterns. A reasoner adds the
+other direction. The shapes run without a reasoner and read only the direction that you wrote.
+
+Reasoning: `dd-1096` (rationale `why-0237`), `dd-1097` and `dd-1098` (rationale `why-0238`),
+source `src-0126` (1:3.4.12).
+
+### `gsn:undeveloped` is a Core GSN term
+
+**Not breaking for a case.** The standard defines the undeveloped decorator in Table 1:2-1,
+Core GSN Elements. The term carried the tag of the Argument Pattern Extension.
+
+- `gsn:coreOrExtension` of `gsn:undeveloped` is "Core GSN". The term moves from the pattern
+  files to the core files in `ontology/serializations/separated/`.
+- `gsnsh:UndevelopedPropertyShape` and `gsnsh:UndevelopedHasNoSupportShape` move from
+  `ontogsn-shapes_2_pattern.ttl` to `ontogsn-shapes_1_core.ttl` (shapes 1.2.0), with the same
+  tag. The constraints do not change.
+
+*For case authors:* if you load the core files only, `gsn:undeveloped` and its two shapes are
+now part of them. If you load the pattern files only, load the core files too.
+
+Reasoning: `dd-1093` to `dd-1095`, rationale `why-0236`. Retires `dd-0202`, `dd-0881` and
+`dd-0883`.
+
+### `schema:description` is a data property only
+
+**Not breaking for a case.** The ontology declared `schema:description` as an annotation
+property and as a data property. OWL 2 DL does not allow one IRI to be both, and Protégé
+reported an illegal redeclaration.
+
+- The annotation property declaration is removed. The data property stays, because the
+  restriction on `gsn:Pattern` uses it.
+- The two annotation values, on `gsn:away` and `gsn:defeated`, are now `skos:note` values with
+  the same wording.
+
+*For case authors:* nothing to do. A `schema:description` on an argument, a pattern or an
+artefact is a data property value, as before.
+
+Reasoning: `dd-1091` and `dd-1092`, rationale `why-0235`. Retires `dd-0586`, `dd-0505`,
+`dd-0719` and `dd-0720`.
 
 ---
 

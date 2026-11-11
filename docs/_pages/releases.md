@@ -9,6 +9,7 @@ Each part of OntoGSN has its own version number: the ontology, the SHACL shapes,
 
 | Date | Part | Version | Breaking | Summary |
 | :--- | :--- | :--- | :--- | :--- |
+| 2026-11-11 | Ontology | [1.3.1](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#ontology-131--2026-11-11--shapes-120) | yes, for reasoners | Doubt on a support link or a context link reaches the element that relies on it. `gsn:relatedTo` is symmetric. `gsn:undeveloped` is a Core GSN term. `schema:description` is a data property only. SHACL shapes 1.2.0 follow. |
 | 2026-11-10 | Augmentation | [0.5.1](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#augmentation-051-2026-11-10) | no, no term changes | A part of an artefact is an artefact. One failing artefact of a solution outweighs a conforming one. |
 | 2026-11-06 | Augmentation | [0.5.0](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#augmentation-050-2026-11-06) | no, no term changes | The goal that an issue becomes gets a statement and a context. A solution can name the parts of an artefact that it relies on. |
 | 2026-11-05 | SHACL shapes | [1.1.1](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#shacl-shapes-111-2026-11-05) | no | Four checks report at the severity that they declare, not as violations. |

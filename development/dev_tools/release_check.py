@@ -209,9 +209,12 @@ def check_changelog(report, version, issued):
         report.same("the component table, row " + name, stated, version_info(path), CHANGELOG)
         heading = CHANGELOG_HEADINGS.get(name)
         if heading:
+            own = r"^## " + re.escape(heading) + " " + re.escape(stated) + r"\b"
+            # a shapes release that ships with an ontology release is named in its heading
+            joint = r"^## Ontology .* shapes " + re.escape(stated) + r"\b"
             report.holds(
-                re.search(r"^## " + re.escape(heading) + " " + re.escape(stated) + r"\b",
-                          text, re.M) is not None,
+                re.search(own, text, re.M) is not None
+                or (name == "SHACL shapes" and re.search(joint, text, re.M) is not None),
                 '{}: no "## {} {}" entry'.format(CHANGELOG, heading, stated))
 
     releases = table_rows(text, "| Ontology | Date | Shapes | Breaking |")
