@@ -484,7 +484,6 @@ gsnaugsh:AgentShape rdf:type sh:NodeShape ;
 ###  What a case assures is a system, and only an argument, a case or a goal assures one
 gsnaugsh:AssuranceScopeShape rdf:type sh:NodeShape ;
     rdfs:label "Assurance scope shape"@en ;
-    rdfs:comment "gsnaug:assures complements the top object context, which reaches the system through gsn:refersTo and so types it a gsn:Artefact. Naming the far end is the point of the property, and this is what makes the naming stick."@en ;
     sh:targetSubjectsOf gsnaug:assures ;
     sh:or ( [ sh:class gsn:Argument ] [ sh:class gsn:AssuranceCase ] [ sh:class gsn:Goal ] ) ;
     sh:message "Only an argument, an assurance case or a goal assures a system."@en ;

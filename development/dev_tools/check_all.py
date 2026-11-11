@@ -7,16 +7,19 @@
     python development/dev_tools/check_all.py --fix               # regenerate the derived files, then check
 
 Without --fix, nothing regenerates anything here. This answers one question: is what is
-committed self-consistent? Three of the nine checks are about derived files being current, one is
+committed self-consistent? Three of the ten checks are about derived files being current, one is
 about every stored query having been verified against what is committed, one is about
 every file stating the same version and the same number of rules, one is about the
-design record still agreeing with the ontology, one is about the Graffoo diagrams still
-drawing the ontologies, and the last two ask an OWL-DL reasoner and the OOPS! pitfall
-scanner what they make of the ontology as it now stands.
+design record still agreeing with the ontology, one is about the generated part of the
+design record being current, one is about the Graffoo diagrams still drawing the
+ontologies, and the last two ask an OWL-DL reasoner and the OOPS! pitfall scanner what
+they make of the ontology as it now stands.
 
 Only the first five gate. The design-record report lists things a person has to judge - an
 axiom nobody has documented, a sentence that needs rewriting - and a build should not fail
-because a human decision is outstanding; pass --strict-design when you want it to. A
+because a human decision is outstanding; pass --strict-design when you want it to. The
+generated part of the record, ontogsn-design-augmentations.ttl, is rebuilt by
+prov_augment.py, and a stale copy is reported but does not gate, like the record itself. A
 diagram difference is the same kind of thing: somebody has to redraw a page. The
 reasoner and OOPS! checks compare against a recorded baseline, and both baselines contain
 findings that are correct and deliberate, so a difference there is a prompt to look, not a
@@ -98,6 +101,15 @@ CHECKS = [
      # the input prov_augment.py reads
      "triggers": ("development/design/", "ontology/serializations/ontogsn.ttl", "ontology/shapes/",
                   "ontology/queries/")},
+    # Rebuilds ontogsn-design-augmentations.ttl in a temporary folder and compares it with
+    # the committed file. It writes nothing. A stale file means that a query, a
+    # serialization or the record changed and nobody ran prov_augment.py afterwards.
+    {"name": "generated design record",
+     "command": ["development/dev_tools/prov_augment.py", "--check"],
+     "gating": False,
+     "triggers": ("development/design/", "ontology/serializations/", "ontology/shapes/",
+                  "ontology/queries/", "augmentation/queries/", "augmentation/rules/",
+                  "augmentation/derivations/", "development/dev_tools/prov_augment.py")},
     # The diagrams are drawn by hand, so a difference is a drawing job for a person, not a
     # broken build. It reads the drawio file and the ontologies, nothing else.
     {"name": "Graffoo diagrams",

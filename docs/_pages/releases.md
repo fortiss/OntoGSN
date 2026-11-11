@@ -9,6 +9,7 @@ Each part of OntoGSN has its own version number: the ontology, the SHACL shapes,
 
 | Date | Part | Version | Breaking | Summary |
 | :--- | :--- | :--- | :--- | :--- |
+| 2026-11-11 | Design record | [1.3.1](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#design-record-131-2026-11-11) | no | The vocabulary declares `gsndesign:rationaleText`, which the record states on every rationale. |
 | 2026-11-10 | Augmentation | [0.5.1](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#augmentation-051-2026-11-10) | no, no term changes | A part of an artefact is an artefact. One failing artefact of a solution outweighs a conforming one. |
 | 2026-11-06 | Augmentation | [0.5.0](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#augmentation-050-2026-11-06) | no, no term changes | The goal that an issue becomes gets a statement and a context. A solution can name the parts of an artefact that it relies on. |
 | 2026-11-05 | SHACL shapes | [1.1.1](https://github.com/fortiss/OntoGSN/blob/main/CHANGELOG.md#shacl-shapes-111-2026-11-05) | no | Four checks report at the severity that they declare, not as violations. |

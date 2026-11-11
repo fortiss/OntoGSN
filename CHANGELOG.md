@@ -20,7 +20,7 @@ release. These are the current versions:
 | SHACL shapes | 1.1.1 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
 | Augmentation, and its shapes | 0.5.1 | `augmentation/ontogsn-augmentation.ttl` |
 | Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
-| Design record | 1.3.0 | `development/design/ontogsn-design.ttl` |
+| Design record | 1.3.1 | `development/design/ontogsn-design.ttl` |
 
 The SHACL shapes (`ontology/shapes/`) version independently, but a shapes release is only meaningful
 against an ontology version, so both are listed together.
@@ -35,6 +35,18 @@ against an ontology version, so both are listed together.
 
 Versions 1.0 and 1.1 predate this repository; no artefact of either survives here to diff.
 The ontology as published is described in the paper (arXiv:2506.11023).
+
+---
+
+## Design record 1.3.1 (2026-11-11)
+
+**Not breaking.** The vocabulary of the design record declares `gsndesign:rationaleText`. The
+record states this property on every rationale, but `ontogsn-design.ttl` did not declare it.
+
+- `gsndesign:rationaleText` is a functional data property with the domain
+  `gsndesign:Rationale`. The data of the record does not change.
+- The Provenance page of the Graffoo diagram no longer has the note that the property is
+  undeclared, and `graffoo_check.py` no longer accepts that difference.
 
 ---
 
