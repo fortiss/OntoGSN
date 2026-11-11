@@ -119,6 +119,12 @@ artefact is a data property value, as before.
 Reasoning: `dd-1091` and `dd-1092`, rationale `why-0235`. Retires `dd-0586`, `dd-0505`,
 `dd-0719` and `dd-0720`.
 
+### The header names a square logo
+
+**Not breaking.** `schema:logo` pointed at the wide banner, and the documentation page showed
+it as a small white box. It now points at `ontogsn-logo.png`, a square image with the picture
+of the banner.
+
 ---
 
 ## Augmentation 0.5.1 (2026-11-10)
