@@ -7,7 +7,12 @@ honest against each other.
 pip install -r development/dev_tools/requirements.txt -c development/dev_tools/constraints.txt
 python development/dev_tools/check_all.py            # is everything current and consistent?
 python development/dev_tools/check_all.py --strict   # exit 1 if any derived file is out of date
+python development/dev_tools/check_all.py --fix      # regenerate the derived files, then check
 ```
+
+`--fix` runs `build.py`, `build_separated.py` and `build_full.py` before the checks. Each
+script writes only the files that changed. Stage the files that it rewrote. `--fix` does not
+run `query_check.py`, because that script executes the stored queries.
 
 ## Automation
 
