@@ -556,6 +556,36 @@ gsnsh:TruePropertyShape rdf:type sh:NodeShape ;
     ] .
 
 
+###  gsn:undeveloped
+gsnsh:UndevelopedPropertyShape rdf:type sh:NodeShape ;
+    rdfs:label "gsn:undeveloped"@en ;
+    sh:targetSubjectsOf gsn:undeveloped ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Relationship ] [ sh:class gsn:Strategy ] ) ;
+    sh:message "Only a goal, a strategy or a relationship may be marked as undeveloped."@en ;
+    sh:severity sh:Violation ;
+    sh:property [
+        sh:path gsn:undeveloped ;
+        sh:name "undeveloped" ;
+        sh:datatype xsd:boolean ;
+        sh:maxCount 1 ;
+        sh:description "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
+        sh:message "Undeveloped must be a single true or false value."@en ;
+    ] .
+
+gsnsh:UndevelopedHasNoSupportShape rdf:type sh:NodeShape ;
+    rdfs:label "An undeveloped element is not supported"@en ;
+    rdfs:comment "GSN convention rather than an explicit OWL axiom: the undeveloped decorator indicates that a line of argument has NOT been developed, so the element should carry no gsn:supportedBy links."@en ;
+    sh:targetSubjectsOf gsn:undeveloped ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:or (
+        [ sh:not [ sh:property [ sh:path gsn:undeveloped ; sh:name "undeveloped" ; sh:hasValue true ] ] ]
+        [ sh:property [ sh:path gsn:supportedBy ; sh:name "supported by" ; sh:maxCount 0 ] ]
+    ) ;
+    sh:message "An element marked as undeveloped indicates that a line of argument has not been developed, and so should not yet be supported by anything."@en ;
+    sh:severity sh:Warning .
+
+
 ###  gsn:valid
 gsnsh:ValidPropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:valid"@en ;
@@ -1095,36 +1125,6 @@ gsnsh:PublishedPropertyShape rdf:type sh:NodeShape ;
         sh:maxCount 1 ;
         sh:message "Published must be a single true or false value."@en ;
     ] .
-
-
-###  gsn:undeveloped
-gsnsh:UndevelopedPropertyShape rdf:type sh:NodeShape ;
-    rdfs:label "gsn:undeveloped"@en ;
-    sh:targetSubjectsOf gsn:undeveloped ;
-    gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Relationship ] [ sh:class gsn:Strategy ] ) ;
-    sh:message "Only a goal, a strategy or a relationship may be marked as undeveloped."@en ;
-    sh:severity sh:Violation ;
-    sh:property [
-        sh:path gsn:undeveloped ;
-        sh:name "undeveloped" ;
-        sh:datatype xsd:boolean ;
-        sh:maxCount 1 ;
-        sh:description "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
-        sh:message "Undeveloped must be a single true or false value."@en ;
-    ] .
-
-gsnsh:UndevelopedHasNoSupportShape rdf:type sh:NodeShape ;
-    rdfs:label "An undeveloped element is not supported"@en ;
-    rdfs:comment "GSN convention rather than an explicit OWL axiom: the undeveloped decorator indicates that a line of argument has NOT been developed, so the element should carry no gsn:supportedBy links."@en ;
-    sh:targetSubjectsOf gsn:undeveloped ;
-    gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:or (
-        [ sh:not [ sh:property [ sh:path gsn:undeveloped ; sh:name "undeveloped" ; sh:hasValue true ] ] ]
-        [ sh:property [ sh:path gsn:supportedBy ; sh:name "supported by" ; sh:maxCount 0 ] ]
-    ) ;
-    sh:message "An element marked as undeveloped indicates that a line of argument has not been developed, and so should not yet be supported by anything."@en ;
-    sh:severity sh:Warning .
 
 
 ###  gsn:uninstantiated

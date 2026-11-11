@@ -1,6 +1,6 @@
 [
   {
-    "@id": "_:genid0004",
+    "@id": "_:genid0003",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
@@ -18,7 +18,7 @@
     ]
   },
   {
-    "@id": "_:genid0007",
+    "@id": "_:genid0005",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
@@ -36,7 +36,7 @@
     ]
   },
   {
-    "@id": "_:genid0008",
+    "@id": "_:genid0006",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
@@ -54,7 +54,7 @@
     ]
   },
   {
-    "@id": "_:genid0013",
+    "@id": "_:genid0010",
     "@type": [
       "http://www.w3.org/2002/07/owl#Restriction"
     ],
@@ -70,28 +70,7 @@
     ]
   },
   {
-    "@id": "_:genid0014",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ],
-    "http://www.w3.org/2002/07/owl#unionOf": [
-      {
-        "@list": [
-          {
-            "@id": "https://w3id.org/OntoGSN/ontology#Goal"
-          },
-          {
-            "@id": "https://w3id.org/OntoGSN/ontology#Relationship"
-          },
-          {
-            "@id": "https://w3id.org/OntoGSN/ontology#Strategy"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "@id": "_:genid0017",
+    "@id": "_:genid0013",
     "@type": [
       "http://www.w3.org/2002/07/owl#Restriction"
     ],
@@ -107,7 +86,7 @@
     ]
   },
   {
-    "@id": "_:genid0018",
+    "@id": "_:genid0014",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ],
@@ -173,7 +152,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "_:genid0017"
+        "@id": "_:genid0013"
       }
     ],
     "http://www.w3.org/2004/02/skos/core#definition": [
@@ -191,12 +170,6 @@
   },
   {
     "@id": "https://w3id.org/OntoGSN/ontology#GSNElement",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ]
-  },
-  {
-    "@id": "https://w3id.org/OntoGSN/ontology#Goal",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ]
@@ -242,7 +215,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#subClassOf": [
       {
-        "@id": "_:genid0013"
+        "@id": "_:genid0010"
       }
     ],
     "http://www.w3.org/2004/02/skos/core#definition": [
@@ -260,12 +233,6 @@
   },
   {
     "@id": "https://w3id.org/OntoGSN/ontology#Relationship",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#Class"
-    ]
-  },
-  {
-    "@id": "https://w3id.org/OntoGSN/ontology#Strategy",
     "@type": [
       "http://www.w3.org/2002/07/owl#Class"
     ]
@@ -346,7 +313,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#range": [
       {
-        "@id": "_:genid0004"
+        "@id": "_:genid0003"
       }
     ],
     "http://www.w3.org/2004/02/skos/core#definition": [
@@ -512,7 +479,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "_:genid0007"
+        "@id": "_:genid0005"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
@@ -575,7 +542,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "_:genid0008"
+        "@id": "_:genid0006"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
@@ -882,7 +849,7 @@
     ],
     "http://www.w3.org/2000/01/rdf-schema#domain": [
       {
-        "@id": "_:genid0018"
+        "@id": "_:genid0014"
       }
     ],
     "http://www.w3.org/2000/01/rdf-schema#label": [
@@ -975,45 +942,6 @@
       {
         "@language": "en",
         "@value": "Argument Pattern Extension"
-      }
-    ]
-  },
-  {
-    "@id": "https://w3id.org/OntoGSN/ontology#undeveloped",
-    "@type": [
-      "http://www.w3.org/2002/07/owl#DatatypeProperty"
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#domain": [
-      {
-        "@id": "_:genid0014"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#label": [
-      {
-        "@language": "en",
-        "@value": "undeveloped"
-      }
-    ],
-    "http://www.w3.org/2000/01/rdf-schema#range": [
-      {
-        "@id": "http://www.w3.org/2001/XMLSchema#boolean"
-      }
-    ],
-    "http://www.w3.org/2004/02/skos/core#definition": [
-      {
-        "@language": "en",
-        "@value": "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#coreOrExtension": [
-      {
-        "@language": "en",
-        "@value": "Argument Pattern Extension"
-      }
-    ],
-    "https://w3id.org/OntoGSN/ontology#renderedAs": [
-      {
-        "@value": "hollow diamond"
       }
     ]
   },

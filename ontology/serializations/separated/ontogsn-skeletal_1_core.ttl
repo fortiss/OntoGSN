@@ -64,6 +64,11 @@ gsn:true a owl:DatatypeProperty ;
             owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
     rdfs:range xsd:boolean .
 
+gsn:undeveloped a owl:DatatypeProperty ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Goal gsn:Relationship gsn:Strategy ) ] ;
+    rdfs:range xsd:boolean .
+
 gsn:valid a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:GSNElement gsn:Pattern gsn:Relationship ) ] ;
@@ -168,17 +173,6 @@ gsn:Strategy a owl:Class ;
             owl:someValuesFrom xsd:string ],
         gsn:GSNElement .
 
-gsn:Relationship a owl:Class ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom [ a owl:Class ;
-                    owl:unionOf ( gsn:Defeater gsn:Goal gsn:Module gsn:Pattern gsn:Strategy ) ] ;
-            owl:onProperty rdf:subject ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom [ a owl:Class ;
-                    owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
-            owl:onProperty rdf:object ],
-        rdf:Statement .
-
 gsn:contains a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Catalogue gsn:Module gsn:Pattern ) ] ;
@@ -206,6 +200,17 @@ gsn:Argument a owl:Class ;
                                     owl:someValuesFrom gsn:Goal ] ) ] [ a owl:Restriction ;
                         owl:onProperty gsn:statement ;
                         owl:someValuesFrom xsd:string ] ) ] .
+
+gsn:Relationship a owl:Class ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:Defeater gsn:Goal gsn:Module gsn:Pattern gsn:Strategy ) ] ;
+            owl:onProperty rdf:subject ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
+            owl:onProperty rdf:object ],
+        rdf:Statement .
 
 gsn:statement a owl:DatatypeProperty ;
     rdfs:domain [ a owl:Class ;

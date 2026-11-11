@@ -7539,7 +7539,9 @@ gsndesign:st-0201
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0051 ; prov:hadActivity gsndesign:dd-0201 ] .
 
 gsndesign:dd-0202
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The section tag changed from Argument Pattern Extension to Core GSN in 1.3.1, because the standard defines the undeveloped decorator in Table 1:2-1, Core GSN Elements."@en ;
+    gsndesign:supersededBy gsndesign:dd-1093 ;
     gsndesign:positionKey "S04.R048" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-core ;
@@ -22245,7 +22247,9 @@ gsndesign:st-0880
         gsnsh:PublishedPropertyShape .
 
 gsndesign:dd-0881
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The shape moved from the pattern shapes file to the core shapes file with shapes 1.2.0, and its section tag is now Core GSN, because gsn:undeveloped is a Core GSN term since ontology 1.3.1. The constraint is unchanged."@en ;
+    gsndesign:supersededBy gsndesign:dd-1095 ;
     gsndesign:positionKey "S05.SH045" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-pattern ;
@@ -22280,7 +22284,7 @@ gsndesign:dd-0882
     a gsndesign:DesignDecision ;
     gsndesign:positionKey "S05.SH046" ;
     gsndesign:part gsndesign:part-1 ;
-    gsndesign:section gsndesign:sec-pattern ;
+    gsndesign:section gsndesign:sec-core ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "Undeveloped must be a single true or false value."@en ;
     gsndesign:nlWrittenFor "50e92562" ;
@@ -22300,7 +22304,9 @@ gsndesign:st-0882
         gsnsh:UndevelopedPropertyShape .
 
 gsndesign:dd-0883
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The shape moved from the pattern shapes file to the core shapes file with shapes 1.2.0, and its section tag is now Core GSN, because gsn:undeveloped is a Core GSN term since ontology 1.3.1. The constraint is unchanged."@en ;
+    gsndesign:supersededBy gsndesign:dd-1094 ;
     gsndesign:positionKey "S05.SH047" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-pattern ;
@@ -27762,3 +27768,103 @@ gsndesign:st-1092
 gsndesign:why-0235
     a gsndesign:Rationale ;
     gsndesign:rationaleText "These two texts were values of schema:description, used as an annotation property. The ontology also declares schema:description as a data property, because the restriction on gsn:Pattern needs one. OWL 2 DL does not allow one IRI to be both an annotation property and a data property, and Protégé reported the second declaration as an illegal redeclaration. The annotation declaration is removed, and schema:description is a data property only. The two texts were the only annotation values, so they move to skos:note. Other terms of this ontology already use skos:note for text that adds detail to a skos:definition. The wording of both texts is unchanged, and each still rests on the passage that the retired decision named."@en .
+
+
+#################################################################
+#    Added by prov_add.py (3 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1093
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S04.R179" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-core ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "‘undeveloped’ belongs to Core GSN."@en ;
+    gsndesign:nlWrittenFor "e70aeef9" ;
+    prov:used gsndesign:src-0051 ;
+    gsndesign:hasRationale gsndesign:why-0236 ;
+    prov:generated gsndesign:st-1093 .
+
+gsndesign:st-1093
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1093 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.0 ;
+    gsndesign:statementText "gsn:undeveloped gsn:coreOrExtension \"Core GSN\"@en ." ;
+    gsndesign:statementChecksum "e70aeef9" ;
+    gsndesign:structuralKey "undeveloped|coreOrExtension|Core GSN" ;
+    gsndesign:aboutTerm gsn:undeveloped ;
+    gsndesign:mentionsTerm gsn:coreOrExtension ,
+        gsn:undeveloped ;
+    prov:wasDerivedFrom gsndesign:src-0051 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0051 ; prov:hadActivity gsndesign:dd-1093 ] .
+
+gsndesign:dd-1094
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S04.SH080" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-core ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "An element marked as undeveloped indicates that a line of argument has not been developed, and so should not yet be supported by anything."@en ;
+    gsndesign:nlWrittenFor "b26fc4e3" ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0176 ;
+    prov:generated gsndesign:st-1094 .
+
+gsndesign:st-1094
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1094 ;
+    gsndesign:inGraph gsndesign:shapes-1.1.1 ;
+    gsndesign:statementText """gsnsh:UndevelopedHasNoSupportShape gsn:coreOrExtension "Core GSN"@en ;
+    rdf:type sh:NodeShape ;
+    rdfs:comment "GSN convention rather than an explicit OWL axiom: the undeveloped decorator indicates that a line of argument has NOT been developed, so the element should carry no gsn:supportedBy links."@en ;
+    rdfs:label "An undeveloped element is not supported"@en ;
+    sh:message "An element marked as undeveloped indicates that a line of argument has not been developed, and so should not yet be supported by anything."@en ;
+    sh:or ( [ sh:not [ sh:property [ sh:hasValue "true"^^xsd:boolean ; sh:name "undeveloped" ; sh:path gsn:undeveloped ] ] ] [ sh:property [ sh:maxCount "0"^^xsd:integer ; sh:name "supported by" ; sh:path gsn:supportedBy ] ] ) ;
+    sh:severity sh:Warning ;
+    sh:targetSubjectsOf gsn:undeveloped .""" ;
+    gsndesign:statementChecksum "b26fc4e3" ;
+    gsndesign:structuralKey "gsnsh:UndevelopedHasNoSupportShape|node|" ;
+    gsndesign:aboutTerm gsnsh:UndevelopedHasNoSupportShape ;
+    gsndesign:mentionsTerm gsn:coreOrExtension ,
+        gsn:supportedBy ,
+        gsn:undeveloped ,
+        gsnsh:UndevelopedHasNoSupportShape .
+
+gsndesign:dd-1095
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S04.SH081" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-core ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "Only a goal, a strategy or a relationship may be marked as undeveloped."@en ;
+    gsndesign:nlWrittenFor "c39c9359" ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0236 ;
+    prov:generated gsndesign:st-1095 .
+
+gsndesign:st-1095
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1095 ;
+    gsndesign:inGraph gsndesign:shapes-1.1.1 ;
+    gsndesign:statementText """gsnsh:UndevelopedPropertyShape gsn:coreOrExtension "Core GSN"@en ;
+    rdf:type sh:NodeShape ;
+    rdfs:label "gsn:undeveloped"@en ;
+    sh:message "Only a goal, a strategy or a relationship may be marked as undeveloped."@en ;
+    sh:or ( [ sh:class gsn:Goal ] [ sh:class gsn:Relationship ] [ sh:class gsn:Strategy ] ) ;
+    sh:severity sh:Violation ;
+    sh:targetSubjectsOf gsn:undeveloped .""" ;
+    gsndesign:statementChecksum "c39c9359" ;
+    gsndesign:structuralKey "gsnsh:UndevelopedPropertyShape|node|" ;
+    gsndesign:aboutTerm gsnsh:UndevelopedPropertyShape ;
+    gsndesign:mentionsTerm gsn:Goal ,
+        gsn:Relationship ,
+        gsn:Strategy ,
+        gsn:coreOrExtension ,
+        gsn:undeveloped ,
+        gsnsh:UndevelopedPropertyShape .
+
+gsndesign:why-0236
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The standard defines the undeveloped decorator in Table 1:2-1, Core GSN Elements. Up to 1.3.0 the term carried the tag of the Argument Pattern Extension, so the separated serializations put it in the pattern files, and a case that used only Core GSN did not find it there. The tag is now Core GSN. The two shapes that target gsn:undeveloped carry the same tag and are in the core shapes file, because a shape is filed with the element that it targets. The Graffoo diagram already drew the term on the Core page."@en .

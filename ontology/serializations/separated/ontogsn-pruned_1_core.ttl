@@ -96,6 +96,15 @@ gsn:true a owl:DatatypeProperty ;
     skos:definition "[OntoGSN] Marks whether the claim in the element or relationship is determined (e.g., by the auditor or some process) as correct or not."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
+gsn:undeveloped a owl:DatatypeProperty ;
+    rdfs:label "undeveloped"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Goal gsn:Relationship gsn:Strategy ) ] ;
+    rdfs:range xsd:boolean ;
+    skos:definition "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    gsn:renderedAs "hollow diamond" .
+
 gsn:valid a owl:DatatypeProperty ;
     rdfs:label "valid"@en ;
     rdfs:domain [ a owl:Class ;
@@ -242,20 +251,6 @@ gsn:Strategy a owl:Class ;
     gsn:coreOrExtension "Core GSN"@en ;
     gsn:renderedAs "parallelogram"@en .
 
-gsn:Relationship a owl:Class ;
-    rdfs:label "Relationship"@en ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom [ a owl:Class ;
-                    owl:unionOf ( gsn:Defeater gsn:Goal gsn:Module gsn:Pattern gsn:Strategy ) ] ;
-            owl:onProperty rdf:subject ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom [ a owl:Class ;
-                    owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
-            owl:onProperty rdf:object ],
-        rdf:Statement ;
-    skos:definition "[OntoGSN] A link between GSN elements treated as an individual in its own right, carrying its subject, object and type, so that the link itself can be decorated and described."@en ;
-    gsn:coreOrExtension "Core GSN"@en .
-
 gsn:contains a owl:ObjectProperty ;
     rdfs:label "contains"@en ;
     rdfs:domain [ a owl:Class ;
@@ -289,6 +284,20 @@ gsn:Argument a owl:Class ;
                         owl:someValuesFrom xsd:string ] ) ] ;
     skos:definition "A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information."@en,
         "A connected series of claims intended to establish an overall claim."@en ;
+    gsn:coreOrExtension "Core GSN"@en .
+
+gsn:Relationship a owl:Class ;
+    rdfs:label "Relationship"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:Defeater gsn:Goal gsn:Module gsn:Pattern gsn:Strategy ) ] ;
+            owl:onProperty rdf:subject ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a owl:Class ;
+                    owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
+            owl:onProperty rdf:object ],
+        rdf:Statement ;
+    skos:definition "[OntoGSN] A link between GSN elements treated as an individual in its own right, carrying its subject, object and type, so that the link itself can be decorated and described."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
 gsn:statement a owl:DatatypeProperty ;

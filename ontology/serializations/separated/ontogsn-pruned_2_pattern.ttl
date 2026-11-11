@@ -167,15 +167,6 @@ gsn:structure a owl:AnnotationProperty ;
     skos:definition "The structure uses the structural and element abstraction notations to present the pattern, clearly indicating where the argument needs to be further developed or populated with details to instantiate the pattern for a specific case."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:undeveloped a owl:DatatypeProperty ;
-    rdfs:label "undeveloped"@en ;
-    rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Relationship gsn:Strategy ) ] ;
-    rdfs:range xsd:boolean ;
-    skos:definition "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
-    gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    gsn:renderedAs "hollow diamond" .
-
 gsn:uninstantiated a owl:DatatypeProperty ;
     rdfs:label "uninstantiated"@en ;
     rdfs:domain gsn:GSNElement ;
@@ -193,15 +184,11 @@ gsn:uninstantiated a owl:DatatypeProperty ;
 
 schema:description a owl:DatatypeProperty .
 
-gsn:Goal a owl:Class .
-
 gsn:InstantiationDataReference a owl:Class ;
     rdfs:label "Instantiation Data Reference"@en ;
     skos:definition "This symbol indicates that the GSN argument below the attached element is to be instantiated as a template argument. It provides a reference to the information used to instantiate the template argument." ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
     gsn:renderedAs "hollow triangle" .
-
-gsn:Strategy a owl:Class .
 
 gsn:Template a owl:Class ;
     rdfs:label "Template"@en ;

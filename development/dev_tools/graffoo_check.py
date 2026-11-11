@@ -82,12 +82,6 @@ ALL_EXTENSIONS = ("All Extensions", [("Argument Pattern Ext", -1470, -1110),
 
 # (check, page, item) -> why the difference is accepted
 ACCEPTED = {
-    ("section", "Core GSN", "gsn:undeveloped"):
-        "The standard puts the undeveloped decorator in Core, and the diagram follows it. "
-        "ontogsn.ttl 1.3.0 tags it 'Argument Pattern Extension'. Fix the tag in the next "
-        "patch release, then delete this entry.",
-    ("missing", "Argument Pattern Ext", "gsn:undeveloped"): "As above: it is drawn on Core.",
-    ("missing", "All Extensions", "gsn:undeveloped"): "As above: it is drawn on Core.",
     ("unknown", "OntoGSN-Provenance", "gsndesign:rationaleText"):
         "The design record asserts it on every rationale, but ontogsn-design.ttl does not "
         "declare it. A note on the page says so. Declare it, then delete this entry.",

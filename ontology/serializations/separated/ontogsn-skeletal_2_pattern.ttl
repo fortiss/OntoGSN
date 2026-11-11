@@ -93,11 +93,6 @@ gsn:relatedTo a owl:ObjectProperty ;
 gsn:structure a owl:AnnotationProperty ;
     rdfs:domain gsn:Pattern .
 
-gsn:undeveloped a owl:DatatypeProperty ;
-    rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Relationship gsn:Strategy ) ] ;
-    rdfs:range xsd:boolean .
-
 gsn:uninstantiated a owl:DatatypeProperty ;
     rdfs:domain gsn:GSNElement ;
     rdfs:range xsd:boolean .
@@ -111,11 +106,7 @@ gsn:uninstantiated a owl:DatatypeProperty ;
 
 schema:description a owl:DatatypeProperty .
 
-gsn:Goal a owl:Class .
-
 gsn:InstantiationDataReference a owl:Class .
-
-gsn:Strategy a owl:Class .
 
 gsn:Template a owl:Class ;
     rdfs:subClassOf gsn:Pattern .
