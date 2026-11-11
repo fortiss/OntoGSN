@@ -118,6 +118,21 @@ part in their domain, but a part states them for itself. A8 gives the goal that 
 the statement and the context that the core shapes ask of every goal. Its SPARQL twins write them
 only to a goal that has none, so a statement or a context that a person wrote wins.
 
+### Run time of the SPARQL rules in rdflib
+
+The SPARQL twins of A6 and A7 can be slow in rdflib on a large case. Each of them names a solution,
+an artefact and a report by its type, for example `?S a gsn:Solution`. rdflib does not plan a join.
+It orders the patterns of a group by the number of unbound terms, and a typed pattern has only one.
+The FinComp hub found that rdflib then joins the typed patterns first, before the patterns that
+link them. The hub measured more than 4 minutes for A6a to A6c over a case with 33 reports and 23
+parts. Since 0.5.0 the guard of A6 is split into smaller groups, which shortens the run.
+`augmentation_check.py` takes about 20 seconds on the fixture of this repository.
+
+If the rules are slow on your case, you have two options. Run them in an engine that plans the
+join, for example Oxigraph, which `ontology/example/run_rules.py` uses for the core rules. Or fix
+the order of the patterns in rdflib with `rdflib.plugins.sparql.CUSTOM_EVALS`, as the FinComp hub
+does.
+
 ## The result of a check stays in the graph
 
 `gsnaug:checkableWith` says that a mechanism can check an artefact. A6a and A6b read what the check

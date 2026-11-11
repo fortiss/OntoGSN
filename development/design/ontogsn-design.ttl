@@ -26,7 +26,7 @@ deliberately NOT imported by either of them: doing so would drag roughly two tho
 individuals into the ABox of every reasoner run over an assurance case."""@en ;
     dc:source "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C"@en ;
     vann:preferredNamespacePrefix "gsndesign" ;
-    owl:versionInfo "1.3.0" ;
+    owl:versionInfo "1.3.1" ;
     rdfs:seeAlso <https://w3id.org/OntoGSN/ontology> , <https://w3id.org/OntoGSN/shapes> .
 
 
@@ -278,6 +278,13 @@ gsndesign:retirementReason rdf:type owl:DatatypeProperty , owl:FunctionalPropert
     rdfs:label "retirement reason"@en ;
     skos:definition "Why this decision was retired, and where its content went."@en ;
     skos:note "A human judgement, not recoverable by computation, and therefore stored rather than derived."@en .
+
+###  https://w3id.org/OntoGSN/design#rationaleText
+gsndesign:rationaleText rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain gsndesign:Rationale ;
+    rdfs:range xsd:string ;
+    rdfs:label "rationale text"@en ;
+    skos:definition "The reasoning itself, in English."@en .
 
 ###  https://w3id.org/OntoGSN/design#noSourceRecorded
 gsndesign:noSourceRecorded rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;

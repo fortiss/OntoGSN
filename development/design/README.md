@@ -11,7 +11,7 @@ at the time. PROV-O is the backbone; `gsndesign:` adds only the terms PROV-O has
 | `ontogsn-design-augmentations.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `development/dev_tools/prov_augment.py`. |
 | `Design Documentation.xlsx` | a human-readable view of the record. **Generated**, never read back. |
 | `Competency Questions.xlsx` | the questions `ontology/queries/` and `augmentation/queries/` answer. Hand-maintained; read by `development/dev_tools/prov_augment.py`. |
-| `Graffoo Diagram.drawio` | the editable source of the diagrams on the website. Hand-maintained. |
+| `Graffoo Diagram.drawio` | the editable source of the Graffoo diagrams of the ontologies. Hand-maintained; `development/dev_tools/graffoo_check.py` compares it with the files that it draws. |
 
 `ontogsn.ttl` does **not** `owl:imports` any of this. It would drag roughly two thousand
 design-record individuals into the ABox of every reasoner run over an assurance case.

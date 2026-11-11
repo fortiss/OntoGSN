@@ -400,8 +400,9 @@ Header text:
 Header text:
 
 ```text
-# Context is inherited down the support chain (SWRL rule "Context Inheritance"), so a
-# goal is read in the context declared on it AND on everything above it.
+# The query walks the support chain itself, so a goal is read in the context declared
+# on it AND on everything above it. The SWRL rule "Context Inheritance" (S17) inherits
+# assumptions only.
 ```
 
 At the end of line 7, `VALUES ?goalId { "G1.1" }`:
@@ -925,8 +926,8 @@ Note:
 #            follows only when everything supporting it holds. Expressing "and nothing else
 #            supporting it fails" needs negation as failure, which SWRL does not have, so the
 #            source rule states the positive half and this translation adds the guard. See
-#            NOTES-tbox-corrections.md, Part C. Without it S10 and S11/S13/S16 alternate
-#            forever on any claim with mixed support.
+#            the rationale why-0227 in the design record (decision dd-1064). Without it S10
+#            and S11/S16 alternate forever on any claim with mixed support.
 ```
 
 Before line 14, `FILTER NOT EXISTS {`:

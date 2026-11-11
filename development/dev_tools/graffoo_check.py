@@ -82,9 +82,6 @@ ALL_EXTENSIONS = ("All Extensions", [("Argument Pattern Ext", -1470, -1110),
 
 # (check, page, item) -> why the difference is accepted
 ACCEPTED = {
-    ("unknown", "OntoGSN-Provenance", "gsndesign:rationaleText"):
-        "The design record asserts it on every rationale, but ontogsn-design.ttl does not "
-        "declare it. A note on the page says so. Declare it, then delete this entry.",
 }
 
 # Graffoo fill colours -> what a box is. The newer pages wrap them in light-dark().
