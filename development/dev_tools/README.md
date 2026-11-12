@@ -11,7 +11,7 @@ python development/dev_tools/check_all.py --fix      # regenerate the derived fi
 python development/dev_tools/check_all.py --fix --verify   # also execute the stored queries and record the result
 ```
 
-`--fix` runs `build.py`, `build_separated.py`, `build_full.py` and `design_counts.py` before
+`--fix` runs `build.py`, `build_separated.py`, `build_full.py` and `doc_counts.py` before
 the checks. Each script writes only the files that changed. Stage the files that it rewrote. `--fix` does not
 run `query_check.py`, because that script executes the stored queries. `--verify` does: it
 runs `query_check.py` and then `prov_augment.py`, and it stops if a query fails. After a change
@@ -88,8 +88,9 @@ before committing.
 check_all.py       every check, one command
 query_check.py     the stored queries vs an actual SPARQL engine
 release_check.py   every place that states a version or a rule count vs the ontology header
-design_counts.py   every text that states a count of the design record vs the record;
-                   without --check, it corrects the stale numbers
+doc_counts.py      every count that a README or a website page states vs its source: the
+                   design record, the query folder, the augmentation, the alignment and
+                   the last reports; without --check, it corrects the stale numbers
 ontology/example/run_rules.py   apply ontology/queries/rules/ to a case until nothing more is derived (user-facing, so it lives in ontology/example/)
 shacl_check.py     the fixtures vs ontology/shapes/, before and after the rules run
 reasoner_check.py  the ontology and the fixtures vs an OWL-DL reasoner (needs a JVM)
