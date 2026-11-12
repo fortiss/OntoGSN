@@ -124,6 +124,10 @@ python ontology/example/run_rules.py mycase.ttl --only S1,S16,S47
 python ontology/example/run_rules.py mycase.ttl --section "Dialectic Extension"
 ```
 
+A SPARQL update can do two things that a SWRL rule cannot: it can replace an old value, and it can
+test that a fact is absent. [`rules/README.md`](rules/README.md) lists each rule and says where its
+update does more than the SWRL rule.
+
 Each rule derives one step, so `run_rules.py` applies the whole set repeatedly until a pass
 changes nothing. If two rules contradict each other on your case the passes will loop; the
 driver detects that, stops, and names the rules involved.

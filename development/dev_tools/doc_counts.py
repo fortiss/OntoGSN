@@ -30,6 +30,14 @@ A whole number is a run of digits that is not part of a version, a date, an iden
 a file name, so `1.3.1`, `2026-11-12`, `S17` and `v001` are not counted. A block with fewer
 numbers than its marker names is an error. Keep a blank line before and after the marker.
 
+A second marker names a whole table that this script writes:
+
+    [table]: <> (core_rule_twins)
+
+    | Rule | Name | ...
+
+The script replaces the block after the marker with the table of that name, from tables().
+
 A file that is not Markdown for GitHub cannot hold a marker: a Turtle header, and the
 pages of the website, which Jekyll renders. For these, TEXTS holds the file, a regular
 expression with one group per value, and the name of the count for each group. A pattern
@@ -62,6 +70,7 @@ GSNALIGN = "https://w3id.org/OntoGSN/alignment#"
 ONTOLOGY = "ontology/serializations/ontogsn.ttl"
 SEPARATED_DIR = "ontology/serializations/separated"
 QUERY_DIR = "ontology/queries"
+VOCABULARY = "development/design/ontogsn-design.ttl"
 RECORD = "development/design/ontogsn-design-data.ttl"
 GENERATED = "development/design/ontogsn-design-augmentations.ttl"
 ALIGNMENT_RECORD = "development/design/ontogsn-align-design.ttl"
@@ -77,6 +86,7 @@ EVALUATION = "docs/evaluation/index.md"
 
 # The marker of a count in a Markdown file, and a whole number in the block after it.
 MARKER = re.compile(r"^\[count\]: <> \(([^)\r\n]*)\)[ \t]*\r?$", re.M)
+TABLE = re.compile(r"^\[table\]: <> \(([^)\r\n]*)\)[ \t]*\r?$", re.M)
 NUMBER = re.compile(r"(?<![\w.,~/#:\-\[{])\d+(?![\w\-\]]|[.,]\d)")
 # folders whose Markdown files are not read: Jekyll renders the website
 SKIPPED_FOLDERS = {".git", "docs", "vendor", "node_modules", "__pycache__"}
@@ -224,12 +234,68 @@ def report_counts():
     }
 
 
+def rule_twins():
+    """One entry per SWRL rule of the core ontology that has a SPARQL twin: the number, the
+    name, the section, the file and the differences, as the design record states them."""
+    generated = load(GENERATED)
+    record = load(RECORD) + load(VOCABULARY)
+    prov_generated = URIRef("http://www.w3.org/ns/prov#generated")
+    label = URIRef("http://www.w3.org/2004/02/skos/core#prefLabel")
+    twins = []
+    for query in instances(generated, DESIGN.Query):
+        statement = generated.value(query, DESIGN.translatesStatement)
+        if statement is None:
+            continue
+        file = os.path.basename(str(generated.value(query, DESIGN.path)))
+        number = re.match(r"s0*(\d+)([a-z]?)_", file)
+        decision = record.value(predicate=prov_generated, object=statement)
+        section = record.value(record.value(decision, DESIGN.section), label)
+        twins.append({
+            "order": (int(number.group(1)), number.group(2)),
+            "rule": "S" + number.group(1) + number.group(2),
+            "name": str(generated.value(query, DESIGN.ruleName)),
+            "section": str(section) if section else "",
+            "file": file,
+            "differences": sorted(str(record.value(d, label))
+                                  for d in generated.objects(query, DESIGN.differsBy)),
+        })
+    return sorted(twins, key=lambda twin: twin["order"])
+
+
+def level(differences):
+    """The level that the READMEs give to a twin, from its differences."""
+    if "guard" in differences:
+        return "narrower"
+    return "close" if differences else "exact"
+
+
+def twin_counts():
+    twins = rule_twins()
+    return {
+        "rule_twins": len(twins),
+        "rule_twins_exact": len([t for t in twins if not t["differences"]]),
+        "rule_twins_retracting": len([t for t in twins if "retraction" in t["differences"]]),
+        "rule_twins_guarding": len([t for t in twins if "guard" in t["differences"]]),
+    }
+
+
 def counts():
     """Each value that a text states, by name."""
     found = {}
-    for part in (design_counts, file_counts, vocabulary_counts, report_counts):
+    for part in (design_counts, file_counts, vocabulary_counts, report_counts, twin_counts):
         found.update(part())
     return found
+
+
+def tables():
+    """Each table that this script writes, by name, as its lines."""
+    lines = ["| Rule | Name | Section | SPARQL update | Level | Differs by |",
+             "| :--- | :--- | :--- | :--- | :--- | :--- |"]
+    for twin in rule_twins():
+        lines.append("| {rule} | {name} | {section} | [`{file}`]({file}) | {level} | {by} |".format(
+            level=level(twin["differences"]), by=", ".join(twin["differences"]) or "none",
+            **twin))
+    return {"core_rule_twins": lines}
 
 
 def read(relative):
@@ -308,7 +374,7 @@ def main():
                     help="write nothing, and exit 1 if a number is stale")
     args = ap.parse_args()
 
-    count = counts()
+    count, table = counts(), tables()
     texts, stale, agree = {}, [], 0
     missing = catalogue_gaps()
 
@@ -328,7 +394,22 @@ def main():
         # from the end, so that a replacement does not move the positions before it
         for start, end, name in sorted(bound, reverse=True):
             text = text[:start] + compare(path, name, text[start:end]) + text[end:]
-        if bound:
+        newline = "\r\n" if "\r\n" in text else "\n"
+        written = False
+        for marker in reversed(list(TABLE.finditer(text))):
+            name = marker.group(1).strip()
+            if name not in table:
+                missing.append("{}: the marker names an unknown table: {}".format(path, name))
+                continue
+            begin, end = block_after(text, marker.end())
+            expected = newline.join(table[name]) + newline
+            if text[begin:end] == expected:
+                agree += 1
+            else:
+                stale.append("{}: the table {} differs from its source".format(path, name))
+                text = text[:begin] + expected + text[end:]
+            written = True
+        if bound or written:
             texts[path] = text
 
     for path, pattern, names in TEXTS:
@@ -351,7 +432,7 @@ def main():
         print("MISSING: " + line)
     for line in stale:
         print(("STALE: " if args.check else "corrected: ") + line)
-    print("{} number(s) agree with their source, {} stale, {} missing".format(
+    print("{} number(s) and table(s) agree with their source, {} stale, {} missing".format(
         agree, len(stale), len(missing)))
 
     if not args.check:

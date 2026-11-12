@@ -82,6 +82,11 @@ ALL_EXTENSIONS = ("All Extensions", [("Argument Pattern Ext", -1470, -1110),
 
 # (check, page, item) -> why the difference is accepted
 ACCEPTED = {
+    ("missing", "OntoGSN-Provenance", "gsndesign:TranslationDifference"):
+        "New in design record 1.4.0. Draw it when the Provenance page is laid out again, "
+        "then delete this entry.",
+    ("missing", "OntoGSN-Provenance", "gsndesign:differsBy"):
+        "As above: new in design record 1.4.0, not drawn yet.",
 }
 
 # Graffoo fill colours -> what a box is. The newer pages wrap them in light-dark().

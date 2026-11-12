@@ -20,7 +20,7 @@ release. These are the current versions:
 | SHACL shapes | 1.2.0 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
 | Augmentation, and its shapes | 0.5.1 | `augmentation/ontogsn-augmentation.ttl` |
 | Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
-| Design record | 1.3.1 | `development/design/ontogsn-design.ttl` |
+| Design record | 1.4.0 | `development/design/ontogsn-design.ttl` |
 
 The SHACL shapes (`ontology/shapes/`) version independently, but a shapes release is only meaningful
 against an ontology version, so both are listed together.
@@ -36,6 +36,28 @@ against an ontology version, so both are listed together.
 
 Versions 1.0 and 1.1 predate this repository; no artefact of either survives here to diff.
 The ontology as published is described in the paper (arXiv:2506.11023).
+
+---
+
+## Design record 1.4.0 (2026-11-12)
+
+**Not breaking.** The record states how each SPARQL update in `ontology/queries/rules/`
+differs from the SWRL rule that it re-expresses.
+
+- `gsndesign:differsBy` is a new object property from a `gsndesign:Query` to a
+  `gsndesign:TranslationDifference`. The class has two members. `gsndesign:Retraction`: the
+  update deletes the old value before it writes the new one. `gsndesign:Guard`: the update
+  draws its conclusion only if a stated fact is absent. SWRL can do neither.
+- `development/dev_tools/prov_augment.py` derives the differences from the text of each
+  update and writes them into `ontogsn-design-augmentations.ttl`. A test for the fact that
+  the update is about to insert is not a guard.
+- The note on `gsndesign:translatesStatement` no longer calls the link an exact
+  correspondence. An update and its rule state the same rule, and `gsndesign:differsBy`
+  says where the update does more.
+- `ontology/queries/rules/README.md` is new. `development/dev_tools/doc_counts.py` writes
+  its table of the rules from the record. `ontology/README.md` is new and points at it.
+- The Provenance page of the Graffoo diagram does not draw the two new terms yet.
+  `graffoo_check.py` accepts that difference.
 
 ---
 
@@ -124,6 +146,9 @@ Reasoning: `dd-1091` and `dd-1092`, rationale `why-0235`. Retires `dd-0586`, `dd
 **Not breaking.** `schema:logo` pointed at the wide banner, and the documentation page showed
 it as a small white box. It now points at `ontogsn-logo.png`, a square image with the picture
 of the banner.
+
+---
+
 ## Design record 1.3.1 (2026-11-11)
 
 **Not breaking.** The vocabulary of the design record declares `gsndesign:rationaleText`. The
