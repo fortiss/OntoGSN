@@ -7,6 +7,8 @@ review issues raised against the case, and the regulatory requirement a claim an
 Written against **OntoGSN 1.3.0**. Nothing in this repository imports it, and it restates no `gsn:`
 domain or range.
 
+[count]: <> (augmentation_classes augmentation_properties augmentation_issue_types augmentation_rules augmentation_shapes)
+
 | File | Role |
 | :--- | :--- |
 | `ontogsn-augmentation.ttl` | the vocabulary. 8 classes, 37 properties, 3 issue types, 16 SWRL rules |

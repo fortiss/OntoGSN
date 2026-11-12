@@ -33,11 +33,15 @@ See our website for more information: https://fortiss.github.io/OntoGSN/
 python development/dev_tools/build.py
 ```
 
+[count]: <> (separated_files)
+
 `ontology/serializations/separated/` holds the ontology cut by GSN section (`core`, `pattern`,
 `modular`, `confidence`, `dialectic`) and by scope (`complete` with the SWRL rules,
 `pruned` without them, `skeletal` without the prose either). Those 36 files are generated too.
 
 ## Queries
+
+[count]: <> (queries)
 
 `ontology/queries/` holds 43 CRUD SPARQL queries — one per competency question, covering all five
 GSN sections — and `ontology/queries/rules/` holds all 58 SWRL rules as SPARQL updates, for stores

@@ -5,6 +5,8 @@ belongs to, and how much of the ontology is carried with it.
 
 **Generated. Do not edit by hand.**
 
+[count]: <> (separated_files)
+
 ```bash
 python development/dev_tools/build_separated.py            # rewrite all 36 files
 python development/dev_tools/build_separated.py --check    # verify they are current (CI)

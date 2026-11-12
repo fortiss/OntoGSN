@@ -9,6 +9,8 @@ ontologies and changes neither. It records why each half of the correspondence h
 It creates no individuals. The gain for OntoGSN is small, and that is known. The value is a
 defensible answer to a question that is asked often, so that nobody repeats the analysis.
 
+[count]: <> (alignment_classes alignment_properties _ _ alignment_decisions alignment_passages alignment_rationales)
+
 | File | Role |
 | :--- | :--- |
 | `ontogsn-align.ttl` | The alignment. Hand-written. 3 bridge classes, 8 bridge properties, 2 direct assertions, 4 documentation axioms. |
@@ -39,6 +41,8 @@ The record and this file use seven terms from the ARGO side. This table defines 
 | Sentence content | ARGO's most general content class: what a meaningful sentence means. It covers declaratives, imperatives and questions |
 | Statement | ARGO's narrower subclass: the meaning of a declarative sentence. It can be true or false, which logicians call a proposition |
 | TBox | The class and property level of an ontology, as opposed to its individuals |
+
+[count]: <> (_ _ ontology_classes ontology_object_properties ontology_datatype_properties)
 
 ARGO has 16 classes, 22 object properties, no datatype properties and no rules. OntoGSN has 20
 classes, 16 object properties, 25 datatype properties and 58 SWRL rules. The missing datatype

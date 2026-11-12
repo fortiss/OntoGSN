@@ -10,10 +10,30 @@ person wrote those numbers, so they went stale. This script counts in the source
 number and compares. Without --check, it replaces a stale number in place and changes
 nothing else.
 
-Each count has one definition, in counts(). Each place that states a count is one entry
-of TEXTS: a file, a regular expression with one group per number, and the name of the
-count that belongs to each group. A pattern that matches nothing is an error, because the
-sentence then changed and the number in it is no longer covered.
+Each count has one definition and one name, in counts().
+
+A Markdown file names its counts with a marker on a line of its own:
+
+    [count]: <> (queries)
+
+    `ontology/queries/` holds 43 CRUD SPARQL queries ...
+
+Markdown reads the marker as a link definition that nothing uses, so GitHub shows nothing.
+The marker applies to the next block: a paragraph, a heading, a table or a fenced code
+block. The names bind to the whole numbers of that block, in order. A `_` skips a number:
+
+    [count]: <> (_ _ ontology_classes)
+
+    ARGO has 16 classes and 22 object properties. OntoGSN has 20 classes.
+
+A whole number is a run of digits that is not part of a version, a date, an identifier or
+a file name, so `1.3.1`, `2026-11-12`, `S17` and `v001` are not counted. A block with fewer
+numbers than its marker names is an error. Keep a blank line before and after the marker.
+
+A file that is not Markdown for GitHub cannot hold a marker: a Turtle header, and the
+pages of the website, which Jekyll renders. For these, TEXTS holds the file, a regular
+expression with one group per value, and the name of the count for each group. A pattern
+that matches nothing is an error.
 
 The number of SWRL rules and the version fields are not here. release_check.py compares
 those, and it writes nothing, because a version is a decision and not a count.
@@ -51,59 +71,23 @@ ALIGNMENT = "alignments/ontogsn-align.ttl"
 OOPS_REPORT = "docs/evaluation/oops"
 FOOPS_REPORT = "docs/evaluation/foops"
 
-ROOT_README = "README.md"
-DESIGN_README = "development/design/README.md"
-TOOLS_README = "development/dev_tools/README.md"
 QUERY_README = "ontology/queries/README.md"
-SEPARATED_README = "ontology/serializations/separated/README.md"
-AUGMENTATION_README = "augmentation/README.md"
-ALIGNMENT_README = "alignments/README.md"
 TUTORIAL = "docs/_pages/tutorial.md"
 EVALUATION = "docs/evaluation/index.md"
 
+# The marker of a count in a Markdown file, and a whole number in the block after it.
+MARKER = re.compile(r"^\[count\]: <> \(([^)\r\n]*)\)[ \t]*\r?$", re.M)
+NUMBER = re.compile(r"(?<![\w.,~/#:\-\[{])\d+(?![\w\-\]]|[.,]\d)")
+# folders whose Markdown files are not read: Jekyll renders the website
+SKIPPED_FOLDERS = {".git", "docs", "vendor", "node_modules", "__pycache__"}
+
 VERSION = r"(\d+\.\d+(?:\.\d+)?(?:-[A-Za-z0-9.]+)?)"
 
-# (file, pattern with one group per value, the count for each group)
+# (file, pattern with one group per value, the count for each group), for the files that
+# cannot hold a marker
 TEXTS = (
-    # the design record
-    (DESIGN_README, r"(\d+) decisions, (\d+) passages, (\d+) rationales, (\d+) statements",
-     ("decisions", "passages", "rationales", "statements")),
-    (DESIGN_README, r"The (\d+) stored queries are", ("recorded_queries",)),
-    (DESIGN_README, r"\| (\d+) of (\d+) queries, (\d+) distinct axioms \|",
-     ("queries_resting", "recorded_queries", "axioms_rested_on")),
-    (DESIGN_README, r"(\d+) queries rest on nothing", ("queries_resting_on_nothing",)),
-    (DESIGN_README, r"The other (\d+) are augmentation queries",
-     ("augmentation_queries_resting_on_nothing",)),
-    (DESIGN_README, r"(\d+) of the (\d+) decisions are",
-     ("decisions_for_nothing", "decisions")),
     (RECORD, r"Why each of the (\d+) axioms, rules and constraints", ("decisions",)),
-    (ALIGNMENT_README, r"(\d+) decisions, (\d+) cited passages, (\d+) rationales",
-     ("alignment_decisions", "alignment_passages", "alignment_rationales")),
-    # the stored queries of the core ontology
-    (ROOT_README, r"holds (\d+) CRUD SPARQL queries", ("queries",)),
     (TUTORIAL, r"has (\d+) stored SPARQL queries", ("queries",)),
-    (QUERY_README, r"### Read \S+ (\d+) queries", ("read_queries",)),
-    (QUERY_README, r"### Create \S+ (\d+) queries", ("create_queries",)),
-    (QUERY_README, r"### Update \S+ (\d+) queries", ("update_queries",)),
-    (QUERY_README, r"### Delete \S+ (\d+) queries", ("delete_queries",)),
-    # the separated serializations
-    (ROOT_README, r"Those (\d+) files are generated", ("separated_files",)),
-    (SEPARATED_README, r"rewrite all (\d+) files", ("separated_files",)),
-    (TOOLS_README, r"separated/\*` \((\d+) files\)", ("separated_files",)),
-    (TOOLS_README, r"refresh the (\d+) slices", ("separated_files",)),
-    # the augmentation
-    (AUGMENTATION_README,
-     r"(\d+) classes, (\d+) properties, (\d+) issue types, (\d+) SWRL rules",
-     ("augmentation_classes", "augmentation_properties", "augmentation_issue_types",
-      "augmentation_rules")),
-    (AUGMENTATION_README, r"\| (\d+) SHACL shapes \|", ("augmentation_shapes",)),
-    # the alignment
-    (ALIGNMENT_README, r"(\d+) bridge classes, (\d+) bridge properties",
-     ("alignment_classes", "alignment_properties")),
-    (ALIGNMENT_README,
-     r"OntoGSN has (\d+)\s+classes, (\d+) object properties, (\d+) datatype properties",
-     ("ontology_classes", "ontology_object_properties", "ontology_datatype_properties")),
-    # the last OOPS! and FOOPS! reports
     (EVALUATION,
      r"\| " + VERSION + r" \| OOPS! " + VERSION
      + r" \| (\d+) important and (\d+) minor pitfalls, (\d+) critical \|",
@@ -248,6 +232,12 @@ def counts():
     return found
 
 
+def read(relative):
+    # newline="" keeps the line endings of the file, so a rewrite changes numbers only
+    with io.open(path_of(relative), encoding="utf-8", newline="") as handle:
+        return handle.read()
+
+
 def catalogue_gaps():
     """Stored queries without a row in the catalogue, and rows without a query."""
     listed = set(re.findall(r"^\| `((?:read|create|update|delete)_\w+)` \|",
@@ -258,10 +248,58 @@ def catalogue_gaps():
                for name in sorted(listed - files)])
 
 
-def read(relative):
-    # newline="" keeps the line endings of the file, so a rewrite changes numbers only
-    with io.open(path_of(relative), encoding="utf-8", newline="") as handle:
-        return handle.read()
+def markdown_files():
+    found = []
+    for folder, folders, files in os.walk(REPO):
+        folders[:] = sorted(f for f in folders if f not in SKIPPED_FOLDERS)
+        for name in sorted(files):
+            if name.endswith(".md"):
+                found.append(os.path.relpath(os.path.join(folder, name), REPO)
+                             .replace(os.sep, "/"))
+    return found
+
+
+def block_after(text, start):
+    """(start, end) of the block that follows a marker: up to the next blank line, or up
+    to the closing fence of a code block."""
+    lines = re.compile(r"[^\n]*\n?")
+    position = start
+    while position < len(text) and not lines.match(text, position).group().strip():
+        position = lines.match(text, position).end()
+    begin, fenced = position, text.startswith("```", position)
+    while position < len(text):
+        line = lines.match(text, position)
+        inside = position > begin
+        if not fenced and inside and (not line.group().strip()
+                                      or MARKER.match(text, position)):
+            break
+        position = line.end()
+        if fenced and inside and line.group().startswith("```"):
+            break
+    return begin, position
+
+
+def marked_values(path, text, count, missing):
+    """(start, end, name) for each number that a marker of this file binds to a count."""
+    bound = []
+    for marker in MARKER.finditer(text):
+        names = marker.group(1).split()
+        line = text.count("\n", 0, marker.start()) + 1
+        unknown = [n for n in names if n != "_" and n not in count]
+        if unknown or not names:
+            missing.append("{} line {}: the marker names {}".format(
+                path, line,
+                "an unknown count: " + ", ".join(unknown) if unknown else "no count"))
+            continue
+        begin, end = block_after(text, marker.end())
+        numbers = list(NUMBER.finditer(text, begin, end))
+        if len(numbers) < len(names):
+            missing.append("{} line {}: the marker names {} value(s), and the block after "
+                           "it has {} number(s)".format(path, line, len(names), len(numbers)))
+            continue
+        bound += [(number.start(), number.end(), name)
+                  for number, name in zip(numbers, names) if name != "_"]
+    return bound
 
 
 def main():
@@ -274,6 +312,25 @@ def main():
     texts, stale, agree = {}, [], 0
     missing = catalogue_gaps()
 
+    def compare(path, name, found):
+        nonlocal agree
+        expected = str(count[name])
+        if found == expected:
+            agree += 1
+        else:
+            stale.append("{}: {} says {}, the source has {}".format(
+                path, name.replace("_", " "), found, expected))
+        return expected
+
+    for path in markdown_files():
+        text = read(path)
+        bound = marked_values(path, text, count, missing)
+        # from the end, so that a replacement does not move the positions before it
+        for start, end, name in sorted(bound, reverse=True):
+            text = text[:start] + compare(path, name, text[start:end]) + text[end:]
+        if bound:
+            texts[path] = text
+
     for path, pattern, names in TEXTS:
         text = texts.setdefault(path, read(path))
         if not re.search(pattern, text):
@@ -281,16 +338,10 @@ def main():
             continue
 
         def correct(match, names=names, path=path):
-            nonlocal agree
             out, last = [], match.start()
             for index, name in enumerate(names, start=1):
-                found, expected = match.group(index), str(count[name])
-                if found == expected:
-                    agree += 1
-                else:
-                    stale.append("{}: {} says {}, the source has {}".format(
-                        path, name.replace("_", " "), found, expected))
-                out.append(match.string[last:match.start(index)] + expected)
+                out.append(match.string[last:match.start(index)]
+                           + compare(path, name, match.group(index)))
                 last = match.end(index)
             return "".join(out) + match.string[last:match.end()]
 
