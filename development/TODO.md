@@ -12,8 +12,6 @@ second table.
 | Item | Where | Why | Status |
 | :--- | :--- | :--- | :--- |
 | A workflow that a person starts by hand, which runs `check_all.py --fix` and opens a pull request with the result | `.github/workflows/`, in the style of `reports.yml` | A contributor without Python can then get current derived files. A person starts the job and a person merges the pull request, so CI still never regenerates a file by itself. A job that pushes a commit to the branch is not an option: it cannot push to a fork, and a commit from a bot does not start the checks again. | Open. Wait until outside contributions need it. |
-| Decide if `check_all.py --fix` must also run `query_check.py` | `dev_tools/check_all.py` | `--fix` runs the three build scripts only. A stale query record is the other common reason that the pre-commit hook refuses a commit. `query_check.py` executes the stored queries, so it is a verification and not a build. | Open |
-| Take the counts in the design record from a script | `design/README.md` line 82, `design/ontogsn-design-data.ttl` line 27 | The counts are hand-written text, so they go stale. The README says that 118 of the 944 decisions generated nothing. A count of the active decisions without `prov:generated` gave 135 on 2026-11-11. | Open. Find the rule behind 118, or recount. |
 
 ## Flaws that need a change outside this folder
 
