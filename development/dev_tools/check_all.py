@@ -5,17 +5,19 @@
     python development/dev_tools/check_all.py --strict            # exit 1 if a derived file is stale
     python development/dev_tools/check_all.py --strict --staged   # only the checks the commit affects
     python development/dev_tools/check_all.py --fix               # regenerate the derived files, then check
+    python development/dev_tools/check_all.py --fix --verify      # also execute the stored queries and record the result
 
 Without --fix, nothing regenerates anything here. This answers one question: is what is
-committed self-consistent? Three of the ten checks are about derived files being current, one is
+committed self-consistent? Three of the eleven checks are about derived files being current, one is
 about every stored query having been verified against what is committed, one is about
-every file stating the same version and the same number of rules, one is about the
+every file stating the same version and the same number of rules, one is about every
+text stating the counts that the design record has, one is about the
 design record still agreeing with the ontology, one is about the generated part of the
 design record being current, one is about the Graffoo diagrams still drawing the
 ontologies, and the last two ask an OWL-DL reasoner and the OOPS! pitfall scanner what
 they make of the ontology as it now stands.
 
-Only the first five gate. The design-record report lists things a person has to judge - an
+Only the first six gate. The design-record report lists things a person has to judge - an
 axiom nobody has documented, a sentence that needs rewriting - and a build should not fail
 because a human decision is outstanding; pass --strict-design when you want it to. The
 generated part of the record, ontogsn-design-augmentations.ttl, is rebuilt by
@@ -33,11 +35,19 @@ what the commit touches: editing a shape does not require re-verifying the RDF/X
 reasoner and OOPS! checks never run in the hook at all - eleven seconds and a network round
 trip are not what a commit should cost - which is what "in_hook" below says.
 
---fix runs the three generators before the checks: build.py, build_separated.py and
-build_full.py. Each one writes only the files that changed and refuses to write a file that
-does not say what its source says. A person still starts it, and a person still stages the
+--fix runs four scripts before the checks: the three generators build.py,
+build_separated.py and build_full.py, and design_counts.py, which corrects the counts of
+the design record in the texts that state them. Each one writes only the files that
+changed, and a generator refuses to write a file that does not say what its source says. A person still starts it, and a person still stages the
 result. CI never passes --fix. It does not run query_check.py, because that script executes
 the stored queries and is a verification, not a build.
+
+--verify does that second step. It runs query_check.py, which executes each stored query
+that changed and records the outcome, and then prov_augment.py, which rebuilds the generated
+part of the design record from that outcome. It runs after the generators and before
+design_counts.py, because the counts read the generated record. A query that fails stops the
+run, so --verify never records a result that nobody saw. With --fix --verify, one command
+prepares a commit after a change to the ontology or to a query.
 """
 import argparse
 import os
@@ -71,6 +81,7 @@ CHECKS = [
     # to run the script without --check and commit the record it writes.
     {"name": "stored queries verified",
      "command": ["development/dev_tools/query_check.py", "--check"],
+     "verify": ["development/dev_tools/query_check.py"],
      "gating": True,
      # It also fails on a comment in any SPARQL file, because the comments of the queries
      # are in QUERY-COMMENTS.md, and it reads the header fields from there.
@@ -92,6 +103,16 @@ CHECKS = [
                   "ontology/queries/README.md", "ontology/serializations/separated/README.md",
                   "development/dev_tools/README.md",
                   "development/dev_tools/release_check.py")},
+    # Counts in the design record and compares each number that a README or a header
+    # states. It gates because a wrong count is a mistake, and --fix corrects it.
+    {"name": "counts of the design record",
+     "command": ["development/dev_tools/design_counts.py", "--check"],
+     "fix": ["development/dev_tools/design_counts.py"],
+     # it reads the generated design record, so it runs after the --verify scripts
+     "fix_last": True,
+     "gating": True,
+     "triggers": ("development/design/", "alignments/README.md",
+                  "development/dev_tools/design_counts.py")},
     {"name": "design record",
      "command": ["development/dev_tools/prov_check.py"],
      "gating": False,
@@ -106,6 +127,7 @@ CHECKS = [
     # serialization or the record changed and nobody ran prov_augment.py afterwards.
     {"name": "generated design record",
      "command": ["development/dev_tools/prov_augment.py", "--check"],
+     "verify": ["development/dev_tools/prov_augment.py"],
      "gating": False,
      "triggers": ("development/design/", "ontology/serializations/", "ontology/shapes/",
                   "ontology/queries/", "augmentation/queries/", "augmentation/rules/",
@@ -153,7 +175,11 @@ def main():
                     help="only run the checks affected by the staged changes")
     ap.add_argument("--fix", action="store_true",
                     help="regenerate the derived files first: build.py, "
-                         "build_separated.py and build_full.py")
+                         "build_separated.py and build_full.py, and correct "
+                         "the counts of the design record: design_counts.py")
+    ap.add_argument("--verify", action="store_true",
+                    help="execute the stored queries and record the outcome first: "
+                         "query_check.py, then prov_augment.py")
     args = ap.parse_args()
 
     checks = CHECKS
@@ -165,15 +191,24 @@ def main():
             print(f"{len(paths)} staged file(s), none affecting a derived artefact")
             return
 
+    # The order is: the generators, then the --verify scripts, then the fixes that read
+    # what the --verify scripts wrote.
+    steps = []
     if args.fix:
-        for check in checks:
-            if "fix" not in check:
-                continue
-            print(f"\n{'=' * 72}\n  regenerate: {check['name']}\n{'=' * 72}")
-            result = subprocess.run([sys.executable] + check["fix"], cwd=REPO)
-            if result.returncode != 0:
-                # a generator that refuses to write has found a real problem in its source
-                sys.exit(f"\n{check['fix'][0]} failed - nothing was checked")
+        steps += [("regenerate", c, c["fix"]) for c in checks
+                  if "fix" in c and not c.get("fix_last")]
+    if args.verify:
+        steps += [("verify and record", c, c["verify"]) for c in checks if "verify" in c]
+    if args.fix:
+        steps += [("regenerate", c, c["fix"]) for c in checks
+                  if "fix" in c and c.get("fix_last")]
+    for verb, check, command in steps:
+        print(f"\n{'=' * 72}\n  {verb}: {check['name']}\n{'=' * 72}")
+        result = subprocess.run([sys.executable] + command, cwd=REPO)
+        if result.returncode != 0:
+            # a generator that refuses to write has found a real problem in its source,
+            # and a query that fails must be seen before anything records it
+            sys.exit(f"\n{command[0]} failed - nothing was checked")
 
     failures, stale = [], False
     for check in checks:
@@ -188,8 +223,9 @@ def main():
             stale = stale or "fix" in check
 
     print(f"\n{'=' * 72}")
-    if args.fix:
-        print("  --fix ran the generators. Stage any file that they rewrote.")
+    if steps:
+        flags = [flag for flag, on in (("--fix", args.fix), ("--verify", args.verify)) if on]
+        print(f"  {' and '.join(flags)} ran before the checks. Stage any file that changed.")
     if not failures:
         print(f"  {len(checks)} check(s) passed - everything is current and consistent")
         return
@@ -198,6 +234,10 @@ def main():
     if stale and not args.fix:
         print("  To regenerate the derived files, run:\n"
               "      python development/dev_tools/check_all.py --fix")
+    failed = {name for name, _ in failures}
+    if not args.verify and any("verify" in c and c["name"] in failed for c in checks):
+        print("  To execute the stored queries and record the result, run:\n"
+              "      python development/dev_tools/check_all.py --fix --verify")
     if args.strict and any(gating for _, gating in failures):
         sys.exit(1)
 

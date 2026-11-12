@@ -63,9 +63,9 @@ SELECT ?file ?rule ?clause WHERE {
 
 `restsOnStatement` is the *declaring* axiom only — `Goal a Class`, not every restriction
 ever written about goals. Linking a query to all of those would produce a few thousand
-edges that say nothing. Fifteen queries rest on nothing, and each for a real reason, not a
+edges that say nothing. 15 queries rest on nothing, and each for a real reason, not a
 gap in the record. `delete_element_and_its_links.rq` names no `gsn:` term at all, because it
-deletes by identifier. The other fourteen are augmentation queries in `augmentation/queries/`
+deletes by identifier. The other 14 are augmentation queries in `augmentation/queries/`
 that name only `gsnaug:` and other non-`gsn:` terms, and this record holds no axiom about them.
 
 SPARQL sits in `gsndesign:Formalism` alongside OWL, SWRL, SHACL and RDF, but it is the odd
