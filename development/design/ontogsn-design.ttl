@@ -26,7 +26,7 @@ deliberately NOT imported by either of them: doing so would drag roughly two tho
 individuals into the ABox of every reasoner run over an assurance case."""@en ;
     dc:source "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C"@en ;
     vann:preferredNamespacePrefix "gsndesign" ;
-    owl:versionInfo "1.3.1" ;
+    owl:versionInfo "1.4.0" ;
     rdfs:seeAlso <https://w3id.org/OntoGSN/ontology> , <https://w3id.org/OntoGSN/shapes> .
 
 
@@ -140,6 +140,12 @@ gsndesign:Formalism rdf:type owl:Class ;
     rdfs:label "formalism"@en ;
     skos:definition "The language a decision expressed itself in. Everything here is RDF underneath, so the useful distinction is the language layered on top of it."@en .
 
+###  https://w3id.org/OntoGSN/design#TranslationDifference
+gsndesign:TranslationDifference rdf:type owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "translation difference"@en ;
+    skos:definition "A thing that a SPARQL update does and the SWRL rule that it re-expresses cannot do."@en .
+
 ###  https://w3id.org/OntoGSN/design#StandardPart
 gsndesign:StandardPart rdf:type owl:Class ;
     rdfs:subClassOf skos:Concept ;
@@ -229,8 +235,16 @@ gsndesign:translatesStatement rdf:type owl:ObjectProperty ;
     rdfs:range gsndesign:StatementRecord ;
     rdfs:label "translates statement"@en ;
     skos:definition "The axiom of the ontology this query is a re-expression of in SPARQL - for the rule queries, the SWRL rule they carry out."@en ;
-    skos:note "An exact correspondence, not an approximation: one stored update per SWRL rule, joined on the rule's name. It is what makes the two formalisms comparable - the SWRL rule is what the ontology says, the SPARQL update is what a store with no reasoner can run, and this says they are meant to be the same thing. A query that translates a statement inherits that statement's design decision, and with it the passage of the standard behind the rule."@en ;
+    skos:note "One stored update per SWRL rule, joined on the rule's name. It is what makes the two formalisms comparable - the SWRL rule is what the ontology says, the SPARQL update is what a store with no reasoner can run, and this says that they state the same rule. Where the update does something that the rule cannot, gsndesign:differsBy says what. A query that translates a statement inherits that statement's design decision, and with it the passage of the standard behind the rule."@en ;
     skos:scopeNote "Asserted only where a query re-expresses an axiom. The CRUD queries translate nothing - they ask questions of a case rather than restate what GSN is - and use gsndesign:restsOnStatement instead."@en .
+
+###  https://w3id.org/OntoGSN/design#differsBy
+gsndesign:differsBy rdf:type owl:ObjectProperty ;
+    rdfs:domain gsndesign:Query ;
+    rdfs:range gsndesign:TranslationDifference ;
+    rdfs:label "differs by"@en ;
+    skos:definition "A way in which this query does more than the statement that it translates."@en ;
+    skos:scopeNote "Derived from the text of the query by development/dev_tools/prov_augment.py. A rule query without this property draws the same conclusions as its SWRL rule."@en .
 
 ###  https://w3id.org/OntoGSN/design#restsOnStatement
 gsndesign:restsOnStatement rdf:type owl:ObjectProperty ;
@@ -542,6 +556,12 @@ gsndesign:SPARQL rdf:type gsndesign:Formalism ; skos:prefLabel "SPARQL" ;
 gsndesign:NoFormalism rdf:type gsndesign:Formalism ; skos:prefLabel "(none)" ;
     skos:definition "A deliberate decision to represent nothing."@en ;
     skos:note "Not the absence of a formalism but a decision about one, which is why it is a member of the vocabulary rather than a missing value."@en .
+
+gsndesign:Retraction rdf:type gsndesign:TranslationDifference ; skos:prefLabel "retraction" ;
+    skos:definition "The update deletes the old value before it writes the new one. A SWRL rule only adds facts, so the old value stays beside the new one."@en .
+gsndesign:Guard rdf:type gsndesign:TranslationDifference ; skos:prefLabel "guard" ;
+    skos:definition "The update draws its conclusion only if a stated fact is absent. A SWRL rule cannot test that a fact is absent, so it draws the conclusion in those cases too."@en ;
+    skos:note "A NOT EXISTS that tests only for what the update is about to insert is not a guard. It keeps the update from writing a second copy."@en .
 
 gsndesign:part-0 rdf:type gsndesign:StandardPart ; skos:prefLabel "Part 0 etc." .
 gsndesign:part-1 rdf:type gsndesign:StandardPart ; skos:prefLabel "Part 1" .

@@ -457,9 +457,10 @@ gsndesign:cq-CQ-78
 #    what detects that it changed.
 #    
 #    Two links reach back into the ontology, and they are not the same strength.
-#    gsndesign:translatesStatement is an exact correspondence: the files under
-#    ontology/queries/rules/ ARE the SWRL rules, re-expressed for a store with no reasoner, and
-#    the join is the rule's name. gsndesign:restsOnStatement is weaker and derived: the
+#    gsndesign:translatesStatement joins each file under ontology/queries/rules/ to the SWRL
+#    rule that it re-expresses for a store with no reasoner, and the join is the rule's
+#    name. gsndesign:differsBy says where the update does what the rule cannot: it
+#    retracts an old value, or it has a guard. gsndesign:restsOnStatement is weaker and derived: the
 #    axiom declaring each gsn: term the query names. Either way the target is a
 #    StatementRecord, so one hop further reaches why that axiom exists at all.
 #################################################################
@@ -3102,6 +3103,7 @@ gsndesign:query-rules-s01-assumption-invalidation
         gsn:valid ;
     gsndesign:ruleName "Assumption Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-0119 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0188 ,
         gsndesign:st-0218 ;
@@ -3134,6 +3136,7 @@ gsndesign:query-rules-s02-contextual-relation
         gsn:relationshipType ;
     gsndesign:ruleName "Contextual Relation" ;
     gsndesign:translatesStatement gsndesign:st-0127 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0120 ,
         gsndesign:st-0218 ;
     gsndesign:queryText """# rule:      S2
@@ -3166,6 +3169,7 @@ gsndesign:query-rules-s03-evidential-relation
         gsn:supportedBy ;
     gsndesign:ruleName "Evidential Relation" ;
     gsndesign:translatesStatement gsndesign:st-0137 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0120 ,
         gsndesign:st-0175 ,
         gsndesign:st-0207 ;
@@ -3200,6 +3204,7 @@ gsndesign:query-rules-s04-inferential-relation
         gsn:supportedBy ;
     gsndesign:ruleName "Inferential Relation" ;
     gsndesign:translatesStatement gsndesign:st-0142 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0120 ,
         gsndesign:st-0167 ,
         gsndesign:st-0207 ;
@@ -3234,6 +3239,7 @@ gsndesign:query-rules-s05-inferential-relation-goal
         gsn:supportedBy ;
     gsndesign:ruleName "Inferential Relation (Goal)" ;
     gsndesign:translatesStatement gsndesign:st-0143 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0120 ,
         gsndesign:st-0161 ,
         gsndesign:st-0207 ;
@@ -3270,6 +3276,8 @@ gsndesign:query-rules-s06-goal-top-flag
         gsn:top ;
     gsndesign:ruleName "Goal Top Flag" ;
     gsndesign:translatesStatement gsndesign:st-0148 ;
+    gsndesign:differsBy gsndesign:Retraction ,
+        gsndesign:Guard ;
     gsndesign:restsOnStatement gsndesign:st-0144 ,
         gsndesign:st-0161 ,
         gsndesign:st-0207 ,
@@ -3314,6 +3322,7 @@ gsndesign:query-rules-s08-contradictory-goal-truth
         gsn:valid ;
     gsndesign:ruleName "Contradictory Goal Truth" ;
     gsndesign:translatesStatement gsndesign:st-0239 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0161 ,
         gsndesign:st-0207 ,
@@ -3351,6 +3360,8 @@ gsndesign:query-rules-s10-solution-propagation-true
         gsn:true ;
     gsndesign:ruleName "Solution Propagation (True)" ;
     gsndesign:translatesStatement gsndesign:st-0243 ;
+    gsndesign:differsBy gsndesign:Retraction ,
+        gsndesign:Guard ;
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0188 ,
         gsndesign:st-0207 ,
@@ -3397,6 +3408,7 @@ gsndesign:query-rules-s11-solution-propagation-false
         gsn:true ;
     gsndesign:ruleName "Solution Propagation (False)" ;
     gsndesign:translatesStatement gsndesign:st-0244 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0175 ,
         gsndesign:st-0207 ,
         gsndesign:st-0234 ;
@@ -3428,6 +3440,7 @@ gsndesign:query-rules-s12-mixed-support-invalidation
         gsn:valid ;
     gsndesign:ruleName "Mixed Support Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-0245 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0207 ;
     gsndesign:queryText """# rule:      S12
@@ -3461,6 +3474,7 @@ gsndesign:query-rules-s14-relation-false-propagation
         gsn:true ;
     gsndesign:ruleName "Relation False Propagation" ;
     gsndesign:translatesStatement gsndesign:st-0248 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0218 ,
         gsndesign:st-0234 ,
         gsndesign:st-0291 ;
@@ -3496,6 +3510,7 @@ gsndesign:query-rules-s16-assumption-false-propagation
         gsn:true ;
     gsndesign:ruleName "Assumption False Propagation" ;
     gsndesign:translatesStatement gsndesign:st-0254 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0188 ,
         gsndesign:st-0218 ,
         gsndesign:st-0234 ;
@@ -3652,6 +3667,7 @@ gsndesign:query-rules-s20-final-pattern-invalidation
         gsn:valid ;
     gsndesign:ruleName "Final Pattern Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-0310 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0305 ,
         gsndesign:st-0330 ,
@@ -3689,6 +3705,7 @@ gsndesign:query-rules-s21-template-undeveloped-invalidation-a
         gsn:valid ;
     gsndesign:ruleName "Template Undeveloped Invalidation (A)" ;
     gsndesign:translatesStatement gsndesign:st-0449 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0200 ,
         gsndesign:st-0438 ,
@@ -3730,6 +3747,7 @@ gsndesign:query-rules-s22-template-undeveloped-invalidation-b
         gsn:valid ;
     gsndesign:ruleName "Template Undeveloped Invalidation (B)" ;
     gsndesign:translatesStatement gsndesign:st-0450 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0200 ,
         gsndesign:st-0438 ,
@@ -3770,6 +3788,7 @@ gsndesign:query-rules-s23-cross-module-away-support
         gsn:supportedBy ;
     gsndesign:ruleName "Cross-Module Away Support" ;
     gsndesign:translatesStatement gsndesign:st-1078 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0207 ,
         gsndesign:st-0490 ,
         gsndesign:st-0944 ;
@@ -3802,6 +3821,7 @@ gsndesign:query-rules-s24-cross-module-away-context
         gsn:inModule ;
     gsndesign:ruleName "Cross-Module Away Context" ;
     gsndesign:translatesStatement gsndesign:st-1077 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0218 ,
         gsndesign:st-0490 ,
         gsndesign:st-0944 ;
@@ -3834,6 +3854,7 @@ gsndesign:query-rules-s25-duplicate-identifier-invalidation
         gsn:valid ;
     gsndesign:ruleName "Duplicate Identifier Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1079 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0944 ;
     gsndesign:queryText """# rule:      S25
@@ -3872,6 +3893,7 @@ gsndesign:query-rules-s26-contract-violation-relation
         gsn:valid ;
     gsndesign:ruleName "Contract Violation Relation" ;
     gsndesign:translatesStatement gsndesign:st-0523 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0207 ,
         gsndesign:st-0469 ,
@@ -3914,6 +3936,7 @@ gsndesign:query-rules-s27-context-contract-invalidation
         gsn:valid ;
     gsndesign:ruleName "Context Contract Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-0524 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0218 ,
         gsndesign:st-0469 ,
@@ -3955,6 +3978,7 @@ gsndesign:query-rules-s28-contract-support-invalidation
         gsn:valid ;
     gsndesign:ruleName "Contract Support Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-0550 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0469 ,
         gsndesign:st-0525 ,
@@ -3994,6 +4018,7 @@ gsndesign:query-rules-s29-away-goal-invalidation
         gsn:valid ;
     gsndesign:ruleName "Away Goal Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-0559 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0161 ,
         gsndesign:st-0207 ,
@@ -4035,6 +4060,7 @@ gsndesign:query-rules-s30-contract-activation
         gsn:toBeSupportedByContract ;
     gsndesign:ruleName "Contract Activation" ;
     gsndesign:translatesStatement gsndesign:st-1080 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0207 ,
         gsndesign:st-0490 ,
         gsndesign:st-0525 ,
@@ -4075,6 +4101,7 @@ gsndesign:query-rules-s31-contract-relation-invalidation
         gsn:valid ;
     gsndesign:ruleName "Contract Relation Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-0562 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0207 ,
         gsndesign:st-0542 ,
@@ -4155,6 +4182,7 @@ gsndesign:query-rules-s33-substitution-invalidation
         gsn:valid ;
     gsndesign:ruleName "Substitution Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1076 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0194 ,
         gsndesign:st-0218 ,
@@ -4277,6 +4305,7 @@ gsndesign:query-rules-s38-public-context-propagation
         gsn:public ;
     gsndesign:ruleName "Public Context Propagation" ;
     gsndesign:translatesStatement gsndesign:st-0618 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0218 ,
         gsndesign:st-0534 ;
@@ -4310,6 +4339,7 @@ gsndesign:query-rules-s39-public-contract-invalidation
         gsn:valid ;
     gsndesign:ruleName "Public Contract Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-0632 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0525 ,
         gsndesign:st-0534 ,
@@ -4392,6 +4422,7 @@ gsndesign:query-rules-s41-duplicate-acp-identifier-invalidation
         gsn:valid ;
     gsndesign:ruleName "Duplicate ACP Identifier Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1013 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0635 ;
     gsndesign:queryText """# rule:      S41
@@ -4679,6 +4710,7 @@ gsndesign:query-rules-s46-challenge-defeat
         gsn:valid ;
     gsndesign:ruleName "Challenge Defeat" ;
     gsndesign:translatesStatement gsndesign:st-0729 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0175 ,
         gsndesign:st-0696 ,
@@ -4712,6 +4744,7 @@ gsndesign:query-rules-s47-defeated-invalidation
         gsn:valid ;
     gsndesign:ruleName "Defeated Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-0730 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0699 ;
     gsndesign:queryText """# rule:      S47
@@ -4742,6 +4775,7 @@ gsndesign:query-rules-s48-challenge-doubt
         gsn:true ;
     gsndesign:ruleName "Challenge Doubt" ;
     gsndesign:translatesStatement gsndesign:st-0737 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0234 ,
         gsndesign:st-0696 ,
@@ -4778,6 +4812,7 @@ gsndesign:query-rules-s49-undeveloped-defeat
         gsn:undeveloped ;
     gsndesign:ruleName "Undeveloped Defeat" ;
     gsndesign:translatesStatement gsndesign:st-0738 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0200 ,
         gsndesign:st-0696 ,
@@ -4868,6 +4903,7 @@ gsndesign:query-rules-s51-challenge-chain-invalidation
         gsn:valid ;
     gsndesign:ruleName "Challenge Chain Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1070 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0161 ,
         gsndesign:st-0167 ,
@@ -5045,6 +5081,7 @@ gsndesign:query-rules-s56-support-cycle-invalidation
         gsn:valid ;
     gsndesign:ruleName "Support Cycle Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1041 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-1023 ;
     gsndesign:queryText """# rule:      S56
@@ -5075,6 +5112,7 @@ gsndesign:query-rules-s57-support-cycle-relationship-invalidation
         gsn:valid ;
     gsndesign:ruleName "Support Cycle Relationship Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1042 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0207 ,
         gsndesign:st-0291 ,
@@ -5138,6 +5176,7 @@ gsndesign:query-rules-s59-module-context-cycle-invalidation
         gsn:valid ;
     gsndesign:ruleName "Module Context Cycle Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1044 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-1028 ;
     gsndesign:queryText """# rule:      S59
@@ -5168,6 +5207,7 @@ gsndesign:query-rules-s60-module-context-cycle-relationship-invalidation
         gsn:valid ;
     gsndesign:ruleName "Module Context Cycle Relationship Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1045 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0218 ,
         gsndesign:st-0291 ,
@@ -5228,6 +5268,7 @@ gsndesign:query-rules-s62-challenge-cycle-invalidation
         gsn:valid ;
     gsndesign:ruleName "Challenge Cycle Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1047 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-1025 ;
     gsndesign:queryText """# rule:      S62
@@ -5258,6 +5299,7 @@ gsndesign:query-rules-s63-challenge-cycle-relationship-invalidation
         gsn:valid ;
     gsndesign:ruleName "Challenge Cycle Relationship Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1048 ;
+    gsndesign:differsBy gsndesign:Retraction ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0291 ,
         gsndesign:st-0696 ,

@@ -56,7 +56,13 @@ Two links tie a query back to the ontology, and they are deliberately different 
 | `gsndesign:translatesStatement` | exact — this query *is* that axiom, re-expressed | the 58 rule queries, joined on the rule's name |
 | `gsndesign:restsOnStatement` | derived — the axiom declaring a term the query names | 120 of 135 queries, 61 distinct axioms |
 
-Both point at a `gsndesign:StatementRecord`, so one further hop reaches the design decision,
+A rule query and its SWRL rule state the same rule, but the query can do two things that SWRL
+cannot. `gsndesign:differsBy` records them: `gsndesign:Retraction`, where the query deletes the
+old value of a flag, and `gsndesign:Guard`, where it draws its conclusion only if a stated fact
+is absent. `prov_augment.py` derives both from the text of the query, and
+`ontology/queries/rules/README.md` lists them for each rule.
+
+Both links point at a `gsndesign:StatementRecord`, so one further hop reaches the design decision,
 its rationale and the passage of the standard. That is the chain the queries were missing:
 
 ```sparql

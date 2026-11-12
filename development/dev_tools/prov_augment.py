@@ -88,6 +88,76 @@ def file_block(iri, path, extra=()):
     return (iri, pairs)
 
 
+def _braced(text, start):
+    """The text between the brace at `start - 1` and its closing brace, and the end position."""
+    depth, position = 1, start
+    while depth and position < len(text):
+        depth += {"{": 1, "}": -1}.get(text[position], 0)
+        position += 1
+    return text[start:position - 1], position
+
+
+def _triples(block):
+    """The triple patterns of a plain block, or None if it holds more than triples."""
+    if "{" in block or re.search(r"\b(FILTER|BIND|OPTIONAL|VALUES|UNION|MINUS)\b", block):
+        return None
+    tokens = re.sub(r"\s*([;,.])(?=\s|$)", r" \1 ", block).split()
+    found, subject, predicate, current = set(), None, None, []
+    for token in tokens + ["."]:
+        if token in (";", ",", "."):
+            if subject is None and len(current) == 3:
+                subject, predicate = current[0], current[1]
+                current = current[2:]
+            elif predicate is None and len(current) == 2:
+                predicate, current = current[0], current[1:]
+            elif len(current) == 2:
+                predicate, current = current[0], current[1:]
+            if len(current) != 1 or subject is None or predicate is None:
+                return None if current else found
+            found.add((subject, "rdf:type" if predicate == "a" else predicate, current[0]))
+            current = []
+            if token == ";":
+                predicate = None
+            elif token == ".":
+                subject, predicate = None, None
+        else:
+            current.append(token)
+    return found
+
+
+def translation_differences(body):
+    """How a SPARQL update differs from the SWRL rule that it re-expresses.
+
+    SWRL only adds facts and cannot test that something is absent, so two things in an update
+    have no counterpart in the rule. A DELETE clause is a retraction. A negated condition is a
+    guard, with one exception: a NOT EXISTS that tests only for what the update is about to
+    insert. That test keeps the update from writing a second copy, which a rule cannot do
+    anyway, so it is not a difference.
+    """
+    found = []
+    if re.search(r"(?m)^\s*DELETE\b", body):
+        found.append("gsndesign:Retraction")
+    inserted = set()
+    for match in re.finditer(r"\bINSERT\s*\{", body):
+        inserted |= _triples(_braced(body, match.end())[0]) or set()
+    guard, covered = bool(re.search(r"\bMINUS\b", body)), 0
+    for match in re.finditer(r"\bNOT EXISTS\s*\{", body):
+        if match.start() < covered:          # nested in a block that is already a guard
+            continue
+        block, covered = _braced(body, match.end())
+        outside = body[:match.end()] + body[covered:]
+        patterns = _triples(block)
+        if patterns is None or not all(
+                any(p == p2 and o == o2 and (s == s2 or (s.startswith("?") and not re.search(
+                    re.escape(s) + r"\b", outside)))
+                    for s2, p2, o2 in inserted)
+                for s, p, o in patterns):
+            guard = True
+    if guard:
+        found.append("gsndesign:Guard")
+    return found
+
+
 def query_name(path):
     """What a query is called in the record.
 
@@ -230,9 +300,10 @@ def main():
         "a given version without the file having to still exist. gsndesign:fileChecksum is\n"
         "what detects that it changed.\n\n"
         "Two links reach back into the ontology, and they are not the same strength.\n"
-        "gsndesign:translatesStatement is an exact correspondence: the files under\n"
-        "ontology/queries/rules/ ARE the SWRL rules, re-expressed for a store with no reasoner, and\n"
-        "the join is the rule's name. gsndesign:restsOnStatement is weaker and derived: the\n"
+        "gsndesign:translatesStatement joins each file under ontology/queries/rules/ to the SWRL\n"
+        "rule that it re-expresses for a store with no reasoner, and the join is the rule's\n"
+        "name. gsndesign:differsBy says where the update does what the rule cannot: it\n"
+        "retracts an old value, or it has a guard. gsndesign:restsOnStatement is weaker and derived: the\n"
         "axiom declaring each gsn: term the query names. Either way the target is a\n"
         "StatementRecord, so one hop further reaches why that axiom exists at all."))
     unanswered = dict(by_query)
@@ -264,6 +335,9 @@ def main():
                 pairs.append(("gsndesign:translatesStatement", [by_rule[rule_name]]))
             else:
                 unjoined.append((name, rule_name))
+            differences = translation_differences(body)
+            if differences:
+                pairs.append(("gsndesign:differsBy", differences))
         rests = sorted({st for term in mentions
                         for st in by_term.get(term.split(":", 1)[1], [])})
         if rests:

@@ -88,6 +88,11 @@ ACCEPTED = {
         "patch release, then delete this entry.",
     ("missing", "Argument Pattern Ext", "gsn:undeveloped"): "As above: it is drawn on Core.",
     ("missing", "All Extensions", "gsn:undeveloped"): "As above: it is drawn on Core.",
+    ("missing", "OntoGSN-Provenance", "gsndesign:TranslationDifference"):
+        "New in design record 1.4.0. Draw it when the Provenance page is laid out again, "
+        "then delete this entry.",
+    ("missing", "OntoGSN-Provenance", "gsndesign:differsBy"):
+        "As above: new in design record 1.4.0, not drawn yet.",
 }
 
 # Graffoo fill colours -> what a box is. The newer pages wrap them in light-dark().
