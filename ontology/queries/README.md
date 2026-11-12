@@ -35,6 +35,8 @@ data carries `true`, `"true"^^xsd:boolean` or `"true"`.
 
 ## The catalogue
 
+[count]: <> (read_queries)
+
 ### Read — 27 queries
 
 | Query | Question |
@@ -67,6 +69,8 @@ data carries `true`, `"true"^^xsd:boolean` or `"true"`.
 | `read_stale_evidence` | Artefacts older than a cutoff, and the claims on them |
 | `read_relationship_decorators` | Optional / multiple / choice / cardinality |
 
+[count]: <> (create_queries)
+
 ### Create — 7 queries
 
 | Query | Question |
@@ -79,6 +83,8 @@ data carries `true`, `"true"^^xsd:boolean` or `"true"`.
 | `create_solutions_for_unreferenced_artefacts` | Bulk-import evidence from a pipeline |
 | `create_challenge_to_element` | Record a challenge against part of the argument |
 
+[count]: <> (update_queries)
+
 ### Update — 3 queries
 
 | Query | Question |
@@ -88,6 +94,8 @@ data carries `true`, `"true"^^xsd:boolean` or `"true"`.
 | `update_retarget_solution_to_new_artefact` | Re-baseline a solution onto new evidence |
 
 Everything else that changes flags is a rule — see below.
+
+[count]: <> (delete_queries)
 
 ### Delete — 6 queries
 

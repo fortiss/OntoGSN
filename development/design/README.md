@@ -4,6 +4,8 @@ The record of **why** OntoGSN says what it says: which passage of the GSN Commun
 Standard v3 each axiom came from, what was decided, the reasoning, and what the axiom said
 at the time. PROV-O is the backbone; `gsndesign:` adds only the terms PROV-O has no room for.
 
+[count]: <> (decisions passages rationales statements)
+
 | File | Role |
 | :--- | :--- |
 | `ontogsn-design.ttl` | the vocabulary. Hand-written. |
@@ -38,12 +40,16 @@ mismatch as a hint to look, never as evidence of drift.
 
 ## How a stored query reaches the ontology
 
+[count]: <> (recorded_queries)
+
 The 137 stored queries are `gsndesign:Query`, carry `gsndesign:formalism gsndesign:SPARQL`, and
 hold their own text verbatim in `gsndesign:queryText` — the counterpart of
 `gsndesign:statementText`, and evidence in the same way. Identity is `gsndesign:path`; change
 is detected by `gsndesign:fileChecksum`.
 
 Two links tie a query back to the ontology, and they are deliberately different strengths.
+
+[count]: <> (_ queries_resting recorded_queries axioms_rested_on)
 
 | Link | Strength | Coverage |
 | :--- | :--- | :--- |
@@ -61,6 +67,8 @@ SELECT ?file ?rule ?clause WHERE {
 }
 ```
 
+[count]: <> (queries_resting_on_nothing augmentation_queries_resting_on_nothing)
+
 `restsOnStatement` is the *declaring* axiom only — `Goal a Class`, not every restriction
 ever written about goals. Linking a query to all of those would produce a few thousand
 edges that say nothing. 15 queries rest on nothing, and each for a real reason, not a
@@ -76,6 +84,8 @@ a decision and a query, and asserting either as the domain would make a reasoner
 other as it.
 
 ## Why a decision is an Activity
+
+[count]: <> (decisions_for_nothing decisions)
 
 `gsndesign:DesignDecision ⊑ prov:Activity`, not `prov:Entity`. It `prov:used` the passages it
 rested on and `prov:generated` the statement it produced — so a decision to represent

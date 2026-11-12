@@ -17,6 +17,23 @@ run `query_check.py`, because that script executes the stored queries. `--verify
 runs `query_check.py` and then `prov_augment.py`, and it stops if a query fails. After a change
 to the ontology or to a query, `--fix --verify` prepares the commit in one command.
 
+## Counts in the documents
+
+A README that states a count names it with a marker, on a line of its own above the block:
+
+```markdown
+[count]: <> (queries)
+
+`ontology/queries/` holds 43 CRUD SPARQL queries ...
+```
+
+GitHub shows nothing for the marker. `doc_counts.py` binds each name to a whole number of the
+next block, in order, and `_` skips a number. `doc_counts.py --check` fails if a number differs
+from its source, and `check_all.py --fix` corrects it. The names and their definitions are in
+`counts()` in the script. To cover a new number, add a marker, and add a count to the script
+if none fits. The pages of the website and the Turtle headers cannot hold a marker, so the
+script finds their numbers with the patterns in `TEXTS`.
+
 ## Automation
 
 `.github/workflows/checks.yml` runs `check_all.py --strict` on every push to `main` and
@@ -64,6 +81,8 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `ontology/queries/rules/*.rq` | the 60 SWRL rules as SPARQL updates |
 | `ontology/example/example_case.ttl` | the example ABox the queries and checks run against |
 | `development/dev_tools/testdata/*.ttl` | one trigger per rule, and the recorded baselines |
+
+[count]: <> (separated_files)
 
 | Generated | From | By |
 | :--- | :--- | :--- |
@@ -120,6 +139,8 @@ workbook_io.py     one definition of the spreadsheet's columns and styling
 ## The working loop
 
 **Added an axiom to `ontogsn.ttl`?**
+
+[count]: <> (separated_files)
 
 ```bash
 python development/dev_tools/build.py            # refresh the derived formats
