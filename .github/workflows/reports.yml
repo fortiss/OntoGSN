@@ -160,6 +160,18 @@ jobs:
           name: foops
           path: docs/evaluation/foops
 
+      # The Evaluation page states the versions and the totals of the two reports.
+      # doc_counts.py writes them from the report files, so that the page and the reports
+      # change in one pull request. A failure here does not stop the proposal: checks.yml
+      # then reports the stale page on the pull request.
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install -c development/dev_tools/constraints.txt rdflib
+      - name: write the report totals into the Evaluation page
+        continue-on-error: true
+        run: python development/dev_tools/doc_counts.py
+
       # Opens the pull request, or updates the one already open. With nothing changed, it
       # does neither.
       - uses: peter-evans/create-pull-request@v8

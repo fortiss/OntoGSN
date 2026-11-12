@@ -41,7 +41,7 @@ The record and this file use seven terms from the ARGO side. This table defines 
 | TBox | The class and property level of an ontology, as opposed to its individuals |
 
 ARGO has 16 classes, 22 object properties, no datatype properties and no rules. OntoGSN has 20
-classes, 12 object properties, 24 datatype properties and 58 SWRL rules. The missing datatype
+classes, 16 object properties, 25 datatype properties and 58 SWRL rules. The missing datatype
 properties are the shortest statement of the gap. ARGO stores no truth values and no flags as
 data.
 

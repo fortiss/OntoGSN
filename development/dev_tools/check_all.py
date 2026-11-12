@@ -11,7 +11,7 @@ Without --fix, nothing regenerates anything here. This answers one question: is 
 committed self-consistent? Three of the eleven checks are about derived files being current, one is
 about every stored query having been verified against what is committed, one is about
 every file stating the same version and the same number of rules, one is about every
-text stating the counts that the design record has, one is about the
+document stating the counts that its source has, one is about the
 design record still agreeing with the ontology, one is about the generated part of the
 design record being current, one is about the Graffoo diagrams still drawing the
 ontologies, and the last two ask an OWL-DL reasoner and the OOPS! pitfall scanner what
@@ -36,8 +36,8 @@ reasoner and OOPS! checks never run in the hook at all - eleven seconds and a ne
 trip are not what a commit should cost - which is what "in_hook" below says.
 
 --fix runs four scripts before the checks: the three generators build.py,
-build_separated.py and build_full.py, and design_counts.py, which corrects the counts of
-the design record in the texts that state them. Each one writes only the files that
+build_separated.py and build_full.py, and doc_counts.py, which corrects the counts that the
+READMEs and the website pages state. Each one writes only the files that
 changed, and a generator refuses to write a file that does not say what its source says. A person still starts it, and a person still stages the
 result. CI never passes --fix. It does not run query_check.py, because that script executes
 the stored queries and is a verification, not a build.
@@ -45,7 +45,7 @@ the stored queries and is a verification, not a build.
 --verify does that second step. It runs query_check.py, which executes each stored query
 that changed and records the outcome, and then prov_augment.py, which rebuilds the generated
 part of the design record from that outcome. It runs after the generators and before
-design_counts.py, because the counts read the generated record. A query that fails stops the
+doc_counts.py, because some counts read the generated record. A query that fails stops the
 run, so --verify never records a result that nobody saw. With --fix --verify, one command
 prepares a commit after a change to the ontology or to a query.
 """
@@ -103,16 +103,21 @@ CHECKS = [
                   "ontology/queries/README.md", "ontology/serializations/separated/README.md",
                   "development/dev_tools/README.md",
                   "development/dev_tools/release_check.py")},
-    # Counts in the design record and compares each number that a README or a header
-    # states. It gates because a wrong count is a mistake, and --fix corrects it.
-    {"name": "counts of the design record",
-     "command": ["development/dev_tools/design_counts.py", "--check"],
-     "fix": ["development/dev_tools/design_counts.py"],
+    # Counts in the design record, the query folder, the augmentation, the alignment and
+    # the last reports, and compares each number that a README or a website page states.
+    # It gates because a wrong count is a mistake, and --fix corrects it.
+    {"name": "counts in the documents",
+     "command": ["development/dev_tools/doc_counts.py", "--check"],
+     "fix": ["development/dev_tools/doc_counts.py"],
      # it reads the generated design record, so it runs after the --verify scripts
      "fix_last": True,
      "gating": True,
-     "triggers": ("development/design/", "alignments/README.md",
-                  "development/dev_tools/design_counts.py")},
+     "triggers": ("development/design/", "alignments/", "augmentation/README.md",
+                  "augmentation/ontogsn-augmentation.ttl", "augmentation/shapes/",
+                  "ontology/queries/", "ontology/serializations/", "README.md",
+                  "docs/_pages/tutorial.md", "docs/evaluation/",
+                  "development/dev_tools/README.md",
+                  "development/dev_tools/doc_counts.py")},
     {"name": "design record",
      "command": ["development/dev_tools/prov_check.py"],
      "gating": False,
@@ -176,7 +181,7 @@ def main():
     ap.add_argument("--fix", action="store_true",
                     help="regenerate the derived files first: build.py, "
                          "build_separated.py and build_full.py, and correct "
-                         "the counts of the design record: design_counts.py")
+                         "the counts in the documents: doc_counts.py")
     ap.add_argument("--verify", action="store_true",
                     help="execute the stored queries and record the outcome first: "
                          "query_check.py, then prov_augment.py")
