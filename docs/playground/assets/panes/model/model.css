@@ -1,0 +1,65 @@
+.car-scene-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.car-scene-container {
+  width: 100%;
+  height: 100%;
+}
+
+.car-ui { 
+  position: absolute; 
+  left: 0; right: 0; bottom: 0; 
+  box-sizing: border-box; 
+  padding: 0.4rem 0.7rem; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 0.25rem; 
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px); 
+  font-size: 0.85rem;
+}
+
+/* 🔴 red warning bar, hidden by default */
+.car-warning {
+  padding: 0.25rem 0.5rem;
+  background: #c62828;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 4px;
+  display: none;
+}
+
+.car-load-info {
+  align-self: flex-end;
+  text-align: right;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+.car-load-info .value {
+  font-weight: bold;
+}
+
+.car-controls {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.car-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+html[data-theme="dark"] .car-ui {
+  background: rgba(17, 18, 22, 0.72);
+  color: var(--fg);
+  border-top: 1px solid var(--border);
+}
+
+html[data-theme="dark"] .car-load-info {
+  opacity: 0.9;
+}

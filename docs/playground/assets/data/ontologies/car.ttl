@@ -1,0 +1,559 @@
+@prefix schema: <http://schema.org/> .
+@prefix ex:     <https://example.org/car-demo#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix gsn:    <https://w3id.org/OntoGSN/ontology#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+
+<https://example.org/car-demo#>
+  a               owl:Ontology;
+  dct:title       "OntoGSN Car Demo Ontology"@en ;
+  dct:description "Scene-graph (parts+geometry+pose+style) model for an OntoGSN demo car, aligned with schema.org"@en ;
+  dct:creator     "Tomas Bueno Momcilovic" ;
+  dct:license     <https://creativecommons.org/publicdomain/zero/1.0/> ;
+  dct:created     "2025-11-29"^^xsd:date ;
+  owl:imports     <https://schema.org/version/latest/schemaorg-current-http.ttl> .
+
+# -----------------------------------------------------------------------------
+# Existing integration properties (kept)
+# -----------------------------------------------------------------------------
+
+ex:concernsElement a owl:ObjectProperty ;
+  rdfs:label "concerns element"@en ;
+  rdfs:domain gsn:GSNElement ;
+  rdfs:range  owl:Thing .
+
+ex:onTopOf a owl:ObjectProperty ;
+  rdfs:label "on top of"@en ;
+  rdfs:domain schema:Product ;
+  rdfs:range  schema:Product .
+
+ex:underneath a owl:ObjectProperty ;
+  owl:inverseOf ex:onTopOf ;
+  rdfs:label "underneath"@en .
+
+ex:hasPart a owl:ObjectProperty ;
+  rdfs:label "has part"@en ;
+  rdfs:comment "3D part or component of the car model."@en ;
+  rdfs:domain schema:Product ;
+  rdfs:range  schema:Product ;
+  rdfs:subPropertyOf schema:hasPart .
+
+# -----------------------------------------------------------------------------
+# Rendering vocabulary (scene description)
+# -----------------------------------------------------------------------------
+
+# Part → shape, pose, style
+ex:hasShape a owl:ObjectProperty ;
+  rdfs:domain schema:Product ;
+  rdfs:range  ex:Shape ;
+  rdfs:label "has shape"@en .
+
+ex:hasPose a owl:ObjectProperty ;
+  rdfs:domain schema:Product ;
+  rdfs:range  ex:Pose ;
+  rdfs:label "has pose"@en .
+
+ex:hasStyle a owl:ObjectProperty ;
+  rdfs:domain schema:Product ;
+  rdfs:range  ex:Style ;
+  rdfs:label "has style"@en .
+
+# Shape classes
+ex:Shape a owl:Class ; rdfs:label "Shape"@en .
+ex:BoxShape a owl:Class ; rdfs:subClassOf ex:Shape ; rdfs:label "Box shape"@en .
+ex:CylinderShape a owl:Class ; rdfs:subClassOf ex:Shape ; rdfs:label "Cylinder shape"@en .
+ex:PlaneShape a owl:Class ; rdfs:subClassOf ex:Shape ; rdfs:label "Plane shape"@en .
+
+# Pose
+ex:Pose a owl:Class ; rdfs:label "Pose"@en .
+ex:posX a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "posX (m)"@en .
+ex:posY a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "posY (m)"@en .
+ex:posZ a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "posZ (m)"@en .
+ex:rotX a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "rotX (rad)"@en .
+ex:rotY a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "rotY (rad)"@en .
+ex:rotZ a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "rotZ (rad)"@en .
+
+# Box dimensions (meters)
+ex:sizeX a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "sizeX (m)"@en .
+ex:sizeY a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "sizeY (m)"@en .
+ex:sizeZ a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "sizeZ (m)"@en .
+
+# Cylinder dimensions (meters) + segments + axis
+ex:radius   a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "radius (m)"@en .
+ex:height   a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "height (m)"@en .
+ex:segments a owl:DatatypeProperty ; rdfs:range xsd:integer ; rdfs:label "segments"@en .
+ex:axis     a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "axis (x|y|z)"@en .
+
+# Plane dimensions (meters)
+ex:width  a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "width (m)"@en .
+ex:height2 a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "height (m)"@en .
+# (height2 avoids clashing with ex:height used for cylinders; JS can treat based on shape type)
+
+# Style
+ex:Style a owl:Class ; rdfs:label "Style"@en .
+ex:fillColor   a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "fill color (#rrggbb)"@en .
+ex:transparent a owl:DatatypeProperty ; rdfs:range xsd:boolean ; rdfs:label "transparent"@en .
+ex:opacity     a owl:DatatypeProperty ; rdfs:range xsd:float ; rdfs:label "opacity (0..1)"@en .
+ex:isClickable a owl:DatatypeProperty ; rdfs:range xsd:boolean ; rdfs:label "is clickable"@en .
+
+# Special rendering hooks (optional)
+ex:renderAs a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "render as"@en .
+ex:textFrom a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "text source key"@en .
+
+# Optional UI/state hooks (for toggles)
+ex:isActive a owl:DatatypeProperty ; rdfs:range xsd:boolean ; rdfs:label "is active"@en .
+ex:uiToggleKey a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "ui toggle key"@en .
+
+# -----------------------------------------------------------------------------
+# Scene-level configuration (camera / controls / lighting)
+# -----------------------------------------------------------------------------
+
+ex:SceneConfig a owl:Class ; rdfs:label "Scene configuration"@en .
+ex:hasSceneConfig a owl:ObjectProperty ;
+  rdfs:domain schema:Vehicle ;
+  rdfs:range ex:SceneConfig ;
+  rdfs:label "has scene config"@en .
+
+ex:cameraPosX a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:cameraPosY a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:cameraPosZ a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:cameraTargetX a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:cameraTargetY a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:cameraTargetZ a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:controlsTargetX a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:controlsTargetY a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:controlsTargetZ a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:orthoSize a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:background a owl:DatatypeProperty ; rdfs:range xsd:string .
+
+ex:ambientLightColor a owl:DatatypeProperty ; rdfs:range xsd:string .
+ex:directionalLightColor a owl:DatatypeProperty ; rdfs:range xsd:string .
+ex:directionalLightIntensity a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:directionalLightPosX a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:directionalLightPosY a owl:DatatypeProperty ; rdfs:range xsd:float .
+ex:directionalLightPosZ a owl:DatatypeProperty ; rdfs:range xsd:float .
+
+# -----------------------------------------------------------------------------
+# Shared shapes (reused across parts)
+# -----------------------------------------------------------------------------
+
+ex:shapeBody a ex:BoxShape ;
+  ex:sizeX 4.54 ; ex:sizeY 0.75 ; ex:sizeZ 2.00 .
+
+ex:shapeCabin a ex:BoxShape ;
+  ex:sizeX 2.15 ; ex:sizeY 0.80 ; ex:sizeZ 1.70 .
+
+ex:shapeWindshield a ex:BoxShape ;
+  ex:sizeX 0.84 ; ex:sizeY 0.55 ; ex:sizeZ 1.66 .
+
+ex:shapeLight a ex:BoxShape ;
+  ex:sizeX 0.15 ; ex:sizeY 0.25 ; ex:sizeZ 0.35 .
+
+ex:shapeRoofRack a ex:BoxShape ;
+  ex:sizeX 2.00 ; ex:sizeY 0.05 ; ex:sizeZ 1.50 .
+
+ex:shapeRoofBox a ex:BoxShape ;
+  ex:sizeX 1.00 ; ex:sizeY 0.80 ; ex:sizeZ 0.80 .
+
+ex:shapeLuggage a ex:BoxShape ;
+  ex:sizeX 0.80 ; ex:sizeY 0.40 ; ex:sizeZ 0.30 .
+
+ex:shapeFrontBumper a ex:BoxShape ;
+  ex:sizeX 0.05 ; ex:sizeY 0.10 ; ex:sizeZ 1.80 .
+
+ex:shapeDoor a ex:BoxShape ;
+  ex:sizeX 1.30 ; ex:sizeY 0.755 ; ex:sizeZ 0.12 .
+
+ex:shapeDoorHandle a ex:BoxShape ;
+  ex:sizeX 0.30 ; ex:sizeY 0.06 ; ex:sizeZ 0.14 .
+
+ex:shapeMirror a ex:BoxShape ;
+  ex:sizeX 0.28 ; ex:sizeY 0.16 ; ex:sizeZ 0.10 .
+
+ex:shapeMirrorStem a ex:BoxShape ;
+  ex:sizeX 0.08 ; ex:sizeY 0.08 ; ex:sizeZ 0.18 .
+
+ex:shapeSideWindow a ex:BoxShape ;
+  ex:sizeX 1.20 ; ex:sizeY 0.65 ; ex:sizeZ 0.07 .
+
+ex:shapeWheel a ex:CylinderShape ;
+  ex:radius 0.4 ;
+  ex:height 0.5 ;
+  ex:segments 24 ;
+  ex:axis "z" .
+
+ex:shapeLicensePlate a ex:PlaneShape ;
+  ex:width 0.70 ;
+  ex:height2 0.15 .
+
+# -----------------------------------------------------------------------------
+# Shared styles
+# -----------------------------------------------------------------------------
+
+ex:styleSolidClickable a ex:Style ;
+  ex:fillColor "#ffffff" ;
+  ex:isClickable true .
+
+ex:styleGlassClickable a ex:Style ;
+  ex:fillColor "#ffffff" ;
+  ex:transparent true ;
+  ex:opacity 0.5 ;
+  ex:isClickable true .
+
+# -----------------------------------------------------------------------------
+# The car instance (semantic info kept) + scene config
+# -----------------------------------------------------------------------------
+
+ex:car1 a schema:Car ;
+  schema:name "OntoGSN Demo Hatchback"@en ;
+  schema:alternateName "Zastava 101-inspired OntoGSN demo"@en ;
+  schema:description "Small late-1970s style Yugoslav hatchback used as an OntoGSN demo car in a knowledge-augmented assurance case visualization." ;
+  schema:sameAs <https://en.wikipedia.org/wiki/Zastava_101> ;
+  schema:vehicleIdentificationNumber "0N7065N" ;
+  schema:acrissCode "ECMN" ;
+  schema:bodyType "3-door hatchback" ;
+  schema:vehicleConfiguration "3dr hatchback, 1.1L, FWD, 4M" ;
+
+  schema:brand [
+    a schema:Brand ;
+    schema:name "Zastava"@en
+  ] ;
+
+  schema:manufacturer [
+    a schema:Organization ;
+    schema:name "Zastava Automobili"@en ;
+    schema:countryOfOrigin [
+      a schema:Country ;
+      schema:name "Yugoslavia"@en
+    ]
+  ] ;
+
+  schema:model "101 1.1" ;
+  schema:vehicleModelDate "1971-10-15"^^xsd:date ;
+  schema:modelDate        "1971-10-15"^^xsd:date ;
+
+  schema:productionDate             "1983-06-01"^^xsd:date ;
+  schema:dateVehicleFirstRegistered "1983-07-01"^^xsd:date ;
+  schema:purchaseDate               "1989-05-20"^^xsd:date ;
+  schema:numberOfPreviousOwners     "3"^^xsd:integer ;
+
+  schema:numberOfDoors         "3"^^xsd:integer ;
+  schema:numberOfAxles         "2"^^xsd:integer ;
+  schema:numberOfForwardGears  "4"^^xsd:integer ;
+  schema:vehicleTransmission   "4-speed manual" ;
+  schema:driveWheelConfiguration schema:FrontWheelDriveConfiguration ;
+  schema:steeringPosition        schema:LeftHandDriving ;
+
+  schema:vehicleSeatingCapacity "5"^^xsd:integer ;
+  schema:seatingCapacity        "5"^^xsd:integer ;
+  schema:vehicleInteriorColor   "brown cloth" ;
+  schema:vehicleInteriorType    "cloth seats, plastic dashboard" ;
+
+  schema:numberOfAirbags "0"^^xsd:integer ;
+  schema:knownVehicleDamages "Light rust on rear wheel arches and worn driver seat upholstery." ;
+
+  schema:color "light olive green" ;
+  schema:category "classic compact car" ;
+
+  schema:width  [ a schema:QuantitativeValue ; schema:value "2.0"^^xsd:float ; schema:unitCode "MTR" ] ;
+  schema:height [ a schema:QuantitativeValue ; schema:value "1.55"^^xsd:float ; schema:unitCode "MTR" ] ;
+  schema:depth  [ a schema:QuantitativeValue ; schema:value "4.54"^^xsd:float ; schema:unitCode "MTR" ] ;
+
+  schema:weightTotal [ a schema:QuantitativeValue ; schema:value "1220"^^xsd:float ; schema:unitCode "KGM" ] ;
+  schema:payload     [ a schema:QuantitativeValue ; schema:value "400"^^xsd:float ; schema:unitCode "KGM" ] ;
+  schema:roofLoad    [ a schema:QuantitativeValue ; schema:value "50"^^xsd:float ; schema:unitCode "KGM" ] ;
+
+  schema:fuelType "petrol" ;
+  schema:vehicleEngine ex:engine1 ;
+
+  ex:hasSceneConfig ex:car1Scene ;
+
+  # Parts (renderable / selectable)
+  ex:hasPart
+    ex:Body,
+    ex:Cabin,
+    ex:frontBumper,
+    ex:frontLicensePlate,
+    ex:frontWindshield,
+    ex:rearWindshield,
+
+    ex:frontLeftWheel, ex:frontRightWheel,
+    ex:rearLeftWheel,  ex:rearRightWheel,
+
+    ex:leftDoor, ex:rightDoor,
+    ex:leftDoorHandle, ex:rightDoorHandle,
+
+    ex:leftWindow, ex:rightWindow,
+
+    ex:leftMirror, ex:rightMirror,
+    ex:leftMirrorStem, ex:rightMirrorStem,
+
+    ex:frontLeftLight, ex:frontRightLight,
+    ex:rearLeftLight,  ex:rearRightLight,
+
+    ex:roofRack,
+    ex:box,
+    ex:luggage
+  .
+
+ex:car1Scene a ex:SceneConfig ;
+  ex:background "#ffffff" ;
+  ex:orthoSize 2.3 ;
+
+  ex:cameraPosX 6.0 ; ex:cameraPosY 6.0 ; ex:cameraPosZ 6.0 ;
+  ex:cameraTargetX 0.0 ; ex:cameraTargetY 1.0 ; ex:cameraTargetZ 0.0 ;
+
+  # Orbit controls target (kept separate from camera target)
+  ex:controlsTargetX 0.0 ; ex:controlsTargetY 0.8 ; ex:controlsTargetZ 0.0 ;
+
+  ex:ambientLightColor "#888888" ;
+  ex:directionalLightColor "#ffffff" ;
+  ex:directionalLightIntensity 0.9 ;
+  ex:directionalLightPosX 5.0 ; ex:directionalLightPosY 10.0 ; ex:directionalLightPosZ 7.0
+.
+
+# -----------------------------------------------------------------------------
+# Engine (semantic; not strictly needed for rendering, but kept)
+# -----------------------------------------------------------------------------
+
+ex:engine1 a schema:EngineSpecification ;
+  schema:engineDisplacement [ a schema:QuantitativeValue ; schema:value "1116"^^xsd:float ; schema:unitCode "CMQ" ] ;
+  schema:enginePower        [ a schema:QuantitativeValue ; schema:value "41"^^xsd:float ; schema:unitCode "KWT" ] ;
+  schema:torque             [ a schema:QuantitativeValue ; schema:value "79"^^xsd:float ; schema:unitCode "NU" ] ;
+  schema:engineType "Inline 4, overhead cam" ;
+  schema:fuelType   "petrol" .
+
+# -----------------------------------------------------------------------------
+# Parts (each part is self-describing: shape + pose + style)
+# -----------------------------------------------------------------------------
+
+# Body
+ex:Body a schema:Product ;
+  schema:name "Body"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeBody ;
+  ex:hasPose [ a ex:Pose ; ex:posX 0.0 ; ex:posY 0.90 ; ex:posZ 0.0 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# Cabin
+ex:Cabin a schema:Product ;
+  schema:name "Cabin"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeCabin ;
+  ex:hasPose [ a ex:Pose ; ex:posX -0.50 ; ex:posY 1.55 ; ex:posZ 0.0 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# Front bumper
+ex:frontBumper a schema:Product ;
+  schema:name "Front bumper"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeFrontBumper ;
+  ex:hasPose [ a ex:Pose ; ex:posX 2.295 ; ex:posY 0.575 ; ex:posZ 0.0 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# Windshields (rotZ uses ~PI/1.4)
+ex:frontWindshield a schema:Product ;
+  schema:name "Front windshield"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeWindshield ;
+  ex:hasPose [ a ex:Pose ; ex:posX 0.63 ; ex:posY 1.45 ; ex:posZ 0.0 ; ex:rotZ 2.243995 ] ;
+  ex:hasStyle ex:styleGlassClickable .
+
+ex:rearWindshield a schema:Product ;
+  schema:name "Rear windshield"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeWindshield ;
+  ex:hasPose [ a ex:Pose ; ex:posX -1.63 ; ex:posY 1.45 ; ex:posZ 0.0 ; ex:rotZ -2.243995 ] ;
+  ex:hasStyle ex:styleGlassClickable .
+
+# Side windows (glass)
+ex:leftWindow a schema:Product ;
+  schema:name "Left side window"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeSideWindow ;
+  ex:hasPose [ a ex:Pose ; ex:posX -0.07 ; ex:posY 1.555 ; ex:posZ -0.85 ] ;
+  ex:hasStyle ex:styleGlassClickable .
+
+ex:rightWindow a schema:Product ;
+  schema:name "Right side window"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeSideWindow ;
+  ex:hasPose [ a ex:Pose ; ex:posX -0.07 ; ex:posY 1.555 ; ex:posZ 0.85 ] ;
+  ex:hasStyle ex:styleGlassClickable .
+
+# Lights
+ex:frontRightLight a schema:Product ;
+  schema:name "Front-right light"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeLight ;
+  ex:hasPose [ a ex:Pose ; ex:posX 2.25 ; ex:posY 0.85 ; ex:posZ 0.70 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:frontLeftLight a schema:Product ;
+  schema:name "Front-left light"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeLight ;
+  ex:hasPose [ a ex:Pose ; ex:posX 2.25 ; ex:posY 0.85 ; ex:posZ -0.70 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:rearRightLight a schema:Product ;
+  schema:name "Rear-right light"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeLight ;
+  ex:hasPose [ a ex:Pose ; ex:posX -2.25 ; ex:posY 0.85 ; ex:posZ 0.70 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:rearLeftLight a schema:Product ;
+  schema:name "Rear-left light"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeLight ;
+  ex:hasPose [ a ex:Pose ; ex:posX -2.25 ; ex:posY 0.85 ; ex:posZ -0.70 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# Wheels (cylinder axis "x" lets renderer orient correctly)
+ex:frontLeftWheel a schema:Product ;
+  schema:name "Front-left wheel"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeWheel ;
+  ex:hasPose [ a ex:Pose ; ex:posX -1.4 ; ex:posY 0.5 ; ex:posZ -0.85 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:frontRightWheel a schema:Product ;
+  schema:name "Front-right wheel"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeWheel ;
+  ex:hasPose [ a ex:Pose ; ex:posX 1.4 ; ex:posY 0.5 ; ex:posZ -0.85 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:rearLeftWheel a schema:Product ;
+  schema:name "Rear-left wheel"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeWheel ;
+  ex:hasPose [ a ex:Pose ; ex:posX -1.4 ; ex:posY 0.5 ; ex:posZ 0.85 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:rearRightWheel a schema:Product ;
+  schema:name "Rear-right wheel"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeWheel ;
+  ex:hasPose [ a ex:Pose ; ex:posX 1.4 ; ex:posY 0.5 ; ex:posZ 0.85 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# Doors
+ex:rightDoor a schema:Product ;
+  schema:name "Right door"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeDoor ;
+  ex:hasPose [ a ex:Pose ; ex:posX -0.07 ; ex:posY 0.9025 ; ex:posZ 0.96 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:leftDoor a schema:Product ;
+  schema:name "Left door"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeDoor ;
+  ex:hasPose [ a ex:Pose ; ex:posX -0.07 ; ex:posY 0.9025 ; ex:posZ -0.96 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# Door handles
+ex:rightDoorHandle a schema:Product ;
+  schema:name "Right door handle"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeDoorHandle ;
+  ex:hasPose [ a ex:Pose ; ex:posX 0.25 ; ex:posY 1.10 ; ex:posZ 0.96 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:leftDoorHandle a schema:Product ;
+  schema:name "Left door handle"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeDoorHandle ;
+  ex:hasPose [ a ex:Pose ; ex:posX 0.25 ; ex:posY 1.10 ; ex:posZ -0.96 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# Mirrors + stems
+ex:rightMirror a schema:Product ;
+  schema:name "Right mirror"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeMirror ;
+  ex:hasPose [ a ex:Pose ; ex:posX 0.55 ; ex:posY 1.38 ; ex:posZ 1.10 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:leftMirror a schema:Product ;
+  schema:name "Left mirror"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeMirror ;
+  ex:hasPose [ a ex:Pose ; ex:posX 0.55 ; ex:posY 1.38 ; ex:posZ -1.10 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:rightMirrorStem a schema:Product ;
+  schema:name "Right mirror stem"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeMirrorStem ;
+  ex:hasPose [ a ex:Pose ; ex:posX 0.62 ; ex:posY 1.33 ; ex:posZ 1.04 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+ex:leftMirrorStem a schema:Product ;
+  schema:name "Left mirror stem"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeMirrorStem ;
+  ex:hasPose [ a ex:Pose ; ex:posX 0.62 ; ex:posY 1.33 ; ex:posZ -1.04 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# Roof rack
+ex:roofRack a schema:VehiclePart ;
+  schema:name "Roof rack"@en ;
+  schema:isPartOf ex:car1 ;
+  schema:identifier "roofRack"^^xsd:string ;
+  ex:hasShape ex:shapeRoofRack ;
+  ex:hasPose [ a ex:Pose ; ex:posX -0.50 ; ex:posY 1.97 ; ex:posZ 0.0 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# Roof load: Box (toggable)
+ex:box a schema:Product ;
+  schema:name "Box"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:uiToggleKey "roofBox" ;
+  ex:isActive false ;
+  schema:weight [ a schema:QuantitativeValue ; schema:value "45"^^xsd:float ; schema:unitCode "KGM" ] ;
+  ex:hasShape ex:shapeRoofBox ;
+  ex:hasPose [ a ex:Pose ; ex:posX -0.50 ; ex:posY 2.40 ; ex:posZ 0.25 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# Roof load: Luggage (toggable)
+ex:luggage a schema:Product ;
+  schema:name "Luggage"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:uiToggleKey "roofLuggage" ;
+  ex:isActive false ;
+  schema:weight [ a schema:QuantitativeValue ; schema:value "25"^^xsd:float ; schema:unitCode "KGM" ] ;
+  ex:hasShape ex:shapeLuggage ;
+  ex:hasPose [ a ex:Pose ; ex:posX -0.50 ; ex:posY 2.20 ; ex:posZ -0.35 ] ;
+  ex:hasStyle ex:styleSolidClickable .
+
+# License plate (special render)
+ex:frontLicensePlate a schema:Product ;
+  schema:name "Front license plate"@en ;
+  schema:isPartOf ex:car1 ;
+  ex:hasShape ex:shapeLicensePlate ;
+  ex:hasPose [ a ex:Pose ; ex:posX 2.35 ; ex:posY 0.745 ; ex:posZ 0.0 ; ex:rotY 1.5707963 ] ;
+  ex:hasStyle ex:styleSolidClickable ;
+  ex:renderAs "licensePlate" ;
+  ex:textFrom "vin"
+.
+
+# -----------------------------------------------------------------------------
+# Optional relational positioning (kept, can be used later for rule-based layout)
+# -----------------------------------------------------------------------------
+
+ex:car1 ex:onTopOf ex:rearLeftWheel, ex:rearRightWheel,
+                   ex:frontLeftWheel, ex:frontRightWheel .
+ex:Cabin ex:onTopOf ex:car1 .
+ex:roofRack ex:onTopOf ex:Cabin .
+ex:box ex:onTopOf ex:roofRack .
+ex:luggage ex:onTopOf ex:roofRack .
+
+ex:trunk a schema:VehiclePart ;
+  schema:name "Trunk"@en ;
+  schema:isPartOf ex:car1 .

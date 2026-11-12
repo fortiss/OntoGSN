@@ -61,7 +61,7 @@ RECORD = os.path.join(REPO, "development", "design", "ontogsn-design-queries.ttl
 COMMENTS = os.path.join(REPO, "QUERY-COMMENTS.md")
 # every SPARQL file of the repository, not only the stored queries, must hold no comment
 SPARQL_DIRS = [os.path.join(REPO, *d.split("/")) for d in
-               ("ontology/queries", "augmentation", "docs/assets/data/queries")]
+               ("ontology/queries", "augmentation", "docs/playground/assets/data/queries")]
 RULE_DIRS = ("ontology/queries/rules/", "augmentation/rules/", "augmentation/derivations/")
 
 FIXTURES = [FIXTURE, RULE_FIXTURE]

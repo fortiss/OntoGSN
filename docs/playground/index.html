@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <script type="importmap">
+  {
+    "imports": {
+      "@core/":    "./assets/core/",
+      "@rdf/":     "./assets/core/rdf/",
+      "@panes/":   "./assets/panes/",
+      "@bridges/": "./assets/bridges/",
+      "@vendor/":  "./assets/vendor/",
+      "@data/":    "./assets/data/",
+      "three":     "./assets/vendor/three.module.js"
+    }
+  }
+  </script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width = device-width, initial-scale = 1" />
+  <title>OntoGSN Playground</title>
+  <script src="./assets/core/dark_mode.js"></script>
+  <link rel="stylesheet" href="./assets/core/app.css" />
+  <link id="hl-light" rel="stylesheet" href="./assets/vendor/github.min.css" />
+  <link id="hl-dark" rel="stylesheet" href="./assets/vendor/github-dark.min.css" disabled />
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon.png">
+</head>
+
+<body>
+  <script>
+    window.addEventListener('load', async () => {
+      const devReset = new URLSearchParams(location.search).has("reset");
+      if (!devReset) return;
+      if ('caches' in window) (await caches.keys()).forEach(k => caches.delete(k));
+      if ('serviceWorker' in navigator) (await navigator.serviceWorker.getRegistrations()).forEach(r => r.unregister());
+
+      const KEEP = new Set(["ontogsn.theme"]);
+      Object.keys(localStorage).forEach(k => { if (!KEEP.has(k)) localStorage.removeItem(k); });
+
+      sessionStorage.clear();
+    });
+  </script>
+  <h1>OntoGSN Playground</h1>
+  <p><a href="../">Back to the OntoGSN website</a></p>
+
+  <div class="split">
+    <div id="leftButtons" class="btns" data-tab-group="left-main">
+      <button id="btn-theme" class="tab" data-tab-ignore="1" title="Toggle dark mode">🌓</button>
+
+      <div class="tab-dropdown" data-dropdown>
+        <button type="button" class="dropdown-trigger" data-dropdown-trigger aria-haspopup="menu" aria-expanded="false">
+          <span class="dropdown-label" data-dropdown-label>Welcome</span>
+          <span class="dropdown-caret" aria-hidden="true">▾</span>
+        </button>
+
+        <div class="dropdown-menu" data-dropdown-menu role="menu" hidden>
+          <button id="tab-settings" class="tab dropdown-item" role="menuitem" data-pane="settings-root">
+            Settings
+          </button>
+
+          <button id="tab-welcome" class="tab dropdown-item active" role="menuitem" data-pane="doc-root"
+            data-doc-query="data/queries/read_welcomeDoc.sparql" data-doc-var="doc">
+            Welcome
+          </button>
+
+          <button id="tab-table" class="tab dropdown-item" role="menuitem" data-pane="results">
+            Table
+          </button>
+
+          <button id="tab-checklist" class="tab dropdown-item" role="menuitem" data-pane="checklist-root">
+            Checklist
+          </button>
+
+          <button id="tab-editor" class="tab dropdown-item" role="menuitem" data-pane="editor-root">
+            Editor
+          </button>
+
+          <button id="tab-doc" class="tab dropdown-item" role="menuitem" data-pane="doc-root"
+            data-doc-query="data/queries/read_document.sparql" data-doc-var="doc">
+            Document
+          </button>
+
+          <button id="tab-code" class="tab dropdown-item" role="menuitem" data-pane="code-root">
+            Code
+          </button>
+          <button id="tab-converter" class="tab dropdown-item" role="menuitem" data-pane="converter-root">
+            Converter
+          </button>
+
+          <button id="tab-chat" class="tab dropdown-item" role="menuitem" data-pane="chat-root">
+            Chat
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="rightButtons" class="btns" data-tab-group="right-main">
+      <div class="tab-dropdown" data-dropdown>
+        <button type="button" class="dropdown-trigger" data-dropdown-trigger aria-haspopup="menu" aria-expanded="false">
+          <span class="dropdown-label" data-dropdown-label>Tree</span>
+          <span class="dropdown-caret" aria-hidden="true">▾</span>
+        </button>
+
+        <div class="dropdown-menu" data-dropdown-menu role="menu" hidden>
+          <button id="btn-tree-view" class="tab dropdown-item active" role="menuitem" data-view="graph"
+            data-pane="graph-root" data-query="./assets/data/queries/visualize_graph.sparql" data-no-table="1">
+            Tree
+          </button>
+
+          <button id="btn-layers-view" class="tab dropdown-item" role="menuitem" data-view="layers"
+            data-pane="layers-root" data-no-table="1">
+            Layer
+          </button>
+
+          <button id="btn-model-view" class="tab dropdown-item" role="menuitem" data-view="model" data-pane="model-root"
+            data-query="./assets/data/queries/read_carLoadWeight.sparql" data-no-table="1">
+            Model
+          </button>        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="split">
+    <div id="leftPane" class="pane pane-left">
+      <div id="results" class="left-view" hidden></div>
+      <div id="editor-root" class="left-view" hidden></div>
+      <div id="doc-root" class="left-view" hidden></div>
+      <div id="checklist-root" class="left-view" hidden></div>
+      <div id="converter-root" class="left-view" hidden></div>
+      <div id="code-root" class="left-view" hidden></div>
+      <div id="chat-root" class="left-view" hidden></div>
+      <div id="settings-root" class="left-view" hidden></div>
+    </div>
+    <div id="rightPane" class="pane pane-right">
+      <div id="graph-root" class="right-view gsn-host"></div>
+      <div id="layers-root" class="right-view" hidden></div>
+      <div id="model-root" class="right-view" hidden></div>
+    </div>
+  </div>
+
+  <pre id="out"></pre>
+
+  <div class="split">
+    <div id="leftRules" class="btns"></div>
+    <div id="rightModules" class="btns"></div>
+  </div>
+
+  <script src="./assets/vendor/n3.min.js"></script>
+  <script src="./assets/vendor/highlight.min.js"></script>
+
+  <script type="module" src="./assets/core/boot.js"></script>
+
+  <script>
+    window.addEventListener("error", (e) => {
+      console.error("[window error]", e.message, e.filename, e.lineno, e.colno, e.error);
+    });
+    window.addEventListener("unhandledrejection", (e) => {
+      console.error("[unhandledrejection]", e.reason);
+    });
+
+  </script>
+
+  <script>
+    document.getElementById("btn-theme")?.addEventListener("click", () => {
+      window.OntoTheme?.toggle();
+    });
+  </script>
+
+</body>
+
+</html>

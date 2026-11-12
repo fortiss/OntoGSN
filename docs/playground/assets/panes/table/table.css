@@ -1,0 +1,57 @@
+table.sparql {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.sparql th,
+table.sparql td {
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.sparql thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--panel-alt-bg);
+}
+
+#results {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 520px;
+}
+
+#results table.sparql {
+  width: 100%;
+  table-layout: fixed;
+}
+
+#results table.sparql th,
+#results table.sparql td {
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.table-controls {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-bottom: .75rem;
+}
+
+.table-placeholder {
+  border: 1px solid var(--border);
+  background: var(--panel-bg);
+  color: var(--fg);
+  border-radius: .5rem;
+  padding: .75rem;
+}
+
+.table-error { color: #b00020; }
+
+html[data-theme="dark"] .table-error { color: #ff6b6b; }

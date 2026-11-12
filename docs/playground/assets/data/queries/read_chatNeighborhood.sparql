@@ -1,0 +1,6 @@
+SELECT ?s ?p ?o
+WHERE {
+  VALUES ?s { __VALS__ }
+  ?s ?p ?o .
+}
+LIMIT 200

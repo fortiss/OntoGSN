@@ -1,0 +1,29 @@
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+PREFIX gsn:   <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema:<http://schema.org/>
+PREFIX ex:    <https://example.org/car-demo#>
+
+SELECT DISTINCT ?carPartIRI
+WHERE {
+  {
+    SELECT ?roofRack
+    WHERE {
+    ?car a schema:Car ;
+         schema:roofLoad ?roofQv .
+    ?roofQv schema:value ?maxVal .
+    ?roofRack schema:isPartOf ?car ;
+              schema:identifier "roofRack" .
+      ?load a schema:Product ;
+            ex:isActive true ;
+            schema:weight ?wQv ;
+            ex:onTopOf+ ?roofRack .
+      ?wQv schema:value ?wVal .
+    }
+    GROUP BY ?roofRack ?maxVal
+    HAVING (SUM(xsd:float(?wVal)) > xsd:float(?maxVal))
+  }
+  ?load a schema:Product ;
+        ex:isActive true ;
+        ex:onTopOf+ ?roofRack ;
+        ex:onTopOf+ ?carPartIRI .
+}

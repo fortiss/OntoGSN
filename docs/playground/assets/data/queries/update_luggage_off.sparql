@@ -1,0 +1,7 @@
+PREFIX ex: <https://example.org/car-demo#>
+
+DELETE { ?load ex:isActive ?old . }
+WHERE  {
+  ?load ex:uiToggleKey "roofLuggage" .
+  OPTIONAL { ?load ex:isActive ?old . }
+}

@@ -1,0 +1,43 @@
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xyz:    <http://www.example.com/placeholder#>
+
+SELECT
+  ?goal
+  ?kind
+  ?id
+  ?stmt
+  ?valid
+  ?undeveloped
+  (SAMPLE(?done) AS ?done)
+  (GROUP_CONCAT(DISTINCT ?modId; separator=", ") AS ?modules)
+  (GROUP_CONCAT(DISTINCT ?supId; separator=", ") AS ?supportedBy)
+WHERE {
+  ?goal a ?type .
+  FILTER(?type IN (gsn:Goal, gsn:Solution))
+
+  BIND(COALESCE(STRAFTER(STR(?type), "#"), REPLACE(STR(?type), "^.*/", "")) AS ?kind)
+
+  OPTIONAL { ?goal schema:identifier ?id . }
+  OPTIONAL { ?goal gsn:statement ?stmt . }
+  OPTIONAL { ?goal gsn:valid ?valid . }
+  OPTIONAL { ?goal gsn:undeveloped ?undeveloped . }
+
+  OPTIONAL { ?goal xyz:done ?done . }
+
+  OPTIONAL {
+    ?m a gsn:Module ;
+       gsn:contains+ ?goal .
+    OPTIONAL { ?m schema:identifier ?mIdent . }
+    OPTIONAL { ?m rdfs:label ?mLabel . }
+    BIND(COALESCE(STR(?mIdent), STR(?mLabel), STR(?m)) AS ?modId)
+  }
+
+  OPTIONAL {
+    ?goal gsn:supportedBy ?sup .
+    OPTIONAL { ?sup schema:identifier ?supId . }
+  }
+}
+GROUP BY ?goal ?kind ?id ?stmt ?valid ?undeveloped
+ORDER BY LCASE(STR(?modules)) LCASE(STR(?id)) LCASE(STR(?goal))
