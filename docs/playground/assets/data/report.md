@@ -4,9 +4,9 @@
 
 Inspired by the Zastava 101 from the late-1970s Yugoslavia, the OntoGSN demo car (further: **OntoCar**) is a small 3-door hatchback used as a demonstration vehicle for load transport simulations. The car is front-wheel-drive with a 4-speed manual transmission and seating for up to five occupants. The assurance case focuses on static structural loads, particularly those acting on the roof of the vehicle during planned demonstration drives.
 
-1973 Zastava 101. Source: [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Zastava_101), 2016, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). |  OntoCar model of Zastava 101. Own work.
+1973 Zastava 101. Photo: [KGC626](https://commons.wikimedia.org/wiki/User:KGC626), 2016, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:1970%27s_Zastava_101.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). |  OntoCar model of Zastava 101. Own work.
 :-------------------------:|:-------------------------:
-![Photo of a 1973 Zastava 101](assets/data/zastava101_photo.jpg)  |  ![3D model of the OntoCar](assets/data/zastava101_model.gif)
+![Photo of a 1973 Zastava 101](zastava101_photo.jpg)  |  ![3D model of the OntoCar](zastava101_model.gif)
 
 ### 1.1 Key properties
 

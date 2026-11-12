@@ -138,9 +138,25 @@ async function fetchDoc(pathLiteral) {
   return fetchText(url, { cache: "no-store", bust: true });
 }
 
-function renderDocInto(rootEl, mdText) {
-  const html = renderMarkdown(mdText);
-  rootEl.innerHTML = `<article class="doc-view">${html}</article>`;
+// A document names its images relative to itself, as a Markdown viewer expects.
+// The browser resolves a relative path against the page, so make each one absolute.
+function resolveImageUrls(container, docPath) {
+  const docUrl = resolveDocUrl(docPath);
+  if (!docUrl) return;
+
+  for (const img of container.querySelectorAll("img[src]")) {
+    const src = img.getAttribute("src");
+    if (!src || /^([a-z][a-z0-9+.-]*:|\/|#)/i.test(src)) continue;
+    img.setAttribute("src", new URL(src, docUrl).href);
+  }
+}
+
+function renderDocInto(rootEl, mdText, docPath) {
+  // A template does not load its images, so no request goes to the unresolved path.
+  const tpl = document.createElement("template");
+  tpl.innerHTML = `<article class="doc-view">${renderMarkdown(mdText)}</article>`;
+  resolveImageUrls(tpl.content, docPath);
+  rootEl.replaceChildren(tpl.content);
   decorateDocRanges(rootEl);
   flushPendingHighlight();
 }
@@ -174,7 +190,7 @@ export async function runDocQueryInto(rootEl, queryPath, varHint) {
   const md = await fetchDoc(val);
   if (!isLatestDocReq(reqId)) return;
 
-  renderDocInto(rootEl, md);
+  renderDocInto(rootEl, md, val);
   setCurrentDocPath(val);
 
   emitCompat(bus, "doc:loaded", {
@@ -192,7 +208,7 @@ export async function openDocPathInto(rootEl, pathLiteral) {
   const md = await fetchDoc(pathLiteral);
   if (!isLatestDocReq(reqId)) return;
 
-  renderDocInto(rootEl, md);
+  renderDocInto(rootEl, md, pathLiteral);
   setCurrentDocPath(pathLiteral);
 
   emitCompat(bus, "doc:loaded", {
