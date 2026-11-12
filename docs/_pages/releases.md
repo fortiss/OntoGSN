@@ -24,4 +24,4 @@ Each part of OntoGSN has its own version number: the ontology, the SHACL shapes,
 
 Versions 1.0 and 1.1 came before the repository. The [paper](https://arxiv.org/abs/2506.11023) describes them.
 
-Each release of the ontology is archived on Zenodo. The DOI [10.5281/zenodo.17808330](https://doi.org/10.5281/zenodo.17808330) always resolves to the newest release.
+Each major and minor release of the ontology is archived on Zenodo. A patch release has a git tag only. The DOI [10.5281/zenodo.17808330](https://doi.org/10.5281/zenodo.17808330) always resolves to the newest archived release.
