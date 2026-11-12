@@ -31,7 +31,9 @@ GitHub shows nothing for the marker. `doc_counts.py` binds each name to a whole 
 next block, in order, and `_` skips a number. `doc_counts.py --check` fails if a number differs
 from its source, and `check_all.py --fix` corrects it. The names and their definitions are in
 `counts()` in the script. To cover a new number, add a marker, and add a count to the script
-if none fits. The pages of the website and the Turtle headers cannot hold a marker, so the
+if none fits. A second marker, `[table]: <> (name)`, stands above a table that the script
+writes as a whole from `tables()`, for example the list of the rules in
+`ontology/queries/rules/README.md`. The pages of the website and the Turtle headers cannot hold a marker, so the
 script finds their numbers with the patterns in `TEXTS`.
 
 ## Automation
