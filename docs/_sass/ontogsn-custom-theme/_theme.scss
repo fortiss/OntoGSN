@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Theme button in the masthead, and the rules that only the dark theme needs
+   ========================================================================== */
+
+$og-dark: false !default;
+$og-figure-panel: transparent !default;
+
+.og-theme-toggle {
+  display: block;
+  margin: 0;
+  padding: 0 0.5rem;
+  border: 0;
+  background: none;
+  color: $masthead-link-color;
+  font: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  -webkit-transition: $global-transition;
+  transition: $global-transition;
+
+  &:hover,
+  &:focus-visible {
+    color: $masthead-link-color-hover;
+  }
+
+  /* the moon shows in the light theme, the sun shows in the dark theme */
+  @if $og-dark {
+    .fa-moon {
+      display: none;
+    }
+
+    /* main.css stays loaded and hides the sun */
+    .fa-sun {
+      display: inline-block;
+    }
+  } @else {
+    .fa-sun {
+      display: none;
+    }
+  }
+}
+
+/* without JavaScript the button does nothing */
+.no-js .og-theme-toggle {
+  display: none;
+}
+
+/* in the menu of a narrow screen the button is a row with its label */
+.greedy-nav .hidden-links .og-theme-toggle {
+  width: 100%;
+  padding: 10px 20px;
+  font-size: $type-size-5;
+  text-align: start;
+
+  .og-theme-toggle__label {
+    position: static !important;
+    display: inline;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 0 0 0.5em;
+    clip: auto;
+    clip-path: none;
+    overflow: visible;
+  }
+}
+
+@if $og-dark {
+  /* the banner illustration has dark lines on a transparent background */
+  .og-hero__figure {
+    padding: 0.75em;
+    border-radius: $border-radius * 2;
+    background: $og-figure-panel;
+  }
+
+  /* the charts have a light background of their own */
+  .page__content img[src$=".svg"] {
+    border-radius: $border-radius;
+  }
+
+  .screen-reader-shortcut:focus,
+  select {
+    background-color: $form-background-color;
+    color: $text-color;
+  }
+
+  .well {
+    background-color: $code-background-color;
+    border-color: $border-color;
+  }
+}

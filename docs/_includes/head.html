@@ -17,7 +17,88 @@
 </script>
 
 <!-- For all browsers -->
+<meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+{%- comment %}
+  The dark theme. Without JavaScript it follows the operating system. The script
+  below applies the choice of the reader, which the Playground stores under the same key.
+{% endcomment %}
+<link rel="stylesheet" href="{{ '/assets/css/main-dark.css' | relative_url }}" id="og-dark-css" media="screen and (prefers-color-scheme: dark)">
+<script>
+  (function () {
+    var KEY = 'ontogsn.theme';
+    var root = document.documentElement;
+    var sheet = document.getElementById('og-dark-css');
+    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+    function stored() {
+      try {
+        var theme = localStorage.getItem(KEY);
+        return theme === 'dark' || theme === 'light' ? theme : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function updateButtons(theme) {
+      var label = theme === 'dark' ? 'Switch to the light theme' : 'Switch to the dark theme';
+      document.querySelectorAll('.og-theme-toggle').forEach(function (button) {
+        button.setAttribute('aria-label', label);
+        button.setAttribute('title', label);
+        var text = button.querySelector('.og-theme-toggle__label');
+        if (text) text.textContent = theme === 'dark' ? 'Light theme' : 'Dark theme';
+      });
+    }
+
+    function apply(theme) {
+      root.setAttribute('data-theme', theme);
+      root.style.colorScheme = theme;
+      sheet.media = theme === 'dark' ? 'screen' : 'not all';
+      updateButtons(theme);
+    }
+
+    function preferred() {
+      return stored() || (mq && mq.matches ? 'dark' : 'light');
+    }
+
+    apply(preferred());
+
+    window.OntoTheme = {
+      get: function () { return root.getAttribute('data-theme'); },
+      set: function (theme) {
+        apply(theme);
+        try { localStorage.setItem(KEY, theme); } catch (e) {}
+        window.dispatchEvent(new CustomEvent('ontogsn:theme', { detail: { theme: theme } }));
+      },
+      toggle: function () {
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        window.OntoTheme.set(next);
+        return next;
+      }
+    };
+
+    document.addEventListener('click', function (event) {
+      var button = event.target.closest ? event.target.closest('.og-theme-toggle') : null;
+      if (button) window.OntoTheme.toggle();
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      updateButtons(root.getAttribute('data-theme'));
+    });
+
+    // follow the operating system until the reader makes a choice
+    if (mq && mq.addEventListener) {
+      mq.addEventListener('change', function () {
+        if (!stored()) apply(preferred());
+      });
+    }
+
+    // follow a choice that the reader makes in another tab, or in the Playground
+    window.addEventListener('storage', function (event) {
+      if (event.key === KEY) apply(preferred());
+    });
+  })();
+</script>
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@latest/css/all.min.css"></noscript>
 
