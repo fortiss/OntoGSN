@@ -23,7 +23,21 @@
   --link: #999;
   --link-ctx: #666;
   --def: #c44;
+  --def-fill: #ffeaea;
+  --def-prop-fill: #fff2f2;
   --clt: #6a1b9a;
+  --clt-dot: #8e24aa;
+  --clt-fill: #f3e5f5;
+  --clt-item-fill: #f7e8fb;
+
+  --valid-stroke: #0d7215;
+  --valid-fill: #d5ffcd;
+  --invalid-stroke: #cdc312;
+  --invalid-fill: #ffffec;
+  --undev-fill: #ffffff;
+  --undev-stroke: #000000;
+  --rule-stroke: #8f0303;
+  --rule-fill: #ffffff;
 
   --highlight-stroke: #186e78;
   --highlight-fill: #e0fcff;
@@ -37,6 +51,7 @@
   --badge-ivld-b: #cdc312;
   --badge-undev-a: #ffdeb8;
   --badge-undev-b: #ea7d00;
+  --badge-def-fill: #ffd6d6;
 
   --btn-bg: #f8f8f8;
   --btn-bg-hover: #efefef;
@@ -79,6 +94,33 @@ html[data-theme="dark"] .gsn-host {
 
   --link: #bdbdbd;
   --link-ctx: #a8a8a8;
+  --def: #ff8a80;
+  --def-fill: #3a1c1e;
+  --def-prop-fill: #2e1719;
+  --clt: #c58af9;
+  --clt-dot: #c58af9;
+  --clt-fill: #2c1a36;
+  --clt-item-fill: #33203d;
+
+  --valid-stroke: #5fd068;
+  --valid-fill: #173a1c;
+  --invalid-stroke: #e0d53a;
+  --invalid-fill: #38350f;
+  --undev-fill: #111216;
+  --undev-stroke: #d0d0d0;
+  --rule-stroke: #ff6b6b;
+  --rule-fill: #111216;
+
+  --badge-border: #6b6c75;
+  --badge-ctx-a: #111216;
+  --badge-ctx-b: #33343b;
+  --badge-vld-a: #173a1c;
+  --badge-vld-b: #5fd068;
+  --badge-ivld-a: #38350f;
+  --badge-ivld-b: #e0d53a;
+  --badge-undev-a: #3d2a12;
+  --badge-undev-b: #ea7d00;
+  --badge-def-fill: #3a1c1e;
 
   --btn-bg: #16171c;
   --btn-bg-hover: #1c1d23;
@@ -203,7 +245,7 @@ html[data-theme="dark"] .gsn-host {
   height: 14px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--badge-border);
-  background: #fff;
+  background: var(--node-fill, var(--panel-bg));
 }
 
 .gsn-badge.ctx {
@@ -213,12 +255,12 @@ html[data-theme="dark"] .gsn-host {
 }
 
 .gsn-badge.def {
-  background: #ffd6d6;
+  background: var(--badge-def-fill);
   border-color: var(--def);
 }
 
 .gsn-badge.clt {
-  background: #f3e5f5;
+  background: var(--clt-fill);
   border-color: var(--clt);
 }
 
@@ -241,8 +283,8 @@ html[data-theme="dark"] .gsn-host {
 }
 
 .gsn-badge.rule {
-  background: #ffffff;
-  border: 2px solid #8f0303;
+  background: var(--rule-fill);
+  border: 2px solid var(--rule-stroke);
 }
 
 
@@ -322,7 +364,7 @@ html[data-theme="dark"] .gsn-host {
 
 .gsn-node.def rect {
   stroke: var(--node-stroke);
-  fill: #ffeaea;
+  fill: var(--def-fill);
   stroke-width: var(--stroke-bold);
   rx: var(--radius-md);
   ry: var(--radius-md);
@@ -333,7 +375,7 @@ html[data-theme="dark"] .gsn-host {
 .gsn-node.def-prop ellipse,
 .gsn-node.def-prop polygon {
   stroke: var(--def);
-  fill: #fff2f2;
+  fill: var(--def-prop-fill);
   stroke-width: 2px;
 }
 
@@ -354,9 +396,9 @@ html[data-theme="dark"] .gsn-host {
 .gsn-node.invalid circle,
 .gsn-node.invalid ellipse,
 .gsn-node.invalid polygon {
-  stroke: #cdc312;
+  stroke: var(--invalid-stroke);
   stroke-width: 2.5px;
-  fill: #ffffec;
+  fill: var(--invalid-fill);
   fill-opacity: 1;
 }
 
@@ -364,9 +406,9 @@ html[data-theme="dark"] .gsn-host {
 .gsn-node.valid circle,
 .gsn-node.valid ellipse,
 .gsn-node.valid polygon {
-  stroke: #0d7215;
+  stroke: var(--valid-stroke);
   stroke-width: 2.5px;
-  fill: #d5ffcd;
+  fill: var(--valid-fill);
   fill-opacity: 1;
 }
 
@@ -377,41 +419,41 @@ html[data-theme="dark"] .gsn-host {
 }
 
 .gsn-node path.undev-diamond {
-  fill: #ffffff;
-  stroke: #000000;
+  fill: var(--undev-fill);
+  stroke: var(--undev-stroke);
   stroke-width: 1.2px;
 }
 
 
 .gsn-link.invalid {
-  stroke: #cdc312;
+  stroke: var(--invalid-stroke);
   stroke-width: 2.5px;
   stroke-dasharray: 3 3;
 }
 
 .gsn-link.valid {
-  stroke: #0d7215;
+  stroke: var(--valid-stroke);
   stroke-width: 2.5px;
   stroke-dasharray: 3 3;
 }
 
 .collection-dot {
-  fill: #6a1b9a;
+  fill: var(--clt);
 }
 
 .collection-item circle {
-  fill: #8e24aa;
+  fill: var(--clt-dot);
 }
 
 .gsn-node.collection.ext rect {
-  stroke: #6a1b9a;
+  stroke: var(--clt);
   stroke-width: 0.5px;
-  fill: #f3e5f5;
+  fill: var(--clt-fill);
   fill-opacity: 1;
 }
 
 .gsn-link.collection {
-  stroke: #6a1b9a;
+  stroke: var(--clt);
   stroke-width: 0.5px;
   stroke-dasharray: 4 3;
 }
@@ -419,7 +461,7 @@ html[data-theme="dark"] .gsn-host {
 .gsn-node.collection.item rect {
   stroke: none !important;
   stroke-width: 1px;
-  fill: #f7e8fb;
+  fill: var(--clt-item-fill);
 }
 
 .gsn-node.collection.item text {
@@ -429,8 +471,8 @@ html[data-theme="dark"] .gsn-host {
 
 .gsn-node.rule rect {
   stroke-width: 2;
-  stroke: #8f0303;
-  fill: #ffffff;
+  stroke: var(--rule-stroke);
+  fill: var(--rule-fill);
 }
 
 .gsn-node.rule text {
@@ -438,7 +480,7 @@ html[data-theme="dark"] .gsn-host {
 }
 
 .gsn-link.rule {
-  stroke: #8f0303;
+  stroke: var(--rule-stroke);
   stroke-width: 2px;
 }
 
