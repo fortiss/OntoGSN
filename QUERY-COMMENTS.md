@@ -2687,7 +2687,7 @@ Header text:
 
 The queries of the Playground are copies of the queries of the OntoGSN Workbench.
 `development/dev_tools/playground_sync.py` removes the comments when it copies a query.
-This section holds the comments of the Workbench at commit `238b52f`.
+This section holds the comments of the Workbench at commit `7063f57`.
 
 ### `docs/playground/assets/data/queries/read_goalParentsForChecklist.sparql`
 
