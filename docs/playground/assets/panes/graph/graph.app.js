@@ -2,6 +2,7 @@
 
 import { resolveEl, splitTokens, exposeForDebug } from "@core/utils.js";
 import { emitCompat } from "@core/events.js";
+import { isUpdateQuery } from "@rdf/sparql.js";
 
 import { DEFAULT_GRAPH_RENDER_OPTS } from "./graph.config.js";
 import { visualizeSPO } from "./graph.renderer.js";
@@ -213,10 +214,52 @@ class GraphApp {
     this._applyVisibility();
     this._reapplyOverlays();
 
+    await this._syncRulesFromStore(seq);
+    if (seq !== this._renderSeq) return;
+
     await this._buildModulesBar(this._activeModuleIri);
 
     exposeForDebug("graphCtl", this.graphCtl);
     console.debug("[GraphApp] render", rows.length, performance.now());
+  }
+
+  // The pane is mounted again on each visit, but the store keeps what a rule wrote.
+  // A checkbox with data-state-query is on when that query returns a row.
+  async _syncRulesFromStore(seq) {
+    const host = this.rootEl;
+    if (!host || !this.qs) return;
+
+    const boxes = host.querySelectorAll('input[type="checkbox"][data-state-query]');
+
+    for (const el of boxes) {
+      if (el.checked) continue;
+
+      try {
+        const state = await this.qs.runPath(el.getAttribute("data-state-query"), {
+          cache: "no-store",
+          bust: true,
+        });
+        if (seq !== this._renderSeq) return;
+        if (!(state.rows ?? []).length) continue;
+
+        el.checked = true;
+
+        // Show the marks of the rule again. The update queries already ran.
+        const cls = el.getAttribute("data-class") || "overlay";
+        const raw = el.getAttribute("data-queries") ?? el.getAttribute("data-query") ?? "";
+
+        for (const path of splitTokens(raw)) {
+          const text = await this.qs.fetchQueryText(path, { cache: "no-store", bust: true });
+          if (isUpdateQuery(text)) continue;
+
+          const res = await this.qs.runText(text, { source: path });
+          if (seq !== this._renderSeq) return;
+          await this._handleQueryResult(res, cls);
+        }
+      } catch (err) {
+        console.warn("[GraphApp] rule state query failed:", err);
+      }
+    }
   }
 
   async _buildModulesBar(activeModuleIri = null) {
