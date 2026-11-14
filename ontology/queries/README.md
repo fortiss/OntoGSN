@@ -128,6 +128,10 @@ A SPARQL update can do two things that a SWRL rule cannot: it can replace an old
 test that a fact is absent. [`rules/README.md`](rules/README.md) lists each rule and says where its
 update does more than the SWRL rule.
 
+A rule that creates a node, for example S18, builds the IRI of the node from the IRIs of the two
+elements that the node links. A second run builds the same IRI, so you can run the rules again
+on a case that already holds their results, and the store gets no second copy of a node.
+
 Each rule derives one step, so `run_rules.py` applies the whole set repeatedly until a pass
 changes nothing. If two rules contradict each other on your case the passes will loop; the
 driver detects that, stops, and names the rules involved.

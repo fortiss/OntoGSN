@@ -24,7 +24,7 @@
 <https://w3id.org/OntoGSN/design/data> a owl:Ontology ;
     owl:imports <https://w3id.org/OntoGSN/design> ;
     dc:title "OntoGSN Design Record - the decisions"@en ;
-    dc:description "Why each of the 941 axioms, rules and constraints of OntoGSN exists."@en ;
+    dc:description "Why each of the 946 axioms, rules and constraints of OntoGSN exists."@en ;
     owl:versionInfo "1.0.0" .
 
 
@@ -27694,3 +27694,80 @@ gsndesign:st-1090
 gsndesign:why-0234
     a gsndesign:Rationale ;
     gsndesign:rationaleText "Two annotation properties imported so that WIDOCO shows the ontology header correctly. schema:name gives the publisher a name on its own node, next to schema:url. Before, the publisher was the string https://www.fortiss.org/, and WIDOCO showed that string as plain text, without a name and without a link. skos:scopeNote carries the note on the ontology node that explains the [OntoGSN] prefix. WIDOCO reads skos:note, rdfs:comment and dc:description as one field, the ontology description, and keeps the last English value that it reads. The 1.3.0 documentation therefore showed the note in place of the description. WIDOCO does not read skos:scopeNote, and SKOS defines it as a note that clarifies the meaning or the use of a concept, which is what the note does."@en .
+
+
+#################################################################
+#    Conventions of the stored queries (5 decisions)
+#    Written by hand. A decision here is about every stored query, so it generates no
+#    statement.
+#################################################################
+
+gsndesign:why-0240
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A stored query takes its parameter as a schema:identifier in a VALUES block and joins the element through that identifier. The other option is the IRI of the element in the VALUES block. That option needs the namespace of the case in every query file, so no query runs on a second case without an edit. The ontology requires exactly one schema:identifier for each element, and people name an element by its identifier. The cost is a case that breaks this requirement: if two elements share an identifier, a query returns rows for both. The query read_duplicate_identifiers.rq finds such a case."@en .
+
+gsndesign:why-0241
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A stored query and a SPARQL rule compare a boolean flag with FILTER(STR(?flag) = \"true\"), not with FILTER(?flag = true). Exporters write a true flag in three forms: the bare token true, the typed literal \"true\"^^xsd:boolean and the plain string \"true\". A typed comparison does not match every form, and the string comparison matches all three. A query that writes a flag still writes a typed xsd:boolean."@en .
+
+gsndesign:why-0242
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A stored query matches the class of an element with the path a/rdfs:subClassOf*, not with a list of the subclasses. The query then finds an element of a subclass without a reasoner, and a new subclass needs no edit of the query. The cost is that the ontology must be in the same graph as the case, because the path reads the class hierarchy. A pattern that matches only the direct type gsn:GSNElement finds nothing, because no element has that class as its direct type."@en .
+
+gsndesign:why-0243
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The folder ontology/queries/ holds what a person does to a case: create, read, update and delete. The folder ontology/queries/rules/ holds what a reasoner derives from a case: one SPARQL update for each SWRL rule. Thirteen create and update queries stated the conclusion of a rule a second time: the propagation of the flags, the classification of the relationships, the inheritance of context, the propagation across modules and the creation of the reified relationships. They were deleted when the rule folder was added, because two copies of one rule do not stay equal. An update query now changes only what a person decides, and every other change of a flag is a rule."@en .
+
+gsndesign:why-0244
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A SWRL rule with swrlx:makeOWLThing gets a new anonymous individual from the reasoner in each run. The SPARQL update of such a rule builds the IRI of the new node from the IRIs of the two elements that the node links. A second run of the update builds the same IRI, so it adds no second node, and the rules can run again on a case that already holds their results. The IRI uses the IRIs of the elements and not their identifiers, because two elements in different modules can share an identifier."@en .
+
+gsndesign:dd-1101
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R57" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "A stored query names an element by its identifier, not by its IRI."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0240 .
+
+gsndesign:dd-1102
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R58" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "A stored query compares a boolean flag as a string."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0241 .
+
+gsndesign:dd-1103
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R59" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "A stored query finds the class of an element through the class hierarchy, without a reasoner."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0242 .
+
+gsndesign:dd-1104
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R60" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "A stored query does what a person does, and a rule does what a reasoner derives. No stored query repeats a rule."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0243 .
+
+gsndesign:dd-1105
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R61" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "A SPARQL rule that creates a node gives the node the same IRI in every run."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0244 .

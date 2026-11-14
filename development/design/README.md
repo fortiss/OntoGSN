@@ -9,7 +9,7 @@ at the time. PROV-O is the backbone; `gsndesign:` adds only the terms PROV-O has
 | File | Role |
 | :--- | :--- |
 | `ontogsn-design.ttl` | the vocabulary. Hand-written. |
-| `ontogsn-design-data.ttl` | the record — 941 decisions, 297 passages, 229 rationales, 897 statements. **Source of truth**, edited by hand. |
+| `ontogsn-design-data.ttl` | the record — 946 decisions, 297 passages, 234 rationales, 897 statements. **Source of truth**, edited by hand. |
 | `ontogsn-design-augmentations.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `development/dev_tools/prov_augment.py`. |
 | `Design Documentation.xlsx` | a human-readable view of the record. **Generated**, never read back. |
 | `Competency Questions.xlsx` | the questions `ontology/queries/` and `augmentation/queries/` answer. Hand-maintained; read by `development/dev_tools/prov_augment.py`. |
@@ -89,13 +89,17 @@ its own. That is also why `gsndesign:formalism` carries no `rdfs:domain` — it 
 a decision and a query, and asserting either as the domain would make a reasoner type the
 other as it.
 
+Five decisions carry `gsndesign:SPARQL` themselves (`dd-1101` to `dd-1105`). Each one records a
+convention of every stored query, for example that a query names an element by its identifier.
+Such a decision has a rationale, no source passage and no statement.
+
 ## Why a decision is an Activity
 
 [count]: <> (decisions_for_nothing decisions)
 
 `gsndesign:DesignDecision ⊑ prov:Activity`, not `prov:Entity`. It `prov:used` the passages it
 rested on and `prov:generated` the statement it produced — so a decision to represent
-**nothing** is still well-formed: it simply generated nothing. 118 of the 941 decisions are
+**nothing** is still well-formed: it simply generated nothing. 118 of the 946 decisions are
 of that kind, and PROV-O has no notion of an entity that deliberately does not exist.
 
 That also makes the decision the natural home for the rationale, because the decision *is*
