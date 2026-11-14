@@ -72,9 +72,13 @@ $og-figure-panel: transparent !default;
     background: $og-figure-panel;
   }
 
-  /* the charts have a light background of their own */
+  /* The charts have light colors of their own. The filter makes the background
+     dark and the text light, and keeps the hue of each line. A partial invert
+     gives a dark gray that is close to the background of the page. */
   .page__content img[src$=".svg"] {
     border-radius: $border-radius;
+    -webkit-filter: invert(0.91) hue-rotate(180deg);
+    filter: invert(0.91) hue-rotate(180deg);
   }
 
   .screen-reader-shortcut:focus,
