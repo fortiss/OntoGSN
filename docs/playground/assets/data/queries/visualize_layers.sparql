@@ -1,0 +1,26 @@
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX did:    <http://www.fortiss-demo.org/ontologies/defence-in-depth/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+
+SELECT DISTINCT ?s ?l ?lbl ?pos
+WHERE {
+  {
+    ?s did:covers ?l .
+  }
+  UNION
+  {
+    ?p did:covers ?l .
+    ?p gsn:supportedBy+ ?s .
+    FILTER(?p != ?s)
+  }
+
+  ?l a did:Layer .
+
+  OPTIONAL { ?l rdfs:label ?lbl0 }
+  BIND(STR(?lbl0) AS ?lbl)
+
+  OPTIONAL { ?l schema:position ?pos }
+}
+ORDER BY COALESCE(xsd:integer(?pos), 9999) LCASE(STR(?lbl)) STR(?l) STR(?s)

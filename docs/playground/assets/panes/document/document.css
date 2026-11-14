@@ -1,0 +1,95 @@
+#doc-root {
+  flex: 1 1 auto;
+  min-width: 0;   /* important for flex layouts */
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.doc-view {
+  min-width: 0;
+}
+
+/* --- markdown content: keep it inside the pane --- */
+
+.doc-view img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+.doc-view table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* prevents image cells from forcing horizontal overflow */
+}
+
+.doc-view th,
+.doc-view td {
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.doc-view pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.doc-view .doc-entity {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  font: inherit;
+  cursor: pointer;
+
+  border-bottom: 1px dotted var(--accent-color, #888);
+}
+
+.doc-entity-tooltip {
+  position: absolute;
+  z-index: 1000;
+  max-width: 320px;
+
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+
+  background: var(--doc-tooltip-bg, #111);
+  color: var(--doc-tooltip-fg, #f9f9f9);
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  font-size: 0.85rem;
+}
+
+.doc-entity-tooltip-header {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.doc-entity-tooltip-body p {
+  margin: 0.15rem 0 0;
+}
+
+.doc-entity-tooltip-iri {
+  font-family: monospace;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  word-break: break-all;
+}
+
+.doc-hit {
+  outline: 2px solid var(--highlight-stroke, #186e78);
+  background: rgba(24, 110, 120, 0.12);
+  border-radius: 4px;
+}
+
+mark.doc-hit {
+  padding: 0 .1em;
+}
+
+html[data-theme="dark"] .doc-hit {
+  background: rgba(138, 180, 248, 0.18);
+}

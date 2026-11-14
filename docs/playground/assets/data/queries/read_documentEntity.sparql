@@ -1,0 +1,35 @@
+PREFIX schema: <http://schema.org/>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?entity ?s ?p ?o
+WHERE {
+  BIND(__TAG__ AS ?tag)
+
+  {
+    ?entity schema:identifier ?id .
+    FILTER(LCASE(STR(?id)) = LCASE(STR(?tag)) || CONTAINS(LCASE(STR(?id)), LCASE(STR(?tag))))
+  }
+  UNION
+  {
+    FILTER(
+      STRENDS(STR(?entity), CONCAT("#", STR(?tag))) ||
+      STRENDS(STR(?entity), CONCAT("/", STR(?tag)))
+    )
+  }
+  UNION
+  {
+    ?entity schema:name ?name .
+    FILTER(LCASE(STR(?name)) = LCASE(STR(?tag)))
+  }
+
+  {
+    ?entity ?p ?o .
+    BIND(?entity AS ?s)
+  }
+  UNION
+  {
+    ?s ?p ?entity .
+    BIND(?entity AS ?o)
+  }
+}
+LIMIT 20

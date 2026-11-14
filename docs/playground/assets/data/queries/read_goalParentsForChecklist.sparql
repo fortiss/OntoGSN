@@ -1,0 +1,24 @@
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+SELECT
+  ?child
+  (GROUP_CONCAT(DISTINCT STR(?parent); separator=", ") AS ?parents)
+WHERE {
+  ?child a ?ct .
+  FILTER(?ct IN (gsn:Goal, gsn:Solution))
+
+  OPTIONAL {
+    ?parent a gsn:Goal ;
+            gsn:supportedBy+ ?child .
+    FILTER(?parent != ?child)
+
+    FILTER NOT EXISTS {
+      ?parent gsn:supportedBy+ ?mid .
+      ?mid a gsn:Goal .
+      ?mid gsn:supportedBy+ ?child .
+      FILTER(?mid != ?parent && ?mid != ?child)
+    }
+  }
+}
+GROUP BY ?child
+ORDER BY LCASE(STR(?child))

@@ -1,0 +1,10 @@
+PREFIX dl: <https://example.org/ontogsn/doclink#>
+
+SELECT ?iri ?docPath ?key WHERE {
+  ?m a dl:NodeToDocMapping ;
+     dl:node    ?iri ;
+     dl:docPath ?docPath ;
+     dl:key     ?key .
+  FILTER(STR(?iri) = {{IRI}})
+}
+LIMIT 10

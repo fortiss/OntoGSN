@@ -1,0 +1,116 @@
+@prefix ex:  <https://example.org/car-demo#> .
+@prefix dl:  <https://example.org/ontogsn/doclink#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ------------------------------------------------------------------
+# Minimal vocabulary for graph-node -> document-marker mappings
+# ------------------------------------------------------------------
+
+dl:NodeToDocMapping a owl:Class ;
+  rdfs:label "Node to document mapping"@en .
+
+dl:node a owl:ObjectProperty ;
+  rdfs:domain dl:NodeToDocMapping ;
+  rdfs:label "mapped graph node"@en .
+
+dl:docPath a owl:DatatypeProperty ;
+  rdfs:domain dl:NodeToDocMapping ;
+  rdfs:range xsd:string ;
+  rdfs:label "document path"@en .
+
+dl:key a owl:DatatypeProperty ;
+  rdfs:domain dl:NodeToDocMapping ;
+  rdfs:range xsd:string ;
+  rdfs:label "document marker key"@en .
+
+# ------------------------------------------------------------------
+# Node -> report.md marker mappings
+# Keys MUST match the marker keys used in report.md exactly.
+# ------------------------------------------------------------------
+
+dl:map_car_G1 a dl:NodeToDocMapping ;
+  dl:node ex:car_G1 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_G1" .
+
+dl:map_car_S1 a dl:NodeToDocMapping ;
+  dl:node ex:car_S1 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_S1" .
+
+dl:map_car_G1_1 a dl:NodeToDocMapping ;
+  dl:node ex:car_G1_1 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_G1_1" .
+
+dl:map_car_G1_2 a dl:NodeToDocMapping ;
+  dl:node ex:car_G1_2 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_G1_2" .
+
+dl:map_car_G1_3 a dl:NodeToDocMapping ;
+  dl:node ex:car_G1_3 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_G1_3" .
+
+dl:map_car_C1 a dl:NodeToDocMapping ;
+  dl:node ex:car_C1 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_C1" .
+
+dl:map_car_C2 a dl:NodeToDocMapping ;
+  dl:node ex:car_C2 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_C2" .
+
+dl:map_car_J1 a dl:NodeToDocMapping ;
+  dl:node ex:car_J1 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_J1" .
+
+dl:map_car_C1_1 a dl:NodeToDocMapping ;
+  dl:node ex:car_C1_1 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_C1_1" .
+
+dl:map_car_Sn1 a dl:NodeToDocMapping ;
+  dl:node ex:car_Sn1 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_Sn1" .
+
+dl:map_car_A1 a dl:NodeToDocMapping ;
+  dl:node ex:car_A1 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_A1" .
+
+dl:map_car_A2 a dl:NodeToDocMapping ;
+  dl:node ex:car_A2 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_A2" .
+
+dl:map_car_C1_2 a dl:NodeToDocMapping ;
+  dl:node ex:car_C1_2 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_C1_2" .
+
+dl:map_car_A3 a dl:NodeToDocMapping ;
+  dl:node ex:car_A3 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_A3" .
+
+dl:map_car_Sn2 a dl:NodeToDocMapping ;
+  dl:node ex:car_Sn2 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_Sn2" .
+
+dl:map_car_C1_3 a dl:NodeToDocMapping ;
+  dl:node ex:car_C1_3 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_C1_3" .
+
+dl:map_car_Sn3 a dl:NodeToDocMapping ;
+  dl:node ex:car_Sn3 ;
+  dl:docPath "data/report.md" ;
+  dl:key "car_Sn3" .

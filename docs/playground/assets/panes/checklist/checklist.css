@@ -1,0 +1,182 @@
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.checklist-top {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+#checklist-search {
+  flex: 1;
+  min-width: 140px;
+  padding: 6px 8px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  border-color: var(--border-strong);
+  background: var(--panel-bg);
+  color: var(--fg);
+}
+
+.checklist-actions {
+  display: flex;
+  gap: 6px;
+  border-color: var(--border-strong);
+  background: var(--panel-bg);
+  color: var(--fg);
+}
+
+.checklist-actions button {
+  padding: 6px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--panel-bg);
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.checklist-actions button:hover {
+  background: var(--hover-bg);
+}
+
+.checklist-stats {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.checklist-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chk-row {
+  display: grid;
+  grid-template-columns: 16px 18px 80px 1fr; /* twisty | checkbox | id | main */
+  gap: 8px;
+  align-items: start;
+  padding: 8px 8px;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  border-color: var(--border);
+  background: var(--panel-bg);
+  color: var(--fg);
+  --depth: 0;
+  margin-left: calc(var(--depth) * 18px);
+}
+
+.chk-twisty {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.75;
+  line-height: 16px;
+  font-size: 12px;
+  user-select: none;
+}
+
+.chk-twisty:hover {
+  opacity: 1;
+  background: var(--hover-bg);
+  border-radius: 4px;
+}
+
+.chk-twisty:focus-visible {
+  outline: 2px solid var(--border-strong);
+  outline-offset: 2px;
+}
+
+.chk-twisty--empty {
+  visibility: hidden; /* keeps alignment */
+}
+
+.chk-row:hover {
+  background: var(--panel-alt-bg);
+}
+
+.chk-row input[type="checkbox"] {
+  margin-top: 3px;
+}
+
+.chk-id {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chk-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.chk-stmt {
+  font-size: 13px;
+  line-height: 1.25rem;
+  overflow-wrap: anywhere;
+}
+
+.chk-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.chk-badge {
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  padding: 2px 8px;
+  border-color: var(--border);
+  background: var(--muted-bg);
+}
+
+.checklist-empty {
+  padding: 8px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* When a node is collapsed, hide its own label/text for clarity */
+.chk-row.is-collapsed .chk-id,
+.chk-row.is-collapsed .chk-main {
+  display: none;
+}
+
+/* Optional: compact the row to show only twisty + checkbox + a hint */
+.chk-row.is-collapsed {
+  grid-template-columns: 16px 18px 1fr;
+}
+
+.chk-row.is-collapsed::after {
+  content: "…";
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.6;
+  padding-top: 2px;
+}
+
+/* base (checked) */
+.chk-row input[type="checkbox"]{
+  accent-color: #2563eb; /* blue */
+}
+
+/* indeterminate (lighter) */
+.chk-row input[type="checkbox"]:indeterminate{
+  accent-color: #93c5fd !important; /* light blue */
+  filter: saturate(0.8) brightness(1.15); /* extra visual difference */
+}
+

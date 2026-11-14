@@ -1,0 +1,12 @@
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema:<http://schema.org/>
+PREFIX gsn:   <https://w3id.org/OntoGSN/ontology#>
+
+SELECT DISTINCT ?s ?label ?id ?statement
+WHERE {
+  OPTIONAL { ?s rdfs:label ?label }
+  OPTIONAL { ?s schema:identifier ?id }
+  OPTIONAL { ?s gsn:statement ?statement }
+  FILTER(__RX__)
+}
+LIMIT 30

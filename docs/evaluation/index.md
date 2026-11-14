@@ -30,3 +30,15 @@ Some pitfalls are correct findings that OntoGSN keeps on purpose. The [design re
 | P34 Untyped class | Minor | 8 terms of the SWRL vocabulary | Kept. The SWRL vocabulary is not OntoGSN's to declare. |
 
 OOPS! did not evaluate P06 (cycles in the class hierarchy), because the checker failed. A local query in `development/dev_tools/oops_check.py` runs the same check. It finds no cycle.
+
+## Database Evaluations
+
+We compared three databases on the same task: rdflib, Oxigraph and GraphDB. The task is one complete run of an audit process that reads and changes an OntoGSN assurance case with SPARQL queries and rules. We ran it on synthetic cases of five sizes, from about 900 to about 11,400 triples at the end of the run. Each database ran each size once, on one laptop. Only Oxigraph ran the largest size.
+
+![The total database time of one run, by size and database](time-by-world-size.svg)
+
+The first chart shows the total time that the database worked in one run. Oxigraph is the fastest at every size, and its lead grows with the size. At 5,970 triples it took 55 s, GraphDB took 566 s and rdflib took 841 s.
+
+![The time of one query, by size and database](query-time-by-world-size.svg)
+
+The second chart shows the time of one query, on a logarithmic scale. The dot is the median, and the bar goes from the shortest query to the longest. The median changes little with the size. The longest query grows, most of all on rdflib: from 0.7 s to 19.5 s.

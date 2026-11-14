@@ -1,0 +1,89 @@
+.code-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px;
+  height: 95%;
+  min-height: 0;
+}
+
+.code-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-status {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.code-box {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.code-block {
+  flex: 1;
+  height: 95%;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #d0d0d0;
+  border-radius: 10px;
+  overflow: auto;
+  background: var(--panel-bg);
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--fg);
+  border-color: var(--border-strong);
+}
+
+.code-panel-error {
+  color: #b00020;
+}
+
+html[data-theme="dark"] .code-panel-error {
+  color: #ff6b6b;
+}
+
+/* Let our pane own the background/padding (not the HLJS theme) */
+.code-block .hljs {
+  background: transparent !important;
+  color: inherit;
+}
+
+.code-block code.hljs {
+  padding: 0 !important; /* prevent double padding (theme + pre) */
+}
+
+/* ---------------------------------------------------------
+   Code blocks (moved from app.css)
+   Keep this pane self-contained (no global leaks).
+   --------------------------------------------------------- */
+
+/* Allow long IRIs etc. to break nicely */
+.code-panel p,
+.code-panel a,
+.code-panel code {
+  overflow-wrap: anywhere;
+}
+
+/* Optional: generic <pre> styling inside this pane
+   (won't affect the main <pre class="code-block">) */
+.code-panel pre:not(.code-block) {
+  background: var(--code-bg);
+  border-radius: 6px;
+
+  padding: 0.75rem 1rem;
+  margin: 0;
+
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  font-size: 0.9rem;
+  line-height: 1.4;
+
+  overflow: auto;
+}

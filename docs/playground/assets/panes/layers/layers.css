@@ -1,0 +1,69 @@
+/* ==========================================================================
+   layers.css — styles for the Layers pane
+   Extends graph.css (intentional)
+   - Swimlane backgrounds + labels
+   - Small pane-specific tweaks
+   - Dark mode via html[data-theme="dark"] (same switch as graph.css)
+   ========================================================================== */
+
+/* --- Pane-specific tokens (light) -------------------------------------- */
+.gsn-host {
+  --layers-lane-fill-even: rgba(0, 0, 0, 0.06);
+  --layers-lane-fill-odd: rgba(0, 0, 0, 0.035);
+  --layers-lane-stroke: var(--border);
+
+  --layers-lane-label: var(--muted-text);
+
+  --layers-error-bg: var(--ui-glass);
+  --layers-error-border: var(--border);
+}
+
+/* --- Pane-specific tokens (dark) --------------------------------------- */
+html[data-theme="dark"] .gsn-host {
+  --layers-lane-fill-even: rgba(255, 255, 255, 0.06);
+  --layers-lane-fill-odd: rgba(255, 255, 255, 0.03);
+  --layers-lane-stroke: var(--border);
+
+  --layers-lane-label: var(--muted-text);
+}
+
+/* --- Swimlanes --------------------------------------------------------- */
+.gsn-lanes .gsn-lane {
+  fill: var(--layers-lane-fill-even);
+  stroke: var(--layers-lane-stroke);
+  stroke-width: 1px;
+}
+
+.gsn-lanes .gsn-lane.odd {
+  fill: var(--layers-lane-fill-odd);
+}
+
+.gsn-lane-label {
+  fill: var(--layers-lane-label);
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+/* Make wrapped tspans look consistent */
+.gsn-lane-label tspan {
+  dominant-baseline: middle;
+}
+
+/* --- Error block (no inline styles in JS) ------------------------------ */
+.layers-error {
+  padding: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+               "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+
+  background: var(--layers-error-bg);
+  border: 1px solid var(--layers-error-border);
+  border-radius: 8px;
+}
+
+.layers-error pre {
+  white-space: pre-wrap;
+  opacity: 0.9;
+  margin: 8px 0 0;
+}

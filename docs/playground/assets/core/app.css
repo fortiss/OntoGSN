@@ -1,0 +1,386 @@
+/* =========================================================
+   Theme (light/dark) — global tokens
+   Toggle via: <html data-theme="dark"> ... </html>
+   ========================================================= */
+
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+
+  --panel-bg: #ffffff;
+  --panel-alt-bg: #fafafa;
+
+  --muted-bg: #f6f6f6;
+
+  --border: #dddddd;
+  --border-strong: #cccccc;
+
+  --hover-bg: #f8f8f8;
+
+  --shadow: rgba(0, 0, 0, 0.08);
+
+  --overlay-bg: rgba(255, 255, 255, 0.72);
+
+  --spinner-track: #cccccc;
+  --spinner-head: #333333;
+
+  --code-bg: #f7f7f7;
+
+  --link: #0b62d6;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0e0f11;
+  --fg: #e8e8e8;
+
+  --panel-bg: #111216;
+  --panel-alt-bg: #16171c;
+
+  --muted-bg: #15161a;
+
+  --border: #2b2c32;
+  --border-strong: #3a3b44;
+
+  --hover-bg: #1c1d23;
+
+  --shadow: rgba(0, 0, 0, 0.35);
+
+  --overlay-bg: rgba(0, 0, 0, 0.35);
+
+  --spinner-track: #444444;
+  --spinner-head: #eaeaea;
+
+  --code-bg: #111216;
+
+  --link: #8ab4f8;
+}
+
+/* =========================================================
+   Base / Typography
+   ========================================================= */
+
+body {
+  font: 14px/1.45 system-ui, sans-serif;
+  margin: 20px;
+
+  background: var(--bg);
+  color: var(--fg);
+}
+
+h1 {
+  font-size: 20px;
+  margin: 0 0 8px;
+}
+
+a {
+  color: var(--link);
+}
+
+/* =========================================================
+   Controls (buttons / tabs / toolbars)
+   ========================================================= */
+
+.left-view {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.btns {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+button,
+.tab {
+  padding: 0.45rem 0.8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.5rem;
+
+  background: var(--panel-bg);
+  color: var(--fg);
+
+  cursor: pointer;
+}
+
+button:hover,
+.tab:hover {
+  background: var(--hover-bg);
+}
+
+.tab.active {
+  background: var(--panel-alt-bg);
+  font-weight: 600;
+}
+
+button:disabled,
+.tab:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   Top bars: left/right groups
+   ========================================================= */
+
+#leftButtons,
+#rightButtons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  flex: 0 0 auto;
+}
+
+#rightButtons {
+  margin-left: auto;
+}
+
+/* =========================================================
+   Layout (split + panes)
+   ========================================================= */
+
+.split {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* Two fixed halves in the main split */
+#leftPane,
+#rightPane {
+  flex: 0 0 50%;
+  max-width: 50%;
+  min-width: 0;
+
+  position: relative; /* overlay positioning context */
+}
+
+/* unused (for now) */
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 16px;
+}
+
+.left {
+  min-width: 280px;
+}
+
+.right {
+  min-width: 0;
+}
+
+/* =========================================================
+   Panes visibility + sizing
+   ========================================================= */
+
+.panes {
+  position: relative;
+}
+
+.pane[hidden] {
+  display: none;
+}
+
+#leftPane {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 520px;
+  overflow-x: hidden;
+}
+
+#rightPane {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 520px;
+}
+
+#rightPane .right-view {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* =========================================================
+   Busy / disabled interaction state
+   ========================================================= */
+
+body[aria-busy="true"] {
+  cursor: progress;
+}
+
+body[aria-busy="true"] [data-query] {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* =========================================================
+   Output footer (#out)
+   ========================================================= */
+
+#out {
+  margin-top: 10px;
+
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  background: var(--muted-bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+
+  padding: 8px;
+  border-radius: 8px;
+  min-height: 1.2rem;
+  white-space: pre-wrap;
+}
+
+/* =========================================================
+   Tabs (left pane inner tabs)
+   ========================================================= */
+
+.left-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.left-tabs .tab.active {
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* =========================================================
+   Loading overlay (lazy import + mount)
+   ========================================================= */
+
+.pane-loading {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--overlay-bg);
+  backdrop-filter: blur(1px);
+  z-index: 50;
+
+  /* allow tab clicks to still work if desired */
+  pointer-events: none;
+}
+
+.pane-loading[hidden] {
+  display: none !important;
+}
+
+.pane-loading-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  background: var(--panel-bg);
+  box-shadow: 0 4px 14px var(--shadow);
+
+  font-size: 13px;
+  opacity: 0.95;
+}
+
+.pane-spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+
+  border: 2px solid var(--spinner-track);
+  border-top-color: var(--spinner-head);
+
+  animation: paneSpin 0.9s linear infinite;
+}
+
+@keyframes paneSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   Dropdown tabs (left/right)
+   ========================================================= */
+
+.tab-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.dropdown-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  user-select: none;
+}
+
+.tab-dropdown.open .dropdown-trigger {
+  background: var(--panel-alt-bg);
+  font-weight: 600;
+}
+
+.dropdown-caret {
+  opacity: 0.8;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+
+  min-width: 190px;
+  max-height: min(60vh, 360px);
+  overflow: auto;
+
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+
+  background: var(--panel-bg);
+  box-shadow: 0 10px 24px var(--shadow);
+
+  z-index: 2000;
+}
+
+#rightButtons .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+
+.dropdown-menu .dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+
+  /* override the "tab button" look inside menu */
+  border: 0;
+  background: transparent;
+  border-radius: 8px;
+
+  padding: 0.45rem 0.6rem;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background: var(--hover-bg);
+}
+
+.dropdown-menu .dropdown-item.active {
+  background: var(--panel-alt-bg);
+  font-weight: 600;
+}

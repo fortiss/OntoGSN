@@ -94,6 +94,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `development/design/ontogsn-design-augmentations.ttl` | the repo, and the record it links into | `development/dev_tools/prov_augment.py` |
 | `development/design/ontogsn-design-queries.ttl` | `ontology/queries/`, the ontology, the fixture | `development/dev_tools/query_check.py` |
 | `development/design/Design Documentation.xlsx` | the design record | `development/dev_tools/prov_to_workbook.py` |
+| `docs/playground/` | the OntoGSN Workbench at the commit in `docs/playground/VENDOR.json`, and `ontogsn.ttl` | `development/dev_tools/playground_sync.py` |
 | `docs/documentation/` | `ontogsn.ttl` | WIDOCO, run by `development/dev_tools/reports.py` |
 | `docs/evaluation/oops/` | `ontogsn.rdf` | OOPS!, run by `development/dev_tools/reports.py` |
 | `docs/evaluation/foops/` | the published ontology | FOOPS!, run by `development/dev_tools/reports.py` |
@@ -117,6 +118,7 @@ shacl_check.py     the fixtures vs ontology/shapes/, before and after the rules 
 reasoner_check.py  the ontology and the fixtures vs an OWL-DL reasoner (needs a JVM)
 oops_check.py      the ontology vs the OOPS! pitfall scanner (needs the network, except for P06)
 reports.py         regenerate the WIDOCO, OOPS! and FOOPS! reports the website publishes
+playground_sync.py copy the OntoGSN Workbench into docs/playground/, and make sure that the copy is current
 prov_check.py      the design record vs the ontology, the shapes and the queries
 graffoo_check.py   the Graffoo diagrams vs the ontologies they draw
 graffoo_export.py  the diagram pages as PNG or SVG, optionally before and after a change
@@ -189,7 +191,7 @@ file keeps only its `# rule:` and `# name:` lines.
 The script makes sure that the header fields are complete, that the `gsn:` namespace is
 correct, and that every `gsn:` term named exists in the ontology. It runs the query and makes
 sure that the result is what `expect` says. It fails when any SPARQL file in `ontology/queries/`,
-`augmentation/` or `docs/assets/data/queries/` holds a comment.
+`augmentation/` or `docs/playground/assets/data/queries/` holds a comment.
 
 `development/design/ontogsn-design-queries.ttl` records a `gsndesign:verificationKey` per query,
 hashed over the query, its header fields, the ontology, the fixtures and `CHECKER_VERSION`. Edit one query and
@@ -289,6 +291,33 @@ to catch up. `--file` assesses your local `ontogsn.ttl` instead, with fewer chec
 To move to a newer version of a tool, change its entry in `TOOLS` in `reports.py`. The
 next run with `--fetch` then regenerates every report that the tool makes. For a tool you
 already cloned, check out the new version in the clone first.
+
+## The Playground
+
+The Playground on the website is a copy of the
+[OntoGSN Workbench](https://github.com/Tomas-Bueno-Momcilovic/ontogsn_workbench), which has
+its own repository. `playground_sync.py` writes the copy to `docs/playground/`.
+
+```bash
+python development/dev_tools/playground_sync.py --workbench ../ontogsn_workbench --commit <rev>
+python development/dev_tools/playground_sync.py --ontology-only    # copy ontogsn.ttl again
+python development/dev_tools/playground_sync.py --check            # exit 1 if the copy is not current
+```
+
+The script reads the Workbench at one commit, not from the working tree. It leaves out the
+paths in `EXCLUDE`, which are the experimental panes and the documentation of the Workbench.
+It removes the comments from the SPARQL files, and it replaces the ontology of the Workbench
+with `ontology/serializations/ontogsn.ttl` of this branch.
+
+| File in `docs/playground/` | Who changes it |
+| :--- | :--- |
+| A copied file | Nobody here. Change the Workbench, then sync again. |
+| `index.html`, `assets/core/boot.js` | You. They are the Playground versions of two Workbench files, without the excluded panes. The script does not overwrite them. It tells you when the Workbench file changed. After you bring the change over, run the sync with `--reviewed`. |
+| `README.md` | You |
+| `VENDOR.json` | The script. It records the commit and a checksum of each copied file. |
+
+`--check` needs no Workbench, so CI and the hook can run it. After a change to
+`ontogsn.ttl`, `check_all.py --fix` copies the ontology again.
 
 ## How an axiom is identified, and why not the obvious way
 

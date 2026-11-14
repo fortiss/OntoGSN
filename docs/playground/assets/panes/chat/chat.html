@@ -1,0 +1,21 @@
+<div id="chat-panel" class="chat-panel">
+  <details open>
+    <summary><strong>Chat with OntoGSN (OpenRouter)</strong></summary>
+
+    <div id="chat-log" class="chat-log"></div>
+
+    <form id="chat-form" class="chat-form">
+      <input id="chat-key" type="password"
+             placeholder="OpenRouter API key (kept for this tab only)"
+             autocomplete="off">
+      <input id="chat-model" type="text"
+             value="openai/gpt-4o-mini"
+             title="Any OpenRouter model id">
+      <textarea id="chat-input" rows="2"
+                placeholder="Ask about goals, contexts, solutions…"></textarea>
+      <button id="chat-send" type="submit">Send</button>
+    </form>
+
+    <small>Your key stays in this browser tab (<code>sessionStorage</code>) and is deleted when you close the tab. Questions and parts of the graph go to OpenRouter.</small>
+  </details>
+</div>

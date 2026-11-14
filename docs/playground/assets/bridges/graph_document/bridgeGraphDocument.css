@@ -1,0 +1,16 @@
+/* bridge_graph_document.css
+   Visual marker for graph nodes that have doc links
+   (class is added by graph:highlight with cls="has-doclink") */
+
+/* SVG nodes are usually groups with a rect + text inside */
+.gsn-node.has-doclink rect,
+.has-doclink rect {
+  stroke-dasharray: 5 3;
+  stroke-width: 2;
+}
+
+/* optional: make label slightly stronger */
+.gsn-node.has-doclink text,
+.has-doclink text {
+  font-weight: 600;
+}

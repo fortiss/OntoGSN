@@ -1,0 +1,201 @@
+<div class="gsn-graph-ui">
+    <div class="gsn-legend">
+        <button class="gsn-legend-toggle" type="button" data-act="toggle-overlay" aria-expanded="true"
+            title="Hide legend & rules">
+            <span aria-hidden="true">▾</span>
+        </button>
+
+        <!-- Goal -->
+        <span class="gsn-legend-item" title="Goal node">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="0 0 80 36" aria-hidden="true">
+                    <g class="gsn-node goal">
+                        <rect x="4" y="4" width="72" height="28"></rect>
+                        <text x="40" y="20" text-anchor="middle">G</text>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">goal</span>
+        </span>
+
+        <!-- Strategy -->
+        <span class="gsn-legend-item" title="Strategy node">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="0 0 80 36" aria-hidden="true">
+                    <g class="gsn-node strategy">
+                        <!-- simple “parallelogram-ish” polygon -->
+                        <polygon points="8,4 76,4 68,32 0,32"></polygon>
+                        <text x="40" y="20" text-anchor="middle">S</text>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">strategy</span>
+        </span>
+
+        <!-- Solution -->
+        <span class="gsn-legend-item" title="Solution node (evidence)">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="20 4 40 28" aria-hidden="true">
+                    <g class="gsn-node solution">
+                        <circle cx="40" cy="18" r="14"></circle>
+                        <text x="40" y="20" text-anchor="middle">Sn</text>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">solution</span>
+        </span>
+
+        <!-- Context -->
+        <label class="gsn-legend-row" title="context">
+            <input id="toggle-context" type="checkbox" checked data-no-table="1">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="0 0 80 36" aria-hidden="true">
+                    <g class="gsn-node ctx">
+                        <rect x="4" y="4" width="72" height="28"></rect>
+                        <text x="40" y="20" text-anchor="middle">C</text>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">context</span>
+        </label>
+
+        <!-- Assumption / Justification (oval) -->
+        <span class="gsn-legend-item" title="assumption / justification">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="0 0 80 36" aria-hidden="true">
+                    <g class="gsn-node ctx">
+                        <!-- oval shape -->
+                        <ellipse cx="40" cy="18" rx="34" ry="14"></ellipse>
+                        <text x="40" y="20" text-anchor="middle">A</text>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">assumption / justification</span>
+        </span>
+
+        <!-- Defeater -->
+        <label class="gsn-legend-row" title="Defeater (challenge)">
+            <input id="toggle-defeat" type="checkbox" checked data-no-table="1">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="0 0 80 36" aria-hidden="true">
+                    <g class="gsn-node def">
+                        <rect x="4" y="4" width="72" height="28"></rect>
+                        <text x="40" y="20" text-anchor="middle">D</text>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">defeater</span>
+        </label>
+
+        <!-- Valid -->
+        <label class="gsn-legend-row" title="Node marked as valid">
+            <input type="checkbox" data-query="./assets/data/queries/visualize_valid_nodes.sparql" data-class="valid"
+                data-no-table="1">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="0 0 80 36" aria-hidden="true">
+                    <g class="gsn-node valid">
+                        <rect x="4" y="4" width="72" height="28"></rect>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">valid</span>
+        </label>
+
+        <!-- Invalid -->
+        <label class="gsn-legend-row" title="Node marked as invalid">
+            <input type="checkbox" data-query="./assets/data/queries/visualize_invalid_nodes.sparql" data-class="invalid"
+                data-no-table="1">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="0 0 80 36" aria-hidden="true">
+                    <g class="gsn-node invalid">
+                        <rect x="4" y="4" width="72" height="28"></rect>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">invalid</span>
+        </label>
+
+        <!-- Undeveloped -->
+        <label class="gsn-legend-row" title="Undeveloped goal">
+            <input type="checkbox" data-query="./assets/data/queries/visualize_undev_nodes.sparql" data-class="undev"
+                data-no-table="1">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="0 0 80 36" aria-hidden="true">
+                    <g class="gsn-node">
+                        <rect x="4" y="4" width="72" height="28"></rect>
+                        <!-- use your existing .undev-diamond styling -->
+                        <path class="undev-diamond" d="M40 6 L60 18 L40 30 L20 18 Z"></path>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">undeveloped</span>
+        </label>
+
+        <!-- Artefacts -->
+        <label class="gsn-legend-row" title="Artefacts (evidential or contextual)">
+            <input type="checkbox" data-query="./assets/data/queries/read_all_collections.sparql" data-class="collection"
+                data-no-table="1">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="0 0 80 36" aria-hidden="true">
+                    <g class="gsn-node collection item">
+                        <rect x="4" y="4" width="72" height="28"></rect>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">artefacts</span>
+        </label>
+
+        <!-- Rule node -->
+        <span class="gsn-legend-item" title="Rule effect node">
+            <span class="gsn-legend-icon">
+                <svg class="gsn-legend-node" viewBox="0 0 80 36" aria-hidden="true">
+                    <g class="gsn-node rule">
+                        <rect x="4" y="4" width="72" height="28"></rect>
+                        <text x="40" y="20" text-anchor="middle">R</text>
+                    </g>
+                </svg>
+            </span>
+            <span class="gsn-legend-text">rule effects</span>
+        </span>
+
+        <span class="gsn-hint">scroll: zoom • drag: pan</span>
+
+        <span class="gsn-controls"></span>
+    </div>
+    <!-- Rules header (moved from graph.js innerHTML) -->
+    <div class="gsn-graph-rules btns">
+        <span class="gsn-rules-label">Rules:</span>
+
+        <label><input type="checkbox" data-query="./assets/data/queries/rule_assumptionInvalidation.sparql"
+                data-class="rule" data-no-table="1">
+            Invalid assumptions
+        </label>
+
+        <label><input type="checkbox" data-query="./assets/data/queries/rule_truthContradiction.sparql" data-class="rule"
+                data-no-table="1">
+            Contradicting truth
+        </label>
+
+        <label><input type="checkbox" data-query="./assets/data/queries/rule_untrueSolution.sparql" data-class="rule"
+                data-no-table="1">
+            Untrue solution
+        </label>
+
+        <label><input type="checkbox" data-queries="./assets/data/queries/rule_checkLoadWeight.sparql;
+                    ./assets/data/queries/propagate_overloadedCar.sparql;
+                    ./assets/data/queries/write_defeater_overloadedCar.sparql"
+                data-delete-query="./assets/data/queries/delete_defeater_overloadedCar.sparql"
+                data-state-query="./assets/data/queries/read_defeater_overloadedCar.sparql" data-class="rule"
+                data-no-table="1" data-event="car:overloadChanged">
+            Overloaded car
+        </label>
+    </div>
+</div>
+
+<div class="gsn-graph-hud">
+    <div id="modulesBar" class="modules-bar" data-tab-group="modules"></div>
+</div>
+
+<svg class="gsn-svg">
+    <g class="gsn-viewport"></g>
+</svg>

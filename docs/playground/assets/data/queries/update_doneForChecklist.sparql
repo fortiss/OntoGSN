@@ -1,0 +1,5 @@
+PREFIX xyz: <http://www.example.com/placeholder#>
+
+DELETE { {{SUBJ}} xyz:done ?o . }
+INSERT { {{SUBJ}} xyz:done {{LIT}} . }
+WHERE  { OPTIONAL { {{SUBJ}} xyz:done ?o . } }

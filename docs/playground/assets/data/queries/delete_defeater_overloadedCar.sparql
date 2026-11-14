@@ -1,0 +1,8 @@
+PREFIX gsn:   <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema:<http://schema.org/>
+PREFIX ex:    <https://example.org/car-demo#>
+
+DELETE WHERE {
+  ex:car_D1_2 ?p ?o .
+  ex:ARG_CarStaticLoad gsn:contains ex:car_D1_2 .
+}

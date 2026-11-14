@@ -2703,23 +2703,29 @@ Header text:
 ```
 
 
-## `docs/assets/data/queries/`
+## `docs/playground/assets/data/queries/`
 
-### `docs/assets/data/queries/read_carLoadWeight.sparql`
+The queries of the Playground are copies of the queries of the OntoGSN Workbench.
+`development/dev_tools/playground_sync.py` removes the comments when it copies a query.
+This section holds the comments of the Workbench at commit `426152c`.
 
-Before line 9, `?car a schema:Car ;`:
+### `docs/playground/assets/data/queries/read_goalParentsForChecklist.sparql`
 
-```text
-  # Always get the max roof load for the car
-```
-
-Before line 14, `OPTIONAL {`:
+Before line 15, `FILTER NOT EXISTS {`:
 
 ```text
-  # Only *optionally* add active loads
+    # Ensure ?parent is the nearest GOAL ancestor of ?child
 ```
 
-### `docs/assets/data/queries/read_solutionWithCode.sparql`
+### `docs/playground/assets/data/queries/read_goalsForChecklist.sparql`
+
+Before line 20, `BIND(COALESCE(STRAFTER(STR(?type), "#"), REPLACE(STR(?type), "^.*/", "")) AS ?kind)`:
+
+```text
+  # "Goal" / "Solution" for UI (works for #... and /... style IRIs)
+```
+
+### `docs/playground/assets/data/queries/read_solutionWithCode.sparql`
 
 Before line 8, `?sol py:providedByCode ?code .`:
 
@@ -2733,7 +2739,7 @@ Before line 12, `?code py:implements ?sol .`:
     # Case 2: Code → solution
 ```
 
-### `docs/assets/data/queries/rule_assumptionInvalidation.sparql`
+### `docs/playground/assets/data/queries/rule_assumptionInvalidation.sparql`
 
 Before line 17, `}`:
 
@@ -2741,4 +2747,24 @@ Before line 17, `}`:
     #{BIND(?B AS ?s)}
     #UNION
     #{BIND(?A AS ?s)}
+```
+
+### `docs/playground/assets/data/queries/visualize_layers.sparql`
+
+Before line 9, `{`:
+
+```text
+  # 1) Direct layer membership
+```
+
+Before line 13, `{`:
+
+```text
+  # 2) Inherited membership: parent covers -> child inherits
+```
+
+Before line 19, `?l a did:Layer .`:
+
+```text
+  # Ensure lane universe is actual layers
 ```

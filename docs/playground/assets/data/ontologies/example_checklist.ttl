@@ -1,0 +1,33 @@
+@prefix case: <https://w3id.org/OntoGSN/cases/ACT-FAST-robust-llm#> .
+@prefix xyz:  <http://www.example.com/placeholder#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+xyz:done rdf:type owl:DatatypeProperty . 
+
+case:G1          xyz:done true .
+case:G2          xyz:done false .
+case:G1_1        xyz:done true .
+case:G2_1        xyz:done false .
+case:G2_2        xyz:done true .
+case:G1_2        xyz:done false .
+case:G1_3        xyz:done true .
+case:G1_2_1      xyz:done false .
+case:G1_2_2      xyz:done true .
+
+case:G3          xyz:done false .
+case:G3_1        xyz:done true .
+case:G3_2        xyz:done false .
+case:G3_3        xyz:done true .
+case:G3_3_1      xyz:done false .
+case:G3_3_2      xyz:done true .
+case:G3_3_3      xyz:done false .
+
+case:Sn1         xyz:done true .
+case:Sn2         xyz:done false .
+case:Sn1_2_1     xyz:done true .
+case:Sn3_3_1_1   xyz:done false .
+case:Sn3_3_1_2   xyz:done true .
+case:Sn3_3_2     xyz:done false .
+case:Sn3_3_3     xyz:done true .

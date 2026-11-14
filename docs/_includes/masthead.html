@@ -21,6 +21,12 @@
               >{{ link.title }}</a>
             </li>
           {%- endfor -%}
+          <li class="masthead__menu-item">
+            <button class="og-theme-toggle" type="button" aria-label="Switch the theme">
+              <i class="fas fa-moon" aria-hidden="true"></i><i class="fas fa-sun" aria-hidden="true"></i>
+              <span class="og-theme-toggle__label visually-hidden">Dark theme</span>
+            </button>
+          </li>
         </ul>
         {% if site.search == true %}
         <button class="search__toggle" type="button">

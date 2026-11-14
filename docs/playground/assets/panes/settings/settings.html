@@ -1,0 +1,78 @@
+<section class="cfg-panel">
+  <header class="cfg-header">
+    <div>
+      <h2 class="cfg-title">Settings</h2>
+
+      <p class="cfg-subtitle">
+        Edit <code>rdf/config.js</code> settings via UI. Changes are stored in
+        <code>localStorage["<span id="settings-runtime-key"></span>"]</code> and applied on reload.
+      </p>
+
+      <p class="cfg-subtitle">
+        Note: your <code>index.html</code> currently clears <code>localStorage</code> on <code>load</code>,
+        so persistence may not survive future reloads unless you adjust that dev-only block.
+      </p>
+    </div>
+
+    <div class="cfg-actions">
+      <button type="button" class="cfg-btn" id="settings-apply-reload">Save &amp; reload</button>
+      <button type="button" class="cfg-btn" id="settings-apply-now">Apply now (no reload)</button>
+      <button type="button" class="cfg-btn" id="settings-reset">Reset overrides</button>
+      <button type="button" class="cfg-btn" id="settings-export">Export overrides JSON</button>
+
+      <label class="cfg-btn cfg-file">
+        Import overrides JSON
+        <input type="file" id="settings-import" accept="application/json,.json" hidden />
+      </label>
+    </div>
+  </header>
+
+  <div class="cfg-status" id="settings-status" role="status" aria-live="polite"></div>
+
+  <details class="cfg-section" open>
+    <summary><strong>BASES</strong> (mutable runtime bases)</summary>
+    <div class="cfg-grid" id="settings-bases-grid"></div>
+
+    <p class="cfg-hint">
+      Existing imports like <code>BASE_CASE</code> remain constants; prefer using
+      <code>DATASETS[].base</code> / <code>BASES</code> for runtime edits.
+    </p>
+  </details>
+
+  <details class="cfg-section" open>
+    <summary><strong>PATHS</strong> (data/query file paths)</summary>
+    <div class="cfg-grid" id="settings-paths-grid"></div>
+  </details>
+
+  <details class="cfg-section" open>
+    <summary><strong>DATASETS</strong> (load order)</summary>
+
+    <div class="cfg-toolbar">
+      <button type="button" class="cfg-btn" id="settings-add-ds">Add dataset</button>
+    </div>
+
+    <div class="cfg-tablewrap">
+      <table class="cfg-table">
+        <thead>
+          <tr>
+            <th>On</th>
+            <th>path</th>
+            <th>base</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="settings-datasets-body"></tbody>
+      </table>
+    </div>
+
+    <p class="cfg-hint">
+      Store loading usually happens during boot. To affect dataset load order/paths, use
+      <strong>Save &amp; reload</strong>.
+    </p>
+  </details>
+
+  <details class="cfg-section">
+    <summary><strong>Saved overrides (raw JSON)</strong></summary>
+    <textarea class="cfg-textarea" id="settings-saved-raw" spellcheck="false" readonly></textarea>
+  </details>
+</section>

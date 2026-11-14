@@ -89,7 +89,17 @@ CHECKS = [
                   "ontology/serializations/ontogsn.ttl",
                   "development/design/ontogsn-design-queries.ttl",
                   "QUERY-COMMENTS.md", "augmentation/queries/", "augmentation/rules/",
-                  "augmentation/derivations/", "docs/assets/data/queries/")},
+                  "augmentation/derivations/", "docs/playground/assets/data/queries/")},
+    # docs/playground/ is a copy of the OntoGSN Workbench with the ontology of this branch.
+    # The check needs no Workbench: it compares each copied file with its recorded checksum
+    # and the ontology copy with its source. --fix copies the ontology again. A copied file
+    # that differs is an edit in the wrong place, which a person moves to the Workbench.
+    {"name": "Playground copy",
+     "command": ["development/dev_tools/playground_sync.py", "--check"],
+     "fix": ["development/dev_tools/playground_sync.py", "--ontology-only"],
+     "gating": True,
+     "triggers": ("docs/playground/", "ontology/serializations/ontogsn.ttl",
+                  "development/dev_tools/playground_sync.py")},
     # Reads header lines only, so it costs a fraction of a second. It gates because a
     # version that two files state differently is a mistake, not a judgement.
     {"name": "version fields and rule counts agree",

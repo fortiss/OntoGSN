@@ -1,0 +1,13 @@
+PREFIX gsn:   <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema:<http://schema.org/>
+PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?Node
+WHERE {
+    ?nodeIRI a ?typeIRI;
+             schema:identifier ?nodeID ;
+             gsn:statement ?nodeStatement .
+    ?typeIRI rdfs:label ?type.
+    BIND(CONCAT("[", STR(?type), "] ", STR(?nodeID), ": ", STR(?nodeStatement)) AS ?Node)
+}
+ORDER BY ?type
