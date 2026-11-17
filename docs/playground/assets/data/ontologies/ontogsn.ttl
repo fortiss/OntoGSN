@@ -1847,7 +1847,14 @@ gsnswrl:Arg rdf:type swrl:Variable .
                                                                                                                                          swrl:argument1 gsnswrl:R1 ;
                                                                                                                                          swrl:argument2 gsnswrl:G
                                                                                                                                        ] ;
-                                                                                                                             rdf:rest rdf:nil
+                                                                                                                             rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                                                                        rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                                                                                                    swrl:propertyPredicate schema:identifier ;
+                                                                                                                                                    swrl:argument1 gsnswrl:R1 ;
+                                                                                                                                                    swrl:argument2 gsnswrl:ID
+                                                                                                                                                  ] ;
+                                                                                                                                        rdf:rest rdf:nil
+                                                                                                                                      ]
                                                                                                                            ]
                                                                                                                 ]
                                                                                                      ]
@@ -1963,7 +1970,14 @@ gsnswrl:Arg rdf:type swrl:Variable .
                                                                                                                                          swrl:classPredicate gsn:Solution ;
                                                                                                                                          swrl:argument1 gsnswrl:S2
                                                                                                                                        ] ;
-                                                                                                                             rdf:rest rdf:nil
+                                                                                                                             rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                                                                        rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                                                                                                    swrl:propertyPredicate schema:identifier ;
+                                                                                                                                                    swrl:argument1 gsnswrl:R1 ;
+                                                                                                                                                    swrl:argument2 gsnswrl:ID
+                                                                                                                                                  ] ;
+                                                                                                                                        rdf:rest rdf:nil
+                                                                                                                                      ]
                                                                                                                            ]
                                                                                                                 ]
                                                                                                      ]
@@ -2313,7 +2327,14 @@ gsnswrl:Arg rdf:type swrl:Variable .
                                                                                                                               swrl:argument1 gsnswrl:R1 ;
                                                                                                                               swrl:argument2 gsnswrl:A
                                                                                                                             ] ;
-                                                                                                                  rdf:rest rdf:nil
+                                                                                                                  rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                                                             rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                                                                                         swrl:propertyPredicate schema:identifier ;
+                                                                                                                                         swrl:argument1 gsnswrl:R1 ;
+                                                                                                                                         swrl:argument2 gsnswrl:ID
+                                                                                                                                       ] ;
+                                                                                                                             rdf:rest rdf:nil
+                                                                                                                           ]
                                                                                                                 ]
                                                                                                      ]
                                                                                           ]
@@ -2423,7 +2444,14 @@ gsnswrl:Arg rdf:type swrl:Variable .
                                                                                                                               swrl:argument1 gsnswrl:R1 ;
                                                                                                                               swrl:argument2 gsnswrl:G1
                                                                                                                             ] ;
-                                                                                                                  rdf:rest rdf:nil
+                                                                                                                  rdf:rest [ rdf:type swrl:AtomList ;
+                                                                                                                             rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                                                                                                                                         swrl:propertyPredicate schema:identifier ;
+                                                                                                                                         swrl:argument1 gsnswrl:R1 ;
+                                                                                                                                         swrl:argument2 gsnswrl:ID
+                                                                                                                                       ] ;
+                                                                                                                             rdf:rest rdf:nil
+                                                                                                                           ]
                                                                                                                 ]
                                                                                                      ]
                                                                                           ]
@@ -2727,15 +2755,15 @@ gsnswrl:Arg rdf:type swrl:Variable .
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate gsn:contains ;
-                           swrl:argument1 gsnswrl:M ;
-                           swrl:argument2 gsnswrl:B
+                           swrl:propertyPredicate gsn:inModule ;
+                           swrl:argument1 gsnswrl:B ;
+                           swrl:argument2 gsnswrl:M
                          ] ;
                rdf:rest [ rdf:type swrl:AtomList ;
                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                      swrl:propertyPredicate gsn:contains ;
-                                      swrl:argument1 gsnswrl:M ;
-                                      swrl:argument2 gsnswrl:A
+                                      swrl:propertyPredicate gsn:inModule ;
+                                      swrl:argument1 gsnswrl:A ;
+                                      swrl:argument2 gsnswrl:M
                                     ] ;
                           rdf:rest [ rdf:type swrl:AtomList ;
                                      rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
@@ -2790,15 +2818,15 @@ gsnswrl:Arg rdf:type swrl:Variable .
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate gsn:contains ;
-                           swrl:argument1 gsnswrl:M ;
-                           swrl:argument2 gsnswrl:B
+                           swrl:propertyPredicate gsn:inModule ;
+                           swrl:argument1 gsnswrl:B ;
+                           swrl:argument2 gsnswrl:M
                          ] ;
                rdf:rest [ rdf:type swrl:AtomList ;
                           rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                      swrl:propertyPredicate gsn:contains ;
-                                      swrl:argument1 gsnswrl:M ;
-                                      swrl:argument2 gsnswrl:A
+                                      swrl:propertyPredicate gsn:inModule ;
+                                      swrl:argument1 gsnswrl:A ;
+                                      swrl:argument2 gsnswrl:M
                                     ] ;
                           rdf:rest [ rdf:type swrl:AtomList ;
                                      rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
@@ -2852,9 +2880,9 @@ gsnswrl:Arg rdf:type swrl:Variable .
    rdf:type swrl:Imp ;
    swrl:body [ rdf:type swrl:AtomList ;
                rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                           swrl:propertyPredicate gsn:contains ;
-                           swrl:argument1 gsnswrl:M ;
-                           swrl:argument2 gsnswrl:A
+                           swrl:propertyPredicate gsn:inModule ;
+                           swrl:argument1 gsnswrl:A ;
+                           swrl:argument2 gsnswrl:M
                          ] ;
                rdf:rest [ rdf:type swrl:AtomList ;
                           rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
@@ -2916,9 +2944,9 @@ gsnswrl:Arg rdf:type swrl:Variable .
                                                           ] ;
                                                 rdf:rest [ rdf:type swrl:AtomList ;
                                                            rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                                       swrl:propertyPredicate gsn:contains ;
-                                                                       swrl:argument1 gsnswrl:M2 ;
-                                                                       swrl:argument2 gsnswrl:A
+                                                                       swrl:propertyPredicate gsn:inModule ;
+                                                                       swrl:argument1 gsnswrl:A ;
+                                                                       swrl:argument2 gsnswrl:M2
                                                                      ] ;
                                                            rdf:rest [ rdf:type swrl:AtomList ;
                                                                       rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
@@ -2972,9 +3000,9 @@ gsnswrl:Arg rdf:type swrl:Variable .
                                                ] ;
                                      rdf:rest [ rdf:type swrl:AtomList ;
                                                 rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                            swrl:propertyPredicate gsn:contains ;
-                                                            swrl:argument1 gsnswrl:M2 ;
-                                                            swrl:argument2 gsnswrl:A
+                                                            swrl:propertyPredicate gsn:inModule ;
+                                                            swrl:argument1 gsnswrl:A ;
+                                                            swrl:argument2 gsnswrl:M2
                                                           ] ;
                                                 rdf:rest [ rdf:type swrl:AtomList ;
                                                            rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
@@ -3753,9 +3781,9 @@ gsnswrl:Arg rdf:type swrl:Variable .
                                     ] ;
                           rdf:rest [ rdf:type swrl:AtomList ;
                                      rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
-                                                 swrl:propertyPredicate gsn:contains ;
-                                                 swrl:argument1 gsnswrl:C ;
-                                                 swrl:argument2 gsnswrl:E
+                                                 swrl:propertyPredicate gsn:inModule ;
+                                                 swrl:argument1 gsnswrl:E ;
+                                                 swrl:argument2 gsnswrl:C
                                                ] ;
                                      rdf:rest rdf:nil
                                    ]

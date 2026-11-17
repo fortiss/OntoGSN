@@ -39,7 +39,7 @@ gsndesign:ontology-1.3.1
     rdfs:label "OntoGSN ontology 1.3.1"@en ;
     owl:versionInfo "1.3.1" ;
     gsndesign:path "ontology/serializations/ontogsn.ttl" ;
-    gsndesign:fileChecksum "6063d148e9d9d4152a20e6e68e1d32daf94056447abd87099d3ce4ff285917fe" ;
+    gsndesign:fileChecksum "1a924b6bf6cbe855d02ba89ba2cfa38e1792701cf5e6833b8440863e29cbd7d9" ;
     prov:generatedAtTime "2026-11-11T13:59:24Z"^^xsd:dateTime .
 
 gsndesign:shapes-1.2.0
@@ -14535,7 +14535,9 @@ gsndesign:dd-0522
     gsndesign:retirementReason "Struck through in the design document and absent from the current ontology: the statement was withdrawn during development. Where a reason was given, it is in the rationale column."@en .
 
 gsndesign:dd-0523
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The body read gsn:contains from a module to an element. A module contains arguments and modules only, so the rule did not match where its SPARQL update did. It reads gsn:inModule since 1.3.1. Superseded by dd-1114."@en ;
+    gsndesign:supersededBy gsndesign:dd-1114 ;
     gsndesign:positionKey "S06.R053" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-modular ;
@@ -14564,7 +14566,9 @@ object(?R, ?M1) ^ Module(?M1) ^ Module(?M2) ^ contains(?M2, ?A) ^ supportedBy(?A
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0162 ; prov:hadActivity gsndesign:dd-0523 ] .
 
 gsndesign:dd-0524
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The body read gsn:contains from a module to an element. A module contains arguments and modules only, so the rule did not match where its SPARQL update did. It reads gsn:inModule since 1.3.1. Superseded by dd-1113."@en ;
+    gsndesign:supersededBy gsndesign:dd-1113 ;
     gsndesign:positionKey "S06.R054" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-modular ;
@@ -15139,7 +15143,9 @@ gsndesign:st-0549
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0171 ; prov:hadActivity gsndesign:dd-0549 ] .
 
 gsndesign:dd-0550
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The body read gsn:contains from a module to an element. A module contains arguments and modules only, so the rule did not match where its SPARQL update did. It reads gsn:inModule since 1.3.1. Superseded by dd-1112."@en ;
+    gsndesign:supersededBy gsndesign:dd-1112 ;
     gsndesign:positionKey "S06.R079" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-modular ;
@@ -15349,7 +15355,9 @@ gsndesign:dd-0561
     gsndesign:retirementReason "Struck through in the design document and absent from the current ontology: the statement was withdrawn during development. Where a reason was given, it is in the rationale column."@en .
 
 gsndesign:dd-0562
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The body read gsn:contains from a module to an element. A module contains arguments and modules only, so the rule did not match where its SPARQL update did. It reads gsn:inModule since 1.3.1. Superseded by dd-1110."@en ;
+    gsndesign:supersededBy gsndesign:dd-1110 ;
     gsndesign:positionKey "S06.R091" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-modular ;
@@ -16500,7 +16508,9 @@ gsndesign:dd-0631
     gsndesign:hasRationale gsndesign:why-0123 .
 
 gsndesign:dd-0632
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The body read gsn:contains from a module to an element. A module contains arguments and modules only, so the rule did not match where its SPARQL update did. It reads gsn:inModule since 1.3.1. Superseded by dd-1115."@en ;
+    gsndesign:supersededBy gsndesign:dd-1115 ;
     gsndesign:positionKey "S06.R159" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-modular ;
@@ -27112,7 +27122,9 @@ assuranceClaimPoint(?A, true) ^ ArtefactReference(?A) ^ makeOWLThing(?R, ?A) -> 
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0245 ; prov:hadActivity gsndesign:dd-1067 ] .
 
 gsndesign:dd-1068
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The node that the rule creates matched the rule again, and an engine without swrlx:makeOWLThing did not stop. Since 1.3.1 the body also reads a schema:identifier of the relationship. Superseded by dd-1106."@en ;
+    gsndesign:supersededBy gsndesign:dd-1106 ;
     gsndesign:positionKey "S07.R058" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-confidence ;
@@ -27141,7 +27153,9 @@ supportedBy(?G, ?S2) ^ Goal(?S1) ^ object(?R1, ?S1) ^ RelationshipWithConfidence
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0257 ; prov:hadActivity gsndesign:dd-1068 ] .
 
 gsndesign:dd-1069
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The node that the rule creates matched the rule again, and an engine without swrlx:makeOWLThing did not stop. Since 1.3.1 the body also reads a schema:identifier of the relationship. Superseded by dd-1107."@en ;
+    gsndesign:supersededBy gsndesign:dd-1107 ;
     gsndesign:positionKey "S07.R059" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-confidence ;
@@ -27200,7 +27214,9 @@ challenges(?D, ?R) ^ subject(?R, ?G3) ^ object(?R, ?G1) ^ Goal(?G1) ^ Goal(?G3) 
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0285 ; prov:hadActivity gsndesign:dd-1070 ] .
 
 gsndesign:dd-1071
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The node that the rule creates matched the rule again, and an engine without swrlx:makeOWLThing did not stop. Since 1.3.1 the body also reads a schema:identifier of the relationship. Superseded by dd-1108."@en ;
+    gsndesign:supersededBy gsndesign:dd-1108 ;
     gsndesign:positionKey "S07.R060" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-confidence ;
@@ -27230,7 +27246,9 @@ supportedBy(?G2, ?S) ^ RelationshipWithConfidence(?R1) ^ subject(?R1, ?S) ^ supp
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0254 ; prov:hadActivity gsndesign:dd-1071 ] .
 
 gsndesign:dd-1072
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The node that the rule creates matched the rule again, and an engine without swrlx:makeOWLThing did not stop. Since 1.3.1 the body also reads a schema:identifier of the relationship. Superseded by dd-1109."@en ;
+    gsndesign:supersededBy gsndesign:dd-1109 ;
     gsndesign:positionKey "S07.R061" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-confidence ;
@@ -27427,7 +27445,9 @@ inModule(?A, ?M) ^ inModule(?B, ?N) ^ supportedBy(?A, ?B) ^ Module(?N) ^ Module(
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0143 ; prov:hadActivity gsndesign:dd-1078 ] .
 
 gsndesign:dd-1079
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The body read gsn:contains from a module to an element. A module contains arguments and modules only, so the rule did not match where its SPARQL update did. It reads gsn:inModule since 1.3.1. Superseded by dd-1111."@en ;
+    gsndesign:supersededBy gsndesign:dd-1111 ;
     gsndesign:positionKey "S06.R195" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-modular ;
@@ -28100,3 +28120,310 @@ gsndesign:dd-1105
     gsndesign:naturalLanguage "A SPARQL rule that creates a node gives the node the same IRI in every run."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0244 .
+
+
+#################################################################
+#    Added by prov_add.py (10 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1106
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S07.R062" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-confidence ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF G is supported by S2 AND S1 is a goal AND R1 has as its object S1 AND R1 is a relationship with confidence AND a new R2 is created for each pair of G and S2 AND G is supported by S1 AND S2 is a goal AND G is a goal AND S1 is not the same as S2 AND R1 is associated with A AND R1 has as its subject G AND R1 has identifier ID THEN R2 has as its object S2 AND R2 is a relationship with confidence AND R2 has as its subject G AND R2 is associated with A AND R2 is assurance claim point"@en ;
+    gsndesign:nlWrittenFor "cb3c1947" ;
+    prov:used gsndesign:src-0257 ;
+    gsndesign:hasRationale gsndesign:why-0246 ;
+    prov:generated gsndesign:st-1106 .
+
+gsndesign:st-1106
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1106 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Goal Confidence Relation
+supportedBy(?G, ?S2) ^ Goal(?S1) ^ object(?R1, ?S1) ^ RelationshipWithConfidence(?R1) ^ makeOWLThing(?R2, ?G, ?S2) ^ supportedBy(?G, ?S1) ^ Goal(?S2) ^ Goal(?G) ^ differentFrom(?S1, ?S2) ^ associatedWith(?R1, ?A) ^ subject(?R1, ?G) ^ identifier(?R1, ?ID) -> object(?R2, ?S2) ^ RelationshipWithConfidence(?R2) ^ subject(?R2, ?G) ^ associatedWith(?R2, ?A) ^ assuranceClaimPoint(?R2, true)""" ;
+    gsndesign:statementChecksum "cb3c1947" ;
+    gsndesign:structuralKey "rule|Goal Confidence Relation" ;
+    gsndesign:ruleName "Goal Confidence Relation" ;
+    gsndesign:mentionsTerm gsn:Goal ,
+        gsn:RelationshipWithConfidence ,
+        gsn:associatedWith ,
+        gsn:assuranceClaimPoint ,
+        gsn:supportedBy ;
+    prov:wasDerivedFrom gsndesign:src-0257 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0257 ; prov:hadActivity gsndesign:dd-1106 ] .
+
+gsndesign:dd-1107
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S07.R063" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-confidence ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF G is supported by S2 AND S1 is a solution AND R1 has as its object S1 AND R1 is a relationship with confidence AND a new R2 is created for each pair of G and S2 AND G is supported by S1 AND G is a goal AND S1 is not the same as S2 AND R1 is associated with A AND R1 has as its subject G AND S2 is a solution AND R1 has identifier ID THEN R2 has as its object S2 AND R2 is a relationship with confidence AND R2 has as its subject G AND R2 is associated with A AND R2 is assurance claim point"@en ;
+    gsndesign:nlWrittenFor "86280800" ;
+    prov:used gsndesign:src-0256 ;
+    gsndesign:hasRationale gsndesign:why-0246 ;
+    prov:generated gsndesign:st-1107 .
+
+gsndesign:st-1107
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1107 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Solution Confidence Relation
+supportedBy(?G, ?S2) ^ Solution(?S1) ^ object(?R1, ?S1) ^ RelationshipWithConfidence(?R1) ^ makeOWLThing(?R2, ?G, ?S2) ^ supportedBy(?G, ?S1) ^ Goal(?G) ^ differentFrom(?S1, ?S2) ^ associatedWith(?R1, ?A) ^ subject(?R1, ?G) ^ Solution(?S2) ^ identifier(?R1, ?ID) -> object(?R2, ?S2) ^ RelationshipWithConfidence(?R2) ^ subject(?R2, ?G) ^ associatedWith(?R2, ?A) ^ assuranceClaimPoint(?R2, true)""" ;
+    gsndesign:statementChecksum "86280800" ;
+    gsndesign:structuralKey "rule|Solution Confidence Relation" ;
+    gsndesign:ruleName "Solution Confidence Relation" ;
+    gsndesign:mentionsTerm gsn:Goal ,
+        gsn:RelationshipWithConfidence ,
+        gsn:Solution ,
+        gsn:associatedWith ,
+        gsn:assuranceClaimPoint ,
+        gsn:supportedBy ;
+    prov:wasDerivedFrom gsndesign:src-0256 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0256 ; prov:hadActivity gsndesign:dd-1107 ] .
+
+gsndesign:dd-1108
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S07.R064" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-confidence ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF G2 is supported by S AND R1 is a relationship with confidence AND R1 has as its subject S AND S is supported by G1 AND a new R2 is created for each pair of G2 and S AND R1 has as its object G1 AND S is a strategy AND G1 is a goal AND G2 is a goal AND R1 is associated with A AND R1 has identifier ID THEN R2 is a relationship with confidence AND R2 is associated with A AND R2 is assurance claim point AND R2 has as its subject G2 AND R2 has as its object S"@en ;
+    gsndesign:nlWrittenFor "cb511979" ;
+    prov:used gsndesign:src-0254 ;
+    gsndesign:hasRationale gsndesign:why-0246 ;
+    prov:generated gsndesign:st-1108 .
+
+gsndesign:st-1108
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1108 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Goal-Strategy Confidence
+supportedBy(?G2, ?S) ^ RelationshipWithConfidence(?R1) ^ subject(?R1, ?S) ^ supportedBy(?S, ?G1) ^ makeOWLThing(?R2, ?G2, ?S) ^ object(?R1, ?G1) ^ Strategy(?S) ^ Goal(?G1) ^ Goal(?G2) ^ associatedWith(?R1, ?A) ^ identifier(?R1, ?ID) -> RelationshipWithConfidence(?R2) ^ associatedWith(?R2, ?A) ^ assuranceClaimPoint(?R2, true) ^ subject(?R2, ?G2) ^ object(?R2, ?S)""" ;
+    gsndesign:statementChecksum "cb511979" ;
+    gsndesign:structuralKey "rule|Goal-Strategy Confidence" ;
+    gsndesign:ruleName "Goal-Strategy Confidence" ;
+    gsndesign:mentionsTerm gsn:Goal ,
+        gsn:RelationshipWithConfidence ,
+        gsn:Strategy ,
+        gsn:associatedWith ,
+        gsn:assuranceClaimPoint ,
+        gsn:supportedBy ;
+    prov:wasDerivedFrom gsndesign:src-0254 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0254 ; prov:hadActivity gsndesign:dd-1108 ] .
+
+gsndesign:dd-1109
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S07.R065" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-confidence ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF G1 is supported by S AND S is supported by G2 AND R1 is a relationship with confidence AND a new R2 is created for each pair of S and G2 AND S is a strategy AND G1 is a goal AND G2 is a goal AND R1 has as its object S AND R1 is associated with A AND R1 has as its subject G1 AND R1 has identifier ID THEN R2 has as its subject S AND R2 is a relationship with confidence AND R2 has as its object G2 AND R2 is associated with A AND R2 is assurance claim point"@en ;
+    gsndesign:nlWrittenFor "c437d381" ;
+    prov:used gsndesign:src-0253 ;
+    gsndesign:hasRationale gsndesign:why-0246 ;
+    prov:generated gsndesign:st-1109 .
+
+gsndesign:st-1109
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1109 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Strategy Confidence Relation
+supportedBy(?G1, ?S) ^ supportedBy(?S, ?G2) ^ RelationshipWithConfidence(?R1) ^ makeOWLThing(?R2, ?S, ?G2) ^ Strategy(?S) ^ Goal(?G1) ^ Goal(?G2) ^ object(?R1, ?S) ^ associatedWith(?R1, ?A) ^ subject(?R1, ?G1) ^ identifier(?R1, ?ID) -> subject(?R2, ?S) ^ RelationshipWithConfidence(?R2) ^ object(?R2, ?G2) ^ associatedWith(?R2, ?A) ^ assuranceClaimPoint(?R2, true)""" ;
+    gsndesign:statementChecksum "c437d381" ;
+    gsndesign:structuralKey "rule|Strategy Confidence Relation" ;
+    gsndesign:ruleName "Strategy Confidence Relation" ;
+    gsndesign:mentionsTerm gsn:Goal ,
+        gsn:RelationshipWithConfidence ,
+        gsn:Strategy ,
+        gsn:associatedWith ,
+        gsn:assuranceClaimPoint ,
+        gsn:supportedBy ;
+    prov:wasDerivedFrom gsndesign:src-0253 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0253 ; prov:hadActivity gsndesign:dd-1109 ] .
+
+gsndesign:dd-1110
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R201" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF B has in module M AND A has in module M AND A is to be supported by contract AND A is supported by B AND R has as its subject A AND M is a module AND R has as its object B THEN R is NOT valid"@en ;
+    gsndesign:nlWrittenFor "41461a9c" ;
+    prov:used gsndesign:src-0182 ;
+    gsndesign:hasRationale gsndesign:why-0245 ;
+    prov:generated gsndesign:st-1110 .
+
+gsndesign:st-1110
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1110 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Contract Relation Invalidation
+inModule(?B, ?M) ^ inModule(?A, ?M) ^ toBeSupportedByContract(?A, true) ^ supportedBy(?A, ?B) ^ subject(?R, ?A) ^ Module(?M) ^ object(?R, ?B) -> valid(?R, false)""" ;
+    gsndesign:statementChecksum "41461a9c" ;
+    gsndesign:structuralKey "rule|Contract Relation Invalidation" ;
+    gsndesign:ruleName "Contract Relation Invalidation" ;
+    gsndesign:mentionsTerm gsn:Module ,
+        gsn:inModule ,
+        gsn:supportedBy ,
+        gsn:toBeSupportedByContract ,
+        gsn:valid ;
+    prov:wasDerivedFrom gsndesign:src-0182 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0182 ; prov:hadActivity gsndesign:dd-1110 ] .
+
+gsndesign:dd-1111
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R202" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF B has in module M AND A has in module M AND A has identifier ID AND M is a module AND A is not the same as B AND B has identifier ID THEN A is NOT valid AND B is NOT valid"@en ;
+    gsndesign:nlWrittenFor "2fae36c1" ;
+    prov:used gsndesign:src-0144 ;
+    prov:used gsndesign:src-0145 ;
+    gsndesign:hasRationale gsndesign:why-0245 ;
+    prov:generated gsndesign:st-1111 .
+
+gsndesign:st-1111
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1111 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Duplicate Identifier Invalidation
+inModule(?B, ?M) ^ inModule(?A, ?M) ^ identifier(?A, ?ID) ^ Module(?M) ^ differentFrom(?A, ?B) ^ identifier(?B, ?ID) -> valid(?A, false) ^ valid(?B, false)""" ;
+    gsndesign:statementChecksum "2fae36c1" ;
+    gsndesign:structuralKey "rule|Duplicate Identifier Invalidation" ;
+    gsndesign:ruleName "Duplicate Identifier Invalidation" ;
+    gsndesign:mentionsTerm gsn:Module ,
+        gsn:inModule ,
+        gsn:valid ;
+    prov:wasDerivedFrom gsndesign:src-0144 ;
+    prov:wasDerivedFrom gsndesign:src-0145 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0144 ; prov:hadActivity gsndesign:dd-1111 ] ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0145 ; prov:hadActivity gsndesign:dd-1111 ] .
+
+gsndesign:dd-1112
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R203" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF A has in module M AND A is to be supported by contract AND M is contract AND M is a module THEN A is NOT valid"@en ;
+    gsndesign:nlWrittenFor "237411f5" ;
+    prov:used gsndesign:src-0172 ;
+    gsndesign:hasRationale gsndesign:why-0245 ;
+    prov:generated gsndesign:st-1112 .
+
+gsndesign:st-1112
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1112 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Contract Support Invalidation
+inModule(?A, ?M) ^ toBeSupportedByContract(?A, true) ^ contract(?M, true) ^ Module(?M) -> valid(?A, false)""" ;
+    gsndesign:statementChecksum "237411f5" ;
+    gsndesign:structuralKey "rule|Contract Support Invalidation" ;
+    gsndesign:ruleName "Contract Support Invalidation" ;
+    gsndesign:mentionsTerm gsn:Module ,
+        gsn:contract ,
+        gsn:inModule ,
+        gsn:toBeSupportedByContract ,
+        gsn:valid ;
+    prov:wasDerivedFrom gsndesign:src-0172 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0172 ; prov:hadActivity gsndesign:dd-1112 ] .
+
+gsndesign:dd-1113
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R204" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF A is in the context of M1 AND R has as its object M1 AND M1 is a module AND M2 is a module AND A has in module M2 AND R has as its subject A AND M2 is contract THEN R is NOT valid"@en ;
+    gsndesign:nlWrittenFor "2ff85041" ;
+    prov:used gsndesign:src-0162 ;
+    gsndesign:hasRationale gsndesign:why-0245 ;
+    prov:generated gsndesign:st-1113 .
+
+gsndesign:st-1113
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1113 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Context Contract Invalidation
+inContextOf(?A, ?M1) ^ object(?R, ?M1) ^ Module(?M1) ^ Module(?M2) ^ inModule(?A, ?M2) ^ subject(?R, ?A) ^ contract(?M2, true) -> valid(?R, false)""" ;
+    gsndesign:statementChecksum "2ff85041" ;
+    gsndesign:structuralKey "rule|Context Contract Invalidation" ;
+    gsndesign:ruleName "Context Contract Invalidation" ;
+    gsndesign:mentionsTerm gsn:Module ,
+        gsn:contract ,
+        gsn:inContextOf ,
+        gsn:inModule ,
+        gsn:valid ;
+    prov:wasDerivedFrom gsndesign:src-0162 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0162 ; prov:hadActivity gsndesign:dd-1113 ] .
+
+gsndesign:dd-1114
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R205" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF R has as its object M1 AND M1 is a module AND M2 is a module AND A has in module M2 AND A is supported by M1 AND R has as its subject A AND M2 is contract THEN R is NOT valid"@en ;
+    gsndesign:nlWrittenFor "00bf84cb" ;
+    prov:used gsndesign:src-0162 ;
+    gsndesign:hasRationale gsndesign:why-0245 ;
+    prov:generated gsndesign:st-1114 .
+
+gsndesign:st-1114
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1114 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Contract Violation Relation
+object(?R, ?M1) ^ Module(?M1) ^ Module(?M2) ^ inModule(?A, ?M2) ^ supportedBy(?A, ?M1) ^ subject(?R, ?A) ^ contract(?M2, true) -> valid(?R, false)""" ;
+    gsndesign:statementChecksum "00bf84cb" ;
+    gsndesign:structuralKey "rule|Contract Violation Relation" ;
+    gsndesign:ruleName "Contract Violation Relation" ;
+    gsndesign:mentionsTerm gsn:Module ,
+        gsn:contract ,
+        gsn:inModule ,
+        gsn:supportedBy ,
+        gsn:valid ;
+    prov:wasDerivedFrom gsndesign:src-0162 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0162 ; prov:hadActivity gsndesign:dd-1114 ] .
+
+gsndesign:dd-1115
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S06.R206" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-modular ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF C is contract AND E is public AND E has in module C THEN E is NOT valid"@en ;
+    gsndesign:nlWrittenFor "01d6e5da" ;
+    prov:used gsndesign:src-0233 ;
+    gsndesign:hasRationale gsndesign:why-0245 ;
+    prov:generated gsndesign:st-1115 .
+
+gsndesign:st-1115
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1115 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Public Contract Invalidation
+contract(?C, true) ^ public(?E, true) ^ inModule(?E, ?C) -> valid(?E, false)""" ;
+    gsndesign:statementChecksum "01d6e5da" ;
+    gsndesign:structuralKey "rule|Public Contract Invalidation" ;
+    gsndesign:ruleName "Public Contract Invalidation" ;
+    gsndesign:mentionsTerm gsn:contract ,
+        gsn:inModule ,
+        gsn:public ,
+        gsn:valid ;
+    prov:wasDerivedFrom gsndesign:src-0233 ;
+    prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0233 ; prov:hadActivity gsndesign:dd-1115 ] .
+
+gsndesign:why-0245
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "Six rules of the Modular Extension read gsn:contains from a module to an element. A module contains arguments and other modules, and never an element directly, so the body of such a rule did not match a case with modules, arguments and elements. The SPARQL updates of the same six rules read gsn:inModule, which the Module Membership and Nested Module Membership rules derive. On the same graph, one form of a rule drew its conclusion and the other form drew none. The six rules now read gsn:inModule, as the other rules of the extension do since 1.3.0. The FinComp hub found the difference on 2026-11-14, when it ran each rule alone in several reasoners and compared the results with the SPARQL updates. A reasoner now needs the two membership rules before these six rules draw a conclusion."@en .
+
+gsndesign:why-0246
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "Each of the four confidence rules creates a relationship with confidence. That new node matches the body of the rule again, in the place of the relationship that the rule reads. The SWRLAPI stops, because swrlx:makeOWLThing returns the same node for the same arguments. An engine without that built-in creates a new node for each match and does not stop. The FinComp hub measured this in GraphDB 10.5.0 on 2026-11-14: up to 597,165 derived triples from a case of 22. The body of each rule now also reads a schema:identifier of the relationship. A relationship that a person states has an identifier, because the shape of the class requires one, and the head of a rule writes none. So a node that a rule created does not match a rule again. The cost is that a confidence moves one step from a stated relationship. The Solution Confidence Relation and Goal Confidence Relation rules lose nothing, because every sibling gets its node from the stated relationship. For the Strategy Confidence Relation and Goal-Strategy Confidence rules, a node that one of the two created no longer starts the other."@en .

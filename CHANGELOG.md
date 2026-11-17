@@ -63,7 +63,7 @@ differs from the SWRL rule that it re-expresses.
 
 ## Ontology 1.3.1 — 2026-11-11 — shapes 1.2.0
 
-Four changes that waited for an ontology release. Two of them change what a reasoner infers.
+Seven changes that waited for an ontology release. Four of them change what a reasoner infers.
 The ontology now has 60 SWRL rules.
 
 ### Doubt on a link reaches the element that relies on it
@@ -140,6 +140,68 @@ artefact is a data property value, as before.
 
 Reasoning: `dd-1091` and `dd-1092`, rationale `why-0235`. Retires `dd-0586`, `dd-0505`,
 `dd-0719` and `dd-0720`.
+
+### Six module rules read `gsn:inModule`
+
+**Breaking for reasoners.** The SWRL form of six rules of the Modular Extension read
+`gsn:contains` from a module to an element. A module contains arguments and other modules, and
+not an element. So the SWRL form did not match a case with modules, arguments and elements,
+and the SPARQL update of the same rule did.
+
+| Rule | Body atoms before | Body atoms now |
+| :--- | :--- | :--- |
+| S25 Duplicate Identifier Invalidation, S31 Contract Relation Invalidation | `contains(?M, ?A)`, `contains(?M, ?B)` | `inModule(?A, ?M)`, `inModule(?B, ?M)` |
+| S26 Contract Violation Relation, S27 Context Contract Invalidation | `contains(?M2, ?A)` | `inModule(?A, ?M2)` |
+| S28 Contract Support Invalidation | `contains(?M, ?A)` | `inModule(?A, ?M)` |
+| S39 Public Contract Invalidation | `contains(?C, ?E)` | `inModule(?E, ?C)` |
+
+- The SPARQL updates do not change. They read `gsn:inModule` since 1.3.0.
+- S53 and S54 derive `gsn:inModule`. A reasoner runs them with the other rules.
+
+*For case authors:* nothing to do. Do not state `gsn:inModule`, because the rules derive it.
+
+Reasoning: `dd-1110` to `dd-1115`, rationale `why-0245`. Retires `dd-0523`, `dd-0524`,
+`dd-0550`, `dd-0562`, `dd-0632` and `dd-1079`. The FinComp hub found the difference.
+
+### The four confidence rules stop at a node that a rule created
+
+**Breaking for reasoners.** S42 to S45 each create a relationship with confidence. The new node
+matched the rule again. The SWRLAPI stops, because `swrlx:makeOWLThing` returns the same node
+for the same arguments. An engine without that built-in creates a new node for each match and
+does not stop. The FinComp hub measured up to 597,165 derived triples from a case of 22 in
+GraphDB 10.5.0.
+
+- The body of S42, S43, S44 and S45 has one more atom, `schema:identifier(?R1, ?ID)`. A stated
+  relationship has an identifier, and the head of a rule writes none. So a node that a rule
+  created does not match a rule again.
+- S44 and S45 give the same nodes as before.
+- S42 and S43 no longer start each other. Under SWRL, a confidence moves one step from a
+  stated relationship.
+- The SPARQL updates of S42 and S43 do not change, and they do not have this limit. They write
+  an identifier on the node that they create. On a strategy with two parent goals or two child
+  goals, the SPARQL updates give a node for every link of the strategy, and the SWRL form does
+  not.
+
+*For case authors:* give each `gsn:RelationshipWithConfidence` that you state a
+`schema:identifier`. `gsnsh:RelationshipWithConfidenceShape` already requires one. Without it,
+S42 to S45 do not read the relationship in a reasoner.
+
+Reasoning: `dd-1106` to `dd-1109`, rationale `why-0246`. Retires `dd-1068`, `dd-1069`,
+`dd-1071` and `dd-1072`.
+
+### The SPARQL update of S10 does not make a defeated goal true
+
+**Not breaking for reasoners.** `gsnsh:DefeatedElementIsNotTrueShape` says that a defeated
+element cannot be true. The SPARQL update of S10 made a goal true when all its solutions were
+true, also when the goal was defeated.
+
+- `s10_solution_propagation_true.rq` has one more guard: the goal is not defeated.
+- The SWRL form does not change, because SWRL has no negation. The design record already
+  states that this update has a guard that the rule does not have.
+- `rule_cases.ttl` has a defeated goal over a true solution. The goal stays without a truth
+  value.
+
+The FinComp hub proposed the guard.
 
 ### The header names a square logo
 

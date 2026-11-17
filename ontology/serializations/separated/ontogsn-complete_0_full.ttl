@@ -398,8 +398,6 @@ gsn:top a owl:DatatypeProperty ;
 
 gsnswrl:C1 a swrl:Variable .
 
-gsnswrl:ID a swrl:Variable .
-
 gsn:AssuranceCase a owl:Class ;
     rdfs:label "Assurance Case"@en ;
     rdfs:subClassOf [ a owl:Restriction ;
@@ -557,6 +555,8 @@ gsnswrl:E1 a swrl:Variable .
 
 gsnswrl:G3 a swrl:Variable .
 
+gsnswrl:ID a swrl:Variable .
+
 gsn:ArtefactReference a owl:Class ;
     rdfs:label "Artefact Reference"@en ;
     rdfs:subClassOf gsn:GSNElement ;
@@ -591,8 +591,6 @@ gsn:assuranceClaimPoint a owl:DatatypeProperty ;
     skos:definition "An Assurance Claim Point (ACP) can be used in GSN to indicate that a confidence argument is associated with an assertion in a risk argument."@en ;
     gsn:coreOrExtension "Confidence Argument Extension"@en ;
     gsn:renderedAs "solid square" .
-
-schema:identifier a owl:DatatypeProperty .
 
 gsn:Assumption a owl:Class ;
     rdfs:label "Assumption"@en ;
@@ -708,7 +706,16 @@ gsn:Solution a owl:Class ;
 
 gsnswrl:C a swrl:Variable .
 
-gsnswrl:R1 a swrl:Variable .
+schema:identifier a owl:DatatypeProperty .
+
+gsn:contains a owl:ObjectProperty ;
+    rdfs:label "contains"@en ;
+    rdfs:domain [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Catalogue gsn:Module gsn:Pattern ) ] ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:Argument gsn:Artefact gsn:GSNElement gsn:Pattern ) ] ;
+    skos:definition "[OntoGSN] Relates a container (e.g., an assurance case, argument, module, catalogue or pattern) to its components (e.g., elements, arguments, patterns or artefacts)."@en ;
+    gsn:coreOrExtension "Core GSN"@en .
 
 gsn:Argument a owl:Class ;
     rdfs:label "Argument"@en ;
@@ -723,23 +730,16 @@ gsn:Argument a owl:Class ;
             owl:allValuesFrom [ a owl:Class ;
                     owl:unionOf ( gsn:GSNElement gsn:Pattern ) ] ;
             owl:onProperty gsn:contains ],
-        _:genid0969 ;
+        _:genid0981 ;
     skos:definition "A body of information presented with the intention to establish one or more claims through the presentation of related supporting claims, evidence and contextual information."@en,
         "A connected series of claims intended to establish an overall claim."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
-gsn:inModule a owl:ObjectProperty ;
-    rdfs:label "in module"@en ;
-    rdfs:domain gsn:GSNElement ;
-    rdfs:range gsn:Module ;
-    skos:definition "The module an element belongs to, whether the element sits in an argument the module contains or in a module nested inside it."@en ;
-    skos:note "Inferred, never authored. A module contains arguments and other modules, so the module an element belongs to is always reached in two steps or more. This property names the result of that traversal so that the rules of the Modular Extension can state it in one atom. It is derived by the Module Membership and Nested Module Membership rules."@en ;
-    gsn:coreOrExtension "Modular Extension"@en ;
-    gsn:inferredOnly true .
-
 gsnswrl:G1 a swrl:Variable .
 
 gsnswrl:G2 a swrl:Variable .
+
+gsnswrl:R1 a swrl:Variable .
 
 gsn:inContextOf a owl:AsymmetricProperty,
         owl:IrreflexiveProperty,
@@ -763,15 +763,6 @@ gsn:Pattern a owl:Class ;
     skos:definition "[OntoGSN] A reusable argument structure, accompanied by a description that defines its intent and the constraints on its use, from which concrete arguments are instantiated."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-gsn:contains a owl:ObjectProperty ;
-    rdfs:label "contains"@en ;
-    rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:AssuranceCase gsn:Catalogue gsn:Module gsn:Pattern ) ] ;
-    rdfs:range [ a owl:Class ;
-            owl:unionOf ( gsn:Argument gsn:Artefact gsn:GSNElement gsn:Pattern ) ] ;
-    skos:definition "[OntoGSN] Relates a container (e.g., an assurance case, argument, module, catalogue or pattern) to its components (e.g., elements, arguments, patterns or artefacts)."@en ;
-    gsn:coreOrExtension "Core GSN"@en .
-
 gsnswrl:G a swrl:Variable .
 
 gsnswrl:E a swrl:Variable .
@@ -779,6 +770,15 @@ gsnswrl:E a swrl:Variable .
 gsnswrl:M a swrl:Variable .
 
 gsnswrl:R2 a swrl:Variable .
+
+gsn:inModule a owl:ObjectProperty ;
+    rdfs:label "in module"@en ;
+    rdfs:domain gsn:GSNElement ;
+    rdfs:range gsn:Module ;
+    skos:definition "The module an element belongs to, whether the element sits in an argument the module contains or in a module nested inside it."@en ;
+    skos:note "Inferred, never authored. A module contains arguments and other modules, so the module an element belongs to is always reached in two steps or more. This property names the result of that traversal so that the rules of the Modular Extension can state it in one atom. It is derived by the Module Membership and Nested Module Membership rules."@en ;
+    gsn:coreOrExtension "Modular Extension"@en ;
+    gsn:inferredOnly true .
 
 gsnswrl:M1 a swrl:Variable .
 
@@ -1009,82 +1009,6 @@ gsnswrl:A a swrl:Variable .
     gsn:coreOrExtension "Dialectic Extension" .
 
 [] a swrl:Imp ;
-    rdfs:label "Contract Violation Relation" ;
-    swrla:isRuleEnabled true ;
-    swrl:body [ a swrl:AtomList ;
-            rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsnswrl:R ;
-                    swrl:argument2 gsnswrl:M1 ;
-                    swrl:propertyPredicate rdf:object ] ;
-            rdf:rest [ a swrl:AtomList ;
-                    rdf:first [ a swrl:ClassAtom ;
-                            swrl:argument1 gsnswrl:M1 ;
-                            swrl:classPredicate gsn:Module ] ;
-                    rdf:rest [ a swrl:AtomList ;
-                            rdf:first [ a swrl:ClassAtom ;
-                                    swrl:argument1 gsnswrl:M2 ;
-                                    swrl:classPredicate gsn:Module ] ;
-                            rdf:rest [ a swrl:AtomList ;
-                                    rdf:first [ a swrl:IndividualPropertyAtom ;
-                                            swrl:argument1 gsnswrl:M2 ;
-                                            swrl:argument2 gsnswrl:A ;
-                                            swrl:propertyPredicate gsn:contains ] ;
-                                    rdf:rest [ a swrl:AtomList ;
-                                            rdf:first [ a swrl:IndividualPropertyAtom ;
-                                                    swrl:argument1 gsnswrl:A ;
-                                                    swrl:argument2 gsnswrl:M1 ;
-                                                    swrl:propertyPredicate gsn:supportedBy ] ;
-                                            rdf:rest [ a swrl:AtomList ;
-                                                    rdf:first [ a swrl:IndividualPropertyAtom ;
-                                                            swrl:argument1 gsnswrl:R ;
-                                                            swrl:argument2 gsnswrl:A ;
-                                                            swrl:propertyPredicate rdf:subject ] ;
-                                                    rdf:rest [ a swrl:AtomList ;
-                                                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                                                    swrl:argument1 gsnswrl:M2 ;
-                                                                    swrl:argument2 true ;
-                                                                    swrl:propertyPredicate gsn:contract ] ;
-                                                            rdf:rest () ] ] ] ] ] ] ] ;
-    swrl:head [ a swrl:AtomList ;
-            rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsnswrl:R ;
-                    swrl:argument2 false ;
-                    swrl:propertyPredicate gsn:valid ] ;
-            rdf:rest () ] ;
-    gsn:coreOrExtension "Modular Extension" .
-
-[] a swrl:Imp ;
-    rdfs:label "Contract Support Invalidation" ;
-    swrla:isRuleEnabled true ;
-    swrl:body [ a swrl:AtomList ;
-            rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsnswrl:M ;
-                    swrl:argument2 gsnswrl:A ;
-                    swrl:propertyPredicate gsn:contains ] ;
-            rdf:rest [ a swrl:AtomList ;
-                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                            swrl:argument1 gsnswrl:A ;
-                            swrl:argument2 true ;
-                            swrl:propertyPredicate gsn:toBeSupportedByContract ] ;
-                    rdf:rest [ a swrl:AtomList ;
-                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                    swrl:argument1 gsnswrl:M ;
-                                    swrl:argument2 true ;
-                                    swrl:propertyPredicate gsn:contract ] ;
-                            rdf:rest [ a swrl:AtomList ;
-                                    rdf:first [ a swrl:ClassAtom ;
-                                            swrl:argument1 gsnswrl:M ;
-                                            swrl:classPredicate gsn:Module ] ;
-                                    rdf:rest () ] ] ] ] ;
-    swrl:head [ a swrl:AtomList ;
-            rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsnswrl:A ;
-                    swrl:argument2 false ;
-                    swrl:propertyPredicate gsn:valid ] ;
-            rdf:rest () ] ;
-    gsn:coreOrExtension "Modular Extension" .
-
-[] a swrl:Imp ;
     rdfs:label "Support Cycle Invalidation" ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
@@ -1168,6 +1092,51 @@ gsnswrl:A a swrl:Variable .
     gsn:coreOrExtension "Argument Pattern Extension" .
 
 [] a swrl:Imp ;
+    rdfs:label "Contract Violation Relation" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:IndividualPropertyAtom ;
+                    swrl:argument1 gsnswrl:R ;
+                    swrl:argument2 gsnswrl:M1 ;
+                    swrl:propertyPredicate rdf:object ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:ClassAtom ;
+                            swrl:argument1 gsnswrl:M1 ;
+                            swrl:classPredicate gsn:Module ] ;
+                    rdf:rest [ a swrl:AtomList ;
+                            rdf:first [ a swrl:ClassAtom ;
+                                    swrl:argument1 gsnswrl:M2 ;
+                                    swrl:classPredicate gsn:Module ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:IndividualPropertyAtom ;
+                                            swrl:argument1 gsnswrl:A ;
+                                            swrl:argument2 gsnswrl:M2 ;
+                                            swrl:propertyPredicate gsn:inModule ] ;
+                                    rdf:rest [ a swrl:AtomList ;
+                                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                    swrl:argument1 gsnswrl:A ;
+                                                    swrl:argument2 gsnswrl:M1 ;
+                                                    swrl:propertyPredicate gsn:supportedBy ] ;
+                                            rdf:rest [ a swrl:AtomList ;
+                                                    rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                            swrl:argument1 gsnswrl:R ;
+                                                            swrl:argument2 gsnswrl:A ;
+                                                            swrl:propertyPredicate rdf:subject ] ;
+                                                    rdf:rest [ a swrl:AtomList ;
+                                                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                                                    swrl:argument1 gsnswrl:M2 ;
+                                                                    swrl:argument2 true ;
+                                                                    swrl:propertyPredicate gsn:contract ] ;
+                                                            rdf:rest () ] ] ] ] ] ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsnswrl:R ;
+                    swrl:argument2 false ;
+                    swrl:propertyPredicate gsn:valid ] ;
+            rdf:rest () ] ;
+    gsn:coreOrExtension "Modular Extension" .
+
+[] a swrl:Imp ;
     rdfs:label "Strategy Confidence Relation" ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
@@ -1215,7 +1184,12 @@ gsnswrl:A a swrl:Variable .
                                                                                             swrl:argument1 gsnswrl:R1 ;
                                                                                             swrl:argument2 gsnswrl:G1 ;
                                                                                             swrl:propertyPredicate rdf:subject ] ;
-                                                                                    rdf:rest () ] ] ] ] ] ] ] ] ] ] ;
+                                                                                    rdf:rest [ a swrl:AtomList ;
+                                                                                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                                                                                    swrl:argument1 gsnswrl:R1 ;
+                                                                                                    swrl:argument2 gsnswrl:ID ;
+                                                                                                    swrl:propertyPredicate schema:identifier ] ;
+                                                                                            rdf:rest () ] ] ] ] ] ] ] ] ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:IndividualPropertyAtom ;
                     swrl:argument1 gsnswrl:R2 ;
@@ -1468,6 +1442,37 @@ gsnswrl:A a swrl:Variable .
                                     swrl:propertyPredicate rdf:object ] ;
                             rdf:rest () ] ] ] ;
     gsn:coreOrExtension "Core GSN" .
+
+[] a swrl:Imp ;
+    rdfs:label "Contract Support Invalidation" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:IndividualPropertyAtom ;
+                    swrl:argument1 gsnswrl:A ;
+                    swrl:argument2 gsnswrl:M ;
+                    swrl:propertyPredicate gsn:inModule ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                            swrl:argument1 gsnswrl:A ;
+                            swrl:argument2 true ;
+                            swrl:propertyPredicate gsn:toBeSupportedByContract ] ;
+                    rdf:rest [ a swrl:AtomList ;
+                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                    swrl:argument1 gsnswrl:M ;
+                                    swrl:argument2 true ;
+                                    swrl:propertyPredicate gsn:contract ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:ClassAtom ;
+                                            swrl:argument1 gsnswrl:M ;
+                                            swrl:classPredicate gsn:Module ] ;
+                                    rdf:rest () ] ] ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsnswrl:A ;
+                    swrl:argument2 false ;
+                    swrl:propertyPredicate gsn:valid ] ;
+            rdf:rest () ] ;
+    gsn:coreOrExtension "Modular Extension" .
 
 [] a swrl:Imp ;
     rdfs:label "Confidence Relation Creation" ;
@@ -1726,52 +1731,6 @@ gsnswrl:A a swrl:Variable .
     gsn:coreOrExtension "Core GSN" .
 
 [] a swrl:Imp ;
-    rdfs:label "Contract Relation Invalidation" ;
-    swrla:isRuleEnabled true ;
-    swrl:body [ a swrl:AtomList ;
-            rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsnswrl:M ;
-                    swrl:argument2 gsnswrl:B ;
-                    swrl:propertyPredicate gsn:contains ] ;
-            rdf:rest [ a swrl:AtomList ;
-                    rdf:first [ a swrl:IndividualPropertyAtom ;
-                            swrl:argument1 gsnswrl:M ;
-                            swrl:argument2 gsnswrl:A ;
-                            swrl:propertyPredicate gsn:contains ] ;
-                    rdf:rest [ a swrl:AtomList ;
-                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                    swrl:argument1 gsnswrl:A ;
-                                    swrl:argument2 true ;
-                                    swrl:propertyPredicate gsn:toBeSupportedByContract ] ;
-                            rdf:rest [ a swrl:AtomList ;
-                                    rdf:first [ a swrl:IndividualPropertyAtom ;
-                                            swrl:argument1 gsnswrl:A ;
-                                            swrl:argument2 gsnswrl:B ;
-                                            swrl:propertyPredicate gsn:supportedBy ] ;
-                                    rdf:rest [ a swrl:AtomList ;
-                                            rdf:first [ a swrl:IndividualPropertyAtom ;
-                                                    swrl:argument1 gsnswrl:R ;
-                                                    swrl:argument2 gsnswrl:A ;
-                                                    swrl:propertyPredicate rdf:subject ] ;
-                                            rdf:rest [ a swrl:AtomList ;
-                                                    rdf:first [ a swrl:ClassAtom ;
-                                                            swrl:argument1 gsnswrl:M ;
-                                                            swrl:classPredicate gsn:Module ] ;
-                                                    rdf:rest [ a swrl:AtomList ;
-                                                            rdf:first [ a swrl:IndividualPropertyAtom ;
-                                                                    swrl:argument1 gsnswrl:R ;
-                                                                    swrl:argument2 gsnswrl:B ;
-                                                                    swrl:propertyPredicate rdf:object ] ;
-                                                            rdf:rest () ] ] ] ] ] ] ] ;
-    swrl:head [ a swrl:AtomList ;
-            rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsnswrl:R ;
-                    swrl:argument2 false ;
-                    swrl:propertyPredicate gsn:valid ] ;
-            rdf:rest () ] ;
-    gsn:coreOrExtension "Modular Extension" .
-
-[] a swrl:Imp ;
     rdfs:label "Goal-Strategy Confidence" ;
     swrla:isRuleEnabled true ;
     swrl:body [ a swrl:AtomList ;
@@ -1819,7 +1778,12 @@ gsnswrl:A a swrl:Variable .
                                                                                             swrl:argument1 gsnswrl:R1 ;
                                                                                             swrl:argument2 gsnswrl:A ;
                                                                                             swrl:propertyPredicate gsn:associatedWith ] ;
-                                                                                    rdf:rest () ] ] ] ] ] ] ] ] ] ] ;
+                                                                                    rdf:rest [ a swrl:AtomList ;
+                                                                                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                                                                                    swrl:argument1 gsnswrl:R1 ;
+                                                                                                    swrl:argument2 gsnswrl:ID ;
+                                                                                                    swrl:propertyPredicate schema:identifier ] ;
+                                                                                            rdf:rest () ] ] ] ] ] ] ] ] ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:ClassAtom ;
                     swrl:argument1 gsnswrl:R2 ;
@@ -2009,6 +1973,52 @@ gsnswrl:A a swrl:Variable .
                     swrl:argument1 gsnswrl:A ;
                     swrl:argument2 gsnswrl:B ;
                     swrl:propertyPredicate gsn:transitivelyInContextOf ] ;
+            rdf:rest () ] ;
+    gsn:coreOrExtension "Modular Extension" .
+
+[] a swrl:Imp ;
+    rdfs:label "Contract Relation Invalidation" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:IndividualPropertyAtom ;
+                    swrl:argument1 gsnswrl:B ;
+                    swrl:argument2 gsnswrl:M ;
+                    swrl:propertyPredicate gsn:inModule ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:IndividualPropertyAtom ;
+                            swrl:argument1 gsnswrl:A ;
+                            swrl:argument2 gsnswrl:M ;
+                            swrl:propertyPredicate gsn:inModule ] ;
+                    rdf:rest [ a swrl:AtomList ;
+                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                    swrl:argument1 gsnswrl:A ;
+                                    swrl:argument2 true ;
+                                    swrl:propertyPredicate gsn:toBeSupportedByContract ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:IndividualPropertyAtom ;
+                                            swrl:argument1 gsnswrl:A ;
+                                            swrl:argument2 gsnswrl:B ;
+                                            swrl:propertyPredicate gsn:supportedBy ] ;
+                                    rdf:rest [ a swrl:AtomList ;
+                                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                    swrl:argument1 gsnswrl:R ;
+                                                    swrl:argument2 gsnswrl:A ;
+                                                    swrl:propertyPredicate rdf:subject ] ;
+                                            rdf:rest [ a swrl:AtomList ;
+                                                    rdf:first [ a swrl:ClassAtom ;
+                                                            swrl:argument1 gsnswrl:M ;
+                                                            swrl:classPredicate gsn:Module ] ;
+                                                    rdf:rest [ a swrl:AtomList ;
+                                                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                                    swrl:argument1 gsnswrl:R ;
+                                                                    swrl:argument2 gsnswrl:B ;
+                                                                    swrl:propertyPredicate rdf:object ] ;
+                                                            rdf:rest () ] ] ] ] ] ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsnswrl:R ;
+                    swrl:argument2 false ;
+                    swrl:propertyPredicate gsn:valid ] ;
             rdf:rest () ] ;
     gsn:coreOrExtension "Modular Extension" .
 
@@ -2382,7 +2392,12 @@ gsnswrl:A a swrl:Variable .
                                                                                             rdf:first [ a swrl:ClassAtom ;
                                                                                                     swrl:argument1 gsnswrl:S2 ;
                                                                                                     swrl:classPredicate gsn:Solution ] ;
-                                                                                            rdf:rest () ] ] ] ] ] ] ] ] ] ] ] ;
+                                                                                            rdf:rest [ a swrl:AtomList ;
+                                                                                                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                                                                                            swrl:argument1 gsnswrl:R1 ;
+                                                                                                            swrl:argument2 gsnswrl:ID ;
+                                                                                                            swrl:propertyPredicate schema:identifier ] ;
+                                                                                                    rdf:rest () ] ] ] ] ] ] ] ] ] ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:IndividualPropertyAtom ;
                     swrl:argument1 gsnswrl:R2 ;
@@ -2409,51 +2424,6 @@ gsnswrl:A a swrl:Variable .
                                                     swrl:propertyPredicate gsn:assuranceClaimPoint ] ;
                                             rdf:rest () ] ] ] ] ] ;
     gsn:coreOrExtension "Confidence Argument Extension" .
-
-[] a swrl:Imp ;
-    rdfs:label "Duplicate Identifier Invalidation" ;
-    swrla:isRuleEnabled true ;
-    swrl:body [ a swrl:AtomList ;
-            rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsnswrl:M ;
-                    swrl:argument2 gsnswrl:B ;
-                    swrl:propertyPredicate gsn:contains ] ;
-            rdf:rest [ a swrl:AtomList ;
-                    rdf:first [ a swrl:IndividualPropertyAtom ;
-                            swrl:argument1 gsnswrl:M ;
-                            swrl:argument2 gsnswrl:A ;
-                            swrl:propertyPredicate gsn:contains ] ;
-                    rdf:rest [ a swrl:AtomList ;
-                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                    swrl:argument1 gsnswrl:A ;
-                                    swrl:argument2 gsnswrl:ID ;
-                                    swrl:propertyPredicate schema:identifier ] ;
-                            rdf:rest [ a swrl:AtomList ;
-                                    rdf:first [ a swrl:ClassAtom ;
-                                            swrl:argument1 gsnswrl:M ;
-                                            swrl:classPredicate gsn:Module ] ;
-                                    rdf:rest [ a swrl:AtomList ;
-                                            rdf:first [ a swrl:DifferentIndividualsAtom ;
-                                                    swrl:argument1 gsnswrl:A ;
-                                                    swrl:argument2 gsnswrl:B ] ;
-                                            rdf:rest [ a swrl:AtomList ;
-                                                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                                            swrl:argument1 gsnswrl:B ;
-                                                            swrl:argument2 gsnswrl:ID ;
-                                                            swrl:propertyPredicate schema:identifier ] ;
-                                                    rdf:rest () ] ] ] ] ] ] ;
-    swrl:head [ a swrl:AtomList ;
-            rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsnswrl:A ;
-                    swrl:argument2 false ;
-                    swrl:propertyPredicate gsn:valid ] ;
-            rdf:rest [ a swrl:AtomList ;
-                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                            swrl:argument1 gsnswrl:B ;
-                            swrl:argument2 false ;
-                            swrl:propertyPredicate gsn:valid ] ;
-                    rdf:rest () ] ] ;
-    gsn:coreOrExtension "Modular Extension" .
 
 [] a swrl:Imp ;
     rdfs:label "Challenge Closure" ;
@@ -2614,6 +2584,96 @@ gsnswrl:A a swrl:Variable .
                     swrl:propertyPredicate gsn:valid ] ;
             rdf:rest () ] ;
     gsn:coreOrExtension "Dialectic Extension" .
+
+[] a swrl:Imp ;
+    rdfs:label "Duplicate Identifier Invalidation" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:IndividualPropertyAtom ;
+                    swrl:argument1 gsnswrl:B ;
+                    swrl:argument2 gsnswrl:M ;
+                    swrl:propertyPredicate gsn:inModule ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:IndividualPropertyAtom ;
+                            swrl:argument1 gsnswrl:A ;
+                            swrl:argument2 gsnswrl:M ;
+                            swrl:propertyPredicate gsn:inModule ] ;
+                    rdf:rest [ a swrl:AtomList ;
+                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                    swrl:argument1 gsnswrl:A ;
+                                    swrl:argument2 gsnswrl:ID ;
+                                    swrl:propertyPredicate schema:identifier ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:ClassAtom ;
+                                            swrl:argument1 gsnswrl:M ;
+                                            swrl:classPredicate gsn:Module ] ;
+                                    rdf:rest [ a swrl:AtomList ;
+                                            rdf:first [ a swrl:DifferentIndividualsAtom ;
+                                                    swrl:argument1 gsnswrl:A ;
+                                                    swrl:argument2 gsnswrl:B ] ;
+                                            rdf:rest [ a swrl:AtomList ;
+                                                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                                            swrl:argument1 gsnswrl:B ;
+                                                            swrl:argument2 gsnswrl:ID ;
+                                                            swrl:propertyPredicate schema:identifier ] ;
+                                                    rdf:rest () ] ] ] ] ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsnswrl:A ;
+                    swrl:argument2 false ;
+                    swrl:propertyPredicate gsn:valid ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                            swrl:argument1 gsnswrl:B ;
+                            swrl:argument2 false ;
+                            swrl:propertyPredicate gsn:valid ] ;
+                    rdf:rest () ] ] ;
+    gsn:coreOrExtension "Modular Extension" .
+
+[] a swrl:Imp ;
+    rdfs:label "Context Contract Invalidation" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:IndividualPropertyAtom ;
+                    swrl:argument1 gsnswrl:A ;
+                    swrl:argument2 gsnswrl:M1 ;
+                    swrl:propertyPredicate gsn:inContextOf ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:IndividualPropertyAtom ;
+                            swrl:argument1 gsnswrl:R ;
+                            swrl:argument2 gsnswrl:M1 ;
+                            swrl:propertyPredicate rdf:object ] ;
+                    rdf:rest [ a swrl:AtomList ;
+                            rdf:first [ a swrl:ClassAtom ;
+                                    swrl:argument1 gsnswrl:M1 ;
+                                    swrl:classPredicate gsn:Module ] ;
+                            rdf:rest [ a swrl:AtomList ;
+                                    rdf:first [ a swrl:ClassAtom ;
+                                            swrl:argument1 gsnswrl:M2 ;
+                                            swrl:classPredicate gsn:Module ] ;
+                                    rdf:rest [ a swrl:AtomList ;
+                                            rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                    swrl:argument1 gsnswrl:A ;
+                                                    swrl:argument2 gsnswrl:M2 ;
+                                                    swrl:propertyPredicate gsn:inModule ] ;
+                                            rdf:rest [ a swrl:AtomList ;
+                                                    rdf:first [ a swrl:IndividualPropertyAtom ;
+                                                            swrl:argument1 gsnswrl:R ;
+                                                            swrl:argument2 gsnswrl:A ;
+                                                            swrl:propertyPredicate rdf:subject ] ;
+                                                    rdf:rest [ a swrl:AtomList ;
+                                                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                                                    swrl:argument1 gsnswrl:M2 ;
+                                                                    swrl:argument2 true ;
+                                                                    swrl:propertyPredicate gsn:contract ] ;
+                                                            rdf:rest () ] ] ] ] ] ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsnswrl:R ;
+                    swrl:argument2 false ;
+                    swrl:propertyPredicate gsn:valid ] ;
+            rdf:rest () ] ;
+    gsn:coreOrExtension "Modular Extension" .
 
 [] a swrl:Imp ;
     rdfs:label "Challenge Chain Invalidation" ;
@@ -2811,7 +2871,12 @@ gsnswrl:A a swrl:Variable .
                                                                                                     swrl:argument1 gsnswrl:R1 ;
                                                                                                     swrl:argument2 gsnswrl:G ;
                                                                                                     swrl:propertyPredicate rdf:subject ] ;
-                                                                                            rdf:rest () ] ] ] ] ] ] ] ] ] ] ] ;
+                                                                                            rdf:rest [ a swrl:AtomList ;
+                                                                                                    rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                                                                                                            swrl:argument1 gsnswrl:R1 ;
+                                                                                                            swrl:argument2 gsnswrl:ID ;
+                                                                                                            swrl:propertyPredicate schema:identifier ] ;
+                                                                                                    rdf:rest () ] ] ] ] ] ] ] ] ] ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:IndividualPropertyAtom ;
                     swrl:argument1 gsnswrl:R2 ;
@@ -2854,9 +2919,9 @@ gsnswrl:A a swrl:Variable .
                             swrl:propertyPredicate gsn:public ] ;
                     rdf:rest [ a swrl:AtomList ;
                             rdf:first [ a swrl:IndividualPropertyAtom ;
-                                    swrl:argument1 gsnswrl:C ;
-                                    swrl:argument2 gsnswrl:E ;
-                                    swrl:propertyPredicate gsn:contains ] ;
+                                    swrl:argument1 gsnswrl:E ;
+                                    swrl:argument2 gsnswrl:C ;
+                                    swrl:propertyPredicate gsn:inModule ] ;
                             rdf:rest () ] ] ] ;
     swrl:head [ a swrl:AtomList ;
             rdf:first [ a swrl:DatavaluedPropertyAtom ;
@@ -2866,55 +2931,10 @@ gsnswrl:A a swrl:Variable .
             rdf:rest () ] ;
     gsn:coreOrExtension "Modular Extension" .
 
-[] a swrl:Imp ;
-    rdfs:label "Context Contract Invalidation" ;
-    swrla:isRuleEnabled true ;
-    swrl:body [ a swrl:AtomList ;
-            rdf:first [ a swrl:IndividualPropertyAtom ;
-                    swrl:argument1 gsnswrl:A ;
-                    swrl:argument2 gsnswrl:M1 ;
-                    swrl:propertyPredicate gsn:inContextOf ] ;
-            rdf:rest [ a swrl:AtomList ;
-                    rdf:first [ a swrl:IndividualPropertyAtom ;
-                            swrl:argument1 gsnswrl:R ;
-                            swrl:argument2 gsnswrl:M1 ;
-                            swrl:propertyPredicate rdf:object ] ;
-                    rdf:rest [ a swrl:AtomList ;
-                            rdf:first [ a swrl:ClassAtom ;
-                                    swrl:argument1 gsnswrl:M1 ;
-                                    swrl:classPredicate gsn:Module ] ;
-                            rdf:rest [ a swrl:AtomList ;
-                                    rdf:first [ a swrl:ClassAtom ;
-                                            swrl:argument1 gsnswrl:M2 ;
-                                            swrl:classPredicate gsn:Module ] ;
-                                    rdf:rest [ a swrl:AtomList ;
-                                            rdf:first [ a swrl:IndividualPropertyAtom ;
-                                                    swrl:argument1 gsnswrl:M2 ;
-                                                    swrl:argument2 gsnswrl:A ;
-                                                    swrl:propertyPredicate gsn:contains ] ;
-                                            rdf:rest [ a swrl:AtomList ;
-                                                    rdf:first [ a swrl:IndividualPropertyAtom ;
-                                                            swrl:argument1 gsnswrl:R ;
-                                                            swrl:argument2 gsnswrl:A ;
-                                                            swrl:propertyPredicate rdf:subject ] ;
-                                                    rdf:rest [ a swrl:AtomList ;
-                                                            rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                                                                    swrl:argument1 gsnswrl:M2 ;
-                                                                    swrl:argument2 true ;
-                                                                    swrl:propertyPredicate gsn:contract ] ;
-                                                            rdf:rest () ] ] ] ] ] ] ] ;
-    swrl:head [ a swrl:AtomList ;
-            rdf:first [ a swrl:DatavaluedPropertyAtom ;
-                    swrl:argument1 gsnswrl:R ;
-                    swrl:argument2 false ;
-                    swrl:propertyPredicate gsn:valid ] ;
-            rdf:rest () ] ;
-    gsn:coreOrExtension "Modular Extension" .
-
 [] a owl:Axiom ;
     owl:annotatedProperty rdfs:subClassOf ;
     owl:annotatedSource gsn:Argument ;
-    owl:annotatedTarget _:genid0969 ;
+    owl:annotatedTarget _:genid0981 ;
     skos:definition "The corresponding argument could be located in a paragraph of accompanying text, a goal in the local argument, or a goal in a separate module."@en ;
     gsn:coreOrExtension "Confidence Argument Extension" .
 
@@ -3089,26 +3109,26 @@ gsnswrl:A a swrl:Variable .
             rdf:rest () ] ;
     gsn:coreOrExtension "Modular Extension" .
 
-_:genid0089 a owl:Restriction ;
+_:genid0087 a owl:Restriction ;
     owl:onProperty gsn:contains ;
     owl:someValuesFrom gsn:Goal .
 
-_:genid0193 rdf:first [ a owl:Restriction ;
+_:genid0192 rdf:first [ a owl:Restriction ;
             owl:onProperty gsn:contains ;
             owl:someValuesFrom gsn:ArtefactReference ] ;
-    rdf:rest ( _:genid0089 ) .
+    rdf:rest ( _:genid0087 ) .
 
-_:genid0456 rdf:first [ a owl:Restriction ;
+_:genid0466 rdf:first [ a owl:Restriction ;
             owl:onProperty gsn:statement ;
             owl:someValuesFrom xsd:string ] ;
     rdf:rest () .
 
-_:genid0673 a owl:Class ;
-    owl:intersectionOf _:genid0193 .
+_:genid0687 a owl:Class ;
+    owl:intersectionOf _:genid0192 .
 
-_:genid0734 rdf:first _:genid0673 ;
-    rdf:rest _:genid0456 .
+_:genid0747 rdf:first _:genid0687 ;
+    rdf:rest _:genid0466 .
 
-_:genid0969 a owl:Class ;
-    owl:unionOf _:genid0734 .
+_:genid0981 a owl:Class ;
+    owl:unionOf _:genid0747 .
 

@@ -917,7 +917,7 @@ Before line 6, `DELETE { ?A gsn:top ?old }`:
 | expect | insert |
 | section | Core GSN |
 | swrl | Solution(?A) ^ 'supported by'(?B, ?A) ^ true(?A, true) -> true(?B, true) |
-| reads | IF A is a Solution AND B is supported by A AND A is true AND no other solution supporting B is untrue or undetermined AND no assumption B sits in the context of is untrue THEN B becomes true |
+| reads | IF A is a Solution AND B is supported by A AND A is true AND no other solution supporting B is untrue or undetermined AND no assumption B sits in the context of is untrue AND B is not defeated THEN B becomes true |
 
 Note:
 
@@ -940,6 +940,12 @@ Before line 19, `FILTER NOT EXISTS {`:
 
 ```text
   # and nothing S16 would turn false underneath us
+```
+
+Before line 24, `FILTER NOT EXISTS {`:
+
+```text
+  # and B is not defeated: a defeated element cannot be true (DefeatedElementIsNotTrueShape)
 ```
 
 ### `ontology/queries/rules/s11_solution_propagation_false.rq`

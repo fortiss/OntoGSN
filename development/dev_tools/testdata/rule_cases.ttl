@@ -98,6 +98,16 @@ rc:G9false a gsn:Goal ; schema:identifier "S9-Gfalse" ;
     gsn:statement "The second target is met." ; gsn:true false .
 
 
+###  S10  a defeated goal over a true solution
+###  S10 must not make rc:G10 true. A defeated element cannot be true.
+
+rc:G10 a gsn:Goal ; schema:identifier "S10-G" ;
+    gsn:statement "The alarm reaches the operator within two seconds." ;
+    gsn:defeated true ; gsn:supportedBy rc:Sn10 .
+rc:Sn10 a gsn:Solution ; schema:identifier "S10-Sn" ;
+    gsn:statement "Latency measurement of the alarm path." ; gsn:true true .
+
+
 ###  S12  Mixed Support Invalidation - one valid and one invalid support
 
 rc:G12 a gsn:Goal ; schema:identifier "S12-G" ;

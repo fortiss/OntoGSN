@@ -21,6 +21,10 @@ WHERE {
     ?asm a gsn:Assumption ; gsn:true ?tAsm .
     FILTER(STR(?tAsm) = "false")
   }
+  FILTER NOT EXISTS {
+    ?B gsn:defeated ?dB .
+    FILTER(STR(?dB) = "true")
+  }
 
   OPTIONAL { ?B gsn:true ?old }
   FILTER(!BOUND(?old) || STR(?old) != "true")
