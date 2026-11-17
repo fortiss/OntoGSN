@@ -27,7 +27,7 @@ against an ontology version, so both are listed together.
 
 | Ontology | Date | Shapes | Breaking |
 | :--- | :--- | :--- | :--- |
-| 1.3.1 | 2026-11-11 | 1.2.0 | yes — for reasoners |
+| 1.3.1 | 2026-11-17 | 1.2.0 | yes — for reasoners |
 | 1.3.0 | 2026-11-05 | 1.1.0, 1.1.1 | yes — for reasoners |
 | 1.2.3 | 2026-08-15 | 1.0.0 | no |
 | 1.2.2 | 2026-08-05 | 1.0.0 (introduced 2026-08-06) | yes — for reasoners |
@@ -99,7 +99,7 @@ differs from the SWRL rule that it re-expresses.
 
 ---
 
-## Ontology 1.3.1 — 2026-11-11 — shapes 1.2.0
+## Ontology 1.3.1 — 2026-11-17 — shapes 1.2.0
 
 Seven changes that waited for an ontology release. Four of them change what a reasoner infers.
 The ontology now has 60 SWRL rules.
