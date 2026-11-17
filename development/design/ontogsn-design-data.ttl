@@ -24,7 +24,7 @@
 <https://w3id.org/OntoGSN/design/data> a owl:Ontology ;
     owl:imports <https://w3id.org/OntoGSN/design> ;
     dc:title "OntoGSN Design Record - the decisions"@en ;
-    dc:description "Why each of the 949 axioms, rules and constraints of OntoGSN exists."@en ;
+    dc:description "Why each of the 964 axioms, rules and constraints of OntoGSN exists."@en ;
     owl:versionInfo "1.0.0" .
 
 
@@ -28120,6 +28120,223 @@ gsndesign:dd-1105
     gsndesign:naturalLanguage "A SPARQL rule that creates a node gives the node the same IRI in every run."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0244 .
+
+
+#################################################################
+#    Choices in single stored queries and SPARQL rules (15 decisions)
+#    Written by hand. Each decision is about the text of a query, which the inventory
+#    holds, so it generates no statement.
+#################################################################
+
+gsndesign:why-0247
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A create query builds the IRI of a new element from the IRI of the element that it attaches to: it keeps the namespace and adds the new identifier. The query therefore does not name the namespace of the case, and it runs on any case without an edit. The other option is a prefix for the case in each create query, which a user must change before each run on a second case. Only create_assurance_case_skeleton.rq names a namespace of its own, because a new case has no element to take one from."@en .
+
+gsndesign:why-0248
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "Evidence can arrive from a test pipeline as artefacts, and each artefact needs a solution before the argument can cite it. The query create_solutions_for_unreferenced_artefacts.rq makes one solution for each artefact that no solution refers to. It derives the identifier of the solution from the identifier of the artefact, and it does not make a new identifier in each run. A second run finds a solution for each artefact, so it adds nothing."@en .
+
+gsndesign:why-0249
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The query delete_assurance_case.rq deletes every element that it reaches from the case through containment, support and context. gsn:contains alone is not enough, because some elements are reached only through gsn:supportedBy. The query does not delete an artefact, because a second case can cite the same artefact. The query delete_unreferenced_artefacts.rq removes the artefacts that nothing cites any more."@en .
+
+gsndesign:why-0250
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The query delete_materialised_inferences.rq clears the five things that only a rule writes: gsn:inDoubt, gsn:defeated, gsn:consistentWith, gsn:relationshipType and the type gsn:Defeater. A person also sets gsn:valid, gsn:true, gsn:away, gsn:top, gsn:public and gsn:contract by hand, so a query that clears them deletes assertions. The query also keeps the reified relationships that the rules create, because nothing tells them apart from a relationship that a person drew. A user who needs derived and asserted facts apart runs ontology/example/run_rules.py with --out on a copy of the case."@en .
+
+gsndesign:why-0251
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A goal is read in the context that is declared on the goal and on every element above it. Rule S17, Context Inheritance, copies only assumptions down the support chain, and it does so only after the rules run. The query read_context_in_scope_for_goal.rq therefore walks the support chain itself. It returns context, assumptions and justifications, and its answer does not depend on a run of the rules."@en .
+
+gsndesign:why-0252
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The query read_element_status_flags.rq returns one row for each flag of an element, not one row for each element with four columns. Different rules set gsn:valid, gsn:true, gsn:inDoubt and gsn:defeated at different times, and the usual question is about one of the flags. A reader filters the rows on the flag."@en .
+
+gsndesign:why-0253
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The query read_elements_unreachable_from_top_goal.rq follows support links and context links together from each top goal. A context element is part of the argument, but nothing supports it. A walk over gsn:supportedBy alone reports every context, assumption and justification as unreachable."@en .
+
+gsndesign:why-0254
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A solution is a reference to evidence, and the artefact behind the reference is what an auditor asks to see. The query read_evidence_supporting_goal.rq therefore returns both: the solution, which is the place in the argument, and the artefact that the solution refers to."@en .
+
+gsndesign:why-0255
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A dependency between two modules follows from a link between two elements. The query read_module_dependencies.rq returns the elements together with the two modules. A dependency for which nobody can name an element is a modelling error, and the row with the elements shows where to look."@en .
+
+gsndesign:why-0256
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The query read_top_goals.rq accepts two signs of a top goal: the decorator gsn:top, and a goal that no other element supports. It returns both as columns and does not decide between them. A case in which the two signs disagree has a wrong decorator or a missing link, and the row shows it."@en .
+
+gsndesign:why-0257
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "OntoGSN has no property for the date of an artefact. The case dates an artefact with a property of its own choice. The query read_stale_evidence.rq reads dcterms:created, which the example case uses. A user whose case uses another property changes the property in the query."@en .
+
+gsndesign:why-0258
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "An update query that sets a value has DELETE and INSERT in one operation. With an INSERT alone, the element keeps the old value next to the new one: two statements, or a flag that is true and false. Two operations leave the store without a value between them. The query update_mark_element_invalid.rq also skips an element that already has the value, so a second run changes nothing. The same form is in update_element_statement.rq and in every SPARQL rule that sets a flag."@en .
+
+gsndesign:why-0259
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The SWRL rules S55, S58 and S61 state one step: a direct link is also a transitive link. In a reasoner, the axiom owl:TransitiveProperty on the helper property gives the chain. A store without a reasoner does not apply that axiom. The SPARQL update of each rule therefore has a property path with +, and it inserts the whole chain in one run. The path of S58 runs through modules only. A module is the only class in both the domain and the range of gsn:inContextOf, so every node inside a chain of context links between two modules is a module."@en .
+
+gsndesign:why-0260
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The SPARQL update of S54, Nested Module Membership, moves the membership of an element up one module in each run. ontology/example/run_rules.py applies the rules until nothing changes, so the membership reaches any depth of nesting. The other option is a property path over gsn:contains in one update, which no longer reads like the rule that it translates. The check of a single rule runs the update once. Its trigger in development/dev_tools/testdata/rule_cases.ttl therefore states the inner membership that S53 derives in a full run."@en .
+
+gsndesign:why-0261
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A challenge to one support link of a goal that has more than one is not a valid challenge, and the standard asks for a strategy in between (1:6.3.12). In rule S51, the second goal G2 is therefore a goal that also supports G3, and the atom supportedBy(?G3, ?G2) says so. Without that atom, G2 matched every other goal of the case, and the rule put the new strategy above each of them."@en .
+
+gsndesign:dd-1116
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R62" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "A create query makes the IRI of a new element in the namespace of the element that it attaches to."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0247 .
+
+gsndesign:dd-1117
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R63" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query create_solutions_for_unreferenced_artefacts.rq derives the identifier of each new solution from the identifier of its artefact."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0248 .
+
+gsndesign:dd-1118
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R64" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query delete_assurance_case.rq deletes what it reaches from the case, and it keeps the artefacts."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0249 .
+
+gsndesign:dd-1119
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R65" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query delete_materialised_inferences.rq clears only what nothing but a rule writes."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0250 .
+
+gsndesign:dd-1120
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R66" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query read_context_in_scope_for_goal.rq walks the support chain itself, and it does not read what rule S17 derives."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0251 .
+
+gsndesign:dd-1121
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R67" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query read_element_status_flags.rq returns one row for each flag, not one row for each element."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0252 .
+
+gsndesign:dd-1122
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R68" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query read_elements_unreachable_from_top_goal.rq follows support links and context links together."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0253 .
+
+gsndesign:dd-1123
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R69" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query read_evidence_supporting_goal.rq returns the solution and the artefact that it refers to."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0254 .
+
+gsndesign:dd-1124
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R70" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query read_module_dependencies.rq returns the elements that a dependency between two modules follows from."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0255 .
+
+gsndesign:dd-1125
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R71" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query read_top_goals.rq accepts the decorator and the structure as signs of a top goal, and it returns both."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0256 .
+
+gsndesign:dd-1126
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R72" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query read_stale_evidence.rq reads the date of an artefact from dcterms:created."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0257 .
+
+gsndesign:dd-1127
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R73" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "An update query that sets a value deletes the old value and inserts the new one in one operation."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0258 .
+
+gsndesign:dd-1128
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R74" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The SPARQL updates of the closure rules S55, S58 and S61 insert the whole chain with a property path."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0259 .
+
+gsndesign:dd-1129
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R75" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The SPARQL update of S54 moves the membership of an element up one module in each run."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0260 .
+
+gsndesign:dd-1130
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S08.R079" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-dialectic ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "In rule S51, the second goal is a goal that supports the same goal as the first."@en ;
+    prov:used gsndesign:src-0285 ;
+    gsndesign:hasRationale gsndesign:why-0261 .
 
 
 #################################################################

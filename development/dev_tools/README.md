@@ -183,18 +183,35 @@ python development/dev_tools/query_check.py --check    # CI: is the record curre
 python development/dev_tools/query_check.py -v         # one line per query
 ```
 
-The SPARQL files hold no comments. The header of each query (`id`, `operation`, `question`,
-`expect`, and for a rule `section` and `swrl`) is a table in its section of
-[`QUERY-COMMENTS.md`](../../QUERY-COMMENTS.md), and the script reads it from there. A rule
-file keeps only its `# rule:` and `# name:` lines.
+A SPARQL file holds only what an engine or a tool needs to run it. So it holds no comments,
+except the header lines at the top of the file that a tool reads:
 
-The script makes sure that the header fields are complete, that the `gsn:` namespace is
+| Line | In which files | What reads it | Why |
+| :--- | :--- | :--- | :--- |
+| `# rule:` | rule files and derivations | `ontology/example/run_rules.py`, `query_check.py`, the FinComp hub | The rule id. `run_rules.py --only` and the hub select a rule by it. `query_check.py` makes sure that no two files translate the same rule. |
+| `# name:` | rule files and derivations | `query_check.py`, `prov_inventory.py`, `run_rules.py`, the FinComp hub | The name of the SWRL rule that the file translates, as its `rdfs:label` in the ontology. It joins the file to that rule, and through the rule to its section. |
+| `# expect:` | every file under `ontology/queries/` | `query_check.py` | What a run against the example case gives: `rows`, `empty`, `insert`, `delete`, `change` or `none`. It is the test of each run. |
+
+The other facts about a query are in one place each:
+
+| Fact | Where it is |
+| :--- | :--- |
+| The operation (`create`, `read`, `update`, `delete`) | The first word of the file name. A file in `rules/` is a rule. |
+| The id, the role and the question | `development/design/Competency Questions.xlsx`. `prov_inventory.py` fails if two rows share an id, or if a query of the core answers no question. |
+| The section of a rule, and the SWRL rule itself | `ontology/serializations/ontogsn.ttl` |
+| What a query returns, its parameters, and what to do before a run | The README of its folder |
+| Why a query is written the way it is | The design record: `ontogsn-design-data.ttl` for the core, `ontogsn-augmentation-design.ttl` for the Augmentation |
+
+When you add or change a query, write its description in the README of the folder and the
+reason for a choice in the design record, not in the query.
+
+The script makes sure that the header lines are complete, that the `gsn:` namespace is
 correct, and that every `gsn:` term named exists in the ontology. It runs the query and makes
 sure that the result is what `expect` says. It fails when any SPARQL file in `ontology/queries/`,
-`augmentation/` or `docs/playground/assets/data/queries/` holds a comment.
+`augmentation/` or `docs/playground/assets/data/queries/` holds any other comment.
 
 `development/design/ontogsn-design-queries.ttl` records a `gsndesign:verificationKey` per query,
-hashed over the query, its header fields, the ontology, the fixtures and `CHECKER_VERSION`. Edit one query and
+hashed over the query, the ontology, the fixtures and `CHECKER_VERSION`. Edit one query and
 one query re-runs; edit the ontology and all of them do. `--check` only compares keys, so a
 stale key means "not verified since it changed" — re-run without `--check` and commit the
 record.

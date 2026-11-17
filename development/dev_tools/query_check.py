@@ -8,8 +8,8 @@
 
 Two kinds of check, and they cost very different amounts.
 
-The STATIC checks read the query text, its section in QUERY-COMMENTS.md and the ontology:
-does the file hold no comment, are its header fields complete, is gsn:
+The STATIC checks read the query text and the ontology: does the file hold no comment
+other than its header lines, is its header complete, is gsn:
 bound to the namespace the ontology actually uses, does every gsn: term named in the query
 exist? That last one is the failure this directory was rewritten to fix - a query naming
 gsn:Evidence or gsn:Model returns nothing at all, silently and forever, and no amount of
@@ -20,12 +20,15 @@ Oxigraph store and executes the query against it: reads must return rows, writes
 change the store in the direction they claim. That is the expensive part, so it is not
 re-run for a query nothing has touched.
 
-The header of a query (id, operation, question, expect, and for a rule section and swrl) is
-not in the file. It is in the query's section of QUERY-COMMENTS.md at the root, which this
-script reads. A rule file keeps only its '# rule:' and '# name:' lines.
+The header of a query is at the top of the file, and it holds only what a tool reads. A
+stored query has one line, '# expect:'. A rule file has three: '# rule:', '# name:' and
+'# expect:'. The operation is in the file name, and the section of a rule is on the SWRL
+rule in the ontology. The question that a query answers is in
+development/design/Competency Questions.xlsx. A description of a query is in the README of
+its folder, and the reason for a choice is in the design record.
 
 What "nothing has touched" means is recorded in development/design/ontogsn-design-queries.ttl
-as gsndesign:verificationKey - one hash over the query text, its header fields, the ontology,
+as gsndesign:verificationKey - one hash over the query text, the ontology,
 the fixture and CHECKER_VERSION below. Edit one query and one query is re-verified; edit the ontology and
 all of them are, because a query's meaning depends on the terms it names.
 
@@ -58,11 +61,12 @@ FIXTURE = os.path.join(REPO, "ontology", "example", "example_case.ttl")
 RULE_FIXTURE = os.path.join(TESTDATA, "rule_cases.ttl")
 ONTOLOGY = os.path.join(REPO, "ontology", "serializations", "ontogsn.ttl")
 RECORD = os.path.join(REPO, "development", "design", "ontogsn-design-queries.ttl")
-COMMENTS = os.path.join(REPO, "QUERY-COMMENTS.md")
 # every SPARQL file of the repository, not only the stored queries, must hold no comment
+# other than its header lines
 SPARQL_DIRS = [os.path.join(REPO, *d.split("/")) for d in
                ("ontology/queries", "augmentation", "docs/playground/assets/data/queries")]
-RULE_DIRS = ("ontology/queries/rules/", "augmentation/rules/", "augmentation/derivations/")
+CORE_RULE_DIR = "ontology/queries/rules/"
+RULE_DIRS = (CORE_RULE_DIR, "augmentation/rules/", "augmentation/derivations/")
 
 FIXTURES = [FIXTURE, RULE_FIXTURE]
 FIXTURE_LABELS = ["example assurance case ABox",
@@ -73,25 +77,23 @@ ONTOLOGY_NS = "https://w3id.org/OntoGSN/ontology#"
 # Bump when a change here alters what verification means - a new check, a different
 # expectation - so that every query is re-verified under the new rules. Editing a comment
 # is not such a change, which is why this is a constant and not the file's own checksum.
-CHECKER_VERSION = "2"
+CHECKER_VERSION = "3"
 
 OPERATIONS = ("create", "read", "update", "delete", "rule")
 EXPECTATIONS = {"rows", "empty", "insert", "delete", "change", "none"}
-HEADER_FIELDS = ("id", "operation", "question", "expect")
-RULE_HEADER_FIELDS = ("rule", "name", "section", "operation", "expect", "swrl")
+HEADER_FIELDS = ("expect",)
+RULE_HEADER_FIELDS = ("rule", "name", "expect")
 
 PREFIX_RE = re.compile(r"(?m)^\s*PREFIX\s+(\w*):\s*<([^>]+)>")
 GSN_TERM_RE = re.compile(r"\bgsn:([A-Za-z][A-Za-z0-9_]*)")
 FORM_RE = re.compile(r"(?m)^\s*(SELECT|ASK|CONSTRUCT|DESCRIBE|INSERT|DELETE|WITH|LOAD"
                      r"|CLEAR|DROP|COPY|MOVE|ADD)\b", re.IGNORECASE)
 HEADER_RE = re.compile(r"^#\s{1,}(\w+):\s{1,}(.*)$")
-KEPT_LINE_RE = re.compile(r"^# (rule|name):\s+\S")
+KEPT_LINE_RE = re.compile(r"^# (\w+):\s+\S")
 TOKEN_RE = re.compile(r'"(?:[^"\\\n]|\\.)*"'          # a double-quoted string
                       r"|'(?:[^'\\\n]|\\.)*'"          # a single-quoted string
                       r'|<[^<>"{}|^`\\\s]*>'           # an IRI
                       r"|#")                           # a comment starts here
-SECTION_RE = re.compile(r"^### `([^`]+)`\s*$")
-ROW_RE = re.compile(r"^\| (\w+) \| (.*) \|\s*$")
 
 
 def slug(text):
@@ -105,23 +107,21 @@ def rel(path):
 class Query(object):
     """One .rq file: its header, its text, and what verifying it concluded."""
 
-    def __init__(self, path, fields=None):
+    def __init__(self, path):
         self.path = path
         self.name = os.path.relpath(path, QUERY_DIR).replace(os.sep, "/")
         self.is_rule = self.name.startswith("rules/")
         with open(path, encoding="utf-8") as fh:
             self.text = fh.read()
         self.checksum = matching.file_checksum(path)
-        self.fields = dict(fields or {})
-        self.header = dict(self.fields)
-        self.header.update(self._parse_header())
+        self.header = self._parse_header()
         self.problems = []
         self.outcome = None
         self.detail = ""
         self.reused = False
 
     def _parse_header(self):
-        """The leading '# rule:' and '# name:' lines of a rule file."""
+        """The leading '# rule:', '# name:' and '# expect:' lines of the file."""
         header, key = {}, None
         for line in self.text.splitlines():
             if not line.startswith("#"):
@@ -138,7 +138,8 @@ class Query(object):
 
     @property
     def operation(self):
-        return self.header.get("operation", "")
+        """'rule' in rules/, and otherwise the first word of the file name."""
+        return "rule" if self.is_rule else self.name.split("_", 1)[0]
 
     @property
     def expect(self):
@@ -156,8 +157,7 @@ class Query(object):
 
     def key(self, ontology_sum, fixture_sums):
         digest = hashlib.sha256()
-        fields = "\n".join(f"{k}={v}" for k, v in sorted(self.fields.items()))
-        for part in (CHECKER_VERSION, self.checksum, fields, ontology_sum) + tuple(fixture_sums):
+        for part in (CHECKER_VERSION, self.checksum, ontology_sum) + tuple(fixture_sums):
             digest.update(part.encode("utf-8") + b"\0")
         return digest.hexdigest()
 
@@ -182,73 +182,60 @@ def strip_comments(text):
     return "\n".join(out)
 
 
+def kept_fields(name):
+    """The header lines that the file may begin with."""
+    if name.startswith(CORE_RULE_DIR):
+        return ("rule", "name", "expect")
+    if name.startswith(RULE_DIRS):
+        return ("rule", "name")
+    if name.startswith("ontology/queries/"):
+        return ("expect",)
+    return ()
+
+
 def stray_comments(name, text):
     """Line numbers of the comments a SPARQL file must not hold.
 
-    A rule file may begin with '# rule:' and '# name:'. Any other comment belongs in
-    QUERY-COMMENTS.md.
+    A file may begin with its header lines, see kept_fields. Any other comment belongs in
+    the README of the folder, or in the design record if it gives the reason for a choice.
     """
     lines = text.splitlines()
     start = 0
-    if name.startswith(RULE_DIRS):
-        while start < len(lines) and KEPT_LINE_RE.match(lines[start]):
-            start += 1
+    kept = kept_fields(name)
+    while start < len(lines):
+        match = KEPT_LINE_RE.match(lines[start])
+        if not match or match.group(1) not in kept:
+            break
+        start += 1
     return [number for number, line in enumerate(lines[start:], start + 1)
             if comment_start(line) >= 0]
-
-
-def read_comments(path):
-    """{file path: {field: value}} from the header tables of QUERY-COMMENTS.md."""
-    sections, current = {}, None
-    if not os.path.exists(path):
-        return sections
-    with open(path, encoding="utf-8") as fh:
-        for line in fh:
-            heading = SECTION_RE.match(line)
-            if heading:
-                current = sections.setdefault(heading.group(1), {})
-                continue
-            if line.startswith("#"):
-                current = None
-                continue
-            row = ROW_RE.match(line)
-            if current is not None and row and row.group(1) != "Field":
-                current[row.group(1)] = row.group(2).replace("\\|", "|").strip()
-    return sections
 
 
 # --------------------------------------------------------------------------------------
 #  Static checks - cheap, and the ones that catch the silent failures
 # --------------------------------------------------------------------------------------
 
+STRAY = "move it to the README of the folder, or to the design record"
+
+
 def missing(field):
-    if field in ("rule", "name"):
-        return f"the file has no '# {field}:' line"
-    return f"QUERY-COMMENTS.md gives no '{field}' for it"
+    return f"the file has no '# {field}:' line"
 
 
 def check_static(queries, known_terms, known_rules):
-    seen_ids, seen_rules = {}, {}
+    seen_rules = {}
     for query in queries:
         for number in stray_comments(rel(query.path), query.text):
             query.problems.append(
-                f"holds a comment on line {number} - move it to QUERY-COMMENTS.md")
+                f"holds a comment on line {number} - {STRAY}")
         if query.is_rule:
             for field in RULE_HEADER_FIELDS:
                 if not query.header.get(field):
                     query.problems.append(missing(field))
-            if query.operation != "rule":
-                query.problems.append(
-                    f"a file in rules/ must declare 'operation: rule', not "
-                    f"'{query.operation}'")
             name = query.header.get("name")
             if name and name not in known_rules:
                 query.problems.append(
                     f"name '{name}' matches no rdfs:label on a SWRL rule in the ontology")
-            elif name and query.header.get("section") not in (None, known_rules[name]):
-                query.problems.append(
-                    f"section '{query.header['section']}' in QUERY-COMMENTS.md, but the SWRL "
-                    f"rule is in '{known_rules[name]}'")
             rule = query.header.get("rule")
             if rule:
                 if rule in seen_rules:
@@ -256,23 +243,12 @@ def check_static(queries, known_terms, known_rules):
                         f"rule '{rule}' is already translated by {seen_rules[rule]}")
                 seen_rules[rule] = query.name
         else:
-            expected_operation = query.name.split("_", 1)[0]
             for field in HEADER_FIELDS:
                 if not query.header.get(field):
                     query.problems.append(missing(field))
-            if query.operation and query.operation != expected_operation:
+            if query.operation not in OPERATIONS[:-1]:
                 query.problems.append(
-                    f"QUERY-COMMENTS.md says operation '{query.operation}' but the file name says "
-                    f"'{expected_operation}'")
-            if expected_operation not in OPERATIONS:
-                query.problems.append(
-                    f"file name must start with one of {'/'.join(OPERATIONS)}_")
-            identifier = query.header.get("id")
-            if identifier:
-                if identifier in seen_ids:
-                    query.problems.append(
-                        f"id '{identifier}' is already used by {seen_ids[identifier]}")
-                seen_ids[identifier] = query.name
+                    f"file name must start with one of {'/'.join(OPERATIONS[:-1])}_")
 
         if query.expect and query.expect not in EXPECTATIONS:
             query.problems.append(
@@ -471,8 +447,7 @@ def main():
     paths = sorted(glob.glob(os.path.join(QUERY_DIR, "**", "*.rq"), recursive=True))
     if not paths:
         sys.exit(f"no queries found in {rel(QUERY_DIR)}")
-    comments = read_comments(COMMENTS)
-    queries = [Query(p, comments.get(rel(p))) for p in paths]
+    queries = [Query(p) for p in paths]
     if args.only:
         queries = [q for q in queries if args.only in q.name]
 
@@ -486,7 +461,7 @@ def main():
     check_static(queries, known_terms, known_rules)
 
     # the SPARQL files outside ontology/queries/ are not run here, but must hold no comment
-    # either, and every section of QUERY-COMMENTS.md must name a file that exists
+    # either, other than the header lines of a rule file
     elsewhere = []
     for directory in SPARQL_DIRS:
         for pattern in ("*.rq", "*.sparql"):
@@ -497,10 +472,7 @@ def main():
                     lines = stray_comments(rel(path), fh.read())
                 if lines:
                     elsewhere.append(f"{rel(path)} holds a comment on line {lines[0]} - "
-                                     "move it to QUERY-COMMENTS.md")
-    for name in sorted(comments):
-        if not os.path.exists(os.path.join(REPO, *name.split("/"))):
-            elsewhere.append(f"QUERY-COMMENTS.md has a section for {name}, which does not exist")
+                                     f"{STRAY}")
 
     ontology_sum = matching.file_checksum(ONTOLOGY)
     fixture_sums = [matching.file_checksum(f) for f in FIXTURES]

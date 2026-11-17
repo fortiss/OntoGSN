@@ -83,12 +83,12 @@ CHECKS = [
      "command": ["development/dev_tools/query_check.py", "--check"],
      "verify": ["development/dev_tools/query_check.py"],
      "gating": True,
-     # It also fails on a comment in any SPARQL file, because the comments of the queries
-     # are in QUERY-COMMENTS.md, and it reads the header fields from there.
+     # It also fails on a comment in any SPARQL file, other than the header lines at the
+     # top of the file ('# rule:', '# name:', '# expect:').
      "triggers": ("ontology/queries/", "ontology/example/", "development/dev_tools/testdata/", "development/dev_tools/query_check.py",
                   "ontology/serializations/ontogsn.ttl",
                   "development/design/ontogsn-design-queries.ttl",
-                  "QUERY-COMMENTS.md", "augmentation/queries/", "augmentation/rules/",
+                  "augmentation/queries/", "augmentation/rules/",
                   "augmentation/derivations/", "docs/playground/assets/data/queries/")},
     # docs/playground/ is a copy of the OntoGSN Workbench with the ontology of this branch.
     # The check needs no Workbench: it compares each copied file with its recorded checksum

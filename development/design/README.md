@@ -9,7 +9,7 @@ at the time. PROV-O is the backbone; `gsndesign:` adds only the terms PROV-O has
 | File | Role |
 | :--- | :--- |
 | `ontogsn-design.ttl` | the vocabulary. Hand-written. |
-| `ontogsn-design-data.ttl` | the record — 949 decisions, 297 passages, 241 rationales, 917 statements. **Source of truth**, edited by hand. |
+| `ontogsn-design-data.ttl` | the record — 964 decisions, 297 passages, 256 rationales, 917 statements. **Source of truth**, edited by hand. |
 | `ontogsn-design-inventory.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `development/dev_tools/prov_inventory.py`. |
 | `Design Documentation.xlsx` | a human-readable view of the record. **Generated**, never read back. |
 | `Competency Questions.xlsx` | the questions `ontology/queries/` and `augmentation/queries/` answer. Hand-maintained; read by `development/dev_tools/prov_inventory.py`. |
@@ -89,9 +89,15 @@ its own. That is also why `gsndesign:formalism` carries no `rdfs:domain` — it 
 a decision and a query, and asserting either as the domain would make a reasoner type the
 other as it.
 
-Five decisions carry `gsndesign:SPARQL` themselves (`dd-1101` to `dd-1105`). Each one records a
-convention of every stored query, for example that a query names an element by its identifier.
-Such a decision has a rationale, no source passage and no statement.
+Nineteen decisions carry `gsndesign:SPARQL` themselves. Five record a convention of every stored
+query (`dd-1101` to `dd-1105`), for example that a query names an element by its identifier.
+Fourteen record a choice in one query or in the SPARQL update of a rule (`dd-1116` to
+`dd-1129`), for example that `read_element_status_flags.rq` returns one row for each flag.
+Such a decision has a rationale, no source passage and no statement. The text that it is about
+is the `gsndesign:queryText` of the query.
+
+A query file itself holds no comment about its design. A description of a query is in the
+README of its folder, and the reason for a choice is a decision here.
 
 ## Why a decision is an Activity
 
@@ -99,7 +105,7 @@ Such a decision has a rationale, no source passage and no statement.
 
 `gsndesign:DesignDecision ⊑ prov:Activity`, not `prov:Entity`. It `prov:used` the passages it
 rested on and `prov:generated` the statement it produced — so a decision to represent
-**nothing** is still well-formed: it simply generated nothing. 118 of the 949 decisions are
+**nothing** is still well-formed: it simply generated nothing. 118 of the 964 decisions are
 of that kind, and PROV-O has no notion of an entity that deliberately does not exist.
 
 That also makes the decision the natural home for the rationale, because the decision *is*

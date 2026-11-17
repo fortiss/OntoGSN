@@ -291,6 +291,23 @@ def main():
     paths = sorted(path for directory in QUERY_DIRS
                    for path in glob.glob(os.path.join(directory, "**", "*.rq"),
                                          recursive=True))
+    # The workbook is the only place that holds the id and the question of a query, so
+    # the two tests on them are here: no two rows share an id, and each create, read,
+    # update and delete query of the core answers a question. A rule answers none.
+    problems = []
+    seen = set()
+    for row in questions:
+        if row["ID"] in seen:
+            problems.append(f"the id {row['ID']} is on two rows of the workbook")
+        seen.add(row["ID"])
+    for path in paths:
+        name = rel(path)
+        if (path.startswith(CORE_QUERY_DIR + os.sep) and "/rules/" not in name
+                and name not in by_query):
+            problems.append(f"{name} answers no competency question in the workbook")
+    if problems:
+        sys.exit("development/design/Competency Questions.xlsx:\n  " + "\n  ".join(problems))
+
     by_rule, by_term = statement_index()
     blocks.append(prov_ttl.header(
         f"Stored queries ({len(paths)})",

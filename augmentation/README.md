@@ -15,7 +15,8 @@ domain or range.
 | `shapes/ontogsn-augmentation-shapes.ttl` | 26 SHACL shapes |
 | `HOW-TO.md` | the manual: how to use the vocabulary on a case, for what the vocabulary does not enforce |
 | `rules/*.rq` | a SPARQL twin of each SWRL rule, runnable without a reasoner |
-| `derivations/*.rq` | four SPARQL updates with no SWRL form: the terms that a mechanism reads and writes, and the current report of an artefact |
+| `derivations/*.rq` | four SPARQL updates with no SWRL form: the terms that a mechanism reads and writes, and the current report of an artefact. [`derivations/README.md`](derivations/README.md) describes each one |
+| `queries/*.rq` | one SPARQL query for each competency question of the compliance process. [`queries/README.md`](queries/README.md) lists them with their parameters |
 | `testdata/example_issues.ttl` | a minimal case exercising every rule branch |
 | `testdata/example_violations.ttl` | a deliberately wrong case, one node per shape |
 | `development/dev_tools/augmentation_check.py` | parses, runs each shape mechanism and keeps its report, runs the rules to a fixpoint, and validates both fixtures |
@@ -168,8 +169,8 @@ writer of reports can also set the link itself. A graph without the link gives n
 the SWRL forms. `gsnaugsh:CurrentReportShape` reports a link that names something other than a
 report over its subject. The SPARQL twins do not read the link.
 
-The SPARQL twins carry two guards that the SWRL rules do not, in the way the core rule S10 does: each
-file marks them as not in the SWRL, and each deletes the old truth value before it writes the new one.
+The SPARQL twins carry two guards that the SWRL rules do not, in the way the core rule S10 does. The
+guards are not in the SWRL, and each twin deletes the old truth value before it writes the new one.
 The newest-report guard reads `prov:generatedAtTime`: a report counts only while no report from the
 same mechanism over the same target is later, so a re-run retires the run before it and the history
 stays in the graph. The composition guard, on A6a and A6c only: a conforming report confirms the

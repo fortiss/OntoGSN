@@ -36,6 +36,16 @@ The table below gives each twin a level:
 | close | The twin has a retraction. The conclusions are the same on a case that has no earlier value for the flag. |
 | narrower | The twin has a guard. It draws its conclusion in fewer cases than the rule. |
 
+## Rules that follow a chain
+
+A twin can also reach its conclusions in another number of steps than its rule. The
+conclusions are the same, so the table below does not count this as a difference.
+
+| Rules | What the SWRL rule does | What the twin does |
+| :--- | :--- | :--- |
+| S55, S58, S61 (the closure rules) | It states one step: a direct link is also a transitive link. The axiom `owl:TransitiveProperty` on the helper property gives the chain. | It has a property path, and it inserts the whole chain in one run. A store without a reasoner does not apply the axiom. The path of S58 runs through modules only. |
+| S54 (nested module membership) | A reasoner applies it until it reaches every level of nesting. | One run moves the membership up one module. `run_rules.py` applies the rules until nothing changes, so it reaches every level. If you run the file alone, run it once for each level. |
+
 ## The rules
 
 The design record states the differences of each twin with `gsndesign:differsBy`, and

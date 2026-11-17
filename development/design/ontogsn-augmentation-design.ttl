@@ -2993,7 +2993,7 @@ gsnaugdesign:st-0102
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0102 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
-    gsndesign:statementText "augmentation/rules/a08a, a08b, a08c: INSERT from a nested SELECT DISTINCT under FILTER NOT EXISTS { ?I gsn:statement ?any } or FILTER NOT EXISTS { ?I gsn:inContextOf ?any }. QUERY-COMMENTS.md marks the guard as not in the SWRL." ;
+    gsndesign:statementText "augmentation/rules/a08a, a08b, a08c: INSERT from a nested SELECT DISTINCT under FILTER NOT EXISTS { ?I gsn:statement ?any } or FILTER NOT EXISTS { ?I gsn:inContextOf ?any }. augmentation/README.md marks the guard as not in the SWRL." ;
     gsndesign:mentionsTerm gsn:statement , gsn:inContextOf .
 
 gsnaugdesign:dd-0103
@@ -3169,6 +3169,129 @@ gsnaugdesign:st-0110
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0110 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
-    gsndesign:statementText "augmentation/rules/a06b, a06d: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime. augmentation/rules/a06a, a06c: a subquery with MAX(prov:generatedAtTime) GROUP BY mechanism and target gives the current reports, in a UNION with the reports that have no timestamp; the rule joins on the conforming ones; two MINUS blocks on the failing ones, one over every ?A2 with ?S gsn:refersTo ?A2 and one over a part of such an ?A2 that counts for the solution. All four: DELETE { ?S gsn:true ?old } before INSERT. QUERY-COMMENTS.md marks the guards as not in the SWRL." ;
+    gsndesign:statementText "augmentation/rules/a06b, a06d: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime. augmentation/rules/a06a, a06c: a subquery with MAX(prov:generatedAtTime) GROUP BY mechanism and target gives the current reports, in a UNION with the reports that have no timestamp; the rule joins on the conforming ones; two MINUS blocks on the failing ones, one over every ?A2 with ?S gsn:refersTo ?A2 and one over a part of such an ?A2 that counts for the solution. All four: DELETE { ?S gsn:true ?old } before INSERT. augmentation/README.md marks the guards as not in the SWRL." ;
     gsndesign:mentionsTerm gsn:true , gsn:refersTo , gsnaug:partOf , gsnaug:checkableWith ,
         prov:generatedAtTime , sh:ValidationReport , sh:conforms .
+
+
+#################################################################
+#    Decisions - choices in single stored queries, and the nested SELECT of A8
+#################################################################
+
+gsnaugdesign:why-0068
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The query fc13 answers whether the case is fully compliant. The answer is three counts: the open
+issues, the defeated elements and the elements in doubt. The case is compliant when all three are
+zero. The query computes the counts in each run, and the case stores no status. A stored status
+goes stale when an issue closes or a rule runs again, and something must then keep it current. The
+cost is that the query gives the status of the case as it is now. It cannot give the status that
+a past entry of a report had."""@en .
+
+gsnaugdesign:why-0069
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The query fc22 answers what has to be revised, and by whom. It returns a revise issue only when
+the target is a goal or a solution, and the class of the target says which is at fault: the claim
+or the evidence. A revise issue against a context is a remark about the wording of the context.
+Rule A2 infers nothing from it (dd-0021), so nothing in the argument has to be revised, and the
+query leaves it out. The issue stays in the case, and other queries find it."""@en .
+
+gsnaugdesign:why-0070
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The query fc03 finds the undeveloped goals of one system. The system is named in a context, and
+that context is usually on a goal above the undeveloped one. The core rule S17 copies only
+assumptions down the support chain, and only after the rules run. The query therefore walks up
+the chain itself, with the inverse path (^gsn:supportedBy)*, and reads the context of each
+ancestor. Its answer does not depend on a run of the rules."""@en .
+
+gsnaugdesign:why-0071
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The query fc24 answers what a revision changed. It reads gsnaug:replaces between two artefacts,
+so a revision in this sense is a new version of an artefact. A claim with new words is not in
+the answer, because the case keeps no earlier version of a statement. The query joins the issue
+that asked for the change. That issue is a revise or a resolve issue, because a resolution can
+also replace an artefact. The issue is raised against an element that still refers to the older
+artefact, or it is in context of one that does. The second branch is for a case that points the
+revised solution at the newer artefact and keeps the older one in the context of the issue."""@en .
+
+gsnaugdesign:why-0072
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """The SPARQL copies of A8a to A8c insert from a nested SELECT, and they do not insert from the
+pattern directly. The nested SELECT makes the engine finish the WHERE clause before it inserts
+anything. Without it, rdflib tests the guard of dd-0102 again after the first insert. The goal
+then has one statement or one context, the guard stops the rule, and the rule copies only one
+value where the issue or the challenged goal has more than one."""@en .
+
+gsnaugdesign:dd-0111
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query fc13 derives the compliance status in each run, and the case does not store it."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0068 ;
+    prov:generated gsnaugdesign:st-0111 .
+
+gsnaugdesign:st-0111
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0111 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
+    gsndesign:statementText "fc13: three COUNT(DISTINCT) subqueries: issues with no gsnaug:issueOutcome, elements with gsn:defeated true, elements with gsn:inDoubt true. The query writes nothing." ;
+    gsndesign:mentionsTerm gsnaug:Issue , gsnaug:issueOutcome , gsn:defeated , gsn:inDoubt .
+
+gsnaugdesign:dd-0112
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query fc22 returns a revise issue only when its target is a goal or a solution."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0069 ;
+    prov:generated gsnaugdesign:st-0112 .
+
+gsnaugdesign:st-0112
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0112 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
+    gsndesign:statementText "fc22: ?issue gsnaug:issueType gsnaug:revise ; gsnaug:raisedAgainst ?target . ?target a ?targetKind . VALUES ?targetKind { gsn:Goal gsn:Solution }" ;
+    gsndesign:mentionsTerm gsnaug:issueType , gsnaug:raisedAgainst , gsn:Goal , gsn:Solution .
+
+gsnaugdesign:dd-0113
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query fc03 walks up the support chain to the context that names the system, and it does not read what rule S17 derives."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0070 ;
+    prov:generated gsnaugdesign:st-0113 .
+
+gsnaugdesign:st-0113
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0113 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
+    gsndesign:statementText "fc03: ?goal (^gsn:supportedBy)* ?ancestor . ?ancestor gsn:inContextOf ?context . ?context gsn:statement ?contextStatement . FILTER on the name of the system in ?contextStatement." ;
+    gsndesign:mentionsTerm gsn:supportedBy , gsn:inContextOf , gsn:statement , gsn:undeveloped .
+
+gsnaugdesign:dd-0114
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query fc24 reads a revision as a new version of an artefact, and it joins the revise or resolve issue that asked for it."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0071 ;
+    prov:generated gsnaugdesign:st-0114 .
+
+gsnaugdesign:st-0114
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0114 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
+    gsndesign:statementText "fc24: ?newer gsnaug:replaces ?older . OPTIONAL { { ?solution gsn:refersTo ?older . ?issue gsnaug:raisedAgainst ?solution } UNION { ?context gsn:refersTo ?older . ?issue gsn:inContextOf ?context } ?issue gsnaug:issueType ?type . FILTER(?type IN (gsnaug:revise, gsnaug:resolve)) }" ;
+    gsndesign:mentionsTerm gsnaug:replaces , gsnaug:raisedAgainst , gsnaug:issueType , gsn:refersTo , gsn:inContextOf .
+
+gsnaugdesign:dd-0115
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The SPARQL copies of A8a to A8c insert from a nested SELECT, so that the engine finishes the WHERE clause before it inserts."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0072 ;
+    prov:generated gsnaugdesign:st-0115 .
+
+gsnaugdesign:st-0115
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0115 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
+    gsndesign:statementText "augmentation/rules/a08a, a08b, a08c: INSERT { ... } WHERE { { SELECT DISTINCT ... WHERE { ... FILTER NOT EXISTS { ... } } } }" ;
+    gsndesign:mentionsTerm gsn:statement , gsn:inContextOf .

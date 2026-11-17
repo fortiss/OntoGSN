@@ -20,7 +20,7 @@ script and its check.
 | :--- | :--- |
 | `index.html`, `assets/core/boot.js` | Playground versions. They do not have the Terminal, Audio, Video and Image panes, and the page has a link back to the website. |
 | `assets/data/ontologies/ontogsn.ttl` | A copy of `ontology/serializations/ontogsn.ttl` of this repository |
-| `assets/data/queries/*.sparql` | Without comments. [`QUERY-COMMENTS.md`](../../QUERY-COMMENTS.md) holds the comments. |
+| `assets/data/queries/*.sparql` | Without comments. The queries of the Workbench hold the comments. |
 | `README.md`, `VENDOR.json` | Not in the Workbench |
 
 ## Run it on your computer
