@@ -124,6 +124,12 @@ report from each mechanism over each artefact, by `prov:generatedAtTime`, and th
 stays in the graph as history. If two mechanisms check the same artefact, the solution is true
 only when the newest report of each one conforms. One failing check is enough.
 
+If you run the rules in a reasoner and not as SPARQL updates, the reasoner cannot find the
+newest report. It reads `gsnaug:currentReport`, a link from the artefact to the newest report
+of each mechanism. Run `augmentation/derivations/d04_current_report.rq` after each new report
+and before the reasoner. It sets the link and removes a link to a report that no longer counts.
+Without the link, the reasoner gives the solution no status. The SPARQL rules do not need it.
+
 A report without a timestamp is never retired and retires nothing, and the shapes report a
 warning on it. If two reports from one mechanism over one artefact disagree and no timestamp
 puts one after the other, the failing one wins, and the shapes report both. Add the timestamps,

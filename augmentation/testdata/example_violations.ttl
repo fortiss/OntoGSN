@@ -179,6 +179,10 @@ bad:report-struck-anonymously a sh:ValidationReport ;
     prov:generatedAtTime "2026-03-08T12:00:00Z"^^xsd:dateTime ;
     prov:invalidatedAtTime "2026-03-09T12:00:00Z"^^xsd:dateTime .
 
+#  CurrentReportShape - the current report of an artefact is a report over another artefact
+bad:evidence-4 a gsn:Artefact ;
+    gsnaug:currentReport bad:report-struck-anonymously .
+
 #  MechanismDefinitionShape - a definition implements something that is not a mechanism
 bad:definition-of-nothing a sh:NodeShape ;
     gsnaug:implements bad:nothing .

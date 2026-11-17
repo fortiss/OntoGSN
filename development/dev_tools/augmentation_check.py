@@ -19,8 +19,10 @@ report retires, a second mechanism over one artefact, whose passing report must 
 solution that the other mechanism's report refutes, and a struck report, a later failing run
 that a review invalidated, which must neither count nor retire the run before it.
 
-The derivations in derivations/ run with the rules but are not twinned: they walk RDF lists,
-which SWRL cannot, so they exist in SPARQL only and are kept out of the twin count.
+The derivations in derivations/ run with the rules but are not twinned. D1 to D3 walk RDF
+lists, and D4 finds the newest report, which SWRL cannot do. So they exist in SPARQL only and
+are kept out of the twin count. D4 sets gsnaug:currentReport, the link that the SWRL forms of
+A6 and A7 read in the place of the newest-report guard of the SPARQL twins.
 
 Deliberately standalone. development/dev_tools/check_all.py globs ontology/serializations/, ontology/shapes/ and ontology/queries/, so it
 never sees this directory - which is the point: the augmentation must not be able to break the
@@ -272,6 +274,17 @@ expected = [
         (EX.I7, GSN.statement, Literal("Encrypt the backups of the reporting system.")), False),
     ("an issue goal keeps the contexts a person gave it",         (EX.I7, GSN.inContextOf, EX["C-object"]), False),
     ("a clarify issue gets no statement",                         (EX.I1, GSN.statement, None), False),
+    # D4: the current report of a target is the newest report of a mechanism that is not struck
+    ("a retired report is not the current report",
+        (EX["access-log"], AUG.currentReport, EX["retention-report-0"]), False),
+    ("a second mechanism over the same artefact has its own current report",
+        (EX["access-log"], AUG.currentReport, EX["scope-review-report-1"]), True),
+    ("a struck report is not the current report",
+        (EX["config-export-key-7"], AUG.currentReport, EX["key-check-report-2"]), False),
+    ("the report before a struck report is the current report again",
+        (EX["config-export-key-7"], AUG.currentReport, EX["key-check-report-1"]), True),
+    ("a report over a part is not the current report of the whole artefact",
+        (EX["config-export"], AUG.currentReport, None), False),
 ]
 for name, triple, wanted in expected:
     found = (triple in data) if triple[2] is not None else bool(list(data.triples(triple)))
@@ -287,6 +300,65 @@ probe.update(open(os.path.join(AUG_RULES, "a06a_conforming_report_confirms_solut
 check((EX.Sn6, GSN.true, Literal(True)) not in probe,
       "A6a alone does not confirm a solution that another of its artefacts refutes",
       "A6a confirms Sn6 although the report over its second artefact fails")
+
+# The SWRL forms of A6 and A7 cannot find the newest report, so they read gsnaug:currentReport.
+# The body of A6b is asked here as a query, with and without that atom. The access log has a
+# retired failing report: without the pointer the body matches Sn1, and with it the body does not.
+A6B_BODY = """
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+ASK {
+  <%s> a gsn:Solution ; gsn:refersTo ?A .
+  ?A a gsn:Artefact ; gsnaug:checkableWith ?M .
+  ?M gsnaug:decides "truth" .
+  ?R a sh:ValidationReport ; prov:wasGeneratedBy ?M ; prov:used ?A ; sh:conforms false .
+  %s
+}"""
+check(bool(data.query(A6B_BODY % (EX.Sn1, "")).askAnswer),
+      "without the pointer, the SWRL body of A6b matches a retired failing report",
+      "the fixture has no retired failing report for the SWRL body of A6b")
+check(not data.query(A6B_BODY % (EX.Sn1, "?A gsnaug:currentReport ?R .")).askAnswer,
+      "with the pointer, the SWRL body of A6b does not match a retired failing report",
+      "the SWRL body of A6b still matches the retired report over the access log")
+check(bool(data.query(A6B_BODY % (EX.Sn2, "?A gsnaug:currentReport ?R .")).askAnswer),
+      "with the pointer, the SWRL body of A6b still matches a current failing report",
+      "the SWRL body of A6b no longer matches the failing report over the interview note")
+
+# Every rule that reads a report in its SWRL form has the pointer atom.
+pointer_rules = [str(ontology.value(rule, RDFS.label)) for rule in rules
+                 if "Report" in str(ontology.value(rule, RDFS.label))]
+without_pointer = []
+for rule in rules:
+    if "Report" not in str(ontology.value(rule, RDFS.label)):
+        continue
+    node, found = ontology.value(rule, SWRL.body), False
+    while node and node != RDF.nil:
+        found = found or ontology.value(ontology.value(node, RDF.first), SWRL.propertyPredicate) == AUG.currentReport
+        node = ontology.value(node, RDF.rest)
+    if not found:
+        without_pointer.append(str(ontology.value(rule, RDFS.label)))
+check(len(pointer_rules) == 8 and not without_pointer,
+      "the 8 SWRL rules that read a report read gsnaug:currentReport",
+      f"{len(pointer_rules)} report rules, without the pointer: {without_pointer}")
+
+# D4 moves the pointer when a newer report arrives.
+probe = Graph()
+probe += data
+probe.update("""
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+INSERT DATA { <https://example.org/case#key-check-report-3> a sh:ValidationReport ; sh:conforms false ;
+    prov:wasGeneratedBy <https://example.org/case#key-check> ;
+    prov:used <https://example.org/case#config-export-key-7> ;
+    prov:generatedAtTime "2099-01-01T00:00:00Z"^^xsd:dateTime }""")
+probe.update(open(os.path.join(DERIVATIONS, "d04_current_report.rq"), encoding="utf-8").read())
+check(set(probe.objects(EX["config-export-key-7"], AUG.currentReport)) == {EX["key-check-report-3"]},
+      "D4 moves the pointer to a newer report and removes the old pointer",
+      "after a newer report, the pointers of the key are "
+      f"{sorted(str(o).split('#')[-1] for o in probe.objects(EX['config-export-key-7'], AUG.currentReport))}")
 
 # A rule is a blank node, so it is checked as a class: no rule that is not a mechanism reads a term.
 reading_rules = [r for r in data.subjects(RDF.type, SWRL.Imp)
@@ -376,6 +448,7 @@ must_report = [
     ("a conforming report that disagrees with a failing one at the same time", BAD["report-yes"]),
     ("a failing report that disagrees with a conforming one at the same time", BAD["report-no"]),
     ("a struck report that names no activity", BAD["report-struck-anonymously"]),
+    ("a current report that is a report over another artefact", BAD["evidence-4"]),
     ("a definition that implements something other than a mechanism", BAD["definition-of-nothing"]),
     ("a mechanism typed as its own rule",       BAD["self-defined"]),
     ("a check that decides a word",             BAD["decides-a-word"]),

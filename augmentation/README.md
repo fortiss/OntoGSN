@@ -11,10 +11,11 @@ domain or range.
 
 | File | Role |
 | :--- | :--- |
-| `ontogsn-augmentation.ttl` | the vocabulary. 8 classes, 37 properties, 3 issue types, 16 SWRL rules |
-| `shapes/ontogsn-augmentation-shapes.ttl` | 25 SHACL shapes |
+| `ontogsn-augmentation.ttl` | the vocabulary. 8 classes, 38 properties, 3 issue types, 16 SWRL rules |
+| `shapes/ontogsn-augmentation-shapes.ttl` | 26 SHACL shapes |
 | `HOW-TO.md` | the manual: how to use the vocabulary on a case, for what the vocabulary does not enforce |
 | `rules/*.rq` | a SPARQL twin of each SWRL rule, runnable without a reasoner |
+| `derivations/*.rq` | four SPARQL updates with no SWRL form: the terms that a mechanism reads and writes, and the current report of an artefact |
 | `testdata/example_issues.ttl` | a minimal case exercising every rule branch |
 | `testdata/example_violations.ttl` | a deliberately wrong case, one node per shape |
 | `development/dev_tools/augmentation_check.py` | parses, runs each shape mechanism and keeps its report, runs the rules to a fixpoint, and validates both fixtures |
@@ -30,7 +31,7 @@ never sees this directory — the augmentation cannot break the core checks.
 
 | Group | Terms | Idea |
 | :--- | :--- | :--- |
-| **Artefact provenance** | `storedIn`, `retrievableWith`/`retrievedWith`, `generableWith`/`generatedWith`, `generatedBy`, `generatedFrom`, `checkableWith`/`checkedWith`, `replaces`, `partOf` | how a piece of evidence came to be, and how to get it again |
+| **Artefact provenance** | `storedIn`, `retrievableWith`/`retrievedWith`, `generableWith`/`generatedWith`, `generatedBy`, `generatedFrom`, `checkableWith`/`checkedWith`, `currentReport`, `replaces`, `partOf` | how a piece of evidence came to be, and how to get it again |
 | **Roles** | `assures`, `ownedBy`, `reviewedBy`, `hasRole` | who stands behind what |
 | **Issues** | `Issue`, `Response`, `raisedAgainst`, `issueType`, `respondsTo`, `issueOutcome`, `supersedes`, `raisedIn`, `coveredIn` | what was asked of the case, by whom, and whether it has been closed |
 
@@ -127,7 +128,9 @@ an artefact and a report by its type, for example `?S a gsn:Solution`. rdflib do
 It orders the patterns of a group by the number of unbound terms, and a typed pattern has only one.
 The FinComp hub found that rdflib then joins the typed patterns first, before the patterns that
 link them. The hub measured more than 4 minutes for A6a to A6c over a case with 33 reports and 23
-parts. Since 0.5.0 the guard of A6 is split into smaller groups, which shortens the run.
+parts. Since 0.5.0 the guard of A6 is split into smaller groups, which shortens the run. Since 0.6.0
+A6a and A6c find the current reports in a subquery, which also finishes on a large case in
+Oxigraph.
 `augmentation_check.py` takes about 20 seconds on the fixture of this repository.
 
 If the rules are slow on your case, you have two options. Run them in an engine that plans the
@@ -155,6 +158,15 @@ A mechanism that a SHACL shape implements produces the report by itself. `augmen
 the fixture over its artefact and keeps the report that the engine returns, plus the two links and a
 timestamp. A mechanism that is a script needs a wrapper that writes the same form, or a person writes
 the report by hand. The fixture has one of each.
+
+A SWRL rule cannot find the newest report, because SWRL has no maximum and no negation. So the
+SWRL forms of A6 and A7 read `gsnaug:currentReport`, a link from an artefact or a part to the
+newest report of each mechanism over it that is not struck. The derivation
+`derivations/d04_current_report.rq` sets the link from the reports in the graph, and removes a
+link that no longer holds. Run it after each new report and before a reasoner reads the case. A
+writer of reports can also set the link itself. A graph without the link gives no value under
+the SWRL forms. `gsnaugsh:CurrentReportShape` reports a link that names something other than a
+report over its subject. The SPARQL twins do not read the link.
 
 The SPARQL twins carry two guards that the SWRL rules do not, in the way the core rule S10 does: each
 file marks them as not in the SWRL, and each deletes the old truth value before it writes the new one.
@@ -242,3 +254,7 @@ No term changes.
 
 Version 0.5.1 makes a part of an artefact an artefact, and widens the composition guard of A6a
 and A6c to every artefact a solution refers to. No term changes.
+
+Version 0.6.0 adds `gsnaug:currentReport`, which the SWRL forms of A6 and A7 now read, and the
+derivation D4 that sets it. The SPARQL twins of A6a and A6c have a faster text with the same
+results.
