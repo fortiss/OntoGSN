@@ -17,7 +17,7 @@
 
 
 <!-- SCHEMA.ORG METADATA -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"https://w3id.org/OntoGSN/ontology#","image":"http://vowl.visualdataweb.org/webvowl/#iri=https://w3id.org/OntoGSN/ontology#","name":"OntoGSN", "headline":"Document describing the ontology https://w3id.org/OntoGSN/ontology#", "dateReleased":"2025-02-20", "dateModified":"2026-11-05", "version":"1.3.0", "license":"https://creativecommons.org/licenses/by/4.0/", "author":[{"@type":"Person","name":"Tomas Bueno Momčilović"}], "contributor":[{"@type":"Person","name":"Barbara Gallina"},{"@type":"Person","name":"Dian Balta"},{"@type":"Person","name":"Ingmar Kessler"},{"@type":"Person","name":"Jule Hendricks"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","url":"https://w3id.org/OntoGSN/ontology#","image":"http://vowl.visualdataweb.org/webvowl/#iri=https://w3id.org/OntoGSN/ontology#","name":"OntoGSN", "headline":"Document describing the ontology https://w3id.org/OntoGSN/ontology#", "dateReleased":"2025-02-20", "dateModified":"2026-11-17", "version":"1.3.1", "license":"https://creativecommons.org/licenses/by/4.0/", "author":[{"@type":"Person","name":"Tomas Bueno Momčilović"}], "contributor":[{"@type":"Person","name":"Barbara Gallina"},{"@type":"Person","name":"Dian Balta"},{"@type":"Person","name":"Ingmar Kessler"},{"@type":"Person","name":"Jule Hendricks"}]}</script>
 
 <script src="resources/jquery.js"></script> 
 <script src="resources/marked.min.js"></script> 
@@ -66,20 +66,20 @@ $(function(){
 <div class="head">
 <div style="float:right">language <a href="index-en.html"><b>en</b></a> </div>
 <h1>OntoGSN</h1>
-<img src="https://fortiss.github.io/OntoGSN/assets/images/ontogsn-banner.png" width="50/">
+<img src="https://fortiss.github.io/OntoGSN/assets/images/ontogsn-logo.png" width="50/">
 <h2>Release: 2025-02-20</h2>
 
 
 <dl>
-<dt>Modified on: 2026-11-05</dt>
+<dt>Modified on: 2026-11-17</dt>
 <dt>This version:</dt>
-<dd><a href="https://w3id.org/OntoGSN/ontology/1.3.0">https://w3id.org/OntoGSN/ontology/1.3.0</a></dd>
+<dd><a href="https://w3id.org/OntoGSN/ontology/1.3.1">https://w3id.org/OntoGSN/ontology/1.3.1</a></dd>
 <dt>Previous version:</dt>
-<dd><a href="https://w3id.org/OntoGSN/ontology/1.2.3">https://w3id.org/OntoGSN/ontology/1.2.3</a></dd>
+<dd><a href="https://w3id.org/OntoGSN/ontology/1.3.0">https://w3id.org/OntoGSN/ontology/1.3.0</a></dd>
 <dt>Revision:</dt>
-<dd>1.3.0</dd>
+<dd>1.3.1</dd>
 <dt>Issued on:</dt>
-<dd>2026-11-05</dd>
+<dd>2026-11-17</dd>
 <dt>Authors:</dt>
 <dd>Tomas Bueno Momčilović</dd>
 
@@ -97,7 +97,7 @@ $(function(){
 <dt>Download serialization:</dt><dd><span><a href="ontology.jsonld" target="_blank"><img src="https://img.shields.io/badge/Format-JSON_LD-blue.svg" alt="JSON-LD" /></a> </span><span><a href="ontology.owl" target="_blank"><img src="https://img.shields.io/badge/Format-RDF/XML-blue.svg" alt="RDF/XML" /></a> </span><span><a href="ontology.nt" target="_blank"><img src="https://img.shields.io/badge/Format-N_Triples-blue.svg" alt="N-Triples" /></a> </span><span><a href="ontology.ttl" target="_blank"><img src="https://img.shields.io/badge/Format-TTL-blue.svg" alt="TTL" /></a> </span></dd><dt>License:</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"><img src="https://img.shields.io/badge/License-https://creativecommons.org/licenses/by/4.0/-blue.svg" alt="https://creativecommons.org/licenses/by/4.0/" /></a>
 </dd><dt>Visualization:</dt><dd><a href="webvowl/index.html#" target="_blank"><img src="https://img.shields.io/badge/Visualize_with-WebVowl-blue.svg" alt="Visualize with WebVowl" /></a></dd>
 <!-- <dt>Evaluation:</dt><dd><a href="OOPSevaluation/oopsEval.html#" target="_blank"><img src="https://img.shields.io/badge/Evaluate_with-OOPS! (OntOlogy Pitfall Scanner!)-blue.svg" alt="Evaluate with OOPS!" /></a></dd> --><dt>Cite as:</dt>
-<dd>Bueno Momčilović, T. (2026). OntoGSN (Version 1.3.0) [Ontology]. https://doi.org/10.5281/zenodo.17808330</dd>
+<dd>Bueno Momčilović, T. (2026). OntoGSN (Version 1.3.1) [Ontology]. https://doi.org/10.5281/zenodo.17808330</dd>
 <dt>DOI:</dt>
 <dd><a href="http://dx.doi.org/10.5281/zenodo.17808330"><img src ="https://img.shields.io/badge/DOI-10.5281/zenodo.17808330-blue.svg" alt="10.5281/zenodo.17808330" /></a></dd>
 </dl>
@@ -382,11 +382,6 @@ This ontology has the following classes and properties.</span>
       </a>
    </li>
    <li>
-      <a href="#http://schema.org/description" title="http://schema.org/description">
-         <span>description</span>
-      </a>
-   </li>
-   <li>
       <a href="#http://schema.org/disclaimer" title="http://schema.org/disclaimer">
          <span>disclaimer</span>
       </a>
@@ -514,178 +509,184 @@ This ontology has the following classes and properties.</span>
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     class="hlist">
    <li>
-      <a href="#d4e3632">Assumption False Propagation</a>
+      <a href="#d4e3874">Assumption False Propagation</a>
    </li>
    <li>
-      <a href="#d4e3739">Assumption Invalidation</a>
+      <a href="#d4e3981">Assumption Invalidation</a>
    </li>
    <li>
-      <a href="#d4e10649">Away Goal Invalidation</a>
+      <a href="#d4e11280">Away Goal Invalidation</a>
    </li>
    <li>
-      <a href="#d4e7345">Challenge Chain Invalidation</a>
+      <a href="#d4e8407">Challenge Chain Invalidation</a>
    </li>
    <li>
-      <a href="#d4e5865">Challenge Closure</a>
+      <a href="#d4e6409">Challenge Closure</a>
    </li>
    <li>
-      <a href="#d4e7756">Challenge Cycle Invalidation</a>
+      <a href="#d4e8818">Challenge Cycle Invalidation</a>
    </li>
    <li>
-      <a href="#d4e5353">Challenge Cycle Relationship Invalidation</a>
+      <a href="#d4e5595">Challenge Cycle Relationship Invalidation</a>
    </li>
    <li>
-      <a href="#d4e3525">Challenge Defeat</a>
+      <a href="#d4e3766">Challenge Defeat</a>
    </li>
    <li>
-      <a href="#d4e8030">Challenge Doubt</a>
+      <a href="#d4e9092">Challenge Doubt</a>
    </li>
    <li>
-      <a href="#d4e5928">Challenge Relation Creation</a>
+      <a href="#d4e6472">Challenge Relation Creation</a>
    </li>
    <li>
-      <a href="#d4e11291">Confidence Relation Creation</a>
+      <a href="#d4e11923">Confidence Relation Creation</a>
    </li>
    <li>
-      <a href="#d4e9077">Context Consistency</a>
+      <a href="#d4e10183">Context Consistency</a>
    </li>
    <li>
-      <a href="#d4e6875">Context Contract Invalidation</a>
+      <a href="#d4e7549">Context Contract Invalidation</a>
    </li>
    <li>
-      <a href="#d4e7220">Context Inheritance</a>
+      <a href="#d4e6045">Context Doubt Propagation</a>
    </li>
    <li>
-      <a href="#d4e6083">Context Relation Creation</a>
+      <a href="#d4e7894">Context Inheritance</a>
    </li>
    <li>
-      <a href="#d4e10540">Contextual Relation</a>
+      <a href="#d4e6627">Context Relation Creation</a>
    </li>
    <li>
-      <a href="#d4e11619">Contract Activation</a>
+      <a href="#d4e11172">Contextual Relation</a>
    </li>
    <li>
-      <a href="#d4e10281">Contract Relation Invalidation</a>
+      <a href="#d4e12250">Contract Activation</a>
    </li>
    <li>
-      <a href="#d4e9958">Contract Support Invalidation</a>
+      <a href="#d4e8212">Contract Relation Invalidation</a>
    </li>
    <li>
-      <a href="#d4e10884">Contract Violation Relation</a>
+      <a href="#d4e7419">Contract Support Invalidation</a>
    </li>
    <li>
-      <a href="#d4e11161">Contradictory Goal Truth</a>
+      <a href="#d4e11515">Contract Violation Relation</a>
    </li>
    <li>
-      <a href="#d4e6539">Cross-Module Away Context</a>
+      <a href="#d4e11793">Contradictory Goal Truth</a>
    </li>
    <li>
-      <a href="#d4e6707">Cross-Module Away Support</a>
+      <a href="#d4e7083">Cross-Module Away Context</a>
    </li>
    <li>
-      <a href="#d4e7884">Cross-Module Support</a>
+      <a href="#d4e7251">Cross-Module Away Support</a>
    </li>
    <li>
-      <a href="#d4e3071">Defeated Invalidation</a>
+      <a href="#d4e8947">Cross-Module Support</a>
    </li>
    <li>
-      <a href="#d4e5804">Defeater Declaration</a>
+      <a href="#d4e3313">Defeated Invalidation</a>
    </li>
    <li>
-      <a href="#d4e11443">Duplicate ACP Identifier Invalidation</a>
+      <a href="#d4e6348">Defeater Declaration</a>
    </li>
    <li>
-      <a href="#d4e10088">Duplicate Identifier Invalidation</a>
+      <a href="#d4e12075">Duplicate ACP Identifier Invalidation</a>
    </li>
    <li>
-      <a href="#d4e4492">Evidential Relation</a>
+      <a href="#d4e8019">Duplicate Identifier Invalidation</a>
    </li>
    <li>
-      <a href="#d4e7069">Final Pattern Invalidation</a>
+      <a href="#d4e4734">Evidential Relation</a>
    </li>
    <li>
-      <a href="#d4e8347">Goal Confidence Relation</a>
+      <a href="#d4e7742">Final Pattern Invalidation</a>
    </li>
    <li>
-      <a href="#d4e11077">Goal Top Flag</a>
+      <a href="#d4e9409">Goal Confidence Relation</a>
    </li>
    <li>
-      <a href="#d4e9613">Goal-Strategy Confidence</a>
+      <a href="#d4e11709">Goal Top Flag</a>
    </li>
    <li>
-      <a href="#d4e4621">Inferential Relation</a>
+      <a href="#d4e10741">Goal-Strategy Confidence</a>
    </li>
    <li>
-      <a href="#d4e6279">Inferential Relation (Goal)</a>
+      <a href="#d4e4862">Inferential Relation</a>
    </li>
    <li>
-      <a href="#d4e11833">Mixed Support Invalidation</a>
+      <a href="#d4e6822">Inferential Relation (Goal)</a>
    </li>
    <li>
-      <a href="#d4e3847">Module Context Closure</a>
+      <a href="#d4e3070">Mixed Support Invalidation</a>
    </li>
    <li>
-      <a href="#d4e10476">Module Context Cycle Invalidation</a>
+      <a href="#d4e4088">Module Context Closure</a>
    </li>
    <li>
-      <a href="#d4e5504">Module Context Cycle Relationship Invalidation</a>
+      <a href="#d4e11108">Module Context Cycle Invalidation</a>
    </li>
    <li>
-      <a href="#d4e5186">Module Context Propagation</a>
+      <a href="#d4e5745">Module Context Cycle Relationship Invalidation</a>
    </li>
    <li>
-      <a href="#d4e4749">Module Membership</a>
+      <a href="#d4e5428">Module Context Propagation</a>
    </li>
    <li>
-      <a href="#d4e5019">Module Support Propagation</a>
+      <a href="#d4e4990">Module Membership</a>
    </li>
    <li>
-      <a href="#d4e4894">Nested Module Membership</a>
+      <a href="#d4e5260">Module Support Propagation</a>
    </li>
    <li>
-      <a href="#d4e3267">Public Context Propagation</a>
+      <a href="#d4e5135">Nested Module Membership</a>
    </li>
    <li>
-      <a href="#d4e11965">Public Contract Invalidation</a>
+      <a href="#d4e3508">Public Context Propagation</a>
    </li>
    <li>
-      <a href="#d4e3374">Relation False Propagation</a>
+      <a href="#d4e3203">Public Contract Invalidation</a>
    </li>
    <li>
-      <a href="#d4e8712">Solution Confidence Relation</a>
+      <a href="#d4e3615">Relation False Propagation</a>
    </li>
    <li>
-      <a href="#d4e4057">Solution Propagation (False)</a>
+      <a href="#d4e9796">Solution Confidence Relation</a>
    </li>
    <li>
-      <a href="#d4e3950">Solution Propagation (True)</a>
+      <a href="#d4e4298">Solution Propagation (False)</a>
    </li>
    <li>
-      <a href="#d4e9267">Strategy Confidence Relation</a>
+      <a href="#d4e4191">Solution Propagation (True)</a>
    </li>
    <li>
-      <a href="#d4e8137">Substitution Invalidation</a>
+      <a href="#d4e10374">Strategy Confidence Relation</a>
    </li>
    <li>
-      <a href="#d4e6216">Support Closure</a>
+      <a href="#d4e9199">Substitution Invalidation</a>
    </li>
    <li>
-      <a href="#d4e7820">Support Cycle Invalidation</a>
+      <a href="#d4e6759">Support Closure</a>
    </li>
    <li>
-      <a href="#d4e5654">Support Cycle Relationship Invalidation</a>
+      <a href="#d4e8882">Support Cycle Invalidation</a>
    </li>
    <li>
-      <a href="#d4e6407">Support Relation Creation</a>
+      <a href="#d4e5895">Support Cycle Relationship Invalidation</a>
    </li>
    <li>
-      <a href="#d4e4164">Template Undeveloped Invalidation (A)</a>
+      <a href="#d4e6196">Support Doubt Propagation</a>
    </li>
    <li>
-      <a href="#d4e4317">Template Undeveloped Invalidation (B)</a>
+      <a href="#d4e6951">Support Relation Creation</a>
    </li>
    <li>
-      <a href="#d4e3137">Undeveloped Defeat</a>
+      <a href="#d4e4405">Template Undeveloped Invalidation (A)</a>
+   </li>
+   <li>
+      <a href="#d4e4559">Template Undeveloped Invalidation (B)</a>
+   </li>
+   <li>
+      <a href="#d4e3378">Undeveloped Defeat</a>
    </li>
 </ul><iframe src="webvowl/index.html"></iframe> 
 </div>
@@ -1457,6 +1458,7 @@ This section provides details for each class and property defined by OntoGSN.
    <span class="markdown">This section can be used to reference patterns that are related e.g. addressing the same intent in a different context.</span>
   </div>
   <div class="description">
+   <p><strong>has characteristics: </strong> symmetric</p>
    <dl>
     <dt>
      has domain
@@ -2212,7 +2214,6 @@ This section provides details for each class and property defined by OntoGSN.
   <li><a href="#http://purl.org/dc/elements/1.1/creator" title="http://purl.org/dc/elements/1.1/creator"> <span>creator</span> </a></li>
   <li><a href="#http://www.w3.org/2004/02/skos/core#definition" title="http://www.w3.org/2004/02/skos/core#definition"> <span>definition</span> </a></li>
   <li><a href="#http://purl.org/dc/elements/1.1/description" title="http://purl.org/dc/elements/1.1/description"> <span>description</span> </a></li>
-  <li><a href="#http://schema.org/description" title="http://schema.org/description"> <span>description</span> </a></li>
   <li><a href="#http://schema.org/disclaimer" title="http://schema.org/disclaimer"> <span>disclaimer</span> </a></li>
   <li><a href="#http://purl.org/ontology/bibo/doi" title="http://purl.org/ontology/bibo/doi"> <span>doi</span> </a></li>
   <li><a href="#examples" title="https://w3id.org/OntoGSN/ontology#examples">examples</a></li>
@@ -2335,20 +2336,6 @@ This section provides details for each class and property defined by OntoGSN.
  <div class="entity" id="http://purl.org/dc/elements/1.1/description">
   <h3>description<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
   <p><strong>IRI:</strong> http://purl.org/dc/elements/1.1/description</p>
- </div>
- <div class="entity" id="http://schema.org/description">
-  <h3>description<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
-  <p><strong>IRI:</strong> http://schema.org/description</p>
-  <div class="description">
-   <dl>
-    <dt>
-     is also defined as
-    </dt>
-    <dd>
-     data property
-    </dd>
-   </dl>
-  </div>
  </div>
  <div class="entity" id="http://schema.org/disclaimer">
   <h3>disclaimer<sup class="type-ap" title="annotation property">ap</sup> <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#annotationproperties">Annotation Property ToC</a> </span></h3>
@@ -2559,294 +2546,304 @@ This section provides details for each class and property defined by OntoGSN.
 </div><div xmlns:widoco="https://w3id.org/widoco/vocab#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="swrlrules">
  <h3 id="swrlrules" class="list">SWRL rules</h3>
  <ul class="hlist">
-  <li><a href="#d4e3632">Assumption False Propagation</a></li>
-  <li><a href="#d4e3739">Assumption Invalidation</a></li>
-  <li><a href="#d4e10649">Away Goal Invalidation</a></li>
-  <li><a href="#d4e7345">Challenge Chain Invalidation</a></li>
-  <li><a href="#d4e5865">Challenge Closure</a></li>
-  <li><a href="#d4e7756">Challenge Cycle Invalidation</a></li>
-  <li><a href="#d4e5353">Challenge Cycle Relationship Invalidation</a></li>
-  <li><a href="#d4e3525">Challenge Defeat</a></li>
-  <li><a href="#d4e8030">Challenge Doubt</a></li>
-  <li><a href="#d4e5928">Challenge Relation Creation</a></li>
-  <li><a href="#d4e11291">Confidence Relation Creation</a></li>
-  <li><a href="#d4e9077">Context Consistency</a></li>
-  <li><a href="#d4e6875">Context Contract Invalidation</a></li>
-  <li><a href="#d4e7220">Context Inheritance</a></li>
-  <li><a href="#d4e6083">Context Relation Creation</a></li>
-  <li><a href="#d4e10540">Contextual Relation</a></li>
-  <li><a href="#d4e11619">Contract Activation</a></li>
-  <li><a href="#d4e10281">Contract Relation Invalidation</a></li>
-  <li><a href="#d4e9958">Contract Support Invalidation</a></li>
-  <li><a href="#d4e10884">Contract Violation Relation</a></li>
-  <li><a href="#d4e11161">Contradictory Goal Truth</a></li>
-  <li><a href="#d4e6539">Cross-Module Away Context</a></li>
-  <li><a href="#d4e6707">Cross-Module Away Support</a></li>
-  <li><a href="#d4e7884">Cross-Module Support</a></li>
-  <li><a href="#d4e3071">Defeated Invalidation</a></li>
-  <li><a href="#d4e5804">Defeater Declaration</a></li>
-  <li><a href="#d4e11443">Duplicate ACP Identifier Invalidation</a></li>
-  <li><a href="#d4e10088">Duplicate Identifier Invalidation</a></li>
-  <li><a href="#d4e4492">Evidential Relation</a></li>
-  <li><a href="#d4e7069">Final Pattern Invalidation</a></li>
-  <li><a href="#d4e8347">Goal Confidence Relation</a></li>
-  <li><a href="#d4e11077">Goal Top Flag</a></li>
-  <li><a href="#d4e9613">Goal-Strategy Confidence</a></li>
-  <li><a href="#d4e4621">Inferential Relation</a></li>
-  <li><a href="#d4e6279">Inferential Relation (Goal)</a></li>
-  <li><a href="#d4e11833">Mixed Support Invalidation</a></li>
-  <li><a href="#d4e3847">Module Context Closure</a></li>
-  <li><a href="#d4e10476">Module Context Cycle Invalidation</a></li>
-  <li><a href="#d4e5504">Module Context Cycle Relationship Invalidation</a></li>
-  <li><a href="#d4e5186">Module Context Propagation</a></li>
-  <li><a href="#d4e4749">Module Membership</a></li>
-  <li><a href="#d4e5019">Module Support Propagation</a></li>
-  <li><a href="#d4e4894">Nested Module Membership</a></li>
-  <li><a href="#d4e3267">Public Context Propagation</a></li>
-  <li><a href="#d4e11965">Public Contract Invalidation</a></li>
-  <li><a href="#d4e3374">Relation False Propagation</a></li>
-  <li><a href="#d4e8712">Solution Confidence Relation</a></li>
-  <li><a href="#d4e4057">Solution Propagation (False)</a></li>
-  <li><a href="#d4e3950">Solution Propagation (True)</a></li>
-  <li><a href="#d4e9267">Strategy Confidence Relation</a></li>
-  <li><a href="#d4e8137">Substitution Invalidation</a></li>
-  <li><a href="#d4e6216">Support Closure</a></li>
-  <li><a href="#d4e7820">Support Cycle Invalidation</a></li>
-  <li><a href="#d4e5654">Support Cycle Relationship Invalidation</a></li>
-  <li><a href="#d4e6407">Support Relation Creation</a></li>
-  <li><a href="#d4e4164">Template Undeveloped Invalidation (A)</a></li>
-  <li><a href="#d4e4317">Template Undeveloped Invalidation (B)</a></li>
-  <li><a href="#d4e3137">Undeveloped Defeat</a></li>
+  <li><a href="#d4e3874">Assumption False Propagation</a></li>
+  <li><a href="#d4e3981">Assumption Invalidation</a></li>
+  <li><a href="#d4e11280">Away Goal Invalidation</a></li>
+  <li><a href="#d4e8407">Challenge Chain Invalidation</a></li>
+  <li><a href="#d4e6409">Challenge Closure</a></li>
+  <li><a href="#d4e8818">Challenge Cycle Invalidation</a></li>
+  <li><a href="#d4e5595">Challenge Cycle Relationship Invalidation</a></li>
+  <li><a href="#d4e3766">Challenge Defeat</a></li>
+  <li><a href="#d4e9092">Challenge Doubt</a></li>
+  <li><a href="#d4e6472">Challenge Relation Creation</a></li>
+  <li><a href="#d4e11923">Confidence Relation Creation</a></li>
+  <li><a href="#d4e10183">Context Consistency</a></li>
+  <li><a href="#d4e7549">Context Contract Invalidation</a></li>
+  <li><a href="#d4e6045">Context Doubt Propagation</a></li>
+  <li><a href="#d4e7894">Context Inheritance</a></li>
+  <li><a href="#d4e6627">Context Relation Creation</a></li>
+  <li><a href="#d4e11172">Contextual Relation</a></li>
+  <li><a href="#d4e12250">Contract Activation</a></li>
+  <li><a href="#d4e8212">Contract Relation Invalidation</a></li>
+  <li><a href="#d4e7419">Contract Support Invalidation</a></li>
+  <li><a href="#d4e11515">Contract Violation Relation</a></li>
+  <li><a href="#d4e11793">Contradictory Goal Truth</a></li>
+  <li><a href="#d4e7083">Cross-Module Away Context</a></li>
+  <li><a href="#d4e7251">Cross-Module Away Support</a></li>
+  <li><a href="#d4e8947">Cross-Module Support</a></li>
+  <li><a href="#d4e3313">Defeated Invalidation</a></li>
+  <li><a href="#d4e6348">Defeater Declaration</a></li>
+  <li><a href="#d4e12075">Duplicate ACP Identifier Invalidation</a></li>
+  <li><a href="#d4e8019">Duplicate Identifier Invalidation</a></li>
+  <li><a href="#d4e4734">Evidential Relation</a></li>
+  <li><a href="#d4e7742">Final Pattern Invalidation</a></li>
+  <li><a href="#d4e9409">Goal Confidence Relation</a></li>
+  <li><a href="#d4e11709">Goal Top Flag</a></li>
+  <li><a href="#d4e10741">Goal-Strategy Confidence</a></li>
+  <li><a href="#d4e4862">Inferential Relation</a></li>
+  <li><a href="#d4e6822">Inferential Relation (Goal)</a></li>
+  <li><a href="#d4e3070">Mixed Support Invalidation</a></li>
+  <li><a href="#d4e4088">Module Context Closure</a></li>
+  <li><a href="#d4e11108">Module Context Cycle Invalidation</a></li>
+  <li><a href="#d4e5745">Module Context Cycle Relationship Invalidation</a></li>
+  <li><a href="#d4e5428">Module Context Propagation</a></li>
+  <li><a href="#d4e4990">Module Membership</a></li>
+  <li><a href="#d4e5260">Module Support Propagation</a></li>
+  <li><a href="#d4e5135">Nested Module Membership</a></li>
+  <li><a href="#d4e3508">Public Context Propagation</a></li>
+  <li><a href="#d4e3203">Public Contract Invalidation</a></li>
+  <li><a href="#d4e3615">Relation False Propagation</a></li>
+  <li><a href="#d4e9796">Solution Confidence Relation</a></li>
+  <li><a href="#d4e4298">Solution Propagation (False)</a></li>
+  <li><a href="#d4e4191">Solution Propagation (True)</a></li>
+  <li><a href="#d4e10374">Strategy Confidence Relation</a></li>
+  <li><a href="#d4e9199">Substitution Invalidation</a></li>
+  <li><a href="#d4e6759">Support Closure</a></li>
+  <li><a href="#d4e8882">Support Cycle Invalidation</a></li>
+  <li><a href="#d4e5895">Support Cycle Relationship Invalidation</a></li>
+  <li><a href="#d4e6196">Support Doubt Propagation</a></li>
+  <li><a href="#d4e6951">Support Relation Creation</a></li>
+  <li><a href="#d4e4405">Template Undeveloped Invalidation (A)</a></li>
+  <li><a href="#d4e4559">Template Undeveloped Invalidation (B)</a></li>
+  <li><a href="#d4e3378">Undeveloped Defeat</a></li>
  </ul>
- <div class="entity" id="d4e3632">
+ <div class="entity" id="d4e3874">
   <h3>Assumption False Propagation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a> <sup class="type-c" title="class">c</sup>(?A) , <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?B,?A) -&gt; <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?B,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e3739">
+ <div class="entity" id="d4e3981">
   <h3>Assumption Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a> <sup class="type-c" title="class">c</sup>(?A) , <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?B,?A) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?B,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e10649">
+ <div class="entity" id="d4e11280">
   <h3>Away Goal Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?G1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?G2) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M2) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G1,?G2) , <a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup>(?G1,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?G1,?M1) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?G2,?M2) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e7345">
+ <div class="entity" id="d4e8407">
   <h3>Challenge Chain Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>(?D,?R) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?G3) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?G1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G3) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?S,?G3) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G2) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G3,?G1) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G3,?G2) , DifferentFrom(?G1,?G2) -&gt; <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?S,?G2) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G3,?S) , <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?D,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?S,?G1) , <a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>(?D,?S) , <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?S,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>(?S)</p>
  </div>
- <div class="entity" id="d4e5865">
+ <div class="entity" id="d4e6409">
   <h3>Challenge Closure<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>(?A,?B) -&gt; <a href="#transitivelyChallenges" title="https://w3id.org/OntoGSN/ontology#transitivelyChallenges">transitively challenges</a> <sup class="type-op" title="object property">op</sup>(?A,?B)</p>
  </div>
- <div class="entity" id="d4e7756">
+ <div class="entity" id="d4e8818">
   <h3>Challenge Cycle Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#transitivelyChallenges" title="https://w3id.org/OntoGSN/ontology#transitivelyChallenges">transitively challenges</a> <sup class="type-op" title="object property">op</sup>(?E,?E) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?E,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e5353">
+ <div class="entity" id="d4e5595">
   <h3>Challenge Cycle Relationship Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>(?R) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) , <a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="#transitivelyChallenges" title="https://w3id.org/OntoGSN/ontology#transitivelyChallenges">transitively challenges</a> <sup class="type-op" title="object property">op</sup>(?B,?A) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e3525">
+ <div class="entity" id="d4e3766">
   <h3>Challenge Defeat<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?S,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>(?S,?E) , <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>(?S) -&gt; <a href="#defeated" title="https://w3id.org/OntoGSN/ontology#defeated">defeated</a> <sup class="type-dp" title="data property">dp</sup>(?E,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e8030">
+ <div class="entity" id="d4e9092">
   <h3>Challenge Doubt<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>(?G,?E) , <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?G,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G) -&gt; <a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a> <sup class="type-dp" title="data property">dp</sup>(?E,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e5928">
+ <div class="entity" id="d4e6472">
   <h3>Challenge Relation Creation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R,?A,?B) -&gt; <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>(?R) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) , <a href="#relationshipType" title="https://w3id.org/OntoGSN/ontology#relationshipType">relationship type</a> <sup class="type-dp" title="data property">dp</sup>(?R,"dialectic")</p>
  </div>
- <div class="entity" id="d4e11291">
+ <div class="entity" id="d4e11923">
   <h3>Confidence Relation Creation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#ArtefactReference" title="https://w3id.org/OntoGSN/ontology#ArtefactReference">Artefact Reference</a> <sup class="type-c" title="class">c</sup>(?A) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R,?A) -&gt; <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?R,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e9077">
+ <div class="entity" id="d4e10183">
   <h3>Context Consistency<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?G1,?C1) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?G2,?C2) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G2) , <a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup>(?G2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G1,?G2) , <a href="#Context" title="https://w3id.org/OntoGSN/ontology#Context">Context</a> <sup class="type-c" title="class">c</sup>(?C2) -&gt; <a href="#consistentWith" title="https://w3id.org/OntoGSN/ontology#consistentWith">consistent with</a> <sup class="type-op" title="object property">op</sup>(?C1,?C2)</p>
  </div>
- <div class="entity" id="d4e6875">
+ <div class="entity" id="d4e7549">
   <h3>Context Contract Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
-  <p><a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?A,?M1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M2) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?M2,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a> <sup class="type-dp" title="data property">dp</sup>(?M2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+  <p><a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?A,?M1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M2) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?A,?M2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a> <sup class="type-dp" title="data property">dp</sup>(?M2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e7220">
+ <div class="entity" id="d4e6045">
+  <h3>Context Doubt Propagation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
+  <p><a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>(?R) , <a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a> <sup class="type-dp" title="data property">dp</sup>(?R,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?A,?B) -&gt; <a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+ </div>
+ <div class="entity" id="d4e7894">
   <h3>Context Inheritance<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?B,?C) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?B,?A) , <a href="#Assumption" title="https://w3id.org/OntoGSN/ontology#Assumption">Assumption</a> <sup class="type-c" title="class">c</sup>(?A) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?C) -&gt; <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?C,?A)</p>
  </div>
- <div class="entity" id="d4e6083">
+ <div class="entity" id="d4e6627">
   <h3>Context Relation Creation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R,?A,?B) -&gt; <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>(?R) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B)</p>
  </div>
- <div class="entity" id="d4e10540">
+ <div class="entity" id="d4e11172">
   <h3>Contextual Relation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) -&gt; <a href="#relationshipType" title="https://w3id.org/OntoGSN/ontology#relationshipType">relationship type</a> <sup class="type-dp" title="data property">dp</sup>(?R,"contextual")</p>
  </div>
- <div class="entity" id="d4e11619">
+ <div class="entity" id="d4e12250">
   <h3>Contract Activation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#toBeSupportedByContract" title="https://w3id.org/OntoGSN/ontology#toBeSupportedByContract">to be supported by contract</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M2) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?A,?M1) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?B,?M2) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , DifferentFrom(?M1,?M2) -&gt; <a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a> <sup class="type-dp" title="data property">dp</sup>(?M2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e10281">
+ <div class="entity" id="d4e8212">
   <h3>Contract Relation Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
-  <p><a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?M,?B) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?M,?A) , <a href="#toBeSupportedByContract" title="https://w3id.org/OntoGSN/ontology#toBeSupportedByContract">to be supported by contract</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+  <p><a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?B,?M) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?A,?M) , <a href="#toBeSupportedByContract" title="https://w3id.org/OntoGSN/ontology#toBeSupportedByContract">to be supported by contract</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e9958">
+ <div class="entity" id="d4e7419">
   <h3>Contract Support Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
-  <p><a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?M,?A) , <a href="#toBeSupportedByContract" title="https://w3id.org/OntoGSN/ontology#toBeSupportedByContract">to be supported by contract</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a> <sup class="type-dp" title="data property">dp</sup>(?M,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+  <p><a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?A,?M) , <a href="#toBeSupportedByContract" title="https://w3id.org/OntoGSN/ontology#toBeSupportedByContract">to be supported by contract</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a> <sup class="type-dp" title="data property">dp</sup>(?M,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e10884">
+ <div class="entity" id="d4e11515">
   <h3>Contract Violation Relation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
-  <p><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M2) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?M2,?A) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?M1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a> <sup class="type-dp" title="data property">dp</sup>(?M2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+  <p><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M2) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?A,?M2) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?M1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a> <sup class="type-dp" title="data property">dp</sup>(?M2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e11161">
+ <div class="entity" id="d4e11793">
   <h3>Contradictory Goal Truth<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?B,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?B,?A) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?A) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?B,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e6539">
+ <div class="entity" id="d4e7083">
   <h3>Cross-Module Away Context<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?A,?M) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?B,?N) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?N) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M) , DifferentFrom(?M,?N) -&gt; <a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup>(?B,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e6707">
+ <div class="entity" id="d4e7251">
   <h3>Cross-Module Away Support<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?A,?M) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?B,?N) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?N) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M) , DifferentFrom(?M,?N) -&gt; <a href="#away" title="https://w3id.org/OntoGSN/ontology#away">away</a> <sup class="type-dp" title="data property">dp</sup>(?B,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e7884">
+ <div class="entity" id="d4e8947">
   <h3>Cross-Module Support<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?E1,?M2) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M2) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?E1,?M1) , DifferentFrom(?M1,?M2) -&gt; <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?M1,?M2)</p>
  </div>
- <div class="entity" id="d4e3071">
+ <div class="entity" id="d4e3313">
   <h3>Defeated Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#defeated" title="https://w3id.org/OntoGSN/ontology#defeated">defeated</a> <sup class="type-dp" title="data property">dp</sup>(?E,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?E,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e5804">
+ <div class="entity" id="d4e6348">
   <h3>Defeater Declaration<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>(?A,?B) -&gt; <a href="#Defeater" title="https://w3id.org/OntoGSN/ontology#Defeater">Defeater</a> <sup class="type-c" title="class">c</sup>(?A)</p>
  </div>
- <div class="entity" id="d4e11443">
+ <div class="entity" id="d4e12075">
   <h3>Duplicate ACP Identifier Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?B,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="http://schema.org/identifier" target="_blank" title="http://schema.org/identifier">identifier</a> <sup class="type-dp" title="data property">dp</sup>(?A,?N) , <a href="http://schema.org/identifier" target="_blank" title="http://schema.org/identifier">identifier</a> <sup class="type-dp" title="data property">dp</sup>(?B,?N) , DifferentFrom(?A,?B) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?B,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e10088">
+ <div class="entity" id="d4e8019">
   <h3>Duplicate Identifier Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
-  <p><a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?M,?B) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?M,?A) , <a href="http://schema.org/identifier" target="_blank" title="http://schema.org/identifier">identifier</a> <sup class="type-dp" title="data property">dp</sup>(?A,?ID) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M) , DifferentFrom(?A,?B) , <a href="http://schema.org/identifier" target="_blank" title="http://schema.org/identifier">identifier</a> <sup class="type-dp" title="data property">dp</sup>(?B,?ID) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?B,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+  <p><a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?B,?M) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?A,?M) , <a href="http://schema.org/identifier" target="_blank" title="http://schema.org/identifier">identifier</a> <sup class="type-dp" title="data property">dp</sup>(?A,?ID) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M) , DifferentFrom(?A,?B) , <a href="http://schema.org/identifier" target="_blank" title="http://schema.org/identifier">identifier</a> <sup class="type-dp" title="data property">dp</sup>(?B,?ID) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?B,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e4492">
+ <div class="entity" id="d4e4734">
   <h3>Evidential Relation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>(?B) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) -&gt; <a href="#relationshipType" title="https://w3id.org/OntoGSN/ontology#relationshipType">relationship type</a> <sup class="type-dp" title="data property">dp</sup>(?R,"evidential")</p>
  </div>
- <div class="entity" id="d4e7069">
+ <div class="entity" id="d4e7742">
   <h3>Final Pattern Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#instantiationOf" title="https://w3id.org/OntoGSN/ontology#instantiationOf">instantiation of</a> <sup class="type-op" title="object property">op</sup>(?B,?C) , <a href="#final" title="https://w3id.org/OntoGSN/ontology#final">final</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#Pattern" title="https://w3id.org/OntoGSN/ontology#Pattern">Pattern</a> <sup class="type-c" title="class">c</sup>(?C) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?A,?C) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e8347">
+ <div class="entity" id="d4e9409">
   <h3>Goal Confidence Relation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
-  <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G,?S2) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?S1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R1,?S1) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R1) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R2,?G,?S2) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G,?S1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?S2) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G) , DifferentFrom(?S1,?S2) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R1,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R1,?G) -&gt; <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R2,?S2) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R2,?G) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R2,?A) , <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?R2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+  <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G,?S2) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?S1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R1,?S1) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R1) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R2,?G,?S2) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G,?S1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?S2) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G) , DifferentFrom(?S1,?S2) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R1,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R1,?G) , <a href="http://schema.org/identifier" target="_blank" title="http://schema.org/identifier">identifier</a> <sup class="type-dp" title="data property">dp</sup>(?R1,?ID) -&gt; <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R2,?S2) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R2,?G) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R2,?A) , <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?R2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e11077">
+ <div class="entity" id="d4e11709">
   <h3>Goal Top Flag<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?X,?A) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?A) -&gt; <a href="#top" title="https://w3id.org/OntoGSN/ontology#top">top (goal)</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e9613">
+ <div class="entity" id="d4e10741">
   <h3>Goal-Strategy Confidence<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
-  <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G2,?S) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R1,?S) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?S,?G1) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R2,?G2,?S) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R1,?G1) , <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>(?S) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G2) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R1,?A) -&gt; <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R2) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R2,?A) , <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?R2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R2,?G2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R2,?S)</p>
+  <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G2,?S) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R1,?S) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?S,?G1) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R2,?G2,?S) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R1,?G1) , <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>(?S) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G2) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R1,?A) , <a href="http://schema.org/identifier" target="_blank" title="http://schema.org/identifier">identifier</a> <sup class="type-dp" title="data property">dp</sup>(?R1,?ID) -&gt; <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R2) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R2,?A) , <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?R2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R2,?G2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R2,?S)</p>
  </div>
- <div class="entity" id="d4e4621">
+ <div class="entity" id="d4e4862">
   <h3>Inferential Relation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>(?B) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) -&gt; <a href="#relationshipType" title="https://w3id.org/OntoGSN/ontology#relationshipType">relationship type</a> <sup class="type-dp" title="data property">dp</sup>(?R,"inferential")</p>
  </div>
- <div class="entity" id="d4e6279">
+ <div class="entity" id="d4e6822">
   <h3>Inferential Relation (Goal)<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?B) -&gt; <a href="#relationshipType" title="https://w3id.org/OntoGSN/ontology#relationshipType">relationship type</a> <sup class="type-dp" title="data property">dp</sup>(?R,"inferential")</p>
  </div>
- <div class="entity" id="d4e11833">
+ <div class="entity" id="d4e3070">
   <h3>Mixed Support Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?B,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?C,?B) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?C,?A) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?C,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e3847">
+ <div class="entity" id="d4e4088">
   <h3>Module Context Closure<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?A) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?B) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?A,?B) -&gt; <a href="#transitivelyInContextOf" title="https://w3id.org/OntoGSN/ontology#transitivelyInContextOf">transitively in context of</a> <sup class="type-op" title="object property">op</sup>(?A,?B)</p>
  </div>
- <div class="entity" id="d4e10476">
+ <div class="entity" id="d4e11108">
   <h3>Module Context Cycle Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#transitivelyInContextOf" title="https://w3id.org/OntoGSN/ontology#transitivelyInContextOf">transitively in context of</a> <sup class="type-op" title="object property">op</sup>(?M,?M) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?M,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e5504">
+ <div class="entity" id="d4e5745">
   <h3>Module Context Cycle Relationship Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>(?R) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="#transitivelyInContextOf" title="https://w3id.org/OntoGSN/ontology#transitivelyInContextOf">transitively in context of</a> <sup class="type-op" title="object property">op</sup>(?B,?A) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e5186">
+ <div class="entity" id="d4e5428">
   <h3>Module Context Propagation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M2) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?E1,?M1) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?E2,?M2) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?E1,?E2) , DifferentFrom(?M1,?M2) -&gt; <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?M1,?M2)</p>
  </div>
- <div class="entity" id="d4e4749">
+ <div class="entity" id="d4e4990">
   <h3>Module Membership<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?M,?Arg) , <a href="#Argument" title="https://w3id.org/OntoGSN/ontology#Argument">Argument</a> <sup class="type-c" title="class">c</sup>(?Arg) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?Arg,?E) , <a href="#GSNElement" title="https://w3id.org/OntoGSN/ontology#GSNElement">GSN Element</a> <sup class="type-c" title="class">c</sup>(?E) -&gt; <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?E,?M)</p>
  </div>
- <div class="entity" id="d4e5019">
+ <div class="entity" id="d4e5260">
   <h3>Module Support Propagation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M2) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?E1,?E2) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?E1,?M1) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?E2,?M2) , DifferentFrom(?M1,?M2) -&gt; <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?M1,?M2)</p>
  </div>
- <div class="entity" id="d4e4894">
+ <div class="entity" id="d4e5135">
   <h3>Nested Module Membership<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?M,?N) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?N) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?E,?N) -&gt; <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?E,?M)</p>
  </div>
- <div class="entity" id="d4e3267">
+ <div class="entity" id="d4e3508">
   <h3>Public Context Propagation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a> <sup class="type-dp" title="data property">dp</sup>(?G,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?G,?C) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G) -&gt; <a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a> <sup class="type-dp" title="data property">dp</sup>(?C,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e11965">
+ <div class="entity" id="d4e3203">
   <h3>Public Contract Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
-  <p><a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a> <sup class="type-dp" title="data property">dp</sup>(?C,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a> <sup class="type-dp" title="data property">dp</sup>(?E,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?C,?E) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?E,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+  <p><a href="#contract" title="https://w3id.org/OntoGSN/ontology#contract">contract</a> <sup class="type-dp" title="data property">dp</sup>(?C,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#public" title="https://w3id.org/OntoGSN/ontology#public">public</a> <sup class="type-dp" title="data property">dp</sup>(?E,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?E,?C) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?E,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e3374">
+ <div class="entity" id="d4e3615">
   <h3>Relation False Propagation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>(?R) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) -&gt; <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e8712">
+ <div class="entity" id="d4e9796">
   <h3>Solution Confidence Relation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
-  <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G,?S2) , <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>(?S1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R1,?S1) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R1) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R2,?G,?S2) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G,?S1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G) , DifferentFrom(?S1,?S2) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R1,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R1,?G) , <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>(?S2) -&gt; <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R2,?S2) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R2,?G) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R2,?A) , <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?R2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+  <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G,?S2) , <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>(?S1) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R1,?S1) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R1) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R2,?G,?S2) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G,?S1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G) , DifferentFrom(?S1,?S2) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R1,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R1,?G) , <a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>(?S2) , <a href="http://schema.org/identifier" target="_blank" title="http://schema.org/identifier">identifier</a> <sup class="type-dp" title="data property">dp</sup>(?R1,?ID) -&gt; <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R2,?S2) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R2,?G) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R2,?A) , <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?R2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e4057">
+ <div class="entity" id="d4e4298">
   <h3>Solution Propagation (False)<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>(?A) , <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?B,?A) -&gt; <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?B,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e3950">
+ <div class="entity" id="d4e4191">
   <h3>Solution Propagation (True)<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Solution" title="https://w3id.org/OntoGSN/ontology#Solution">Solution</a> <sup class="type-c" title="class">c</sup>(?A) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?B,?A) , <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) -&gt; <a href="#true" title="https://w3id.org/OntoGSN/ontology#true">true</a> <sup class="type-dp" title="data property">dp</sup>(?B,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e9267">
+ <div class="entity" id="d4e10374">
   <h3>Strategy Confidence Relation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
-  <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G1,?S) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?S,?G2) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R1) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R2,?S,?G2) , <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>(?S) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R1,?S) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R1,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R1,?G1) -&gt; <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R2,?S) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R2,?G2) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R2,?A) , <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?R2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+  <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?G1,?S) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?S,?G2) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R1) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R2,?S,?G2) , <a href="#Strategy" title="https://w3id.org/OntoGSN/ontology#Strategy">Strategy</a> <sup class="type-c" title="class">c</sup>(?S) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G1) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R1,?S) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R1,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R1,?G1) , <a href="http://schema.org/identifier" target="_blank" title="http://schema.org/identifier">identifier</a> <sup class="type-dp" title="data property">dp</sup>(?R1,?ID) -&gt; <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R2,?S) , <a href="#RelationshipWithConfidence" title="https://w3id.org/OntoGSN/ontology#RelationshipWithConfidence">Relationship with Confidence</a> <sup class="type-c" title="class">c</sup>(?R2) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R2,?G2) , <a href="#associatedWith" title="https://w3id.org/OntoGSN/ontology#associatedWith">associated with</a> <sup class="type-op" title="object property">op</sup>(?R2,?A) , <a href="#assuranceClaimPoint" title="https://w3id.org/OntoGSN/ontology#assuranceClaimPoint">assurance claim point</a> <sup class="type-dp" title="data property">dp</sup>(?R2,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e8137">
+ <div class="entity" id="d4e9199">
   <h3>Substitution Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?G,?M2) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M1) , <a href="#Module" title="https://w3id.org/OntoGSN/ontology#Module">Module</a> <sup class="type-c" title="class">c</sup>(?M2) , <a href="#substitutedBy" title="https://w3id.org/OntoGSN/ontology#substitutedBy">substituted by</a> <sup class="type-op" title="object property">op</sup>(?J,?G) , <a href="#inModule" title="https://w3id.org/OntoGSN/ontology#inModule">in module</a> <sup class="type-op" title="object property">op</sup>(?J,?M1) , <a href="#Justification" title="https://w3id.org/OntoGSN/ontology#Justification">Justification</a> <sup class="type-c" title="class">c</sup>(?J) , <a href="#inContextOf" title="https://w3id.org/OntoGSN/ontology#inContextOf">in context of</a> <sup class="type-op" title="object property">op</sup>(?E,?J) , DifferentFrom(?M1,?M2) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?J,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e6216">
+ <div class="entity" id="d4e6759">
   <h3>Support Closure<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) -&gt; <a href="#transitivelySupportedBy" title="https://w3id.org/OntoGSN/ontology#transitivelySupportedBy">transitively supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B)</p>
  </div>
- <div class="entity" id="d4e7820">
+ <div class="entity" id="d4e8882">
   <h3>Support Cycle Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#transitivelySupportedBy" title="https://w3id.org/OntoGSN/ontology#transitivelySupportedBy">transitively supported by</a> <sup class="type-op" title="object property">op</sup>(?E,?E) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?E,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e5654">
+ <div class="entity" id="d4e5895">
   <h3>Support Cycle Relationship Invalidation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>(?R) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="#transitivelySupportedBy" title="https://w3id.org/OntoGSN/ontology#transitivelySupportedBy">transitively supported by</a> <sup class="type-op" title="object property">op</sup>(?B,?A) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e6407">
+ <div class="entity" id="d4e6196">
+  <h3>Support Doubt Propagation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
+  <p><a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>(?R) , <a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a> <sup class="type-dp" title="data property">dp</sup>(?R,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B) , <a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) -&gt; <a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
+ </div>
+ <div class="entity" id="d4e6951">
   <h3>Support Relation Creation<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#supportedBy" title="https://w3id.org/OntoGSN/ontology#supportedBy">supported by</a> <sup class="type-op" title="object property">op</sup>(?A,?B) , <a href="http://swrl.stanford.edu/ontologies/built-ins/3.3/swrlx.owl#makeOWLThing" title="makeOWLThing">makeOWLThing</a>(?R,?A,?B) -&gt; <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#Relationship" title="https://w3id.org/OntoGSN/ontology#Relationship">Relationship</a> <sup class="type-c" title="class">c</sup>(?R) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#object" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#object">object</a> <sup class="type-op" title="object property">op</sup>(?R,?B)</p>
  </div>
- <div class="entity" id="d4e4164">
+ <div class="entity" id="d4e4405">
   <h3>Template Undeveloped Invalidation (A)<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Template" title="https://w3id.org/OntoGSN/ontology#Template">Template</a> <sup class="type-c" title="class">c</sup>(?A) , <a href="#undeveloped" title="https://w3id.org/OntoGSN/ontology#undeveloped">undeveloped</a> <sup class="type-dp" title="data property">dp</sup>(?R,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?A) , <a href="#published" title="https://w3id.org/OntoGSN/ontology#published">published</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e4317">
+ <div class="entity" id="d4e4559">
   <h3>Template Undeveloped Invalidation (B)<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#Template" title="https://w3id.org/OntoGSN/ontology#Template">Template</a> <sup class="type-c" title="class">c</sup>(?A) , <a href="#undeveloped" title="https://w3id.org/OntoGSN/ontology#undeveloped">undeveloped</a> <sup class="type-dp" title="data property">dp</sup>(?R,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject" target="_blank" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#subject">subject</a> <sup class="type-op" title="object property">op</sup>(?R,?B) , <a href="#published" title="https://w3id.org/OntoGSN/ontology#published">published</a> <sup class="type-dp" title="data property">dp</sup>(?A,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#contains" title="https://w3id.org/OntoGSN/ontology#contains">contains</a> <sup class="type-op" title="object property">op</sup>(?A,?B) -&gt; <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?A,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#valid" title="https://w3id.org/OntoGSN/ontology#valid">valid</a> <sup class="type-dp" title="data property">dp</sup>(?R,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
- <div class="entity" id="d4e3137">
+ <div class="entity" id="d4e3378">
   <h3>Undeveloped Defeat<span class="backlink">back to <a href="#toc">ToC</a> or <a href="#swrlrules">SWRL ToC</a> </span></h3>
   <p><a href="#undeveloped" title="https://w3id.org/OntoGSN/ontology#undeveloped">undeveloped</a> <sup class="type-dp" title="data property">dp</sup>(?G,"false"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) , <a href="#challenges" title="https://w3id.org/OntoGSN/ontology#challenges">challenges</a> <sup class="type-op" title="object property">op</sup>(?G,?E) , <a href="#Goal" title="https://w3id.org/OntoGSN/ontology#Goal">Goal</a> <sup class="type-c" title="class">c</sup>(?G) , <a href="#inDoubt" title="https://w3id.org/OntoGSN/ontology#inDoubt">in doubt</a> <sup class="type-dp" title="data property">dp</sup>(?E,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>) -&gt; <a href="#defeated" title="https://w3id.org/OntoGSN/ontology#defeated">defeated</a> <sup class="type-dp" title="data property">dp</sup>(?E,"true"^^<a href="http://www.w3.org/2001/XMLSchema#boolean" target="_blank" title="http://www.w3.org/2001/XMLSchema#boolean">boolean</a>)</p>
  </div>
@@ -2862,7 +2859,43 @@ This section provides details for each class and property defined by OntoGSN.
    
 
 <!--CHANGELOG SECTION-->
-   <div id="changelog">null</div>
+   <div id="changelog"><div id="changelog">
+<h2 id="changes" class="list">Changes from last version</h2>
+<h3 id="changeProp" class="list">Object Properties</h3>
+<details><summary><u>Modified object properties</u></summary>
+<ul><li><a href="#relatedTo">https://w3id.org/OntoGSN/ontology#relatedTo</a>
+<ul>
+<li>Added: SymmetricObjectProperty SymmetricObjectProperty(&lt;https://w3id.org/OntoGSN/ontology#relatedTo&gt;)</li>
+</ul>
+</li>
+</ul></details><h3 id="changeDataProp" class="list">Data Properties</h3>
+<details><summary><u>Modified data properties</u></summary>
+<ul><li><a href="#away">https://w3id.org/OntoGSN/ontology#away</a>
+<ul>
+<li>Added: <http://www.w3.org/2004/02/skos/core#note> "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en</li>
+</ul>
+<ul>
+<li>Deleted: <http://schema.org/description> "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en</li>
+</ul>
+</li>
+<li><a href="#defeated">https://w3id.org/OntoGSN/ontology#defeated</a>
+<ul>
+<li>Added: <http://www.w3.org/2004/02/skos/core#note> "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en</li>
+</ul>
+<ul>
+<li>Deleted: <http://schema.org/description> "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en</li>
+</ul>
+</li>
+<li><a href="#undeveloped">https://w3id.org/OntoGSN/ontology#undeveloped</a>
+<ul>
+<li>Added: <https://w3id.org/OntoGSN/ontology#coreOrExtension> "Core GSN"@en</li>
+</ul>
+<ul>
+<li>Deleted: <https://w3id.org/OntoGSN/ontology#coreOrExtension> "Argument Pattern Extension"@en</li>
+</ul>
+</li>
+</ul></details></div>
+</div>
 <div id="acknowledgments">
 <h2 id="ack" class="list">Acknowledgments <span class="backlink"> back to <a href="#toc">ToC</a></span></h2>
 <p>
