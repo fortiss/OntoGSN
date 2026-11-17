@@ -39,6 +39,44 @@ The ontology as published is described in the paper (arXiv:2506.11023).
 
 ---
 
+## Augmentation 0.6.0 (2026-11-17)
+
+**Breaking for reasoners.** The SWRL forms of the eight rules that read a report now read only
+the current report of an artefact. One property, one derivation and one shape are new. No term
+is renamed or removed. The FinComp hub proposed the property and the faster rule text.
+
+- `gsnaug:currentReport` is a new object property, from an artefact or a part of one to the
+  newest report of a mechanism over it that is not struck. An artefact has one current report
+  for each mechanism. A report without a timestamp is always current.
+- The SWRL forms of A6a, A6b, A7a and A7b have one more body atom, `currentReport(?A, ?R)`.
+  A6c, A6d, A7c and A7d have `currentReport(?P, ?R)`. SWRL has no maximum and no negation, so
+  before this change every report of a mechanism counted under a reasoner, also a retired one
+  and a struck one.
+- `augmentation/derivations/d04_current_report.rq` (D4) is new. It sets the link from the
+  reports in the graph, and it removes a link that no longer holds. A writer of reports can
+  also set the link itself.
+- `gsnaugsh:CurrentReportShape` is new. It reports a current report that is not a
+  `sh:ValidationReport`, or that is a report over another target.
+- The SPARQL twins do not read the link. They find the newest report themselves, as before.
+- The SPARQL twins of A6a and A6c have a new text. A subquery finds the current report of each
+  mechanism and target once, and the composition guards are `MINUS` blocks. The results do not
+  change. The text of 0.5.1 did not finish A6c on a case of 1000 solutions in Oxigraph in 300
+  seconds. The new text takes 312 ms. Each of the two rules is about three times as long.
+
+| Reports of one mechanism over one artefact | SWRL form in 0.5.1 | SWRL form in 0.6.0 | SPARQL twin |
+| :--- | :--- | :--- | :--- |
+| An old failing one, a new conforming one | the solution is true and not true | true | true |
+| An old conforming one, a new failing one | the solution is true and not true | not true | not true |
+
+*For case authors:* if you run the rules in a reasoner, run D4 first, and after each new report.
+A graph without `gsnaug:currentReport` gives no truth value and no validity value under the SWRL
+forms. If you run the SPARQL twins, nothing changes, and D4 runs with them without harm. If you
+strike a report by hand, run D4 again, so that the link moves back to the report before it.
+
+Reasoning: `dd-0106` to `dd-0110`, rationales `why-0065` to `why-0067`. They retire `dd-0105`.
+
+---
+
 ## Design record 1.4.0 (2026-11-12)
 
 **Not breaking.** The record states how each SPARQL update in `ontology/queries/rules/`
@@ -220,44 +258,6 @@ record states this property on every rationale, but `ontogsn-design.ttl` did not
   `gsndesign:Rationale`. The data of the record does not change.
 - The Provenance page of the Graffoo diagram no longer has the note that the property is
   undeclared, and `graffoo_check.py` no longer accepts that difference.
-
----
-
-## Augmentation 0.6.0 (2026-11-17)
-
-**Breaking for reasoners.** The SWRL forms of the eight rules that read a report now read only
-the current report of an artefact. One property, one derivation and one shape are new. No term
-is renamed or removed. The FinComp hub proposed the property and the faster rule text.
-
-- `gsnaug:currentReport` is a new object property, from an artefact or a part of one to the
-  newest report of a mechanism over it that is not struck. An artefact has one current report
-  for each mechanism. A report without a timestamp is always current.
-- The SWRL forms of A6a, A6b, A7a and A7b have one more body atom, `currentReport(?A, ?R)`.
-  A6c, A6d, A7c and A7d have `currentReport(?P, ?R)`. SWRL has no maximum and no negation, so
-  before this change every report of a mechanism counted under a reasoner, also a retired one
-  and a struck one.
-- `augmentation/derivations/d04_current_report.rq` (D4) is new. It sets the link from the
-  reports in the graph, and it removes a link that no longer holds. A writer of reports can
-  also set the link itself.
-- `gsnaugsh:CurrentReportShape` is new. It reports a current report that is not a
-  `sh:ValidationReport`, or that is a report over another target.
-- The SPARQL twins do not read the link. They find the newest report themselves, as before.
-- The SPARQL twins of A6a and A6c have a new text. A subquery finds the current report of each
-  mechanism and target once, and the composition guards are `MINUS` blocks. The results do not
-  change. The text of 0.5.1 did not finish A6c on a case of 1000 solutions in Oxigraph in 300
-  seconds. The new text takes 312 ms. Each of the two rules is about three times as long.
-
-| Reports of one mechanism over one artefact | SWRL form in 0.5.1 | SWRL form in 0.6.0 | SPARQL twin |
-| :--- | :--- | :--- | :--- |
-| An old failing one, a new conforming one | the solution is true and not true | true | true |
-| An old conforming one, a new failing one | the solution is true and not true | not true | not true |
-
-*For case authors:* if you run the rules in a reasoner, run D4 first, and after each new report.
-A graph without `gsnaug:currentReport` gives no truth value and no validity value under the SWRL
-forms. If you run the SPARQL twins, nothing changes, and D4 runs with them without harm. If you
-strike a report by hand, run D4 again, so that the link moves back to the report before it.
-
-Reasoning: `dd-0106` to `dd-0110`, rationales `why-0065` to `why-0067`. They retire `dd-0105`.
 
 ---
 

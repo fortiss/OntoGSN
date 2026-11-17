@@ -8,7 +8,7 @@ toc_label: "Steps"
 toc_sticky: true
 ---
 
-This tutorial builds a small assurance case for a kettle. You apply the rules of the GSN Community Standard to the case, validate the case, and ask questions about it. The output on this page comes from OntoGSN 1.3.0.
+This tutorial builds a small assurance case for a kettle. You apply the rules of the GSN Community Standard to the case, validate the case, and ask questions about it. The output on this page comes from OntoGSN 1.3.1.
 
 You need Python 3 and a copy of the [OntoGSN repository](https://github.com/fortiss/OntoGSN). Run the commands from the root folder of the repository.
 
@@ -113,7 +113,7 @@ The script reports which rules fired:
 ```text
 reached a fixpoint after 3 pass(es)
 
-9 of 60 rules fired; 4,106 -> 4,156 triples
+9 of 60 rules fired; 4,134 -> 4,184 triples
     S6  Goal Top Flag
    S11  Solution Propagation (False)
    ...
