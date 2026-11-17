@@ -39,7 +39,7 @@ The table below gives each twin a level:
 ## The rules
 
 The design record states the differences of each twin with `gsndesign:differsBy`, and
-`development/dev_tools/prov_augment.py` derives them from the text of the update.
+`development/dev_tools/prov_inventory.py` derives them from the text of the update.
 `development/dev_tools/doc_counts.py` writes this table from the record. Do not edit it by hand.
 
 [table]: <> (core_rule_twins)

@@ -10,7 +10,7 @@ comment lines at the top, because tools read them to select and match a rule:
 | Line | What reads it | Why |
 | :--- | :--- | :--- |
 | `# rule:` | `ontology/example/run_rules.py`, `development/dev_tools/query_check.py`, the FinComp hub | The rule id. `run_rules.py --only` and the hub select a rule by it. `query_check.py` makes sure that no two files translate the same rule. |
-| `# name:` | `development/dev_tools/query_check.py`, `development/dev_tools/prov_augment.py`, the FinComp hub | The name of the SWRL rule that the file translates, as its `rdfs:label` in the ontology. It joins the file to that rule. |
+| `# name:` | `development/dev_tools/query_check.py`, `development/dev_tools/prov_inventory.py`, the FinComp hub | The name of the SWRL rule that the file translates, as its `rdfs:label` in the ontology. It joins the file to that rule. |
 
 The header fields are in a table in each section. `development/dev_tools/query_check.py`
 reads the table of each query under `ontology/queries/`:

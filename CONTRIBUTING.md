@@ -45,7 +45,7 @@ Local checks ensure that everything is current and consistent: derived serializa
 | `ontology/serializations/ontogsn.ttl` | `development/dev_tools/build.py` and `development/dev_tools/build_separated.py` |
 | any of `ontology/shapes/ontogsn-shapes_[1-5]*.ttl` | `development/dev_tools/build_full.py` |
 | anything in `ontology/queries/` | `development/dev_tools/query_check.py` |
-| `development/design/ontogsn-design-data.ttl` or `development/design/Competency Questions.xlsx` | `development/dev_tools/prov_augment.py` |
+| `development/design/ontogsn-design-data.ttl` or `development/design/Competency Questions.xlsx` | `development/dev_tools/prov_inventory.py` |
 
 `python development/dev_tools/check_all.py --fix` runs the three build scripts of the first two rows, corrects the counts in the READMEs and the website pages with `development/dev_tools/doc_counts.py`, and then runs every check. With `--verify`, it also runs the scripts of the last two rows.
 

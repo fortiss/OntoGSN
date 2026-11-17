@@ -10,9 +10,9 @@ at the time. PROV-O is the backbone; `gsndesign:` adds only the terms PROV-O has
 | :--- | :--- |
 | `ontogsn-design.ttl` | the vocabulary. Hand-written. |
 | `ontogsn-design-data.ttl` | the record — 949 decisions, 297 passages, 241 rationales, 917 statements. **Source of truth**, edited by hand. |
-| `ontogsn-design-augmentations.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `development/dev_tools/prov_augment.py`. |
+| `ontogsn-design-inventory.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `development/dev_tools/prov_inventory.py`. |
 | `Design Documentation.xlsx` | a human-readable view of the record. **Generated**, never read back. |
-| `Competency Questions.xlsx` | the questions `ontology/queries/` and `augmentation/queries/` answer. Hand-maintained; read by `development/dev_tools/prov_augment.py`. |
+| `Competency Questions.xlsx` | the questions `ontology/queries/` and `augmentation/queries/` answer. Hand-maintained; read by `development/dev_tools/prov_inventory.py`. |
 | `Graffoo Diagram.drawio` | the editable source of the Graffoo diagrams of the ontologies. Hand-maintained; `development/dev_tools/graffoo_check.py` compares it with the files that it draws. |
 
 `ontogsn.ttl` does **not** `owl:imports` any of this. It would drag roughly two thousand
@@ -59,7 +59,7 @@ Two links tie a query back to the ontology, and they are deliberately different 
 A rule query and its SWRL rule state the same rule, but the query can do two things that SWRL
 cannot. `gsndesign:differsBy` records them: `gsndesign:Retraction`, where the query deletes the
 old value of a flag, and `gsndesign:Guard`, where it draws its conclusion only if a stated fact
-is absent. `prov_augment.py` derives both from the text of the query, and
+is absent. `prov_inventory.py` derives both from the text of the query, and
 `ontology/queries/rules/README.md` lists them for each rule.
 
 Both links point at a `gsndesign:StatementRecord`, so one further hop reaches the design decision,
@@ -129,7 +129,7 @@ for the same meaning — and the distinction is worth keeping.
 ```bash
 python development/dev_tools/prov_check.py                # what has drifted
 python development/dev_tools/prov_check.py --strict       # exit 1 if anything needs a human
-python development/dev_tools/prov_augment.py              # rebuild the augmentations
+python development/dev_tools/prov_inventory.py              # rebuild the inventory
 python development/dev_tools/prov_to_workbook.py          # rebuild Design Documentation.xlsx
 ```
 

@@ -14,7 +14,7 @@ python development/dev_tools/check_all.py --fix --verify   # also execute the st
 `--fix` runs `build.py`, `build_separated.py`, `build_full.py` and `doc_counts.py` before
 the checks. Each script writes only the files that changed. Stage the files that it rewrote. `--fix` does not
 run `query_check.py`, because that script executes the stored queries. `--verify` does: it
-runs `query_check.py` and then `prov_augment.py`, and it stops if a query fails. After a change
+runs `query_check.py` and then `prov_inventory.py`, and it stops if a query fails. After a change
 to the ontology or to a query, `--fix --verify` prepares the commit in one command.
 
 ## Counts in the documents
@@ -91,7 +91,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `ontology/serializations/ontogsn.{rdf,jsonld}` | `ontogsn.ttl` | `development/dev_tools/build.py` |
 | `ontology/serializations/separated/*` (36 files) | `ontogsn.ttl` | `development/dev_tools/build_separated.py` |
 | `ontology/shapes/ontogsn-shapes_0_full.ttl` | the five sections | `development/dev_tools/build_full.py` |
-| `development/design/ontogsn-design-augmentations.ttl` | the repo, and the record it links into | `development/dev_tools/prov_augment.py` |
+| `development/design/ontogsn-design-inventory.ttl` | the repo, and the record it links into | `development/dev_tools/prov_inventory.py` |
 | `development/design/ontogsn-design-queries.ttl` | `ontology/queries/`, the ontology, the fixture | `development/dev_tools/query_check.py` |
 | `development/design/Design Documentation.xlsx` | the design record | `development/dev_tools/prov_to_workbook.py` |
 | `docs/playground/` | the OntoGSN Workbench at the commit in `docs/playground/VENDOR.json`, and `ontogsn.ttl` | `development/dev_tools/playground_sync.py` |
@@ -127,7 +127,7 @@ graffoo_edit.py    layout-preserving edits to the diagram, and the rebuild of
                    "All Extensions" from the four extension pages
 prov_add.py        draft a decision for an axiom nobody has documented
 prov_retire.py     retire a decision, or bring it back
-prov_augment.py    rebuild the requirements / questions / queries / build-chain graph
+prov_inventory.py    rebuild the requirements / questions / queries / build-chain graph
                    (--check compares the committed file and writes nothing)
 prov_to_workbook.py  rebuild the readable spreadsheet
 prov_ttl.py        deterministic Turtle writer (rdflib's ordering is not stable)

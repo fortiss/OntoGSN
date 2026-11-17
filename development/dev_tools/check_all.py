@@ -20,8 +20,8 @@ they make of the ontology as it now stands.
 Only the first six gate. The design-record report lists things a person has to judge - an
 axiom nobody has documented, a sentence that needs rewriting - and a build should not fail
 because a human decision is outstanding; pass --strict-design when you want it to. The
-generated part of the record, ontogsn-design-augmentations.ttl, is rebuilt by
-prov_augment.py, and a stale copy is reported but does not gate, like the record itself. A
+generated part of the record, ontogsn-design-inventory.ttl, is rebuilt by
+prov_inventory.py, and a stale copy is reported but does not gate, like the record itself. A
 diagram difference is the same kind of thing: somebody has to redraw a page. The
 reasoner and OOPS! checks compare against a recorded baseline, and both baselines contain
 findings that are correct and deliberate, so a difference there is a prompt to look, not a
@@ -43,7 +43,7 @@ result. CI never passes --fix. It does not run query_check.py, because that scri
 the stored queries and is a verification, not a build.
 
 --verify does that second step. It runs query_check.py, which executes each stored query
-that changed and records the outcome, and then prov_augment.py, which rebuilds the generated
+that changed and records the outcome, and then prov_inventory.py, which rebuilds the generated
 part of the design record from that outcome. It runs after the generators and before
 doc_counts.py, because some counts read the generated record. A query that fails stops the
 run, so --verify never records a result that nobody saw. With --fix --verify, one command
@@ -135,19 +135,19 @@ CHECKS = [
      # the record describes the ontology, the shapes and the stored queries, so a change
      # to any of them can invalidate it
      # "development/design/" also covers 'Competency Questions.xlsx', which lives there and is
-     # the input prov_augment.py reads
+     # the input prov_inventory.py reads
      "triggers": ("development/design/", "ontology/serializations/ontogsn.ttl", "ontology/shapes/",
                   "ontology/queries/")},
-    # Rebuilds ontogsn-design-augmentations.ttl in a temporary folder and compares it with
+    # Rebuilds ontogsn-design-inventory.ttl in a temporary folder and compares it with
     # the committed file. It writes nothing. A stale file means that a query, a
-    # serialization or the record changed and nobody ran prov_augment.py afterwards.
+    # serialization or the record changed and nobody ran prov_inventory.py afterwards.
     {"name": "generated design record",
-     "command": ["development/dev_tools/prov_augment.py", "--check"],
-     "verify": ["development/dev_tools/prov_augment.py"],
+     "command": ["development/dev_tools/prov_inventory.py", "--check"],
+     "verify": ["development/dev_tools/prov_inventory.py"],
      "gating": False,
      "triggers": ("development/design/", "ontology/serializations/", "ontology/shapes/",
                   "ontology/queries/", "augmentation/queries/", "augmentation/rules/",
-                  "augmentation/derivations/", "development/dev_tools/prov_augment.py")},
+                  "augmentation/derivations/", "development/dev_tools/prov_inventory.py")},
     # The diagrams are drawn by hand, so a difference is a drawing job for a person, not a
     # broken build. It reads the drawio file and the ontologies, nothing else.
     {"name": "Graffoo diagrams",
@@ -195,7 +195,7 @@ def main():
                          "the counts in the documents: doc_counts.py")
     ap.add_argument("--verify", action="store_true",
                     help="execute the stored queries and record the outcome first: "
-                         "query_check.py, then prov_augment.py")
+                         "query_check.py, then prov_inventory.py")
     args = ap.parse_args()
 
     checks = CHECKS
