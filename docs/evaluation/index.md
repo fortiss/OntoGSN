@@ -25,8 +25,7 @@ Some pitfalls are correct findings that OntoGSN keeps on purpose. The [design re
 | P24 Recursive definitions | Important | `gsn:Goal`, `gsn:Module`, `gsn:Relationship` | Kept. Design decision dd-1087. |
 | P30 Equivalent classes not declared | Important | `rdf:Statement` and `gsn:Argument` | Kept. A false match, design decision dd-1088. |
 | P08 Missing label and comment | Minor | `schema:description`, `schema:identifier` | Kept. Each OntoGSN term has a definition. |
-| P13 Inverse relationships not declared | Minor | 14 object properties | Kept. Design decision dd-1086. |
-| P13 Symmetric or transitive? | Minor | `gsn:relatedTo` | Open |
+| P13 Inverse relationships not declared | Minor | 13 object properties | Kept. Design decision dd-1086. |
 | P34 Untyped class | Minor | 8 terms of the SWRL vocabulary | Kept. The SWRL vocabulary is not OntoGSN's to declare. |
 
 OOPS! did not evaluate P06 (cycles in the class hierarchy), because the checker failed. A local query in `development/dev_tools/oops_check.py` runs the same check. It finds no cycle.
