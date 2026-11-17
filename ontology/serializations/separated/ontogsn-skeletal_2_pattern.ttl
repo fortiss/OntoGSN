@@ -86,17 +86,13 @@ gsn:published a owl:DatatypeProperty ;
             owl:unionOf ( gsn:Argument gsn:Pattern ) ] ;
     rdfs:range xsd:boolean .
 
-gsn:relatedTo a owl:ObjectProperty ;
+gsn:relatedTo a owl:ObjectProperty,
+        owl:SymmetricProperty ;
     rdfs:domain gsn:Pattern ;
     rdfs:range gsn:Pattern .
 
 gsn:structure a owl:AnnotationProperty ;
     rdfs:domain gsn:Pattern .
-
-gsn:undeveloped a owl:DatatypeProperty ;
-    rdfs:domain [ a owl:Class ;
-            owl:unionOf ( gsn:Goal gsn:Relationship gsn:Strategy ) ] ;
-    rdfs:range xsd:boolean .
 
 gsn:uninstantiated a owl:DatatypeProperty ;
     rdfs:domain gsn:GSNElement ;
@@ -106,17 +102,12 @@ gsn:uninstantiated a owl:DatatypeProperty ;
     dc:description "The skeletal Argument Pattern Extension section of OntoGSN. Generated from ontogsn.ttl by development/dev_tools/build_separated.py. Declarations and logical axioms only - no rules, no prose."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     dc:title "OntoGSN — Argument Pattern Extension"@en ;
-    owl:versionInfo "1.3.0" ;
+    owl:versionInfo "1.3.1" ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
-schema:description a owl:AnnotationProperty,
-        owl:DatatypeProperty .
-
-gsn:Goal a owl:Class .
+schema:description a owl:DatatypeProperty .
 
 gsn:InstantiationDataReference a owl:Class .
-
-gsn:Strategy a owl:Class .
 
 gsn:Template a owl:Class ;
     rdfs:subClassOf gsn:Pattern .

@@ -45,7 +45,7 @@ The record and this file use seven terms from the ARGO side. This table defines 
 [count]: <> (_ _ ontology_classes ontology_object_properties ontology_datatype_properties)
 
 ARGO has 16 classes, 22 object properties, no datatype properties and no rules. OntoGSN has 20
-classes, 16 object properties, 25 datatype properties and 58 SWRL rules. The missing datatype
+classes, 16 object properties, 25 datatype properties and 60 SWRL rules. The missing datatype
 properties are the shortest statement of the gap. ARGO stores no truth values and no flags as
 data.
 
@@ -93,11 +93,11 @@ both versions, and both matter:
 
 ```turtle
 owl:versionInfo                 "0.1.0" ;
-gsnalign:alignedOntoGSNVersion  "1.2.3" ;
+gsnalign:alignedOntoGSNVersion  "1.3.1" ;
 gsnalign:alignedARGOVersion     "ArgO v.4 development release; git 59dd512f58cf, 2025-12-03" ;
 ```
 
-ARGO is a development release, and OntoGSN is before 1.3. Either can move a term under this
+ARGO is a development release, and OntoGSN changes with each release. Either can move a term under this
 graph without warning. If either string changes, review the alignment again. The limitations
 below apply to these two versions and can stop applying after them.
 

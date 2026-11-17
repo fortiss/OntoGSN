@@ -188,6 +188,9 @@ the script in a scheduled job, or after each change to the system.
 
 - If you run the script on its own output, the old report stays in the graph as history. The
   rules read the newest report of each mechanism.
+- The script applies the rules as SPARQL updates. A reasoner that runs the SWRL forms needs
+  the link `gsnaug:currentReport` on each artefact. The update
+  `augmentation/derivations/d04_current_report.rq` sets it.
 - A check that is a script, a query or an interview writes no report by itself. Write the
   report by hand in the same form, or let a wrapper around the script write it.
 - A solution can also get `gsn:valid` from a check, and a part of an artefact can have its own

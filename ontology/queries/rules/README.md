@@ -2,7 +2,7 @@
 
 [count]: <> (rule_twins)
 
-Each of the 58 SWRL rules of [`ontogsn.ttl`](../../serializations/ontogsn.ttl) has a twin in this
+Each of the 60 SWRL rules of [`ontogsn.ttl`](../../serializations/ontogsn.ttl) has a twin in this
 folder: one SPARQL update with the same name. The twins are for a store with no reasoner.
 [`run_rules.py`](../../example/run_rules.py) applies them until no update changes the case. See
 [`../README.md`](../README.md#rules) for the commands.
@@ -25,7 +25,7 @@ cannot write a second copy.
 
 [count]: <> (rule_twins_exact rule_twins_retracting rule_twins_guarding)
 
-Of the twins, 19 draw exactly the conclusions of their rule, 39 have a retraction and 2 have a
+Of the twins, 19 draw exactly the conclusions of their rule, 41 have a retraction and 2 have a
 guard.
 
 The table below gives each twin a level:
@@ -36,10 +36,20 @@ The table below gives each twin a level:
 | close | The twin has a retraction. The conclusions are the same on a case that has no earlier value for the flag. |
 | narrower | The twin has a guard. It draws its conclusion in fewer cases than the rule. |
 
+## Rules that follow a chain
+
+A twin can also reach its conclusions in another number of steps than its rule. The
+conclusions are the same, so the table below does not count this as a difference.
+
+| Rules | What the SWRL rule does | What the twin does |
+| :--- | :--- | :--- |
+| S55, S58, S61 (the closure rules) | It states one step: a direct link is also a transitive link. The axiom `owl:TransitiveProperty` on the helper property gives the chain. | It has a property path, and it inserts the whole chain in one run. A store without a reasoner does not apply the axiom. The path of S58 runs through modules only. |
+| S54 (nested module membership) | A reasoner applies it until it reaches every level of nesting. | One run moves the membership up one module. `run_rules.py` applies the rules until nothing changes, so it reaches every level. If you run the file alone, run it once for each level. |
+
 ## The rules
 
 The design record states the differences of each twin with `gsndesign:differsBy`, and
-`development/dev_tools/prov_augment.py` derives them from the text of the update.
+`development/dev_tools/prov_inventory.py` derives them from the text of the update.
 `development/dev_tools/doc_counts.py` writes this table from the record. Do not edit it by hand.
 
 [table]: <> (core_rule_twins)
@@ -104,3 +114,5 @@ The design record states the differences of each twin with `gsndesign:differsBy`
 | S61 | Challenge Closure | Dialectic Extension | [`s61_challenge_closure.rq`](s61_challenge_closure.rq) | exact | none |
 | S62 | Challenge Cycle Invalidation | Dialectic Extension | [`s62_challenge_cycle_invalidation.rq`](s62_challenge_cycle_invalidation.rq) | close | retraction |
 | S63 | Challenge Cycle Relationship Invalidation | Dialectic Extension | [`s63_challenge_cycle_relationship_invalidation.rq`](s63_challenge_cycle_relationship_invalidation.rq) | close | retraction |
+| S64 | Support Doubt Propagation | Dialectic Extension | [`s64_support_doubt_propagation.rq`](s64_support_doubt_propagation.rq) | close | retraction |
+| S65 | Context Doubt Propagation | Dialectic Extension | [`s65_context_doubt_propagation.rq`](s65_context_doubt_propagation.rq) | close | retraction |

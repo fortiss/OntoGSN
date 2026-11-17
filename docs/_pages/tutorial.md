@@ -8,7 +8,7 @@ toc_label: "Steps"
 toc_sticky: true
 ---
 
-This tutorial builds a small assurance case for a kettle. You apply the rules of the GSN Community Standard to the case, validate the case, and ask questions about it. The output on this page comes from OntoGSN 1.3.0.
+This tutorial builds a small assurance case for a kettle. You apply the rules of the GSN Community Standard to the case, validate the case, and ask questions about it. The output on this page comes from OntoGSN 1.3.1.
 
 You need Python 3 and a copy of the [OntoGSN repository](https://github.com/fortiss/OntoGSN). Run the commands from the root folder of the repository.
 
@@ -102,7 +102,7 @@ The case uses these terms:
 
 ## 3. Apply the rules
 
-The ontology has 58 SWRL rules from the standard. Each rule is also a SPARQL update in `ontology/queries/rules/`, for stores with no reasoner. The script `run_rules.py` applies the updates until no rule adds a new fact.
+The ontology has 60 SWRL rules from the standard. Each rule is also a SPARQL update in `ontology/queries/rules/`, for stores with no reasoner. The script `run_rules.py` applies the updates until no rule adds a new fact.
 
 ```sh
 python ontology/example/run_rules.py my-case.ttl --out my-case-materialised.ttl
@@ -113,7 +113,7 @@ The script reports which rules fired:
 ```text
 reached a fixpoint after 3 pass(es)
 
-9 of 58 rules fired; 4,008 -> 4,058 triples
+9 of 60 rules fired; 4,134 -> 4,184 triples
     S6  Goal Top Flag
    S11  Solution Propagation (False)
    ...

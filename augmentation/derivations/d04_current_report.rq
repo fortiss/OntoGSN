@@ -1,0 +1,46 @@
+# rule:      D4
+# name:      Current Report
+
+PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:   <http://www.w3.org/ns/prov#>
+PREFIX sh:     <http://www.w3.org/ns/shacl#>
+
+DELETE { ?target gsnaug:currentReport ?stale }
+INSERT { ?target gsnaug:currentReport ?report }
+WHERE {
+  {
+    ?report a sh:ValidationReport ;
+            prov:wasGeneratedBy ?mechanism ;
+            prov:used ?target .
+    FILTER NOT EXISTS { ?report prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
+    OPTIONAL { ?report prov:generatedAtTime ?t }
+    FILTER NOT EXISTS {
+      ?newer a sh:ValidationReport ;
+             prov:wasGeneratedBy ?mechanism ;
+             prov:used ?target ;
+             prov:generatedAtTime ?tNewer .
+      FILTER(?tNewer > ?t)
+      FILTER NOT EXISTS { ?newer prov:invalidatedAtTime|prov:wasInvalidatedBy ?struckNewer }
+    }
+    FILTER NOT EXISTS { ?target gsnaug:currentReport ?report }
+  }
+  UNION
+  {
+    ?target gsnaug:currentReport ?stale .
+    FILTER NOT EXISTS {
+      ?stale a sh:ValidationReport ;
+             prov:wasGeneratedBy ?mechanism ;
+             prov:used ?target .
+      FILTER NOT EXISTS { ?stale prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
+      OPTIONAL { ?stale prov:generatedAtTime ?t }
+      FILTER NOT EXISTS {
+        ?newer a sh:ValidationReport ;
+               prov:wasGeneratedBy ?mechanism ;
+               prov:used ?target ;
+               prov:generatedAtTime ?tNewer .
+        FILTER(?tNewer > ?t)
+        FILTER NOT EXISTS { ?newer prov:invalidatedAtTime|prov:wasInvalidatedBy ?struckNewer }
+      }
+    }
+  }
+}

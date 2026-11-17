@@ -14,7 +14,7 @@ python development/dev_tools/check_all.py --fix --verify   # also execute the st
 `--fix` runs `build.py`, `build_separated.py`, `build_full.py` and `doc_counts.py` before
 the checks. Each script writes only the files that changed. Stage the files that it rewrote. `--fix` does not
 run `query_check.py`, because that script executes the stored queries. `--verify` does: it
-runs `query_check.py` and then `prov_augment.py`, and it stops if a query fails. After a change
+runs `query_check.py` and then `prov_inventory.py`, and it stops if a query fails. After a change
 to the ontology or to a query, `--fix --verify` prepares the commit in one command.
 
 ## Counts in the documents
@@ -80,7 +80,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `development/design/ontogsn-design-data.ttl` | **the design record** — ~36,000 words of quoted standard passages, rationale and prose that exist nowhere else |
 | `development/design/Competency Questions.xlsx` | the questions `ontology/queries/` and `augmentation/queries/` answer |
 | `ontology/queries/*.rq` | the stored CRUD queries, one per competency question |
-| `ontology/queries/rules/*.rq` | the 58 SWRL rules as SPARQL updates |
+| `ontology/queries/rules/*.rq` | the 60 SWRL rules as SPARQL updates |
 | `ontology/example/example_case.ttl` | the example ABox the queries and checks run against |
 | `development/dev_tools/testdata/*.ttl` | one trigger per rule, and the recorded baselines |
 
@@ -91,7 +91,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `ontology/serializations/ontogsn.{rdf,jsonld}` | `ontogsn.ttl` | `development/dev_tools/build.py` |
 | `ontology/serializations/separated/*` (36 files) | `ontogsn.ttl` | `development/dev_tools/build_separated.py` |
 | `ontology/shapes/ontogsn-shapes_0_full.ttl` | the five sections | `development/dev_tools/build_full.py` |
-| `development/design/ontogsn-design-augmentations.ttl` | the repo, and the record it links into | `development/dev_tools/prov_augment.py` |
+| `development/design/ontogsn-design-inventory.ttl` | the repo, and the record it links into | `development/dev_tools/prov_inventory.py` |
 | `development/design/ontogsn-design-queries.ttl` | `ontology/queries/`, the ontology, the fixture | `development/dev_tools/query_check.py` |
 | `development/design/Design Documentation.xlsx` | the design record | `development/dev_tools/prov_to_workbook.py` |
 | `docs/playground/` | the OntoGSN Workbench at the commit in `docs/playground/VENDOR.json`, and `ontogsn.ttl` | `development/dev_tools/playground_sync.py` |
@@ -127,7 +127,7 @@ graffoo_edit.py    layout-preserving edits to the diagram, and the rebuild of
                    "All Extensions" from the four extension pages
 prov_add.py        draft a decision for an axiom nobody has documented
 prov_retire.py     retire a decision, or bring it back
-prov_augment.py    rebuild the requirements / questions / queries / build-chain graph
+prov_inventory.py    rebuild the requirements / questions / queries / build-chain graph
                    (--check compares the committed file and writes nothing)
 prov_to_workbook.py  rebuild the readable spreadsheet
 prov_ttl.py        deterministic Turtle writer (rdflib's ordering is not stable)
@@ -172,7 +172,7 @@ axiom is gone), `undocumented` (the new one has no decision), and `release-edite
 
 ## Stored queries
 
-`ontology/queries/` holds one SPARQL file per competency question; `ontology/queries/rules/` holds the 58
+`ontology/queries/` holds one SPARQL file per competency question; `ontology/queries/rules/` holds the 60
 SWRL rules as SPARQL updates. Both are verified by executing them against
 `ontology/serializations/ontogsn.ttl` and the fixtures in `development/dev_tools/testdata/`, in Oxigraph:
 
@@ -183,18 +183,35 @@ python development/dev_tools/query_check.py --check    # CI: is the record curre
 python development/dev_tools/query_check.py -v         # one line per query
 ```
 
-The SPARQL files hold no comments. The header of each query (`id`, `operation`, `question`,
-`expect`, and for a rule `section` and `swrl`) is a table in its section of
-[`QUERY-COMMENTS.md`](../../QUERY-COMMENTS.md), and the script reads it from there. A rule
-file keeps only its `# rule:` and `# name:` lines.
+A SPARQL file holds only what an engine or a tool needs to run it. So it holds no comments,
+except the header lines at the top of the file that a tool reads:
 
-The script makes sure that the header fields are complete, that the `gsn:` namespace is
+| Line | In which files | What reads it | Why |
+| :--- | :--- | :--- | :--- |
+| `# rule:` | rule files and derivations | `ontology/example/run_rules.py`, `query_check.py`, the FinComp hub | The rule id. `run_rules.py --only` and the hub select a rule by it. `query_check.py` makes sure that no two files translate the same rule. |
+| `# name:` | rule files and derivations | `query_check.py`, `prov_inventory.py`, `run_rules.py`, the FinComp hub | The name of the SWRL rule that the file translates, as its `rdfs:label` in the ontology. It joins the file to that rule, and through the rule to its section. |
+| `# expect:` | every file under `ontology/queries/` | `query_check.py` | What a run against the example case gives: `rows`, `empty`, `insert`, `delete`, `change` or `none`. It is the test of each run. |
+
+The other facts about a query are in one place each:
+
+| Fact | Where it is |
+| :--- | :--- |
+| The operation (`create`, `read`, `update`, `delete`) | The first word of the file name. A file in `rules/` is a rule. |
+| The id, the role and the question | `development/design/Competency Questions.xlsx`. `prov_inventory.py` fails if two rows share an id, or if a query of the core answers no question. |
+| The section of a rule, and the SWRL rule itself | `ontology/serializations/ontogsn.ttl` |
+| What a query returns, its parameters, and what to do before a run | The README of its folder |
+| Why a query is written the way it is | The design record: `ontogsn-design-data.ttl` for the core, `ontogsn-augmentation-design.ttl` for the Augmentation |
+
+When you add or change a query, write its description in the README of the folder and the
+reason for a choice in the design record, not in the query.
+
+The script makes sure that the header lines are complete, that the `gsn:` namespace is
 correct, and that every `gsn:` term named exists in the ontology. It runs the query and makes
 sure that the result is what `expect` says. It fails when any SPARQL file in `ontology/queries/`,
-`augmentation/` or `docs/playground/assets/data/queries/` holds a comment.
+`augmentation/` or `docs/playground/assets/data/queries/` holds any other comment.
 
 `development/design/ontogsn-design-queries.ttl` records a `gsndesign:verificationKey` per query,
-hashed over the query, its header fields, the ontology, the fixtures and `CHECKER_VERSION`. Edit one query and
+hashed over the query, the ontology, the fixtures and `CHECKER_VERSION`. Edit one query and
 one query re-runs; edit the ontology and all of them do. `--check` only compares keys, so a
 stale key means "not verified since it changed" — re-run without `--check` and commit the
 record.

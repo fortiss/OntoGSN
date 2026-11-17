@@ -28,7 +28,7 @@ That applies twice over to gsnaug:raisedAgainst and gsnaug:linksTo, whose far en
 union covering everything in a case a reviewer can point at. The union is wide enough to be worth
 stating and wide enough that a node outside it is almost certainly a mistake."""@en ;
     dc:source "https://w3id.org/OntoGSN/augmentation" ;
-    owl:versionInfo "0.5.1" .
+    owl:versionInfo "0.6.0" .
 
 
 <https://w3id.org/OntoGSN/augmentation/shapes> sh:declare [
@@ -629,3 +629,29 @@ gsnaugsh:ReportInvalidationShape rdf:type sh:NodeShape ;
             [ sh:property [ sh:path prov:wasInvalidatedBy ; sh:name "was invalidated by" ; sh:minCount 1 ; sh:class prov:Activity ] ] ) ;
     sh:message "A struck report names the activity that struck it in prov:wasInvalidatedBy, and that activity is a prov:Activity."@en ;
     sh:severity sh:Warning .
+
+###  The current report of an artefact is a report over that artefact
+gsnaugsh:CurrentReportShape rdf:type sh:NodeShape ;
+    rdfs:label "Current report shape"@en ;
+    rdfs:comment "The SWRL rules A6a to A6d and A7a to A7d read gsnaug:currentReport. A value that is not a validation report, or that is a report over another target, matches no rule, and no engine says so."@en ;
+    sh:targetSubjectsOf gsnaug:currentReport ;
+    sh:property [
+        sh:path gsnaug:currentReport ;
+        sh:class sh:ValidationReport ;
+        sh:name "current report" ;
+        sh:message "The current report of an artefact is a sh:ValidationReport."@en ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{?value} is the current report of {$this}, but it is not a report over {$this}. Point at a report that names {$this} in prov:used."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/augmentation/shapes> ;
+        sh:select """
+            SELECT $this ?value
+            WHERE {
+                $this gsnaug:currentReport ?value .
+                FILTER NOT EXISTS { ?value prov:used $this }
+            }
+        """ ;
+    ] ;
+    sh:severity sh:Violation .

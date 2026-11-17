@@ -39,7 +39,7 @@ skos:note a owl:AnnotationProperty .
         <https://w3id.org/OntoGSN/ontology/dialectic>,
         <https://w3id.org/OntoGSN/ontology/modular>,
         <https://w3id.org/OntoGSN/ontology/pattern> ;
-    owl:versionInfo "1.3.0" .
+    owl:versionInfo "1.3.1" .
 
 gsn:applicability a owl:AnnotationProperty ;
     rdfs:label "applicability"@en ;
@@ -103,11 +103,11 @@ gsn:coreOrExtension a owl:AnnotationProperty ;
 
 gsn:defeated a owl:DatatypeProperty ;
     rdfs:label "defeated"@en ;
-    schema:description "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:GSNElement gsn:Relationship ) ] ;
     rdfs:range xsd:boolean ;
     skos:definition "This decorator symbol indicates that the element is defeated. The Defeated decorator can be applied to any of the GSN elements."@en ;
+    skos:note "Defeated Relationship indicates that the relationship is defeated. The Defeated decorator can be applied to any of the GSN relationships."@en ;
     gsn:coreOrExtension "Dialectic Extension"@en ;
     gsn:renderedAs "cross (‘X’) superimposed on a GSN element or relationship" .
 
@@ -247,7 +247,8 @@ gsn:refersTo a owl:ObjectProperty ;
     skos:definition "[OntoGSN] Relates an artefact reference or an instantiation data reference to the artefact it points at."@en ;
     gsn:coreOrExtension "Core GSN"@en .
 
-gsn:relatedTo a owl:ObjectProperty ;
+gsn:relatedTo a owl:ObjectProperty,
+        owl:SymmetricProperty ;
     rdfs:label "related to"@en ;
     rdfs:domain gsn:Pattern ;
     rdfs:range gsn:Pattern ;
@@ -351,8 +352,7 @@ gsn:viewType a owl:DatatypeProperty ;
     skos:definition "[OntoGSN] Determines whether the view shows the argument or the module architecture."@en ;
     gsn:coreOrExtension "Modular Extension"@en .
 
-schema:description a owl:AnnotationProperty,
-        owl:DatatypeProperty .
+schema:description a owl:DatatypeProperty .
 
 rdf:Statement a owl:Class .
 
@@ -407,11 +407,11 @@ gsn:assuranceClaimPoint a owl:DatatypeProperty ;
 
 gsn:away a owl:DatatypeProperty ;
     rdfs:label "away"@en ;
-    schema:description "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Assumption gsn:Context gsn:Goal gsn:Justification gsn:Solution ) ] ;
     rdfs:range xsd:boolean ;
     skos:definition "An away element reference repeats a claim or evidence presented in another argument module."@en ;
+    skos:note "An away assumption repeats an assumption presented in another argument module and is typically used only in Contract Modules. An away context repeats a reference to context presented in another argument module. An away goal reference repeats a claim presented in another argument module. An away justification repeats a justification presented in another argument module and is typically used only in Contract Modules. An away solution repeats a reference to evidence items presented in another argument module."@en ;
     gsn:coreOrExtension "Modular Extension"@en ;
     gsn:renderedAs "bisecting line in the lower half" .
 
@@ -483,7 +483,7 @@ gsn:undeveloped a owl:DatatypeProperty ;
             owl:unionOf ( gsn:Goal gsn:Relationship gsn:Strategy ) ] ;
     rdfs:range xsd:boolean ;
     skos:definition "Undeveloped element decorator, rendered as a hollow diamond applied to the bottom centre of an element, indicates that a line of argument has not been developed."@en ;
-    gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    gsn:coreOrExtension "Core GSN"@en ;
     gsn:renderedAs "hollow diamond" .
 
 gsn:AssuranceCase a owl:Class ;

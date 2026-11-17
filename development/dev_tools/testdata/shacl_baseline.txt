@@ -5,12 +5,13 @@
 # it is expected not to change. A new line here is a regression; a line that
 # disappears is a fix, and both need the baseline rewritten deliberately.
 
-## authored (31 findings)
+## authored (33 findings)
 ## example_case.ttl as written
 
 Info      ex:CG2  path=-  shape=gsnsh:SuccessfulChallengeCastsDoubtShape  SPARQL  value=ex:St1
 Info      ex:CSn1  path=-  shape=gsnsh:SuccessfulChallengeCastsDoubtShape  SPARQL  value=ex:Sn3
 Info      ex:CSn2  path=-  shape=gsnsh:SuccessfulChallengeCastsDoubtShape  SPARQL  value=ex:G1_3
+Violation ex:PSelf  path=-  shape=gsnsh:RelatedToSelfShape  SPARQL  value=ex:PSelf
 Violation ex:Sn3  path=-  shape=gsnsh:DefeatedElementIsNotTrueShape  Or  value=ex:Sn3
 Violation ex:X1  path=-  shape=gsnsh:SupportCycleShape  SPARQL  value=ex:X1
 Violation ex:X1  path=-  shape=gsnsh:SupportedByIrreflexiveShape  SPARQL  value=ex:X2
@@ -31,6 +32,7 @@ Warning   ex:G3  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   ex:Orphan1  path=-  shape=gsnsh:UnparentedGoalIsTopShape  SPARQL  value=ex:Orphan1
 Warning   ex:Orphan1  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   ex:P2  path=gsn:applicability  shape=_:anon  MinCount  value=-
+Warning   ex:PSelf  path=gsn:applicability  shape=_:anon  MinCount  value=-
 Warning   ex:R_G1_1_Sn1  path=-  shape=gsnsh:AssuranceClaimPointHasArgumentShape  Or  value=ex:R_G1_1_Sn1
 Warning   ex:R_G1_1_Sn1  path=gsn:associatedWith  shape=_:anon  QualifiedMinCount  value=-
 Warning   ex:Sn2  path=-  shape=gsnsh:AssuranceClaimPointHasArgumentShape  Or  value=ex:Sn2
@@ -40,12 +42,13 @@ Warning   ex:T1  path=gsn:intent  shape=_:anon  MinCount  value=-
 Warning   ex:X1  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   ex:X2  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 
-## post-rules (138 findings)
+## post-rules (148 findings)
 ## example_case.ttl + rule_cases.ttl after ontology/queries/rules/ reaches a fixpoint
 ## rules converged: yes
 
 Info      ex:CSn1  path=-  shape=gsnsh:SuccessfulChallengeCastsDoubtShape  SPARQL  value=ex:Sn3
 Info      ex:CSn2  path=-  shape=gsnsh:SuccessfulChallengeCastsDoubtShape  SPARQL  value=ex:G1_3
+Violation ex:PSelf  path=-  shape=gsnsh:RelatedToSelfShape  SPARQL  value=ex:PSelf
 Violation ex:Sn3  path=-  shape=gsnsh:DefeatedElementIsNotTrueShape  Or  value=ex:Sn3
 Violation ex:X1  path=-  shape=gsnsh:SupportCycleShape  SPARQL  value=ex:X1
 Violation ex:X1  path=-  shape=gsnsh:SupportedByIrreflexiveShape  SPARQL  value=ex:X2
@@ -76,6 +79,7 @@ Warning   ex:G3  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   ex:Orphan1  path=-  shape=gsnsh:UnparentedGoalIsTopShape  SPARQL  value=ex:Orphan1
 Warning   ex:Orphan1  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   ex:P2  path=gsn:applicability  shape=_:anon  MinCount  value=-
+Warning   ex:PSelf  path=gsn:applicability  shape=_:anon  MinCount  value=-
 Warning   ex:RC-Sn2  path=-  shape=gsnsh:AssuranceClaimPointHasArgumentShape  Or  value=ex:RC-Sn2
 Warning   ex:RC-Sn2  path=gsn:associatedWith  shape=_:anon  QualifiedMinCount  value=-
 Warning   ex:RC-Sn2  path=rdf:object  shape=_:anon  MinCount  value=-
@@ -92,6 +96,9 @@ Warning   rc:D49  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   rc:D51  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   rc:D61a  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   rc:D61b  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
+Warning   rc:D64  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
+Warning   rc:G10  path=-  shape=gsnsh:UnparentedGoalIsTopShape  SPARQL  value=rc:G10
+Warning   rc:G10  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   rc:G12  path=-  shape=gsnsh:UnparentedGoalIsTopShape  SPARQL  value=rc:G12
 Warning   rc:G12  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   rc:G12invalid  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
@@ -153,6 +160,10 @@ Warning   rc:G54inner  path=-  shape=gsnsh:UnparentedGoalIsTopShape  SPARQL  val
 Warning   rc:G54inner  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   rc:G54outer  path=-  shape=gsnsh:UnparentedGoalIsTopShape  SPARQL  value=rc:G54outer
 Warning   rc:G54outer  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
+Warning   rc:G64  path=-  shape=gsnsh:UnparentedGoalIsTopShape  SPARQL  value=rc:G64
+Warning   rc:G64  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
+Warning   rc:G64sub  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
+Warning   rc:G65  path=-  shape=gsnsh:UnparentedGoalIsTopShape  SPARQL  value=rc:G65
 Warning   rc:G7a  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   rc:G7b  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
 Warning   rc:G7c  path=gsn:inContextOf  shape=_:anon  QualifiedMinCount  value=-
@@ -173,6 +184,7 @@ Warning   rc:RC-Sn41a  path=rdf:object  shape=_:anon  MinCount  value=-
 Warning   rc:RC-Sn41b  path=-  shape=gsnsh:AssuranceClaimPointHasArgumentShape  Or  value=rc:RC-Sn41b
 Warning   rc:RC-Sn41b  path=gsn:associatedWith  shape=_:anon  QualifiedMinCount  value=-
 Warning   rc:RC-Sn41b  path=rdf:object  shape=_:anon  MinCount  value=-
+Warning   rc:Sn10  path=-  shape=gsnsh:SolutionEvidenceShape  Or  value=rc:Sn10
 Warning   rc:Sn13false  path=-  shape=gsnsh:SolutionEvidenceShape  Or  value=rc:Sn13false
 Warning   rc:Sn13true  path=-  shape=gsnsh:SolutionEvidenceShape  Or  value=rc:Sn13true
 Warning   rc:Sn44a  path=-  shape=gsnsh:SolutionEvidenceShape  Or  value=rc:Sn44a

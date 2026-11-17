@@ -28,7 +28,7 @@ import ttl_model
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PROV_DIR = os.path.join(REPO, "development", "design")
 FILES = ["ontogsn-design.ttl", "ontogsn-design-data.ttl",
-         "ontogsn-design-augmentations.ttl"]
+         "ontogsn-design-inventory.ttl"]
 
 P = Namespace("https://w3id.org/OntoGSN/design#")
 PROV = Namespace("http://www.w3.org/ns/prov#")

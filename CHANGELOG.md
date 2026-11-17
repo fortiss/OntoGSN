@@ -16,9 +16,9 @@ release. These are the current versions:
 
 | Component | Version | File |
 | :--- | :--- | :--- |
-| Ontology | 1.3.0 | `ontology/serializations/ontogsn.ttl` |
-| SHACL shapes | 1.1.1 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
-| Augmentation, and its shapes | 0.5.1 | `augmentation/ontogsn-augmentation.ttl` |
+| Ontology | 1.3.1 | `ontology/serializations/ontogsn.ttl` |
+| SHACL shapes | 1.2.0 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
+| Augmentation, and its shapes | 0.6.0 | `augmentation/ontogsn-augmentation.ttl` |
 | Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
 | Design record | 1.4.0 | `development/design/ontogsn-design.ttl` |
 
@@ -27,6 +27,7 @@ against an ontology version, so both are listed together.
 
 | Ontology | Date | Shapes | Breaking |
 | :--- | :--- | :--- | :--- |
+| 1.3.1 | 2026-11-17 | 1.2.0 | yes — for reasoners |
 | 1.3.0 | 2026-11-05 | 1.1.0, 1.1.1 | yes — for reasoners |
 | 1.2.3 | 2026-08-15 | 1.0.0 | no |
 | 1.2.2 | 2026-08-05 | 1.0.0 (introduced 2026-08-06) | yes — for reasoners |
@@ -35,6 +36,44 @@ against an ontology version, so both are listed together.
 
 Versions 1.0 and 1.1 predate this repository; no artefact of either survives here to diff.
 The ontology as published is described in the paper (arXiv:2506.11023).
+
+---
+
+## Augmentation 0.6.0 (2026-11-17)
+
+**Breaking for reasoners.** The SWRL forms of the eight rules that read a report now read only
+the current report of an artefact. One property, one derivation and one shape are new. No term
+is renamed or removed. The FinComp hub proposed the property and the faster rule text.
+
+- `gsnaug:currentReport` is a new object property, from an artefact or a part of one to the
+  newest report of a mechanism over it that is not struck. An artefact has one current report
+  for each mechanism. A report without a timestamp is always current.
+- The SWRL forms of A6a, A6b, A7a and A7b have one more body atom, `currentReport(?A, ?R)`.
+  A6c, A6d, A7c and A7d have `currentReport(?P, ?R)`. SWRL has no maximum and no negation, so
+  before this change every report of a mechanism counted under a reasoner, also a retired one
+  and a struck one.
+- `augmentation/derivations/d04_current_report.rq` (D4) is new. It sets the link from the
+  reports in the graph, and it removes a link that no longer holds. A writer of reports can
+  also set the link itself.
+- `gsnaugsh:CurrentReportShape` is new. It reports a current report that is not a
+  `sh:ValidationReport`, or that is a report over another target.
+- The SPARQL twins do not read the link. They find the newest report themselves, as before.
+- The SPARQL twins of A6a and A6c have a new text. A subquery finds the current report of each
+  mechanism and target once, and the composition guards are `MINUS` blocks. The results do not
+  change. The text of 0.5.1 did not finish A6c on a case of 1000 solutions in Oxigraph in 300
+  seconds. The new text takes 312 ms. Each of the two rules is about three times as long.
+
+| Reports of one mechanism over one artefact | SWRL form in 0.5.1 | SWRL form in 0.6.0 | SPARQL twin |
+| :--- | :--- | :--- | :--- |
+| An old failing one, a new conforming one | the solution is true and not true | true | true |
+| An old conforming one, a new failing one | the solution is true and not true | not true | not true |
+
+*For case authors:* if you run the rules in a reasoner, run D4 first, and after each new report.
+A graph without `gsnaug:currentReport` gives no truth value and no validity value under the SWRL
+forms. If you run the SPARQL twins, nothing changes, and D4 runs with them without harm. If you
+strike a report by hand, run D4 again, so that the link moves back to the report before it.
+
+Reasoning: `dd-0106` to `dd-0110`, rationales `why-0065` to `why-0067`. They retire `dd-0105`.
 
 ---
 
@@ -57,6 +96,156 @@ differs from the SWRL rule that it re-expresses.
   its table of the rules from the record. `ontology/README.md` is new and points at it.
 - The Provenance page of the Graffoo diagram does not draw the two new terms yet.
   `graffoo_check.py` accepts that difference.
+
+---
+
+## Ontology 1.3.1 — 2026-11-17 — shapes 1.2.0
+
+Seven changes that waited for an ontology release. Four of them change what a reasoner infers.
+The ontology now has 60 SWRL rules.
+
+### Doubt on a link reaches the element that relies on it
+
+**Breaking for reasoners.** Since 1.3.0, a goal can challenge a relationship, and the Challenge
+Doubt rule (S48) puts that relationship in doubt. The element that rests on the link was not
+affected. Two new rules in the Dialectic Extension carry the doubt to it.
+
+| Rule | Reads | Writes |
+| :--- | :--- | :--- |
+| S64 Support Doubt Propagation | a `gsn:supportedBy` relationship that is in doubt | `gsn:inDoubt true` on its subject, the parent |
+| S65 Context Doubt Propagation | a `gsn:inContextOf` relationship that is in doubt | `gsn:inDoubt true` on its subject |
+
+- S48 still decides when a challenge counts. The new rules only carry the doubt.
+- A `gsn:challenges` relationship is not covered. Its subject is the challenger, and these
+  rules never put a challenger in doubt.
+- No rule clears the doubt, as with S48.
+- Each rule is also a SPARQL update in `ontology/queries/rules/`. The run over the fixtures
+  reaches a fixpoint after 4 passes, and 60 of 60 rules fire.
+
+*For case authors:* a goal or a strategy can now be in doubt because a link below it is in
+doubt. The rules read the `gsn:Relationship` node of the link. S18 and S19 create that node
+for each support link and context link.
+
+Reasoning: `dd-1099` and `dd-1100`, source `src-0282` (1:6.3.9), rationale `why-0239`. The
+FinComp hub proposed the rule.
+
+### `gsn:relatedTo` is symmetric
+
+**Breaking for reasoners.** `gsn:relatedTo` is an `owl:SymmetricProperty`. A reasoner adds the
+reverse of each link between two patterns. The property is not transitive.
+
+- New shape `gsnsh:RelatedToSelfShape` (shapes 1.2.0) reports a violation on a pattern that
+  names itself as a related pattern. The property is not declared irreflexive, because one
+  such triple then makes the whole case inconsistent.
+- OOPS! no longer lists the property under P13. P13 goes from 14 to 13 cases.
+
+*For case authors:* list a related pattern on one of the two patterns. A reasoner adds the
+other direction. The shapes run without a reasoner and read only the direction that you wrote.
+
+Reasoning: `dd-1096` (rationale `why-0237`), `dd-1097` and `dd-1098` (rationale `why-0238`),
+source `src-0126` (1:3.4.12).
+
+### `gsn:undeveloped` is a Core GSN term
+
+**Not breaking for a case.** The standard defines the undeveloped decorator in Table 1:2-1,
+Core GSN Elements. The term carried the tag of the Argument Pattern Extension.
+
+- `gsn:coreOrExtension` of `gsn:undeveloped` is "Core GSN". The term moves from the pattern
+  files to the core files in `ontology/serializations/separated/`.
+- `gsnsh:UndevelopedPropertyShape` and `gsnsh:UndevelopedHasNoSupportShape` move from
+  `ontogsn-shapes_2_pattern.ttl` to `ontogsn-shapes_1_core.ttl` (shapes 1.2.0), with the same
+  tag. The constraints do not change.
+
+*For case authors:* if you load the core files only, `gsn:undeveloped` and its two shapes are
+now part of them. If you load the pattern files only, load the core files too.
+
+Reasoning: `dd-1093` to `dd-1095`, rationale `why-0236`. Retires `dd-0202`, `dd-0881` and
+`dd-0883`.
+
+### `schema:description` is a data property only
+
+**Not breaking for a case.** The ontology declared `schema:description` as an annotation
+property and as a data property. OWL 2 DL does not allow one IRI to be both, and Protégé
+reported an illegal redeclaration.
+
+- The annotation property declaration is removed. The data property stays, because the
+  restriction on `gsn:Pattern` uses it.
+- The two annotation values, on `gsn:away` and `gsn:defeated`, are now `skos:note` values with
+  the same wording.
+
+*For case authors:* nothing to do. A `schema:description` on an argument, a pattern or an
+artefact is a data property value, as before.
+
+Reasoning: `dd-1091` and `dd-1092`, rationale `why-0235`. Retires `dd-0586`, `dd-0505`,
+`dd-0719` and `dd-0720`.
+
+### Six module rules read `gsn:inModule`
+
+**Breaking for reasoners.** The SWRL form of six rules of the Modular Extension read
+`gsn:contains` from a module to an element. A module contains arguments and other modules, and
+not an element. So the SWRL form did not match a case with modules, arguments and elements,
+and the SPARQL update of the same rule did.
+
+| Rule | Body atoms before | Body atoms now |
+| :--- | :--- | :--- |
+| S25 Duplicate Identifier Invalidation, S31 Contract Relation Invalidation | `contains(?M, ?A)`, `contains(?M, ?B)` | `inModule(?A, ?M)`, `inModule(?B, ?M)` |
+| S26 Contract Violation Relation, S27 Context Contract Invalidation | `contains(?M2, ?A)` | `inModule(?A, ?M2)` |
+| S28 Contract Support Invalidation | `contains(?M, ?A)` | `inModule(?A, ?M)` |
+| S39 Public Contract Invalidation | `contains(?C, ?E)` | `inModule(?E, ?C)` |
+
+- The SPARQL updates do not change. They read `gsn:inModule` since 1.3.0.
+- S53 and S54 derive `gsn:inModule`. A reasoner runs them with the other rules.
+
+*For case authors:* nothing to do. Do not state `gsn:inModule`, because the rules derive it.
+
+Reasoning: `dd-1110` to `dd-1115`, rationale `why-0245`. Retires `dd-0523`, `dd-0524`,
+`dd-0550`, `dd-0562`, `dd-0632` and `dd-1079`. The FinComp hub found the difference.
+
+### The four confidence rules stop at a node that a rule created
+
+**Breaking for reasoners.** S42 to S45 each create a relationship with confidence. The new node
+matched the rule again. The SWRLAPI stops, because `swrlx:makeOWLThing` returns the same node
+for the same arguments. An engine without that built-in creates a new node for each match and
+does not stop. The FinComp hub measured up to 597,165 derived triples from a case of 22 in
+GraphDB 10.5.0.
+
+- The body of S42, S43, S44 and S45 has one more atom, `schema:identifier(?R1, ?ID)`. A stated
+  relationship has an identifier, and the head of a rule writes none. So a node that a rule
+  created does not match a rule again.
+- S44 and S45 give the same nodes as before.
+- S42 and S43 no longer start each other. Under SWRL, a confidence moves one step from a
+  stated relationship.
+- The SPARQL updates of S42 and S43 do not change, and they do not have this limit. They write
+  an identifier on the node that they create. On a strategy with two parent goals or two child
+  goals, the SPARQL updates give a node for every link of the strategy, and the SWRL form does
+  not.
+
+*For case authors:* give each `gsn:RelationshipWithConfidence` that you state a
+`schema:identifier`. `gsnsh:RelationshipWithConfidenceShape` already requires one. Without it,
+S42 to S45 do not read the relationship in a reasoner.
+
+Reasoning: `dd-1106` to `dd-1109`, rationale `why-0246`. Retires `dd-1068`, `dd-1069`,
+`dd-1071` and `dd-1072`.
+
+### The SPARQL update of S10 does not make a defeated goal true
+
+**Not breaking for reasoners.** `gsnsh:DefeatedElementIsNotTrueShape` says that a defeated
+element cannot be true. The SPARQL update of S10 made a goal true when all its solutions were
+true, also when the goal was defeated.
+
+- `s10_solution_propagation_true.rq` has one more guard: the goal is not defeated.
+- The SWRL form does not change, because SWRL has no negation. The design record already
+  states that this update has a guard that the rule does not have.
+- `rule_cases.ttl` has a defeated goal over a true solution. The goal stays without a truth
+  value.
+
+The FinComp hub proposed the guard.
+
+### The header names a square logo
+
+**Not breaking.** `schema:logo` pointed at the wide banner, and the documentation page showed
+it as a small white box. It now points at `ontogsn-logo.png`, a square image with the picture
+of the banner.
 
 ---
 
