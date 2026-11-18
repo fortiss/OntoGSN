@@ -71,7 +71,7 @@ axiom and no SWRL rule changes.
 
 **Breaking for reasoners.** The SWRL forms of the eight rules that read a report now read only
 the current report of an artefact. One property, one derivation and one shape are new. No term
-is renamed or removed. The FinComp hub proposed the property and the faster rule text.
+is renamed or removed. The RSC audit hub proposed the property and the faster rule text.
 
 - `gsnaug:currentReport` is a new object property, from an artefact or a part of one to the
   newest report of a mechanism over it that is not struck. An artefact has one current report
@@ -155,7 +155,7 @@ doubt. The rules read the `gsn:Relationship` node of the link. `RL-GSN-support_r
 for each support link and context link.
 
 Reasoning: `dd-1099` and `dd-1100`, source `src-0282` (1:6.3.9), rationale `why-0239`. The
-FinComp hub proposed the rule.
+RSC audit hub proposed the rule.
 
 ### `gsn:relatedTo` is symmetric
 
@@ -227,14 +227,14 @@ and the SPARQL update of the same rule did.
 *For case authors:* nothing to do. Do not state `gsn:inModule`, because the rules derive it.
 
 Reasoning: `dd-1110` to `dd-1115`, rationale `why-0245`. Retires `dd-0523`, `dd-0524`,
-`dd-0550`, `dd-0562`, `dd-0632` and `dd-1079`. The FinComp hub found the difference.
+`dd-0550`, `dd-0562`, `dd-0632` and `dd-1079`. The RSC audit hub found the difference.
 
 ### The four confidence rules stop at a node that a rule created
 
 **Breaking for reasoners.** The rules of the group `confidence_relations` each create a relationship with confidence. The new node
 matched the rule again. The SWRLAPI stops, because `swrlx:makeOWLThing` returns the same node
 for the same arguments. An engine without that built-in creates a new node for each match and
-does not stop. The FinComp hub measured up to 597,165 derived triples from a case of 22 in
+does not stop. The RSC audit hub measured up to 597,165 derived triples from a case of 22 in
 GraphDB 10.5.0.
 
 - The body of `RL-GSN-strategy_confidence_relation`, `RL-GSN-goal_strategy_confidence`, `RL-GSN-solution_confidence_relation` and `RL-GSN-goal_confidence_relation` has one more atom, `schema:identifier(?R1, ?ID)`. A stated
@@ -267,7 +267,7 @@ true, also when the goal was defeated.
 - `rule_cases.ttl` has a defeated goal over a true solution. The goal stays without a truth
   value.
 
-The FinComp hub proposed the guard.
+The RSC audit hub proposed the guard.
 
 ### The header names a square logo
 
@@ -292,7 +292,7 @@ record states this property on every rationale, but `ontogsn-design.ttl` did not
 ## Augmentation 0.5.1 (2026-11-10)
 
 A part of an artefact is an artefact, and one failing artefact of a solution outweighs a
-conforming one. No term is added, renamed or removed. The FinComp hub proposed both changes.
+conforming one. No term is added, renamed or removed. The RSC audit hub proposed both changes.
 
 - `gsnaug:ArtefactPart rdfs:subClassOf gsn:Artefact`. The domains of the eight provenance
   properties, such as `gsnaug:checkableWith`, now name `gsn:Artefact` alone. The unions of
@@ -317,7 +317,7 @@ and `dd-0083`.
 ## Augmentation 0.5.0 (2026-11-06)
 
 The goal that an issue becomes gets a statement and a context, and a solution can name the parts
-of an artefact that it relies on. No term is added, renamed or removed. The FinComp hub proposed
+of an artefact that it relies on. No term is added, renamed or removed. The RSC audit hub proposed
 these changes and used them first.
 
 - New rules of the group `issue_goal`. The goal that a revise or a resolve issue becomes takes the issue's

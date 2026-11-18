@@ -1188,7 +1188,7 @@ what an issue is, and they say nothing more (dd-0021). The three rules hold for 
 The SPARQL copies write a statement or a context only to a goal that has none, so a person's own
 words win. SWRL has no negation, so the SWRL rules add the description and the contexts next to
 whatever a person wrote. The core shapes ask for at least one statement and one context, and set no
-upper limit, so the extra values are not a violation. The FinComp hub proposed the change, and
+upper limit, so the extra values are not a violation. The RSC audit hub proposed the change, and
 applied it there first."""@en .
 
 gsnaugdesign:why-0062
@@ -1203,7 +1203,7 @@ gsn:Artefact, so a part that a solution refers to is also an artefact: a reasone
 and a case that runs the shapes without a reasoner states it, or the core shapes report the
 reference. This was accepted in place of a new property, because the core already has the link and
 the type does no harm. The guard needs negation as failure, so it is in the SPARQL copies of the groups truth_from_report and
-validity_from_report only, and the SWRL rules are unchanged. The FinComp hub proposed the change, for its change
+validity_from_report only, and the SWRL rules are unchanged. The RSC audit hub proposed the change, for its change
 impact analysis, which needs the same reading."""@en .
 
 gsnaugdesign:why-0063
@@ -1222,7 +1222,7 @@ parts, unless it leaves out the subjects of gsnaug:partOf. The Core GSN term gsn
 part such as a row or a clause. The fourth cost does not arise, because the class stays:
 gsnaugsh:ArtefactPartShape and the instantiation shape still ask for gsnaug:ArtefactPart. The
 SPARQL rules do no reasoning. So a store without a reasoner still states gsn:Artefact on a part
-that a solution refers to, as before. The FinComp hub proposed the axiom."""@en .
+that a solution refers to, as before. The RSC audit hub proposed the axiom."""@en .
 
 gsnaugdesign:why-0064
     a gsndesign:Rationale ;
@@ -1236,7 +1236,7 @@ the solution refers to, and every part of one of them that counts for the soluti
 report outweighs any conforming one, as it already did for one artefact (why-0055). Each half of
 the guard starts from the artefacts of the solution, so an engine does not walk every checkable
 target of the case. The SWRL rules are unchanged, because the guard needs negation as failure. The
-FinComp hub found the defect and proposed the change. Its copy of RL-AUG-conforming_report_confirms_solution also finds the newest report
+RSC audit hub found the defect and proposed the change. Its copy of RL-AUG-conforming_report_confirms_solution also finds the newest report
 per mechanism and target in a subquery, which is faster in rdflib. That copy is not taken, because
 it makes the rule three times as long and gives the same answers."""@en .
 
@@ -3063,12 +3063,12 @@ newest report themselves. So a store that runs the twins needs no link. the rule
 with the rules of the group truth_from_report, because they read the reports of a validity check in the same way, and a second
 breaking release for four more atoms costs more than it saves. gsnaugsh:CurrentReportShape reports
 a link whose value is not a report over its subject, because such a link matches no rule and no
-engine says so. The FinComp hub proposed the link and the atom for the rules of the group truth_from_report."""@en .
+engine says so. The RSC audit hub proposed the link and the atom for the rules of the group truth_from_report."""@en .
 
 gsnaugdesign:why-0066
     a gsndesign:Rationale ;
     gsndesign:rationaleText """A writer of reports knows which report is the newest when it writes one, so it can move
-gsnaug:currentReport itself. The FinComp hub does that in one process query. But a case can get
+gsnaug:currentReport itself. The RSC audit hub does that in one process query. But a case can get
 its reports from more than one writer, from an engine that knows nothing of the link, or by hand.
 The derivation RL-AUG-current_report sets the link from the reports in the graph. It uses the same reading as the
 newest-report guard of the SPARQL twins: a struck report is never current, a report without a
@@ -3079,7 +3079,7 @@ and has no SWRL form, as the derivations of the group mechanism_terms. Run RL-AU
 
 gsnaugdesign:why-0067
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """In 0.5.1 the subquery form of RL-AUG-conforming_report_confirms_solution from the FinComp hub was not taken, because it makes the rule
+    gsndesign:rationaleText """In 0.5.1 the subquery form of RL-AUG-conforming_report_confirms_solution from the RSC audit hub was not taken, because it makes the rule
 three times as long and gives the same answers (why-0064). The times then came from rdflib, and
 the checks of this repository run the rules of the core in Oxigraph. On 2026-11-14 the hub
 measured RL-AUG-conforming_part_report_confirms_solution in Oxigraph (pyoxigraph 0.5.13): the 0.5.1 text took 690 ms for 100 solutions, and it

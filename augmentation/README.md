@@ -127,7 +127,7 @@ only to a goal that has none, so a statement or a context that a person wrote wi
 The SPARQL twins of the groups `truth_from_report` and `validity_from_report` can be slow in rdflib on a large case. Each of them names a solution,
 an artefact and a report by its type, for example `?S a gsn:Solution`. rdflib does not plan a join.
 It orders the patterns of a group by the number of unbound terms, and a typed pattern has only one.
-The FinComp hub found that rdflib then joins the typed patterns first, before the patterns that
+The RSC audit hub found that rdflib then joins the typed patterns first, before the patterns that
 link them. The hub measured more than 4 minutes for `RL-AUG-conforming_report_confirms_solution`, `RL-AUG-failing_report_refutes_solution` and `RL-AUG-conforming_part_report_confirms_solution` over a case with 33 reports and 23
 parts. Since 0.5.0 the guard of the group `truth_from_report` is split into smaller groups, which shortens the run. Since 0.6.0
 `RL-AUG-conforming_report_confirms_solution` and `RL-AUG-conforming_part_report_confirms_solution` find the current reports in a subquery, which also finishes on a large case in
@@ -136,7 +136,7 @@ Oxigraph.
 
 If the rules are slow on your case, you have two options. Run them in an engine that plans the
 join, for example Oxigraph, which `ontology/example/run_rules.py` uses for the core rules. Or fix
-the order of the patterns in rdflib with `rdflib.plugins.sparql.CUSTOM_EVALS`, as the FinComp hub
+the order of the patterns in rdflib with `rdflib.plugins.sparql.CUSTOM_EVALS`, as the RSC audit hub
 does.
 
 ## The result of a check stays in the graph
