@@ -48,7 +48,7 @@ gsndesign:shapes-1.2.0
     rdfs:label "OntoGSN SHACL shapes 1.2.0"@en ;
     owl:versionInfo "1.2.0" ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_0_full.ttl" ;
-    gsndesign:fileChecksum "690a6b59289410c7941a8c9b62ed84f6f16fba3362c3c42e40fa7ae8cf29781d" ;
+    gsndesign:fileChecksum "60114318a5614c9256c091ec8312fb99702d92e5b67a38a5b303a92d543dcb76" ;
     prov:generatedAtTime "2026-11-11T13:59:24Z"^^xsd:dateTime .
 
 
@@ -3378,7 +3378,7 @@ gsndesign:why-0185
 
 gsndesign:why-0186
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "Derived from SWRL rule S40 and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en .
+    gsndesign:rationaleText "Derived from the SWRL rule Confidence Relation Creation (RL-GSN-confidence_relation_creation) and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en .
 
 gsndesign:why-0187
     a gsndesign:Rationale ;
@@ -23472,7 +23472,7 @@ gsndesign:dd-0924
     gsndesign:section gsndesign:sec-confidence ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "An element marked as an assurance claim point should be associated with a confidence argument."@en ;
-    gsndesign:nlWrittenFor "b60359b5" ;
+    gsndesign:nlWrittenFor "21a8b305" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0186 ;
     prov:generated gsndesign:st-0924 .
@@ -23483,13 +23483,13 @@ gsndesign:st-0924
     gsndesign:inGraph gsndesign:shapes-1.2.0 ;
     gsndesign:statementText """gsnsh:AssuranceClaimPointHasArgumentShape gsn:coreOrExtension "Confidence Argument Extension"@en ;
     rdf:type sh:NodeShape ;
-    rdfs:comment "Derived from SWRL rule S40 and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en ;
+    rdfs:comment "Derived from the SWRL rule Confidence Relation Creation (RL-GSN-confidence_relation_creation) and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en ;
     rdfs:label "Assurance claim point carries a confidence argument"@en ;
     sh:message "An element marked as an assurance claim point should be associated with a confidence argument."@en ;
     sh:or ( [ sh:not [ sh:property [ sh:hasValue "true"^^xsd:boolean ; sh:name "assurance claim point" ; sh:path gsn:assuranceClaimPoint ] ] ] [ sh:property [ sh:name "associated with" ; sh:path gsn:associatedWith ; sh:qualifiedMinCount "1"^^xsd:integer ; sh:qualifiedValueShape [ sh:class gsn:Argument ] ] ] ) ;
     sh:severity sh:Warning ;
     sh:targetSubjectsOf gsn:assuranceClaimPoint .""" ;
-    gsndesign:statementChecksum "b60359b5" ;
+    gsndesign:statementChecksum "21a8b305" ;
     gsndesign:structuralKey "gsnsh:AssuranceClaimPointHasArgumentShape|node|" ;
     gsndesign:aboutTerm gsnsh:AssuranceClaimPointHasArgumentShape ;
     gsndesign:mentionsTerm gsn:Argument ,

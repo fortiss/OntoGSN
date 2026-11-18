@@ -184,7 +184,7 @@ gsnaugsh:ResponseShape rdf:type sh:NodeShape ;
 ###  gsn:Artefact
 gsnaugsh:ArtefactShape rdf:type sh:NodeShape ;
     rdfs:label "Artefact augmentation shape"@en ;
-    rdfs:comment "Targets a gsnaug:ArtefactPart as well, because a part may carry the eight provenance properties, declared by hand, or gsnaug:checkableWith inherited by A4. gsnaug:storedIn and gsnaug:replaces stay on the whole artefact."@en ;
+    rdfs:comment "Targets a gsnaug:ArtefactPart as well, because a part may carry the eight provenance properties, declared by hand, or gsnaug:checkableWith inherited by RL-AUG-part_inherits_checkable_with. gsnaug:storedIn and gsnaug:replaces stay on the whole artefact."@en ;
     sh:targetClass gsn:Artefact , gsnaug:ArtefactPart ;
     sh:property [
         sh:path gsnaug:storedIn ;
@@ -377,7 +377,7 @@ gsnaugsh:MechanismDecisionShape rdf:type sh:NodeShape ;
 ###  A mechanism that checks evidence says what its checks decide
 gsnaugsh:CheckingMechanismShape rdf:type sh:NodeShape ;
     rdfs:label "Checking mechanism shape"@en ;
-    rdfs:comment "Targeted at whatever an artefact or a part of one is checkable with. Without gsnaug:decides, the rules A6 and A7 read none of its reports."@en ;
+    rdfs:comment "Targeted at whatever an artefact or a part of one is checkable with. Without gsnaug:decides, the rules of the group truth_from_report and of the group validity_from_report read none of its reports."@en ;
     sh:targetObjectsOf gsnaug:checkableWith ;
     sh:property [
         sh:path gsnaug:decides ;
@@ -577,7 +577,7 @@ gsnaugsh:LinkShape rdf:type sh:NodeShape ;
 ###  A report the rules read carries a timestamp
 gsnaugsh:ReportTimestampShape rdf:type sh:NodeShape ;
     rdfs:label "Report timestamp shape"@en ;
-    rdfs:comment "Rules A6a to A6d read the newest report from a mechanism over a target, ordered by prov:generatedAtTime. A report without one is never retired and retires nothing, so a second run of the same check leaves two reports that both count. A warning, not a violation: the report still proves what it proves, and a case with one report per check never meets the problem."@en ;
+    rdfs:comment "The rules of the group truth_from_report read the newest report from a mechanism over a target, ordered by prov:generatedAtTime. A report without one is never retired and retires nothing, so a second run of the same check leaves two reports that both count. A warning, not a violation: the report still proves what it proves, and a case with one report per check never meets the problem."@en ;
     sh:targetClass sh:ValidationReport ;
     sh:property [
         sh:path prov:generatedAtTime ;
@@ -592,7 +592,7 @@ gsnaugsh:ReportTimestampShape rdf:type sh:NodeShape ;
 ###  Two reports from one mechanism over one target that disagree are ordered in time
 gsnaugsh:ReportConflictShape rdf:type sh:NodeShape ;
     rdfs:label "Report conflict shape"@en ;
-    rdfs:comment "Two unstruck reports from the same mechanism over the same target that disagree, and that no prov:generatedAtTime puts one after the other, both count for rules A6a to A6d. The failing one wins, because a conforming report confirms a solution only while no current report fails, so the solution stays not true until the two are ordered or one is removed. Nothing on the solution says why; this shape names the two reports."@en ;
+    rdfs:comment "Two unstruck reports from the same mechanism over the same target that disagree, and that no prov:generatedAtTime puts one after the other, both count for the rules of the group truth_from_report. The failing one wins, because a conforming report confirms a solution only while no current report fails, so the solution stays not true until the two are ordered or one is removed. Nothing on the solution says why; this shape names the two reports."@en ;
     sh:targetClass sh:ValidationReport ;
     sh:sparql [
         rdf:type sh:SPARQLConstraint ;
@@ -623,7 +623,7 @@ gsnaugsh:ReportConflictShape rdf:type sh:NodeShape ;
 ###  A struck report names the activity that struck it
 gsnaugsh:ReportInvalidationShape rdf:type sh:NodeShape ;
     rdfs:label "Report invalidation shape"@en ;
-    rdfs:comment "A report with prov:invalidatedAtTime or prov:wasInvalidatedBy is struck: rules A6a to A6d skip it, and it retires nothing. Striking is a hand step on a derived status, so the hand is on record: the activity that struck the report, and through prov:wasAssociatedWith the agent. A warning, not a violation: the strike holds either way, and what is reported is that nobody is named for it."@en ;
+    rdfs:comment "A report with prov:invalidatedAtTime or prov:wasInvalidatedBy is struck: the rules of the group truth_from_report skip it, and it retires nothing. Striking is a hand step on a derived status, so the hand is on record: the activity that struck the report, and through prov:wasAssociatedWith the agent. A warning, not a violation: the strike holds either way, and what is reported is that nobody is named for it."@en ;
     sh:targetClass sh:ValidationReport ;
     sh:or ( [ sh:property [ sh:path prov:invalidatedAtTime ; sh:name "invalidated at time" ; sh:maxCount 0 ] ]
             [ sh:property [ sh:path prov:wasInvalidatedBy ; sh:name "was invalidated by" ; sh:minCount 1 ; sh:class prov:Activity ] ] ) ;
@@ -633,7 +633,7 @@ gsnaugsh:ReportInvalidationShape rdf:type sh:NodeShape ;
 ###  The current report of an artefact is a report over that artefact
 gsnaugsh:CurrentReportShape rdf:type sh:NodeShape ;
     rdfs:label "Current report shape"@en ;
-    rdfs:comment "The SWRL rules A6a to A6d and A7a to A7d read gsnaug:currentReport. A value that is not a validation report, or that is a report over another target, matches no rule, and no engine says so."@en ;
+    rdfs:comment "The SWRL rules of the group truth_from_report and of the group validity_from_report read gsnaug:currentReport. A value that is not a validation report, or that is a report over another target, matches no rule, and no engine says so."@en ;
     sh:targetSubjectsOf gsnaug:currentReport ;
     sh:property [
         sh:path gsnaug:currentReport ;
