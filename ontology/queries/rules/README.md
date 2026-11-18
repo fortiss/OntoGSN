@@ -16,8 +16,8 @@ twins do something that their rule cannot:
 
 | Difference | What the twin does | What this means if you run the SWRL rule in a reasoner |
 | :--- | :--- | :--- |
-| Retraction | It deletes the old value of a flag, for example `gsn:true`, before it writes the new one. An element then has one value. | The rule adds its value next to a value that is already there. An element can then have `true` and `false` together. Do not assert a flag that a rule sets, and do not save inferred flags back into the case. To clear earlier results in a store, run [`delete_materialised_inferences.rq`](../delete_materialised_inferences.rq). |
-| Guard | It draws its conclusion only if a stated fact is absent. For example, S10 makes a goal true only if no other solution under the goal is untrue. | The rule draws its conclusion in those cases too. Read the conclusion together with the other rules that set the same flag. For S10, rule S11 sets the goal to false in the same case, so the goal has both values. |
+| Retraction | It deletes the old value of a flag, for example `gsn:true`, before it writes the new one. An element then has one value. | The rule adds its value next to a value that is already there. An element can then have `true` and `false` together. Do not assert a flag that a rule sets, and do not save inferred flags back into the case. To clear earlier results in a store, run [`WQ-GSN-delete_materialised_inferences.rq`](../delete_materialised_inferences.rq). |
+| Guard | It draws its conclusion only if a stated fact is absent. For example, `RL-GSN-solution_propagation_true` makes a goal true only if no other solution under the goal is untrue. | The rule draws its conclusion in those cases too. Read the conclusion together with the other rules that set the same flag. For `RL-GSN-solution_propagation_true`, rule `RL-GSN-solution_propagation_false` sets the goal to false in the same case, so the goal has both values. |
 
 A twin can have both differences. A twin also tests that the fact it is about to insert is not
 there yet, so that it writes no second copy. That test is not a difference, because a rule
@@ -43,8 +43,8 @@ conclusions are the same, so the table below does not count this as a difference
 
 | Rules | What the SWRL rule does | What the twin does |
 | :--- | :--- | :--- |
-| S55, S58, S61 (the closure rules) | It states one step: a direct link is also a transitive link. The axiom `owl:TransitiveProperty` on the helper property gives the chain. | It has a property path, and it inserts the whole chain in one run. A store without a reasoner does not apply the axiom. The path of S58 runs through modules only. |
-| S54 (nested module membership) | A reasoner applies it until it reaches every level of nesting. | One run moves the membership up one module. `run_rules.py` applies the rules until nothing changes, so it reaches every level. If you run the file alone, run it once for each level. |
+| `RL-GSN-support_closure`, `RL-GSN-module_context_closure`, `RL-GSN-challenge_closure` (the closure rules) | It states one step: a direct link is also a transitive link. The axiom `owl:TransitiveProperty` on the helper property gives the chain. | It has a property path, and it inserts the whole chain in one run. A store without a reasoner does not apply the axiom. The path of `RL-GSN-module_context_closure` runs through modules only. |
+| `RL-GSN-nested_module_membership` (nested module membership) | A reasoner applies it until it reaches every level of nesting. | One run moves the membership up one module. `run_rules.py` applies the rules until nothing changes, so it reaches every level. If you run the file alone, run it once for each level. |
 
 ## The rules
 

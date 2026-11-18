@@ -170,8 +170,8 @@ python run_checks.py my-dynamic-case.ttl my-dynamic-case-checked.ttl
 
 The script reports that the check does not conform. The output file now holds the report, a
 `sh:ValidationReport` with three links: the mechanism that wrote it (`prov:wasGeneratedBy`),
-the artefact that it checked (`prov:used`) and the time (`prov:generatedAtTime`). Rule A6b
-read the report and set `gsn:true false` on `Sn1`. The core rule S11 carried that to `G1`.
+the artefact that it checked (`prov:used`) and the time (`prov:generatedAtTime`). Rule `RL-AUG-failing_report_refutes_solution`
+read the report and set `gsn:true false` on `Sn1`. The core rule `RL-GSN-solution_propagation_false` carried that to `G1`.
 
 ### 3. Change the system and run again
 
@@ -190,7 +190,7 @@ the script in a scheduled job, or after each change to the system.
   rules read the newest report of each mechanism.
 - The script applies the rules as SPARQL updates. A reasoner that runs the SWRL forms needs
   the link `gsnaug:currentReport` on each artefact. The update
-  `augmentation/derivations/d04_current_report.rq` sets it.
+  `augmentation/derivations/RL-AUG-current_report.rq` sets it.
 - A check that is a script, a query or an interview writes no report by itself. Write the
   report by hand in the same form, or let a wrapper around the script write it.
 - A solution can also get `gsn:valid` from a check, and a part of an artefact can have its own

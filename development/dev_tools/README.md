@@ -78,7 +78,8 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `ontology/shapes/ontogsn-shapes_[1-5]*.ttl` | the five SHACL sections |
 | `development/design/ontogsn-design.ttl` | the design-record vocabulary |
 | `development/design/ontogsn-design-data.ttl` | **the design record** — ~36,000 words of quoted standard passages, rationale and prose that exist nowhere else |
-| `development/design/Competency Questions.xlsx` | the questions `ontology/queries/` and `augmentation/queries/` answer |
+| `development/design/requirements.csv` | the initial requirements R1 to R7 |
+| `ontology/queries/registry.csv`, `augmentation/registry.csv` | the ID, the question and the order of each query and rule |
 | `ontology/queries/*.rq` | the stored CRUD queries, one per competency question |
 | `ontology/queries/rules/*.rq` | the 60 SWRL rules as SPARQL updates |
 | `ontology/example/example_case.ttl` | the example ABox the queries and checks run against |
@@ -112,7 +113,9 @@ query_check.py     the stored queries vs an actual SPARQL engine
 release_check.py   every place that states a version or a rule count vs the ontology header
 doc_counts.py      every count that a README or a website page states vs its source: the
                    design record, the query folder, the augmentation, the alignment and
-                   the last reports; without --check, it corrects the stale numbers
+                   the last reports; without --check, it corrects the stale numbers.
+                   It also reports what registry.py finds
+registry.py        the registries of the queries and rules vs the files and the ID standard
 ontology/example/run_rules.py   apply ontology/queries/rules/ to a case until nothing more is derived (user-facing, so it lives in ontology/example/)
 shacl_check.py     the fixtures vs ontology/shapes/, before and after the rules run
 reasoner_check.py  the ontology and the fixtures vs an OWL-DL reasoner (needs a JVM)
@@ -188,22 +191,89 @@ except the header lines at the top of the file that a tool reads:
 
 | Line | In which files | What reads it | Why |
 | :--- | :--- | :--- | :--- |
-| `# rule:` | rule files and derivations | `ontology/example/run_rules.py`, `query_check.py`, the FinComp hub | The rule id. `run_rules.py --only` and the hub select a rule by it. `query_check.py` makes sure that no two files translate the same rule. |
-| `# name:` | rule files and derivations | `query_check.py`, `prov_inventory.py`, `run_rules.py`, the FinComp hub | The name of the SWRL rule that the file translates, as its `rdfs:label` in the ontology. It joins the file to that rule, and through the rule to its section. |
+| `# name:` | rule files and derivations | `query_check.py`, `prov_inventory.py`, `run_rules.py`, the RSC audit hub | The name of the SWRL rule that the file translates, as its `rdfs:label` in the ontology. It joins the file to that rule, and through the rule to its section. The slug of the ID comes from it. |
 | `# expect:` | every file under `ontology/queries/` | `query_check.py` | What a run against the example case gives: `rows`, `empty`, `insert`, `delete`, `change` or `none`. It is the test of each run. |
 
 The other facts about a query are in one place each:
 
 | Fact | Where it is |
 | :--- | :--- |
-| The operation (`create`, `read`, `update`, `delete`) | The first word of the file name. A file in `rules/` is a rule. |
-| The id, the role and the question | `development/design/Competency Questions.xlsx`. `prov_inventory.py` fails if two rows share an id, or if a query of the core answers no question. |
+| The ID, and so the kind, the scope and the operation | The file name, see [The ID of a query or a rule](#the-id-of-a-query-or-a-rule) |
+| The question, the role, the order of a rule, and the IDs that the ID replaced | The registry of the component: `ontology/queries/registry.csv` or `augmentation/registry.csv` |
 | The section of a rule, and the SWRL rule itself | `ontology/serializations/ontogsn.ttl` |
 | What a query returns, its parameters, and what to do before a run | The README of its folder |
 | Why a query is written the way it is | The design record: `ontogsn-design-data.ttl` for the core, `ontogsn-augmentation-design.ttl` for the Augmentation |
 
 When you add or change a query, write its description in the README of the folder and the
 reason for a choice in the design record, not in the query.
+
+### The ID of a query or a rule
+
+Each stored query and each rule has one ID, and the ID is also its file name without `.rq`.
+The ID has three parts, joined by hyphens: `<KIND>-<SCOPE>-<slug>`. For example, the read
+`RQ-GSN-goal_support_tree` is the file `ontology/queries/RQ-GSN-goal_support_tree.rq`.
+
+| Kind | The query | SPARQL forms |
+| :--- | :--- | :--- |
+| `RQ` | Reads. It answers a question and changes nothing. | SELECT, ASK, and a CONSTRUCT whose result a tool only reads |
+| `WQ` | Writes. It carries out an action on a case. | INSERT, DELETE, and a CONSTRUCT whose triples a tool adds to a case |
+| `RL` | Is a rule. It derives what follows from the graph. | The SPARQL form of a SWRL rule, and a derivation |
+
+| Scope | The query needs | Folder of a read or a write | Folder of a rule |
+| :--- | :--- | :--- | :--- |
+| `GSN` | OntoGSN alone. It names no `gsnaug:` term. | `ontology/queries/` | `ontology/queries/rules/` |
+| `AUG` | The Augmentation. It names at least one `gsnaug:` term. | `augmentation/queries/` | `augmentation/rules/`, or `augmentation/derivations/` for a derivation |
+
+A term of a standard vocabulary that OntoGSN uses, for example `schema:`, `dcterms:`, `prov:`
+or `sh:`, does not change the scope. A project that uses OntoGSN can add scopes of its own,
+for its own queries. Such a project never gives its own file a `GSN` or `AUG` ID. A query
+that any user of OntoGSN can ask belongs in this repository.
+
+| Kind | Slug | Example |
+| :--- | :--- | :--- |
+| `RQ` | Name what the query returns. Leave out the word "read". | `goal_support_tree` |
+| `WQ` | Start with the verb: `create`, `update` or `delete`. | `create_goal_under_parent` |
+| `RL` | The `rdfs:label` of the rule in lowercase, with an underscore for each run of spaces and punctuation | "Inferential Relation (Goal)" gives `inferential_relation_goal` |
+
+A slug holds only `a` to `z`, `0` to `9` and `_`. Keep it to five words or fewer. A rule is
+the exception, because its slug follows its label. A slug is unique in its registry.
+
+The registry of a component has one row for each file, and one file for each row:
+
+| Column | Content |
+| :--- | :--- |
+| `id` | The ID |
+| `file` | The path of the file in the repository |
+| `text` | The question of a read, the operation of a write, or the name of a rule |
+| `parameters` | The parameters in the `VALUES` block of the query, or empty |
+| `role` | The role that asks the question in the compliance process, or empty |
+| `origin` | `core`, or `rsc-audit` for a question of the RSC audit procedure |
+| `group` | The name of a family of rules that a text names together, or empty |
+| `order` | For a rule, the place in which a runner applies it, in steps of 10. The rules do not all reach the same result in every order. Empty for a read or a write |
+| `replaces` | The IDs and the file names that this ID replaces, or empty |
+
+| Change | What happens |
+| :--- | :--- |
+| A fix that keeps the meaning of the query | The ID stays. |
+| A new meaning | Write a new file with a new ID, and delete the old file. The `replaces` of the new row names the old ID. |
+| A new label of a rule | The slug follows the label, so the ID changes. The `replaces` of the row names the old ID. |
+
+An ID that a row names in `replaces` is never used again. `prov_inventory.py` keeps each old
+ID and file name as a `skos:hiddenLabel` of the query in `ontogsn-design-inventory.ttl`, so an
+old name still finds the query.
+
+To add a query or a rule:
+
+1. Choose the kind and the scope.
+2. Write the slug.
+3. Save the file as `<ID>.rq` in the folder of its kind and scope.
+4. Add the lines at the top of the file.
+5. Add a row with its text to the registry of its component. For a rule, give it an order.
+6. Run `python development/dev_tools/check_all.py --fix --verify`.
+
+`doc_counts.py` fails on a file without a row, a row without a file, a malformed ID, a scope
+that does not match the folder, a `GSN` file that names a `gsnaug:` term, and a rule whose slug
+differs from the slug of its `# name:`. `registry.py` holds this test.
 
 The script makes sure that the header lines are complete, that the `gsn:` namespace is
 correct, and that every `gsn:` term named exists in the ontology. It runs the query and makes

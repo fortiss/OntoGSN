@@ -39,6 +39,32 @@ The ontology as published is described in the paper (arXiv:2506.11023).
 
 ---
 
+## Query and rule IDs (2026-11-18)
+
+**Breaking for users of the stored queries.** Each stored query and each rule has an ID, and
+the ID is its file name: `<KIND>-<SCOPE>-<slug>.rq`, for example `RQ-GSN-goal_support_tree.rq`.
+The old file names and the old IDs (CQ-01 to CQ-83, fc01 to fc41, S1 to S65, A2a to A8c and D1
+to D4) are gone. The ontology, the shapes and the Augmentation keep their versions, because no
+axiom and no SWRL rule changes.
+
+- The column `replaces` of `ontology/queries/registry.csv` and `augmentation/registry.csv` gives
+  the old IDs and the old file name of each query and rule. `ontogsn-design-inventory.ttl` keeps
+  them as `skos:hiddenLabel`.
+- The section "The ID of a query or a rule" of `development/dev_tools/README.md` gives the
+  standard for a new query or rule.
+- The two registries replace `development/design/Competency Questions.xlsx`. The requirements
+  R1 to R7 move to `development/design/requirements.csv`.
+- Two reads of the audit questions name no `gsnaug:` term, so they move to `ontology/queries/`:
+  `RQ-GSN-undeveloped_claims_for_system` and `RQ-GSN-controls_ready_for_review`.
+- Five new reads in `ontology/queries/` answer the audit questions that had no query of their
+  own: `RQ-GSN-claims_awaiting_evidence`, `RQ-GSN-provided_evidence`,
+  `RQ-GSN-validated_elements`, `RQ-GSN-elements_in_doubt` and `RQ-GSN-defeated_claims`.
+- The names of the derivations `RL-AUG-shape_mechanism_reads`, `RL-AUG-rule_mechanism_reads`
+  and `RL-AUG-rule_mechanism_writes` lose the word "Terms".
+- A rule file holds no `# rule:` line. `run_rules.py --only` takes IDs.
+- The rules run in the order of the column `order` of the registry, which keeps the order of
+  before. The rules do not all reach the same result in every order.
+
 ## Augmentation 0.6.0 (2026-11-17)
 
 **Breaking for reasoners.** The SWRL forms of the eight rules that read a report now read only
@@ -48,19 +74,19 @@ is renamed or removed. The FinComp hub proposed the property and the faster rule
 - `gsnaug:currentReport` is a new object property, from an artefact or a part of one to the
   newest report of a mechanism over it that is not struck. An artefact has one current report
   for each mechanism. A report without a timestamp is always current.
-- The SWRL forms of A6a, A6b, A7a and A7b have one more body atom, `currentReport(?A, ?R)`.
-  A6c, A6d, A7c and A7d have `currentReport(?P, ?R)`. SWRL has no maximum and no negation, so
+- The SWRL forms of `RL-AUG-conforming_report_confirms_solution`, `RL-AUG-failing_report_refutes_solution`, `RL-AUG-conforming_report_validates_solution` and `RL-AUG-failing_report_invalidates_solution` have one more body atom, `currentReport(?A, ?R)`.
+  `RL-AUG-conforming_part_report_confirms_solution`, `RL-AUG-failing_part_report_refutes_solution`, `RL-AUG-conforming_part_report_validates_solution` and `RL-AUG-failing_part_report_invalidates_solution` have `currentReport(?P, ?R)`. SWRL has no maximum and no negation, so
   before this change every report of a mechanism counted under a reasoner, also a retired one
   and a struck one.
-- `augmentation/derivations/d04_current_report.rq` (D4) is new. It sets the link from the
+- `augmentation/derivations/RL-AUG-current_report.rq` (`RL-AUG-current_report`) is new. It sets the link from the
   reports in the graph, and it removes a link that no longer holds. A writer of reports can
   also set the link itself.
 - `gsnaugsh:CurrentReportShape` is new. It reports a current report that is not a
   `sh:ValidationReport`, or that is a report over another target.
 - The SPARQL twins do not read the link. They find the newest report themselves, as before.
-- The SPARQL twins of A6a and A6c have a new text. A subquery finds the current report of each
+- The SPARQL twins of `RL-AUG-conforming_report_confirms_solution` and `RL-AUG-conforming_part_report_confirms_solution` have a new text. A subquery finds the current report of each
   mechanism and target once, and the composition guards are `MINUS` blocks. The results do not
-  change. The text of 0.5.1 did not finish A6c on a case of 1000 solutions in Oxigraph in 300
+  change. The text of 0.5.1 did not finish `RL-AUG-conforming_part_report_confirms_solution` on a case of 1000 solutions in Oxigraph in 300
   seconds. The new text takes 312 ms. Each of the two rules is about three times as long.
 
 | Reports of one mechanism over one artefact | SWRL form in 0.5.1 | SWRL form in 0.6.0 | SPARQL twin |
@@ -68,10 +94,10 @@ is renamed or removed. The FinComp hub proposed the property and the faster rule
 | An old failing one, a new conforming one | the solution is true and not true | true | true |
 | An old conforming one, a new failing one | the solution is true and not true | not true | not true |
 
-*For case authors:* if you run the rules in a reasoner, run D4 first, and after each new report.
+*For case authors:* if you run the rules in a reasoner, run `RL-AUG-current_report` first, and after each new report.
 A graph without `gsnaug:currentReport` gives no truth value and no validity value under the SWRL
-forms. If you run the SPARQL twins, nothing changes, and D4 runs with them without harm. If you
-strike a report by hand, run D4 again, so that the link moves back to the report before it.
+forms. If you run the SPARQL twins, nothing changes, and `RL-AUG-current_report` runs with them without harm. If you
+strike a report by hand, run `RL-AUG-current_report` again, so that the link moves back to the report before it.
 
 Reasoning: `dd-0106` to `dd-0110`, rationales `why-0065` to `why-0067`. They retire `dd-0105`.
 
@@ -107,23 +133,23 @@ The ontology now has 60 SWRL rules.
 ### Doubt on a link reaches the element that relies on it
 
 **Breaking for reasoners.** Since 1.3.0, a goal can challenge a relationship, and the Challenge
-Doubt rule (S48) puts that relationship in doubt. The element that rests on the link was not
+Doubt rule (`RL-GSN-challenge_doubt`) puts that relationship in doubt. The element that rests on the link was not
 affected. Two new rules in the Dialectic Extension carry the doubt to it.
 
 | Rule | Reads | Writes |
 | :--- | :--- | :--- |
-| S64 Support Doubt Propagation | a `gsn:supportedBy` relationship that is in doubt | `gsn:inDoubt true` on its subject, the parent |
-| S65 Context Doubt Propagation | a `gsn:inContextOf` relationship that is in doubt | `gsn:inDoubt true` on its subject |
+| `RL-GSN-support_doubt_propagation` Support Doubt Propagation | a `gsn:supportedBy` relationship that is in doubt | `gsn:inDoubt true` on its subject, the parent |
+| `RL-GSN-context_doubt_propagation` Context Doubt Propagation | a `gsn:inContextOf` relationship that is in doubt | `gsn:inDoubt true` on its subject |
 
-- S48 still decides when a challenge counts. The new rules only carry the doubt.
+- `RL-GSN-challenge_doubt` still decides when a challenge counts. The new rules only carry the doubt.
 - A `gsn:challenges` relationship is not covered. Its subject is the challenger, and these
   rules never put a challenger in doubt.
-- No rule clears the doubt, as with S48.
+- No rule clears the doubt, as with `RL-GSN-challenge_doubt`.
 - Each rule is also a SPARQL update in `ontology/queries/rules/`. The run over the fixtures
   reaches a fixpoint after 4 passes, and 60 of 60 rules fire.
 
 *For case authors:* a goal or a strategy can now be in doubt because a link below it is in
-doubt. The rules read the `gsn:Relationship` node of the link. S18 and S19 create that node
+doubt. The rules read the `gsn:Relationship` node of the link. `RL-GSN-support_relation_creation` and `RL-GSN-context_relation_creation` create that node
 for each support link and context link.
 
 Reasoning: `dd-1099` and `dd-1100`, source `src-0282` (1:6.3.9), rationale `why-0239`. The
@@ -188,13 +214,13 @@ and the SPARQL update of the same rule did.
 
 | Rule | Body atoms before | Body atoms now |
 | :--- | :--- | :--- |
-| S25 Duplicate Identifier Invalidation, S31 Contract Relation Invalidation | `contains(?M, ?A)`, `contains(?M, ?B)` | `inModule(?A, ?M)`, `inModule(?B, ?M)` |
-| S26 Contract Violation Relation, S27 Context Contract Invalidation | `contains(?M2, ?A)` | `inModule(?A, ?M2)` |
-| S28 Contract Support Invalidation | `contains(?M, ?A)` | `inModule(?A, ?M)` |
-| S39 Public Contract Invalidation | `contains(?C, ?E)` | `inModule(?E, ?C)` |
+| `RL-GSN-duplicate_identifier_invalidation` Duplicate Identifier Invalidation, `RL-GSN-contract_relation_invalidation` Contract Relation Invalidation | `contains(?M, ?A)`, `contains(?M, ?B)` | `inModule(?A, ?M)`, `inModule(?B, ?M)` |
+| `RL-GSN-contract_violation_relation` Contract Violation Relation, `RL-GSN-context_contract_invalidation` Context Contract Invalidation | `contains(?M2, ?A)` | `inModule(?A, ?M2)` |
+| `RL-GSN-contract_support_invalidation` Contract Support Invalidation | `contains(?M, ?A)` | `inModule(?A, ?M)` |
+| `RL-GSN-public_contract_invalidation` Public Contract Invalidation | `contains(?C, ?E)` | `inModule(?E, ?C)` |
 
 - The SPARQL updates do not change. They read `gsn:inModule` since 1.3.0.
-- S53 and S54 derive `gsn:inModule`. A reasoner runs them with the other rules.
+- `RL-GSN-module_membership` and `RL-GSN-nested_module_membership` derive `gsn:inModule`. A reasoner runs them with the other rules.
 
 *For case authors:* nothing to do. Do not state `gsn:inModule`, because the rules derive it.
 
@@ -203,37 +229,37 @@ Reasoning: `dd-1110` to `dd-1115`, rationale `why-0245`. Retires `dd-0523`, `dd-
 
 ### The four confidence rules stop at a node that a rule created
 
-**Breaking for reasoners.** S42 to S45 each create a relationship with confidence. The new node
+**Breaking for reasoners.** The rules of the group `confidence_relations` each create a relationship with confidence. The new node
 matched the rule again. The SWRLAPI stops, because `swrlx:makeOWLThing` returns the same node
 for the same arguments. An engine without that built-in creates a new node for each match and
 does not stop. The FinComp hub measured up to 597,165 derived triples from a case of 22 in
 GraphDB 10.5.0.
 
-- The body of S42, S43, S44 and S45 has one more atom, `schema:identifier(?R1, ?ID)`. A stated
+- The body of `RL-GSN-strategy_confidence_relation`, `RL-GSN-goal_strategy_confidence`, `RL-GSN-solution_confidence_relation` and `RL-GSN-goal_confidence_relation` has one more atom, `schema:identifier(?R1, ?ID)`. A stated
   relationship has an identifier, and the head of a rule writes none. So a node that a rule
   created does not match a rule again.
-- S44 and S45 give the same nodes as before.
-- S42 and S43 no longer start each other. Under SWRL, a confidence moves one step from a
+- `RL-GSN-solution_confidence_relation` and `RL-GSN-goal_confidence_relation` give the same nodes as before.
+- `RL-GSN-strategy_confidence_relation` and `RL-GSN-goal_strategy_confidence` no longer start each other. Under SWRL, a confidence moves one step from a
   stated relationship.
-- The SPARQL updates of S42 and S43 do not change, and they do not have this limit. They write
+- The SPARQL updates of `RL-GSN-strategy_confidence_relation` and `RL-GSN-goal_strategy_confidence` do not change, and they do not have this limit. They write
   an identifier on the node that they create. On a strategy with two parent goals or two child
   goals, the SPARQL updates give a node for every link of the strategy, and the SWRL form does
   not.
 
 *For case authors:* give each `gsn:RelationshipWithConfidence` that you state a
 `schema:identifier`. `gsnsh:RelationshipWithConfidenceShape` already requires one. Without it,
-S42 to S45 do not read the relationship in a reasoner.
+The rules of the group `confidence_relations` do not read the relationship in a reasoner.
 
 Reasoning: `dd-1106` to `dd-1109`, rationale `why-0246`. Retires `dd-1068`, `dd-1069`,
 `dd-1071` and `dd-1072`.
 
-### The SPARQL update of S10 does not make a defeated goal true
+### The SPARQL update of `RL-GSN-solution_propagation_true` does not make a defeated goal true
 
 **Not breaking for reasoners.** `gsnsh:DefeatedElementIsNotTrueShape` says that a defeated
-element cannot be true. The SPARQL update of S10 made a goal true when all its solutions were
+element cannot be true. The SPARQL update of `RL-GSN-solution_propagation_true` made a goal true when all its solutions were
 true, also when the goal was defeated.
 
-- `s10_solution_propagation_true.rq` has one more guard: the goal is not defeated.
+- `RL-GSN-solution_propagation_true.rq` has one more guard: the goal is not defeated.
 - The SWRL form does not change, because SWRL has no negation. The design record already
   states that this update has a guard that the rule does not have.
 - `rule_cases.ttl` has a defeated goal over a true solution. The goal stays without a truth
@@ -271,10 +297,10 @@ conforming one. No term is added, renamed or removed. The FinComp hub proposed b
   `gsnaug:raisedAgainst`, `gsnaug:linksTo` and `gsnaug:tag` no longer name the part. Under a
   reasoner, every part is now an artefact. A query that counts artefacts then also counts parts,
   unless it leaves out the subjects of `gsnaug:partOf`.
-- The composition guard of A6a and A6c reads every artefact that the solution refers to, and every
+- The composition guard of `RL-AUG-conforming_report_confirms_solution` and `RL-AUG-conforming_part_report_confirms_solution` reads every artefact that the solution refers to, and every
   part of one of them that counts for the solution. Before this change, it read one artefact and
   its parts. A solution that referred to one artefact with a conforming report and one with a
-  failing report was made true by A6a and untrue by A6b on every pass, and the last rule to run
+  failing report was made true by `RL-AUG-conforming_report_confirms_solution` and untrue by `RL-AUG-failing_report_refutes_solution` on every pass, and the last rule to run
   decided. Now the solution is untrue in every order. Only the SPARQL copies have the guard.
 
 *For case authors:* a solution with a failing check over one of its artefacts is now untrue, even
@@ -292,22 +318,22 @@ The goal that an issue becomes gets a statement and a context, and a solution ca
 of an artefact that it relies on. No term is added, renamed or removed. The FinComp hub proposed
 these changes and used them first.
 
-- New rules A8a to A8c. The goal that a revise or a resolve issue becomes takes the issue's
-  `schema:description` as its `gsn:statement` (A8a). It takes the contexts of the goal that it
-  challenges (A8b), or of the goal that the challenged solution supports (A8c). Before this
+- New rules of the group `issue_goal`. The goal that a revise or a resolve issue becomes takes the issue's
+  `schema:description` as its `gsn:statement` (`RL-AUG-issue_goal_statement`). It takes the contexts of the goal that it
+  challenges (`RL-AUG-issue_goal_context`), or of the goal that the challenged solution supports (`RL-AUG-issue_goal_context_from_solution`). Before this
   change, the core shapes warned about every such goal, because it had no statement and no
   context. The SPARQL copies write a statement or a context only to a goal that has none. The
   SWRL rules have no such test, so they add the values next to the ones a person wrote.
 - A solution can name the parts of an artefact that it relies on, with `gsn:refersTo` next to the
   artefact. A report over a part then counts for the solution only if the solution names that
-  part, or names no part of the artefact. This applies to A6c, A6d, A7c and A7d, and to the
-  composition guard of A6a and A6c. A part that a solution names is also a `gsn:Artefact`,
+  part, or names no part of the artefact. This applies to `RL-AUG-conforming_part_report_confirms_solution`, `RL-AUG-failing_part_report_refutes_solution`, `RL-AUG-conforming_part_report_validates_solution` and `RL-AUG-failing_part_report_invalidates_solution`, and to the
+  composition guard of `RL-AUG-conforming_report_confirms_solution` and `RL-AUG-conforming_part_report_confirms_solution`. A part that a solution names is also a `gsn:Artefact`,
   because that is the range of `gsn:refersTo`. Only the SPARQL copies have this test.
-- The SPARQL copies of A6a and A6c write their composition guard as two guards, one over the
+- The SPARQL copies of `RL-AUG-conforming_report_confirms_solution` and `RL-AUG-conforming_part_report_confirms_solution` write their composition guard as two guards, one over the
   artefact and one over its parts. Each guard starts from the artefact, so an engine no longer
   walks every checkable target of the case for each solution. This alone changes no answer.
-- FC24 (CQ-66) also reads resolve issues, because a resolution can replace an artefact too.
-- FC29 (CQ-71) lists only evidence: an artefact that a solution refers to. Data that a mechanism
+- `RQ-AUG-revision_diff` also reads resolve issues, because a resolution can replace an artefact too.
+- `RQ-AUG-automated_evidence` lists only evidence: an artefact that a solution refers to. Data that a mechanism
   generates for an instantiation is no longer listed.
 
 *For case authors:* if an issue that becomes a goal has a description, that text is now its
@@ -361,7 +387,7 @@ Their definitions, domains and ranges do not change.
 | :--- | :--- | :--- |
 | `gsnaug:verifiableWith` | `gsnaug:checkableWith` | The label is now "checkable with". The old label was "verified with", the same as the label of the other property. |
 | `gsnaug:verifiedWith` | `gsnaug:checkedWith` | The label is now "checked with". |
-| "Part Inherits Verifiable With" (the label of rule A4) | "Part Inherits Checkable With" | The rule is a blank node, so it has no IRI to rename. The SPARQL twin is now `augmentation/rules/a04_part_inherits_checkable_with.rq`. |
+| "Part Inherits Verifiable With" (the label of rule `RL-AUG-part_inherits_checkable_with`) | "Part Inherits Checkable With" | The rule is a blank node, so it has no IRI to rename. The SPARQL twin is now `augmentation/rules/RL-AUG-part_inherits_checkable_with.rq`. |
 
 The definitions already said that the mechanism checks the truth or the appropriateness of the
 artefact. Truth is `gsn:true`, and appropriateness is `gsn:valid`. "Verify" names only the
@@ -370,26 +396,26 @@ first of the two, so the properties now use the neutral verb "check".
 - The old terms are gone, with no alias.
 - New: `gsnaug:decides` on a mechanism, with the value `"truth"`, `"validity"` or both. It says
   whether a check tests that the evidence matches what the solution claims, or that the evidence
-  is appropriate for the claim. A6a to A6d now read only a mechanism that decides truth. The new
-  rules A7a to A7d set `gsn:valid` from a mechanism that decides validity. A mechanism that an
+  is appropriate for the claim. The rules of the group `truth_from_report` now read only a mechanism that decides truth. The new
+  rules of the group `validity_from_report` set `gsn:valid` from a mechanism that decides validity. A mechanism that an
   artefact is checkable with and that decides nothing is a warning
   (`gsnaugsh:CheckingMechanismShape`). Add `gsnaug:decides "truth"` to your checking mechanisms
-  to keep what A6 derived before.
+  to keep what the group `truth_from_report` derived before.
 - New: `gsnaug:implements`, from a shape, a rule, a query or another definition to the
   mechanism that it carries out. The definition is now a separate node, and it can be a blank
   node. A mechanism that is still typed as its own shape, rule or query is a warning
-  (`gsnaugsh:MechanismSelfDefinitionShape`), and the derivations D1 to D3 and the query FC38
+  (`gsnaugsh:MechanismSelfDefinitionShape`), and the derivations of the group `mechanism_terms` and the query `RQ-AUG-inspectable_mechanisms`
   read only the new link.
-- The rules A4 and A6a to A6d, and the stored queries FC10, FC37 and FC38, read the new
-  terms. The question of FC10 is now "Was this evidence checked, by whom, with what mechanism,
+- The rules `RL-AUG-part_inherits_checkable_with` and the rules of the group `truth_from_report`, and the stored queries `RQ-AUG-evidence_verification`, `RQ-AUG-term_impact` and `RQ-AUG-inspectable_mechanisms`, read the new
+  terms. The question of `RQ-AUG-evidence_verification` is now "Was this evidence checked, by whom, with what mechanism,
   and did it pass?".
 - `gsnaugsh:ReportConflictShape` has `sh:severity sh:Violation` on the shape, not on its SPARQL
   constraint. This change was made on 2026-11-06, after the 0.4.0 release, and ships as part
   of 0.4.0. The shape reports a violation before and after the change.
 
 *For case authors:* the rules and the queries do not see data that uses an old term. A solution
-whose artefact names its mechanism with `gsnaug:verifiableWith` gets no truth value from A6a to
-A6d. This update rewrites a graph to the new terms:
+whose artefact names its mechanism with `gsnaug:verifiableWith` gets no truth value from `RL-AUG-conforming_report_confirms_solution` to
+`RL-AUG-failing_part_report_refutes_solution`. This update rewrites a graph to the new terms:
 
 ```sparql
 PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
@@ -426,7 +452,7 @@ was built, not about any case, and the new name says so. The maintenance scripts
 The augmentation (`augmentation/`) is released for the first time, together with ontology
 1.3.0. It names `gsnaug:augmentedOntoGSNVersion "1.3.0"`.
 
-- Its nine SWRL rules (A2a to A6d) are blank nodes, as the rules of the ontology are since
+- Its nine SWRL rules are blank nodes, as the rules of the ontology are since
   1.3.0. Before this change, each rule had an IRI of its own, and Protégé read every one with
   an empty body and head. A rule is identified by its `rdfs:label`.
 - `development/dev_tools/augmentation_check.py` no longer names a rule by IRI.
@@ -464,16 +490,16 @@ the whole run.
   now fails if a rule has an IRI.
 - The nine rules that create a node with `swrlx:makeOWLThing` now name the new node first,
   followed by both ends of the link that it stands for, for example
-  `swrlx:makeOWLThing(?R, ?A, ?B)` in Support Relation Creation (S18). SWRLAPI binds the new
+  `swrlx:makeOWLThing(?R, ?A, ?B)` in Support Relation Creation (`RL-GSN-support_relation_creation`). SWRLAPI binds the new
   node to the first argument. The old order made the Drools engine stop the whole run with
-  the error that the built-in "returned with unbound arguments". The affected rules are S18,
-  S19, S40, S42 to S45, S50 and S51.
+  the error that the built-in "returned with unbound arguments". The affected rules are `RL-GSN-support_relation_creation`,
+  `RL-GSN-context_relation_creation`, `RL-GSN-confidence_relation_creation`, the rules of the group `confidence_relations`, `RL-GSN-challenge_relation_creation` and `RL-GSN-challenge_chain_invalidation`.
 - Twelve rules that tell two individuals apart now use a `differentFrom` atom in place of
-  `swrlb:notEqual`, which compares literals only. The rules are S23, S24, S25, S30, S33 to
-  S36, S41, S44, S45 and S51. OWL does not assume that two names stand for two individuals,
+  `swrlb:notEqual`, which compares literals only. The rules are `RL-GSN-cross_module_away_support`, `RL-GSN-cross_module_away_context`, `RL-GSN-duplicate_identifier_invalidation`, `RL-GSN-contract_activation`, `RL-GSN-substitution_invalidation` to
+  `RL-GSN-cross_module_support`, `RL-GSN-duplicate_acp_identifier_invalidation`, `RL-GSN-solution_confidence_relation`, `RL-GSN-goal_confidence_relation` and `RL-GSN-challenge_chain_invalidation`. OWL does not assume that two names stand for two individuals,
   so a `differentFrom` atom holds only for individuals that the case declares different.
   The SPARQL copies of the rules compare IRIs and do not need the declaration.
-- Duplicate ACP Identifier Invalidation (S41) reads one identifier variable for both
+- Duplicate ACP Identifier Invalidation (`RL-GSN-duplicate_acp_identifier_invalidation`) reads one identifier variable for both
   assurance claim points, in place of comparing two variables with `swrlb:equal`. SWRLAPI
   cannot compare untyped string literals with that built-in.
 
@@ -493,9 +519,9 @@ Reasoning: `dd-1067` to `dd-1083` added, `dd-0302`, `dd-0304`, `dd-0496` to `dd-
 differently.
 
 - The `rdfs:range` of `gsn:challenges` gains `gsn:Relationship`, and so do the domain and
-  the range of `gsn:transitivelyChallenges`. Rule S51 challenges a support link. Before
+  the range of `gsn:transitivelyChallenges`. Rule `RL-GSN-challenge_chain_invalidation` challenges a support link. Before
   this change, a reasoner inferred that each challenged relationship was a GSN element.
-- The nine SPARQL rules that create a node (S18, S19, S40, S42 to S45, S50 and S51) now build
+- The nine SPARQL rules that create a node (`RL-GSN-support_relation_creation`, `RL-GSN-context_relation_creation`, `RL-GSN-confidence_relation_creation`, the rules of the group `confidence_relations`, `RL-GSN-challenge_relation_creation` and `RL-GSN-challenge_chain_invalidation`) now build
   its IRI from the IRIs of the elements, not from their `schema:identifier`. Two elements in
   different modules can share an identifier, and the old IRIs then merged their nodes into
   one. The `schema:identifier` of each new node is unchanged.
@@ -515,16 +541,16 @@ retired, rationale `why-0226`.
 
   | Property | Extension | Filled by |
   | :--- | :--- | :--- |
-  | `gsn:transitivelySupportedBy` | Core GSN | Support Closure (S55) |
-  | `gsn:transitivelyInContextOf` | Modular Extension, modules only | Module Context Closure (S58) |
-  | `gsn:transitivelyChallenges` | Dialectic Extension | Challenge Closure (S61) |
+  | `gsn:transitivelySupportedBy` | Core GSN | Support Closure (`RL-GSN-support_closure`) |
+  | `gsn:transitivelyInContextOf` | Modular Extension, modules only | Module Context Closure (`RL-GSN-module_context_closure`) |
+  | `gsn:transitivelyChallenges` | Dialectic Extension | Challenge Closure (`RL-GSN-challenge_closure`) |
 
-- For each property, one rule marks every element on a cycle as not valid (S56, S59, S62).
-  A second rule marks every relationship on a cycle as not valid (S57, S60, S63).
-- Predicate Conflict Invalidation (S7) and Circular Module Invalidation (S37) are removed.
+- For each property, one rule marks every element on a cycle as not valid (`RL-GSN-support_cycle_invalidation`, `RL-GSN-module_context_cycle_invalidation`, `RL-GSN-challenge_cycle_invalidation`).
+  A second rule marks every relationship on a cycle as not valid (`RL-GSN-support_cycle_relationship_invalidation`, `RL-GSN-module_context_cycle_relationship_invalidation`, `RL-GSN-challenge_cycle_relationship_invalidation`).
+- Predicate Conflict Invalidation and Circular Module Invalidation are removed.
   They found a cycle only when it had exactly three nodes.
 - The `rdfs:domain` of `gsn:supportedBy` and of `gsn:inContextOf` gains `gsn:Module`. Rules
-  S34, S35 and S36 write these links between modules. Before this change, a reasoner inferred
+  `RL-GSN-module_support_propagation`, `RL-GSN-module_context_propagation` and `RL-GSN-cross_module_support` write these links between modules. Before this change, a reasoner inferred
   that each such module was a goal or a strategy, and it reported no error.
 - Shapes: the comment on `gsnsh:SupportedByPropertyShape` and on
   `gsnsh:InContextOfPropertyShape` is removed, because the OWL domain now names
@@ -546,15 +572,15 @@ rationales `why-0222` to `why-0224`.
 **Breaking for reasoners.** The rule set has two fewer rules, and one rule now applies to
 fewer cases.
 
-- Tri-Goal Conflict (S9) is removed. Contradictory Goal Truth (S8) matches every case that
-  S9 matched and draws the same conclusion.
-- Conflicting Support (False) (S13) is removed. It was disabled in 1.2.3, because Solution
-  Propagation (False) (S11) draws the same conclusion.
-- Duplicate Name Invalidation (S41) is replaced by Duplicate ACP Identifier Invalidation. The
+- Tri-Goal Conflict is removed. Contradictory Goal Truth (`RL-GSN-contradictory_goal_truth`) matches every case that
+  Tri-Goal Conflict matched and draws the same conclusion.
+- Conflicting Support (False) is removed. It was disabled in 1.2.3, because Solution
+  Propagation (False) (`RL-GSN-solution_propagation_false`) draws the same conclusion.
+- Duplicate Name Invalidation (`RL-GSN-duplicate_acp_identifier_invalidation`) is replaced by Duplicate ACP Identifier Invalidation. The
   old rule marked any two nodes with the same `schema:identifier` as not valid. The new rule
   does this only for two assurance claim points. Within one module, Duplicate Identifier
-  Invalidation (S25) still applies to all elements.
-- Goal Inference (S5) is renamed to Inferential Relation (Goal). The rule logic did not
+  Invalidation (`RL-GSN-duplicate_identifier_invalidation`) still applies to all elements.
+- Goal Inference (`RL-GSN-inferential_relation_goal`) is renamed to Inferential Relation (Goal). The rule logic did not
   change.
 
 *For case authors:* an identifier that you reuse in two different modules no longer makes
@@ -682,9 +708,9 @@ nothing supports a defeater.
 - The axiom is now a one-way `rdfs:subClassOf`, and gains a `not (gsn:challenges some
   Thing)` conjunct. The converse cannot be stated in OWL: scoping the parent test to the
   module relates three individuals and is not a class expression.
-- Rule **S06** and the two SHACL shapes now carry the scoped definition. A parent is
+- Rule `RL-GSN-goal_top_flag` and the two SHACL shapes now carry the scoped definition. A parent is
   discounted exactly when some module contains the parent and not the goal, written as
-  `gsn:contains+` so it does not depend on S53/S54 having run.
+  `gsn:contains+` so it does not depend on `RL-GSN-module_membership` and `RL-GSN-nested_module_membership` having run.
 - A goal that challenges something is never a top goal.
 - **With no modules in the graph, nothing is discounted** — a core-only case is unaffected.
 
@@ -732,11 +758,11 @@ rationale `why-0211`, passage `src-0140`.
 ### SHACL shapes 1.0.3 → 1.1.0
 
 - `gsnsh:TrueClaimSolutionShape` (warning) reports a claim marked true that a solution not
-  marked true supports. Rules S10 and S11 give such a claim both truth values, and this shape
+  marked true supports. Rules `RL-GSN-solution_propagation_true` and `RL-GSN-solution_propagation_false` give such a claim both truth values, and this shape
   names the cause. Rationale `why-0227`.
 - `gsnsh:ModuleContextCycleShape` reports a module on a cycle of context links between
   modules, and `gsnsh:ChallengeCycleShape` reports an element on a cycle of challenges. With
-  `gsnsh:SupportCycleShape`, SHACL now reports every cycle that rules S56, S59 and S62 mark.
+  `gsnsh:SupportCycleShape`, SHACL now reports every cycle that rules `RL-GSN-support_cycle_invalidation`, `RL-GSN-module_context_cycle_invalidation` and `RL-GSN-challenge_cycle_invalidation` mark.
   Rationale `why-0222`.
 - The comment on `gsnsh:ChallengesRangePropertyShape` is removed, because the OWL range now
   names `gsn:Relationship` too.
@@ -758,8 +784,8 @@ extensions added rules that write to them.
   `Relationship`; `gsn:final` and `gsn:published` gain `Pattern`; `gsn:statement` gains
   `AssuranceCase`; `gsn:attachedTo` range gains `GSNElement`.
 - Reified `gsn:Relationship` admits `Module` and `Pattern` as subject, `Relationship` as
-  object, and `"dialectic"` as a `gsn:relationshipType` value, matching what rules S18–S21
-  and S50 create.
+  object, and `"dialectic"` as a `gsn:relationshipType` value, matching the nodes that `RL-GSN-support_relation_creation`, `RL-GSN-context_relation_creation`
+  and `RL-GSN-challenge_relation_creation` create.
 - The top-goal axiom's inverse `supportedBy` test now reads over `Goal or Strategy` — over
   goals alone, every strategy-parented goal was a top goal. (Superseded again in 1.3.0 by
   the module scoping above.)
@@ -779,14 +805,14 @@ Reasoning per axiom: see the 1.2.3 decisions in `development/design/` (the commi
 
 **Breaking for reasoners.** `gsn:Defeater` was declared `owl:equivalentClass` of
 `(Goal or Solution)`. As a biconditional that made every goal and every solution a defeater,
-which rendered rule S52 (`challenges(?A,?B) → Defeater(?A)`) inert. Changed to
+which rendered rule `RL-GSN-defeater_declaration` (`challenges(?A,?B) → Defeater(?A)`) inert. Changed to
 `rdfs:subClassOf`: every defeater is a goal or a solution, but not the reverse.
 
 - Prefix migration `ontology:` → `gsn:`. Semantically neutral; the graph is identical in
   triple count.
 - The empty `rdfs:comment` on every SWRL rule removed.
 
-*For case authors:* `Defeater` membership now arrives only by S52 inference or by assertion
+*For case authors:* `Defeater` membership now arrives only by `RL-GSN-defeater_declaration` inference or by assertion
 — anything that relied on every goal being a defeater (nothing should have) changes.
 
 Around this version the repository gained its checked artefacts: the SHACL shapes (1.0.0),
@@ -798,7 +824,7 @@ ontology itself.
 
 ## Ontology 1.2.1 — 2026-01-23
 
-**Not breaking.** Fixed an error in rule S9; added human-readable annotations.
+**Not breaking.** Fixed an error in the rule Tri-Goal Conflict; added human-readable annotations.
 `owl:versionInfo` becomes a string from this version on (1.2 was typed as a decimal).
 
 ---
