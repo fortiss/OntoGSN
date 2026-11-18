@@ -64,6 +64,8 @@ axiom and no SWRL rule changes.
 - A rule file holds no `# rule:` line. `run_rules.py --only` takes IDs.
 - The rules run in the order of the column `order` of the registry, which keeps the order of
   before. The rules do not all reach the same result in every order.
+- The design record gives the reasons in two new decisions, `dd-1131` (the ID) and `dd-1132`
+  (the order of the rules). Its texts use the new IDs.
 
 ## Augmentation 0.6.0 (2026-11-17)
 

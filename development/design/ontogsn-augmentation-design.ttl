@@ -251,10 +251,10 @@ gsnaugdesign:src-0005
 gsnaugdesign:src-0006
     a gsndesign:SourcePassage ;
     prov:specializationOf gsnaugdesign:ontogsn-rules ;
-    gsndesign:quotedText """S52 Defeater Declaration: challenges(?A, ?B) -> Defeater(?A).
-S48 Challenge Doubt: challenges(?G, ?E) ^ true(?G, true) ^ Goal(?G) -> inDoubt(?E, true).
-S46 Challenge Defeat: valid(?S, true) ^ challenges(?S, ?E) ^ Solution(?S) -> defeated(?E, true)."""@en ;
-    gsnaugdesign:locator "ontology/queries/rules/s46, s48, s52" .
+    gsndesign:quotedText """Defeater Declaration (RL-GSN-defeater_declaration): challenges(?A, ?B) -> Defeater(?A).
+Challenge Doubt (RL-GSN-challenge_doubt): challenges(?G, ?E) ^ true(?G, true) ^ Goal(?G) -> inDoubt(?E, true).
+Challenge Defeat (RL-GSN-challenge_defeat): valid(?S, true) ^ challenges(?S, ?E) ^ Solution(?S) -> defeated(?E, true)."""@en ;
+    gsnaugdesign:locator "ontology/queries/rules/RL-GSN-challenge_defeat, RL-GSN-challenge_doubt, RL-GSN-defeater_declaration" .
 
 gsnaugdesign:src-0007
     a gsndesign:SourcePassage ;
@@ -494,9 +494,9 @@ and still queryable in every one of these cases; what it does not do is change a
 gsnaugdesign:why-0011
     a gsndesign:Rationale ;
     gsndesign:rationaleText """OntoGSN's dialectic rules already do most of the work, so the new rules only have to assert the
-challenge. S52 types anything that challenges as a gsn:Defeater, and S48 derives gsn:inDoubt from a
+challenge. RL-GSN-defeater_declaration types anything that challenges as a gsn:Defeater, and RL-GSN-challenge_doubt derives gsn:inDoubt from a
 true goal that challenges - so a revise issue needs to become a true goal and nothing more.
-gsn:defeated is the exception: S46 derives it from a valid gsn:Solution challenging its target, and
+gsn:defeated is the exception: RL-GSN-challenge_defeat derives it from a valid gsn:Solution challenging its target, and
 an issue is an ask rather than evidence, so routing a resolve issue through a Solution would mean
 asserting that the ask is itself evidence. Asserting gsn:defeated directly is the smaller claim.
 This asymmetry is the one place the new rules do not compose with the existing ones, and it is
@@ -515,12 +515,12 @@ gsnaugdesign:why-0013
 is good practice and widely followed, but a case that omits it is conforming, so a vocabulary that
 could only read the system out of a context would be unable to answer 'what is this case about' for
 a large class of valid cases. gsnaug:assures states the fact directly and works either way. Where
-both are present they must agree, which is a shape rather than an axiom, and rule A5 derives the
+both are present they must agree, which is a shape rather than an axiom, and the retired rule of the top-level contexts derives the
 property from the context so that the usual case needs no duplicate assertion at all."""@en .
 
 gsnaugdesign:why-0014
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """Rule A5 fires on a top goal, because that is where a top-level context attaches. Reaching the
+    gsndesign:rationaleText """The retired rule of the top-level contexts fires on a top goal, because that is where a top-level context attaches. Reaching the
 enclosing gsn:Argument from there would need an inverse gsn:contains traversal in every use, so
 gsn:Goal is admitted to the domain alongside gsn:Argument and gsn:AssuranceCase. All three are
 things a reader would say the case is about, at three different granularities."""@en .
@@ -604,7 +604,7 @@ gsnaugdesign:why-0024
     gsndesign:rationaleText """An augmentation is only valid against the version of the augmented ontology it was written for, and
 two things here would not hold before OntoGSN 1.3.0: gsnaug:instantiatedFrom assumes an
 InstantiationDataReference may carry gsn:refersTo, which the widened domain of that release first
-permitted, and rules A2 and A3 assume gsn:challenges reaches the class of target they match.
+permitted, and the rules of the groups revise_issue_challenges and resolve_issue_defeats assume gsn:challenges reaches the class of target they match.
 Recording the version as an annotation makes the dependency checkable rather than folkloric."""@en .
 
 gsnaugdesign:why-0025
@@ -630,7 +630,7 @@ gsnaugdesign:why-0027
     a gsndesign:Rationale ;
     gsndesign:rationaleText """Reusing gsnaug:ownedBy for the holder of an ask fails twice. It retypes: gsnaug:owns declares
 rdfs:range gsn:GSNElement and gsnaug:ownedBy rdfs:domain gsn:GSNElement, domains are generative, so
-an issue carrying it would be inferred a gsn:GSNElement - which rules A2 and A3 grant only to a
+an issue carrying it would be inferred a gsn:GSNElement - which the rules of the groups revise_issue_challenges and resolve_issue_defeats grant only to a
 revise or resolve issue and deliberately never to a clarify one. And it conflates two relations:
 owning is standing behind an element's validity, which for an ask is the raiser and does not change,
 while the holder is whoever must answer now and changes at every hop. Recording each hop as a new
@@ -714,8 +714,8 @@ either is a one-line change to both the union and the shape."""@en .
 gsnaugdesign:why-0035
     a gsndesign:Rationale ;
     gsndesign:rationaleText """Two ways of saying one fact is one too many. gsnaug:assures and gsnaug:requiredBy were introduced as
-the fallback for a case that declares no top-level context; the two context subclasses and rules
-A5a/A5b were the path for a case that does. Keeping both needed a rule to derive one from the other
+the fallback for a case that declares no top-level context; the two context subclasses and the two
+retired rules of the top-level contexts were the path for a case that does. Keeping both needed a rule to derive one from the other
 and a shape to check that they agreed, and the derivation ran through gsn:refersTo, whose range is
 gsn:Artefact - so a case that used the supported path ended up asserting that the system it assures
 is a piece of evidence. Dropping the classes removes the rule, the shape, that bug and the choice.
@@ -772,7 +772,7 @@ inverse would be a fourth way of walking an association that has two."""@en .
 
 gsnaugdesign:why-0041
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """A3a and A3b wrote the challenge and the defeat in a single guarded operation, and the guard was on
+    gsndesign:rationaleText """RL-AUG-resolve_issue_defeats_goal and RL-AUG-resolve_issue_defeats_solution wrote the challenge and the defeat in a single guarded operation, and the guard was on
 the target. Two resolve issues raised against the same element give the WHERE two solutions; the
 first writes gsn:defeated true, the guard rejects the second, and the challenge that solution would
 have written is lost with it. Which of the two issues survives depends on the order the store
@@ -781,8 +781,8 @@ defeater was silently dropped.
 
 The two writes belong to different keys, which is what the split says. The defeat is a fact about
 the target, so its guard is on the target and firing once is enough. The challenge is a fact about
-the pair, so its guard is on the pair and one issue's challenge cannot suppress another's. A2a and
-A2b never had the problem: they write nothing about the target, and their guard is already on the
+the pair, so its guard is on the pair and one issue's challenge cannot suppress another's. RL-AUG-revise_issue_challenges_goal and
+RL-AUG-revise_issue_challenges_solution never had the problem: they write nothing about the target, and their guard is already on the
 pair.
 
 Two SPARQL operations, still one rule and still one SWRL twin. SWRL has set semantics and no delete,
@@ -836,7 +836,7 @@ text. It is deliberately a plain string and not a link: a link to a file in a re
 whatever that file says today, while the literal says what the mechanism was when it was registered.
 No language property accompanies it, because an interpreter line in the text (a shebang, a
 PowerShell #requires) does the same job without a second term to keep in step. A script sits one
-rung below a specification on the inspectability ladder that CQ-80 reports: a person can read it,
+rung below a specification on the inspectability ladder that RQ-AUG-inspectable_mechanisms reports: a person can read it,
 no tool here derives the terms from it, so gsnaug:readsTerm on a scripted mechanism is a hand
 declaration."""@en .
 
@@ -858,7 +858,7 @@ filters OntoGSN's own terms out of the result: a rule that reads gsn:Goal does d
 and the change-impact question is as fair to ask of the core vocabulary as of a domain one. The
 term list is the mechanism-side half of what why-0046 says of a part of an artefact: a domain term
 that some mechanism reads is a fence with its reason attached, and one that nothing reads can be
-withdrawn with CQ-79 showing nothing affected."""@en .
+withdrawn with RQ-AUG-term_impact showing nothing affected."""@en .
 
 gsnaugdesign:why-0046
     a gsndesign:Rationale ;
@@ -890,8 +890,8 @@ whole."""@en .
 gsnaugdesign:why-0047
     a gsndesign:Rationale ;
     gsndesign:rationaleText """gsnaug:checkableWith says that an artefact can be checked by a mechanism. It does not say what the
-check found. Until A6, the finding stayed on the screen of whoever ran the check, and the status of
-the solution was typed into the case by hand. A6a and A6b read the status off a report instead. The
+check found. Until the rules of the group truth_from_report, the finding stayed on the screen of whoever ran the check, and the status of
+the solution was typed into the case by hand. RL-AUG-conforming_report_confirms_solution and RL-AUG-failing_report_refutes_solution read the status off a report instead. The
 report is a sh:ValidationReport, because every SHACL engine already writes one, and because it
 carries the one field the rules need, sh:conforms. Two PROV links tie the report to the case:
 prov:wasGeneratedBy names the mechanism, and prov:used names the artefact. No term is added to the
@@ -901,7 +901,7 @@ runs the retention shape and keeps the report the engine returns, and the note c
 with a hand-written failing report. The rules write gsn:true, not gsn:valid and not gsn:inDoubt.
 gsn:valid is defined as consistency with the GSN syntax, and gsn:inDoubt is a dialectic state.
 gsn:true is defined as a claim determined correct by some process, and a report is that process.
-Writing gsn:true also lets the core rules S10 and S11 carry the result upward. In the fixture the
+Writing gsn:true also lets the core rules RL-GSN-solution_propagation_true and RL-GSN-solution_propagation_false carry the result upward. In the fixture the
 passing report on the access log and the failing report on the interview note make the goal above
 them untrue, because support in GSN is a composition. Two things are left out on purpose. The rules
 read every report, so a newer report does not retire an older one with the opposite result. A case
@@ -919,7 +919,7 @@ restriction was inherited from the one process that prompted the class, where th
 only party that asks. Two uses outside that process need a wider raiser. An internal review is an
 audit in ISO 19011's own scope, so a finding raised by the organisation on its own case is a finding.
 And change impact analysis ends with someone, often the owner of the element and sometimes a tool,
-raising a revise issue on each element the change touched, so that rule A2 moves it to gsn:inDoubt
+raising a revise issue on each element the change touched, so that the rules of the group revise_issue_challenges moves it to gsn:inDoubt
 through the same path a reviewer's ask takes. A second class for the self-raised case would have split
 one object in two for the sake of one word in a definition. The definition now says agent, and a
 scope note says who that can be; the role of the raiser is read off gsnaug:hasRole as before. Finding
@@ -974,10 +974,10 @@ clause of a larger text is the same pattern with gsnaug:ArtefactPart. The enviro
 gsn:Context that gsn:refersTo an artefact, and the artefact is revised; that path needs no term
 either, and the query walks gsn:supportedBy down from the holder of the context, because a context
 applies to everything beneath the element it is attached to and the core rules materialise that
-for assumptions only. Three queries answer the question, fc39 for requirements, fc40 for systems and fc41 for
+for assumptions only. Three queries answer the question, RQ-AUG-requirement_revised for requirements, RQ-AUG-system_revised for systems and RQ-AUG-context_revised for
 contexts, and they are queries rather than rules on purpose. Whether a detected change matters to a claim is
 a judgement, so the graph must not assert it. Whoever judges raises a revise issue on the element,
-and rule A2 moves it to gsn:inDoubt through the same path a reviewer's ask takes. That closes the
+and the rules of the group revise_issue_challenges moves it to gsn:inDoubt through the same path a reviewer's ask takes. That closes the
 loop with no new flag: detection is a query, judgement is an issue, consequence is the existing
 rule. The systematic approach to safety case maintenance of Kelly and McDermid is the second source
 for the question; the answer rests on PROV and on the existing issue machinery."""@en .
@@ -1004,25 +1004,25 @@ process calls it."""@en .
 
 gsnaugdesign:why-0053
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """A6a and A6b read a report over the whole artefact. A mechanism that verifies a part, declared on
-the part by hand or copied down by A4, leaves a report whose prov:used names the part, and no rule
+    gsndesign:rationaleText """RL-AUG-conforming_report_confirms_solution and RL-AUG-failing_report_refutes_solution read a report over the whole artefact. A mechanism that verifies a part, declared on
+the part by hand or copied down by RL-AUG-part_inherits_checkable_with, leaves a report whose prov:used names the part, and no rule
 read it: the solution stayed as it was. The gap was found when the part was weighed against being
 absorbed into gsn:Artefact, which would have closed it as a side effect; the rules close it on their
-own. gsn:refersTo ranges on gsn:Artefact, so a solution cannot refer to a part, and A6c and A6d
+own. gsn:refersTo ranges on gsn:Artefact, so a solution cannot refer to a part, and RL-AUG-conforming_part_report_confirms_solution and RL-AUG-failing_part_report_refutes_solution
 reach the part from the artefact the solution refers to, through gsnaug:partOf. Two rules rather than
-a wider A6a and A6b, for the reason A2 and A3 are two each: a SWRL body is a conjunction, and "the
-artefact or a part of it" is two bodies. The body names Artefact(?A) and ArtefactPart(?P) as A4 does,
+a wider RL-AUG-conforming_report_confirms_solution and RL-AUG-failing_report_refutes_solution, for the reason that the groups revise_issue_challenges and resolve_issue_defeats have two each: a SWRL body is a conjunction, and "the
+artefact or a part of it" is two bodies. The body names Artefact(?A) and ArtefactPart(?P) as RL-AUG-part_inherits_checkable_with does,
 so that the SPARQL twin, which runs with no reasoning, reaches only what the case typed. The rules
-carry the assumption A6a and A6b already carry: whoever declared the mechanism on the part, or on
+carry the assumption RL-AUG-conforming_report_confirms_solution and RL-AUG-failing_report_refutes_solution already carry: whoever declared the mechanism on the part, or on
 the whole it was copied from, declared it as what checks the evidence the solution offers, so its
 verdict is the solution's. A conforming report over one part does not say that the whole conforms,
-and the rule does not say so either; it says what the declared check found. The two gaps of A6a and
-A6b remain: no newest-report guard, and a report with no PROV links is ignored. A failing part and a
+and the rule does not say so either; it says what the declared check found. The two gaps of RL-AUG-conforming_report_confirms_solution and
+RL-AUG-failing_report_refutes_solution remain: no newest-report guard, and a report with no PROV links is ignored. A failing part and a
 conforming whole set gsn:true both ways on one solution, which is the state two reports over one
 artefact already produce. In the fixture, the configuration export declares its mechanism on the
-whole and the key inherits it, so the conforming report over the key exercises the chain A4 then
-A6c across two rounds; the firewall rule declares its own mechanism, and its failing report
-exercises A6d alone."""@en .
+whole and the key inherits it, so the conforming report over the key exercises the chain RL-AUG-part_inherits_checkable_with then
+RL-AUG-conforming_part_report_confirms_solution across two rounds; the firewall rule declares its own mechanism, and its failing report
+exercises RL-AUG-failing_part_report_refutes_solution alone."""@en .
 
 gsnaugdesign:why-0054
     a gsndesign:Rationale ;
@@ -1034,31 +1034,31 @@ does not say: that the subject is a part and not an artefact, and that a part ha
 version of its own. dcterms:isPartOf is declared an owl:ObjectProperty here as dcterms:requires is,
 so that an OWL tool sees a property, and no domain, range or other axiom is stated on it. Two
 alternatives were weighed and not taken. Replacing gsnaug:partOf with dcterms:isPartOf outright
-loses the domain and range that gsnaugsh:ArtefactPartShape and A4 depend on. Absorbing the part into
+loses the domain and range that gsnaugsh:ArtefactPartShape and RL-AUG-part_inherits_checkable_with depend on. Absorbing the part into
 the artefact, so that an artefact is partOf an artefact, removes a class and six union domains and
 admits nesting, but a part then gains gsnaug:storedIn and gsnaug:replaces by type, the instantiation
 shape can no longer reject a whole artefact in gsnaug:instantiatedFrom, every query that counts
 artefacts counts rows unless it filters out subjects of partOf, and gsn:Artefact, a Core GSN term for
 evidence offered in support of a claim, would then cover a spreadsheet cell. The class stays, and the
-one defect the comparison exposed is closed by A6c and A6d."""@en .
+one defect the comparison exposed is closed by RL-AUG-conforming_part_report_confirms_solution and RL-AUG-failing_part_report_refutes_solution."""@en .
 
 gsnaugdesign:why-0055
     a gsndesign:Rationale ;
     gsndesign:rationaleText """why-0047 and why-0053 left one gap open twice: the rules read every report, so a newer report did
 not retire an older one with the opposite result, and the reason given was that SWRL can express
-neither a newest-report guard nor a cleanup. The core had already crossed that line. S10 carries a
+neither a newest-report guard nor a cleanup. The core had already crossed that line. RL-GSN-solution_propagation_true carries a
 sibling guard that its SWRL header does not, marked in the file as not in the SWRL, and deletes the
-old truth value before it writes the new one, because without the guard S10 and S11 alternate
-forever on a claim with mixed support. The SPARQL twins of A6a to A6d now do the same, for the same
+old truth value before it writes the new one, because without the guard RL-GSN-solution_propagation_true and RL-GSN-solution_propagation_false alternate
+forever on a claim with mixed support. The SPARQL twins of the rules of the group truth_from_report now do the same, for the same
 reason, and the SWRL rules are unchanged: they state the positive half. Two guards, because two
 things went wrong. The newest-report guard reads prov:generatedAtTime, which the check tool already
 wrote and the hand-written reports in the fixture already carried, and lets a report count only
 while no report from the same mechanism over the same target is later. Per mechanism and per
 target, not per artefact, because two mechanisms over one artefact are two checks that both have
 to hold, and a report over a part is a check of something other than a report over the whole. The
-composition guard is the one S10 has: a conforming report confirms the solution only while no
+composition guard is the one RL-GSN-solution_propagation_true has: a conforming report confirms the solution only while no
 current report over the artefact or over a part of it fails. Without it, an artefact whose two
-mechanisms disagree makes A6a and A6b alternate as S10 and S11 would, and a failing part under a
+mechanisms disagree makes RL-AUG-conforming_report_confirms_solution and RL-AUG-failing_report_refutes_solution alternate as RL-GSN-solution_propagation_true and RL-GSN-solution_propagation_false would, and a failing part under a
 conforming whole sets gsn:true both ways, which why-0053 recorded as an open state. The two failing
 rules carry no such guard: a failing report refutes whatever else was found, which is what
 composition means, and so no solution ends up both true and not true. Three alternatives were
@@ -1139,7 +1139,7 @@ definitions. The neutral verb check covers both. Which of the two outcomes a che
 with the property that a rule sets, and with the element or the relationship that is checked.
 The old label of gsnaug:verifiableWith was "verified with", the label of the other property, and
 the rename corrects it. The old terms are removed with no deprecated alias, because no case data
-outside the repository uses them. Rule A4 is a blank node with no IRI, so only its label
+outside the repository uses them. Rule RL-AUG-part_inherits_checkable_with is a blank node with no IRI, so only its label
 changes."""@en .
 
 
@@ -1166,25 +1166,25 @@ person who defines the mechanism states it with gsnaug:decides, "truth", "validi
 values are strings, as the values of gsnaug:issueOutcome are, because a concept scheme for two
 values is not worth its terms. There is no default. SWRL has no negation, so a rule cannot read a
 missing value as truth, and a mechanism with no value decides nothing. A shape warns about it.
-A6a to A6d read only a mechanism that decides truth, and a failing report of validity does not
-block a confirmation of truth. A7a to A7d are the same four rules for gsn:valid, because a SWRL
+the rules of the group truth_from_report read only a mechanism that decides truth, and a failing report of validity does not
+block a confirmation of truth. the rules of the group validity_from_report are the same four rules for gsn:valid, because a SWRL
 rule cannot take the property it writes from the data. The core rules only ever write gsn:valid
-false, and they never lift it. A7a and A7c write true only where the solution has no validity
-value, so they cannot alternate with a core rule or with A7b and A7d, and they need no
+false, and they never lift it. RL-AUG-conforming_report_validates_solution and RL-AUG-conforming_part_report_validates_solution write true only where the solution has no validity
+value, so they cannot alternate with a core rule or with RL-AUG-failing_report_invalidates_solution and RL-AUG-failing_part_report_invalidates_solution, and they need no
 composition guard. A mechanism checks evidence only. A check of a relationship or of a GSN element
 by a mechanism is future work."""@en .
 
 gsnaugdesign:why-0061
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """A revise or a resolve issue becomes a goal that challenges its target (A2, A3). That goal had
+    gsndesign:rationaleText """A revise or a resolve issue becomes a goal that challenges its target (the groups revise_issue_challenges and resolve_issue_defeats). That goal had
 no statement and no context, so the core goal shape warned twice about every such issue, although
 the case author did nothing wrong. The words of the goal are the issue's description, because the
 description is the only text the issue carries. It is often written as a request, not as a claim,
 and a person can replace it with a statement of their own. The context of the goal is the context
 of what it challenges, because a challenge is read in the same terms as its target. A solution has
 no context of its own, so a challenge to a solution takes the context of the goal that the solution
-supports. These are three new rules, not more atoms in A2 and A3, because A2 and A3 decide what an
-issue is, and they say nothing more (dd-0021). The three rules hold for both issue types at once.
+supports. These are three new rules, not more atoms in the rules of those two groups, because those rules decide
+what an issue is, and they say nothing more (dd-0021). The three rules hold for both issue types at once.
 The SPARQL copies write a statement or a context only to a goal that has none, so a person's own
 words win. SWRL has no negation, so the SWRL rules add the description and the contexts next to
 whatever a person wrote. The core shapes ask for at least one statement and one context, and set no
@@ -1202,8 +1202,8 @@ which keeps the old reading for every case that names no part. The range of gsn:
 gsn:Artefact, so a part that a solution refers to is also an artefact: a reasoner infers the type,
 and a case that runs the shapes without a reasoner states it, or the core shapes report the
 reference. This was accepted in place of a new property, because the core already has the link and
-the type does no harm. The guard needs negation as failure, so it is in the SPARQL copies of A6 and
-A7 only, and the SWRL rules are unchanged. The FinComp hub proposed the change, for its change
+the type does no harm. The guard needs negation as failure, so it is in the SPARQL copies of the groups truth_from_report and
+validity_from_report only, and the SWRL rules are unchanged. The FinComp hub proposed the change, for its change
 impact analysis, which needs the same reading."""@en .
 
 gsnaugdesign:why-0063
@@ -1226,17 +1226,17 @@ that a solution refers to, as before. The FinComp hub proposed the axiom."""@en 
 
 gsnaugdesign:why-0064
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """Before 0.5.1, the composition guard of A6a and A6c read the reports over one artefact, the one
+    gsndesign:rationaleText """Before 0.5.1, the composition guard of RL-AUG-conforming_report_confirms_solution and RL-AUG-conforming_part_report_confirms_solution read the reports over one artefact, the one
 that the rule matched, and over its parts. A solution can refer to more than one artefact, and
 since 0.5.0 to a part next to its artefact. When the newest report over one of them conformed and
-the newest report over another failed, A6a made the solution true and A6b made it untrue. The two
+the newest report over another failed, RL-AUG-conforming_report_confirms_solution made the solution true and RL-AUG-failing_report_refutes_solution made it untrue. The two
 rules undid each other on every pass, and the rule that ran last decided. A fixpoint test that
 compares the graph after a whole pass does not see this. The guard now reads every artefact that
 the solution refers to, and every part of one of them that counts for the solution. So one failing
 report outweighs any conforming one, as it already did for one artefact (why-0055). Each half of
 the guard starts from the artefacts of the solution, so an engine does not walk every checkable
 target of the case. The SWRL rules are unchanged, because the guard needs negation as failure. The
-FinComp hub found the defect and proposed the change. Its copy of A6a also finds the newest report
+FinComp hub found the defect and proposed the change. Its copy of RL-AUG-conforming_report_confirms_solution also finds the newest report
 per mechanism and target in a subquery, which is faster in rdflib. That copy is not taken, because
 it makes the rule three times as long and gives the same answers."""@en .
 
@@ -1707,7 +1707,7 @@ gsnaugdesign:st-0020
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0020 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "Four rules, and no fifth: A2a, A2b, A3a, A3b each test both the issue type and the class of the target. No rule fires on gsnaug:clarify, and none fires on a target that is neither gsn:Goal nor gsn:Solution." ;
+    gsndesign:statementText "Four rules, and no fifth: RL-AUG-revise_issue_challenges_goal, RL-AUG-revise_issue_challenges_solution, RL-AUG-resolve_issue_defeats_goal, RL-AUG-resolve_issue_defeats_solution each test both the issue type and the class of the target. No rule fires on gsnaug:clarify, and none fires on a target that is neither gsn:Goal nor gsn:Solution." ;
     gsndesign:aboutTerm gsnaug:Issue ;
     gsndesign:mentionsTerm gsn:Goal , gsn:Solution , gsnaug:clarify , gsnaug:resolve , gsnaug:revise .
 
@@ -1753,7 +1753,7 @@ gsnaugdesign:st-0023
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0023 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "A2a and A2b; A3a and A3b." .
+    gsndesign:statementText "RL-AUG-revise_issue_challenges_goal and RL-AUG-revise_issue_challenges_solution; RL-AUG-resolve_issue_defeats_goal and RL-AUG-resolve_issue_defeats_solution." .
 
 gsnaugdesign:dd-0024
     a gsndesign:RetiredDecision ;
@@ -1785,7 +1785,7 @@ gsnaugdesign:st-0025
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0025 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
-    gsndesign:statementText "augmentation/rules/a02a, a02b, a03a, a03b, a04, a06a, a06b, a06c, a06d, a07a, a07b, a07c, a07d, a08a, a08b, a08c - one per SWRL rule, count asserted by development/dev_tools/augmentation_check.py." .
+    gsndesign:statementText "augmentation/rules/RL-AUG-*.rq - one per SWRL rule, each named by the ID of its rule, count asserted by development/dev_tools/augmentation_check.py." .
 
 
 #################################################################
@@ -2080,7 +2080,7 @@ gsnaugdesign:st-0048
 gsnaugdesign:dd-0049
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The SPARQL twins of A3a and A3b write the defeat and the challenge as two operations, so that two asks against the same target both become defeaters."@en ;
+    gsndesign:naturalLanguage "The SPARQL twins of RL-AUG-resolve_issue_defeats_goal and RL-AUG-resolve_issue_defeats_solution write the defeat and the challenge as two operations, so that two asks against the same target both become defeaters."@en ;
     prov:used gsnaugdesign:src-0006 ;
     gsndesign:hasRationale gsnaugdesign:why-0041 ;
     prov:generated gsnaugdesign:st-0049 .
@@ -2089,7 +2089,7 @@ gsnaugdesign:st-0049
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0049 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
-    gsndesign:statementText "augmentation/rules/a03a and a03b: DELETE/INSERT of gsn:defeated guarded on the target, then INSERT of gsn:challenges guarded on the pair." .
+    gsndesign:statementText "augmentation/rules/RL-AUG-resolve_issue_defeats_goal and RL-AUG-resolve_issue_defeats_solution: DELETE/INSERT of gsn:defeated guarded on the target, then INSERT of gsn:challenges guarded on the pair." .
 
 
 #################################################################
@@ -2279,7 +2279,7 @@ gsnaugdesign:st-0060
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0060 ;
     gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
-    gsndesign:statementText "augmentation/queries/fc13, fc14, fc16, fc19, fc20, fc23, fc24, fc26, fc27, fc30, fc31, fc32: gsnaug:accepted, gsnaug:Clarification, gsnaug:Revision, gsnaug:Resolution, gsnaug:revisionOf and the three outcome concepts are replaced; an open ask is FILTER NOT EXISTS { ?answer gsnaug:answers ?issue } ." ;
+    gsndesign:statementText "augmentation/queries/RQ-AUG-case_compliance, RQ-AUG-open_clarifications, RQ-AUG-clarification_answers, RQ-AUG-who_holds_the_ask, RQ-AUG-escalation_count, RQ-AUG-revision_rounds, RQ-AUG-revision_diff, RQ-AUG-unresolved_at_audit, RQ-AUG-resolution_state, RQ-AUG-alternative_provision, RQ-AUG-evidence_cannot_be_produced, RQ-AUG-cannot_resolve: gsnaug:accepted, gsnaug:Clarification, gsnaug:Revision, gsnaug:Resolution, gsnaug:revisionOf and the three outcome concepts are replaced; an open ask is FILTER NOT EXISTS { ?answer gsnaug:answers ?issue } ." ;
     gsndesign:aboutTerm gsnaug:answers ;
     gsndesign:mentionsTerm gsnaug:Answer , gsnaug:answers , gsnaug:issueOutcome , gsnaug:replaces .
 
@@ -2318,7 +2318,7 @@ gsnaugdesign:st-0062
 
 gsnaugdesign:dd-0063
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "Retired in 0.4.0: FC38 reads the formalism off the node that implements the mechanism, not off the mechanism."@en ;
+    gsndesign:retirementReason "Retired in 0.4.0: RQ-AUG-inspectable_mechanisms reads the formalism off the node that implements the mechanism, not off the mechanism."@en ;
     gsndesign:supersededBy gsnaugdesign:dd-0094 ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:naturalLanguage "Two stored queries read the interface: one walks from a domain term to the claims that rest on it, the other sorts each mechanism under a solution into in the graph, script in the graph, declared by hand, or opaque."@en ;
@@ -2330,7 +2330,7 @@ gsnaugdesign:st-0063
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0063 ;
     gsndesign:inGraph gsnaugdesign:augmentation-queries-0.4.0 ;
-    gsndesign:statementText "augmentation/queries/fc37_term_impact.rq (CQ-79): ?mechanism gsnaug:readsTerm ?term, then any of the six mechanism properties to the artefact, gsn:refersTo to the solution and gsn:supportedBy+ to the goals. augmentation/queries/fc38_inspectable_mechanisms.rq (CQ-80): per solution, artefact and mechanism, state = in the graph if the mechanism is typed sh:NodeShape, sh:PropertyShape, a sh:SPARQL*Executable, swrl:Imp or sp:Query; script in the graph if gsnaug:script is bound; terms declared by hand if only gsnaug:readsTerm is; else opaque." ;
+    gsndesign:statementText "augmentation/queries/RQ-AUG-term_impact.rq (RQ-AUG-term_impact): ?mechanism gsnaug:readsTerm ?term, then any of the six mechanism properties to the artefact, gsn:refersTo to the solution and gsn:supportedBy+ to the goals. augmentation/queries/RQ-AUG-inspectable_mechanisms.rq (RQ-AUG-inspectable_mechanisms): per solution, artefact and mechanism, state = in the graph if the mechanism is typed sh:NodeShape, sh:PropertyShape, a sh:SPARQL*Executable, swrl:Imp or sp:Query; script in the graph if gsnaug:script is bound; terms declared by hand if only gsnaug:readsTerm is; else opaque." ;
     gsndesign:aboutTerm gsnaug:readsTerm ;
     gsndesign:mentionsTerm gsnaug:readsTerm , gsnaug:script .
 
@@ -2346,14 +2346,14 @@ gsnaugdesign:st-0064
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0064 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "gsnaug:script a owl:DatatypeProperty ; rdfs:domain gsnaug:Mechanism ; rdfs:range xsd:string . gsnaugsh:MechanismInterfaceShape also targets the subjects of gsnaug:script and constrains it to one xsd:string. fc38_inspectable_mechanisms.rq reports a scripted mechanism as \"script in the graph\"." ;
+    gsndesign:statementText "gsnaug:script a owl:DatatypeProperty ; rdfs:domain gsnaug:Mechanism ; rdfs:range xsd:string . gsnaugsh:MechanismInterfaceShape also targets the subjects of gsnaug:script and constrains it to one xsd:string. RQ-AUG-inspectable_mechanisms.rq reports a scripted mechanism as \"script in the graph\"." ;
     gsndesign:aboutTerm gsnaug:script ;
     gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:readsTerm , gsnaug:script ,
         gsnaugsh:MechanismInterfaceShape .
 
 gsnaugdesign:dd-0065
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "Retired in 0.4.0: D1 to D3 read the shape or the rule that implements the mechanism, not the mechanism."@en ;
+    gsndesign:retirementReason "Retired in 0.4.0: the derivations of the group mechanism_terms read the shape or the rule that implements the mechanism, not the mechanism."@en ;
     gsndesign:supersededBy gsnaugdesign:dd-0093 ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:naturalLanguage "The terms a shape or rule mechanism reads, and the terms a rule mechanism writes, are derived from the node by SPARQL updates that have no SWRL twin."@en ;
@@ -2365,7 +2365,7 @@ gsnaugdesign:st-0065
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0065 ;
     gsndesign:inGraph gsnaugdesign:augmentation-derivations-0.4.0 ;
-    gsndesign:statementText "augmentation/derivations/d01_shape_mechanism_reads.rq: a gsnaug:Mechanism typed sh:NodeShape or sh:PropertyShape readsTerm every IRI reached by sh:targetClass, sh:targetSubjectsOf, sh:targetObjectsOf, sh:class and sh:path (unwrapping sh:inversePath, sh:zeroOrMorePath, sh:oneOrMorePath, sh:zeroOrOnePath, sh:alternativePath and sequence lists) on itself and on shapes reached by sh:property, sh:node, sh:not, sh:and, sh:or, sh:xone. d02_rule_mechanism_reads.rq: a gsnaug:Mechanism typed swrl:Imp readsTerm every IRI swrl:classPredicate or swrl:propertyPredicate in its swrl:body. d03_rule_mechanism_writes.rq: the same over swrl:head, into gsnaug:writesTerm." ;
+    gsndesign:statementText "augmentation/derivations/RL-AUG-shape_mechanism_reads.rq: a gsnaug:Mechanism typed sh:NodeShape or sh:PropertyShape readsTerm every IRI reached by sh:targetClass, sh:targetSubjectsOf, sh:targetObjectsOf, sh:class and sh:path (unwrapping sh:inversePath, sh:zeroOrMorePath, sh:oneOrMorePath, sh:zeroOrOnePath, sh:alternativePath and sequence lists) on itself and on shapes reached by sh:property, sh:node, sh:not, sh:and, sh:or, sh:xone. RL-AUG-rule_mechanism_reads.rq: a gsnaug:Mechanism typed swrl:Imp readsTerm every IRI swrl:classPredicate or swrl:propertyPredicate in its swrl:body. RL-AUG-rule_mechanism_writes.rq: the same over swrl:head, into gsnaug:writesTerm." ;
     gsndesign:aboutTerm gsnaug:readsTerm ;
     gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:readsTerm , gsnaug:writesTerm .
 
@@ -2401,7 +2401,7 @@ gsnaugdesign:st-0067
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0067 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "A4: ArtefactPart(?P) ^ partOf(?P, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?X) -> checkableWith(?P, ?X). SPARQL twin in augmentation/rules/a04." ;
+    gsndesign:statementText "RL-AUG-part_inherits_checkable_with: ArtefactPart(?P) ^ partOf(?P, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?X) -> checkableWith(?P, ?X). SPARQL twin in augmentation/rules/RL-AUG-part_inherits_checkable_with." ;
     gsndesign:mentionsTerm gsn:Artefact , gsnaug:ArtefactPart , gsnaug:partOf ,
         gsnaug:checkableWith .
 
@@ -2438,7 +2438,7 @@ gsnaugdesign:st-0069
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0069 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "A6a: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, true) ^ decides(?M, \"truth\") ^ currentReport(?A, ?R) -> true(?S, true). SPARQL twin in augmentation/rules/a06a." ;
+    gsndesign:statementText "RL-AUG-conforming_report_confirms_solution: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, true) ^ decides(?M, \"truth\") ^ currentReport(?A, ?R) -> true(?S, true). SPARQL twin in augmentation/rules/RL-AUG-conforming_report_confirms_solution." ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:checkableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
 
 gsnaugdesign:dd-0070
@@ -2453,7 +2453,7 @@ gsnaugdesign:st-0070
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0070 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "A6b: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, false) ^ decides(?M, \"truth\") ^ currentReport(?A, ?R) -> true(?S, false). SPARQL twin in augmentation/rules/a06b." ;
+    gsndesign:statementText "RL-AUG-failing_report_refutes_solution: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, false) ^ decides(?M, \"truth\") ^ currentReport(?A, ?R) -> true(?S, false). SPARQL twin in augmentation/rules/RL-AUG-failing_report_refutes_solution." ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:checkableWith , prov:used , prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
 
 gsnaugdesign:dd-0071
@@ -2548,7 +2548,7 @@ gsnaugdesign:st-0076
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0076 ;
     gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
-    gsndesign:statementText "fc39_requirement_revised.rq (CQ-81): elements requiredBy a requirement with a newer prov:wasRevisionOf. fc40_system_revised.rq (CQ-82): artefacts generatedFrom an entity with a newer revision and no replacement drawn from it, with the solution and goals above. fc41_context_revised.rq (CQ-83): goals inContextOf a context whose artefact has a newer gsnaug:replaces or prov:wasRevisionOf. No rule writes gsn:inDoubt from any of the three." ;
+    gsndesign:statementText "RQ-AUG-requirement_revised.rq (RQ-AUG-requirement_revised): elements requiredBy a requirement with a newer prov:wasRevisionOf. RQ-AUG-system_revised.rq (RQ-AUG-system_revised): artefacts generatedFrom an entity with a newer revision and no replacement drawn from it, with the solution and goals above. RQ-AUG-context_revised.rq (RQ-AUG-context_revised): goals inContextOf a context whose artefact has a newer gsnaug:replaces or prov:wasRevisionOf. No rule writes gsn:inDoubt from any of the three." ;
     gsndesign:aboutTerm gsnaug:generatedFrom ;
     gsndesign:mentionsTerm gsn:Context , gsn:inContextOf , gsn:refersTo , gsn:supportedBy , gsnaug:generatedFrom , gsnaug:replaces , gsnaug:requiredBy , prov:wasRevisionOf .
 
@@ -2596,7 +2596,7 @@ gsnaugdesign:st-0079
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0079 ;
     gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
-    gsndesign:statementText "fc13, fc14, fc19, fc26: open = FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?o }, the answer test is dropped. fc16, fc23: list gsnaug:Response by gsnaug:respondsTo. fc27: state = the outcome or open; a ?responded column says whether a reply is on record." ;
+    gsndesign:statementText "RQ-AUG-case_compliance, RQ-AUG-open_clarifications, RQ-AUG-who_holds_the_ask, RQ-AUG-unresolved_at_audit: open = FILTER NOT EXISTS { ?issue gsnaug:issueOutcome ?o }, the answer test is dropped. RQ-AUG-clarification_answers, RQ-AUG-revision_rounds: list gsnaug:Response by gsnaug:respondsTo. RQ-AUG-resolution_state: state = the outcome or open; a ?responded column says whether a reply is on record." ;
     gsndesign:aboutTerm gsnaug:issueOutcome ;
     gsndesign:mentionsTerm gsnaug:Response , gsnaug:issueOutcome , gsnaug:respondsTo .
 
@@ -2617,7 +2617,7 @@ gsnaugdesign:st-0080
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0080 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "A6c: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, true) ^ decides(?M, \"truth\") ^ currentReport(?P, ?R) -> true(?S, true). SPARQL twin in augmentation/rules/a06c." ;
+    gsndesign:statementText "RL-AUG-conforming_part_report_confirms_solution: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, true) ^ decides(?M, \"truth\") ^ currentReport(?P, ?R) -> true(?S, true). SPARQL twin in augmentation/rules/RL-AUG-conforming_part_report_confirms_solution." ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
         gsnaug:partOf , gsnaug:checkableWith , prov:used ,
         prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
@@ -2634,7 +2634,7 @@ gsnaugdesign:st-0081
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0081 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "A6d: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, false) ^ decides(?M, \"truth\") ^ currentReport(?P, ?R) -> true(?S, false). SPARQL twin in augmentation/rules/a06d." ;
+    gsndesign:statementText "RL-AUG-failing_part_report_refutes_solution: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?P) ^ conforms(?R, false) ^ decides(?M, \"truth\") ^ currentReport(?P, ?R) -> true(?S, false). SPARQL twin in augmentation/rules/RL-AUG-failing_part_report_refutes_solution." ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:true , gsnaug:ArtefactPart ,
         gsnaug:partOf , gsnaug:checkableWith , prov:used ,
         prov:wasGeneratedBy , sh:ValidationReport , sh:conforms .
@@ -2662,10 +2662,10 @@ gsnaugdesign:st-0082
 
 gsnaugdesign:dd-0083
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "Retired in 0.5.1: the composition guard of A6a and A6c reads every artefact that the solution refers to, not only the one the rule matched."@en ;
+    gsndesign:retirementReason "Retired in 0.5.1: the composition guard of RL-AUG-conforming_report_confirms_solution and RL-AUG-conforming_part_report_confirms_solution reads every artefact that the solution refers to, not only the one the rule matched."@en ;
     gsndesign:supersededBy gsnaugdesign:dd-0105 ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The SPARQL twins of A6a to A6d read only the newest report from a mechanism over a target, and a conforming report confirms a solution only while no current report over its artefact or a part of it fails."@en ;
+    gsndesign:naturalLanguage "The SPARQL twins of the rules of the group truth_from_report read only the newest report from a mechanism over a target, and a conforming report confirms a solution only while no current report over its artefact or a part of it fails."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0055 ;
     prov:generated gsnaugdesign:st-0083 .
@@ -2674,7 +2674,7 @@ gsnaugdesign:st-0083
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0083 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.5.0 ;
-    gsndesign:statementText "augmentation/rules/a06a, a06b, a06c, a06d: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime; in a06a and a06c two more FILTER NOT EXISTS on a current failing report, one over the artefact and one over a part of it that counts for the solution, each starting from the artefact; DELETE { ?S gsn:true ?old } before INSERT. Each file marks the guards as not in the SWRL. The SWRL rules are unchanged." ;
+    gsndesign:statementText "augmentation/rules/RL-AUG-conforming_report_confirms_solution, RL-AUG-failing_report_refutes_solution, RL-AUG-conforming_part_report_confirms_solution, RL-AUG-failing_part_report_refutes_solution: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime; in RL-AUG-conforming_report_confirms_solution and RL-AUG-conforming_part_report_confirms_solution two more FILTER NOT EXISTS on a current failing report, one over the artefact and one over a part of it that counts for the solution, each starting from the artefact; DELETE { ?S gsn:true ?old } before INSERT. Each file marks the guards as not in the SWRL. The SWRL rules are unchanged." ;
     gsndesign:mentionsTerm gsn:true , gsnaug:partOf , gsnaug:checkableWith ,
         prov:generatedAtTime , sh:ValidationReport , sh:conforms .
 
@@ -2713,7 +2713,7 @@ gsnaugdesign:st-0085
 gsnaugdesign:dd-0086
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "A report with prov:invalidatedAtTime or prov:wasInvalidatedBy is struck: the SPARQL twins of A6a to A6d skip it, and it retires no earlier report."@en ;
+    gsndesign:naturalLanguage "A report with prov:invalidatedAtTime or prov:wasInvalidatedBy is struck: the SPARQL twins of the rules of the group truth_from_report skip it, and it retires no earlier report."@en ;
     prov:used gsnaugdesign:src-0016 ;
     gsndesign:hasRationale gsnaugdesign:why-0056 ;
     prov:generated gsnaugdesign:st-0086 .
@@ -2722,7 +2722,7 @@ gsnaugdesign:st-0086
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0086 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
-    gsndesign:statementText "augmentation/rules/a06a, a06b, a06c, a06d: FILTER NOT EXISTS { ?R prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck } on the report read, on every candidate for a newer report, and in a06a and a06c on the failing reports of the composition guard." ;
+    gsndesign:statementText "augmentation/rules/RL-AUG-conforming_report_confirms_solution, RL-AUG-failing_report_refutes_solution, RL-AUG-conforming_part_report_confirms_solution, RL-AUG-failing_part_report_refutes_solution: FILTER NOT EXISTS { ?R prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck } on the report read, on every candidate for a newer report, and in RL-AUG-conforming_report_confirms_solution and RL-AUG-conforming_part_report_confirms_solution on the failing reports of the composition guard." ;
     gsndesign:mentionsTerm prov:invalidatedAtTime ,
         prov:wasInvalidatedBy , sh:ValidationReport .
 
@@ -2798,7 +2798,7 @@ gsnaugdesign:st-0090
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0090 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "gsnaug:checkableWith rdfs:label \"checkable with\"@en . gsnaug:checkedWith rdfs:label \"checked with\"@en . Rule A4 is labelled \"Part Inherits Checkable With\"." ;
+    gsndesign:statementText "gsnaug:checkableWith rdfs:label \"checkable with\"@en . gsnaug:checkedWith rdfs:label \"checked with\"@en . Rule RL-AUG-part_inherits_checkable_with is labelled \"Part Inherits Checkable With\"." ;
     gsndesign:aboutTerm gsnaug:checkableWith ;
     gsndesign:mentionsTerm gsnaug:checkableWith , gsnaug:checkedWith .
 
@@ -2835,7 +2835,7 @@ gsnaugdesign:st-0093
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0093 ;
     gsndesign:inGraph gsnaugdesign:augmentation-derivations-0.6.0 ;
-    gsndesign:statementText "augmentation/derivations/d01_shape_mechanism_reads.rq: a sh:NodeShape or sh:PropertyShape that gsnaug:implements a gsnaug:Mechanism gives the mechanism readsTerm every IRI reached by sh:targetClass, sh:targetSubjectsOf, sh:targetObjectsOf, sh:class and sh:path (unwrapping sh:inversePath, sh:zeroOrMorePath, sh:oneOrMorePath, sh:zeroOrOnePath, sh:alternativePath and sequence lists) on the shape and on shapes reached by sh:property, sh:node, sh:not, sh:and, sh:or, sh:xone. d02_rule_mechanism_reads.rq: a swrl:Imp that gsnaug:implements a gsnaug:Mechanism gives the mechanism readsTerm every IRI swrl:classPredicate or swrl:propertyPredicate in its swrl:body. d03_rule_mechanism_writes.rq: the same over swrl:head, into gsnaug:writesTerm." ;
+    gsndesign:statementText "augmentation/derivations/RL-AUG-shape_mechanism_reads.rq: a sh:NodeShape or sh:PropertyShape that gsnaug:implements a gsnaug:Mechanism gives the mechanism readsTerm every IRI reached by sh:targetClass, sh:targetSubjectsOf, sh:targetObjectsOf, sh:class and sh:path (unwrapping sh:inversePath, sh:zeroOrMorePath, sh:oneOrMorePath, sh:zeroOrOnePath, sh:alternativePath and sequence lists) on the shape and on shapes reached by sh:property, sh:node, sh:not, sh:and, sh:or, sh:xone. RL-AUG-rule_mechanism_reads.rq: a swrl:Imp that gsnaug:implements a gsnaug:Mechanism gives the mechanism readsTerm every IRI swrl:classPredicate or swrl:propertyPredicate in its swrl:body. RL-AUG-rule_mechanism_writes.rq: the same over swrl:head, into gsnaug:writesTerm." ;
     gsndesign:aboutTerm gsnaug:readsTerm ;
     gsndesign:mentionsTerm gsnaug:Mechanism , gsnaug:implements , gsnaug:readsTerm , gsnaug:writesTerm .
 
@@ -2851,7 +2851,7 @@ gsnaugdesign:st-0094
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0094 ;
     gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
-    gsndesign:statementText "augmentation/queries/fc37_term_impact.rq (CQ-79): ?mechanism gsnaug:readsTerm ?term, then any of the six mechanism properties to the artefact, gsn:refersTo to the solution and gsn:supportedBy+ to the goals. augmentation/queries/fc38_inspectable_mechanisms.rq (CQ-80): per solution, artefact and mechanism, state = in the graph if a node typed sh:NodeShape, sh:PropertyShape, a sh:SPARQL*Executable, swrl:Imp or sp:Query gsnaug:implements the mechanism; script in the graph if gsnaug:script is bound; terms declared by hand if only gsnaug:readsTerm is; else opaque." ;
+    gsndesign:statementText "augmentation/queries/RQ-AUG-term_impact.rq (RQ-AUG-term_impact): ?mechanism gsnaug:readsTerm ?term, then any of the six mechanism properties to the artefact, gsn:refersTo to the solution and gsn:supportedBy+ to the goals. augmentation/queries/RQ-AUG-inspectable_mechanisms.rq (RQ-AUG-inspectable_mechanisms): per solution, artefact and mechanism, state = in the graph if a node typed sh:NodeShape, sh:PropertyShape, a sh:SPARQL*Executable, swrl:Imp or sp:Query gsnaug:implements the mechanism; script in the graph if gsnaug:script is bound; terms declared by hand if only gsnaug:readsTerm is; else opaque." ;
     gsndesign:aboutTerm gsnaug:readsTerm ;
     gsndesign:mentionsTerm gsnaug:implements , gsnaug:readsTerm , gsnaug:script .
 
@@ -2905,7 +2905,7 @@ gsnaugdesign:st-0097
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0097 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "A6a to A6d: decides(?M, \"truth\") in the body." ;
+    gsndesign:statementText "the rules of the group truth_from_report: decides(?M, \"truth\") in the body." ;
     gsndesign:aboutTerm gsnaug:decides ;
     gsndesign:mentionsTerm gsn:true , gsnaug:decides .
 
@@ -2921,7 +2921,7 @@ gsnaugdesign:st-0098
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0098 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "A7a: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, true) ^ decides(?M, \"validity\") ^ currentReport(?A, ?R) -> valid(?S, true). A7b: the same with conforms(?R, false) -> valid(?S, false). A7c and A7d: the same over ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) and used(?R, ?P). SPARQL twins in augmentation/rules/a07a to a07d." ;
+    gsndesign:statementText "RL-AUG-conforming_report_validates_solution: Solution(?S) ^ refersTo(?S, ?A) ^ Artefact(?A) ^ checkableWith(?A, ?M) ^ ValidationReport(?R) ^ wasGeneratedBy(?R, ?M) ^ used(?R, ?A) ^ conforms(?R, true) ^ decides(?M, \"validity\") ^ currentReport(?A, ?R) -> valid(?S, true). RL-AUG-failing_report_invalidates_solution: the same with conforms(?R, false) -> valid(?S, false). RL-AUG-conforming_part_report_validates_solution and RL-AUG-failing_part_report_invalidates_solution: the same over ArtefactPart(?P) ^ partOf(?P, ?A) ^ checkableWith(?P, ?M) and used(?R, ?P). SPARQL twins in augmentation/rules/RL-AUG-conforming_report_validates_solution to RL-AUG-failing_part_report_invalidates_solution." ;
     gsndesign:aboutTerm gsn:valid ;
     gsndesign:mentionsTerm gsn:Artefact , gsn:Solution , gsn:refersTo , gsn:valid , gsnaug:ArtefactPart ,
         gsnaug:checkableWith , gsnaug:decides , gsnaug:partOf , prov:used , prov:wasGeneratedBy ,
@@ -2939,7 +2939,7 @@ gsnaugdesign:st-0099
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0099 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
-    gsndesign:statementText "augmentation/rules/a07a to a07d: the struck-report and newest-report guards of A6; a07a and a07c INSERT gsn:valid true only under FILTER NOT EXISTS { ?S gsn:valid ?any }, with no DELETE and no composition guard; a07b and a07d DELETE the old value and INSERT false. In a06a and a06c, the composition guard counts only a failing report of a mechanism that decides truth." ;
+    gsndesign:statementText "augmentation/rules/, the rules of the group validity_from_report: the struck-report and newest-report guards of the group truth_from_report; RL-AUG-conforming_report_validates_solution and RL-AUG-conforming_part_report_validates_solution INSERT gsn:valid true only under FILTER NOT EXISTS { ?S gsn:valid ?any }, with no DELETE and no composition guard; RL-AUG-failing_report_invalidates_solution and RL-AUG-failing_part_report_invalidates_solution DELETE the old value and INSERT false. In RL-AUG-conforming_report_confirms_solution and RL-AUG-conforming_part_report_confirms_solution, the composition guard counts only a failing report of a mechanism that decides truth." ;
     gsndesign:aboutTerm gsn:valid ;
     gsndesign:mentionsTerm gsn:true , gsn:valid , gsnaug:decides , sh:ValidationReport .
 
@@ -2977,14 +2977,14 @@ gsnaugdesign:st-0101
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0101 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "A8a: Issue(?I) ^ Goal(?I) ^ description(?I, ?D) -> statement(?I, ?D). A8b: Issue(?I) ^ Goal(?I) ^ challenges(?I, ?E) ^ Goal(?E) ^ inContextOf(?E, ?C) -> inContextOf(?I, ?C). A8c: Issue(?I) ^ Goal(?I) ^ challenges(?I, ?E) ^ Solution(?E) ^ supportedBy(?P, ?E) ^ inContextOf(?P, ?C) -> inContextOf(?I, ?C)." ;
+    gsndesign:statementText "RL-AUG-issue_goal_statement: Issue(?I) ^ Goal(?I) ^ description(?I, ?D) -> statement(?I, ?D). RL-AUG-issue_goal_context: Issue(?I) ^ Goal(?I) ^ challenges(?I, ?E) ^ Goal(?E) ^ inContextOf(?E, ?C) -> inContextOf(?I, ?C). RL-AUG-issue_goal_context_from_solution: Issue(?I) ^ Goal(?I) ^ challenges(?I, ?E) ^ Solution(?E) ^ supportedBy(?P, ?E) ^ inContextOf(?P, ?C) -> inContextOf(?I, ?C)." ;
     gsndesign:aboutTerm gsnaug:Issue ;
     gsndesign:mentionsTerm gsn:Goal , gsn:Solution , gsn:statement , gsn:inContextOf , gsn:challenges , gsn:supportedBy .
 
 gsnaugdesign:dd-0102
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The SPARQL copies of A8a to A8c write a statement or a context only to a goal that has none."@en ;
+    gsndesign:naturalLanguage "The SPARQL copies of the rules of the group issue_goal write a statement or a context only to a goal that has none."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0061 ;
     prov:generated gsnaugdesign:st-0102 .
@@ -2993,7 +2993,7 @@ gsnaugdesign:st-0102
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0102 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
-    gsndesign:statementText "augmentation/rules/a08a, a08b, a08c: INSERT from a nested SELECT DISTINCT under FILTER NOT EXISTS { ?I gsn:statement ?any } or FILTER NOT EXISTS { ?I gsn:inContextOf ?any }. augmentation/README.md marks the guard as not in the SWRL." ;
+    gsndesign:statementText "augmentation/rules/RL-AUG-issue_goal_statement, RL-AUG-issue_goal_context, RL-AUG-issue_goal_context_from_solution: INSERT from a nested SELECT DISTINCT under FILTER NOT EXISTS { ?I gsn:statement ?any } or FILTER NOT EXISTS { ?I gsn:inContextOf ?any }. augmentation/README.md marks the guard as not in the SWRL." ;
     gsndesign:mentionsTerm gsn:statement , gsn:inContextOf .
 
 gsnaugdesign:dd-0103
@@ -3008,7 +3008,7 @@ gsnaugdesign:st-0103
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0103 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
-    gsndesign:statementText "augmentation/rules/a06c, a06d, a07c, a07d: FILTER(EXISTS { ?S gsn:refersTo ?P } || NOT EXISTS { ?S gsn:refersTo ?namedPart . ?namedPart gsnaug:partOf ?A }) on the part read; a06a and a06c: the same test on the part in the composition guard. The SWRL rules are unchanged." ;
+    gsndesign:statementText "augmentation/rules/RL-AUG-conforming_part_report_confirms_solution, RL-AUG-failing_part_report_refutes_solution, RL-AUG-conforming_part_report_validates_solution, RL-AUG-failing_part_report_invalidates_solution: FILTER(EXISTS { ?S gsn:refersTo ?P } || NOT EXISTS { ?S gsn:refersTo ?namedPart . ?namedPart gsnaug:partOf ?A }) on the part read; RL-AUG-conforming_report_confirms_solution and RL-AUG-conforming_part_report_confirms_solution: the same test on the part in the composition guard. The SWRL rules are unchanged." ;
     gsndesign:aboutTerm gsnaug:partOf ;
     gsndesign:mentionsTerm gsn:refersTo , gsnaug:ArtefactPart , gsnaug:partOf , gsn:Artefact .
 
@@ -3033,10 +3033,10 @@ gsnaugdesign:st-0104
 
 gsnaugdesign:dd-0105
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "Retired in 0.6.0: A6a and A6c find the current report of each mechanism and target once, in a subquery, and their composition guards use MINUS. The guards decide the same."@en ;
+    gsndesign:retirementReason "Retired in 0.6.0: RL-AUG-conforming_report_confirms_solution and RL-AUG-conforming_part_report_confirms_solution find the current report of each mechanism and target once, in a subquery, and their composition guards use MINUS. The guards decide the same."@en ;
     gsndesign:supersededBy gsnaugdesign:dd-0110 ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The SPARQL twins of A6a to A6d read only the newest report from a mechanism over a target, and a conforming report confirms a solution only while no current report fails over any artefact that the solution refers to, or over a part of one that counts for it."@en ;
+    gsndesign:naturalLanguage "The SPARQL twins of the rules of the group truth_from_report read only the newest report from a mechanism over a target, and a conforming report confirms a solution only while no current report fails over any artefact that the solution refers to, or over a part of one that counts for it."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0055 , gsnaugdesign:why-0064 ;
     prov:generated gsnaugdesign:st-0105 .
@@ -3045,51 +3045,51 @@ gsnaugdesign:st-0105
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0105 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.5.1 ;
-    gsndesign:statementText "augmentation/rules/a06a, a06b, a06c, a06d: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime; in a06a and a06c two more FILTER NOT EXISTS on a current failing report, one over every ?A2 with ?S gsn:refersTo ?A2 and one over a part of such an ?A2 that counts for the solution; DELETE { ?S gsn:true ?old } before INSERT. QUERY-COMMENTS.md marks the guards as not in the SWRL. The SWRL rules are unchanged." ;
+    gsndesign:statementText "augmentation/rules/RL-AUG-conforming_report_confirms_solution, RL-AUG-failing_report_refutes_solution, RL-AUG-conforming_part_report_confirms_solution, RL-AUG-failing_part_report_refutes_solution: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime; in RL-AUG-conforming_report_confirms_solution and RL-AUG-conforming_part_report_confirms_solution two more FILTER NOT EXISTS on a current failing report, one over every ?A2 with ?S gsn:refersTo ?A2 and one over a part of such an ?A2 that counts for the solution; DELETE { ?S gsn:true ?old } before INSERT. QUERY-COMMENTS.md marks the guards as not in the SWRL. The SWRL rules are unchanged." ;
     gsndesign:mentionsTerm gsn:true , gsn:refersTo , gsnaug:partOf , gsnaug:checkableWith ,
         prov:generatedAtTime , sh:ValidationReport , sh:conforms .
 
 gsnaugdesign:why-0065
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """SWRL has no maximum and no negation. So the SWRL form of A6a to A6d and A7a to A7d could not read
+    gsndesign:rationaleText """SWRL has no maximum and no negation. So the SWRL form of the rules of the group truth_from_report and the rules of the group validity_from_report could not read
 the newest report that is not struck, as the SPARQL twins do since why-0055. Under a reasoner,
-every report of a mechanism counted. After a failing report and a later conforming one, A6b still
+every report of a mechanism counted. After a failing report and a later conforming one, RL-AUG-failing_report_refutes_solution still
 made the solution untrue. In 0.6.0 the link gsnaug:currentReport goes from an artefact, or from a
 part of one, to the newest report of each mechanism over it that is not struck. The body of each
 of the eight rules reads the link, with the artefact or the part as its subject. A report that is
 retired or struck has no link, so it matches no rule. The cost is that a graph without the link
 gives no value under the SWRL forms. The SPARQL twins do not read the link, because they find the
-newest report themselves. So a store that runs the twins needs no link. A7a to A7d get the atom
-with A6a to A6d, because they read the reports of a validity check in the same way, and a second
+newest report themselves. So a store that runs the twins needs no link. the rules of the group validity_from_report get the atom
+with the rules of the group truth_from_report, because they read the reports of a validity check in the same way, and a second
 breaking release for four more atoms costs more than it saves. gsnaugsh:CurrentReportShape reports
 a link whose value is not a report over its subject, because such a link matches no rule and no
-engine says so. The FinComp hub proposed the link and the atom for A6a to A6d."""@en .
+engine says so. The FinComp hub proposed the link and the atom for the rules of the group truth_from_report."""@en .
 
 gsnaugdesign:why-0066
     a gsndesign:Rationale ;
     gsndesign:rationaleText """A writer of reports knows which report is the newest when it writes one, so it can move
 gsnaug:currentReport itself. The FinComp hub does that in one process query. But a case can get
 its reports from more than one writer, from an engine that knows nothing of the link, or by hand.
-The derivation D4 sets the link from the reports in the graph. It uses the same reading as the
+The derivation RL-AUG-current_report sets the link from the reports in the graph. It uses the same reading as the
 newest-report guard of the SPARQL twins: a struck report is never current, a report without a
 timestamp is always current, and a timed report is current while no later report of the same
-mechanism over the same target is unstruck. D4 also removes a link that no longer holds, so it
+mechanism over the same target is unstruck. RL-AUG-current_report also removes a link that no longer holds, so it
 can run again after each new report. It is a derivation and not a rule, because it needs negation
-and has no SWRL form, as D1 to D3. Run D4 before a reasoner reads the case."""@en .
+and has no SWRL form, as the derivations of the group mechanism_terms. Run RL-AUG-current_report before a reasoner reads the case."""@en .
 
 gsnaugdesign:why-0067
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """In 0.5.1 the subquery form of A6a from the FinComp hub was not taken, because it makes the rule
+    gsndesign:rationaleText """In 0.5.1 the subquery form of RL-AUG-conforming_report_confirms_solution from the FinComp hub was not taken, because it makes the rule
 three times as long and gives the same answers (why-0064). The times then came from rdflib, and
 the checks of this repository run the rules of the core in Oxigraph. On 2026-11-14 the hub
-measured A6c in Oxigraph (pyoxigraph 0.5.13): the 0.5.1 text took 690 ms for 100 solutions, and it
+measured RL-AUG-conforming_part_report_confirms_solution in Oxigraph (pyoxigraph 0.5.13): the 0.5.1 text took 690 ms for 100 solutions, and it
 did not finish 1000 solutions, a case of 11,000 triples, in 300 seconds. The slow part is the
 composition guard over the parts, a FILTER NOT EXISTS that compares each report with every other
 report of its mechanism and target. The subquery form finds the current report of each mechanism
 and target once, with MAX and GROUP BY, and the guards are MINUS blocks that join on it. The hub
 measured 27 ms and 312 ms on the same cases, and the same graph as the 0.5.1 text in 1,000 random
-cases, under rdflib and in Oxigraph. A6a has the same guard text and no known failure. It takes
-the same form so that the two rules that confirm a solution read alike. A6b, A6d and A7a to A7d
+cases, under rdflib and in Oxigraph. RL-AUG-conforming_report_confirms_solution has the same guard text and no known failure. It takes
+the same form so that the two rules that confirm a solution read alike. RL-AUG-failing_report_refutes_solution, RL-AUG-failing_part_report_refutes_solution and the rules of the group validity_from_report
 have no composition guard and keep the short text. The length is the accepted cost."""@en .
 
 gsnaugdesign:dd-0106
@@ -3111,7 +3111,7 @@ gsnaugdesign:st-0106
 gsnaugdesign:dd-0107
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SWRL ;
-    gsndesign:naturalLanguage "The SWRL forms of A6a to A6d and A7a to A7d read a report only if it is the current report of the artefact or the part that it is over."@en ;
+    gsndesign:naturalLanguage "The SWRL forms of the rules of the group truth_from_report and the rules of the group validity_from_report read a report only if it is the current report of the artefact or the part that it is over."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0065 ;
     prov:generated gsnaugdesign:st-0107 .
@@ -3120,7 +3120,7 @@ gsnaugdesign:st-0107
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0107 ;
     gsndesign:inGraph gsnaugdesign:augmentation-0.6.0 ;
-    gsndesign:statementText "A6a, A6b, A7a, A7b: currentReport(?A, ?R) in the body. A6c, A6d, A7c, A7d: currentReport(?P, ?R) in the body. The SPARQL twins do not read the link." ;
+    gsndesign:statementText "RL-AUG-conforming_report_confirms_solution, RL-AUG-failing_report_refutes_solution, RL-AUG-conforming_report_validates_solution, RL-AUG-failing_report_invalidates_solution: currentReport(?A, ?R) in the body. RL-AUG-conforming_part_report_confirms_solution, RL-AUG-failing_part_report_refutes_solution, RL-AUG-conforming_part_report_validates_solution, RL-AUG-failing_part_report_invalidates_solution: currentReport(?P, ?R) in the body. The SPARQL twins do not read the link." ;
     gsndesign:aboutTerm gsnaug:currentReport ;
     gsndesign:mentionsTerm gsnaug:currentReport , gsn:true , gsn:valid , sh:ValidationReport .
 
@@ -3136,7 +3136,7 @@ gsnaugdesign:st-0108
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0108 ;
     gsndesign:inGraph gsnaugdesign:augmentation-derivations-0.6.0 ;
-    gsndesign:statementText "augmentation/derivations/d04_current_report.rq: INSERT { ?target gsnaug:currentReport ?report } for an unstruck sh:ValidationReport with prov:wasGeneratedBy ?mechanism and prov:used ?target, while no unstruck report of the same mechanism over the same target has a later prov:generatedAtTime; DELETE { ?target gsnaug:currentReport ?stale } for a link whose report is no longer such a report." ;
+    gsndesign:statementText "augmentation/derivations/RL-AUG-current_report.rq: INSERT { ?target gsnaug:currentReport ?report } for an unstruck sh:ValidationReport with prov:wasGeneratedBy ?mechanism and prov:used ?target, while no unstruck report of the same mechanism over the same target has a later prov:generatedAtTime; DELETE { ?target gsnaug:currentReport ?stale } for a link whose report is no longer such a report." ;
     gsndesign:aboutTerm gsnaug:currentReport ;
     gsndesign:mentionsTerm gsnaug:currentReport , prov:generatedAtTime , prov:invalidatedAtTime ,
         prov:wasInvalidatedBy , prov:wasGeneratedBy , prov:used , sh:ValidationReport .
@@ -3160,7 +3160,7 @@ gsnaugdesign:st-0109
 gsnaugdesign:dd-0110
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The SPARQL twins of A6a to A6d read only the newest report from a mechanism over a target, and a conforming report confirms a solution only while no current report fails over any artefact that the solution refers to, or over a part of one that counts for it. A6a and A6c find the current reports once, in a subquery."@en ;
+    gsndesign:naturalLanguage "The SPARQL twins of the rules of the group truth_from_report read only the newest report from a mechanism over a target, and a conforming report confirms a solution only while no current report fails over any artefact that the solution refers to, or over a part of one that counts for it. RL-AUG-conforming_report_confirms_solution and RL-AUG-conforming_part_report_confirms_solution find the current reports once, in a subquery."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0055 , gsnaugdesign:why-0064 , gsnaugdesign:why-0067 ;
     prov:generated gsnaugdesign:st-0110 .
@@ -3169,7 +3169,7 @@ gsnaugdesign:st-0110
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0110 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
-    gsndesign:statementText "augmentation/rules/a06b, a06d: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime. augmentation/rules/a06a, a06c: a subquery with MAX(prov:generatedAtTime) GROUP BY mechanism and target gives the current reports, in a UNION with the reports that have no timestamp; the rule joins on the conforming ones; two MINUS blocks on the failing ones, one over every ?A2 with ?S gsn:refersTo ?A2 and one over a part of such an ?A2 that counts for the solution. All four: DELETE { ?S gsn:true ?old } before INSERT. augmentation/README.md marks the guards as not in the SWRL." ;
+    gsndesign:statementText "augmentation/rules/RL-AUG-failing_report_refutes_solution, RL-AUG-failing_part_report_refutes_solution: FILTER NOT EXISTS on a report from the same mechanism over the same target with a later prov:generatedAtTime. augmentation/rules/RL-AUG-conforming_report_confirms_solution, RL-AUG-conforming_part_report_confirms_solution: a subquery with MAX(prov:generatedAtTime) GROUP BY mechanism and target gives the current reports, in a UNION with the reports that have no timestamp; the rule joins on the conforming ones; two MINUS blocks on the failing ones, one over every ?A2 with ?S gsn:refersTo ?A2 and one over a part of such an ?A2 that counts for the solution. All four: DELETE { ?S gsn:true ?old } before INSERT. augmentation/README.md marks the guards as not in the SWRL." ;
     gsndesign:mentionsTerm gsn:true , gsn:refersTo , gsnaug:partOf , gsnaug:checkableWith ,
         prov:generatedAtTime , sh:ValidationReport , sh:conforms .
 
@@ -3180,7 +3180,7 @@ gsnaugdesign:st-0110
 
 gsnaugdesign:why-0068
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """The query fc13 answers whether the case is fully compliant. The answer is three counts: the open
+    gsndesign:rationaleText """The query RQ-AUG-case_compliance answers whether the case is fully compliant. The answer is three counts: the open
 issues, the defeated elements and the elements in doubt. The case is compliant when all three are
 zero. The query computes the counts in each run, and the case stores no status. A stored status
 goes stale when an issue closes or a rule runs again, and something must then keep it current. The
@@ -3189,23 +3189,23 @@ a past entry of a report had."""@en .
 
 gsnaugdesign:why-0069
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """The query fc22 answers what has to be revised, and by whom. It returns a revise issue only when
+    gsndesign:rationaleText """The query RQ-AUG-what_to_revise answers what has to be revised, and by whom. It returns a revise issue only when
 the target is a goal or a solution, and the class of the target says which is at fault: the claim
 or the evidence. A revise issue against a context is a remark about the wording of the context.
-Rule A2 infers nothing from it (dd-0021), so nothing in the argument has to be revised, and the
+the rules of the group revise_issue_challenges infers nothing from it (dd-0021), so nothing in the argument has to be revised, and the
 query leaves it out. The issue stays in the case, and other queries find it."""@en .
 
 gsnaugdesign:why-0070
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """The query fc03 finds the undeveloped goals of one system. The system is named in a context, and
-that context is usually on a goal above the undeveloped one. The core rule S17 copies only
+    gsndesign:rationaleText """The query RQ-GSN-undeveloped_claims_for_system finds the undeveloped goals of one system. The system is named in a context, and
+that context is usually on a goal above the undeveloped one. The core rule RL-GSN-context_inheritance copies only
 assumptions down the support chain, and only after the rules run. The query therefore walks up
 the chain itself, with the inverse path (^gsn:supportedBy)*, and reads the context of each
 ancestor. Its answer does not depend on a run of the rules."""@en .
 
 gsnaugdesign:why-0071
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """The query fc24 answers what a revision changed. It reads gsnaug:replaces between two artefacts,
+    gsndesign:rationaleText """The query RQ-AUG-revision_diff answers what a revision changed. It reads gsnaug:replaces between two artefacts,
 so a revision in this sense is a new version of an artefact. A claim with new words is not in
 the answer, because the case keeps no earlier version of a statement. The query joins the issue
 that asked for the change. That issue is a revise or a resolve issue, because a resolution can
@@ -3215,7 +3215,7 @@ revised solution at the newer artefact and keeps the older one in the context of
 
 gsnaugdesign:why-0072
     a gsndesign:Rationale ;
-    gsndesign:rationaleText """The SPARQL copies of A8a to A8c insert from a nested SELECT, and they do not insert from the
+    gsndesign:rationaleText """The SPARQL copies of the rules of the group issue_goal insert from a nested SELECT, and they do not insert from the
 pattern directly. The nested SELECT makes the engine finish the WHERE clause before it inserts
 anything. Without it, rdflib tests the guard of dd-0102 again after the first insert. The goal
 then has one statement or one context, the guard stops the rule, and the rule copies only one
@@ -3224,7 +3224,7 @@ value where the issue or the challenged goal has more than one."""@en .
 gsnaugdesign:dd-0111
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query fc13 derives the compliance status in each run, and the case does not store it."@en ;
+    gsndesign:naturalLanguage "The query RQ-AUG-case_compliance derives the compliance status in each run, and the case does not store it."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0068 ;
     prov:generated gsnaugdesign:st-0111 .
@@ -3233,13 +3233,13 @@ gsnaugdesign:st-0111
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0111 ;
     gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
-    gsndesign:statementText "fc13: three COUNT(DISTINCT) subqueries: issues with no gsnaug:issueOutcome, elements with gsn:defeated true, elements with gsn:inDoubt true. The query writes nothing." ;
+    gsndesign:statementText "RQ-AUG-case_compliance: three COUNT(DISTINCT) subqueries: issues with no gsnaug:issueOutcome, elements with gsn:defeated true, elements with gsn:inDoubt true. The query writes nothing." ;
     gsndesign:mentionsTerm gsnaug:Issue , gsnaug:issueOutcome , gsn:defeated , gsn:inDoubt .
 
 gsnaugdesign:dd-0112
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query fc22 returns a revise issue only when its target is a goal or a solution."@en ;
+    gsndesign:naturalLanguage "The query RQ-AUG-what_to_revise returns a revise issue only when its target is a goal or a solution."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0069 ;
     prov:generated gsnaugdesign:st-0112 .
@@ -3248,13 +3248,13 @@ gsnaugdesign:st-0112
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0112 ;
     gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
-    gsndesign:statementText "fc22: ?issue gsnaug:issueType gsnaug:revise ; gsnaug:raisedAgainst ?target . ?target a ?targetKind . VALUES ?targetKind { gsn:Goal gsn:Solution }" ;
+    gsndesign:statementText "RQ-AUG-what_to_revise: ?issue gsnaug:issueType gsnaug:revise ; gsnaug:raisedAgainst ?target . ?target a ?targetKind . VALUES ?targetKind { gsn:Goal gsn:Solution }" ;
     gsndesign:mentionsTerm gsnaug:issueType , gsnaug:raisedAgainst , gsn:Goal , gsn:Solution .
 
 gsnaugdesign:dd-0113
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query fc03 walks up the support chain to the context that names the system, and it does not read what rule S17 derives."@en ;
+    gsndesign:naturalLanguage "The query RQ-GSN-undeveloped_claims_for_system walks up the support chain to the context that names the system, and it does not read what rule RL-GSN-context_inheritance derives."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0070 ;
     prov:generated gsnaugdesign:st-0113 .
@@ -3263,13 +3263,13 @@ gsnaugdesign:st-0113
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0113 ;
     gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
-    gsndesign:statementText "fc03: ?goal (^gsn:supportedBy)* ?ancestor . ?ancestor gsn:inContextOf ?context . ?context gsn:statement ?contextStatement . FILTER on the name of the system in ?contextStatement." ;
+    gsndesign:statementText "RQ-GSN-undeveloped_claims_for_system: ?goal (^gsn:supportedBy)* ?ancestor . ?ancestor gsn:inContextOf ?context . ?context gsn:statement ?contextStatement . FILTER on the name of the system in ?contextStatement." ;
     gsndesign:mentionsTerm gsn:supportedBy , gsn:inContextOf , gsn:statement , gsn:undeveloped .
 
 gsnaugdesign:dd-0114
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query fc24 reads a revision as a new version of an artefact, and it joins the revise or resolve issue that asked for it."@en ;
+    gsndesign:naturalLanguage "The query RQ-AUG-revision_diff reads a revision as a new version of an artefact, and it joins the revise or resolve issue that asked for it."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0071 ;
     prov:generated gsnaugdesign:st-0114 .
@@ -3278,13 +3278,13 @@ gsnaugdesign:st-0114
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0114 ;
     gsndesign:inGraph gsnaugdesign:augmentation-queries-0.6.0 ;
-    gsndesign:statementText "fc24: ?newer gsnaug:replaces ?older . OPTIONAL { { ?solution gsn:refersTo ?older . ?issue gsnaug:raisedAgainst ?solution } UNION { ?context gsn:refersTo ?older . ?issue gsn:inContextOf ?context } ?issue gsnaug:issueType ?type . FILTER(?type IN (gsnaug:revise, gsnaug:resolve)) }" ;
+    gsndesign:statementText "RQ-AUG-revision_diff: ?newer gsnaug:replaces ?older . OPTIONAL { { ?solution gsn:refersTo ?older . ?issue gsnaug:raisedAgainst ?solution } UNION { ?context gsn:refersTo ?older . ?issue gsn:inContextOf ?context } ?issue gsnaug:issueType ?type . FILTER(?type IN (gsnaug:revise, gsnaug:resolve)) }" ;
     gsndesign:mentionsTerm gsnaug:replaces , gsnaug:raisedAgainst , gsnaug:issueType , gsn:refersTo , gsn:inContextOf .
 
 gsnaugdesign:dd-0115
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The SPARQL copies of A8a to A8c insert from a nested SELECT, so that the engine finishes the WHERE clause before it inserts."@en ;
+    gsndesign:naturalLanguage "The SPARQL copies of the rules of the group issue_goal insert from a nested SELECT, so that the engine finishes the WHERE clause before it inserts."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsnaugdesign:why-0072 ;
     prov:generated gsnaugdesign:st-0115 .
@@ -3293,5 +3293,5 @@ gsnaugdesign:st-0115
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaugdesign:dd-0115 ;
     gsndesign:inGraph gsnaugdesign:augmentation-rules-0.6.0 ;
-    gsndesign:statementText "augmentation/rules/a08a, a08b, a08c: INSERT { ... } WHERE { { SELECT DISTINCT ... WHERE { ... FILTER NOT EXISTS { ... } } } }" ;
+    gsndesign:statementText "augmentation/rules/RL-AUG-issue_goal_statement, RL-AUG-issue_goal_context, RL-AUG-issue_goal_context_from_solution: INSERT { ... } WHERE { { SELECT DISTINCT ... WHERE { ... FILTER NOT EXISTS { ... } } } }" ;
     gsndesign:mentionsTerm gsn:statement , gsn:inContextOf .
