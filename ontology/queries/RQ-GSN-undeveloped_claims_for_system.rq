@@ -1,0 +1,20 @@
+# expect: empty
+
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT DISTINCT ?goalId ?statement ?contextStatement
+WHERE {
+  VALUES ?system { "IT system" }
+
+  ?goal a gsn:Goal ;
+        schema:identifier ?goalId ;
+        gsn:undeveloped true .
+  OPTIONAL { ?goal gsn:statement ?statement }
+
+  ?goal (^gsn:supportedBy)* ?ancestor .
+  ?ancestor gsn:inContextOf ?context .
+  ?context gsn:statement ?contextStatement .
+  FILTER ( CONTAINS(LCASE(?contextStatement), LCASE(?system)) )
+}
+ORDER BY ?goalId

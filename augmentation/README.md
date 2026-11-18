@@ -91,69 +91,69 @@ Only two of the nine combinations of issue type and target produce a defeater:
 | Issue type | Target is a `Goal` or `Solution` | Target is anything else |
 | :--- | :--- | :--- |
 | `clarify` | nothing inferred | nothing inferred |
-| `revise` | **A2** — becomes a challenge; the target goes `gsn:inDoubt` | nothing inferred |
-| `resolve` | **A3** — becomes a challenge; the target is `gsn:defeated` | nothing inferred |
+| `revise` | `revise_issue_challenges` — becomes a challenge; the target goes `gsn:inDoubt` | nothing inferred |
+| `resolve` | `resolve_issue_defeats` — becomes a challenge; the target is `gsn:defeated` | nothing inferred |
 
 An auditor asking for a context to be better expressed is making a remark about the quality of a
 contextual element, not a claim about the argument, and it must not move a truth value. The issue is
 still recorded and still queryable.
 
-Where a rule does fire, OntoGSN's own dialectic rules take over: **S52** types anything that
-`gsn:challenges` as a `gsn:Defeater`, and **S48** derives `gsn:inDoubt` from a true goal that
-challenges. Only `gsn:defeated` has to be asserted here, because **S46** derives it from a *valid
+Where a rule does fire, OntoGSN's own dialectic rules take over: **`RL-GSN-defeater_declaration`** types anything that
+`gsn:challenges` as a `gsn:Defeater`, and **`RL-GSN-challenge_doubt`** derives `gsn:inDoubt` from a true goal that
+challenges. Only `gsn:defeated` has to be asserted here, because **`RL-GSN-challenge_defeat`** derives it from a *valid
 `gsn:Solution`* and an issue is an ask rather than evidence.
 
 | Rule | Reads |
 | :--- | :--- |
-| `A2a` / `A2b` | a revise issue against a goal / a solution becomes a true goal challenging it |
-| `A3a` / `A3b` | a resolve issue against a goal / a solution becomes a goal challenging it, and defeats it |
-| `A4` | a part of an artefact is checkable with whatever its artefact is checkable with |
-| `A6a` / `A6b` | a solution is true / not true when the newest report that the mechanism that can check its artefact left over it conforms / fails |
-| `A6c` / `A6d` | the same, when the report is over a part of the artefact: the newest report the mechanism that can check the part left over the part |
-| `A7a` to `A7d` | the same four for `gsn:valid`, from a mechanism that decides validity. A6a to A6d read only a mechanism that decides truth |
-| `A8a` | the goal that an issue becomes takes the issue's `schema:description` as its statement |
-| `A8b` / `A8c` | that goal takes the contexts of the goal it challenges / of the goal above the solution it challenges |
+| `RL-AUG-revise_issue_challenges_goal` / `RL-AUG-revise_issue_challenges_solution` | a revise issue against a goal / a solution becomes a true goal challenging it |
+| `RL-AUG-resolve_issue_defeats_goal` / `RL-AUG-resolve_issue_defeats_solution` | a resolve issue against a goal / a solution becomes a goal challenging it, and defeats it |
+| `RL-AUG-part_inherits_checkable_with` | a part of an artefact is checkable with whatever its artefact is checkable with |
+| `RL-AUG-conforming_report_confirms_solution` / `RL-AUG-failing_report_refutes_solution` | a solution is true / not true when the newest report that the mechanism that can check its artefact left over it conforms / fails |
+| `RL-AUG-conforming_part_report_confirms_solution` / `RL-AUG-failing_part_report_refutes_solution` | the same, when the report is over a part of the artefact: the newest report the mechanism that can check the part left over the part |
+| `RL-AUG-conforming_report_validates_solution` to `RL-AUG-failing_part_report_invalidates_solution` | the same four for `gsn:valid`, from a mechanism that decides validity. The rules of the group `truth_from_report` read only a mechanism that decides truth |
+| `RL-AUG-issue_goal_statement` | the goal that an issue becomes takes the issue's `schema:description` as its statement |
+| `RL-AUG-issue_goal_context` / `RL-AUG-issue_goal_context_from_solution` | that goal takes the contexts of the goal it challenges / of the goal above the solution it challenges |
 
-A2 and A3 are two rules each because a SWRL body is a conjunction and cannot express "a goal **or** a
-solution" in one rule. A6 is four rules for the same reason: the report is over the artefact or over a
-part of it. A7 is A6 for `gsn:valid`, because a SWRL rule cannot take the property it writes from the
-data. A4 copies `checkableWith` only. The other seven provenance properties admit a
-part in their domain, but a part states them for itself. A8 gives the goal that an issue becomes
+The groups `revise_issue_challenges` and `resolve_issue_defeats` have two rules each, because a SWRL body is a conjunction and cannot express "a goal **or** a
+solution" in one rule. The group `truth_from_report` has four rules for the same reason: the report is over the artefact or over a
+part of it. The group `validity_from_report` is `truth_from_report` for `gsn:valid`, because a SWRL rule cannot take the property it writes from the
+data. `RL-AUG-part_inherits_checkable_with` copies `checkableWith` only. The other seven provenance properties admit a
+part in their domain, but a part states them for itself. The group `issue_goal` gives the goal that an issue becomes
 the statement and the context that the core shapes ask of every goal. Its SPARQL twins write them
 only to a goal that has none, so a statement or a context that a person wrote wins.
 
 ### Run time of the SPARQL rules in rdflib
 
-The SPARQL twins of A6 and A7 can be slow in rdflib on a large case. Each of them names a solution,
+The SPARQL twins of the groups `truth_from_report` and `validity_from_report` can be slow in rdflib on a large case. Each of them names a solution,
 an artefact and a report by its type, for example `?S a gsn:Solution`. rdflib does not plan a join.
 It orders the patterns of a group by the number of unbound terms, and a typed pattern has only one.
-The FinComp hub found that rdflib then joins the typed patterns first, before the patterns that
-link them. The hub measured more than 4 minutes for A6a to A6c over a case with 33 reports and 23
-parts. Since 0.5.0 the guard of A6 is split into smaller groups, which shortens the run. Since 0.6.0
-A6a and A6c find the current reports in a subquery, which also finishes on a large case in
+The RSC audit hub found that rdflib then joins the typed patterns first, before the patterns that
+link them. The hub measured more than 4 minutes for `RL-AUG-conforming_report_confirms_solution`, `RL-AUG-failing_report_refutes_solution` and `RL-AUG-conforming_part_report_confirms_solution` over a case with 33 reports and 23
+parts. Since 0.5.0 the guard of the group `truth_from_report` is split into smaller groups, which shortens the run. Since 0.6.0
+`RL-AUG-conforming_report_confirms_solution` and `RL-AUG-conforming_part_report_confirms_solution` find the current reports in a subquery, which also finishes on a large case in
 Oxigraph.
 `augmentation_check.py` takes about 20 seconds on the fixture of this repository.
 
 If the rules are slow on your case, you have two options. Run them in an engine that plans the
 join, for example Oxigraph, which `ontology/example/run_rules.py` uses for the core rules. Or fix
-the order of the patterns in rdflib with `rdflib.plugins.sparql.CUSTOM_EVALS`, as the FinComp hub
+the order of the patterns in rdflib with `rdflib.plugins.sparql.CUSTOM_EVALS`, as the RSC audit hub
 does.
 
 ## The result of a check stays in the graph
 
-`gsnaug:checkableWith` says that a mechanism can check an artefact. A6a and A6b read what the check
+`gsnaug:checkableWith` says that a mechanism can check an artefact. `RL-AUG-conforming_report_confirms_solution` and `RL-AUG-failing_report_refutes_solution` read what the check
 found. The finding is a `sh:ValidationReport`, the form every SHACL engine writes, with two PROV links:
 `prov:wasGeneratedBy` names the mechanism, and `prov:used` names the artefact, or the part of it the
 check ran over. `gsnaug:decides` on the mechanism says what the check decides: `"truth"`, whether the
 evidence matches what the solution claims, or `"validity"`, whether the evidence is appropriate for the
 claim. If a report of truth conforms, the solution that refers to the artefact is `gsn:true`. If it
 does not conform, the solution is not. A report of validity sets `gsn:valid` in the same way, except
-that a `false` stays: the core rules only ever write `gsn:valid false`, and A7a and A7c write `true`
+that a `false` stays: the core rules only ever write `gsn:valid false`, and `RL-AUG-conforming_report_validates_solution` and `RL-AUG-conforming_part_report_validates_solution` write `true`
 only where the solution has no validity value. A mechanism with no value decides nothing. A report over a part reaches the solution through `gsnaug:partOf`,
 because `gsn:refersTo` ranges on `gsn:Artefact` and a solution refers to the whole. A solution can
 also name the parts it relies on, with `gsn:refersTo` next to the whole. Then only the reports over
-those parts count for it. A solution that names no part is decided by every part. The core rules S10
-and S11 then carry the result up to the goal. No term is added for this.
+those parts count for it. A solution that names no part is decided by every part. The core rules `RL-GSN-solution_propagation_true`
+and `RL-GSN-solution_propagation_false` then carry the result up to the goal. No term is added for this.
 
 A mechanism that a SHACL shape implements produces the report by itself. `augmentation_check.py` runs each such mechanism in
 the fixture over its artefact and keeps the report that the engine returns, plus the two links and a
@@ -161,7 +161,7 @@ timestamp. A mechanism that is a script needs a wrapper that writes the same for
 the report by hand. The fixture has one of each.
 
 A SWRL rule cannot find the newest report, because SWRL has no maximum and no negation. So the
-SWRL forms of A6 and A7 read `gsnaug:currentReport`, a link from an artefact or a part to the
+SWRL forms of the groups `truth_from_report` and `validity_from_report` read `gsnaug:currentReport`, a link from an artefact or a part to the
 newest report of each mechanism over it that is not struck. The derivation
 `derivations/d04_current_report.rq` sets the link from the reports in the graph, and removes a
 link that no longer holds. Run it after each new report and before a reasoner reads the case. A
@@ -169,11 +169,11 @@ writer of reports can also set the link itself. A graph without the link gives n
 the SWRL forms. `gsnaugsh:CurrentReportShape` reports a link that names something other than a
 report over its subject. The SPARQL twins do not read the link.
 
-The SPARQL twins carry two guards that the SWRL rules do not, in the way the core rule S10 does. The
+The SPARQL twins carry two guards that the SWRL rules do not, in the way the core rule `RL-GSN-solution_propagation_true` does. The
 guards are not in the SWRL, and each twin deletes the old truth value before it writes the new one.
 The newest-report guard reads `prov:generatedAtTime`: a report counts only while no report from the
 same mechanism over the same target is later, so a re-run retires the run before it and the history
-stays in the graph. The composition guard, on A6a and A6c only: a conforming report confirms the
+stays in the graph. The composition guard, on `RL-AUG-conforming_report_confirms_solution` and `RL-AUG-conforming_part_report_confirms_solution` only: a conforming report confirms the
 solution only while no current report over the artefact, or over a part of it that counts for the
 solution, fails. One failing check
 is enough, two mechanisms that disagree do not make the rules alternate, and no solution ends up both
@@ -217,7 +217,7 @@ nothing.
 
 An earlier version of this vocabulary carried `TopSubjectContext` and `TopObjectContext`, two
 subclasses of `gsn:Context` marking the context that names what is claimed and the one that names
-what it is claimed of, with rules `A5a`/`A5b` deriving `assures` and `requiredBy` from them.
+what it is claimed of, with two rules deriving `assures` and `requiredBy` from them.
 
 Both classes and both rules are gone. `gsnaug:assures` and `gsnaug:requiredBy` say the same thing
 directly, and they work for a case that draws no top-level context at all — which is a conforming
@@ -243,19 +243,19 @@ A case that marks its top-level contexts in a diagram loses nothing: the context
 
 `gsnaug:augmentedOntoGSNVersion "1.3.1"` scopes the whole file, and two things in it would not hold
 before that release: `gsnaug:instantiatedFrom` assumes an `InstantiationDataReference` may carry
-`gsn:refersTo`, and A2/A3 assume `gsn:challenges` reaches the class of target the rule matches.
+`gsn:refersTo`, and the groups `revise_issue_challenges` and `resolve_issue_defeats` assume `gsn:challenges` reaches the class of target the rule matches.
 Re-check this directory whenever that string moves.
 
 Version 0.4.0 renames the two properties that link an artefact to the mechanism that checks it.
 They are now `gsnaug:checkableWith` and `gsnaug:checkedWith`, and the old terms are gone. The
 changelog names the old terms and gives an update that rewrites data to the new ones.
 
-Version 0.5.0 adds A8a to A8c, and lets a solution name the parts of an artefact it relies on.
+Version 0.5.0 adds the rules of the group `issue_goal`, and lets a solution name the parts of an artefact it relies on.
 No term changes.
 
-Version 0.5.1 makes a part of an artefact an artefact, and widens the composition guard of A6a
-and A6c to every artefact a solution refers to. No term changes.
+Version 0.5.1 makes a part of an artefact an artefact, and widens the composition guard of `RL-AUG-conforming_report_confirms_solution`
+and `RL-AUG-conforming_part_report_confirms_solution` to every artefact a solution refers to. No term changes.
 
-Version 0.6.0 adds `gsnaug:currentReport`, which the SWRL forms of A6 and A7 now read, and the
-derivation D4 that sets it. The SPARQL twins of A6a and A6c have a faster text with the same
+Version 0.6.0 adds `gsnaug:currentReport`, which the SWRL forms of the groups `truth_from_report` and `validity_from_report` now read, and the
+derivation `RL-AUG-current_report` that sets it. The SPARQL twins of `RL-AUG-conforming_report_confirms_solution` and `RL-AUG-conforming_part_report_confirms_solution` have a faster text with the same
 results.

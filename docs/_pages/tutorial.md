@@ -114,12 +114,13 @@ The script reports which rules fired:
 reached a fixpoint after 3 pass(es)
 
 9 of 60 rules fired; 4,134 -> 4,184 triples
-    S6  Goal Top Flag
-   S11  Solution Propagation (False)
-   ...
+  ...
+  RL-GSN-goal_top_flag                                   fired in 1 pass(es)
+  RL-GSN-solution_propagation_false                      fired in 1 pass(es)
+  ...
 ```
 
-Rule S11 found that the failed solution `Sn2` supports `G3`, so `G3` is now `gsn:true false`. Rule S6 found that `G2` and `G3` have a parent, so they are not top goals.
+Rule `RL-GSN-solution_propagation_false` found that the failed solution `Sn2` supports `G3`, so `G3` is now `gsn:true false`. Rule `RL-GSN-goal_top_flag` found that `G2` and `G3` have a parent, so they are not top goals.
 
 In Protégé, a reasoner that supports SWRL, for example Pellet, applies the SWRL form of the same rules.
 
@@ -146,7 +147,7 @@ A warning is not a violation. To accept the warnings, add `--allow-warnings`. A 
 
 ## 5. Ask questions
 
-The folder `ontology/queries/` has 43 stored SPARQL queries. Each query answers one question about a case. The questions are in the [query catalogue](https://github.com/fortiss/OntoGSN/blob/main/ontology/queries/README.md). Parameters are in a `VALUES` block near the top of the query.
+The folder `ontology/queries/` has 50 stored SPARQL queries. Each query answers one question about a case. The questions are in the [query catalogue](https://github.com/fortiss/OntoGSN/blob/main/ontology/queries/README.md). Parameters are in a `VALUES` block near the top of the query.
 
 Save this script as `query.py`:
 
@@ -163,16 +164,16 @@ for row in g.query(open(sys.argv[1], encoding="utf-8").read()):
 Then run some queries:
 
 ```sh
-python query.py ontology/queries/read_goal_support_tree.rq my-case-materialised.ttl
-python query.py ontology/queries/read_element_status_flags.rq my-case-materialised.ttl
-python query.py ontology/queries/read_solutions_without_artefact.rq my-case-materialised.ttl
+python query.py ontology/queries/RQ-GSN-goal_support_tree.rq my-case-materialised.ttl
+python query.py ontology/queries/RQ-GSN-element_status_flags.rq my-case-materialised.ttl
+python query.py ontology/queries/RQ-GSN-solutions_without_artefact.rq my-case-materialised.ttl
 ```
 
 | Query | Question | Result for the kettle |
 | :--- | :--- | :--- |
-| `read_goal_support_tree` | What is the whole argument below goal G1? | `S1`, `G2`, `G3`, `Sn1`, `Sn2`, with their depth |
-| `read_element_status_flags` | What is the status of each element? | `G3` and `Sn2` are false |
-| `read_solutions_without_artefact` | Which solutions cite no artefact? | `Sn2` |
+| `RQ-GSN-goal_support_tree` | What is the whole argument below goal G1? | `S1`, `G2`, `G3`, `Sn1`, `Sn2`, with their depth |
+| `RQ-GSN-element_status_flags` | What is the status of each element? | `G3` and `Sn2` are false |
+| `RQ-GSN-solutions_without_artefact` | Which solutions cite no artefact? | `Sn2` |
 
 In a graph store, paste the query into the SPARQL editor of the store. Load the ontology and the case into the same graph first, because some queries need the class hierarchy.
 

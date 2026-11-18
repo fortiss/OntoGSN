@@ -76,9 +76,9 @@ not set `gsn:true` or `gsn:valid` on a solution by hand.
 Say what the check decides with `gsnaug:decides` on the mechanism:
 
 1. If the check tests whether the evidence matches what the solution claims, use `"truth"`.
-   The rules A6a to A6d then set `gsn:true`.
+   The rules of the group `truth_from_report` then set `gsn:true`.
 2. If the check tests whether the evidence is appropriate for the claim, use `"validity"`. The
-   rules A7a to A7d then set `gsn:valid`.
+   rules of the group `validity_from_report` then set `gsn:valid`.
 3. If the check tests both, give both values.
 
 A mechanism with no value decides nothing, and the rules read none of its reports.
@@ -115,7 +115,7 @@ ex:note-check-report-1 a sh:ValidationReport ;
 ```
 
 If the report conforms, the solution that refers to the artefact becomes `gsn:true true`. If it
-does not conform, the solution becomes `gsn:true false`. The core rules S10 and S11 carry the
+does not conform, the solution becomes `gsn:true false`. The core rules `RL-GSN-solution_propagation_true` and `RL-GSN-solution_propagation_false` carry the
 result to the goals above. A report over a part reaches the solution that refers to the whole
 artefact, see the section on parts of a file.
 
@@ -126,7 +126,7 @@ only when the newest report of each one conforms. One failing check is enough.
 
 If you run the rules in a reasoner and not as SPARQL updates, the reasoner cannot find the
 newest report. It reads `gsnaug:currentReport`, a link from the artefact to the newest report
-of each mechanism. Run `augmentation/derivations/d04_current_report.rq` after each new report
+of each mechanism. Run `augmentation/derivations/RL-AUG-current_report.rq` after each new report
 and before the reasoner. It sets the link and removes a link to a report that no longer counts.
 Without the link, the reasoner gives the solution no status. The SPARQL rules do not need it.
 
@@ -363,7 +363,7 @@ need that comparison, keep a checksum in your domain ontology and compare it the
 A revision query reports what a change reaches. It does not say whether the change matters.
 That is a judgement, and the case records who made it.
 
-1. Run `fc39_requirement_revised.rq`, `fc40_system_revised.rq` or `fc41_context_revised.rq`.
+1. Run `RQ-AUG-requirement_revised.rq`, `RQ-AUG-system_revised.rq` or `RQ-AUG-context_revised.rq`.
 2. For each row, decide whether the element or the evidence is affected.
 3. If it is affected, raise a `gsnaug:Issue` of type `gsnaug:revise` against the element or
    the solution. Record yourself in `gsnaug:raisedBy`.

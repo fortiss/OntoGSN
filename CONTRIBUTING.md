@@ -30,6 +30,10 @@ The `ontology/serializations/ontogsn.ttl` is the core file containing the axioms
 
 If you are adding an axiom, add the reasoning using `python development/dev_tools/prov_add.py --write`. If you are modifying an existing axiom, add your comment to the design decision. If you are *removing* an axiom, retire its decision rather than deleting it.
 
+## Adding a query or a rule
+
+The file name of a stored query or a rule is its ID, and each file has a row in the registry of its component. The section ["The ID of a query or a rule"](development/dev_tools/README.md#the-id-of-a-query-or-a-rule) of `development/dev_tools/README.md` gives the form of the ID, the folder of the file and the columns of the registry.
+
 ## Run checks
 
 ```bash
@@ -45,7 +49,7 @@ Local checks ensure that everything is current and consistent: derived serializa
 | `ontology/serializations/ontogsn.ttl` | `development/dev_tools/build.py` and `development/dev_tools/build_separated.py` |
 | any of `ontology/shapes/ontogsn-shapes_[1-5]*.ttl` | `development/dev_tools/build_full.py` |
 | anything in `ontology/queries/` | `development/dev_tools/query_check.py` |
-| `development/design/ontogsn-design-data.ttl` or `development/design/Competency Questions.xlsx` | `development/dev_tools/prov_inventory.py` |
+| `development/design/ontogsn-design-data.ttl`, `development/design/requirements.csv` or a registry of the queries | `development/dev_tools/prov_inventory.py` |
 
 `python development/dev_tools/check_all.py --fix` runs the three build scripts of the first two rows, corrects the counts in the READMEs and the website pages with `development/dev_tools/doc_counts.py`, and then runs every check. With `--verify`, it also runs the scripts of the last two rows.
 

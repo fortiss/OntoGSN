@@ -1,0 +1,10 @@
+# name:      Support Closure
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?A gsn:transitivelySupportedBy ?B }
+WHERE {
+  ?A gsn:supportedBy+ ?B .
+  FILTER NOT EXISTS { ?A gsn:transitivelySupportedBy ?B }
+}

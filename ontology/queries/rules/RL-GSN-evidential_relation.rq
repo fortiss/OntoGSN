@@ -1,0 +1,16 @@
+# name:      Evidential Relation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:relationshipType ?old }
+INSERT { ?R gsn:relationshipType "evidential" }
+WHERE {
+  ?B a gsn:Solution .
+  ?A gsn:supportedBy ?B .
+  ?R rdf:subject ?A ;
+     rdf:object ?B .
+  OPTIONAL { ?R gsn:relationshipType ?old }
+  FILTER(!BOUND(?old) || ?old != "evidential")
+}

@@ -1,0 +1,21 @@
+# expect: rows
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?solutionId ?solutionStatement ?artefactId ?artefactLabel ?goalId
+WHERE {
+  ?solution a gsn:Solution ;
+            schema:identifier ?solutionId ;
+            gsn:refersTo ?artefact .
+  OPTIONAL { ?solution gsn:statement ?solutionStatement }
+  OPTIONAL { ?artefact schema:identifier ?artefactId }
+  OPTIONAL { ?artefact rdfs:label ?artefactLabel }
+  OPTIONAL {
+    ?goal gsn:supportedBy ?solution ;
+          a gsn:Goal ;
+          schema:identifier ?goalId .
+  }
+}
+ORDER BY ?solutionId ?artefactId ?goalId

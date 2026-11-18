@@ -396,7 +396,7 @@ gsndesign:ruleName rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
     rdfs:range xsd:string ;
     rdfs:label "rule name"@en ;
     skos:definition "The SWRL rule's own name, taken from its rdfs:label in the ontology - 'Assumption Invalidation', 'Cross-Module Support'."@en ;
-    skos:note "The descriptive name is the only identifier a rule carries in the ontology: nothing there records the S1 to S52 numbering the rules were catalogued under. That numbering survives in the file names of ontology/queries/rules/, so a rule is joined to its SPARQL translation by name, never by number."@en .
+    skos:note "The descriptive name is the only identifier a rule carries in the ontology. The file of its SPARQL translation in ontology/queries/rules/ is named by its ID, RL-GSN- and the slug of that name, so a rule is joined to its SPARQL translation by name."@en .
 
 ###  https://w3id.org/OntoGSN/design#fileChecksum
 gsndesign:fileChecksum rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;

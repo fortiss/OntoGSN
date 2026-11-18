@@ -1,0 +1,15 @@
+# name:      Public Context Propagation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?C gsn:public ?old }
+INSERT { ?C gsn:public true }
+WHERE {
+  ?G a gsn:Goal ;
+     gsn:public ?public ;
+     gsn:inContextOf ?C .
+  FILTER(STR(?public) = "true")
+  OPTIONAL { ?C gsn:public ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}

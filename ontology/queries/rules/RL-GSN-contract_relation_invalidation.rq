@@ -1,0 +1,19 @@
+# name:      Contract Relation Invalidation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:valid ?old }
+INSERT { ?R gsn:valid false }
+WHERE {
+  ?A gsn:inModule ?M .
+  ?B gsn:inModule ?M .
+  ?A gsn:toBeSupportedByContract ?flag ;
+     gsn:supportedBy ?B .
+  FILTER(STR(?flag) = "true")
+  ?R rdf:subject ?A ;
+     rdf:object ?B .
+  OPTIONAL { ?R gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

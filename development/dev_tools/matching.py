@@ -306,7 +306,7 @@ def structural_key(record):
 
     Three shapes, because the three inventories key differently: an axiom by subject /
     predicate / object, a SHACL unit by shape / kind / discriminator, and a rule by its
-    name (S1 ... S52), which is unique across the rule set.
+    name, which is unique across the rule set.
     """
     if "dl" in record:
         return "rule|" + (record.get("label") or record["dl"][:40])

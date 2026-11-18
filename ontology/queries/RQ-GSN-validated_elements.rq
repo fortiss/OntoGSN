@@ -1,0 +1,19 @@
+# expect: rows
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?elementId ?type ?statement ?truth
+WHERE {
+  ?element gsn:valid ?valid ;
+           a ?type ;
+           schema:identifier ?elementId .
+  FILTER(STR(?valid) = "true")
+  FILTER(?type IN (gsn:Goal, gsn:Solution))
+  FILTER NOT EXISTS { ?element gsn:challenges ?target }
+  FILTER NOT EXISTS { ?element gsn:inDoubt ?d . FILTER(STR(?d) = "true") }
+  FILTER NOT EXISTS { ?element gsn:defeated ?f . FILTER(STR(?f) = "true") }
+  OPTIONAL { ?element gsn:statement ?statement }
+  OPTIONAL { ?element gsn:true ?truth }
+}
+ORDER BY ?elementId

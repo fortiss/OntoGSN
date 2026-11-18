@@ -21,477 +21,477 @@
     owl:imports <https://w3id.org/OntoGSN/ontology> .
 
 
-###  S4  Inferential Relation - an unclassified link whose object end is a strategy
+###  RL-GSN-inferential_relation  Inferential Relation - an unclassified link whose object end is a strategy
 
-rc:G4 a gsn:Goal ; schema:identifier "S4-G" ;
-    gsn:statement "The hazard is adequately controlled." ; gsn:supportedBy rc:St4 .
-rc:St4 a gsn:Strategy ; schema:identifier "S4-St" ;
+rc:inferential_relation-G a gsn:Goal ; schema:identifier "inferential_relation-G" ;
+    gsn:statement "The hazard is adequately controlled." ; gsn:supportedBy rc:inferential_relation-St .
+rc:inferential_relation-St a gsn:Strategy ; schema:identifier "inferential_relation-St" ;
     gsn:statement "Argument over each control measure." .
-rc:R4 a gsn:Relationship ; schema:identifier "S4-R" ;
-    rdf:subject rc:G4 ; rdf:predicate gsn:supportedBy ; rdf:object rc:St4 .
+rc:inferential_relation-R a gsn:Relationship ; schema:identifier "inferential_relation-R" ;
+    rdf:subject rc:inferential_relation-G ; rdf:predicate gsn:supportedBy ; rdf:object rc:inferential_relation-St .
 
 
-###  S17  Context Inheritance - a goal supporting a goal, under an assumption
+###  RL-GSN-context_inheritance  Context Inheritance - a goal supporting a goal, under an assumption
 
-rc:G17parent a gsn:Goal ; schema:identifier "S17-Gparent" ;
+rc:context_inheritance-G-parent a gsn:Goal ; schema:identifier "context_inheritance-Gparent" ;
     gsn:statement "The calibration procedure is followed." ;
-    gsn:inContextOf rc:A17 ; gsn:supportedBy rc:G17child .
-rc:G17child a gsn:Goal ; schema:identifier "S17-Gchild" ;
+    gsn:inContextOf rc:context_inheritance-A ; gsn:supportedBy rc:context_inheritance-G-child .
+rc:context_inheritance-G-child a gsn:Goal ; schema:identifier "context_inheritance-Gchild" ;
     gsn:statement "The procedure is executed at every scheduled service." .
-rc:A17 a gsn:Assumption ; schema:identifier "S17-A" ;
+rc:context_inheritance-A a gsn:Assumption ; schema:identifier "context_inheritance-A" ;
     gsn:statement "The service schedule is adhered to." .
 
 
-###  S49  Undeveloped Defeat - a fully developed challenge against a doubted element
+###  RL-GSN-undeveloped_defeat  Undeveloped Defeat - a fully developed challenge against a doubted element
 
-rc:G49 a gsn:Goal ; schema:identifier "S49-G" ;
+rc:undeveloped_defeat-G a gsn:Goal ; schema:identifier "undeveloped_defeat-G" ;
     gsn:statement "The coverage target is met." ; gsn:inDoubt true .
-rc:D49 a gsn:Goal ; schema:identifier "S49-D" ;
+rc:undeveloped_defeat-D a gsn:Goal ; schema:identifier "undeveloped_defeat-D" ;
     gsn:statement "The coverage measurement excluded the error-handling paths." ;
-    gsn:true true ; gsn:undeveloped false ; gsn:challenges rc:G49 .
+    gsn:true true ; gsn:undeveloped false ; gsn:challenges rc:undeveloped_defeat-G .
 
 
-###  S55, S56, S57  Support Cycle - three goals and three relationships closing a triangle
-###  This was the S7 trigger. S7 was retired in 1.3.0, superseded by S55 to S63. The
-###  closure that S55 derives is asserted below, because each rule query runs once on
-###  this file and S56 and S57 read the closure.
+###  RL-GSN-support_closure, RL-GSN-support_cycle_invalidation, RL-GSN-support_cycle_relationship_invalidation  Support Cycle - three goals and three relationships closing a triangle
+###  This was the Predicate Conflict Invalidation trigger. Predicate Conflict Invalidation was retired in 1.3.0, superseded by the rules of the group cycles. The
+###  closure that RL-GSN-support_closure derives is asserted below, because each rule query runs once on
+###  this file and RL-GSN-support_cycle_invalidation and RL-GSN-support_cycle_relationship_invalidation read the closure.
 
-rc:G7a a gsn:Goal ; schema:identifier "S7-Ga" ; gsn:statement "A holds because B holds." ;
-    gsn:supportedBy rc:G7b .
-rc:G7b a gsn:Goal ; schema:identifier "S7-Gb" ; gsn:statement "B holds because C holds." ;
-    gsn:supportedBy rc:G7c .
-rc:G7c a gsn:Goal ; schema:identifier "S7-Gc" ; gsn:statement "C holds because A holds." ;
-    gsn:supportedBy rc:G7a .
+rc:predicate_conflict_invalidation-G-a a gsn:Goal ; schema:identifier "predicate_conflict_invalidation-Ga" ; gsn:statement "A holds because B holds." ;
+    gsn:supportedBy rc:predicate_conflict_invalidation-G-b .
+rc:predicate_conflict_invalidation-G-b a gsn:Goal ; schema:identifier "predicate_conflict_invalidation-Gb" ; gsn:statement "B holds because C holds." ;
+    gsn:supportedBy rc:predicate_conflict_invalidation-G-c .
+rc:predicate_conflict_invalidation-G-c a gsn:Goal ; schema:identifier "predicate_conflict_invalidation-Gc" ; gsn:statement "C holds because A holds." ;
+    gsn:supportedBy rc:predicate_conflict_invalidation-G-a .
 
-rc:R7a a gsn:Relationship ; schema:identifier "S7-Ra" ;
-    rdf:subject rc:G7a ; rdf:predicate gsn:supportedBy ; rdf:object rc:G7b .
-rc:R7b a gsn:Relationship ; schema:identifier "S7-Rb" ;
-    rdf:subject rc:G7b ; rdf:predicate gsn:supportedBy ; rdf:object rc:G7c .
-rc:R7c a gsn:Relationship ; schema:identifier "S7-Rc" ;
-    rdf:subject rc:G7c ; rdf:predicate gsn:supportedBy ; rdf:object rc:G7a .
+rc:predicate_conflict_invalidation-R-a a gsn:Relationship ; schema:identifier "predicate_conflict_invalidation-Ra" ;
+    rdf:subject rc:predicate_conflict_invalidation-G-a ; rdf:predicate gsn:supportedBy ; rdf:object rc:predicate_conflict_invalidation-G-b .
+rc:predicate_conflict_invalidation-R-b a gsn:Relationship ; schema:identifier "predicate_conflict_invalidation-Rb" ;
+    rdf:subject rc:predicate_conflict_invalidation-G-b ; rdf:predicate gsn:supportedBy ; rdf:object rc:predicate_conflict_invalidation-G-c .
+rc:predicate_conflict_invalidation-R-c a gsn:Relationship ; schema:identifier "predicate_conflict_invalidation-Rc" ;
+    rdf:subject rc:predicate_conflict_invalidation-G-c ; rdf:predicate gsn:supportedBy ; rdf:object rc:predicate_conflict_invalidation-G-a .
 
-rc:G7a gsn:transitivelySupportedBy rc:G7a , rc:G7b , rc:G7c .
-rc:G7b gsn:transitivelySupportedBy rc:G7a , rc:G7b , rc:G7c .
-rc:G7c gsn:transitivelySupportedBy rc:G7a , rc:G7b , rc:G7c .
+rc:predicate_conflict_invalidation-G-a gsn:transitivelySupportedBy rc:predicate_conflict_invalidation-G-a , rc:predicate_conflict_invalidation-G-b , rc:predicate_conflict_invalidation-G-c .
+rc:predicate_conflict_invalidation-G-b gsn:transitivelySupportedBy rc:predicate_conflict_invalidation-G-a , rc:predicate_conflict_invalidation-G-b , rc:predicate_conflict_invalidation-G-c .
+rc:predicate_conflict_invalidation-G-c gsn:transitivelySupportedBy rc:predicate_conflict_invalidation-G-a , rc:predicate_conflict_invalidation-G-b , rc:predicate_conflict_invalidation-G-c .
 
 
-###  S8  Contradictory Goal Truth - a true claim resting on a false one
+###  RL-GSN-contradictory_goal_truth  Contradictory Goal Truth - a true claim resting on a false one
 
-rc:G8parent a gsn:Goal ; schema:identifier "S8-Gparent" ;
+rc:contradictory_goal_truth-G-parent a gsn:Goal ; schema:identifier "contradictory_goal_truth-Gparent" ;
     gsn:statement "The subsystem meets its allocated target." ;
-    gsn:true true ; gsn:supportedBy rc:G8child .
-rc:G8child a gsn:Goal ; schema:identifier "S8-Gchild" ;
+    gsn:true true ; gsn:supportedBy rc:contradictory_goal_truth-G-child .
+rc:contradictory_goal_truth-G-child a gsn:Goal ; schema:identifier "contradictory_goal_truth-Gchild" ;
     gsn:statement "The measurement campaign covered the whole operating range." ;
     gsn:true false .
 
 
-###  S8  a true claim resting on one true and one false claim
-###  This was the S9 trigger. S9 was retired in 1.3.0 as subsumed by S8, which reaches the
+###  RL-GSN-contradictory_goal_truth  a true claim resting on one true and one false claim
+###  This was the Tri-Goal Conflict trigger. Tri-Goal Conflict was retired in 1.3.0 as subsumed by RL-GSN-contradictory_goal_truth, which reaches the
 ###  same conclusion from the false goal alone.
 
-rc:G9parent a gsn:Goal ; schema:identifier "S9-Gparent" ;
+rc:tri_goal_conflict-G-parent a gsn:Goal ; schema:identifier "tri_goal_conflict-Gparent" ;
     gsn:statement "Both allocated targets are met." ;
-    gsn:true true ; gsn:supportedBy rc:G9true , rc:G9false .
-rc:G9true a gsn:Goal ; schema:identifier "S9-Gtrue" ;
+    gsn:true true ; gsn:supportedBy rc:tri_goal_conflict-G-true , rc:tri_goal_conflict-G-false .
+rc:tri_goal_conflict-G-true a gsn:Goal ; schema:identifier "tri_goal_conflict-Gtrue" ;
     gsn:statement "The first target is met." ; gsn:true true .
-rc:G9false a gsn:Goal ; schema:identifier "S9-Gfalse" ;
+rc:tri_goal_conflict-G-false a gsn:Goal ; schema:identifier "tri_goal_conflict-Gfalse" ;
     gsn:statement "The second target is met." ; gsn:true false .
 
 
-###  S10  a defeated goal over a true solution
-###  S10 must not make rc:G10 true. A defeated element cannot be true.
+###  RL-GSN-solution_propagation_true  a defeated goal over a true solution
+###  RL-GSN-solution_propagation_true must not make rc:solution_propagation_true-G true. A defeated element cannot be true.
 
-rc:G10 a gsn:Goal ; schema:identifier "S10-G" ;
+rc:solution_propagation_true-G a gsn:Goal ; schema:identifier "solution_propagation_true-G" ;
     gsn:statement "The alarm reaches the operator within two seconds." ;
-    gsn:defeated true ; gsn:supportedBy rc:Sn10 .
-rc:Sn10 a gsn:Solution ; schema:identifier "S10-Sn" ;
+    gsn:defeated true ; gsn:supportedBy rc:solution_propagation_true-Sn .
+rc:solution_propagation_true-Sn a gsn:Solution ; schema:identifier "solution_propagation_true-Sn" ;
     gsn:statement "Latency measurement of the alarm path." ; gsn:true true .
 
 
-###  S12  Mixed Support Invalidation - one valid and one invalid support
+###  RL-GSN-mixed_support_invalidation  Mixed Support Invalidation - one valid and one invalid support
 
-rc:G12 a gsn:Goal ; schema:identifier "S12-G" ;
+rc:mixed_support_invalidation-G a gsn:Goal ; schema:identifier "mixed_support_invalidation-G" ;
     gsn:statement "The integration argument is complete." ;
-    gsn:supportedBy rc:G12valid , rc:G12invalid .
-rc:G12valid a gsn:Goal ; schema:identifier "S12-Gvalid" ;
+    gsn:supportedBy rc:mixed_support_invalidation-G-valid , rc:mixed_support_invalidation-G-invalid .
+rc:mixed_support_invalidation-G-valid a gsn:Goal ; schema:identifier "mixed_support_invalidation-Gvalid" ;
     gsn:statement "The interface tests passed." ; gsn:valid true .
-rc:G12invalid a gsn:Goal ; schema:identifier "S12-Ginvalid" ;
+rc:mixed_support_invalidation-G-invalid a gsn:Goal ; schema:identifier "mixed_support_invalidation-Ginvalid" ;
     gsn:statement "The timing analysis was completed." ; gsn:valid false .
 
 
-###  S11  mixed support - one solution holds, the other does not
-###  This was the S13 trigger. S13 was retired in 1.2.3 as subsumed by S11, which reaches the
+###  RL-GSN-solution_propagation_false  mixed support - one solution holds, the other does not
+###  This was the Conflicting Support (False) trigger. Conflicting Support (False) was retired in 1.2.3 as subsumed by RL-GSN-solution_propagation_false, which reaches the
 ###  same conclusion from the failing solution alone. The block is kept because mixed support
-###  is the case S10's guard turns on, and it is the one that used to make the rule set loop.
+###  is the case RL-GSN-solution_propagation_true's guard turns on, and it is the one that used to make the rule set loop.
 
-rc:G13 a gsn:Goal ; schema:identifier "S13-G" ;
+rc:conflicting_support_false-G a gsn:Goal ; schema:identifier "conflicting_support_false-G" ;
     gsn:statement "The detection threshold is correctly configured." ;
-    gsn:supportedBy rc:Sn13true , rc:Sn13false .
-rc:Sn13true a gsn:Solution ; schema:identifier "S13-Sntrue" ;
+    gsn:supportedBy rc:conflicting_support_false-Sn-true , rc:conflicting_support_false-Sn-false .
+rc:conflicting_support_false-Sn-true a gsn:Solution ; schema:identifier "conflicting_support_false-Sntrue" ;
     gsn:statement "Configuration audit report." ; gsn:true true .
-rc:Sn13false a gsn:Solution ; schema:identifier "S13-Snfalse" ;
+rc:conflicting_support_false-Sn-false a gsn:Solution ; schema:identifier "conflicting_support_false-Snfalse" ;
     gsn:statement "Regression run over the shipped configuration." ; gsn:true false .
 
 
-###  S14  Relation False Propagation - a contextual link asserted not to hold
+###  RL-GSN-relation_false_propagation  Relation False Propagation - a contextual link asserted not to hold
 
-rc:G14 a gsn:Goal ; schema:identifier "S14-G" ;
+rc:relation_false_propagation-G a gsn:Goal ; schema:identifier "relation_false_propagation-G" ;
     gsn:statement "The subsystem is used only within the stated envelope." ;
-    gsn:inContextOf rc:C14 .
-rc:C14 a gsn:Context ; schema:identifier "S14-C" ;
+    gsn:inContextOf rc:relation_false_propagation-C .
+rc:relation_false_propagation-C a gsn:Context ; schema:identifier "relation_false_propagation-C" ;
     gsn:statement "The envelope is given in ENV-SPEC-01." .
-rc:R14 a gsn:Relationship ; schema:identifier "S14-R" ;
-    rdf:subject rc:G14 ; rdf:predicate gsn:inContextOf ; rdf:object rc:C14 ;
+rc:relation_false_propagation-R a gsn:Relationship ; schema:identifier "relation_false_propagation-R" ;
+    rdf:subject rc:relation_false_propagation-G ; rdf:predicate gsn:inContextOf ; rdf:object rc:relation_false_propagation-C ;
     gsn:true false .
 
 
-###  S20  Final Pattern Invalidation - a finalised argument still holding a pattern
+###  RL-GSN-final_pattern_invalidation  Final Pattern Invalidation - a finalised argument still holding a pattern
 
-rc:Arg20 a gsn:Argument ; schema:identifier "S20-Arg" ;
+rc:final_pattern_invalidation-Arg a gsn:Argument ; schema:identifier "final_pattern_invalidation-Arg" ;
     gsn:statement "Argument declared final while a pattern is still being instantiated." ;
     gsn:structured true ; gsn:final true ;
-    gsn:contains rc:G20 , rc:P20 .
-rc:P20 a gsn:Pattern ; schema:identifier "S20-P" ;
+    gsn:contains rc:final_pattern_invalidation-G , rc:final_pattern_invalidation-P .
+rc:final_pattern_invalidation-P a gsn:Pattern ; schema:identifier "final_pattern_invalidation-P" ;
     schema:description "A pattern left inside a finalised argument." .
-rc:G20 a gsn:Goal ; schema:identifier "S20-G" ;
+rc:final_pattern_invalidation-G a gsn:Goal ; schema:identifier "final_pattern_invalidation-G" ;
     gsn:statement "The monitored channel is trustworthy." ;
-    gsn:instantiationOf rc:P20 .
+    gsn:instantiationOf rc:final_pattern_invalidation-P .
 
 
-###  S21, S22  Template Undeveloped Invalidation - published with an undeveloped link
+###  RL-GSN-template_undeveloped_invalidation_a, RL-GSN-template_undeveloped_invalidation_b  Template Undeveloped Invalidation - published with an undeveloped link
 
-rc:T21 a gsn:Template ; schema:identifier "S21-T" ;
+rc:template_undeveloped_invalidation_a-T a gsn:Template ; schema:identifier "template_undeveloped_invalidation_a-T" ;
     schema:description "A template published with an undeveloped relationship on itself." ;
     gsn:published true .
-rc:R21 a gsn:Relationship ; schema:identifier "S21-R" ;
-    rdf:subject rc:T21 ; rdf:predicate gsn:supportedBy ;
+rc:template_undeveloped_invalidation_a-R a gsn:Relationship ; schema:identifier "template_undeveloped_invalidation_a-R" ;
+    rdf:subject rc:template_undeveloped_invalidation_a-T ; rdf:predicate gsn:supportedBy ;
     gsn:undeveloped true .
 
-rc:T22 a gsn:Template ; schema:identifier "S22-T" ;
+rc:template_undeveloped_invalidation_b-T a gsn:Template ; schema:identifier "template_undeveloped_invalidation_b-T" ;
     schema:description "A template published with an undeveloped relationship inside it." ;
-    gsn:published true ; gsn:contains rc:G22 .
-rc:G22 a gsn:Goal ; schema:identifier "S22-G" ;
+    gsn:published true ; gsn:contains rc:template_undeveloped_invalidation_b-G .
+rc:template_undeveloped_invalidation_b-G a gsn:Goal ; schema:identifier "template_undeveloped_invalidation_b-G" ;
     gsn:statement "The instantiated channel meets its allocated interval." .
-rc:R22 a gsn:Relationship ; schema:identifier "S22-R" ;
-    rdf:subject rc:G22 ; rdf:predicate gsn:supportedBy ;
+rc:template_undeveloped_invalidation_b-R a gsn:Relationship ; schema:identifier "template_undeveloped_invalidation_b-R" ;
+    rdf:subject rc:template_undeveloped_invalidation_b-G ; rdf:predicate gsn:supportedBy ;
     gsn:undeveloped true .
 
 
-###  S26, S27  Contract violations - a contract module arguing across its own boundary
+###  RL-GSN-contract_violation_relation, RL-GSN-context_contract_invalidation  Contract violations - a contract module arguing across its own boundary
 
-rc:M26contract a gsn:Module ; schema:identifier "S26-Mcontract" ;
+rc:contract_violation_relation-M-contract a gsn:Module ; schema:identifier "contract_violation_relation-Mcontract" ;
     gsn:statement "A contract module whose content reaches into another module directly." ;
-    gsn:contract true ; gsn:contains rc:Arg26contract .
-rc:Arg26contract a gsn:Argument ; schema:identifier "S26-Argcontract" ;
+    gsn:contract true ; gsn:contains rc:contract_violation_relation-Arg-contract .
+rc:contract_violation_relation-Arg-contract a gsn:Argument ; schema:identifier "contract_violation_relation-Argcontract" ;
     gsn:statement "Argument of the contract module." ;
-    gsn:contains rc:G26 , rc:G27 .
-rc:M26other a gsn:Module ; schema:identifier "S26-Mother" ;
+    gsn:contains rc:contract_violation_relation-G , rc:context_contract_invalidation-G .
+rc:contract_violation_relation-M-other a gsn:Module ; schema:identifier "contract_violation_relation-Mother" ;
     gsn:statement "The module reached into." ; gsn:contract false ;
-    gsn:contains rc:Arg26other .
-rc:Arg26other a gsn:Argument ; schema:identifier "S26-Argother" ;
+    gsn:contains rc:contract_violation_relation-Arg-other .
+rc:contract_violation_relation-Arg-other a gsn:Argument ; schema:identifier "contract_violation_relation-Argother" ;
     gsn:statement "Argument of the module reached into." ;
-    gsn:contains rc:G26target .
-rc:G26target a gsn:Goal ; schema:identifier "S26-Gtarget" ;
+    gsn:contains rc:contract_violation_relation-G-target .
+rc:contract_violation_relation-G-target a gsn:Goal ; schema:identifier "contract_violation_relation-Gtarget" ;
     gsn:statement "The supplied component meets its published envelope." .
 
-rc:G26 a gsn:Goal ; schema:identifier "S26-G" ;
+rc:contract_violation_relation-G a gsn:Goal ; schema:identifier "contract_violation_relation-G" ;
     gsn:statement "The contract is discharged by the other module." ;
-    gsn:supportedBy rc:M26other .
-rc:R26 a gsn:Relationship ; schema:identifier "S26-R" ;
-    rdf:subject rc:G26 ; rdf:predicate gsn:supportedBy ; rdf:object rc:M26other .
+    gsn:supportedBy rc:contract_violation_relation-M-other .
+rc:contract_violation_relation-R a gsn:Relationship ; schema:identifier "contract_violation_relation-R" ;
+    rdf:subject rc:contract_violation_relation-G ; rdf:predicate gsn:supportedBy ; rdf:object rc:contract_violation_relation-M-other .
 
-rc:G27 a gsn:Goal ; schema:identifier "S27-G" ;
+rc:context_contract_invalidation-G a gsn:Goal ; schema:identifier "context_contract_invalidation-G" ;
     gsn:statement "The contract is read in the other module's context." ;
-    gsn:inContextOf rc:M26other .
-rc:R27 a gsn:Relationship ; schema:identifier "S27-R" ;
-    rdf:subject rc:G27 ; rdf:predicate gsn:inContextOf ; rdf:object rc:M26other .
+    gsn:inContextOf rc:contract_violation_relation-M-other .
+rc:context_contract_invalidation-R a gsn:Relationship ; schema:identifier "context_contract_invalidation-R" ;
+    rdf:subject rc:context_contract_invalidation-G ; rdf:predicate gsn:inContextOf ; rdf:object rc:contract_violation_relation-M-other .
 
 
-###  S28  Contract Support Invalidation - awaiting a contract inside a contract module
+###  RL-GSN-contract_support_invalidation  Contract Support Invalidation - awaiting a contract inside a contract module
 
-rc:M28 a gsn:Module ; schema:identifier "S28-M" ;
+rc:contract_support_invalidation-M a gsn:Module ; schema:identifier "contract_support_invalidation-M" ;
     gsn:statement "A contract module containing a claim that itself awaits a contract." ;
-    gsn:contract true ; gsn:contains rc:Arg28 .
-rc:Arg28 a gsn:Argument ; schema:identifier "S28-Arg" ;
-    gsn:statement "Argument of the contract module awaiting a contract." ; gsn:contains rc:G28 .
-rc:G28 a gsn:Goal ; schema:identifier "S28-G" ;
+    gsn:contract true ; gsn:contains rc:contract_support_invalidation-Arg .
+rc:contract_support_invalidation-Arg a gsn:Argument ; schema:identifier "contract_support_invalidation-Arg" ;
+    gsn:statement "Argument of the contract module awaiting a contract." ; gsn:contains rc:contract_support_invalidation-G .
+rc:contract_support_invalidation-G a gsn:Goal ; schema:identifier "contract_support_invalidation-G" ;
     gsn:statement "Timing is discharged elsewhere." ;
     gsn:toBeSupportedByContract true .
 
 
-###  S29  Away Goal Invalidation - an away goal supported directly across modules
+###  RL-GSN-away_goal_invalidation  Away Goal Invalidation - an away goal supported directly across modules
 
-rc:M29a a gsn:Module ; schema:identifier "S29-Ma" ;
-    gsn:statement "The module holding the away reference." ; gsn:contains rc:Arg29a .
-rc:Arg29a a gsn:Argument ; schema:identifier "S29-Arga" ;
-    gsn:statement "Argument holding the away reference." ; gsn:contains rc:G29away .
-rc:M29b a gsn:Module ; schema:identifier "S29-Mb" ;
-    gsn:statement "The module holding the original." ; gsn:contains rc:Arg29b .
-rc:Arg29b a gsn:Argument ; schema:identifier "S29-Argb" ;
-    gsn:statement "Argument holding the original." ; gsn:contains rc:G29home .
-rc:G29away a gsn:Goal ; schema:identifier "S29-Gaway" ;
+rc:away_goal_invalidation-M-a a gsn:Module ; schema:identifier "away_goal_invalidation-Ma" ;
+    gsn:statement "The module holding the away reference." ; gsn:contains rc:away_goal_invalidation-Arg-a .
+rc:away_goal_invalidation-Arg-a a gsn:Argument ; schema:identifier "away_goal_invalidation-Arga" ;
+    gsn:statement "Argument holding the away reference." ; gsn:contains rc:away_goal_invalidation-G-away .
+rc:away_goal_invalidation-M-b a gsn:Module ; schema:identifier "away_goal_invalidation-Mb" ;
+    gsn:statement "The module holding the original." ; gsn:contains rc:away_goal_invalidation-Arg-b .
+rc:away_goal_invalidation-Arg-b a gsn:Argument ; schema:identifier "away_goal_invalidation-Argb" ;
+    gsn:statement "Argument holding the original." ; gsn:contains rc:away_goal_invalidation-G-home .
+rc:away_goal_invalidation-G-away a gsn:Goal ; schema:identifier "away_goal_invalidation-Gaway" ;
     gsn:statement "The platform meets its published latency bound." ;
-    gsn:away true ; gsn:supportedBy rc:G29home .
-rc:G29home a gsn:Goal ; schema:identifier "S29-Ghome" ;
+    gsn:away true ; gsn:supportedBy rc:away_goal_invalidation-G-home .
+rc:away_goal_invalidation-G-home a gsn:Goal ; schema:identifier "away_goal_invalidation-Ghome" ;
     gsn:statement "The platform meets its published latency bound." .
-rc:R29 a gsn:Relationship ; schema:identifier "S29-R" ;
-    rdf:subject rc:G29away ; rdf:predicate gsn:supportedBy ; rdf:object rc:G29home .
+rc:away_goal_invalidation-R a gsn:Relationship ; schema:identifier "away_goal_invalidation-R" ;
+    rdf:subject rc:away_goal_invalidation-G-away ; rdf:predicate gsn:supportedBy ; rdf:object rc:away_goal_invalidation-G-home .
 
 
-###  S30  Contract Activation - an away claim awaiting a contract from another module
+###  RL-GSN-contract_activation  Contract Activation - an away claim awaiting a contract from another module
 
-rc:M30a a gsn:Module ; schema:identifier "S30-Ma" ;
-    gsn:statement "The module making the demand." ; gsn:contains rc:Arg30a .
-rc:Arg30a a gsn:Argument ; schema:identifier "S30-Arga" ;
-    gsn:statement "Argument making the demand." ; gsn:contains rc:G30 .
-rc:M30b a gsn:Module ; schema:identifier "S30-Mb" ;
-    gsn:statement "The module that becomes a contract module." ; gsn:contains rc:Arg30b .
-rc:Arg30b a gsn:Argument ; schema:identifier "S30-Argb" ;
-    gsn:statement "Argument of the supplying module." ; gsn:contains rc:G30supplier .
-rc:G30 a gsn:Goal ; schema:identifier "S30-G" ;
+rc:contract_activation-M-a a gsn:Module ; schema:identifier "contract_activation-Ma" ;
+    gsn:statement "The module making the demand." ; gsn:contains rc:contract_activation-Arg-a .
+rc:contract_activation-Arg-a a gsn:Argument ; schema:identifier "contract_activation-Arga" ;
+    gsn:statement "Argument making the demand." ; gsn:contains rc:contract_activation-G .
+rc:contract_activation-M-b a gsn:Module ; schema:identifier "contract_activation-Mb" ;
+    gsn:statement "The module that becomes a contract module." ; gsn:contains rc:contract_activation-Arg-b .
+rc:contract_activation-Arg-b a gsn:Argument ; schema:identifier "contract_activation-Argb" ;
+    gsn:statement "Argument of the supplying module." ; gsn:contains rc:contract_activation-G-supplier .
+rc:contract_activation-G a gsn:Goal ; schema:identifier "contract_activation-G" ;
     gsn:statement "The demand is discharged by the supplier." ;
     gsn:away true ; gsn:toBeSupportedByContract true ;
-    gsn:supportedBy rc:G30supplier .
-rc:G30supplier a gsn:Goal ; schema:identifier "S30-Gsupplier" ;
+    gsn:supportedBy rc:contract_activation-G-supplier .
+rc:contract_activation-G-supplier a gsn:Goal ; schema:identifier "contract_activation-Gsupplier" ;
     gsn:statement "The supplier's component meets the demanded bound." .
 
 
-###  S31  Contract Relation Invalidation - contract demand satisfied within one module
+###  RL-GSN-contract_relation_invalidation  Contract Relation Invalidation - contract demand satisfied within one module
 
-rc:M31 a gsn:Module ; schema:identifier "S31-M" ;
+rc:contract_relation_invalidation-M a gsn:Module ; schema:identifier "contract_relation_invalidation-M" ;
     gsn:statement "One module holding both ends of a link that should cross a contract." ;
-    gsn:contains rc:Arg31 .
-rc:Arg31 a gsn:Argument ; schema:identifier "S31-Arg" ;
+    gsn:contains rc:contract_relation_invalidation-Arg .
+rc:contract_relation_invalidation-Arg a gsn:Argument ; schema:identifier "contract_relation_invalidation-Arg" ;
     gsn:statement "Argument holding both ends of the link." ;
-    gsn:contains rc:G31 , rc:G31support .
-rc:G31 a gsn:Goal ; schema:identifier "S31-G" ;
+    gsn:contains rc:contract_relation_invalidation-G , rc:contract_relation_invalidation-G-support .
+rc:contract_relation_invalidation-G a gsn:Goal ; schema:identifier "contract_relation_invalidation-G" ;
     gsn:statement "Timing is discharged by contract." ;
     gsn:toBeSupportedByContract true ;
-    gsn:supportedBy rc:G31support .
-rc:G31support a gsn:Goal ; schema:identifier "S31-Gsupport" ;
+    gsn:supportedBy rc:contract_relation_invalidation-G-support .
+rc:contract_relation_invalidation-G-support a gsn:Goal ; schema:identifier "contract_relation_invalidation-Gsupport" ;
     gsn:statement "The local timing analysis is sufficient." .
-rc:R31 a gsn:Relationship ; schema:identifier "S31-R" ;
-    rdf:subject rc:G31 ; rdf:predicate gsn:supportedBy ; rdf:object rc:G31support .
+rc:contract_relation_invalidation-R a gsn:Relationship ; schema:identifier "contract_relation_invalidation-R" ;
+    rdf:subject rc:contract_relation_invalidation-G ; rdf:predicate gsn:supportedBy ; rdf:object rc:contract_relation_invalidation-G-support .
 
 
-###  S32  Context Consistency - context on both sides of an away support link
+###  RL-GSN-context_consistency  Context Consistency - context on both sides of an away support link
 
-rc:G32 a gsn:Goal ; schema:identifier "S32-G" ;
+rc:context_consistency-G a gsn:Goal ; schema:identifier "context_consistency-G" ;
     gsn:statement "The subsystem is safe in the stated environment." ;
-    gsn:inContextOf rc:C32local ; gsn:supportedBy rc:G32away .
-rc:C32local a gsn:Context ; schema:identifier "S32-Clocal" ;
+    gsn:inContextOf rc:context_consistency-C-local ; gsn:supportedBy rc:context_consistency-G-away .
+rc:context_consistency-C-local a gsn:Context ; schema:identifier "context_consistency-Clocal" ;
     gsn:statement "The environment is defined in ENV-SPEC-02." .
-rc:G32away a gsn:Goal ; schema:identifier "S32-Gaway" ;
+rc:context_consistency-G-away a gsn:Goal ; schema:identifier "context_consistency-Gaway" ;
     gsn:statement "The supplied component is safe in its stated environment." ;
-    gsn:away true ; gsn:inContextOf rc:C32remote .
-rc:C32remote a gsn:Context ; schema:identifier "S32-Cremote" ;
+    gsn:away true ; gsn:inContextOf rc:context_consistency-C-remote .
+rc:context_consistency-C-remote a gsn:Context ; schema:identifier "context_consistency-Cremote" ;
     gsn:statement "The supplier's environment is defined in SUP-ENV-01." .
 
 
-###  S56  Support Cycle Invalidation - three modules resting on each other
-###  This was the S37 trigger. S37 was retired in 1.3.0, superseded by S56, which finds a
-###  support cycle of any length. Only the part of the closure that S56 reads is asserted.
+###  RL-GSN-support_cycle_invalidation  Support Cycle Invalidation - three modules resting on each other
+###  This was the Circular Module Invalidation trigger. Circular Module Invalidation was retired in 1.3.0, superseded by RL-GSN-support_cycle_invalidation, which finds a
+###  support cycle of any length. Only the part of the closure that RL-GSN-support_cycle_invalidation reads is asserted.
 
-rc:M37a a gsn:Module ; schema:identifier "S37-Ma" ;
-    gsn:statement "First module in the cycle." ; gsn:supportedBy rc:M37b ;
-    gsn:contains rc:Arg37a .
-rc:Arg37a a gsn:Argument ; schema:identifier "S37-Arga" ;
-    gsn:statement "Argument of the first module in the cycle." ; gsn:contains rc:G37a .
-rc:G37a a gsn:Goal ; schema:identifier "S37-Ga" ; gsn:statement "First claim in the cycle." .
-rc:M37b a gsn:Module ; schema:identifier "S37-Mb" ;
-    gsn:statement "Second module in the cycle." ; gsn:supportedBy rc:M37c ;
-    gsn:contains rc:Arg37b .
-rc:Arg37b a gsn:Argument ; schema:identifier "S37-Argb" ;
-    gsn:statement "Argument of the second module in the cycle." ; gsn:contains rc:G37b .
-rc:G37b a gsn:Goal ; schema:identifier "S37-Gb" ; gsn:statement "Second claim in the cycle." .
-rc:M37c a gsn:Module ; schema:identifier "S37-Mc" ;
-    gsn:statement "Third module in the cycle." ; gsn:supportedBy rc:M37a ;
-    gsn:contains rc:Arg37c .
-rc:Arg37c a gsn:Argument ; schema:identifier "S37-Argc" ;
-    gsn:statement "Argument of the third module in the cycle." ; gsn:contains rc:G37c .
-rc:G37c a gsn:Goal ; schema:identifier "S37-Gc" ; gsn:statement "Third claim in the cycle." .
+rc:circular_module_invalidation-M-a a gsn:Module ; schema:identifier "circular_module_invalidation-Ma" ;
+    gsn:statement "First module in the cycle." ; gsn:supportedBy rc:circular_module_invalidation-M-b ;
+    gsn:contains rc:circular_module_invalidation-Arg-a .
+rc:circular_module_invalidation-Arg-a a gsn:Argument ; schema:identifier "circular_module_invalidation-Arga" ;
+    gsn:statement "Argument of the first module in the cycle." ; gsn:contains rc:circular_module_invalidation-G-a .
+rc:circular_module_invalidation-G-a a gsn:Goal ; schema:identifier "circular_module_invalidation-Ga" ; gsn:statement "First claim in the cycle." .
+rc:circular_module_invalidation-M-b a gsn:Module ; schema:identifier "circular_module_invalidation-Mb" ;
+    gsn:statement "Second module in the cycle." ; gsn:supportedBy rc:circular_module_invalidation-M-c ;
+    gsn:contains rc:circular_module_invalidation-Arg-b .
+rc:circular_module_invalidation-Arg-b a gsn:Argument ; schema:identifier "circular_module_invalidation-Argb" ;
+    gsn:statement "Argument of the second module in the cycle." ; gsn:contains rc:circular_module_invalidation-G-b .
+rc:circular_module_invalidation-G-b a gsn:Goal ; schema:identifier "circular_module_invalidation-Gb" ; gsn:statement "Second claim in the cycle." .
+rc:circular_module_invalidation-M-c a gsn:Module ; schema:identifier "circular_module_invalidation-Mc" ;
+    gsn:statement "Third module in the cycle." ; gsn:supportedBy rc:circular_module_invalidation-M-a ;
+    gsn:contains rc:circular_module_invalidation-Arg-c .
+rc:circular_module_invalidation-Arg-c a gsn:Argument ; schema:identifier "circular_module_invalidation-Argc" ;
+    gsn:statement "Argument of the third module in the cycle." ; gsn:contains rc:circular_module_invalidation-G-c .
+rc:circular_module_invalidation-G-c a gsn:Goal ; schema:identifier "circular_module_invalidation-Gc" ; gsn:statement "Third claim in the cycle." .
 
-rc:M37a gsn:transitivelySupportedBy rc:M37a .
-rc:M37b gsn:transitivelySupportedBy rc:M37b .
-rc:M37c gsn:transitivelySupportedBy rc:M37c .
+rc:circular_module_invalidation-M-a gsn:transitivelySupportedBy rc:circular_module_invalidation-M-a .
+rc:circular_module_invalidation-M-b gsn:transitivelySupportedBy rc:circular_module_invalidation-M-b .
+rc:circular_module_invalidation-M-c gsn:transitivelySupportedBy rc:circular_module_invalidation-M-c .
 
 
-###  S58, S59, S60  Module Context Cycle - three modules, each in the context of the next
-###  Only the part of the closure that S59 and S60 read is asserted, so that S58 still has
+###  RL-GSN-module_context_closure, RL-GSN-module_context_cycle_invalidation, RL-GSN-module_context_cycle_relationship_invalidation  Module Context Cycle - three modules, each in the context of the next
+###  Only the part of the closure that RL-GSN-module_context_cycle_invalidation and RL-GSN-module_context_cycle_relationship_invalidation read is asserted, so that RL-GSN-module_context_closure still has
 ###  links to derive.
 
-rc:M58a a gsn:Module ; schema:identifier "S58-Ma" ;
-    gsn:statement "First module in the context cycle." ; gsn:inContextOf rc:M58b ;
-    gsn:contains rc:Arg58a .
-rc:Arg58a a gsn:Argument ; schema:identifier "S58-Arga" ;
+rc:module_context_closure-M-a a gsn:Module ; schema:identifier "module_context_closure-Ma" ;
+    gsn:statement "First module in the context cycle." ; gsn:inContextOf rc:module_context_closure-M-b ;
+    gsn:contains rc:module_context_closure-Arg-a .
+rc:module_context_closure-Arg-a a gsn:Argument ; schema:identifier "module_context_closure-Arga" ;
     gsn:statement "Argument of the first module in the context cycle." .
-rc:M58b a gsn:Module ; schema:identifier "S58-Mb" ;
-    gsn:statement "Second module in the context cycle." ; gsn:inContextOf rc:M58c ;
-    gsn:contains rc:Arg58b .
-rc:Arg58b a gsn:Argument ; schema:identifier "S58-Argb" ;
+rc:module_context_closure-M-b a gsn:Module ; schema:identifier "module_context_closure-Mb" ;
+    gsn:statement "Second module in the context cycle." ; gsn:inContextOf rc:module_context_closure-M-c ;
+    gsn:contains rc:module_context_closure-Arg-b .
+rc:module_context_closure-Arg-b a gsn:Argument ; schema:identifier "module_context_closure-Argb" ;
     gsn:statement "Argument of the second module in the context cycle." .
-rc:M58c a gsn:Module ; schema:identifier "S58-Mc" ;
-    gsn:statement "Third module in the context cycle." ; gsn:inContextOf rc:M58a ;
-    gsn:contains rc:Arg58c .
-rc:Arg58c a gsn:Argument ; schema:identifier "S58-Argc" ;
+rc:module_context_closure-M-c a gsn:Module ; schema:identifier "module_context_closure-Mc" ;
+    gsn:statement "Third module in the context cycle." ; gsn:inContextOf rc:module_context_closure-M-a ;
+    gsn:contains rc:module_context_closure-Arg-c .
+rc:module_context_closure-Arg-c a gsn:Argument ; schema:identifier "module_context_closure-Argc" ;
     gsn:statement "Argument of the third module in the context cycle." .
-rc:R58 a gsn:Relationship ; schema:identifier "S58-R" ;
-    rdf:subject rc:M58a ; rdf:predicate gsn:inContextOf ; rdf:object rc:M58b .
+rc:module_context_closure-R a gsn:Relationship ; schema:identifier "module_context_closure-R" ;
+    rdf:subject rc:module_context_closure-M-a ; rdf:predicate gsn:inContextOf ; rdf:object rc:module_context_closure-M-b .
 
-rc:M58a gsn:transitivelyInContextOf rc:M58a .
-rc:M58b gsn:transitivelyInContextOf rc:M58a , rc:M58b .
-rc:M58c gsn:transitivelyInContextOf rc:M58c .
+rc:module_context_closure-M-a gsn:transitivelyInContextOf rc:module_context_closure-M-a .
+rc:module_context_closure-M-b gsn:transitivelyInContextOf rc:module_context_closure-M-a , rc:module_context_closure-M-b .
+rc:module_context_closure-M-c gsn:transitivelyInContextOf rc:module_context_closure-M-c .
 
 
-###  S61, S62, S63  Challenge Cycle - two goals that challenge each other
-###  The closure that S61 derives is asserted, because S62 and S63 read it.
+###  RL-GSN-challenge_closure, RL-GSN-challenge_cycle_invalidation, RL-GSN-challenge_cycle_relationship_invalidation  Challenge Cycle - two goals that challenge each other
+###  The closure that RL-GSN-challenge_closure derives is asserted, because RL-GSN-challenge_cycle_invalidation and RL-GSN-challenge_cycle_relationship_invalidation read it.
 
-rc:D61a a gsn:Goal ; schema:identifier "S61-Da" ;
+rc:challenge_closure-D-a a gsn:Goal ; schema:identifier "challenge_closure-Da" ;
     gsn:statement "The test campaign missed the low-temperature cases." ;
-    gsn:challenges rc:D61b .
-rc:D61b a gsn:Goal ; schema:identifier "S61-Db" ;
+    gsn:challenges rc:challenge_closure-D-b .
+rc:challenge_closure-D-b a gsn:Goal ; schema:identifier "challenge_closure-Db" ;
     gsn:statement "The low-temperature cases are outside the operating range." ;
-    gsn:challenges rc:D61a .
-rc:R61 a gsn:Relationship ; schema:identifier "S61-R" ;
-    rdf:subject rc:D61a ; rdf:predicate gsn:challenges ; rdf:object rc:D61b .
+    gsn:challenges rc:challenge_closure-D-a .
+rc:challenge_closure-R a gsn:Relationship ; schema:identifier "challenge_closure-R" ;
+    rdf:subject rc:challenge_closure-D-a ; rdf:predicate gsn:challenges ; rdf:object rc:challenge_closure-D-b .
 
-rc:D61a gsn:transitivelyChallenges rc:D61a , rc:D61b .
-rc:D61b gsn:transitivelyChallenges rc:D61a , rc:D61b .
+rc:challenge_closure-D-a gsn:transitivelyChallenges rc:challenge_closure-D-a , rc:challenge_closure-D-b .
+rc:challenge_closure-D-b gsn:transitivelyChallenges rc:challenge_closure-D-a , rc:challenge_closure-D-b .
 
 
-###  S64, S65  Doubt Propagation - a link in doubt puts the element that relies on it in doubt
-###  Each link is asserted in doubt, as S48 leaves it after a true goal challenges it.
-###  rc:D64 is the subject of a challenge link in doubt. No rule puts it in doubt.
+###  RL-GSN-support_doubt_propagation, RL-GSN-context_doubt_propagation  Doubt Propagation - a link in doubt puts the element that relies on it in doubt
+###  Each link is asserted in doubt, as RL-GSN-challenge_doubt leaves it after a true goal challenges it.
+###  rc:support_doubt_propagation-D is the subject of a challenge link in doubt. No rule puts it in doubt.
 
-rc:G64 a gsn:Goal ; schema:identifier "S64-G" ;
+rc:support_doubt_propagation-G a gsn:Goal ; schema:identifier "support_doubt_propagation-G" ;
     gsn:statement "The controller meets its timing budget." ;
-    gsn:supportedBy rc:G64sub .
-rc:G64sub a gsn:Goal ; schema:identifier "S64-Gsub" ;
+    gsn:supportedBy rc:support_doubt_propagation-G-sub .
+rc:support_doubt_propagation-G-sub a gsn:Goal ; schema:identifier "support_doubt_propagation-Gsub" ;
     gsn:statement "The worst-case execution time is below the budget." .
-rc:R64 a gsn:Relationship ; schema:identifier "S64-R" ;
-    rdf:subject rc:G64 ; rdf:predicate gsn:supportedBy ; rdf:object rc:G64sub ;
+rc:support_doubt_propagation-R a gsn:Relationship ; schema:identifier "support_doubt_propagation-R" ;
+    rdf:subject rc:support_doubt_propagation-G ; rdf:predicate gsn:supportedBy ; rdf:object rc:support_doubt_propagation-G-sub ;
     gsn:inDoubt true .
 
-rc:G65 a gsn:Goal ; schema:identifier "S65-G" ;
+rc:context_doubt_propagation-G a gsn:Goal ; schema:identifier "context_doubt_propagation-G" ;
     gsn:statement "The timing budget holds on the target hardware." ;
-    gsn:inContextOf rc:C65 .
-rc:C65 a gsn:Context ; schema:identifier "S65-C" ;
+    gsn:inContextOf rc:context_doubt_propagation-C .
+rc:context_doubt_propagation-C a gsn:Context ; schema:identifier "context_doubt_propagation-C" ;
     gsn:statement "The target hardware is given in HW-SPEC-02." .
-rc:R65 a gsn:Relationship ; schema:identifier "S65-R" ;
-    rdf:subject rc:G65 ; rdf:predicate gsn:inContextOf ; rdf:object rc:C65 ;
+rc:context_doubt_propagation-R a gsn:Relationship ; schema:identifier "context_doubt_propagation-R" ;
+    rdf:subject rc:context_doubt_propagation-G ; rdf:predicate gsn:inContextOf ; rdf:object rc:context_doubt_propagation-C ;
     gsn:inDoubt true .
 
-rc:D64 a gsn:Goal ; schema:identifier "S64-D" ;
+rc:support_doubt_propagation-D a gsn:Goal ; schema:identifier "support_doubt_propagation-D" ;
     gsn:statement "The measurements were taken on a different board revision." ;
-    gsn:challenges rc:G64sub .
-rc:R64c a gsn:Relationship ; schema:identifier "S64-Rc" ;
-    rdf:subject rc:D64 ; rdf:predicate gsn:challenges ; rdf:object rc:G64sub ;
+    gsn:challenges rc:support_doubt_propagation-G-sub .
+rc:support_doubt_propagation-R-c a gsn:Relationship ; schema:identifier "support_doubt_propagation-Rc" ;
+    rdf:subject rc:support_doubt_propagation-D ; rdf:predicate gsn:challenges ; rdf:object rc:support_doubt_propagation-G-sub ;
     gsn:inDoubt true .
 
 
-###  S43  Goal-Strategy Confidence - a claim point below a strategy, propagated upwards
+###  RL-GSN-goal_strategy_confidence  Goal-Strategy Confidence - a claim point below a strategy, propagated upwards
 
-rc:ConfArg43 a gsn:Argument ; schema:identifier "S43-ConfArg" ;
+rc:goal_strategy_confidence-ConfArg a gsn:Argument ; schema:identifier "goal_strategy_confidence-ConfArg" ;
     gsn:statement "Confidence in the decomposition below this strategy." ;
     gsn:argumentType "confidence" ; gsn:structured true .
-rc:G43parent a gsn:Goal ; schema:identifier "S43-Gparent" ;
-    gsn:statement "The decomposition below is sound." ; gsn:supportedBy rc:St43 .
-rc:St43 a gsn:Strategy ; schema:identifier "S43-St" ;
+rc:goal_strategy_confidence-G-parent a gsn:Goal ; schema:identifier "goal_strategy_confidence-Gparent" ;
+    gsn:statement "The decomposition below is sound." ; gsn:supportedBy rc:goal_strategy_confidence-St .
+rc:goal_strategy_confidence-St a gsn:Strategy ; schema:identifier "goal_strategy_confidence-St" ;
     gsn:statement "Argument over each contributing factor." ;
-    gsn:supportedBy rc:G43child .
-rc:G43child a gsn:Goal ; schema:identifier "S43-Gchild" ;
+    gsn:supportedBy rc:goal_strategy_confidence-G-child .
+rc:goal_strategy_confidence-G-child a gsn:Goal ; schema:identifier "goal_strategy_confidence-Gchild" ;
     gsn:statement "The first contributing factor is bounded." .
-rc:R43 a gsn:RelationshipWithConfidence ; schema:identifier "S43-R" ;
-    rdf:subject rc:St43 ; rdf:predicate gsn:supportedBy ; rdf:object rc:G43child ;
-    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:ConfArg43 .
+rc:goal_strategy_confidence-R a gsn:RelationshipWithConfidence ; schema:identifier "goal_strategy_confidence-R" ;
+    rdf:subject rc:goal_strategy_confidence-St ; rdf:predicate gsn:supportedBy ; rdf:object rc:goal_strategy_confidence-G-child ;
+    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:goal_strategy_confidence-ConfArg .
 
 
-###  S44  Solution Confidence Relation - a claim point on one of two sibling solutions
+###  RL-GSN-solution_confidence_relation  Solution Confidence Relation - a claim point on one of two sibling solutions
 
-rc:ConfArg44 a gsn:Argument ; schema:identifier "S44-ConfArg" ;
+rc:solution_confidence_relation-ConfArg a gsn:Argument ; schema:identifier "solution_confidence_relation-ConfArg" ;
     gsn:statement "Confidence in the evidence cited for this claim." ;
     gsn:argumentType "confidence" ; gsn:structured true .
-rc:G44 a gsn:Goal ; schema:identifier "S44-G" ;
+rc:solution_confidence_relation-G a gsn:Goal ; schema:identifier "solution_confidence_relation-G" ;
     gsn:statement "The component behaves as specified." ;
-    gsn:supportedBy rc:Sn44a , rc:Sn44b .
-rc:Sn44a a gsn:Solution ; schema:identifier "S44-Sna" ;
+    gsn:supportedBy rc:solution_confidence_relation-Sn-a , rc:solution_confidence_relation-Sn-b .
+rc:solution_confidence_relation-Sn-a a gsn:Solution ; schema:identifier "solution_confidence_relation-Sna" ;
     gsn:statement "Unit test report." .
-rc:Sn44b a gsn:Solution ; schema:identifier "S44-Snb" ;
+rc:solution_confidence_relation-Sn-b a gsn:Solution ; schema:identifier "solution_confidence_relation-Snb" ;
     gsn:statement "Static analysis report." .
-rc:R44 a gsn:RelationshipWithConfidence ; schema:identifier "S44-R" ;
-    rdf:subject rc:G44 ; rdf:predicate gsn:supportedBy ; rdf:object rc:Sn44a ;
-    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:ConfArg44 .
+rc:solution_confidence_relation-R a gsn:RelationshipWithConfidence ; schema:identifier "solution_confidence_relation-R" ;
+    rdf:subject rc:solution_confidence_relation-G ; rdf:predicate gsn:supportedBy ; rdf:object rc:solution_confidence_relation-Sn-a ;
+    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:solution_confidence_relation-ConfArg .
 
 
-###  S45  Goal Confidence Relation - a claim point on one of two sibling goals
+###  RL-GSN-goal_confidence_relation  Goal Confidence Relation - a claim point on one of two sibling goals
 
-rc:ConfArg45 a gsn:Argument ; schema:identifier "S45-ConfArg" ;
+rc:goal_confidence_relation-ConfArg a gsn:Argument ; schema:identifier "goal_confidence_relation-ConfArg" ;
     gsn:statement "Confidence in the completeness of this decomposition." ;
     gsn:argumentType "confidence" ; gsn:structured true .
-rc:G45 a gsn:Goal ; schema:identifier "S45-G" ;
+rc:goal_confidence_relation-G a gsn:Goal ; schema:identifier "goal_confidence_relation-G" ;
     gsn:statement "Both failure modes are addressed." ;
-    gsn:supportedBy rc:G45a , rc:G45b .
-rc:G45a a gsn:Goal ; schema:identifier "S45-Ga" ;
+    gsn:supportedBy rc:goal_confidence_relation-G-a , rc:goal_confidence_relation-G-b .
+rc:goal_confidence_relation-G-a a gsn:Goal ; schema:identifier "goal_confidence_relation-Ga" ;
     gsn:statement "The first failure mode is addressed." .
-rc:G45b a gsn:Goal ; schema:identifier "S45-Gb" ;
+rc:goal_confidence_relation-G-b a gsn:Goal ; schema:identifier "goal_confidence_relation-Gb" ;
     gsn:statement "The second failure mode is addressed." .
-rc:R45 a gsn:RelationshipWithConfidence ; schema:identifier "S45-R" ;
-    rdf:subject rc:G45 ; rdf:predicate gsn:supportedBy ; rdf:object rc:G45a ;
-    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:ConfArg45 .
+rc:goal_confidence_relation-R a gsn:RelationshipWithConfidence ; schema:identifier "goal_confidence_relation-R" ;
+    rdf:subject rc:goal_confidence_relation-G ; rdf:predicate gsn:supportedBy ; rdf:object rc:goal_confidence_relation-G-a ;
+    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:goal_confidence_relation-ConfArg .
 
 
-###  S51  Challenge Chain Invalidation - a challenge levied at one of several support links
+###  RL-GSN-challenge_chain_invalidation  Challenge Chain Invalidation - a challenge levied at one of several support links
 ###  The parent has two supporting goals, so the inference is composite and the challenge below
 ###  reaches only part of it. That is the situation 1:6.3.12 says requires a strategy.
 
-rc:G51parent a gsn:Goal ; schema:identifier "S51-Gparent" ;
+rc:challenge_chain_invalidation-G-parent a gsn:Goal ; schema:identifier "challenge_chain_invalidation-Gparent" ;
     gsn:statement "The mitigation is effective." ;
-    gsn:supportedBy rc:G51child , rc:G51sibling .
-rc:G51child a gsn:Goal ; schema:identifier "S51-Gchild" ;
+    gsn:supportedBy rc:challenge_chain_invalidation-G-child , rc:challenge_chain_invalidation-G-sibling .
+rc:challenge_chain_invalidation-G-child a gsn:Goal ; schema:identifier "challenge_chain_invalidation-Gchild" ;
     gsn:statement "The mitigation was tested." .
-rc:G51sibling a gsn:Goal ; schema:identifier "S51-Gsibling" ;
+rc:challenge_chain_invalidation-G-sibling a gsn:Goal ; schema:identifier "challenge_chain_invalidation-Gsibling" ;
     gsn:statement "The mitigation is deployed on every affected unit." .
-rc:R51 a gsn:Relationship ; schema:identifier "S51-R" ;
-    rdf:subject rc:G51parent ; rdf:predicate gsn:supportedBy ; rdf:object rc:G51child .
-rc:D51 a gsn:Goal ; schema:identifier "S51-D" ;
+rc:challenge_chain_invalidation-R a gsn:Relationship ; schema:identifier "challenge_chain_invalidation-R" ;
+    rdf:subject rc:challenge_chain_invalidation-G-parent ; rdf:predicate gsn:supportedBy ; rdf:object rc:challenge_chain_invalidation-G-child .
+rc:challenge_chain_invalidation-D a gsn:Goal ; schema:identifier "challenge_chain_invalidation-D" ;
     gsn:statement "Testing the mitigation does not establish that it is effective." ;
-    gsn:true true ; gsn:challenges rc:R51 .
+    gsn:true true ; gsn:challenges rc:challenge_chain_invalidation-R .
 
 
-###  S54  Nested Module Membership - a module inside a module
+###  RL-GSN-nested_module_membership  Nested Module Membership - a module inside a module
 
-rc:M54outer a gsn:Module ; schema:identifier "S54-Mouter" ;
+rc:nested_module_membership-M-outer a gsn:Module ; schema:identifier "nested_module_membership-Mouter" ;
     gsn:statement "The enclosing module." ;
-    gsn:contains rc:M54inner , rc:Arg54outer .
-rc:Arg54outer a gsn:Argument ; schema:identifier "S54-Argouter" ;
+    gsn:contains rc:nested_module_membership-M-inner , rc:nested_module_membership-Arg-outer .
+rc:nested_module_membership-Arg-outer a gsn:Argument ; schema:identifier "nested_module_membership-Argouter" ;
     gsn:statement "Argument of the enclosing module." ;
-    gsn:contains rc:G54outer .
-rc:G54outer a gsn:Goal ; schema:identifier "S54-Gouter" ;
+    gsn:contains rc:nested_module_membership-G-outer .
+rc:nested_module_membership-G-outer a gsn:Goal ; schema:identifier "nested_module_membership-Gouter" ;
     gsn:statement "The enclosing claim." .
-rc:M54inner a gsn:Module ; schema:identifier "S54-Minner" ;
+rc:nested_module_membership-M-inner a gsn:Module ; schema:identifier "nested_module_membership-Minner" ;
     gsn:statement "The nested module." ;
-    gsn:contains rc:Arg54inner .
-rc:Arg54inner a gsn:Argument ; schema:identifier "S54-Arginner" ;
+    gsn:contains rc:nested_module_membership-Arg-inner .
+rc:nested_module_membership-Arg-inner a gsn:Argument ; schema:identifier "nested_module_membership-Arginner" ;
     gsn:statement "Argument of the nested module." ;
-    gsn:contains rc:G54inner .
-rc:G54inner a gsn:Goal ; schema:identifier "S54-Ginner" ;
+    gsn:contains rc:nested_module_membership-G-inner .
+rc:nested_module_membership-G-inner a gsn:Goal ; schema:identifier "nested_module_membership-Ginner" ;
     gsn:statement "The nested claim." .
 
-# S54's premise, given so it can be exercised alone. The outer memberships are deliberately
-# absent: deriving them is what S53 and S54 are being tested for.
-rc:G54inner gsn:inModule rc:M54inner .
+# RL-GSN-nested_module_membership's premise, given so it can be exercised alone. The outer memberships are deliberately
+# absent: deriving them is what RL-GSN-module_membership and RL-GSN-nested_module_membership are being tested for.
+rc:nested_module_membership-G-inner gsn:inModule rc:nested_module_membership-M-inner .
 
 
 #################################################################
 #    Module membership, given rather than authored
 #
-#    gsn:inModule is derived: rule S53 reads it off Module -> Argument -> element, and S54
+#    gsn:inModule is derived: rule RL-GSN-module_membership reads it off Module -> Argument -> element, and RL-GSN-nested_module_membership
 #    carries it up through nested modules. Every other rule of the Modular Extension consumes
 #    it in a single atom.
 #
 #    development/dev_tools/query_check.py verifies each rule against a fresh store, so a rule whose premise
-#    another rule derives would never fire and would look broken. These are the facts S53 and
-#    S54 produce from the two fixtures, stated here so that the fourteen rules that depend on
+#    another rule derives would never fire and would look broken. These are the facts RL-GSN-module_membership and
+#    RL-GSN-nested_module_membership produce from the two fixtures, stated here so that the fourteen rules that depend on
 #    them can each be exercised alone. ontology/example/run_rules.py derives the same set for itself and
 #    adds nothing, which is the check that this block has not drifted.
 #################################################################
@@ -522,52 +522,52 @@ ex:Orphan1 gsn:inModule ex:M4 .
 ex:X1 gsn:inModule ex:M4 .
 ex:X2 gsn:inModule ex:M4 .
 
-rc:G26 gsn:inModule rc:M26contract .
-rc:G27 gsn:inModule rc:M26contract .
+rc:contract_violation_relation-G gsn:inModule rc:contract_violation_relation-M-contract .
+rc:context_contract_invalidation-G gsn:inModule rc:contract_violation_relation-M-contract .
 
-rc:G26target gsn:inModule rc:M26other .
+rc:contract_violation_relation-G-target gsn:inModule rc:contract_violation_relation-M-other .
 
-rc:G28 gsn:inModule rc:M28 .
+rc:contract_support_invalidation-G gsn:inModule rc:contract_support_invalidation-M .
 
-rc:G29away gsn:inModule rc:M29a .
+rc:away_goal_invalidation-G-away gsn:inModule rc:away_goal_invalidation-M-a .
 
-rc:G29home gsn:inModule rc:M29b .
+rc:away_goal_invalidation-G-home gsn:inModule rc:away_goal_invalidation-M-b .
 
-rc:G30 gsn:inModule rc:M30a .
+rc:contract_activation-G gsn:inModule rc:contract_activation-M-a .
 
-rc:G30supplier gsn:inModule rc:M30b .
+rc:contract_activation-G-supplier gsn:inModule rc:contract_activation-M-b .
 
-rc:G31 gsn:inModule rc:M31 .
-rc:G31support gsn:inModule rc:M31 .
+rc:contract_relation_invalidation-G gsn:inModule rc:contract_relation_invalidation-M .
+rc:contract_relation_invalidation-G-support gsn:inModule rc:contract_relation_invalidation-M .
 
-rc:G37a gsn:inModule rc:M37a .
+rc:circular_module_invalidation-G-a gsn:inModule rc:circular_module_invalidation-M-a .
 
-rc:G37b gsn:inModule rc:M37b .
+rc:circular_module_invalidation-G-b gsn:inModule rc:circular_module_invalidation-M-b .
 
-rc:G37c gsn:inModule rc:M37c .
-
-
+rc:circular_module_invalidation-G-c gsn:inModule rc:circular_module_invalidation-M-c .
 
 
-###  S41  Duplicate ACP Identifier Invalidation - two assurance claim points, one identifier
-###  S25 cannot reach this: it only looks within one module. The two solutions are in
+
+
+###  RL-GSN-duplicate_acp_identifier_invalidation  Duplicate ACP Identifier Invalidation - two assurance claim points, one identifier
+###  RL-GSN-duplicate_identifier_invalidation cannot reach this: it only looks within one module. The two solutions are in
 ###  different arguments and in no module, and both are assurance claim points.
 
-rc:Arg41a a gsn:Argument ; schema:identifier "S41-Arga" ;
-    gsn:statement "First argument." ; gsn:contains rc:Sn41a .
-rc:Arg41b a gsn:Argument ; schema:identifier "S41-Argb" ;
-    gsn:statement "Second argument." ; gsn:contains rc:Sn41b .
-rc:Sn41a a gsn:Solution ; schema:identifier "ACP-1" ;
+rc:duplicate_acp_identifier_invalidation-Arg-a a gsn:Argument ; schema:identifier "duplicate_acp_identifier_invalidation-Arga" ;
+    gsn:statement "First argument." ; gsn:contains rc:duplicate_acp_identifier_invalidation-Sn-a .
+rc:duplicate_acp_identifier_invalidation-Arg-b a gsn:Argument ; schema:identifier "duplicate_acp_identifier_invalidation-Argb" ;
+    gsn:statement "Second argument." ; gsn:contains rc:duplicate_acp_identifier_invalidation-Sn-b .
+rc:duplicate_acp_identifier_invalidation-Sn-a a gsn:Solution ; schema:identifier "ACP-1" ;
     gsn:statement "Static analysis report." ;
-    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:ConfArg41a ; gsn:refersTo rc:Ev41 .
-rc:Sn41b a gsn:Solution ; schema:identifier "ACP-1" ;
+    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:duplicate_acp_identifier_invalidation-ConfArg-a ; gsn:refersTo rc:duplicate_acp_identifier_invalidation-Ev .
+rc:duplicate_acp_identifier_invalidation-Sn-b a gsn:Solution ; schema:identifier "ACP-1" ;
     gsn:statement "An unrelated review record, sharing the identifier." ;
-    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:ConfArg41b ; gsn:refersTo rc:Ev41 .
-rc:Ev41 a gsn:Artefact ; schema:identifier "S41-Ev" ;
+    gsn:assuranceClaimPoint true ; gsn:associatedWith rc:duplicate_acp_identifier_invalidation-ConfArg-b ; gsn:refersTo rc:duplicate_acp_identifier_invalidation-Ev .
+rc:duplicate_acp_identifier_invalidation-Ev a gsn:Artefact ; schema:identifier "duplicate_acp_identifier_invalidation-Ev" ;
     schema:description "The artefact both solutions refer to." .
-rc:ConfArg41a a gsn:Argument ; schema:identifier "S41-ConfArga" ;
+rc:duplicate_acp_identifier_invalidation-ConfArg-a a gsn:Argument ; schema:identifier "duplicate_acp_identifier_invalidation-ConfArga" ;
     gsn:statement "Confidence in the static analysis report." ;
     gsn:argumentType "confidence" ; gsn:structured true .
-rc:ConfArg41b a gsn:Argument ; schema:identifier "S41-ConfArgb" ;
+rc:duplicate_acp_identifier_invalidation-ConfArg-b a gsn:Argument ; schema:identifier "duplicate_acp_identifier_invalidation-ConfArgb" ;
     gsn:statement "Confidence in the review record." ;
     gsn:argumentType "confidence" ; gsn:structured true .

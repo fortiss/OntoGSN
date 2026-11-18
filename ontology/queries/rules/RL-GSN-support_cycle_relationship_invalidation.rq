@@ -1,0 +1,17 @@
+# name:      Support Cycle Relationship Invalidation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:valid ?old }
+INSERT { ?R gsn:valid false }
+WHERE {
+  ?R a gsn:Relationship ;
+     rdf:subject ?A ;
+     rdf:object ?B .
+  ?A gsn:supportedBy ?B .
+  ?B gsn:transitivelySupportedBy ?A .
+  OPTIONAL { ?R gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

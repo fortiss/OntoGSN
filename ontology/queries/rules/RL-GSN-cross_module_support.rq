@@ -1,0 +1,13 @@
+# name:      Cross-Module Support
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?M1 gsn:supportedBy ?M2 }
+WHERE {
+  ?E1 gsn:inModule ?M1 .
+  ?M2 a gsn:Module .
+  FILTER(?M1 != ?M2)
+  ?E1 gsn:supportedBy ?M2 .
+  FILTER NOT EXISTS { ?M1 gsn:supportedBy ?M2 }
+}

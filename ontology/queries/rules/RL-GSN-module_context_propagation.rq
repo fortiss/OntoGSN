@@ -1,0 +1,13 @@
+# name:      Module Context Propagation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?M1 gsn:inContextOf ?M2 }
+WHERE {
+  ?E1 gsn:inModule ?M1 .
+  ?E2 gsn:inModule ?M2 .
+  FILTER(?M1 != ?M2)
+  ?E1 gsn:inContextOf ?E2 .
+  FILTER NOT EXISTS { ?M1 gsn:inContextOf ?M2 }
+}

@@ -1,0 +1,16 @@
+# name:      Mixed Support Invalidation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?C gsn:valid ?old }
+INSERT { ?C gsn:valid false }
+WHERE {
+  ?A gsn:valid ?vA .
+  FILTER(STR(?vA) = "true")
+  ?B gsn:valid ?vB .
+  FILTER(STR(?vB) = "false")
+  ?C gsn:supportedBy ?A , ?B .
+  OPTIONAL { ?C gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

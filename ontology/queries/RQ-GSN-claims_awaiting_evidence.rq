@@ -1,0 +1,39 @@
+# expect: rows
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?goalId ?statement ?reason ?solutionId
+WHERE {
+  {
+    ?goal a gsn:Goal .
+    FILTER NOT EXISTS { ?goal gsn:supportedBy ?anything }
+    FILTER NOT EXISTS { ?goal gsn:toBeSupportedByContract ?c . FILTER(STR(?c) = "true") }
+    FILTER NOT EXISTS { ?goal gsn:away ?a . FILTER(STR(?a) = "true") }
+    BIND("no support" AS ?reason)
+  } UNION {
+    ?goal a gsn:Goal ;
+          gsn:undeveloped ?u .
+    FILTER(STR(?u) = "true")
+    BIND("undeveloped" AS ?reason)
+  } UNION {
+    ?goal a gsn:Goal ;
+          gsn:supportedBy ?solution .
+    ?solution a gsn:Solution ;
+              schema:identifier ?solutionId .
+    FILTER NOT EXISTS { ?solution gsn:refersTo ?artefact }
+    BIND("solution without artefact" AS ?reason)
+  } UNION {
+    ?goal a gsn:Goal ;
+          gsn:supportedBy ?solution .
+    ?solution a gsn:Solution ;
+              schema:identifier ?solutionId ;
+              gsn:uninstantiated ?i .
+    FILTER(STR(?i) = "true")
+    BIND("uninstantiated solution" AS ?reason)
+  }
+  FILTER NOT EXISTS { ?goal gsn:challenges ?target }
+  ?goal schema:identifier ?goalId .
+  OPTIONAL { ?goal gsn:statement ?statement }
+}
+ORDER BY ?goalId ?reason ?solutionId

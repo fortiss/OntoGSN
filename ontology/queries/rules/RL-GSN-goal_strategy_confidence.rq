@@ -1,0 +1,38 @@
+# name:      Goal-Strategy Confidence
+# expect:    insert
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+INSERT {
+  ?R2 a gsn:RelationshipWithConfidence ;
+      schema:identifier ?relationshipId ;
+      rdf:subject ?G2 ;
+      rdf:predicate gsn:supportedBy ;
+      rdf:object ?S ;
+      gsn:associatedWith ?A ;
+      gsn:assuranceClaimPoint true .
+}
+WHERE {
+  ?R1 a gsn:RelationshipWithConfidence ;
+      rdf:subject ?S ;
+      rdf:object ?G1 ;
+      gsn:associatedWith ?A .
+  ?S a gsn:Strategy ;
+     gsn:supportedBy ?G1 ;
+     schema:identifier ?idS .
+  ?G1 a gsn:Goal .
+  ?G2 a gsn:Goal ;
+      gsn:supportedBy ?S ;
+      schema:identifier ?idG2 .
+  BIND(CONCAT("RC-", ?idG2, "-", ?idS) AS ?relationshipId)
+  BIND(CONCAT("RC-", REPLACE(STR(?G2), "^.*[#/]", ""), "-", REPLACE(STR(?S), "^.*[#/]", "")) AS ?iriKey)
+  BIND(IRI(CONCAT(REPLACE(STR(?G2), "[^#/]*$", ""),
+                  ENCODE_FOR_URI(?iriKey))) AS ?R2)
+  FILTER NOT EXISTS {
+    ?existing a gsn:RelationshipWithConfidence ;
+              rdf:subject ?G2 ;
+              rdf:object ?S .
+  }
+}

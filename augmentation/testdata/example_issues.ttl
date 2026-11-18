@@ -43,12 +43,12 @@ ex:regulation a gsnaug:Requirement .
 ex:it-system  a gsnaug:System .
 
 #  Both have moved on since the case was written. G1 still answers to the old regulation, and
-#  the access log was still drawn from the old system: what fc39 and fc40 report.
+#  the access log was still drawn from the old system: what RQ-AUG-requirement_revised and RQ-AUG-system_revised report.
 ex:regulation-2027 a gsnaug:Requirement ; prov:wasRevisionOf ex:regulation .
 ex:it-system-r2    a gsnaug:System      ; prov:wasRevisionOf ex:it-system .
 
 #  The environment too: the object context refers to a deployment list that was replaced, which
-#  is what fc41 reports.
+#  is what RQ-AUG-context_revised reports.
 ex:deployment-list    a gsn:Artefact .
 ex:deployment-list-v2 a gsn:Artefact ; gsnaug:replaces ex:deployment-list .
 
@@ -66,7 +66,7 @@ ex:access-log a gsn:Artefact ;
 ex:evidence-store   a gsnaug:System .
 ex:log-query        a gsnaug:Mechanism .
 
-# A part of the access log. It declares nothing of its own: A4 copies gsnaug:checkableWith
+# A part of the access log. It declares nothing of its own: RL-AUG-part_inherits_checkable_with copies gsnaug:checkableWith
 # down from ex:access-log.
 ex:access-log-row-42 a gsnaug:ArtefactPart ; schema:name "Access log, row 42" ;
     gsnaug:partOf ex:access-log .
@@ -222,9 +222,9 @@ Get-WinEvent -LogName Security | Export-Csv -Path access-log.csv""" .
 #  Two mechanisms that a shape and a rule carry out. The shape and the rule are blank nodes that
 #  name their mechanism with gsnaug:implements. Neither mechanism declares a term; the rules in
 #  derivations/ read the terms off the shape and the rule. The shape has a plain path, a
-#  path with sh:class, and a sequence path, so that all three branches of D1 are exercised.
+#  path with sh:class, and a sequence path, so that all three branches of RL-AUG-shape_mechanism_reads are exercised.
 #  The log carries one entry, so that the shape has a focus node when check.py runs it: the
-#  report the run leaves behind is what A6a reads to mark Sn1 true.
+#  report the run leaves behind is what RL-AUG-conforming_report_confirms_solution reads to mark Sn1 true.
 
 ex:access-log a ex:AccessLog ;
     ex:retentionPolicy ex:retention-policy-2025 .
@@ -237,7 +237,7 @@ ex:access-log gsnaug:checkableWith ex:retention-shape , ex:expiry-rule .
 
 #  An earlier run of the retention shape failed, before the policy was attached to the log.
 #  The report stays: a case keeps its history. The run check.py makes now is later, so the
-#  newest-report guard in A6a and A6b retires this one, and Sn1 is true and not also untrue.
+#  newest-report guard in RL-AUG-conforming_report_confirms_solution and RL-AUG-failing_report_refutes_solution retires this one, and Sn1 is true and not also untrue.
 
 ex:retention-report-0 a sh:ValidationReport ;
     sh:conforms false ;
@@ -297,7 +297,7 @@ ex:interview a gsnaug:Mechanism ; gsnaug:automated false .
 
 #  The note is also checkable with a script. A script leaves no report of its own, so the one
 #  here is written by hand in the form a SHACL engine would produce: the adapter a scripted
-#  mechanism needs. It does not conform, so A6b marks Sn2 not true. The two gaps it reports are
+#  mechanism needs. It does not conform, so RL-AUG-failing_report_refutes_solution marks Sn2 not true. The two gaps it reports are
 #  the ones I9 asks about.
 
 ex:interview-note gsnaug:checkableWith ex:note-check .
@@ -319,7 +319,7 @@ ex:note-check-report-1 a sh:ValidationReport ;
 
 #  A second check over the same note passes: the file exists. Its newest report conforms and
 #  the note check's newest report does not. Support is a composition, so the composition guard
-#  in A6a keeps Sn2 untrue: one failing check is enough, and the two rules do not alternate.
+#  in RL-AUG-conforming_report_confirms_solution keeps Sn2 untrue: one failing check is enough, and the two rules do not alternate.
 
 ex:interview-note gsnaug:checkableWith ex:note-exists .
 
@@ -334,9 +334,9 @@ ex:note-exists-report-1 a sh:ValidationReport ;
     prov:generatedAtTime "2026-03-08T16:45:00Z"^^xsd:dateTime .
 
 #  Two solutions whose check ran over a part and not over the whole. The configuration export
-#  declares its mechanism on the whole, so the key inherits it by A4, and the conforming report
-#  over the key marks Sn3 true by A6c. The firewall rule declares its own mechanism, and the
-#  failing report over it marks Sn4 not true by A6d. Neither whole carries a report of its own.
+#  declares its mechanism on the whole, so the key inherits it by RL-AUG-part_inherits_checkable_with, and the conforming report
+#  over the key marks Sn3 true by RL-AUG-conforming_part_report_confirms_solution. The firewall rule declares its own mechanism, and the
+#  failing report over it marks Sn4 not true by RL-AUG-failing_part_report_refutes_solution. Neither whole carries a report of its own.
 
 ex:G1 gsn:supportedBy ex:Sn3 , ex:Sn4 .
 
@@ -491,8 +491,8 @@ ex:scope-review-report-1 a sh:ValidationReport ;
 
 #  A solution that names the part it relies on. Sn5 refers to the firewall ruleset and to rule 7,
 #  which is a part and an artefact at once, because gsn:refersTo points at an artefact. The
-#  conforming report over rule 7 marks Sn5 true by A6c. The failing report over rule 12 does not
-#  refute Sn5 by A6d, because Sn5 names a part and rule 12 is not that part. Sn4 names no part,
+#  conforming report over rule 7 marks Sn5 true by RL-AUG-conforming_part_report_confirms_solution. The failing report over rule 12 does not
+#  refute Sn5 by RL-AUG-failing_part_report_refutes_solution, because Sn5 names a part and rule 12 is not that part. Sn4 names no part,
 #  so every part of the ruleset counts for it, and rule 12 still refutes it.
 
 ex:G1 gsn:supportedBy ex:Sn5 .
@@ -511,9 +511,9 @@ ex:rule-check-report-2 a sh:ValidationReport ;
     prov:used ex:firewall-rule-7 ;
     prov:generatedAtTime "2026-03-08T17:25:00Z"^^xsd:dateTime .
 
-#  The goals that issues become. I4 gets its description as its statement by A8a, and the
-#  contexts of G1 by A8b. I3 challenges the solution Sn1, so it gets the contexts of G1, the goal
-#  that Sn1 supports, by A8c. I7 already has a statement and a context, so it keeps them.
+#  The goals that issues become. I4 gets its description as its statement by RL-AUG-issue_goal_statement, and the
+#  contexts of G1 by RL-AUG-issue_goal_context. I3 challenges the solution Sn1, so it gets the contexts of G1, the goal
+#  that Sn1 supports, by RL-AUG-issue_goal_context_from_solution. I7 already has a statement and a context, so it keeps them.
 
 ex:I4 schema:description "The access log misses the first week of March." .
 
@@ -522,9 +522,9 @@ ex:I7 schema:description "Encrypt the backups of the reporting system." ;
     gsn:inContextOf ex:C-subject .
 
 #  A solution that refers to two artefacts. The newest report over the backup log conforms, and
-#  the newest report over the backup configuration fails. The composition guard of A6a covers
-#  every artefact that Sn6 refers to, so the conforming report does not confirm Sn6, and A6b
-#  makes it untrue. A guard over one artefact at a time lets A6a and A6b undo each other on
+#  the newest report over the backup configuration fails. The composition guard of RL-AUG-conforming_report_confirms_solution covers
+#  every artefact that Sn6 refers to, so the conforming report does not confirm Sn6, and RL-AUG-failing_report_refutes_solution
+#  makes it untrue. A guard over one artefact at a time lets RL-AUG-conforming_report_confirms_solution and RL-AUG-failing_report_refutes_solution undo each other on
 #  every pass, and the last rule to run decides.
 
 ex:G1 gsn:supportedBy ex:Sn6 .

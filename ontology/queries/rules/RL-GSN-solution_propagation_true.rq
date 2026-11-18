@@ -1,0 +1,31 @@
+# name:      Solution Propagation (True)
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?B gsn:true ?old }
+INSERT { ?B gsn:true true }
+WHERE {
+  ?A a gsn:Solution ;
+     gsn:true ?tA .
+  FILTER(STR(?tA) = "true")
+  ?B gsn:supportedBy ?A .
+
+  FILTER NOT EXISTS {
+    ?B gsn:supportedBy ?other .
+    ?other a gsn:Solution .
+    FILTER NOT EXISTS { ?other gsn:true ?tOther . FILTER(STR(?tOther) = "true") }
+  }
+  FILTER NOT EXISTS {
+    ?B gsn:inContextOf ?asm .
+    ?asm a gsn:Assumption ; gsn:true ?tAsm .
+    FILTER(STR(?tAsm) = "false")
+  }
+  FILTER NOT EXISTS {
+    ?B gsn:defeated ?dB .
+    FILTER(STR(?dB) = "true")
+  }
+
+  OPTIONAL { ?B gsn:true ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}

@@ -1,0 +1,16 @@
+# name:      Final Pattern Invalidation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?A gsn:valid ?old }
+INSERT { ?A gsn:valid false }
+WHERE {
+  ?C a gsn:Pattern .
+  ?B gsn:instantiationOf ?C .
+  ?A gsn:final ?final ;
+     gsn:contains ?B , ?C .
+  FILTER(STR(?final) = "true")
+  OPTIONAL { ?A gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

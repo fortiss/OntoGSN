@@ -1,0 +1,15 @@
+# name:      Assumption False Propagation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?B gsn:true ?old }
+INSERT { ?B gsn:true false }
+WHERE {
+  ?A a gsn:Assumption ;
+     gsn:true ?tA .
+  FILTER(STR(?tA) = "false")
+  ?B gsn:inContextOf ?A .
+  OPTIONAL { ?B gsn:true ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

@@ -1,0 +1,28 @@
+# name:      Confidence Relation Creation
+# expect:    insert
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema: <http://schema.org/>
+
+INSERT {
+  ?R a gsn:RelationshipWithConfidence ;
+     schema:identifier ?relationshipId ;
+     rdf:subject ?A ;
+     gsn:assuranceClaimPoint true .
+}
+WHERE {
+  ?A a/rdfs:subClassOf* gsn:ArtefactReference ;
+     gsn:assuranceClaimPoint ?acp ;
+     schema:identifier ?idA .
+  FILTER(STR(?acp) = "true")
+  BIND(CONCAT("RC-", ?idA) AS ?relationshipId)
+  BIND(CONCAT("RC-", REPLACE(STR(?A), "^.*[#/]", "")) AS ?iriKey)
+  BIND(IRI(CONCAT(REPLACE(STR(?A), "[^#/]*$", ""),
+                  ENCODE_FOR_URI(?iriKey))) AS ?R)
+  FILTER NOT EXISTS {
+    ?existing a gsn:RelationshipWithConfidence ;
+              rdf:subject ?A .
+  }
+}

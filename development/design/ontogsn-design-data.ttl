@@ -24,7 +24,7 @@
 <https://w3id.org/OntoGSN/design/data> a owl:Ontology ;
     owl:imports <https://w3id.org/OntoGSN/design> ;
     dc:title "OntoGSN Design Record - the decisions"@en ;
-    dc:description "Why each of the 964 axioms, rules and constraints of OntoGSN exists."@en ;
+    dc:description "Why each of the 966 axioms, rules and constraints of OntoGSN exists."@en ;
     owl:versionInfo "1.0.0" .
 
 
@@ -48,7 +48,7 @@ gsndesign:shapes-1.2.0
     rdfs:label "OntoGSN SHACL shapes 1.2.0"@en ;
     owl:versionInfo "1.2.0" ;
     gsndesign:path "ontology/shapes/ontogsn-shapes_0_full.ttl" ;
-    gsndesign:fileChecksum "690a6b59289410c7941a8c9b62ed84f6f16fba3362c3c42e40fa7ae8cf29781d" ;
+    gsndesign:fileChecksum "60114318a5614c9256c091ec8312fb99702d92e5b67a38a5b303a92d543dcb76" ;
     prov:generatedAtTime "2026-11-11T13:59:24Z"^^xsd:dateTime .
 
 
@@ -3378,7 +3378,7 @@ gsndesign:why-0185
 
 gsndesign:why-0186
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "Derived from SWRL rule S40 and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en .
+    gsndesign:rationaleText "Derived from the SWRL rule Confidence Relation Creation (RL-GSN-confidence_relation_creation) and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en .
 
 gsndesign:why-0187
     a gsndesign:Rationale ;
@@ -3441,7 +3441,7 @@ gsndesign:why-0208
     gsndesign:rationaleText "Goal structures can be partitioned into separate but interrelated modules, and the standard says a module may contain one or more arguments and may contain other modules. Containment by a module is read strictly as that: the elements of the partition are reached through the argument, not addressed directly. gsn:inModule names the result of that traversal so that the rules of the Modular Extension can state module membership in one atom, and so that membership carries up through nested modules. It is inferred and never authored. The strict reading also settles a question the axiom leaves implicit: gsn:contains is not transitive, because transitivity would entail that a module directly contains the elements of its argument and would make every populated module inconsistent with the restriction."@en .
 gsndesign:why-0209
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "An assurance claim point may be placed on any relationship in the argument, including a goal-to-goal inference, so the reified confidence relationship admits a goal as its object. Rule S40 reifies a claim point as soon as an element is flagged as one and nothing in its premises binds the confidence argument, so the relationship it creates is a stub for a person to complete; the association is therefore expected rather than required, and its absence is reported as a warning."@en .
+    gsndesign:rationaleText "An assurance claim point may be placed on any relationship in the argument, including a goal-to-goal inference, so the reified confidence relationship admits a goal as its object. Rule RL-GSN-confidence_relation_creation reifies a claim point as soon as an element is flagged as one and nothing in its premises binds the confidence argument, so the relationship it creates is a stub for a person to complete; the association is therefore expected rather than required, and its absence is reported as a warning."@en .
 
 gsndesign:why-0211
     a gsndesign:Rationale ;
@@ -3462,15 +3462,15 @@ gsndesign:why-0220
 
 gsndesign:why-0221
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The standard requires a unique identifier for each assurance claim point, because that identifier names the confidence argument that belongs to the point (1:5.2.3). The rule that came before applied this to every schema:identifier in the graph, not only to assurance claim points. With the Modular Extension imported, it then reported elements in two different modules that share an identifier, which the module scope of rule S25 allows. The rule now reads only nodes that are marked as assurance claim points. Within one module, rule S25 still requires unique identifiers for all elements."@en .
+    gsndesign:rationaleText "The standard requires a unique identifier for each assurance claim point, because that identifier names the confidence argument that belongs to the point (1:5.2.3). The rule that came before applied this to every schema:identifier in the graph, not only to assurance claim points. With the Modular Extension imported, it then reported elements in two different modules that share an identifier, which the module scope of rule RL-GSN-duplicate_identifier_invalidation allows. The rule now reads only nodes that are marked as assurance claim points. Within one module, rule RL-GSN-duplicate_identifier_invalidation still requires unique identifiers for all elements."@en .
 
 gsndesign:why-0222
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "Rules S7 and S37 found a cycle only when it had exactly three nodes, as the rationale of S37 recorded. A rule cannot follow a chain of unknown length, but a transitive property can. Each of gsn:supportedBy, gsn:inContextOf and gsn:challenges therefore gets an inferred-only transitive property, which one closure rule fills. A node that this property relates to itself is on a cycle. A link is on a cycle when its object leads back to its subject. A rule fills each property, not a sub-property axiom. The asserted property therefore gains no axiom, and each helper stays in the extension of its rule. OWL 2 DL does not allow a transitive property to be irreflexive, so a rule marks the cycle. Each predicate has its own property, because one shared property would join support, context and challenge links into one chain. Context links form a chain only between modules, so that closure is in the Modular Extension and reads modules only. The standard does not forbid a cycle of challenges, but rules S46 to S49 cannot resolve one. Two valid solutions that challenge each other would each be both defeated and valid."@en .
+    gsndesign:rationaleText "Rules Predicate Conflict Invalidation and Circular Module Invalidation found a cycle only when it had exactly three nodes, as the rationale of Circular Module Invalidation recorded. A rule cannot follow a chain of unknown length, but a transitive property can. Each of gsn:supportedBy, gsn:inContextOf and gsn:challenges therefore gets an inferred-only transitive property, which one closure rule fills. A node that this property relates to itself is on a cycle. A link is on a cycle when its object leads back to its subject. A rule fills each property, not a sub-property axiom. The asserted property therefore gains no axiom, and each helper stays in the extension of its rule. OWL 2 DL does not allow a transitive property to be irreflexive, so a rule marks the cycle. Each predicate has its own property, because one shared property would join support, context and challenge links into one chain. Context links form a chain only between modules, so that closure is in the Modular Extension and reads modules only. The standard does not forbid a cycle of challenges, but rules RL-GSN-challenge_defeat to RL-GSN-undeveloped_defeat cannot resolve one. Two valid solutions that challenge each other would each be both defeated and valid."@en .
 
 gsndesign:why-0223
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The architecture view relates modules with SupportedBy and InContextOf links (1:4.4.1). Rules S34, S35 and S36 write these links between modules. The domain of both properties named only Goal and Strategy, and the ontology declares no disjoint classes. A reasoner therefore inferred every module with such a link to be a goal or a strategy, and reported no error. The domain now names gsn:Module as well. The SHACL shapes for both domains already admitted modules."@en .
+    gsndesign:rationaleText "The architecture view relates modules with SupportedBy and InContextOf links (1:4.4.1). Rules RL-GSN-module_support_propagation, RL-GSN-module_context_propagation and RL-GSN-cross_module_support write these links between modules. The domain of both properties named only Goal and Strategy, and the ontology declares no disjoint classes. A reasoner therefore inferred every module with such a link to be a goal or a strategy, and reported no error. The domain now names gsn:Module as well. The SHACL shapes for both domains already admitted modules."@en .
 
 gsndesign:why-0224
     a gsndesign:Rationale ;
@@ -3482,11 +3482,11 @@ gsndesign:why-0225
 
 gsndesign:why-0226
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The standard lets a challenge be directed at any part of an argument, and rule S51 challenges a support link. The range named only gsn:GSNElement, so a reasoner inferred every challenged relationship to be a GSN element. gsn:Goal and gsn:Solution already admitted gsn:Relationship in their restrictions on gsn:challenges, and the SHACL range shape already admitted it too. The range now names both classes, and so do the range and the domain of gsn:transitivelyChallenges, which follows the same links. Its domain equals its range, as a transitive property needs."@en .
+    gsndesign:rationaleText "The standard lets a challenge be directed at any part of an argument, and rule RL-GSN-challenge_chain_invalidation challenges a support link. The range named only gsn:GSNElement, so a reasoner inferred every challenged relationship to be a GSN element. gsn:Goal and gsn:Solution already admitted gsn:Relationship in their restrictions on gsn:challenges, and the SHACL range shape already admitted it too. The range now names both classes, and so do the range and the domain of gsn:transitivelyChallenges, which follows the same links. Its domain equals its range, as a transitive property needs."@en .
 
 gsndesign:why-0227
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "A solution that is true makes the claim it supports true, by rule S10. SWRL cannot also check that no other solution of the claim is false or has no value, because it has no negation as failure. On mixed support, the rules therefore give the claim both truth values, and the only report is that the claim cannot be both. This shape names the cause: a claim marked true, and the solution under it that is not marked true. It is a warning, because a solution can lack a truth value while a review is still running."@en .
+    gsndesign:rationaleText "A solution that is true makes the claim it supports true, by rule RL-GSN-solution_propagation_true. SWRL cannot also check that no other solution of the claim is false or has no value, because it has no negation as failure. On mixed support, the rules therefore give the claim both truth values, and the only report is that the claim cannot be both. This shape names the cause: a claim marked true, and the solution under it that is not marked true. It is a warning, because a solution can lack a truth value while a review is still running."@en .
 
 gsndesign:why-0228
     a gsndesign:Rationale ;
@@ -5664,7 +5664,7 @@ gsndesign:st-0114
 
 gsndesign:dd-0115
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "domain widened to the four classes the rules actually mark valid in 1.2.3. The single-class domain excluded relationships, arguments and patterns, so rules S20, S21, S22, S29 and S31 all produced data the ontology rejected. gsn:Relationship was widened into the domain rather than made a subclass of gsn:GSNElement, because that class requires exactly one schema:identifier and subclassing would have forced an identifier onto every reified relationship. Superseded by the widened domain recorded in the same release."@en ;
+    gsndesign:retirementReason "domain widened to the four classes the rules actually mark valid in 1.2.3. The single-class domain excluded relationships, arguments and patterns, so rules RL-GSN-final_pattern_invalidation, RL-GSN-template_undeveloped_invalidation_a, RL-GSN-template_undeveloped_invalidation_b, RL-GSN-away_goal_invalidation and RL-GSN-contract_relation_invalidation all produced data the ontology rejected. gsn:Relationship was widened into the domain rather than made a subclass of gsn:GSNElement, because that class requires exactly one schema:identifier and subclassing would have forced an identifier onto every reified relationship. Superseded by the widened domain recorded in the same release."@en ;
     gsndesign:positionKey "S03.R034" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-part0-glossary ;
@@ -5832,7 +5832,7 @@ gsndesign:st-0121
 
 gsndesign:dd-0122
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "enumeration extended with “dialectic” in 1.2.3. It was written from Core GSN and never extended when the Dialectic Extension added the challenges relationship, so a reified challenge had no legal value and rule S50 was left creating untyped relationships, alone among the four relation-creating rules. Superseded by the extended enumeration recorded in the same release."@en ;
+    gsndesign:retirementReason "enumeration extended with “dialectic” in 1.2.3. It was written from Core GSN and never extended when the Dialectic Extension added the challenges relationship, so a reified challenge had no legal value and rule RL-GSN-challenge_relation_creation was left creating untyped relationships, alone among the four relation-creating rules. Superseded by the extended enumeration recorded in the same release."@en ;
     gsndesign:positionKey "S03.R041" ;
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-part0-glossary ;
@@ -7636,7 +7636,7 @@ gsndesign:st-0205
 
 gsndesign:dd-0206
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "domain extended with gsn:Relationship in 1.2.3. Rules S21 and S22 mark a relationship undeveloped, so the ontology's own rules wrote the property somewhere its domain did not reach. Superseded by the extended domain recorded in the same release."@en ;
+    gsndesign:retirementReason "domain extended with gsn:Relationship in 1.2.3. Rules RL-GSN-template_undeveloped_invalidation_a and RL-GSN-template_undeveloped_invalidation_b mark a relationship undeveloped, so the ontology's own rules wrote the property somewhere its domain did not reach. Superseded by the extended domain recorded in the same release."@en ;
     gsndesign:positionKey "S04.R052" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-core ;
@@ -7753,7 +7753,7 @@ gsndesign:st-0210
 
 gsndesign:dd-0211
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "domain widened with gsn:Module in 1.3.0. Rules S34 and S36 write gsn:supportedBy between modules, so a reasoner inferred each such module to be a goal or a strategy. Superseded by dd-1031."@en ;
+    gsndesign:retirementReason "domain widened with gsn:Module in 1.3.0. Rules RL-GSN-module_support_propagation and RL-GSN-cross_module_support write gsn:supportedBy between modules, so a reasoner inferred each such module to be a goal or a strategy. Superseded by dd-1031."@en ;
     gsndesign:supersededBy gsndesign:dd-1031 ;
     gsndesign:positionKey "S04.R057" ;
     gsndesign:part gsndesign:part-1 ;
@@ -8014,7 +8014,7 @@ gsndesign:st-0221
 
 gsndesign:dd-0222
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "domain widened with gsn:Module in 1.3.0. Rule S35 writes gsn:inContextOf between modules, so a reasoner inferred each such module to be a goal or a strategy. Superseded by dd-1027."@en ;
+    gsndesign:retirementReason "domain widened with gsn:Module in 1.3.0. Rule RL-GSN-module_context_propagation writes gsn:inContextOf between modules, so a reasoner inferred each such module to be a goal or a strategy. Superseded by dd-1027."@en ;
     gsndesign:supersededBy gsndesign:dd-1027 ;
     gsndesign:positionKey "S04.R068" ;
     gsndesign:part gsndesign:part-1 ;
@@ -8100,7 +8100,7 @@ gsndesign:st-0225
 
 gsndesign:dd-0226
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "generalized in 1.3.0 to cycles of any length. The rule found a cycle of relationships only when it had exactly three. Rules S57, S60 and S63 now mark every relationship on a cycle of support, context or challenge links, and read the closure that rules S55, S58 and S61 derive. Superseded by dd-1042."@en ;
+    gsndesign:retirementReason "generalized in 1.3.0 to cycles of any length. The rule found a cycle of relationships only when it had exactly three. Rules RL-GSN-support_cycle_relationship_invalidation, RL-GSN-module_context_cycle_relationship_invalidation and RL-GSN-challenge_cycle_relationship_invalidation now mark every relationship on a cycle of support, context or challenge links, and read the closure that rules RL-GSN-support_closure, RL-GSN-module_context_closure and RL-GSN-challenge_closure derive. Superseded by dd-1042."@en ;
     gsndesign:supersededBy gsndesign:dd-1042 ;
     gsndesign:positionKey "S04.R072" ;
     gsndesign:part gsndesign:part-1 ;
@@ -8292,7 +8292,7 @@ gsndesign:st-0234
 
 gsndesign:dd-0235
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "domain extended with gsn:Relationship in 1.2.3. Rule S14 asserts truth of a reified relationship, so the ontology's own rules wrote the property somewhere its domain did not reach. Superseded by the extended domain recorded in the same release."@en ;
+    gsndesign:retirementReason "domain extended with gsn:Relationship in 1.2.3. Rule RL-GSN-relation_false_propagation asserts truth of a reified relationship, so the ontology's own rules wrote the property somewhere its domain did not reach. Superseded by the extended domain recorded in the same release."@en ;
     gsndesign:positionKey "S04.R080" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-core ;
@@ -8418,7 +8418,7 @@ true(?A, false) ^ true(?B, true) ^ supportedBy(?B, ?A) ^ Goal(?A) -> valid(?B, f
 
 gsndesign:dd-0240
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "subsumed by rule S8, which draws the same conclusion from the false goal alone and does not need a true goal to be present as well. Every case that S9 matched, S8 also matched, so S9 changed nothing on any case. Removed from the ontology in 1.3.0. The transcription of the passage is kept in this record. Superseded by dd-0239."@en ;
+    gsndesign:retirementReason "subsumed by rule RL-GSN-contradictory_goal_truth, which draws the same conclusion from the false goal alone and does not need a true goal to be present as well. Every case that Tri-Goal Conflict matched, RL-GSN-contradictory_goal_truth also matched, so Tri-Goal Conflict changed nothing on any case. Removed from the ontology in 1.3.0. The transcription of the passage is kept in this record. Superseded by dd-0239."@en ;
     gsndesign:supersededBy gsndesign:dd-0239 ;
     gsndesign:positionKey "S04.R085" ;
     gsndesign:part gsndesign:part-1 ;
@@ -8559,7 +8559,7 @@ gsndesign:dd-0246
     prov:used gsndesign:src-0064 ;
     gsndesign:hasRationale gsndesign:why-0040 ;
     prov:generated gsndesign:st-0246 ;
-    gsndesign:retirementReason "subsumed by rule S11, which draws the same conclusion from the failing solution alone and does not need a holding solution to be present as well. The two coexisted only because rule S10 asserted the opposite and undid S11 on the mixed case, which made S13 look load-bearing; once S10 was guarded in 1.2.3 so that it does not fire where support is mixed, S13 stopped changing anything on any case. Disabled with swrla:isRuleEnabled false rather than deleted, so the transcription of the passage is kept. Superseded by dd-0244."@en ;
+    gsndesign:retirementReason "subsumed by rule RL-GSN-solution_propagation_false, which draws the same conclusion from the failing solution alone and does not need a holding solution to be present as well. The two coexisted only because rule RL-GSN-solution_propagation_true asserted the opposite and undid RL-GSN-solution_propagation_false on the mixed case, which made Conflicting Support (False) look load-bearing; once RL-GSN-solution_propagation_true was guarded in 1.2.3 so that it does not fire where support is mixed, Conflicting Support (False) stopped changing anything on any case. Disabled with swrla:isRuleEnabled false rather than deleted, so the transcription of the passage is kept. Superseded by dd-0244."@en ;
     gsndesign:supersededBy gsndesign:dd-0244 .
 
 gsndesign:st-0246
@@ -9603,7 +9603,7 @@ gsndesign:st-0293
 
 gsndesign:dd-0294
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "the subject restriction was extended with gsn:Module and gsn:Pattern in 1.2.3. Rules S18 and S19 reify module-to-module support and rule S21 reifies a link whose subject is a template, so the restriction rejected relationships the rule set creates. Superseded by the extended restriction recorded in the same release."@en ;
+    gsndesign:retirementReason "the subject restriction was extended with gsn:Module and gsn:Pattern in 1.2.3. Rules RL-GSN-support_relation_creation and RL-GSN-context_relation_creation reify module-to-module support and rule RL-GSN-template_undeveloped_invalidation_a reifies a link whose subject is a template, so the restriction rejected relationships the rule set creates. Superseded by the extended restriction recorded in the same release."@en ;
     gsndesign:positionKey "S04.R125" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-core ;
@@ -9637,7 +9637,7 @@ gsndesign:dd-0295
 
 gsndesign:dd-0296
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "the object restriction was extended with gsn:Relationship in 1.2.3. gsn:challenges is defined as allowing a challenge to any GSN entity and its range had already been widened in the shapes to admit a relationship; the reified form had not been widened to match, so rule S51 produced a relationship the restriction rejected. Superseded by the extended restriction recorded in the same release."@en ;
+    gsndesign:retirementReason "the object restriction was extended with gsn:Relationship in 1.2.3. gsn:challenges is defined as allowing a challenge to any GSN entity and its range had already been widened in the shapes to admit a relationship; the reified form had not been widened to match, so rule RL-GSN-challenge_chain_invalidation produced a relationship the restriction rejected. Superseded by the extended restriction recorded in the same release."@en ;
     gsndesign:positionKey "S04.R127" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-core ;
@@ -12920,7 +12920,7 @@ gsndesign:st-0444
 
 gsndesign:dd-0445
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "domain extended with gsn:Pattern in 1.2.3. Rules S21 and S22 both read gsn:published off a gsn:Template, so the ontology's own rules read the property from a class its domain excluded. Superseded by the extended domain recorded in the same release."@en ;
+    gsndesign:retirementReason "domain extended with gsn:Pattern in 1.2.3. Rules RL-GSN-template_undeveloped_invalidation_a and RL-GSN-template_undeveloped_invalidation_b both read gsn:published off a gsn:Template, so the ontology's own rules read the property from a class its domain excluded. Superseded by the extended domain recorded in the same release."@en ;
     gsndesign:positionKey "S05.R128" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-pattern ;
@@ -13555,7 +13555,7 @@ gsndesign:st-0474
 
 gsndesign:dd-0475
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "domain extended with gsn:Pattern in 1.2.3. A pattern is an argument structure and holds the elements it is built from, and rule S22 matches containment by a template. gsn:Catalogue remains outside the declared domain and continues to be admitted by the shape alone, under its own decision. Superseded by the extended domain recorded in the same release."@en ;
+    gsndesign:retirementReason "domain extended with gsn:Pattern in 1.2.3. A pattern is an argument structure and holds the elements it is built from, and rule RL-GSN-template_undeveloped_invalidation_b matches containment by a template. gsn:Catalogue remains outside the declared domain and continues to be admitted by the shape alone, under its own decision. Superseded by the extended domain recorded in the same release."@en ;
     gsndesign:positionKey "S06.R007" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-modular ;
@@ -16140,7 +16140,7 @@ gsndesign:dd-0603
 
 gsndesign:dd-0604
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "generalized in 1.3.0 to cycles of any length. The rule found a cycle of modules only when it had exactly three, as its rationale recorded. Rule S56 marks every element on a support cycle, and modules are elements. Superseded by dd-1041."@en ;
+    gsndesign:retirementReason "generalized in 1.3.0 to cycles of any length. The rule found a cycle of modules only when it had exactly three, as its rationale recorded. Rule RL-GSN-support_cycle_invalidation marks every element on a support cycle, and modules are elements. Superseded by dd-1041."@en ;
     gsndesign:supersededBy gsndesign:dd-1041 ;
     gsndesign:positionKey "S06.R131" ;
     gsndesign:part gsndesign:part-1 ;
@@ -17231,7 +17231,7 @@ gsndesign:dd-0664
 
 gsndesign:dd-0665
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "narrowed to assurance claim points in 1.3.0. The rule read every schema:identifier, so it required all identifiers in the graph to be unique, although the passage it rests on names only the identifiers of assurance claim points. With the Modular Extension imported, it reported elements in different modules that rule S25 allows to share an identifier. Superseded by dd-1013."@en ;
+    gsndesign:retirementReason "narrowed to assurance claim points in 1.3.0. The rule read every schema:identifier, so it required all identifiers in the graph to be unique, although the passage it rests on names only the identifiers of assurance claim points. With the Modular Extension imported, it reported elements in different modules that rule RL-GSN-duplicate_identifier_invalidation allows to share an identifier. Superseded by dd-1013."@en ;
     gsndesign:supersededBy gsndesign:dd-1013 ;
     gsndesign:positionKey "S07.R026" ;
     gsndesign:part gsndesign:part-1 ;
@@ -17440,7 +17440,7 @@ gsndesign:st-0674
 
 gsndesign:dd-0675
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "the containment restriction was extended with gsn:Pattern in 1.2.3. An argument holds the pattern it instantiates while the instantiation is in progress, which is the situation rule S20 exists to detect, and the restriction rejected it. Superseded by the extended restriction recorded in the same release."@en ;
+    gsndesign:retirementReason "the containment restriction was extended with gsn:Pattern in 1.2.3. An argument holds the pattern it instantiates while the instantiation is in progress, which is the situation rule RL-GSN-final_pattern_invalidation exists to detect, and the restriction rejected it. Superseded by the extended restriction recorded in the same release."@en ;
     gsndesign:positionKey "S07.R033c" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-confidence ;
@@ -18183,7 +18183,7 @@ gsndesign:st-0712
 
 gsndesign:dd-0713
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "range widened with gsn:Relationship in 1.3.0. Rule S51 challenges a support link, so a reasoner inferred each challenged relationship to be a GSN element. Superseded by dd-1059."@en ;
+    gsndesign:retirementReason "range widened with gsn:Relationship in 1.3.0. Rule RL-GSN-challenge_chain_invalidation challenges a support link, so a reasoner inferred each challenged relationship to be a GSN element. Superseded by dd-1059."@en ;
     gsndesign:supersededBy gsndesign:dd-1059 ;
     gsndesign:positionKey "S08.R020" ;
     gsndesign:part gsndesign:part-1 ;
@@ -18480,7 +18480,7 @@ gsndesign:st-0725
 
 gsndesign:dd-0726
     a gsndesign:RetiredDecision ;
-    gsndesign:retirementReason "the object restriction was extended with gsn:Goal in 1.2.3. An assurance claim point may be placed on a goal-to-goal inference, and rules S43 and S45 create exactly that, so the restriction rejected relationships the rule set creates. Superseded by the extended restriction recorded in the same release."@en ;
+    gsndesign:retirementReason "the object restriction was extended with gsn:Goal in 1.2.3. An assurance claim point may be placed on a goal-to-goal inference, and rules RL-GSN-goal_strategy_confidence and RL-GSN-goal_confidence_relation create exactly that, so the restriction rejected relationships the rule set creates. Superseded by the extended restriction recorded in the same release."@en ;
     gsndesign:positionKey "S08.R032a" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-dialectic ;
@@ -23472,7 +23472,7 @@ gsndesign:dd-0924
     gsndesign:section gsndesign:sec-confidence ;
     gsndesign:formalism gsndesign:SHACL ;
     gsndesign:naturalLanguage "An element marked as an assurance claim point should be associated with a confidence argument."@en ;
-    gsndesign:nlWrittenFor "b60359b5" ;
+    gsndesign:nlWrittenFor "21a8b305" ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0186 ;
     prov:generated gsndesign:st-0924 .
@@ -23483,13 +23483,13 @@ gsndesign:st-0924
     gsndesign:inGraph gsndesign:shapes-1.2.0 ;
     gsndesign:statementText """gsnsh:AssuranceClaimPointHasArgumentShape gsn:coreOrExtension "Confidence Argument Extension"@en ;
     rdf:type sh:NodeShape ;
-    rdfs:comment "Derived from SWRL rule S40 and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en ;
+    rdfs:comment "Derived from the SWRL rule Confidence Relation Creation (RL-GSN-confidence_relation_creation) and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en ;
     rdfs:label "Assurance claim point carries a confidence argument"@en ;
     sh:message "An element marked as an assurance claim point should be associated with a confidence argument."@en ;
     sh:or ( [ sh:not [ sh:property [ sh:hasValue "true"^^xsd:boolean ; sh:name "assurance claim point" ; sh:path gsn:assuranceClaimPoint ] ] ] [ sh:property [ sh:name "associated with" ; sh:path gsn:associatedWith ; sh:qualifiedMinCount "1"^^xsd:integer ; sh:qualifiedValueShape [ sh:class gsn:Argument ] ] ] ) ;
     sh:severity sh:Warning ;
     sh:targetSubjectsOf gsn:assuranceClaimPoint .""" ;
-    gsndesign:statementChecksum "b60359b5" ;
+    gsndesign:statementChecksum "21a8b305" ;
     gsndesign:structuralKey "gsnsh:AssuranceClaimPointHasArgumentShape|node|" ;
     gsndesign:aboutTerm gsnsh:AssuranceClaimPointHasArgumentShape ;
     gsndesign:mentionsTerm gsn:Argument ,
@@ -24635,7 +24635,7 @@ gsndesign:why-0213
     a gsndesign:Rationale ;
     gsndesign:rationaleText """The top goal is the pinnacle claim of an argument, not of the whole store. The general class axiom said otherwise: it made a goal top exactly when no goal or strategy anywhere supports it, so an away goal - the top goal of its own module, referenced from another - was disqualified by the very reference that makes it an away goal. Scoping the parent test to the module is a condition relating three individuals (parent, goal, module) and is not expressible as an OWL class expression, so the axiom was weakened to hold in one direction only and the scoped definition moved here and into rule S06, where it can be stated.
 
-A parent is discounted exactly when some module contains the parent and not the goal. Written as containment rather than gsn:inModule so that the constraint does not depend on rules S53 and S54 having run. With no modules in the graph nothing is discounted, so a core-only case behaves exactly as it did before.
+A parent is discounted exactly when some module contains the parent and not the goal. Written as containment rather than gsn:inModule so that the constraint does not depend on rules RL-GSN-module_membership and RL-GSN-nested_module_membership having run. With no modules in the graph nothing is discounted, so a core-only case behaves exactly as it did before.
 
 A goal that challenges something is excluded as well. Nothing supports a defeater, precisely because it is levied against the argument rather than part of it, and the unscoped reading therefore made every challenge goal a top goal - which is not the claim the author is asserting."""@en .
 
@@ -28044,16 +28044,16 @@ Relationship(?R) ^ inDoubt(?R, true) ^ subject(?R, ?A) ^ object(?R, ?B) ^ inCont
 
 gsndesign:why-0239
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The standard lets a goal or a solution challenge any relationship (1:6.3.9), but it does not say what a challenged link does to the element that relies on it. Since 1.3.0 gsn:challenges ranges over gsn:Relationship, and the Challenge Doubt rule puts a challenged link in doubt when the challenging goal is true. Without a further rule, the element that rests on the link stays untouched, so a claim whose only support link is in doubt looks sound. The two rules carry the doubt from the link to its subject. For a supported-by link the subject is the parent, which is as weak as the weakest link below it. For an in-context-of link the subject is the element that is read in that context. The rules do not decide when a challenge counts. The Challenge Doubt rule still decides that, so a challenge to a link and a challenge to an element have the same condition. There are two rules because SWRL has no disjunction. A challenges link is left out on purpose: its subject is the challenger, and doubt in a challenge is not doubt in the claim of the challenger. No rule clears the doubt, as with the Challenge Doubt rule. The FinComp hub proposed the rule on 2026-11-06, after an audit pattern in which an issue challenges the link between a control goal and its evidence."@en .
+    gsndesign:rationaleText "The standard lets a goal or a solution challenge any relationship (1:6.3.9), but it does not say what a challenged link does to the element that relies on it. Since 1.3.0 gsn:challenges ranges over gsn:Relationship, and the Challenge Doubt rule puts a challenged link in doubt when the challenging goal is true. Without a further rule, the element that rests on the link stays untouched, so a claim whose only support link is in doubt looks sound. The two rules carry the doubt from the link to its subject. For a supported-by link the subject is the parent, which is as weak as the weakest link below it. For an in-context-of link the subject is the element that is read in that context. The rules do not decide when a challenge counts. The Challenge Doubt rule still decides that, so a challenge to a link and a challenge to an element have the same condition. There are two rules because SWRL has no disjunction. A challenges link is left out on purpose: its subject is the challenger, and doubt in a challenge is not doubt in the claim of the challenger. No rule clears the doubt, as with the Challenge Doubt rule. The RSC audit hub proposed the rule on 2026-11-06, after an audit pattern in which an issue challenges the link between a control goal and its evidence."@en .
 
-#    Conventions of the stored queries (5 decisions)
+#    Conventions of the stored queries (7 decisions)
 #    Written by hand. A decision here is about every stored query, so it generates no
 #    statement.
 #################################################################
 
 gsndesign:why-0240
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "A stored query takes its parameter as a schema:identifier in a VALUES block and joins the element through that identifier. The other option is the IRI of the element in the VALUES block. That option needs the namespace of the case in every query file, so no query runs on a second case without an edit. The ontology requires exactly one schema:identifier for each element, and people name an element by its identifier. The cost is a case that breaks this requirement: if two elements share an identifier, a query returns rows for both. The query read_duplicate_identifiers.rq finds such a case."@en .
+    gsndesign:rationaleText "A stored query takes its parameter as a schema:identifier in a VALUES block and joins the element through that identifier. The other option is the IRI of the element in the VALUES block. That option needs the namespace of the case in every query file, so no query runs on a second case without an edit. The ontology requires exactly one schema:identifier for each element, and people name an element by its identifier. The cost is a case that breaks this requirement: if two elements share an identifier, a query returns rows for both. The query RQ-GSN-duplicate_identifiers.rq finds such a case."@en .
 
 gsndesign:why-0241
     a gsndesign:Rationale ;
@@ -28070,6 +28070,14 @@ gsndesign:why-0243
 gsndesign:why-0244
     a gsndesign:Rationale ;
     gsndesign:rationaleText "A SWRL rule with swrlx:makeOWLThing gets a new anonymous individual from the reasoner in each run. The SPARQL update of such a rule builds the IRI of the new node from the IRIs of the two elements that the node links. A second run of the update builds the same IRI, so it adds no second node, and the rules can run again on a case that already holds their results. The IRI uses the IRIs of the elements and not their identifiers, because two elements in different modules can share an identifier."@en .
+
+gsndesign:why-0262
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A number in the ID of a query says nothing about what the query does, and the order of the numbers is arbitrary. The core rules had gaps where rules were retired, and the questions of the audit had a numbering of their own. A slug says what the query does, and it stays when other queries come or go. The file name is the ID, so a copy of the file, a log, a result and the registry all name a query the same way. A tool reads the ID from the file name. The kind says whether the query reads, writes or is a rule. The scope says what the query needs, OntoGSN alone or the Augmentation, and so the folder of the file. A project that uses OntoGSN adds scopes of its own, so its IDs never clash with these. The slug of a rule comes from its rdfs:label, so the SWRL form of the rule needs no ID of its own."@en .
+
+gsndesign:why-0263
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The SPARQL rules do not all reach the same result in every order. Support Relation Creation skips a link that a node already reifies, and Strategy Confidence Relation reifies such links with nodes of its own. When the second rule runs first, the first one adds nothing for those links, and the example case loses two relationship nodes. A runner therefore applies the rules in the order of the column order of the registry. That order keeps the order of the old file names. A rule set that reaches one result in every order needs a change of these rules, which waits for a rule release."@en .
 
 gsndesign:dd-1101
     a gsndesign:DesignDecision ;
@@ -28121,6 +28129,26 @@ gsndesign:dd-1105
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0244 .
 
+gsndesign:dd-1131
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R76" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The ID of a stored query or a rule is its file name, <KIND>-<SCOPE>-<slug>, and the slug says what the query does."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0262 .
+
+gsndesign:dd-1132
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R77" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "A runner applies the SPARQL rules in the order of the registry, not in the order of their file names."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0263 .
+
 
 #################################################################
 #    Choices in single stored queries and SPARQL rules (15 decisions)
@@ -28130,63 +28158,63 @@ gsndesign:dd-1105
 
 gsndesign:why-0247
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "A create query builds the IRI of a new element from the IRI of the element that it attaches to: it keeps the namespace and adds the new identifier. The query therefore does not name the namespace of the case, and it runs on any case without an edit. The other option is a prefix for the case in each create query, which a user must change before each run on a second case. Only create_assurance_case_skeleton.rq names a namespace of its own, because a new case has no element to take one from."@en .
+    gsndesign:rationaleText "A create query builds the IRI of a new element from the IRI of the element that it attaches to: it keeps the namespace and adds the new identifier. The query therefore does not name the namespace of the case, and it runs on any case without an edit. The other option is a prefix for the case in each create query, which a user must change before each run on a second case. Only WQ-GSN-create_assurance_case_skeleton.rq names a namespace of its own, because a new case has no element to take one from."@en .
 
 gsndesign:why-0248
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "Evidence can arrive from a test pipeline as artefacts, and each artefact needs a solution before the argument can cite it. The query create_solutions_for_unreferenced_artefacts.rq makes one solution for each artefact that no solution refers to. It derives the identifier of the solution from the identifier of the artefact, and it does not make a new identifier in each run. A second run finds a solution for each artefact, so it adds nothing."@en .
+    gsndesign:rationaleText "Evidence can arrive from a test pipeline as artefacts, and each artefact needs a solution before the argument can cite it. The query WQ-GSN-create_solutions_for_unreferenced_artefacts.rq makes one solution for each artefact that no solution refers to. It derives the identifier of the solution from the identifier of the artefact, and it does not make a new identifier in each run. A second run finds a solution for each artefact, so it adds nothing."@en .
 
 gsndesign:why-0249
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The query delete_assurance_case.rq deletes every element that it reaches from the case through containment, support and context. gsn:contains alone is not enough, because some elements are reached only through gsn:supportedBy. The query does not delete an artefact, because a second case can cite the same artefact. The query delete_unreferenced_artefacts.rq removes the artefacts that nothing cites any more."@en .
+    gsndesign:rationaleText "The query WQ-GSN-delete_assurance_case.rq deletes every element that it reaches from the case through containment, support and context. gsn:contains alone is not enough, because some elements are reached only through gsn:supportedBy. The query does not delete an artefact, because a second case can cite the same artefact. The query WQ-GSN-delete_unreferenced_artefacts.rq removes the artefacts that nothing cites any more."@en .
 
 gsndesign:why-0250
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The query delete_materialised_inferences.rq clears the five things that only a rule writes: gsn:inDoubt, gsn:defeated, gsn:consistentWith, gsn:relationshipType and the type gsn:Defeater. A person also sets gsn:valid, gsn:true, gsn:away, gsn:top, gsn:public and gsn:contract by hand, so a query that clears them deletes assertions. The query also keeps the reified relationships that the rules create, because nothing tells them apart from a relationship that a person drew. A user who needs derived and asserted facts apart runs ontology/example/run_rules.py with --out on a copy of the case."@en .
+    gsndesign:rationaleText "The query WQ-GSN-delete_materialised_inferences.rq clears the five things that only a rule writes: gsn:inDoubt, gsn:defeated, gsn:consistentWith, gsn:relationshipType and the type gsn:Defeater. A person also sets gsn:valid, gsn:true, gsn:away, gsn:top, gsn:public and gsn:contract by hand, so a query that clears them deletes assertions. The query also keeps the reified relationships that the rules create, because nothing tells them apart from a relationship that a person drew. A user who needs derived and asserted facts apart runs ontology/example/run_rules.py with --out on a copy of the case."@en .
 
 gsndesign:why-0251
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "A goal is read in the context that is declared on the goal and on every element above it. Rule S17, Context Inheritance, copies only assumptions down the support chain, and it does so only after the rules run. The query read_context_in_scope_for_goal.rq therefore walks the support chain itself. It returns context, assumptions and justifications, and its answer does not depend on a run of the rules."@en .
+    gsndesign:rationaleText "A goal is read in the context that is declared on the goal and on every element above it. Rule RL-GSN-context_inheritance, Context Inheritance, copies only assumptions down the support chain, and it does so only after the rules run. The query RQ-GSN-context_in_scope_for_goal.rq therefore walks the support chain itself. It returns context, assumptions and justifications, and its answer does not depend on a run of the rules."@en .
 
 gsndesign:why-0252
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The query read_element_status_flags.rq returns one row for each flag of an element, not one row for each element with four columns. Different rules set gsn:valid, gsn:true, gsn:inDoubt and gsn:defeated at different times, and the usual question is about one of the flags. A reader filters the rows on the flag."@en .
+    gsndesign:rationaleText "The query RQ-GSN-element_status_flags.rq returns one row for each flag of an element, not one row for each element with four columns. Different rules set gsn:valid, gsn:true, gsn:inDoubt and gsn:defeated at different times, and the usual question is about one of the flags. A reader filters the rows on the flag."@en .
 
 gsndesign:why-0253
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The query read_elements_unreachable_from_top_goal.rq follows support links and context links together from each top goal. A context element is part of the argument, but nothing supports it. A walk over gsn:supportedBy alone reports every context, assumption and justification as unreachable."@en .
+    gsndesign:rationaleText "The query RQ-GSN-elements_unreachable_from_top_goal.rq follows support links and context links together from each top goal. A context element is part of the argument, but nothing supports it. A walk over gsn:supportedBy alone reports every context, assumption and justification as unreachable."@en .
 
 gsndesign:why-0254
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "A solution is a reference to evidence, and the artefact behind the reference is what an auditor asks to see. The query read_evidence_supporting_goal.rq therefore returns both: the solution, which is the place in the argument, and the artefact that the solution refers to."@en .
+    gsndesign:rationaleText "A solution is a reference to evidence, and the artefact behind the reference is what an auditor asks to see. The query RQ-GSN-evidence_supporting_goal.rq therefore returns both: the solution, which is the place in the argument, and the artefact that the solution refers to."@en .
 
 gsndesign:why-0255
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "A dependency between two modules follows from a link between two elements. The query read_module_dependencies.rq returns the elements together with the two modules. A dependency for which nobody can name an element is a modelling error, and the row with the elements shows where to look."@en .
+    gsndesign:rationaleText "A dependency between two modules follows from a link between two elements. The query RQ-GSN-module_dependencies.rq returns the elements together with the two modules. A dependency for which nobody can name an element is a modelling error, and the row with the elements shows where to look."@en .
 
 gsndesign:why-0256
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The query read_top_goals.rq accepts two signs of a top goal: the decorator gsn:top, and a goal that no other element supports. It returns both as columns and does not decide between them. A case in which the two signs disagree has a wrong decorator or a missing link, and the row shows it."@en .
+    gsndesign:rationaleText "The query RQ-GSN-top_goals.rq accepts two signs of a top goal: the decorator gsn:top, and a goal that no other element supports. It returns both as columns and does not decide between them. A case in which the two signs disagree has a wrong decorator or a missing link, and the row shows it."@en .
 
 gsndesign:why-0257
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "OntoGSN has no property for the date of an artefact. The case dates an artefact with a property of its own choice. The query read_stale_evidence.rq reads dcterms:created, which the example case uses. A user whose case uses another property changes the property in the query."@en .
+    gsndesign:rationaleText "OntoGSN has no property for the date of an artefact. The case dates an artefact with a property of its own choice. The query RQ-GSN-stale_evidence.rq reads dcterms:created, which the example case uses. A user whose case uses another property changes the property in the query."@en .
 
 gsndesign:why-0258
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "An update query that sets a value has DELETE and INSERT in one operation. With an INSERT alone, the element keeps the old value next to the new one: two statements, or a flag that is true and false. Two operations leave the store without a value between them. The query update_mark_element_invalid.rq also skips an element that already has the value, so a second run changes nothing. The same form is in update_element_statement.rq and in every SPARQL rule that sets a flag."@en .
+    gsndesign:rationaleText "An update query that sets a value has DELETE and INSERT in one operation. With an INSERT alone, the element keeps the old value next to the new one: two statements, or a flag that is true and false. Two operations leave the store without a value between them. The query WQ-GSN-update_mark_element_invalid.rq also skips an element that already has the value, so a second run changes nothing. The same form is in WQ-GSN-update_element_statement.rq and in every SPARQL rule that sets a flag."@en .
 
 gsndesign:why-0259
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The SWRL rules S55, S58 and S61 state one step: a direct link is also a transitive link. In a reasoner, the axiom owl:TransitiveProperty on the helper property gives the chain. A store without a reasoner does not apply that axiom. The SPARQL update of each rule therefore has a property path with +, and it inserts the whole chain in one run. The path of S58 runs through modules only. A module is the only class in both the domain and the range of gsn:inContextOf, so every node inside a chain of context links between two modules is a module."@en .
+    gsndesign:rationaleText "The SWRL rules RL-GSN-support_closure, RL-GSN-module_context_closure and RL-GSN-challenge_closure state one step: a direct link is also a transitive link. In a reasoner, the axiom owl:TransitiveProperty on the helper property gives the chain. A store without a reasoner does not apply that axiom. The SPARQL update of each rule therefore has a property path with +, and it inserts the whole chain in one run. The path of RL-GSN-module_context_closure runs through modules only. A module is the only class in both the domain and the range of gsn:inContextOf, so every node inside a chain of context links between two modules is a module."@en .
 
 gsndesign:why-0260
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "The SPARQL update of S54, Nested Module Membership, moves the membership of an element up one module in each run. ontology/example/run_rules.py applies the rules until nothing changes, so the membership reaches any depth of nesting. The other option is a property path over gsn:contains in one update, which no longer reads like the rule that it translates. The check of a single rule runs the update once. Its trigger in development/dev_tools/testdata/rule_cases.ttl therefore states the inner membership that S53 derives in a full run."@en .
+    gsndesign:rationaleText "The SPARQL update of RL-GSN-nested_module_membership, Nested Module Membership, moves the membership of an element up one module in each run. ontology/example/run_rules.py applies the rules until nothing changes, so the membership reaches any depth of nesting. The other option is a property path over gsn:contains in one update, which no longer reads like the rule that it translates. The check of a single rule runs the update once. Its trigger in development/dev_tools/testdata/rule_cases.ttl therefore states the inner membership that RL-GSN-module_membership derives in a full run."@en .
 
 gsndesign:why-0261
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "A challenge to one support link of a goal that has more than one is not a valid challenge, and the standard asks for a strategy in between (1:6.3.12). In rule S51, the second goal G2 is therefore a goal that also supports G3, and the atom supportedBy(?G3, ?G2) says so. Without that atom, G2 matched every other goal of the case, and the rule put the new strategy above each of them."@en .
+    gsndesign:rationaleText "A challenge to one support link of a goal that has more than one is not a valid challenge, and the standard asks for a strategy in between (1:6.3.12). In rule RL-GSN-challenge_chain_invalidation, the second goal G2 is therefore a goal that also supports G3, and the atom supportedBy(?G3, ?G2) says so. Without that atom, G2 matched every other goal of the case, and the rule put the new strategy above each of them."@en .
 
 gsndesign:dd-1116
     a gsndesign:DesignDecision ;
@@ -28204,7 +28232,7 @@ gsndesign:dd-1117
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query create_solutions_for_unreferenced_artefacts.rq derives the identifier of each new solution from the identifier of its artefact."@en ;
+    gsndesign:naturalLanguage "The query WQ-GSN-create_solutions_for_unreferenced_artefacts.rq derives the identifier of each new solution from the identifier of its artefact."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0248 .
 
@@ -28214,7 +28242,7 @@ gsndesign:dd-1118
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query delete_assurance_case.rq deletes what it reaches from the case, and it keeps the artefacts."@en ;
+    gsndesign:naturalLanguage "The query WQ-GSN-delete_assurance_case.rq deletes what it reaches from the case, and it keeps the artefacts."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0249 .
 
@@ -28224,7 +28252,7 @@ gsndesign:dd-1119
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query delete_materialised_inferences.rq clears only what nothing but a rule writes."@en ;
+    gsndesign:naturalLanguage "The query WQ-GSN-delete_materialised_inferences.rq clears only what nothing but a rule writes."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0250 .
 
@@ -28234,7 +28262,7 @@ gsndesign:dd-1120
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query read_context_in_scope_for_goal.rq walks the support chain itself, and it does not read what rule S17 derives."@en ;
+    gsndesign:naturalLanguage "The query RQ-GSN-context_in_scope_for_goal.rq walks the support chain itself, and it does not read what rule RL-GSN-context_inheritance derives."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0251 .
 
@@ -28244,7 +28272,7 @@ gsndesign:dd-1121
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query read_element_status_flags.rq returns one row for each flag, not one row for each element."@en ;
+    gsndesign:naturalLanguage "The query RQ-GSN-element_status_flags.rq returns one row for each flag, not one row for each element."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0252 .
 
@@ -28254,7 +28282,7 @@ gsndesign:dd-1122
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query read_elements_unreachable_from_top_goal.rq follows support links and context links together."@en ;
+    gsndesign:naturalLanguage "The query RQ-GSN-elements_unreachable_from_top_goal.rq follows support links and context links together."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0253 .
 
@@ -28264,7 +28292,7 @@ gsndesign:dd-1123
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query read_evidence_supporting_goal.rq returns the solution and the artefact that it refers to."@en ;
+    gsndesign:naturalLanguage "The query RQ-GSN-evidence_supporting_goal.rq returns the solution and the artefact that it refers to."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0254 .
 
@@ -28274,7 +28302,7 @@ gsndesign:dd-1124
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query read_module_dependencies.rq returns the elements that a dependency between two modules follows from."@en ;
+    gsndesign:naturalLanguage "The query RQ-GSN-module_dependencies.rq returns the elements that a dependency between two modules follows from."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0255 .
 
@@ -28284,7 +28312,7 @@ gsndesign:dd-1125
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query read_top_goals.rq accepts the decorator and the structure as signs of a top goal, and it returns both."@en ;
+    gsndesign:naturalLanguage "The query RQ-GSN-top_goals.rq accepts the decorator and the structure as signs of a top goal, and it returns both."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0256 .
 
@@ -28294,7 +28322,7 @@ gsndesign:dd-1126
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The query read_stale_evidence.rq reads the date of an artefact from dcterms:created."@en ;
+    gsndesign:naturalLanguage "The query RQ-GSN-stale_evidence.rq reads the date of an artefact from dcterms:created."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0257 .
 
@@ -28314,7 +28342,7 @@ gsndesign:dd-1128
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The SPARQL updates of the closure rules S55, S58 and S61 insert the whole chain with a property path."@en ;
+    gsndesign:naturalLanguage "The SPARQL updates of the closure rules RL-GSN-support_closure, RL-GSN-module_context_closure and RL-GSN-challenge_closure insert the whole chain with a property path."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0259 .
 
@@ -28324,7 +28352,7 @@ gsndesign:dd-1129
     gsndesign:part gsndesign:part-0 ;
     gsndesign:section gsndesign:sec-ontology-specific ;
     gsndesign:formalism gsndesign:SPARQL ;
-    gsndesign:naturalLanguage "The SPARQL update of S54 moves the membership of an element up one module in each run."@en ;
+    gsndesign:naturalLanguage "The SPARQL update of RL-GSN-nested_module_membership moves the membership of an element up one module in each run."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0260 .
 
@@ -28334,7 +28362,7 @@ gsndesign:dd-1130
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-dialectic ;
     gsndesign:formalism gsndesign:SWRL ;
-    gsndesign:naturalLanguage "In rule S51, the second goal is a goal that supports the same goal as the first."@en ;
+    gsndesign:naturalLanguage "In rule RL-GSN-challenge_chain_invalidation, the second goal is a goal that supports the same goal as the first."@en ;
     prov:used gsndesign:src-0285 ;
     gsndesign:hasRationale gsndesign:why-0261 .
 
@@ -28639,8 +28667,8 @@ contract(?C, true) ^ public(?E, true) ^ inModule(?E, ?C) -> valid(?E, false)""" 
 
 gsndesign:why-0245
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "Six rules of the Modular Extension read gsn:contains from a module to an element. A module contains arguments and other modules, and never an element directly, so the body of such a rule did not match a case with modules, arguments and elements. The SPARQL updates of the same six rules read gsn:inModule, which the Module Membership and Nested Module Membership rules derive. On the same graph, one form of a rule drew its conclusion and the other form drew none. The six rules now read gsn:inModule, as the other rules of the extension do since 1.3.0. The FinComp hub found the difference on 2026-11-14, when it ran each rule alone in several reasoners and compared the results with the SPARQL updates. A reasoner now needs the two membership rules before these six rules draw a conclusion."@en .
+    gsndesign:rationaleText "Six rules of the Modular Extension read gsn:contains from a module to an element. A module contains arguments and other modules, and never an element directly, so the body of such a rule did not match a case with modules, arguments and elements. The SPARQL updates of the same six rules read gsn:inModule, which the Module Membership and Nested Module Membership rules derive. On the same graph, one form of a rule drew its conclusion and the other form drew none. The six rules now read gsn:inModule, as the other rules of the extension do since 1.3.0. The RSC audit hub found the difference on 2026-11-14, when it ran each rule alone in several reasoners and compared the results with the SPARQL updates. A reasoner now needs the two membership rules before these six rules draw a conclusion."@en .
 
 gsndesign:why-0246
     a gsndesign:Rationale ;
-    gsndesign:rationaleText "Each of the four confidence rules creates a relationship with confidence. That new node matches the body of the rule again, in the place of the relationship that the rule reads. The SWRLAPI stops, because swrlx:makeOWLThing returns the same node for the same arguments. An engine without that built-in creates a new node for each match and does not stop. The FinComp hub measured this in GraphDB 10.5.0 on 2026-11-14: up to 597,165 derived triples from a case of 22. The body of each rule now also reads a schema:identifier of the relationship. A relationship that a person states has an identifier, because the shape of the class requires one, and the head of a rule writes none. So a node that a rule created does not match a rule again. The cost is that a confidence moves one step from a stated relationship. The Solution Confidence Relation and Goal Confidence Relation rules lose nothing, because every sibling gets its node from the stated relationship. For the Strategy Confidence Relation and Goal-Strategy Confidence rules, a node that one of the two created no longer starts the other."@en .
+    gsndesign:rationaleText "Each of the four confidence rules creates a relationship with confidence. That new node matches the body of the rule again, in the place of the relationship that the rule reads. The SWRLAPI stops, because swrlx:makeOWLThing returns the same node for the same arguments. An engine without that built-in creates a new node for each match and does not stop. The RSC audit hub measured this in GraphDB 10.5.0 on 2026-11-14: up to 597,165 derived triples from a case of 22. The body of each rule now also reads a schema:identifier of the relationship. A relationship that a person states has an identifier, because the shape of the class requires one, and the head of a rule writes none. So a node that a rule created does not match a rule again. The cost is that a confidence moves one step from a stated relationship. The Solution Confidence Relation and Goal Confidence Relation rules lose nothing, because every sibling gets its node from the stated relationship. For the Strategy Confidence Relation and Goal-Strategy Confidence rules, a node that one of the two created no longer starts the other."@en .

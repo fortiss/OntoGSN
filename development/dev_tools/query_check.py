@@ -21,10 +21,10 @@ change the store in the direction they claim. That is the expensive part, so it 
 re-run for a query nothing has touched.
 
 The header of a query is at the top of the file, and it holds only what a tool reads. A
-stored query has one line, '# expect:'. A rule file has three: '# rule:', '# name:' and
-'# expect:'. The operation is in the file name, and the section of a rule is on the SWRL
-rule in the ontology. The question that a query answers is in
-development/design/Competency Questions.xlsx. A description of a query is in the README of
+stored query has one line, '# expect:'. A rule file has two: '# name:' and '# expect:'.
+The file name is the ID of the query, <KIND>-<SCOPE>-<slug>, so it gives the operation,
+and the section of a rule is on the SWRL rule in the ontology. The question that a query
+answers is in ontology/queries/registry.csv. A description of a query is in the README of
 its folder, and the reason for a choice is in the design record.
 
 What "nothing has touched" means is recorded in development/design/ontogsn-design-queries.ttl
@@ -48,6 +48,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import matching
 import prov_ttl
+import registry
 import ttl_model
 from prov_ttl import Lit
 from rdflib import RDF, RDFS, URIRef
@@ -77,12 +78,12 @@ ONTOLOGY_NS = "https://w3id.org/OntoGSN/ontology#"
 # Bump when a change here alters what verification means - a new check, a different
 # expectation - so that every query is re-verified under the new rules. Editing a comment
 # is not such a change, which is why this is a constant and not the file's own checksum.
-CHECKER_VERSION = "3"
+CHECKER_VERSION = "4"
 
 OPERATIONS = ("create", "read", "update", "delete", "rule")
 EXPECTATIONS = {"rows", "empty", "insert", "delete", "change", "none"}
 HEADER_FIELDS = ("expect",)
-RULE_HEADER_FIELDS = ("rule", "name", "expect")
+RULE_HEADER_FIELDS = ("name", "expect")
 
 PREFIX_RE = re.compile(r"(?m)^\s*PREFIX\s+(\w*):\s*<([^>]+)>")
 GSN_TERM_RE = re.compile(r"\bgsn:([A-Za-z][A-Za-z0-9_]*)")
@@ -120,8 +121,13 @@ class Query(object):
         self.detail = ""
         self.reused = False
 
+    @property
+    def identifier(self):
+        """The ID of the query: its file name without '.rq'."""
+        return os.path.basename(self.path)[:-3]
+
     def _parse_header(self):
-        """The leading '# rule:', '# name:' and '# expect:' lines of the file."""
+        """The leading '# name:' and '# expect:' lines of the file."""
         header, key = {}, None
         for line in self.text.splitlines():
             if not line.startswith("#"):
@@ -138,8 +144,14 @@ class Query(object):
 
     @property
     def operation(self):
-        """'rule' in rules/, and otherwise the first word of the file name."""
-        return "rule" if self.is_rule else self.name.split("_", 1)[0]
+        """'rule' for an RL, 'read' for an RQ, and the verb of the slug for a WQ."""
+        parts = registry.parse(self.identifier)
+        if not parts:
+            return ""
+        kind, _, its_slug = parts
+        if kind == "RL":
+            return "rule"
+        return "read" if kind == "RQ" else its_slug.split("_", 1)[0]
 
     @property
     def expect(self):
@@ -185,9 +197,9 @@ def strip_comments(text):
 def kept_fields(name):
     """The header lines that the file may begin with."""
     if name.startswith(CORE_RULE_DIR):
-        return ("rule", "name", "expect")
+        return ("name", "expect")
     if name.startswith(RULE_DIRS):
-        return ("rule", "name")
+        return ("name",)
     if name.startswith("ontology/queries/"):
         return ("expect",)
     return ()
@@ -223,11 +235,12 @@ def missing(field):
 
 
 def check_static(queries, known_terms, known_rules):
-    seen_rules = {}
+    seen_names = {}
     for query in queries:
         for number in stray_comments(rel(query.path), query.text):
             query.problems.append(
                 f"holds a comment on line {number} - {STRAY}")
+        parts = registry.parse(query.identifier)
         if query.is_rule:
             for field in RULE_HEADER_FIELDS:
                 if not query.header.get(field):
@@ -236,19 +249,23 @@ def check_static(queries, known_terms, known_rules):
             if name and name not in known_rules:
                 query.problems.append(
                     f"name '{name}' matches no rdfs:label on a SWRL rule in the ontology")
-            rule = query.header.get("rule")
-            if rule:
-                if rule in seen_rules:
+            if name:
+                if name in seen_names:
                     query.problems.append(
-                        f"rule '{rule}' is already translated by {seen_rules[rule]}")
-                seen_rules[rule] = query.name
+                        f"the rule '{name}' is already translated by {seen_names[name]}")
+                seen_names[name] = query.name
+                if query.identifier != "RL-GSN-" + registry.slug(name):
+                    query.problems.append(
+                        f"file name must be RL-GSN-{registry.slug(name)}.rq, the ID of its rule")
         else:
             for field in HEADER_FIELDS:
                 if not query.header.get(field):
                     query.problems.append(missing(field))
-            if query.operation not in OPERATIONS[:-1]:
+            if not parts or parts[:2] not in (("RQ", "GSN"), ("WQ", "GSN")) \
+                    or query.operation not in OPERATIONS[:-1]:
                 query.problems.append(
-                    f"file name must start with one of {'/'.join(OPERATIONS[:-1])}_")
+                    "file name must be an ID: RQ-GSN-<slug>, or WQ-GSN-<slug> with a slug "
+                    "that starts with create, update or delete")
 
         if query.expect and query.expect not in EXPECTATIONS:
             query.problems.append(
@@ -395,7 +412,7 @@ def write_record(path, queries, ontology_sum, fixture_sums, engine):
     ]))
 
     for query in sorted(queries, key=lambda q: q.name):
-        used = [f"gsndesign:query-{slug(query.name[:-3])}", "gsndesign:file-ontogsn-ttl",
+        used = [f"gsndesign:query-{query.identifier}", "gsndesign:file-ontogsn-ttl",
                 "gsndesign:file-example-case"]
         if query.is_rule:
             used.append("gsndesign:file-rule-cases")
@@ -418,7 +435,7 @@ def write_record(path, queries, ontology_sum, fixture_sums, engine):
             pairs.insert(5, ("gsndesign:ruleName", [Lit(query.header.get("name", ""))]))
         if query.detail:
             pairs.append(("skos:note", [Lit(query.detail, lang="en")]))
-        blocks.append((f"gsndesign:verification-{slug(query.name[:-3])}", pairs))
+        blocks.append((f"gsndesign:verification-{query.identifier}", pairs))
 
     preamble = (
         "# GENERATED by development/dev_tools/query_check.py - do not edit. Re-run the script instead.\n\n"
@@ -491,7 +508,7 @@ def main():
     reused = 0
     for query in queries:
         query.facts = {}
-        previous = record.get(slug(query.name[:-3]), {})
+        previous = record.get(query.identifier, {})
         current_key = query.key(ontology_sum, fixture_sums)
         up_to_date = (previous.get("gsndesign:verificationKey") == current_key
                       and previous.get("gsndesign:verificationOutcome") == "passed")

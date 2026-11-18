@@ -177,7 +177,7 @@ gsnsh:AssuranceClaimPointPropertyShape rdf:type sh:NodeShape ;
 
 gsnsh:AssuranceClaimPointHasArgumentShape rdf:type sh:NodeShape ;
     rdfs:label "Assurance claim point carries a confidence argument"@en ;
-    rdfs:comment "Derived from SWRL rule S40 and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en ;
+    rdfs:comment "Derived from the SWRL rule Confidence Relation Creation (RL-GSN-confidence_relation_creation) and from the class axioms on gsn:RelationshipWithConfidence: marking an assurance claim point is what associates a confidence argument with an assertion in a risk argument."@en ;
     sh:targetSubjectsOf gsn:assuranceClaimPoint ;
     gsn:coreOrExtension "Confidence Argument Extension"@en ;
     sh:or (

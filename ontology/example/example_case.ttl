@@ -54,8 +54,8 @@ ex:ConfArg1 a gsn:Argument ;
     gsn:structured true .
 
 # A module contains arguments and other modules, never elements directly; the elements are
-# reached through the argument. gsn:inModule, derived by rules S52 and S53, is the one-hop
-# form of that traversal.
+# reached through the argument. gsn:inModule, derived by rules RL-GSN-module_membership and
+# RL-GSN-nested_module_membership, is the one-hop form of that traversal.
 ex:M1 a gsn:Module ;
     schema:identifier "M1" ;
     rdfs:label "Perception module"@en ;
@@ -451,7 +451,7 @@ ex:Sn3 gsn:defeated true .
 #    Deliberately malformed - what the diagnostic queries are for
 #################################################################
 
-# Two elements in one module sharing an identifier (SWRL S25 / S41).
+# Two elements in one module sharing an identifier (SWRL RL-GSN-duplicate_identifier_invalidation / RL-GSN-duplicate_acp_identifier_invalidation).
 ex:M4 a gsn:Module ;
     schema:identifier "M4" ;
     rdfs:label "Quarantine module"@en ;
@@ -479,7 +479,7 @@ ex:D2 a gsn:Goal ;
     gsn:top false ;
     gsn:undeveloped true .
 
-# A support cycle (SWRL S37): each claim rests on the other.
+# A support cycle (the rules of the group cycles): each claim rests on the other.
 ex:X1 a gsn:Goal ;
     schema:identifier "X1" ;
     rdfs:label "Goal X1"@en ;

@@ -1,0 +1,17 @@
+# name:      Contract Support Invalidation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?A gsn:valid ?old }
+INSERT { ?A gsn:valid false }
+WHERE {
+  ?M a gsn:Module ;
+     gsn:contract ?contract .
+  ?A gsn:inModule ?M .
+  FILTER(STR(?contract) = "true")
+  ?A gsn:toBeSupportedByContract ?flag .
+  FILTER(STR(?flag) = "true")
+  OPTIONAL { ?A gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}
