@@ -11,18 +11,18 @@ Three things, in the order they can fail:
 
 Before the rules run, every mechanism in the fixture that a SHACL shape implements is run over the data,
 and the report it produces is kept in the graph, linked to the mechanism and the artefact. That
-is what A6a and A6b read: the status of a solution is derived from a report, not asserted.
-A6c and A6d read the same kind of report over a part of the artefact; the fixture carries two of
+is what RL-AUG-conforming_report_confirms_solution and RL-AUG-failing_report_refutes_solution read: the status of a solution is derived from a report, not asserted.
+RL-AUG-conforming_part_report_confirms_solution and RL-AUG-failing_part_report_refutes_solution read the same kind of report over a part of the artefact; the fixture carries two of
 those by hand. The four rules read the newest report from each mechanism over each target, so
 the fixture also carries an earlier failing report from the same shape, which the run's newer
 report retires, a second mechanism over one artefact, whose passing report must not lift a
 solution that the other mechanism's report refutes, and a struck report, a later failing run
 that a review invalidated, which must neither count nor retire the run before it.
 
-The derivations in derivations/ run with the rules but are not twinned. D1 to D3 walk RDF
-lists, and D4 finds the newest report, which SWRL cannot do. So they exist in SPARQL only and
-are kept out of the twin count. D4 sets gsnaug:currentReport, the link that the SWRL forms of
-A6 and A7 read in the place of the newest-report guard of the SPARQL twins.
+The derivations in derivations/ run with the rules but are not twinned. The derivations of the group mechanism_terms walk RDF
+lists, and RL-AUG-current_report finds the newest report, which SWRL cannot do. So they exist in SPARQL only and
+are kept out of the twin count. RL-AUG-current_report sets gsnaug:currentReport, the link that the SWRL forms of
+the groups truth_from_report and validity_from_report read in the place of the newest-report guard of the SPARQL twins.
 
 Deliberately standalone. development/dev_tools/check_all.py globs ontology/serializations/, ontology/shapes/ and ontology/queries/, so it
 never sees this directory - which is the point: the augmentation must not be able to break the
@@ -128,7 +128,8 @@ def run_shape_mechanisms(graph):
 
     pyshacl returns the report as a graph. Three triples are added to it - which mechanism
     produced it, which artefact it looked at, and when - and the result is merged into the data.
-    Those three lines are the whole adapter between an engine and rules A6a/A6b."""
+    Those three lines are the whole adapter between an engine and rules RL-AUG-conforming_report_confirms_solution and
+    RL-AUG-failing_report_refutes_solution."""
     runs = 0
     for artefact, mechanism in graph.subject_objects(AUG.checkableWith):
         definitions = [d for d in graph.subjects(AUG.implements, mechanism)
@@ -219,17 +220,17 @@ expected = [
     ("a rule mechanism writes its head",           (EX["expiry-rule"], AUG.writesTerm, EX.Expiring), True),
     ("a rule mechanism does not read its head",    (EX["expiry-rule"], AUG.readsTerm, EX.Expiring), False),
     ("a query mechanism derives nothing",          (EX["log-query"], AUG.readsTerm, EX.AccessLogEntry), True),
-    # A4: a part is checkable with whatever checks its artefact, and inherits nothing else
+    # RL-AUG-part_inherits_checkable_with: a part is checkable with whatever checks its artefact, and inherits nothing else
     ("a part is checkable with what checks its artefact",    (EX["access-log-row-42"], AUG.checkableWith, EX["retention-rule"]), True),
     ("a part inherits every checker, not just one",          (EX["access-log-row-42"], AUG.checkableWith, EX["expiry-rule"]), True),
     ("a part does not inherit what checked its artefact",    (EX["access-log-row-42"], AUG.checkedWith, None), False),
     ("a part does not inherit how its artefact is fetched",  (EX["access-log-row-42"], AUG.retrievableWith, None), False),
     ("a part of an artefact with no provenance inherits none", (EX["ctrl-row-7"], AUG.checkableWith, None), False),
     ("inheritance does not retype the part as an artefact",  (EX["access-log-row-42"], RDF.type, GSN.Artefact), False),
-    # A6: a solution's truth is read off the report its artefact's mechanism left behind
+    # truth_from_report: a solution's truth is read off the report its artefact's mechanism left behind
     ("a conforming engine report makes the solution true",     (EX.Sn1, GSN.true, Literal(True)), True),
     # G1 rests on both. The core rules compose support, so one failing solution makes the goal
-    # untrue (S11), and the passing sibling does not lift it back (S10 guards on siblings).
+    # untrue (RL-GSN-solution_propagation_false), and the passing sibling does not lift it back (RL-GSN-solution_propagation_true guards on siblings).
     ("one failing solution under the goal makes it untrue",    (EX.G1, GSN.true, Literal(False)), True),
     ("the passing sibling does not lift the goal back",        (EX.G1, GSN.true, Literal(True)), False),
     ("a failing hand-written report makes the solution untrue", (EX.Sn2, GSN.true, Literal(False)), True),
@@ -239,8 +240,8 @@ expected = [
     ("an older failing report is retired by the newer conforming one", (EX.Sn1, GSN.true, Literal(False)), False),
     ("a conforming second check does not lift a refuted solution",    (EX.Sn2, GSN.true, Literal(True)), False),
     ("a goal with no checked solution under it is untouched",  (EX.G2, GSN.true, None), False),
-    # A6c/A6d: a report over a part reaches the solution through the artefact it refers to.
-    # The key's checker is inherited by A4, so the chain A4 -> A6c needs a second round.
+    # RL-AUG-conforming_part_report_confirms_solution and RL-AUG-failing_part_report_refutes_solution: a report over a part reaches the solution through the artefact it refers to.
+    # The key's checker is inherited by RL-AUG-part_inherits_checkable_with, so the chain RL-AUG-part_inherits_checkable_with -> RL-AUG-conforming_part_report_confirms_solution needs a second round.
     ("a conforming report over a part makes the solution true",  (EX.Sn3, GSN.true, Literal(True)), True),
     # The key check's later failing run is struck. Were it counted, Sn3 would be untrue; were
     # it skipped but still the newest, it would retire the conforming run and Sn3 would have
@@ -249,7 +250,7 @@ expected = [
     ("a failing report over a part makes the solution untrue",   (EX.Sn4, GSN.true, Literal(False)), True),
     ("a failing part report does not also confirm",              (EX.Sn4, GSN.true, Literal(True)), False),
     ("a part report leaves the whole artefact's status alone",   (EX["config-export"], GSN.true, None), False),
-    # A7: a check that decides validity sets gsn:valid, and leaves gsn:true to the checks of truth
+    # validity_from_report: a check that decides validity sets gsn:valid, and leaves gsn:true to the checks of truth
     ("a passing validity check makes the solution valid",        (EX.Sn2, GSN.valid, Literal(True)), True),
     ("a validity check does not confirm the truth",              (EX.Sn2, GSN.true, Literal(True)), False),
     ("a failing validity check makes the solution invalid",      (EX.Sn1, GSN.valid, Literal(False)), True),
@@ -265,7 +266,7 @@ expected = [
     # outweighs a conforming one.
     ("a solution with one failing artefact is untrue",            (EX.Sn6, GSN.true, Literal(False)), True),
     ("a conforming second artefact does not make it true",        (EX.Sn6, GSN.true, Literal(True)), False),
-    # A8: the goal that an issue becomes gets a statement and the contexts it is read in
+    # issue_goal: the goal that an issue becomes gets a statement and the contexts it is read in
     ("an issue goal gets its description as its statement",
         (EX.I4, GSN.statement, Literal("The access log misses the first week of March.")), True),
     ("an issue goal gets the contexts of the goal it challenges", (EX.I4, GSN.inContextOf, EX["C-object"]), True),
@@ -278,7 +279,7 @@ expected = [
         (EX.I7, GSN.statement, Literal("Encrypt the backups of the reporting system.")), False),
     ("an issue goal keeps the contexts a person gave it",         (EX.I7, GSN.inContextOf, EX["C-object"]), False),
     ("a clarify issue gets no statement",                         (EX.I1, GSN.statement, None), False),
-    # D4: the current report of a target is the newest report of a mechanism that is not struck
+    # RL-AUG-current_report: the current report of a target is the newest report of a mechanism that is not struck
     ("a retired report is not the current report",
         (EX["access-log"], AUG.currentReport, EX["retention-report-0"]), False),
     ("a second mechanism over the same artefact has its own current report",
@@ -294,19 +295,19 @@ for name, triple, wanted in expected:
     found = (triple in data) if triple[2] is not None else bool(list(data.triples(triple)))
     check(found == wanted, name, f"{name} - expected {wanted}, got {found}")
 
-# The fixpoint above compares the graph after a whole round, so A6a writing true and A6b writing
-# false again in the same round would pass for one. Applied once more on its own, A6a must leave
+# The fixpoint above compares the graph after a whole round, so RL-AUG-conforming_report_confirms_solution writing true and RL-AUG-failing_report_refutes_solution writing
+# false again in the same round would pass for one. Applied once more on its own, RL-AUG-conforming_report_confirms_solution must leave
 # Sn6 alone, whatever order the rules run in.
 probe = Graph()
 probe += data
 probe.update(open(os.path.join(AUG_RULES, "RL-AUG-conforming_report_confirms_solution.rq"),
                   encoding="utf-8").read())
 check((EX.Sn6, GSN.true, Literal(True)) not in probe,
-      "A6a alone does not confirm a solution that another of its artefacts refutes",
-      "A6a confirms Sn6 although the report over its second artefact fails")
+      "RL-AUG-conforming_report_confirms_solution alone does not confirm a solution that another of its artefacts refutes",
+      "RL-AUG-conforming_report_confirms_solution confirms Sn6 although the report over its second artefact fails")
 
-# The SWRL forms of A6 and A7 cannot find the newest report, so they read gsnaug:currentReport.
-# The body of A6b is asked here as a query, with and without that atom. The access log has a
+# The SWRL forms of the groups truth_from_report and validity_from_report cannot find the newest report, so they read gsnaug:currentReport.
+# The body of RL-AUG-failing_report_refutes_solution is asked here as a query, with and without that atom. The access log has a
 # retired failing report: without the pointer the body matches Sn1, and with it the body does not.
 A6B_BODY = """
 PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
@@ -321,14 +322,14 @@ ASK {
   %s
 }"""
 check(bool(data.query(A6B_BODY % (EX.Sn1, "")).askAnswer),
-      "without the pointer, the SWRL body of A6b matches a retired failing report",
-      "the fixture has no retired failing report for the SWRL body of A6b")
+      "without the pointer, the SWRL body of RL-AUG-failing_report_refutes_solution matches a retired failing report",
+      "the fixture has no retired failing report for the SWRL body of RL-AUG-failing_report_refutes_solution")
 check(not data.query(A6B_BODY % (EX.Sn1, "?A gsnaug:currentReport ?R .")).askAnswer,
-      "with the pointer, the SWRL body of A6b does not match a retired failing report",
-      "the SWRL body of A6b still matches the retired report over the access log")
+      "with the pointer, the SWRL body of RL-AUG-failing_report_refutes_solution does not match a retired failing report",
+      "the SWRL body of RL-AUG-failing_report_refutes_solution still matches the retired report over the access log")
 check(bool(data.query(A6B_BODY % (EX.Sn2, "?A gsnaug:currentReport ?R .")).askAnswer),
-      "with the pointer, the SWRL body of A6b still matches a current failing report",
-      "the SWRL body of A6b no longer matches the failing report over the interview note")
+      "with the pointer, the SWRL body of RL-AUG-failing_report_refutes_solution still matches a current failing report",
+      "the SWRL body of RL-AUG-failing_report_refutes_solution no longer matches the failing report over the interview note")
 
 # Every rule that reads a report in its SWRL form has the pointer atom.
 pointer_rules = [str(ontology.value(rule, RDFS.label)) for rule in rules
@@ -347,7 +348,7 @@ check(len(pointer_rules) == 8 and not without_pointer,
       "the 8 SWRL rules that read a report read gsnaug:currentReport",
       f"{len(pointer_rules)} report rules, without the pointer: {without_pointer}")
 
-# D4 moves the pointer when a newer report arrives.
+# RL-AUG-current_report moves the pointer when a newer report arrives.
 probe = Graph()
 probe += data
 probe.update("""
@@ -360,7 +361,7 @@ INSERT DATA { <https://example.org/case#key-check-report-3> a sh:ValidationRepor
     prov:generatedAtTime "2099-01-01T00:00:00Z"^^xsd:dateTime }""")
 probe.update(open(os.path.join(DERIVATIONS, "RL-AUG-current_report.rq"), encoding="utf-8").read())
 check(set(probe.objects(EX["config-export-key-7"], AUG.currentReport)) == {EX["key-check-report-3"]},
-      "D4 moves the pointer to a newer report and removes the old pointer",
+      "RL-AUG-current_report moves the pointer to a newer report and removes the old pointer",
       "after a newer report, the pointers of the key are "
       f"{sorted(str(o).split('#')[-1] for o in probe.objects(EX['config-export-key-7'], AUG.currentReport))}")
 
@@ -370,7 +371,7 @@ reading_rules = [r for r in data.subjects(RDF.type, SWRL.Imp)
 check(not reading_rules, "a rule that is not a mechanism derives nothing",
       f"{len(reading_rules)} rule(s) that are not mechanisms read a term")
 
-# A6 deletes the old value before it writes the new one, so no solution ends up both ways.
+# The rules of the group truth_from_report delete the old value before it writes the new one, so no solution ends up both ways.
 two_valued = sorted(str(s).split("#")[-1] for s in data.subjects(RDF.type, GSN.Solution)
                     if len(set(data.objects(s, GSN.true))) > 1)
 check(not two_valued, "no solution carries two truth values", f"two truth values on {two_valued}")
