@@ -1,0 +1,15 @@
+# name:      Challenge Defeat
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?E gsn:defeated ?old }
+INSERT { ?E gsn:defeated true }
+WHERE {
+  ?S a gsn:Solution ;
+     gsn:valid ?valid ;
+     gsn:challenges ?E .
+  FILTER(STR(?valid) = "true")
+  OPTIONAL { ?E gsn:defeated ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}

@@ -7,7 +7,9 @@ stored queries, and the files that are generated from other files.
 
 Writes development/design/ontogsn-design-inventory.ttl. Unlike the design decisions, all
 of this is recoverable from the repository, so this file IS regenerated - re-run it after
-adding a query or rebuilding a serialization.
+adding a query or rebuilding a serialization. It reads the requirements from
+development/design/requirements.csv, and each query and rule, with its ID, its question and
+the IDs that it replaced, from the registries (see registry.py).
 
 The point is to make the chains explicit and therefore checkable:
 
@@ -27,6 +29,7 @@ it. The queries were rewritten; development/dev_tools/query_check.py now refuses
 mistakes on every run, and records the result alongside what this script writes.
 """
 import argparse
+import csv
 import glob
 import hashlib
 import os
@@ -36,23 +39,17 @@ import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from openpyxl import load_workbook
-
 import matching
 import prov_ttl
+import registry
 import ttl_model
 from prov_ttl import Lit
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 OUT = os.path.join(REPO, "development", "design", "ontogsn-design-inventory.ttl")
 RECORD = os.path.join(REPO, "development", "design", "ontogsn-design-data.ttl")
-CQ_WORKBOOK = os.path.join(REPO, "development", "design", "Competency Questions.xlsx")
-# the workbook's "Competency Questions" sheet carries the questions of the compliance
-# process the vocabulary was built for; "Extra" carries the stored queries no question of
-# that process names. Both are competency questions, so both are recorded the same way.
-CQ_SHEETS = ("Competency Questions", "Extra")
-CORE_QUERY_DIR = os.path.join(REPO, "ontology", "queries")
-QUERY_DIRS = (CORE_QUERY_DIR, os.path.join(REPO, "augmentation", "queries"))
+REQUIREMENTS = os.path.join(REPO, "development", "design", "requirements.csv")
+CORE_RULE_DIR = "ontology/queries/rules/"
 
 PROV_NS = "https://w3id.org/OntoGSN/design#"
 # the structural keys that declare a term to exist, as opposed to constraining one that
@@ -158,18 +155,6 @@ def translation_differences(body):
     return found
 
 
-def query_name(path):
-    """What a query is called in the record.
-
-    The queries under ontology/queries/ keep the bare name they have always had, so their IRIs do
-    not move; anything outside that directory is named by its path, which is also what
-    keeps two directories from colliding on a file name.
-    """
-    if path.startswith(CORE_QUERY_DIR + os.sep):
-        return os.path.relpath(path, CORE_QUERY_DIR).replace(os.sep, "/")
-    return rel(path)
-
-
 def declared_version(path):
     # The whole file, not a fixed window. owl:versionInfo sits wherever the ontology header
     # happens to put it, and adding one prefix line was enough to push it past a 4000-character
@@ -180,12 +165,9 @@ def declared_version(path):
     return match.group(1) if match else None
 
 
-def read_sheet(book, name):
-    work = book[name]
-    header = [c.value for c in work[1]]
-    return [{h: ("" if v is None else str(v).strip())
-             for h, v in zip(header, values) if h}
-            for values in work.iter_rows(min_row=2, values_only=True) if any(values)]
+def read_csv(path):
+    with open(path, encoding="utf-8", newline="") as handle:
+        return [{k: (v or "").strip() for k, v in row.items()} for row in csv.DictReader(handle)]
 
 
 def statement_index():
@@ -236,10 +218,16 @@ def main():
     blocks = []
 
     # --- requirements and competency questions ------------------------------------
-    book = load_workbook(CQ_WORKBOOK, data_only=True)
-    requirements = read_sheet(book, "Initial Requirements")
-    questions = sorted((row for sheet in CQ_SHEETS for row in read_sheet(book, sheet)),
-                       key=lambda row: row["ID"])
+    # the registries list every query and rule; registry.problems() makes sure of it
+    problems = registry.problems()
+    if problems:
+        sys.exit("the registries of the queries and rules:\n  " + "\n  ".join(problems))
+    requirements = read_csv(REQUIREMENTS)
+    rows = sorted(registry.load(), key=lambda row: row["id"])
+    # the text of a read is the question that it answers, and the text of a write is the
+    # operation that it carries out: both are recorded as the competency question of their
+    # query. A rule answers none.
+    questions = [row for row in rows if not row["id"].startswith("RL-")]
 
     blocks.append(prov_ttl.header(
         f"Requirements ({len(requirements)})",
@@ -256,61 +244,31 @@ def main():
             pairs.append(("dc:source", [Lit(source, lang="en")]))
         blocks.append((f"gsndesign:req-{row['ID']}", pairs))
 
-    # the workbook writes some ids with a non-ASCII dash; the IRI uses a plain one
-    def question_iri(identifier):
-        return "gsndesign:cq-" + re.sub(r"[^A-Za-z0-9]+", "-", identifier).strip("-")
-
     blocks.append(prov_ttl.header(
         f"Competency questions ({len(questions)})",
-        "What the ontology has to be able to answer, and for whom."))
+        "What the ontology has to be able to answer, and for whom. A question has the ID of\n"
+        "the query that answers it."))
     by_query = {}
     for row in questions:
-        identifier = row["ID"]
-        iri = question_iri(identifier)
-        text = row["Competency Question"]
-        # a few rows repeat their own id at the front of the question text
-        text = re.sub(r"^" + re.escape(identifier) + r"\s+", "", text)
+        iri = "gsndesign:cq-" + row["id"]
         pairs = [
             ("a", ["gsndesign:CompetencyQuestion"]),
-            ("rdfs:label", [Lit(identifier, lang="en")]),
-            ("gsndesign:questionText", [Lit(text, lang="en")]),
+            ("rdfs:label", [Lit(row["id"])]),
+            ("gsndesign:questionText", [Lit(row["text"], lang="en")]),
         ]
-        # only the process questions carry a role; the ones in "Extra" are asked by
-        # whoever is holding the case
-        role = row.get("Role", "").strip()
-        if role:
-            pairs.insert(2, ("gsndesign:role", [Lit(role, lang="en")]))
+        # only the questions of the audit procedure carry a role
+        if row["role"]:
+            pairs.insert(2, ("gsndesign:role", [Lit(row["role"], lang="en")]))
         blocks.append((iri, pairs))
-        # a question can take more than one query to answer, so the cell is a list
-        for target in row.get("SPARQL Query File", "").split(";"):
-            target = target.strip()
-            if target:
-                by_query.setdefault(target, []).append(iri)
+        by_query[row["file"]] = [iri]
 
     # --- stored queries -------------------------------------------------------------
-    paths = sorted(path for directory in QUERY_DIRS
-                   for path in glob.glob(os.path.join(directory, "**", "*.rq"),
-                                         recursive=True))
-    # The workbook is the only place that holds the id and the question of a query, so
-    # the two tests on them are here: no two rows share an id, and each create, read,
-    # update and delete query of the core answers a question. A rule answers none.
-    problems = []
-    seen = set()
-    for row in questions:
-        if row["ID"] in seen:
-            problems.append(f"the id {row['ID']} is on two rows of the workbook")
-        seen.add(row["ID"])
-    for path in paths:
-        name = rel(path)
-        if (path.startswith(CORE_QUERY_DIR + os.sep) and "/rules/" not in name
-                and name not in by_query):
-            problems.append(f"{name} answers no competency question in the workbook")
-    if problems:
-        sys.exit("development/design/Competency Questions.xlsx:\n  " + "\n  ".join(problems))
-
     by_rule, by_term = statement_index()
     blocks.append(prov_ttl.header(
-        f"Stored queries ({len(paths)})",
+        f"Stored queries ({len(rows)})",
+        "The IRI and the label of a query are its ID, which is also its file name.\n"
+        "skos:hiddenLabel keeps each ID and file name that the ID replaced, so an old name\n"
+        "still finds the query.\n\n"
         "gsndesign:declaresNamespace records what each file binds its prefixes to, which is\n"
         "how a query pointing at the wrong namespace becomes findable.\n\n"
         "gsndesign:queryText holds the query verbatim, so the record says what was asked at\n"
@@ -325,8 +283,9 @@ def main():
         "StatementRecord, so one hop further reaches why that axiom exists at all."))
     unanswered = dict(by_query)
     unjoined = []
-    for path in paths:
-        name = query_name(path)
+    for row in rows:
+        identifier, file = row["id"], row["file"]
+        path = os.path.join(REPO, *file.split("/"))
         with open(path, encoding="utf-8", errors="replace") as fh:
             body = fh.read()
         namespaces = sorted({uri for _, uri in PREFIX_RE.findall(body)})
@@ -334,36 +293,41 @@ def main():
                            re.findall(r"\bgsn:([A-Za-z][A-Za-z0-9_]*)", body)
                            if local in known})
         pairs = [("a", ["gsndesign:Query"]),
-                 ("rdfs:label", [Lit(name, lang="en")]),
+                 ("rdfs:label", [Lit(identifier)]),
                  ("gsndesign:formalism", ["gsndesign:SPARQL"]),
-                 ("gsndesign:path", [Lit(rel(path))]),
+                 ("gsndesign:path", [Lit(file)]),
                  ("gsndesign:fileChecksum", [Lit(sha256(path))])]
+        former = row["replaces"].split()
+        if former:
+            pairs.insert(2, ("skos:hiddenLabel", [Lit(name) for name in former]))
         if namespaces:
             pairs.append(("gsndesign:declaresNamespace", [Lit(n) for n in namespaces]))
         if mentions:
             pairs.append(("gsndesign:mentionsTerm", mentions))
         rule = re.search(r"(?m)^#\s+name:\s+(.*)$", body)
-        if name.startswith("rules/") and rule:
+        if identifier.startswith("RL-") and rule:
             rule_name = rule.group(1).strip()
             pairs.append(("gsndesign:ruleName", [Lit(rule_name)]))
-            # the rule this file carries out, as the ontology states it. Missing only if
-            # the rule was renamed on one side and not the other, which is worth seeing.
-            if rule_name in by_rule:
-                pairs.append(("gsndesign:translatesStatement", [by_rule[rule_name]]))
-            else:
-                unjoined.append((name, rule_name))
-            differences = translation_differences(body)
-            if differences:
-                pairs.append(("gsndesign:differsBy", differences))
+            # the core rule this file carries out, as the ontology states it. Missing only
+            # if the rule was renamed on one side and not the other, which is worth seeing.
+            # The record holds no statement of an Augmentation rule.
+            if file.startswith(CORE_RULE_DIR):
+                if rule_name in by_rule:
+                    pairs.append(("gsndesign:translatesStatement", [by_rule[rule_name]]))
+                else:
+                    unjoined.append((identifier, rule_name))
+                differences = translation_differences(body)
+                if differences:
+                    pairs.append(("gsndesign:differsBy", differences))
         rests = sorted({st for term in mentions
                         for st in by_term.get(term.split(":", 1)[1], [])})
         if rests:
             pairs.append(("gsndesign:restsOnStatement", rests))
-        for question in by_query.get(rel(path), []):
+        for question in by_query.get(file, []):
             pairs.append(("gsndesign:answersQuestion", [question]))
         pairs.append(("gsndesign:queryText", [Lit(body)]))
-        unanswered.pop(rel(path), None)
-        blocks.append((f"gsndesign:query-{slug(name[:-3])}", pairs))
+        unanswered.pop(file, None)
+        blocks.append((f"gsndesign:query-{identifier}", pairs))
 
     # --- generated files -------------------------------------------------------------
     blocks.append(prov_ttl.header(
@@ -494,7 +458,7 @@ def main():
     prov_ttl.write(args.out, blocks, preamble)
 
     print(f"{len(requirements)} requirements, {len(questions)} competency questions, "
-          f"{len(paths)} queries")
+          f"{len(rows)} queries")
     print(f"{len(sections) + len(slices) + 4} files with their derivation chains")
     if unanswered:
         print(f"\n{len(unanswered)} competency questions name a query file that does "

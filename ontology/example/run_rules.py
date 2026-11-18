@@ -3,24 +3,27 @@
 
     python ontology/example/run_rules.py case.ttl --out case-materialised.ttl
     python ontology/example/run_rules.py case.ttl --dry-run          # what would each rule add?
-    python ontology/example/run_rules.py case.ttl --only S1,S16,S47
+    python ontology/example/run_rules.py case.ttl --only RL-GSN-assumption_invalidation,RL-GSN-defeated_invalidation
     python ontology/example/run_rules.py case.ttl --section "Dialectic Extension"
 
 With no input file it runs over ontology/example/example_case.ttl and development/dev_tools/testdata/,
 which is how the rule set is smoke-tested.
 
 Each rule is one SPARQL update and derives one step. Running them once is not the same as
-running a reasoner: a conclusion drawn by S47 may be the premise S12 needs. So the whole
-set is applied repeatedly until a pass changes nothing.
+running a reasoner: a conclusion drawn by RL-GSN-defeated_invalidation may be the premise
+that RL-GSN-mixed_support_invalidation needs. So the whole set is applied repeatedly until a
+pass changes nothing.
 
-That may not happen. Some rules disagree - S10 makes a claim true because a solution
-supporting it is true, S11 makes it false because another one is false - and on a case
-where both apply, each pass undoes the last. A reasoner reports that as an inconsistency;
+That may not happen. Some rules disagree - RL-GSN-solution_propagation_true makes a claim
+true because a solution supporting it is true, RL-GSN-solution_propagation_false makes it
+false because another one is false - and on a case where both apply, each pass undoes the
+last. A reasoner reports that as an inconsistency;
 here it shows up as a loop, so the store is fingerprinted after every pass and a repeat is
 reported as non-convergence, naming the rules still firing. That is a finding about the
 case, not a bug in the driver: it means the case supports contradictory conclusions.
 """
 import argparse
+import csv
 import glob
 import hashlib
 import io
@@ -30,11 +33,12 @@ import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 RULE_DIR = os.path.join(REPO, "ontology", "queries", "rules")
+REGISTRY = os.path.join(REPO, "ontology", "queries", "registry.csv")
 ONTOLOGY = os.path.join(REPO, "ontology", "serializations", "ontogsn.ttl")
 EXAMPLE = os.path.join(REPO, "ontology", "example", "example_case.ttl")
 TESTDATA = os.path.join(REPO, "development", "dev_tools", "testdata")
 
-HEADER_RE = re.compile(r"(?m)^#\s+(rule|name):\s+(.*)$")
+HEADER_RE = re.compile(r"(?m)^#\s+(name):\s+(.*)$")
 SECTIONS = """
 PREFIX gsn:  <https://w3id.org/OntoGSN/ontology#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -43,21 +47,30 @@ SELECT ?name ?section WHERE { ?rule a swrl:Imp ; rdfs:label ?name ; gsn:coreOrEx
 """
 
 
+def rule_order():
+    """A sort key: the column 'order' of the registry. The rules do not all reach the same
+    result in every order, so they run in a fixed one. A file with no row comes last."""
+    with open(REGISTRY, encoding="utf-8", newline="") as fh:
+        order = {os.path.basename(row["file"]): int(row["order"])
+                 for row in csv.DictReader(fh) if row["order"]}
+    return lambda path: (order.get(os.path.basename(path), 10 ** 9), os.path.basename(path))
+
+
 def load_rules(store):
     """Each rule file, with the section of the SWRL rule it translates.
 
-    A rule file names its rule in '# rule:' and '# name:'. The section is read from the
+    The file name is the ID of the rule, and '# name:' names its SWRL rule. The section is read from the
     ontology in the store, from the gsn:coreOrExtension of the SWRL rule with that name.
     """
     sections = {row["name"].value: row["section"].value for row in store.query(SECTIONS)}
     rules = []
-    for path in sorted(glob.glob(os.path.join(RULE_DIR, "*.rq"))):
+    for path in sorted(glob.glob(os.path.join(RULE_DIR, "*.rq")), key=rule_order()):
         with open(path, encoding="utf-8") as fh:
             text = fh.read()
         header = {k.lower(): v.strip() for k, v in HEADER_RE.findall(text)}
         name = header.get("name", "")
         rules.append({"path": path,
-                      "id": header.get("rule", os.path.basename(path)),
+                      "id": os.path.basename(path)[:-3],
                       "name": name,
                       "section": sections.get(name, ""),
                       "text": text})
@@ -78,7 +91,7 @@ def main():
     ap.add_argument("--out", help="write the materialised graph here")
     ap.add_argument("--dry-run", action="store_true",
                     help="report what one pass would derive; change nothing")
-    ap.add_argument("--only", help="comma-separated rule ids, e.g. S1,S16")
+    ap.add_argument("--only", help="comma-separated rule IDs, e.g. RL-GSN-assumption_invalidation")
     ap.add_argument("--section", help="only rules from this GSN section")
     ap.add_argument("--max-passes", type=int, default=20)
     ap.add_argument("--quiet", "-q", action="store_true", help="totals only")
@@ -121,7 +134,7 @@ def main():
             probe.update(rule["text"])
             added, removed = len(set(probe) - before), len(before - set(probe))
             if added or removed or not args.quiet:
-                print(f"  {rule['id']:>4}  {rule['name']:<38} +{added} -{removed}")
+                print(f"  {rule['id']:<54} +{added} -{removed}")
         return
 
     seen = {fingerprint(store)}
@@ -160,8 +173,7 @@ def main():
     if not args.quiet and fired:
         for rule in rules:
             if rule["id"] in fired:
-                print(f"  {rule['id']:>4}  {rule['name']:<38} fired in "
-                      f"{fired[rule['id']]} pass(es)")
+                print(f"  {rule['id']:<54} fired in {fired[rule['id']]} pass(es)")
 
     if args.out:
         with io.open(args.out, "wb") as fh:

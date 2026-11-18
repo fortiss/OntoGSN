@@ -1,0 +1,23 @@
+# expect: rows
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?elementId ?type ?statement ?challengeId ?challengeKind ?challengeStatement
+WHERE {
+  ?element gsn:inDoubt ?doubt ;
+           a ?type ;
+           schema:identifier ?elementId .
+  FILTER(STR(?doubt) = "true")
+  FILTER(?type IN (gsn:Goal, gsn:Strategy, gsn:Solution, gsn:Context, gsn:Assumption,
+                   gsn:Justification))
+  OPTIONAL { ?element gsn:statement ?statement }
+  OPTIONAL {
+    ?challenge gsn:challenges ?element ;
+               a ?challengeKind ;
+               schema:identifier ?challengeId .
+    FILTER(?challengeKind IN (gsn:Goal, gsn:Solution, gsn:Defeater))
+    OPTIONAL { ?challenge gsn:statement ?challengeStatement }
+  }
+}
+ORDER BY ?elementId ?challengeId

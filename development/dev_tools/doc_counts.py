@@ -56,6 +56,10 @@ import sys
 
 from rdflib import OWL, RDF, Graph, Namespace, URIRef
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import registry  # noqa: E402
+
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 DESIGN = Namespace("https://w3id.org/OntoGSN/design#")
@@ -174,11 +178,14 @@ def design_counts():
 
 
 def file_counts():
+    """The stored queries of the core by operation: the kind of the ID, and for a write the
+    verb that its slug starts with."""
     names = query_files()
-    found = {"queries": len(names)}
-    for operation in ("read", "create", "update", "delete"):
+    found = {"queries": len(names),
+             "read_queries": len([n for n in names if n.startswith("RQ-GSN-")])}
+    for operation in ("create", "update", "delete"):
         found[operation + "_queries"] = len([n for n in names
-                                             if n.startswith(operation + "_")])
+                                             if n.startswith("WQ-GSN-" + operation + "_")])
     found["separated_files"] = len([p for p in glob.glob(path_of(SEPARATED_DIR + "/*"))
                                     if not p.endswith("README.md")])
     return found
@@ -235,8 +242,9 @@ def report_counts():
 
 
 def rule_twins():
-    """One entry per SWRL rule of the core ontology that has a SPARQL twin: the number, the
-    name, the section, the file and the differences, as the design record states them."""
+    """One entry per SWRL rule of the core ontology that has a SPARQL twin: the ID, the
+    name, the section, the file and the differences, as the design record states them.
+    Sorted by section, then by ID."""
     generated = load(GENERATED)
     record = load(RECORD) + load(VOCABULARY)
     prov_generated = URIRef("http://www.w3.org/ns/prov#generated")
@@ -247,19 +255,17 @@ def rule_twins():
         if statement is None:
             continue
         file = os.path.basename(str(generated.value(query, DESIGN.path)))
-        number = re.match(r"s0*(\d+)([a-z]?)_", file)
         decision = record.value(predicate=prov_generated, object=statement)
         section = record.value(record.value(decision, DESIGN.section), label)
         twins.append({
-            "order": (int(number.group(1)), number.group(2)),
-            "rule": "S" + number.group(1) + number.group(2),
+            "rule": file[:-3],
             "name": str(generated.value(query, DESIGN.ruleName)),
             "section": str(section) if section else "",
             "file": file,
             "differences": sorted(str(record.value(d, label))
                                   for d in generated.objects(query, DESIGN.differsBy)),
         })
-    return sorted(twins, key=lambda twin: twin["order"])
+    return sorted(twins, key=lambda twin: (twin["section"], twin["rule"]))
 
 
 def level(differences):
@@ -289,10 +295,10 @@ def counts():
 
 def tables():
     """Each table that this script writes, by name, as its lines."""
-    lines = ["| Rule | Name | Section | SPARQL update | Level | Differs by |",
-             "| :--- | :--- | :--- | :--- | :--- | :--- |"]
+    lines = ["| Rule and its SPARQL update | Name | Section | Level | Differs by |",
+             "| :--- | :--- | :--- | :--- | :--- |"]
     for twin in rule_twins():
-        lines.append("| {rule} | {name} | {section} | [`{file}`]({file}) | {level} | {by} |".format(
+        lines.append("| [`{rule}`]({file}) | {name} | {section} | {level} | {by} |".format(
             level=level(twin["differences"]), by=", ".join(twin["differences"]) or "none",
             **twin))
     return {"core_rule_twins": lines}
@@ -305,13 +311,15 @@ def read(relative):
 
 
 def catalogue_gaps():
-    """Stored queries without a row in the catalogue, and rows without a query."""
-    listed = set(re.findall(r"^\| `((?:read|create|update|delete)_\w+)` \|",
+    """Stored queries without a row in the catalogue, and rows without a query. Also what the
+    test of the registries finds (registry.py)."""
+    listed = set(re.findall(r"^\| `((?:RQ|WQ)-GSN-[a-z0-9_]+)` \|",
                             read(QUERY_README), re.M))
     files = set(query_files())
     return ([QUERY_README + ": no row for " + name + ".rq" for name in sorted(files - listed)]
             + [QUERY_README + ": the row " + name + " has no file in " + QUERY_DIR
-               for name in sorted(listed - files)])
+               for name in sorted(listed - files)]
+            + registry.problems())
 
 
 def markdown_files():

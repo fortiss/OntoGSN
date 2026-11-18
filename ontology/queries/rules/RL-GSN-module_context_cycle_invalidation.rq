@@ -1,0 +1,12 @@
+# name:      Module Context Cycle Invalidation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?M gsn:valid ?old }
+INSERT { ?M gsn:valid false }
+WHERE {
+  ?M gsn:transitivelyInContextOf ?M .
+  OPTIONAL { ?M gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

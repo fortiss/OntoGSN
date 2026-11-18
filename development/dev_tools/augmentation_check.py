@@ -39,6 +39,8 @@ from rdflib.namespace import RDFS, XSD
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 HERE = os.path.join(REPO, "augmentation")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import registry  # noqa: E402
 
 GSN = Namespace("https://w3id.org/OntoGSN/ontology#")
 AUG = Namespace("https://w3id.org/OntoGSN/augmentation#")
@@ -97,7 +99,8 @@ for rule in rules:
 check(len(rules) == 16, f"{len(rules)} SWRL rules", f"expected 16 SWRL rules, found {len(rules)}")
 
 # Each SWRL rule needs a SPARQL twin, so the two never drift.
-sparql_rules = sorted(glob.glob(os.path.join(AUG_RULES, "*.rq")))
+# in the order of the registry, because the rules do not all reach the same result in every order
+sparql_rules = [os.path.join(REPO, *f.split("/")) for f in registry.rules_in_order("augmentation/rules")]
 check(len(sparql_rules) == len(rules),
       f"{len(sparql_rules)} SPARQL rules, one per SWRL rule",
       f"{len(sparql_rules)} SPARQL rules but {len(rules)} SWRL rules")
@@ -162,8 +165,9 @@ head("rules to a fixpoint")
 before = len(data)
 
 updates = []
-derivations = sorted(glob.glob(os.path.join(DERIVATIONS, "*.rq")))
-for path in sorted(glob.glob(os.path.join(CORE_RULES, "*.rq"))) + sparql_rules + derivations:
+derivations = [os.path.join(REPO, *f.split("/")) for f in registry.rules_in_order("augmentation/derivations")]
+core_rules = [os.path.join(REPO, *f.split("/")) for f in registry.rules_in_order("ontology/queries/rules")]
+for path in core_rules + sparql_rules + derivations:
     text = open(path, encoding="utf-8").read()
     upper = text.upper()
     if "INSERT" in upper or "DELETE" in upper:
@@ -295,7 +299,7 @@ for name, triple, wanted in expected:
 # Sn6 alone, whatever order the rules run in.
 probe = Graph()
 probe += data
-probe.update(open(os.path.join(AUG_RULES, "a06a_conforming_report_confirms_solution.rq"),
+probe.update(open(os.path.join(AUG_RULES, "RL-AUG-conforming_report_confirms_solution.rq"),
                   encoding="utf-8").read())
 check((EX.Sn6, GSN.true, Literal(True)) not in probe,
       "A6a alone does not confirm a solution that another of its artefacts refutes",
@@ -354,7 +358,7 @@ INSERT DATA { <https://example.org/case#key-check-report-3> a sh:ValidationRepor
     prov:wasGeneratedBy <https://example.org/case#key-check> ;
     prov:used <https://example.org/case#config-export-key-7> ;
     prov:generatedAtTime "2099-01-01T00:00:00Z"^^xsd:dateTime }""")
-probe.update(open(os.path.join(DERIVATIONS, "d04_current_report.rq"), encoding="utf-8").read())
+probe.update(open(os.path.join(DERIVATIONS, "RL-AUG-current_report.rq"), encoding="utf-8").read())
 check(set(probe.objects(EX["config-export-key-7"], AUG.currentReport)) == {EX["key-check-report-3"]},
       "D4 moves the pointer to a newer report and removes the old pointer",
       "after a newer report, the pointers of the key are "

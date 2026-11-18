@@ -1,0 +1,40 @@
+# name:      Challenge Chain Invalidation
+# expect:    insert
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <http://schema.org/>
+
+DELETE {
+  ?D gsn:valid ?oldD .
+  ?R gsn:valid ?oldR .
+}
+INSERT {
+  ?S a gsn:Strategy ;
+     schema:identifier ?strategyId ;
+     gsn:supportedBy ?G1 , ?G2 ;
+     gsn:valid false .
+  ?G3 gsn:supportedBy ?S .
+  ?D gsn:challenges ?S ;
+     gsn:valid false .
+  ?R gsn:valid false .
+}
+WHERE {
+  ?D gsn:challenges ?R .
+  ?R rdf:subject ?G3 ;
+     rdf:object ?G1 .
+  ?G1 a gsn:Goal .
+  ?G3 a gsn:Goal ;
+      gsn:supportedBy ?G1 ;
+      schema:identifier ?idG3 .
+  ?G3 gsn:supportedBy ?G2 .
+  ?G2 a gsn:Goal .
+  FILTER(?G1 != ?G2)
+  BIND(CONCAT("St-", ?idG3, "-rebutted") AS ?strategyId)
+  BIND(CONCAT("St-", REPLACE(STR(?G3), "^.*[#/]", ""), "-rebutted") AS ?iriKey)
+  BIND(IRI(CONCAT(REPLACE(STR(?G3), "[^#/]*$", ""),
+                  ENCODE_FOR_URI(?iriKey))) AS ?S)
+  OPTIONAL { ?D gsn:valid ?oldD }
+  OPTIONAL { ?R gsn:valid ?oldR }
+  FILTER NOT EXISTS { ?G3 gsn:supportedBy ?S }
+}

@@ -1,0 +1,15 @@
+# name:      Challenge Doubt
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?E gsn:inDoubt ?old }
+INSERT { ?E gsn:inDoubt true }
+WHERE {
+  ?G a gsn:Goal ;
+     gsn:true ?tG ;
+     gsn:challenges ?E .
+  FILTER(STR(?tG) = "true")
+  OPTIONAL { ?E gsn:inDoubt ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}

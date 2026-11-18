@@ -1,0 +1,130 @@
+# name:      Conforming Part Report Confirms Solution
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug: <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:   <http://www.w3.org/ns/prov#>
+PREFIX sh:     <http://www.w3.org/ns/shacl#>
+
+DELETE {
+  ?S gsn:true ?old .
+}
+INSERT {
+  ?S gsn:true true .
+}
+WHERE {
+  ?S a gsn:Solution ;
+     gsn:refersTo ?A .
+  ?A a gsn:Artefact .
+  ?P a gsnaug:ArtefactPart ;
+     gsnaug:partOf ?A ;
+     gsnaug:checkableWith ?M .
+  {
+    SELECT DISTINCT (?Mc AS ?M) (?Tc AS ?P) WHERE {
+      {
+        ?Mc gsnaug:decides "truth" .
+        ?Rc a sh:ValidationReport ;
+            prov:wasGeneratedBy ?Mc ;
+            prov:used ?Tc ;
+            sh:conforms ?c ;
+            prov:generatedAtTime ?tc .
+        FILTER NOT EXISTS { ?Rc prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
+        {
+          SELECT DISTINCT ?Mc ?Tc (MAX(?tn) AS ?latest) WHERE {
+            ?Rn a sh:ValidationReport ;
+                prov:wasGeneratedBy ?Mc ;
+                prov:used ?Tc ;
+                prov:generatedAtTime ?tn .
+            FILTER NOT EXISTS { ?Rn prov:invalidatedAtTime|prov:wasInvalidatedBy ?struckNewer }
+          } GROUP BY ?Mc ?Tc
+        }
+        FILTER(?tc >= ?latest)
+      } UNION {
+        ?Mc gsnaug:decides "truth" .
+        ?Rc a sh:ValidationReport ;
+            prov:wasGeneratedBy ?Mc ;
+            prov:used ?Tc ;
+            sh:conforms ?c .
+        FILTER NOT EXISTS { ?Rc prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
+        FILTER NOT EXISTS { ?Rc prov:generatedAtTime ?untimed }
+      }
+      FILTER(STR(?c) = "true")
+    }
+  }
+  FILTER(EXISTS { ?S gsn:refersTo ?P } || NOT EXISTS { ?S gsn:refersTo ?namedPart . ?namedPart gsnaug:partOf ?A })
+  MINUS {
+    ?S gsn:refersTo ?A2 .
+    ?A2 gsnaug:checkableWith ?M2 .
+    {
+      SELECT DISTINCT (?Mc AS ?M2) (?Tc AS ?A2) WHERE {
+        {
+          ?Mc gsnaug:decides "truth" .
+          ?Rc a sh:ValidationReport ;
+              prov:wasGeneratedBy ?Mc ;
+              prov:used ?Tc ;
+              sh:conforms ?c ;
+              prov:generatedAtTime ?tc .
+          FILTER NOT EXISTS { ?Rc prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
+          {
+            SELECT DISTINCT ?Mc ?Tc (MAX(?tn) AS ?latest) WHERE {
+              ?Rn a sh:ValidationReport ;
+                  prov:wasGeneratedBy ?Mc ;
+                  prov:used ?Tc ;
+                  prov:generatedAtTime ?tn .
+              FILTER NOT EXISTS { ?Rn prov:invalidatedAtTime|prov:wasInvalidatedBy ?struckNewer }
+            } GROUP BY ?Mc ?Tc
+          }
+          FILTER(?tc >= ?latest)
+        } UNION {
+          ?Mc gsnaug:decides "truth" .
+          ?Rc a sh:ValidationReport ;
+              prov:wasGeneratedBy ?Mc ;
+              prov:used ?Tc ;
+              sh:conforms ?c .
+          FILTER NOT EXISTS { ?Rc prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
+          FILTER NOT EXISTS { ?Rc prov:generatedAtTime ?untimed }
+        }
+        FILTER(STR(?c) = "false")
+      }
+    }
+  }
+  MINUS {
+    ?S gsn:refersTo ?A2 .
+    ?T2 gsnaug:partOf ?A2 ;
+        gsnaug:checkableWith ?M2 .
+    FILTER(EXISTS { ?S gsn:refersTo ?T2 } || NOT EXISTS { ?S gsn:refersTo ?namedPart . ?namedPart gsnaug:partOf ?A2 })
+    {
+      SELECT DISTINCT (?Mc AS ?M2) (?Tc AS ?T2) WHERE {
+        {
+          ?Mc gsnaug:decides "truth" .
+          ?Rc a sh:ValidationReport ;
+              prov:wasGeneratedBy ?Mc ;
+              prov:used ?Tc ;
+              sh:conforms ?c ;
+              prov:generatedAtTime ?tc .
+          FILTER NOT EXISTS { ?Rc prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
+          {
+            SELECT DISTINCT ?Mc ?Tc (MAX(?tn) AS ?latest) WHERE {
+              ?Rn a sh:ValidationReport ;
+                  prov:wasGeneratedBy ?Mc ;
+                  prov:used ?Tc ;
+                  prov:generatedAtTime ?tn .
+              FILTER NOT EXISTS { ?Rn prov:invalidatedAtTime|prov:wasInvalidatedBy ?struckNewer }
+            } GROUP BY ?Mc ?Tc
+          }
+          FILTER(?tc >= ?latest)
+        } UNION {
+          ?Mc gsnaug:decides "truth" .
+          ?Rc a sh:ValidationReport ;
+              prov:wasGeneratedBy ?Mc ;
+              prov:used ?Tc ;
+              sh:conforms ?c .
+          FILTER NOT EXISTS { ?Rc prov:invalidatedAtTime|prov:wasInvalidatedBy ?struck }
+          FILTER NOT EXISTS { ?Rc prov:generatedAtTime ?untimed }
+        }
+        FILTER(STR(?c) = "false")
+      }
+    }
+  }
+  OPTIONAL { ?S gsn:true ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "true")
+}

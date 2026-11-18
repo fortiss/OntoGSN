@@ -1,0 +1,20 @@
+# expect: empty
+
+PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
+PREFIX schema: <http://schema.org/>
+
+SELECT DISTINCT ?goalId ?statement ?defeaterId ?defeaterStatement
+WHERE {
+  ?goal a gsn:Goal ;
+        gsn:defeated ?defeated ;
+        schema:identifier ?goalId .
+  FILTER(STR(?defeated) = "true")
+  FILTER NOT EXISTS { ?goal gsn:challenges ?target }
+  OPTIONAL { ?goal gsn:statement ?statement }
+  OPTIONAL {
+    ?defeater gsn:challenges ?goal ;
+              schema:identifier ?defeaterId .
+    OPTIONAL { ?defeater gsn:statement ?defeaterStatement }
+  }
+}
+ORDER BY ?goalId ?defeaterId

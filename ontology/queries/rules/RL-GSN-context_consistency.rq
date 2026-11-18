@@ -1,0 +1,18 @@
+# name:      Context Consistency
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+INSERT { ?C1 gsn:consistentWith ?C2 }
+WHERE {
+  ?G1 a gsn:Goal ;
+      gsn:inContextOf ?C1 ;
+      gsn:supportedBy ?G2 .
+  ?G2 a gsn:Goal ;
+      gsn:inContextOf ?C2 ;
+      gsn:away ?away .
+  FILTER(STR(?away) = "true")
+  ?C2 a gsn:Context .
+  FILTER(?C1 != ?C2)
+  FILTER NOT EXISTS { ?C1 gsn:consistentWith ?C2 }
+}

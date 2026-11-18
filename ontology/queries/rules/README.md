@@ -54,65 +54,65 @@ The design record states the differences of each twin with `gsndesign:differsBy`
 
 [table]: <> (core_rule_twins)
 
-| Rule | Name | Section | SPARQL update | Level | Differs by |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| S1 | Assumption Invalidation | Part 0, Glossary & Annex | [`s01_assumption_invalidation.rq`](s01_assumption_invalidation.rq) | close | retraction |
-| S2 | Contextual Relation | Part 0, Glossary & Annex | [`s02_contextual_relation.rq`](s02_contextual_relation.rq) | close | retraction |
-| S3 | Evidential Relation | Part 0, Glossary & Annex | [`s03_evidential_relation.rq`](s03_evidential_relation.rq) | close | retraction |
-| S4 | Inferential Relation | Part 0, Glossary & Annex | [`s04_inferential_relation.rq`](s04_inferential_relation.rq) | close | retraction |
-| S5 | Inferential Relation (Goal) | Part 0, Glossary & Annex | [`s05_inferential_relation_goal.rq`](s05_inferential_relation_goal.rq) | close | retraction |
-| S6 | Goal Top Flag | Part 0, Glossary & Annex | [`s06_goal_top_flag.rq`](s06_goal_top_flag.rq) | narrower | guard, retraction |
-| S8 | Contradictory Goal Truth | Core GSN | [`s08_contradictory_goal_truth.rq`](s08_contradictory_goal_truth.rq) | close | retraction |
-| S10 | Solution Propagation (True) | Core GSN | [`s10_solution_propagation_true.rq`](s10_solution_propagation_true.rq) | narrower | guard, retraction |
-| S11 | Solution Propagation (False) | Core GSN | [`s11_solution_propagation_false.rq`](s11_solution_propagation_false.rq) | close | retraction |
-| S12 | Mixed Support Invalidation | Core GSN | [`s12_mixed_support_invalidation.rq`](s12_mixed_support_invalidation.rq) | close | retraction |
-| S14 | Relation False Propagation | Core GSN | [`s14_relation_false_propagation.rq`](s14_relation_false_propagation.rq) | close | retraction |
-| S16 | Assumption False Propagation | Core GSN | [`s16_assumption_false_propagation.rq`](s16_assumption_false_propagation.rq) | close | retraction |
-| S17 | Context Inheritance | Core GSN | [`s17_context_inheritance.rq`](s17_context_inheritance.rq) | exact | none |
-| S18 | Support Relation Creation | Core GSN | [`s18_support_relation_creation.rq`](s18_support_relation_creation.rq) | exact | none |
-| S19 | Context Relation Creation | Core GSN | [`s19_context_relation_creation.rq`](s19_context_relation_creation.rq) | exact | none |
-| S20 | Final Pattern Invalidation | Argument Pattern Extension | [`s20_final_pattern_invalidation.rq`](s20_final_pattern_invalidation.rq) | close | retraction |
-| S21 | Template Undeveloped Invalidation (A) | Argument Pattern Extension | [`s21_template_undeveloped_invalidation_a.rq`](s21_template_undeveloped_invalidation_a.rq) | close | retraction |
-| S22 | Template Undeveloped Invalidation (B) | Argument Pattern Extension | [`s22_template_undeveloped_invalidation_b.rq`](s22_template_undeveloped_invalidation_b.rq) | close | retraction |
-| S23 | Cross-Module Away Support | Modular Extension | [`s23_cross_module_away_support.rq`](s23_cross_module_away_support.rq) | close | retraction |
-| S24 | Cross-Module Away Context | Modular Extension | [`s24_cross_module_away_context.rq`](s24_cross_module_away_context.rq) | close | retraction |
-| S25 | Duplicate Identifier Invalidation | Modular Extension | [`s25_duplicate_identifier_invalidation.rq`](s25_duplicate_identifier_invalidation.rq) | close | retraction |
-| S26 | Contract Violation Relation | Modular Extension | [`s26_contract_violation_relation.rq`](s26_contract_violation_relation.rq) | close | retraction |
-| S27 | Context Contract Invalidation | Modular Extension | [`s27_context_contract_invalidation.rq`](s27_context_contract_invalidation.rq) | close | retraction |
-| S28 | Contract Support Invalidation | Modular Extension | [`s28_contract_support_invalidation.rq`](s28_contract_support_invalidation.rq) | close | retraction |
-| S29 | Away Goal Invalidation | Modular Extension | [`s29_away_goal_invalidation.rq`](s29_away_goal_invalidation.rq) | close | retraction |
-| S30 | Contract Activation | Modular Extension | [`s30_contract_activation.rq`](s30_contract_activation.rq) | close | retraction |
-| S31 | Contract Relation Invalidation | Modular Extension | [`s31_contract_relation_invalidation.rq`](s31_contract_relation_invalidation.rq) | close | retraction |
-| S32 | Context Consistency | Modular Extension | [`s32_context_consistency.rq`](s32_context_consistency.rq) | exact | none |
-| S33 | Substitution Invalidation | Modular Extension | [`s33_substitution_invalidation.rq`](s33_substitution_invalidation.rq) | close | retraction |
-| S34 | Module Support Propagation | Modular Extension | [`s34_module_support_propagation.rq`](s34_module_support_propagation.rq) | exact | none |
-| S35 | Module Context Propagation | Modular Extension | [`s35_module_context_propagation.rq`](s35_module_context_propagation.rq) | exact | none |
-| S36 | Cross-Module Support | Modular Extension | [`s36_cross_module_support.rq`](s36_cross_module_support.rq) | exact | none |
-| S38 | Public Context Propagation | Modular Extension | [`s38_public_context_propagation.rq`](s38_public_context_propagation.rq) | close | retraction |
-| S39 | Public Contract Invalidation | Modular Extension | [`s39_public_contract_invalidation.rq`](s39_public_contract_invalidation.rq) | close | retraction |
-| S40 | Confidence Relation Creation | Confidence Argument Extension | [`s40_confidence_relation_creation.rq`](s40_confidence_relation_creation.rq) | exact | none |
-| S41 | Duplicate ACP Identifier Invalidation | Confidence Argument Extension | [`s41_duplicate_acp_identifier_invalidation.rq`](s41_duplicate_acp_identifier_invalidation.rq) | close | retraction |
-| S42 | Strategy Confidence Relation | Confidence Argument Extension | [`s42_strategy_confidence_relation.rq`](s42_strategy_confidence_relation.rq) | exact | none |
-| S43 | Goal-Strategy Confidence | Confidence Argument Extension | [`s43_goal_strategy_confidence.rq`](s43_goal_strategy_confidence.rq) | exact | none |
-| S44 | Solution Confidence Relation | Confidence Argument Extension | [`s44_solution_confidence_relation.rq`](s44_solution_confidence_relation.rq) | exact | none |
-| S45 | Goal Confidence Relation | Confidence Argument Extension | [`s45_goal_confidence_relation.rq`](s45_goal_confidence_relation.rq) | exact | none |
-| S46 | Challenge Defeat | Dialectic Extension | [`s46_challenge_defeat.rq`](s46_challenge_defeat.rq) | close | retraction |
-| S47 | Defeated Invalidation | Dialectic Extension | [`s47_defeated_invalidation.rq`](s47_defeated_invalidation.rq) | close | retraction |
-| S48 | Challenge Doubt | Dialectic Extension | [`s48_challenge_doubt.rq`](s48_challenge_doubt.rq) | close | retraction |
-| S49 | Undeveloped Defeat | Dialectic Extension | [`s49_undeveloped_defeat.rq`](s49_undeveloped_defeat.rq) | close | retraction |
-| S50 | Challenge Relation Creation | Dialectic Extension | [`s50_challenge_relation_creation.rq`](s50_challenge_relation_creation.rq) | exact | none |
-| S51 | Challenge Chain Invalidation | Dialectic Extension | [`s51_challenge_chain_invalidation.rq`](s51_challenge_chain_invalidation.rq) | close | retraction |
-| S52 | Defeater Declaration | Part 2 | [`s52_defeater_declaration.rq`](s52_defeater_declaration.rq) | exact | none |
-| S53 | Module Membership | Modular Extension | [`s53_module_membership.rq`](s53_module_membership.rq) | exact | none |
-| S54 | Nested Module Membership | Modular Extension | [`s54_nested_module_membership.rq`](s54_nested_module_membership.rq) | exact | none |
-| S55 | Support Closure | Core GSN | [`s55_support_closure.rq`](s55_support_closure.rq) | exact | none |
-| S56 | Support Cycle Invalidation | Core GSN | [`s56_support_cycle_invalidation.rq`](s56_support_cycle_invalidation.rq) | close | retraction |
-| S57 | Support Cycle Relationship Invalidation | Core GSN | [`s57_support_cycle_relationship_invalidation.rq`](s57_support_cycle_relationship_invalidation.rq) | close | retraction |
-| S58 | Module Context Closure | Modular Extension | [`s58_module_context_closure.rq`](s58_module_context_closure.rq) | exact | none |
-| S59 | Module Context Cycle Invalidation | Modular Extension | [`s59_module_context_cycle_invalidation.rq`](s59_module_context_cycle_invalidation.rq) | close | retraction |
-| S60 | Module Context Cycle Relationship Invalidation | Modular Extension | [`s60_module_context_cycle_relationship_invalidation.rq`](s60_module_context_cycle_relationship_invalidation.rq) | close | retraction |
-| S61 | Challenge Closure | Dialectic Extension | [`s61_challenge_closure.rq`](s61_challenge_closure.rq) | exact | none |
-| S62 | Challenge Cycle Invalidation | Dialectic Extension | [`s62_challenge_cycle_invalidation.rq`](s62_challenge_cycle_invalidation.rq) | close | retraction |
-| S63 | Challenge Cycle Relationship Invalidation | Dialectic Extension | [`s63_challenge_cycle_relationship_invalidation.rq`](s63_challenge_cycle_relationship_invalidation.rq) | close | retraction |
-| S64 | Support Doubt Propagation | Dialectic Extension | [`s64_support_doubt_propagation.rq`](s64_support_doubt_propagation.rq) | close | retraction |
-| S65 | Context Doubt Propagation | Dialectic Extension | [`s65_context_doubt_propagation.rq`](s65_context_doubt_propagation.rq) | close | retraction |
+| Rule and its SPARQL update | Name | Section | Level | Differs by |
+| :--- | :--- | :--- | :--- | :--- |
+| [`RL-GSN-final_pattern_invalidation`](RL-GSN-final_pattern_invalidation.rq) | Final Pattern Invalidation | Argument Pattern Extension | close | retraction |
+| [`RL-GSN-template_undeveloped_invalidation_a`](RL-GSN-template_undeveloped_invalidation_a.rq) | Template Undeveloped Invalidation (A) | Argument Pattern Extension | close | retraction |
+| [`RL-GSN-template_undeveloped_invalidation_b`](RL-GSN-template_undeveloped_invalidation_b.rq) | Template Undeveloped Invalidation (B) | Argument Pattern Extension | close | retraction |
+| [`RL-GSN-confidence_relation_creation`](RL-GSN-confidence_relation_creation.rq) | Confidence Relation Creation | Confidence Argument Extension | exact | none |
+| [`RL-GSN-duplicate_acp_identifier_invalidation`](RL-GSN-duplicate_acp_identifier_invalidation.rq) | Duplicate ACP Identifier Invalidation | Confidence Argument Extension | close | retraction |
+| [`RL-GSN-goal_confidence_relation`](RL-GSN-goal_confidence_relation.rq) | Goal Confidence Relation | Confidence Argument Extension | exact | none |
+| [`RL-GSN-goal_strategy_confidence`](RL-GSN-goal_strategy_confidence.rq) | Goal-Strategy Confidence | Confidence Argument Extension | exact | none |
+| [`RL-GSN-solution_confidence_relation`](RL-GSN-solution_confidence_relation.rq) | Solution Confidence Relation | Confidence Argument Extension | exact | none |
+| [`RL-GSN-strategy_confidence_relation`](RL-GSN-strategy_confidence_relation.rq) | Strategy Confidence Relation | Confidence Argument Extension | exact | none |
+| [`RL-GSN-assumption_false_propagation`](RL-GSN-assumption_false_propagation.rq) | Assumption False Propagation | Core GSN | close | retraction |
+| [`RL-GSN-context_inheritance`](RL-GSN-context_inheritance.rq) | Context Inheritance | Core GSN | exact | none |
+| [`RL-GSN-context_relation_creation`](RL-GSN-context_relation_creation.rq) | Context Relation Creation | Core GSN | exact | none |
+| [`RL-GSN-contradictory_goal_truth`](RL-GSN-contradictory_goal_truth.rq) | Contradictory Goal Truth | Core GSN | close | retraction |
+| [`RL-GSN-mixed_support_invalidation`](RL-GSN-mixed_support_invalidation.rq) | Mixed Support Invalidation | Core GSN | close | retraction |
+| [`RL-GSN-relation_false_propagation`](RL-GSN-relation_false_propagation.rq) | Relation False Propagation | Core GSN | close | retraction |
+| [`RL-GSN-solution_propagation_false`](RL-GSN-solution_propagation_false.rq) | Solution Propagation (False) | Core GSN | close | retraction |
+| [`RL-GSN-solution_propagation_true`](RL-GSN-solution_propagation_true.rq) | Solution Propagation (True) | Core GSN | narrower | guard, retraction |
+| [`RL-GSN-support_closure`](RL-GSN-support_closure.rq) | Support Closure | Core GSN | exact | none |
+| [`RL-GSN-support_cycle_invalidation`](RL-GSN-support_cycle_invalidation.rq) | Support Cycle Invalidation | Core GSN | close | retraction |
+| [`RL-GSN-support_cycle_relationship_invalidation`](RL-GSN-support_cycle_relationship_invalidation.rq) | Support Cycle Relationship Invalidation | Core GSN | close | retraction |
+| [`RL-GSN-support_relation_creation`](RL-GSN-support_relation_creation.rq) | Support Relation Creation | Core GSN | exact | none |
+| [`RL-GSN-challenge_chain_invalidation`](RL-GSN-challenge_chain_invalidation.rq) | Challenge Chain Invalidation | Dialectic Extension | close | retraction |
+| [`RL-GSN-challenge_closure`](RL-GSN-challenge_closure.rq) | Challenge Closure | Dialectic Extension | exact | none |
+| [`RL-GSN-challenge_cycle_invalidation`](RL-GSN-challenge_cycle_invalidation.rq) | Challenge Cycle Invalidation | Dialectic Extension | close | retraction |
+| [`RL-GSN-challenge_cycle_relationship_invalidation`](RL-GSN-challenge_cycle_relationship_invalidation.rq) | Challenge Cycle Relationship Invalidation | Dialectic Extension | close | retraction |
+| [`RL-GSN-challenge_defeat`](RL-GSN-challenge_defeat.rq) | Challenge Defeat | Dialectic Extension | close | retraction |
+| [`RL-GSN-challenge_doubt`](RL-GSN-challenge_doubt.rq) | Challenge Doubt | Dialectic Extension | close | retraction |
+| [`RL-GSN-challenge_relation_creation`](RL-GSN-challenge_relation_creation.rq) | Challenge Relation Creation | Dialectic Extension | exact | none |
+| [`RL-GSN-context_doubt_propagation`](RL-GSN-context_doubt_propagation.rq) | Context Doubt Propagation | Dialectic Extension | close | retraction |
+| [`RL-GSN-defeated_invalidation`](RL-GSN-defeated_invalidation.rq) | Defeated Invalidation | Dialectic Extension | close | retraction |
+| [`RL-GSN-support_doubt_propagation`](RL-GSN-support_doubt_propagation.rq) | Support Doubt Propagation | Dialectic Extension | close | retraction |
+| [`RL-GSN-undeveloped_defeat`](RL-GSN-undeveloped_defeat.rq) | Undeveloped Defeat | Dialectic Extension | close | retraction |
+| [`RL-GSN-away_goal_invalidation`](RL-GSN-away_goal_invalidation.rq) | Away Goal Invalidation | Modular Extension | close | retraction |
+| [`RL-GSN-context_consistency`](RL-GSN-context_consistency.rq) | Context Consistency | Modular Extension | exact | none |
+| [`RL-GSN-context_contract_invalidation`](RL-GSN-context_contract_invalidation.rq) | Context Contract Invalidation | Modular Extension | close | retraction |
+| [`RL-GSN-contract_activation`](RL-GSN-contract_activation.rq) | Contract Activation | Modular Extension | close | retraction |
+| [`RL-GSN-contract_relation_invalidation`](RL-GSN-contract_relation_invalidation.rq) | Contract Relation Invalidation | Modular Extension | close | retraction |
+| [`RL-GSN-contract_support_invalidation`](RL-GSN-contract_support_invalidation.rq) | Contract Support Invalidation | Modular Extension | close | retraction |
+| [`RL-GSN-contract_violation_relation`](RL-GSN-contract_violation_relation.rq) | Contract Violation Relation | Modular Extension | close | retraction |
+| [`RL-GSN-cross_module_away_context`](RL-GSN-cross_module_away_context.rq) | Cross-Module Away Context | Modular Extension | close | retraction |
+| [`RL-GSN-cross_module_away_support`](RL-GSN-cross_module_away_support.rq) | Cross-Module Away Support | Modular Extension | close | retraction |
+| [`RL-GSN-cross_module_support`](RL-GSN-cross_module_support.rq) | Cross-Module Support | Modular Extension | exact | none |
+| [`RL-GSN-duplicate_identifier_invalidation`](RL-GSN-duplicate_identifier_invalidation.rq) | Duplicate Identifier Invalidation | Modular Extension | close | retraction |
+| [`RL-GSN-module_context_closure`](RL-GSN-module_context_closure.rq) | Module Context Closure | Modular Extension | exact | none |
+| [`RL-GSN-module_context_cycle_invalidation`](RL-GSN-module_context_cycle_invalidation.rq) | Module Context Cycle Invalidation | Modular Extension | close | retraction |
+| [`RL-GSN-module_context_cycle_relationship_invalidation`](RL-GSN-module_context_cycle_relationship_invalidation.rq) | Module Context Cycle Relationship Invalidation | Modular Extension | close | retraction |
+| [`RL-GSN-module_context_propagation`](RL-GSN-module_context_propagation.rq) | Module Context Propagation | Modular Extension | exact | none |
+| [`RL-GSN-module_membership`](RL-GSN-module_membership.rq) | Module Membership | Modular Extension | exact | none |
+| [`RL-GSN-module_support_propagation`](RL-GSN-module_support_propagation.rq) | Module Support Propagation | Modular Extension | exact | none |
+| [`RL-GSN-nested_module_membership`](RL-GSN-nested_module_membership.rq) | Nested Module Membership | Modular Extension | exact | none |
+| [`RL-GSN-public_context_propagation`](RL-GSN-public_context_propagation.rq) | Public Context Propagation | Modular Extension | close | retraction |
+| [`RL-GSN-public_contract_invalidation`](RL-GSN-public_contract_invalidation.rq) | Public Contract Invalidation | Modular Extension | close | retraction |
+| [`RL-GSN-substitution_invalidation`](RL-GSN-substitution_invalidation.rq) | Substitution Invalidation | Modular Extension | close | retraction |
+| [`RL-GSN-assumption_invalidation`](RL-GSN-assumption_invalidation.rq) | Assumption Invalidation | Part 0, Glossary & Annex | close | retraction |
+| [`RL-GSN-contextual_relation`](RL-GSN-contextual_relation.rq) | Contextual Relation | Part 0, Glossary & Annex | close | retraction |
+| [`RL-GSN-evidential_relation`](RL-GSN-evidential_relation.rq) | Evidential Relation | Part 0, Glossary & Annex | close | retraction |
+| [`RL-GSN-goal_top_flag`](RL-GSN-goal_top_flag.rq) | Goal Top Flag | Part 0, Glossary & Annex | narrower | guard, retraction |
+| [`RL-GSN-inferential_relation`](RL-GSN-inferential_relation.rq) | Inferential Relation | Part 0, Glossary & Annex | close | retraction |
+| [`RL-GSN-inferential_relation_goal`](RL-GSN-inferential_relation_goal.rq) | Inferential Relation (Goal) | Part 0, Glossary & Annex | close | retraction |
+| [`RL-GSN-defeater_declaration`](RL-GSN-defeater_declaration.rq) | Defeater Declaration | Part 2 | exact | none |

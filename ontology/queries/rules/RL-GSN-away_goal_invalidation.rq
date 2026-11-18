@@ -1,0 +1,20 @@
+# name:      Away Goal Invalidation
+# expect:    insert
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+DELETE { ?R gsn:valid ?old }
+INSERT { ?R gsn:valid false }
+WHERE {
+  ?G1 a gsn:Goal ;
+      gsn:supportedBy ?G2 ;
+      gsn:away ?away .
+  FILTER(STR(?away) = "true")
+  ?R rdf:subject ?G1 ;
+     rdf:object ?G2 .
+  ?G1 gsn:inModule ?M1 .
+  ?G2 gsn:inModule ?M2 .
+  OPTIONAL { ?R gsn:valid ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}

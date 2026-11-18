@@ -84,7 +84,7 @@ CHECKS = [
      "verify": ["development/dev_tools/query_check.py"],
      "gating": True,
      # It also fails on a comment in any SPARQL file, other than the header lines at the
-     # top of the file ('# rule:', '# name:', '# expect:').
+     # top of the file ('# name:', '# expect:').
      "triggers": ("ontology/queries/", "ontology/example/", "development/dev_tools/testdata/", "development/dev_tools/query_check.py",
                   "ontology/serializations/ontogsn.ttl",
                   "development/design/ontogsn-design-queries.ttl",
@@ -124,6 +124,8 @@ CHECKS = [
      "gating": True,
      "triggers": ("development/design/", "alignments/", "augmentation/README.md",
                   "augmentation/ontogsn-augmentation.ttl", "augmentation/shapes/",
+                  "augmentation/registry.csv", "augmentation/queries/", "augmentation/rules/",
+                  "augmentation/derivations/", "development/dev_tools/registry.py",
                   "ontology/queries/", "ontology/serializations/", "ontology/README.md",
                   "README.md",
                   "docs/_pages/tutorial.md", "docs/evaluation/",
@@ -134,8 +136,8 @@ CHECKS = [
      "gating": False,
      # the record describes the ontology, the shapes and the stored queries, so a change
      # to any of them can invalidate it
-     # "development/design/" also covers 'Competency Questions.xlsx', which lives there and is
-     # the input prov_inventory.py reads
+     # "development/design/" also covers 'requirements.csv', which lives there and is
+     # an input that prov_inventory.py reads, with the registries of the queries
      "triggers": ("development/design/", "ontology/serializations/ontogsn.ttl", "ontology/shapes/",
                   "ontology/queries/")},
     # Rebuilds ontogsn-design-inventory.ttl in a temporary folder and compares it with
@@ -147,7 +149,8 @@ CHECKS = [
      "gating": False,
      "triggers": ("development/design/", "ontology/serializations/", "ontology/shapes/",
                   "ontology/queries/", "augmentation/queries/", "augmentation/rules/",
-                  "augmentation/derivations/", "development/dev_tools/prov_inventory.py")},
+                  "augmentation/derivations/", "augmentation/registry.csv",
+                  "development/dev_tools/registry.py", "development/dev_tools/prov_inventory.py")},
     # The diagrams are drawn by hand, so a difference is a drawing job for a person, not a
     # broken build. It reads the drawio file and the ontologies, nothing else.
     {"name": "Graffoo diagrams",

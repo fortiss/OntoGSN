@@ -24,7 +24,7 @@ A README that states a count names it with a marker, on a line of its own above 
 ```markdown
 [count]: <> (queries)
 
-`ontology/queries/` holds 43 CRUD SPARQL queries ...
+`ontology/queries/` holds 50 CRUD SPARQL queries ...
 ```
 
 GitHub shows nothing for the marker. `doc_counts.py` binds each name to a whole number of the

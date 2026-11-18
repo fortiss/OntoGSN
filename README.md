@@ -43,7 +43,7 @@ python development/dev_tools/build.py
 
 [count]: <> (queries)
 
-`ontology/queries/` holds 43 CRUD SPARQL queries — one per competency question, covering all five
+`ontology/queries/` holds 50 CRUD SPARQL queries — one per competency question, covering all five
 GSN sections — and `ontology/queries/rules/` holds all 60 SWRL rules as SPARQL updates, for stores
 with no reasoner attached. Each query runs as-is against the example ABox in
 `ontology/example/example_case.ttl`, and is parameterised by element identifier so it can be pointed at a
