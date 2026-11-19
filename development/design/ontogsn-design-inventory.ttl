@@ -6671,7 +6671,7 @@ gsndesign:query-RQ-GSN-uninstantiated_elements
         "read_uninstantiated_elements.rq" ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/RQ-GSN-uninstantiated_elements.rq" ;
-    gsndesign:fileChecksum "08cfa69bc848fa440da881bf2ffbfe5847b14b917a3c2e37c5af100f4152a49f" ;
+    gsndesign:fileChecksum "852b88af0965afb7ce3511e28aa9804257c2f517e9dd859052e1e8c611914a98" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:instantiationOf ,
@@ -6686,7 +6686,7 @@ gsndesign:query-RQ-GSN-uninstantiated_elements
 PREFIX gsn:    <https://w3id.org/OntoGSN/ontology#>
 PREFIX schema: <http://schema.org/>
 
-SELECT ?elementId ?type ?statement ?patternId
+SELECT ?elementId ?type ?statement ?instantiationOfId
 WHERE {
   ?element gsn:uninstantiated ?flag ;
            a ?type ;
@@ -6694,8 +6694,8 @@ WHERE {
   FILTER(STR(?flag) = "true")
   OPTIONAL { ?element gsn:statement ?statement }
   OPTIONAL {
-    ?element gsn:instantiationOf ?pattern .
-    ?pattern schema:identifier ?patternId .
+    ?element gsn:instantiationOf ?source .
+    ?source schema:identifier ?instantiationOfId .
   }
 }
 ORDER BY ?elementId
