@@ -92,8 +92,8 @@ An alignment is valid only against the versions it was written for. The ontology
 both versions, and both matter:
 
 ```turtle
-owl:versionInfo                 "0.1.0" ;
-gsnalign:alignedOntoGSNVersion  "1.3.1" ;
+owl:versionInfo                 "0.1.1" ;
+gsnalign:alignedOntoGSNVersion  "1.4.0" ;
 gsnalign:alignedARGOVersion     "ArgO v.4 development release; git 59dd512f58cf, 2025-12-03" ;
 ```
 

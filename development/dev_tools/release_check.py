@@ -240,6 +240,7 @@ PROTOCOL_FROM = {
     "Ontology": (1, 4, 0),
     "SHACL shapes": (1, 3, 0),
     "Augmentation": (0, 7, 0),
+    "Alignment": (0, 1, 1),
     "Design record": (1, 5, 0),
 }
 PARTS = ("major", "minor", "patch")

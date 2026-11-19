@@ -55,8 +55,8 @@ These rules apply to the protocol:
 - `development/dev_tools/release_check.py` makes sure that each entry states its part, and that
   the part agrees with the step from the version before.
 
-The protocol applies from ontology 1.4.0, shapes 1.3.0, Augmentation 0.7.0 and design record
-1.5.0 on. Earlier numbers do not follow it. For example, 1.2.2 and 1.3.1 are patch numbers, and
+The protocol applies from ontology 1.4.0, shapes 1.3.0, Augmentation 0.7.0, alignment 0.1.1 and
+design record 1.5.0 on. Earlier numbers do not follow it. For example, 1.2.2 and 1.3.1 are patch numbers, and
 the protocol makes both minor versions.
 
 ## The w3id redirects
