@@ -129,6 +129,8 @@ it answers two more questions. No term is renamed or removed, and no rule change
   artefact. On the fixture it adds one row.
 - Two new reads: `RQ-AUG-element_revisions` (which claims or solutions were revised, and what
   they said before) and `RQ-AUG-tagged_elements` (which elements carry a tag).
+- `RQ-AUG-evidence_location` has the column `?location`, the `schema:url` of the artefact. Added
+  after the merge of the release, on the same day, before the tag moved to the final commit.
 - `augmentation/testdata/example_issues.ttl` has a revised control goal with an archived copy,
   for the three queries.
 - The record of the Augmentation gives the reasons in `dd-0116` to `dd-0119`. `dd-0118`
