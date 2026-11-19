@@ -96,7 +96,8 @@ gsn:inferredOnly a owl:AnnotationProperty .
 gsn:instantiationOf a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:GSNElement ) ] ;
-    rdfs:range gsn:Pattern .
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:GSNElement gsn:Pattern ) ] .
 
 gsn:intent a owl:AnnotationProperty ;
     rdfs:domain gsn:Pattern .

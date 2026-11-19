@@ -155,8 +155,9 @@ gsn:instantiationOf a owl:ObjectProperty ;
     rdfs:label "instantiation of"@en ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:GSNElement ) ] ;
-    rdfs:range gsn:Pattern ;
-    skos:definition "[OntoGSN] Relates an argument or element to the pattern it was instantiated from."@en ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:GSNElement gsn:Pattern ) ] ;
+    skos:definition "[OntoGSN] Relates an argument or element to the pattern it was instantiated from, or an element to the element of the pattern that it copies."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 gsn:intent a owl:AnnotationProperty ;

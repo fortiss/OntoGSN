@@ -9846,7 +9846,9 @@ gsndesign:st-0306
     prov:qualifiedDerivation [ a prov:Derivation ; prov:entity gsndesign:src-0086 ; prov:hadActivity gsndesign:dd-0306 ] .
 
 gsndesign:dd-0307
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The range of gsn:instantiationOf is now the union of gsn:GSNElement and gsn:Pattern (ontology 1.4.0)."@en ;
+    gsndesign:supersededBy gsndesign:dd-1134 ;
     gsndesign:positionKey "S05.R003" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-pattern ;
@@ -21761,7 +21763,9 @@ gsndesign:st-0862
         gsnsh:InstantiationOfPropertyShape .
 
 gsndesign:dd-0863
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The range shape of gsn:instantiationOf now admits a GSN element (shapes 1.3.0)."@en ;
+    gsndesign:supersededBy gsndesign:dd-1135 ;
     gsndesign:positionKey "S05.SH027" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-pattern ;
@@ -24951,7 +24955,9 @@ gsndesign:st-0979
     gsndesign:mentionsTerm gsn:true .
 
 gsndesign:dd-0980
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The definition of gsn:instantiationOf now names the element-level link (ontology 1.4.0)."@en ;
+    gsndesign:supersededBy gsndesign:dd-1133 ;
     gsndesign:positionKey "S05.R159" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-pattern ;
@@ -28079,6 +28085,10 @@ gsndesign:why-0263
     a gsndesign:Rationale ;
     gsndesign:rationaleText "The SPARQL rules do not all reach the same result in every order. Support Relation Creation skips a link that a node already reifies, and Strategy Confidence Relation reifies such links with nodes of its own. When the second rule runs first, the first one adds nothing for those links, and the example case loses two relationship nodes. A runner therefore applies the rules in the order of the column order of the registry. That order keeps the order of the old file names. A rule set that reaches one result in every order needs a change of these rules, which waits for a rule release."@en .
 
+gsndesign:why-0264
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The standard asks that each element of a pattern is removed or instantiated in the final argument, and it speaks of the obligation to instantiate all pattern elements. So the instantiation of a pattern is a relation between elements too. The domain of gsn:instantiationOf already admits an element, but the range admitted only a pattern. A case that linked an element to the element of the pattern that it copies therefore made a reasoner type that template element as a pattern. Final Pattern Invalidation then read it as a pattern inside the final argument. The range is now the union of gsn:Pattern and gsn:GSNElement, and the range shape takes the same union. The rule names gsn:Pattern in its own body, so it keeps its meaning. A reasoner derives fewer types than before, and a case that was valid stays valid. The RSC audit hub links each element of an audit to the element of the audit pattern, and proposed the change."@en .
+
 gsndesign:dd-1101
     a gsndesign:DesignDecision ;
     gsndesign:positionKey "S01.R57" ;
@@ -28672,3 +28682,88 @@ gsndesign:why-0245
 gsndesign:why-0246
     a gsndesign:Rationale ;
     gsndesign:rationaleText "Each of the four confidence rules creates a relationship with confidence. That new node matches the body of the rule again, in the place of the relationship that the rule reads. The SWRLAPI stops, because swrlx:makeOWLThing returns the same node for the same arguments. An engine without that built-in creates a new node for each match and does not stop. The RSC audit hub measured this in GraphDB 10.5.0 on 2026-11-14: up to 597,165 derived triples from a case of 22. The body of each rule now also reads a schema:identifier of the relationship. A relationship that a person states has an identifier, because the shape of the class requires one, and the head of a rule writes none. So a node that a rule created does not match a rule again. The cost is that a confidence moves one step from a stated relationship. The Solution Confidence Relation and Goal Confidence Relation rules lose nothing, because every sibling gets its node from the stated relationship. For the Strategy Confidence Relation and Goal-Strategy Confidence rules, a node that one of the two created no longer starts the other."@en .
+
+
+#################################################################
+#    Added by prov_add.py (3 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1133
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S05.R166" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-pattern ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "‘instantiation of’ is defined as: “[OntoGSN] Relates an argument or element to the pattern it was instantiated from, or an element to the element of the pattern that it copies.”"@en ;
+    gsndesign:nlWrittenFor "1e89e52e" ;
+    prov:used gsndesign:src-0086 ;
+    gsndesign:hasRationale gsndesign:why-0215 ;
+    prov:generated gsndesign:st-1133 .
+
+gsndesign:st-1133
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1133 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText "gsn:instantiationOf skos:definition \"[OntoGSN] Relates an argument or element to the pattern it was instantiated from, or an element to the element of the pattern that it copies.\"@en ." ;
+    gsndesign:statementChecksum "1e89e52e" ;
+    gsndesign:structuralKey "instantiationOf|definition|[OntoGSN] Relates an argument or element to the pattern it was instantiated from, or an element to the element of the pattern that it copies." ;
+    gsndesign:aboutTerm gsn:instantiationOf ;
+    gsndesign:mentionsTerm gsn:instantiationOf .
+
+gsndesign:dd-1134
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S05.R167" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-pattern ;
+    gsndesign:formalism gsndesign:OWL ;
+    gsndesign:naturalLanguage "Something can only be an instantiation of a GSN element or a pattern."@en ;
+    gsndesign:nlWrittenFor "51c0c76c" ;
+    prov:used gsndesign:src-0086 ,
+        gsndesign:src-0127 ;
+    gsndesign:hasRationale gsndesign:why-0264 ;
+    prov:generated gsndesign:st-1134 .
+
+gsndesign:st-1134
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1134 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText "gsn:instantiationOf rdfs:range [ (GSNElement or Pattern) ] ." ;
+    gsndesign:statementChecksum "51c0c76c" ;
+    gsndesign:structuralKey "instantiationOf|range|(GSNElement or Pattern)" ;
+    gsndesign:aboutTerm gsn:instantiationOf ;
+    gsndesign:mentionsTerm gsn:instantiationOf .
+
+gsndesign:dd-1135
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S05.SH053" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-pattern ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "An instantiation must point at a pattern, or at an element of a pattern."@en ;
+    gsndesign:nlWrittenFor "1c4e871a" ;
+    prov:used gsndesign:src-0086 ,
+        gsndesign:src-0127 ;
+    gsndesign:hasRationale gsndesign:why-0264 ;
+    prov:generated gsndesign:st-1135 .
+
+gsndesign:st-1135
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1135 ;
+    gsndesign:inGraph gsndesign:shapes-1.2.0 ;
+    gsndesign:statementText """gsnsh:InstantiationOfRangePropertyShape gsn:coreOrExtension "Argument Pattern Extension"@en ;
+    rdf:type sh:NodeShape ;
+    rdfs:label "gsn:instantiationOf — range"@en ;
+    sh:message "An instantiation must point at a pattern, or at an element of a pattern."@en ;
+    sh:or ( [ sh:class gsn:Pattern ] [ sh:class gsn:GSNElement ] ) ;
+    sh:severity sh:Violation ;
+    sh:targetObjectsOf gsn:instantiationOf .""" ;
+    gsndesign:statementChecksum "1c4e871a" ;
+    gsndesign:structuralKey "gsnsh:InstantiationOfRangePropertyShape|node|" ;
+    gsndesign:aboutTerm gsnsh:InstantiationOfRangePropertyShape ;
+    gsndesign:mentionsTerm gsn:GSNElement ,
+        gsn:Pattern ,
+        gsn:coreOrExtension ,
+        gsn:instantiationOf ,
+        gsnsh:InstantiationOfRangePropertyShape .
+

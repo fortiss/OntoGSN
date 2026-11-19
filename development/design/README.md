@@ -9,7 +9,7 @@ at the time. PROV-O is the backbone; `gsndesign:` adds only the terms PROV-O has
 | File | Role |
 | :--- | :--- |
 | `ontogsn-design.ttl` | the vocabulary. Hand-written. |
-| `ontogsn-design-data.ttl` | the record — 966 decisions, 297 passages, 258 rationales, 917 statements. **Source of truth**, edited by hand. |
+| `ontogsn-design-data.ttl` | the record — 966 decisions, 297 passages, 259 rationales, 920 statements. **Source of truth**, edited by hand. |
 | `ontogsn-design-inventory.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `development/dev_tools/prov_inventory.py`. |
 | `Design Documentation.xlsx` | a human-readable view of the record. **Generated**, never read back. |
 | `requirements.csv` | the initial requirements R1 to R7. Hand-maintained; read by `development/dev_tools/prov_inventory.py`, with the registries of the queries, `ontology/queries/registry.csv` and `augmentation/registry.csv`. |

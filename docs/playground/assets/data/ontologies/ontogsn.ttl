@@ -425,9 +425,13 @@ gsn:instantiationOf rdf:type owl:ObjectProperty ;
                                                      gsn:GSNElement
                                                    )
                                      ] ;
-                         rdfs:range gsn:Pattern ;
+                         rdfs:range [ rdf:type owl:Class ;
+                                      owl:unionOf ( gsn:GSNElement
+                                                    gsn:Pattern
+                                                  )
+                                    ] ;
                          rdfs:label "instantiation of"@en ;
-                         skos:definition "[OntoGSN] Relates an argument or element to the pattern it was instantiated from."@en ;
+                         skos:definition "[OntoGSN] Relates an argument or element to the pattern it was instantiated from, or an element to the element of the pattern that it copies."@en ;
                          gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 

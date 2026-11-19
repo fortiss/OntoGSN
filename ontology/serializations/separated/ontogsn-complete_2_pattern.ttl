@@ -249,8 +249,9 @@ gsn:instantiationOf a owl:ObjectProperty ;
     rdfs:label "instantiation of"@en ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:GSNElement ) ] ;
-    rdfs:range gsn:Pattern ;
-    skos:definition "[OntoGSN] Relates an argument or element to the pattern it was instantiated from."@en ;
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:GSNElement gsn:Pattern ) ] ;
+    skos:definition "[OntoGSN] Relates an argument or element to the pattern it was instantiated from, or an element to the element of the pattern that it copies."@en ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 rdf:subject a owl:ObjectProperty .
@@ -267,8 +268,6 @@ gsn:undeveloped a owl:DatatypeProperty .
 
 gsn:Argument a owl:Class .
 
-gsn:GSNElement a owl:Class .
-
 gsn:Template a owl:Class ;
     rdfs:label "Template"@en ;
     rdfs:subClassOf gsn:Pattern ;
@@ -276,6 +275,8 @@ gsn:Template a owl:Class ;
     gsn:coreOrExtension "Argument Pattern Extension"@en .
 
 gsnswrl:C a swrl:Variable .
+
+gsn:GSNElement a owl:Class .
 
 gsn:contains a owl:ObjectProperty .
 

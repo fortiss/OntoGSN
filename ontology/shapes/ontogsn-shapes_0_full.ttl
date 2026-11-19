@@ -977,8 +977,8 @@ gsnsh:InstantiationOfRangePropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:instantiationOf — range"@en ;
     sh:targetObjectsOf gsn:instantiationOf ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:class gsn:Pattern ;
-    sh:message "An instantiation must point at a pattern."@en ;
+    sh:or ( [ sh:class gsn:Pattern ] [ sh:class gsn:GSNElement ] ) ;
+    sh:message "An instantiation must point at a pattern, or at an element of a pattern."@en ;
     sh:severity sh:Violation .
 
 
