@@ -10,23 +10,29 @@ the header metadata. Entries up to 1.3.0 are reconstructed by hand from the
 commit log and `development/design/`; from the next release on, an entry is written when the version
 number moves.
 
+From ontology 1.4.0, shapes 1.3.0, Augmentation 0.7.0, alignment 0.1.1 and design record 1.5.0 on,
+the kind of change decides which part of a number moves. The section "Which number moves" of
+`development/README.md` gives the protocol. The first line under the heading of each such entry
+states the part, for example `Version part: minor.`
+
 Each component of the repository has its own version number. Two components can have the same
 number, for example ontology 1.3.0 and design record 1.3.0, and that does not make them one
 release. These are the current versions:
 
 | Component | Version | File |
 | :--- | :--- | :--- |
-| Ontology | 1.3.1 | `ontology/serializations/ontogsn.ttl` |
-| SHACL shapes | 1.2.0 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
-| Augmentation, and its shapes | 0.6.0 | `augmentation/ontogsn-augmentation.ttl` |
-| Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
-| Design record | 1.4.0 | `development/design/ontogsn-design.ttl` |
+| Ontology | 1.4.0 | `ontology/serializations/ontogsn.ttl` |
+| SHACL shapes | 1.3.0 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
+| Augmentation, and its shapes | 0.7.0 | `augmentation/ontogsn-augmentation.ttl` |
+| Alignment | 0.1.1 | `alignments/ontogsn-align.ttl` |
+| Design record | 1.5.0 | `development/design/ontogsn-design.ttl` |
 
 The SHACL shapes (`ontology/shapes/`) version independently, but a shapes release is only meaningful
 against an ontology version, so both are listed together.
 
 | Ontology | Date | Shapes | Breaking |
 | :--- | :--- | :--- | :--- |
+| 1.4.0 | 2026-11-19 | 1.3.0 | yes — for reasoners |
 | 1.3.1 | 2026-11-17 | 1.2.0 | yes — for reasoners |
 | 1.3.0 | 2026-11-05 | 1.1.0, 1.1.1 | yes — for reasoners |
 | 1.2.3 | 2026-08-15 | 1.0.0 | no |
@@ -38,6 +44,116 @@ Versions 1.0 and 1.1 predate this repository; no artefact of either survives her
 The ontology as published is described in the paper (arXiv:2506.11023).
 
 ---
+
+## Ontology 1.4.0 — 2026-11-19 — shapes 1.3.0
+
+Version part: minor. Shapes: minor.
+
+The first release under the version protocol of `development/README.md`. Two changes of the
+axioms and the rules, and one of the shapes. Two of them change what a reasoner infers. The
+ontology now has 61 SWRL rules. The RSC audit hub proposed all three. Decision `dd-1141` lists
+the proposals that wait for a later release, with the reason for each.
+
+### `gsn:instantiationOf` can point at an element of a pattern
+
+**Breaking for reasoners.** The domain of `gsn:instantiationOf` already admitted an element, but
+the range admitted only a pattern. A case that linked an element to the element of the pattern
+that it copies made a reasoner type that template element as a pattern.
+
+- The range is the union of `gsn:GSNElement` and `gsn:Pattern`. The definition names the
+  element-level link.
+- `gsnsh:InstantiationOfRangePropertyShape` takes the same union.
+- `RL-GSN-final_pattern_invalidation` names `gsn:Pattern` in its own body, so it does not change.
+- `RQ-GSN-uninstantiated_elements` names its last column `?instantiationOfId`, not `?patternId`,
+  because the value can be an element.
+
+*For case authors:* nothing to do. A reasoner derives fewer types than before, and a case that
+was valid stays valid.
+
+Reasoning: `dd-1133` to `dd-1135`, sources `src-0086` and `src-0127`, rationale `why-0264`.
+
+### A goal that challenges is not a top goal, in SWRL too
+
+**Breaking for reasoners.** The SPARQL form of `RL-GSN-goal_top_flag` took the top flag from a
+goal that supports another element or that challenges one. The SWRL rule stated only the first.
+
+| Rule | Reads | Writes |
+| :--- | :--- | :--- |
+| `RL-GSN-goal_top_flag_challenge` Goal Top Flag (Challenge), Dialectic Extension | a goal that challenges an element | `gsn:top false` on the goal |
+
+- `RL-GSN-goal_top_flag` keeps the first case. Its SPARQL form loses the second branch, which the
+  new SPARQL form `RL-GSN-goal_top_flag_challenge` has. Together they write what the one form
+  wrote before.
+- Over one witness of its body, the SWRLAPI, Openllet, HermiT, GraphDB and the SPARQL form each
+  derive the head.
+
+Reasoning: `dd-1138`, sources `src-0041` and `src-0269`, rationale `why-0267`.
+
+### A goal is in the scope of a context above it
+
+**Not breaking for a case.** The warning "A goal should be placed in at least one context" asked
+each goal for a context of its own. A context constrains the scope of the argument below its goal
+too, so the warning fired on each goal under a strategy.
+
+- The property shape leaves `gsnsh:GoalShape`. The new `gsnsh:GoalInScopeOfContextShape` warns
+  only if no element on the support chain above the goal, the goal included, is in the context of
+  a `gsn:Context`.
+- On the fixture, two warnings go before the rules and two after.
+
+Reasoning: `dd-1139` and `dd-1140`, sources `src-0066` and `src-0218`, rationale `why-0268`.
+Retires `dd-0786`, which had no source and no rationale.
+
+## Alignment 0.1.1 (2026-11-19)
+
+Version part: patch.
+
+**Not breaking.** `gsnalign:alignedOntoGSNVersion` is 1.4.0. The alignment uses seven terms of
+the ontology: `gsn:Goal`, `gsn:Strategy`, `gsn:Assumption`, `gsn:Argument`, `gsn:GSNElement`,
+`gsn:supportedBy` and `gsn:challenges`. Release 1.4.0 changes no axiom of these terms, so every
+axiom of the alignment still holds.
+
+## Augmentation 0.7.0 (2026-11-19)
+
+Version part: minor.
+
+**Not breaking.** The Augmentation reuses two terms for gaps that the RSC audit hub found, and
+it answers two more questions. No term is renamed or removed, and no rule changes.
+
+- `schema:url` on an artefact names the place where its file is found, such as a path.
+  `gsnaug:storedIn` names the system that keeps it. OntoGSN declares `schema:url` an annotation
+  property, so the Augmentation reuses it as one, with no domain or range.
+- A revised GSN element, for example a goal with new words, is `prov:wasRevisionOf` its earlier
+  version. `gsnaug:replaces` stays for artefacts. A note on `gsnaug:replaces` says so.
+- `RQ-AUG-revision_diff` finds the issue on a third path: an issue against an earlier version of
+  a goal, or against the goal that revises it, when the earlier version rests on the older
+  artefact. On the fixture it adds one row.
+- Two new reads: `RQ-AUG-element_revisions` (which claims or solutions were revised, and what
+  they said before) and `RQ-AUG-tagged_elements` (which elements carry a tag).
+- `augmentation/testdata/example_issues.ttl` has a revised control goal with an archived copy,
+  for the three queries.
+- The record of the Augmentation gives the reasons in `dd-0116` to `dd-0119`. `dd-0118`
+  supersedes `dd-0114`.
+
+## Design record 1.5.0 (2026-11-19)
+
+Version part: minor.
+
+**Not breaking.** The record finds more differences between a SPARQL rule and its SWRL rule. The
+RSC audit hub found twins that the record called exact and that are not.
+
+- `gsndesign:NodeContent` is a new member of `gsndesign:TranslationDifference`. The update writes
+  a triple on the node that it makes, such as `schema:identifier` or `rdf:predicate`, and the
+  head of the rule does not. A rule that reads that triple matches the node of the update only.
+- `development/dev_tools/prov_inventory.py` reads the text of the SWRL rule too. A
+  `FILTER(?a != ?b)` without a `differentFrom` atom in the rule is a guard. A test for an
+  existing node that does not name the class of the node is a guard.
+- Ten twins change their level. `RL-GSN-context_consistency` has a guard.
+  `RL-GSN-support_relation_creation`, `RL-GSN-context_relation_creation` and
+  `RL-GSN-challenge_relation_creation` have a guard and node content. The five rules of
+  confidence relations and `RL-GSN-challenge_chain_invalidation` have node content. Of the 60
+  twins, 10 are now exact.
+- The SWRL rules do not change. Decisions `dd-1136` (the version protocol) and `dd-1137` (the
+  differences) give the reasons.
 
 ## Query and rule IDs (2026-11-18)
 

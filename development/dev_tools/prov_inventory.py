@@ -122,14 +122,25 @@ def _triples(block):
     return found
 
 
-def translation_differences(body):
+def _local(term):
+    """The local name of a prefixed name or an IRI, as a SWRL atom writes it."""
+    return re.split(r"[:#/]", term.strip("<>"))[-1]
+
+
+def translation_differences(body, swrl=None):
     """How a SPARQL update differs from the SWRL rule that it re-expresses.
 
     SWRL only adds facts and cannot test that something is absent, so two things in an update
     have no counterpart in the rule. A DELETE clause is a retraction. A negated condition is a
     guard, with one exception: a NOT EXISTS that tests only for what the update is about to
     insert. That test keeps the update from writing a second copy, which a rule cannot do
-    anyway, so it is not a difference.
+    anyway, so it is not a difference. A test with a new variable for the node must name the
+    class of the node, or it also matches a node that another rule made.
+
+    With `swrl`, the text of the rule, two more differences show. A FILTER that compares two
+    variables with != is a guard if the rule has fewer differentFrom atoms. A triple that the
+    update writes on the node that it makes, and that the head of the rule does not write, is
+    node content.
     """
     found = []
     if re.search(r"(?m)^\s*DELETE\b", body):
@@ -144,14 +155,36 @@ def translation_differences(body):
         block, covered = _braced(body, match.end())
         outside = body[:match.end()] + body[covered:]
         patterns = _triples(block)
+
+        def fresh(s):
+            return s.startswith("?") and not re.search(re.escape(s) + r"\b", outside)
+
         if patterns is None or not all(
-                any(p == p2 and o == o2 and (s == s2 or (s.startswith("?") and not re.search(
-                    re.escape(s) + r"\b", outside)))
+                any(p == p2 and o == o2 and (s == s2 or fresh(s))
                     for s2, p2, o2 in inserted)
                 for s, p, o in patterns):
             guard = True
+            continue
+        # a new variable stands for the node; the test must name each class the node gets
+        for s in {s for s, _, _ in patterns if fresh(s)}:
+            named = {o for s2, p, o in patterns if s2 == s and p == "rdf:type"}
+            for s2, p, o in inserted:
+                if p == "rdf:type" and o not in named and all(
+                        (p3, o3) in {(p4, o4) for s4, p4, o4 in inserted if s4 == s2}
+                        for s3, p3, o3 in patterns if s3 == s):
+                    guard = True
+    if swrl is not None:
+        unequal = len(re.findall(r"FILTER\s*\(\s*\?\w+\s*!=\s*\?\w+\s*\)", body))
+        if unequal > len(re.findall(r"\bdifferentFrom\(", swrl)):
+            guard = True
     if guard:
         found.append("gsndesign:Guard")
+    if swrl is not None and "->" in swrl:
+        head = {name for name in re.findall(r"(\w+)\(", swrl.split("->", 1)[1])}
+        minted = set(re.findall(r"BIND\s*\(\s*IRI\s*\(.*?\)\s*AS\s+(\?\w+)\s*\)", body, re.S))
+        if any(s in minted and p != "rdf:type" and _local(p) not in head
+               for s, p, o in inserted):
+            found.append("gsndesign:NodeContent")
     return found
 
 
@@ -173,7 +206,7 @@ def read_csv(path):
 def statement_index():
     """The record, indexed the two ways a query needs to reach into it.
 
-    -> (rule name -> statement, term -> [statements declaring it])
+    -> (rule name -> statement, term -> [statements declaring it], statement -> its text)
 
     Both are looked up in the hand-maintained record rather than recomputed from the
     ontology, because the point of the link is to reach a design decision. A statement
@@ -202,7 +235,8 @@ def statement_index():
             by_term.setdefault(parts[0], []).append(qname(st))
     # two ontology terms can share a rendering, so a term may resolve to more than one
     # record; sorted, because this file has to come out the same way twice
-    return by_rule, {term: sorted(set(sts)) for term, sts in by_term.items()}
+    texts = {qname(st): str(text) for st, text in graph.subject_objects(P.statementText)}
+    return by_rule, {term: sorted(set(sts)) for term, sts in by_term.items()}, texts
 
 
 def main():
@@ -263,7 +297,7 @@ def main():
         by_query[row["file"]] = [iri]
 
     # --- stored queries -------------------------------------------------------------
-    by_rule, by_term = statement_index()
+    by_rule, by_term, texts = statement_index()
     blocks.append(prov_ttl.header(
         f"Stored queries ({len(rows)})",
         "The IRI and the label of a query are its ID, which is also its file name.\n"
@@ -316,7 +350,8 @@ def main():
                     pairs.append(("gsndesign:translatesStatement", [by_rule[rule_name]]))
                 else:
                     unjoined.append((identifier, rule_name))
-                differences = translation_differences(body)
+                differences = translation_differences(
+                    body, texts.get(by_rule.get(rule_name)))
                 if differences:
                     pairs.append(("gsndesign:differsBy", differences))
         rests = sorted({st for term in mentions

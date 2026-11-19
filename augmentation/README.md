@@ -4,7 +4,7 @@ Terms for linking a GSN assurance case to the things GSN deliberately does not m
 and roles behind an element, the tool that produced a piece of evidence and where it is kept, the
 review issues raised against the case, and the regulatory requirement a claim answers to.
 
-Written against **OntoGSN 1.3.1**. Nothing in this repository imports it, and it restates no `gsn:`
+Written against **OntoGSN 1.4.0**. Nothing in this repository imports it, and it restates no `gsn:`
 domain or range.
 
 [count]: <> (augmentation_classes augmentation_properties augmentation_issue_types augmentation_rules augmentation_shapes)
@@ -213,6 +213,13 @@ Asserted here and never in `ontology/serializations/ontogsn.ttl` — same call, 
 `gsn:Artefact` under superproperties whose domain is `prov:Entity`, and a PROV-aware consumer sees
 nothing.
 
+Two more terms are reused as they are, and not minted:
+
+| Term | Use |
+| :--- | :--- |
+| `prov:wasRevisionOf` | From a revised GSN element to its earlier version, for example a goal with new words. `gsnaug:replaces` is for artefacts only. |
+| `schema:url` | On an artefact, the place where its file is found, such as a path. `gsnaug:storedIn` names the system that keeps it. The term stays an annotation property, as OntoGSN declares it. |
+
 ## No top-level context subclasses
 
 An earlier version of this vocabulary carried `TopSubjectContext` and `TopObjectContext`, two
@@ -241,7 +248,7 @@ A case that marks its top-level contexts in a diagram loses nothing: the context
 
 ## Versioning
 
-`gsnaug:augmentedOntoGSNVersion "1.3.1"` scopes the whole file, and two things in it would not hold
+`gsnaug:augmentedOntoGSNVersion "1.4.0"` scopes the whole file, and two things in it would not hold
 before that release: `gsnaug:instantiatedFrom` assumes an `InstantiationDataReference` may carry
 `gsn:refersTo`, and the groups `revise_issue_challenges` and `resolve_issue_defeats` assume `gsn:challenges` reaches the class of target the rule matches.
 Re-check this directory whenever that string moves.
@@ -259,3 +266,8 @@ and `RL-AUG-conforming_part_report_confirms_solution` to every artefact a soluti
 Version 0.6.0 adds `gsnaug:currentReport`, which the SWRL forms of the groups `truth_from_report` and `validity_from_report` now read, and the
 derivation `RL-AUG-current_report` that sets it. The SPARQL twins of `RL-AUG-conforming_report_confirms_solution` and `RL-AUG-conforming_part_report_confirms_solution` have a faster text with the same
 results.
+
+Version 0.7.0 reuses `schema:url` for the location of an artefact and `prov:wasRevisionOf` for the
+revision of an element. `RQ-AUG-revision_diff` also finds an issue against an earlier version of a
+goal. Two reads are new: `RQ-AUG-element_revisions` and `RQ-AUG-tagged_elements`. No term is
+renamed or removed.

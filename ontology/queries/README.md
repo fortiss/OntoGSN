@@ -5,7 +5,7 @@ CRUD SPARQL for a graph database holding an assurance case built on
 question. [`registry.csv`](registry.csv) gives the question of each file, and the IDs that
 its ID replaced.
 
-[`rules/`](rules/) holds all 60 SWRL rules of
+[`rules/`](rules/) holds all 61 SWRL rules of
 [`ontology/serializations/ontogsn.ttl`](../serializations/ontogsn.ttl) as SPARQL updates, for stores
 with no reasoner attached.
 

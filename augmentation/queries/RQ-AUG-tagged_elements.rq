@@ -1,0 +1,9 @@
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?tag ?subjectId ?subject
+WHERE {
+  ?subject gsnaug:tag ?tag .
+  OPTIONAL { ?subject schema:identifier ?subjectId }
+}
+ORDER BY ?tag ?subjectId

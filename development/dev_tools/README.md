@@ -81,7 +81,7 @@ produce and re-derive, would become unverifiable if they were separated from it.
 | `development/design/requirements.csv` | the initial requirements R1 to R7 |
 | `ontology/queries/registry.csv`, `augmentation/registry.csv` | the ID, the question and the order of each query and rule |
 | `ontology/queries/*.rq` | the stored CRUD queries, one per competency question |
-| `ontology/queries/rules/*.rq` | the 60 SWRL rules as SPARQL updates |
+| `ontology/queries/rules/*.rq` | the 61 SWRL rules as SPARQL updates |
 | `ontology/example/example_case.ttl` | the example ABox the queries and checks run against |
 | `development/dev_tools/testdata/*.ttl` | one trigger per rule, and the recorded baselines |
 
@@ -111,6 +111,7 @@ before committing.
 check_all.py       every check, one command
 query_check.py     the stored queries vs an actual SPARQL engine
 release_check.py   every place that states a version or a rule count vs the ontology header
+                   and the version part of each CHANGELOG entry vs its version step
 doc_counts.py      every count that a README or a website page states vs its source: the
                    design record, the query folder, the augmentation, the alignment and
                    the last reports; without --check, it corrects the stale numbers.
@@ -175,7 +176,7 @@ axiom is gone), `undocumented` (the new one has no decision), and `release-edite
 
 ## Stored queries
 
-`ontology/queries/` holds one SPARQL file per competency question; `ontology/queries/rules/` holds the 60
+`ontology/queries/` holds one SPARQL file per competency question; `ontology/queries/rules/` holds the 61
 SWRL rules as SPARQL updates. Both are verified by executing them against
 `ontology/serializations/ontogsn.ttl` and the fixtures in `development/dev_tools/testdata/`, in Oxigraph:
 

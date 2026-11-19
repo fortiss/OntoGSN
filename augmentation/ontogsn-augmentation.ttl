@@ -30,8 +30,8 @@
     terms:created "2026-08-17"^^xsd:date ;
     vann:preferredNamespacePrefix "gsnaug" ;
     vann:preferredNamespaceUri "https://w3id.org/OntoGSN/augmentation#" ;
-    owl:versionInfo "0.6.0" ;
-    gsnaug:augmentedOntoGSNVersion "1.3.1" .
+    owl:versionInfo "0.7.0" ;
+    gsnaug:augmentedOntoGSNVersion "1.4.0" .
 
 gsnaug:augmentedOntoGSNVersion rdf:type owl:AnnotationProperty ;
     rdfs:label "augmented OntoGSN version"@en ;
@@ -108,6 +108,11 @@ terms:isPartOf rdf:type owl:ObjectProperty ;
     rdfs:label "is part of"@en ;
     skos:note "Reused as the superproperty of gsnaug:partOf. Declared here so that an OWL tool sees a property; no domain, range or other axiom is stated on it, because the term is not this vocabulary's to constrain."@en .
 
+schema:url rdf:type owl:AnnotationProperty ;
+    rdfs:isDefinedBy <http://schema.org/> ;
+    rdfs:label "url"@en ;
+    skos:note "Reused on a gsn:Artefact for the place where its file is found, such as a path or a URL. gsnaug:storedIn names the system, and schema:url the place in it. OntoGSN declares the term an annotation property for its own header, and the same IRI cannot also be a data property in OWL 2 DL, so it stays an annotation property here, with no domain or range."@en .
+
 
 #################################################################
 #    Object Properties
@@ -175,7 +180,8 @@ gsnaug:storedIn rdf:type owl:ObjectProperty ;
     rdfs:domain gsn:Artefact ;
     rdfs:range gsnaug:System ;
     rdfs:label "stored in"@en ;
-    skos:definition "Where the artefact is kept."@en .
+    skos:definition "Where the artefact is kept."@en ;
+    skos:note "Names the system that keeps the artefact. The place of the artefact in that system, such as a path or a URL, is schema:url on the artefact."@en .
 
 gsnaug:partOf rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf terms:isPartOf ;
@@ -191,7 +197,8 @@ gsnaug:replaces rdf:type owl:ObjectProperty ;
     rdfs:range gsn:Artefact ;
     rdfs:label "replaces"@en ;
     skos:definition "What older artefact does the newer artefact substitute."@en ;
-    skos:note "Artefacts only. Does not replace a version control system, but instead provides a trace of versions submitted for auditing."@en .
+    skos:note "Artefacts only. Does not replace a version control system, but instead provides a trace of versions submitted for auditing."@en ;
+    skos:note "A revised GSN element, such as a goal with new words or a solution with new evidence, is prov:wasRevisionOf its earlier version, from the new element to the old one. This property is not used for an element."@en .
 
 gsnaug:generatedFrom rdf:type owl:ObjectProperty ;
     rdfs:subPropertyOf prov:wasDerivedFrom ;

@@ -15,7 +15,7 @@
     dc:description "SHACL shapes derived from the Argument Pattern Extension section of the OntoGSN ontology (https://w3id.org/OntoGSN/ontology). Every shape carries gsn:coreOrExtension \"Argument Pattern Extension\" so that provenance survives merging with the other shape modules."@en ;
     dc:source "https://w3id.org/OntoGSN/ontology" ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    owl:versionInfo "1.2.0" .
+    owl:versionInfo "1.3.0" .
 
 
 #################################################################
@@ -203,8 +203,8 @@ gsnsh:InstantiationOfRangePropertyShape rdf:type sh:NodeShape ;
     rdfs:label "gsn:instantiationOf — range"@en ;
     sh:targetObjectsOf gsn:instantiationOf ;
     gsn:coreOrExtension "Argument Pattern Extension"@en ;
-    sh:class gsn:Pattern ;
-    sh:message "An instantiation must point at a pattern."@en ;
+    sh:or ( [ sh:class gsn:Pattern ] [ sh:class gsn:GSNElement ] ) ;
+    sh:message "An instantiation must point at a pattern, or at an element of a pattern."@en ;
     sh:severity sh:Violation .
 
 

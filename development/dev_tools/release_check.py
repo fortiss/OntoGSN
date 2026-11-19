@@ -4,6 +4,10 @@
     python development/dev_tools/release_check.py            # report, exit 1 on a disagreement
     python development/dev_tools/release_check.py --check    # the same, the form check_all.py calls
 
+It also makes sure that each CHANGELOG entry under the version protocol of
+development/README.md states the version part that it moves, and that the part agrees with
+the step between the two version numbers.
+
 A release writes the same number into many files: the ontology header, CITATION.cff, the
 CHANGELOG tables, the release nodes of the design records, the augmentation, the website.
 This script reads those places and compares them. It writes nothing.
@@ -229,6 +233,80 @@ def check_changelog(report, version, issued):
                          CHANGELOG, newest[0], shapes))
 
 
+# The version protocol of development/README.md, section "Releases", applies from these
+# versions on. Each CHANGELOG entry of such a version states the part that moved, in a line
+# "Version part: minor." and, for shapes that ship with an ontology release, "Shapes: minor.".
+PROTOCOL_FROM = {
+    "Ontology": (1, 4, 0),
+    "SHACL shapes": (1, 3, 0),
+    "Augmentation": (0, 7, 0),
+    "Alignment": (0, 1, 1),
+    "Design record": (1, 5, 0),
+}
+PARTS = ("major", "minor", "patch")
+
+
+def version_tuple(text):
+    numbers = [int(n) for n in text.split(".")]
+    return tuple(numbers + [0] * (3 - len(numbers)))
+
+
+def moved_parts(new, old):
+    """The parts that the step from `old` to `new` can name. While the major number is 0,
+    a major change moves the minor number, so that step can name either."""
+    for index, part in enumerate(PARTS):
+        if new[index] != old[index]:
+            if old[0] == 0 and part == "minor":
+                return {"major", "minor"}
+            return {part}
+    return set()
+
+
+def changelog_entries(text):
+    """(component, version, shapes version or None, body) for each "## " entry."""
+    entries = []
+    pieces = re.split(r"^## ", text, flags=re.M)[1:]
+    for piece in pieces:
+        heading, _, body = piece.partition("\n")
+        for name in PROTOCOL_FROM:
+            match = re.match(re.escape(name) + r" (\d+\.\d+(?:\.\d+)?)\b", heading)
+            if match:
+                shapes = first(r"\bshapes (\d+\.\d+(?:\.\d+)?)\b", heading)
+                entries.append((name, match.group(1), shapes, body))
+    return entries
+
+
+def check_version_parts(report):
+    entries = changelog_entries(read(CHANGELOG))
+    # every version of each component, newest first, from the own and the joint headings
+    history = {name: [] for name in PROTOCOL_FROM}
+    for name, version, shapes, _ in entries:
+        history[name].append(version)
+        if shapes and shapes not in history["SHACL shapes"]:
+            history["SHACL shapes"].append(shapes)
+
+    def expected(name, version):
+        versions = history[name]
+        older = versions[versions.index(version) + 1:]
+        if not older:
+            return None
+        return moved_parts(version_tuple(version), version_tuple(older[0]))
+
+    for name, version, shapes, body in entries:
+        checks = [(name, version, first(r"^Version part: (\w+)\.", body, re.M))]
+        if shapes:
+            checks.append(("SHACL shapes", shapes, first(r"^Version part: \w+\. Shapes: (\w+)\.", body, re.M)))
+        for component, stated_version, stated in checks:
+            if version_tuple(stated_version) < PROTOCOL_FROM[component]:
+                continue
+            parts = expected(component, stated_version)
+            where = "{}: the entry of {} {}".format(CHANGELOG, component, stated_version)
+            report.holds(stated in PARTS, where + " states no version part")
+            if stated in PARTS and parts:
+                report.holds(stated in parts, "{} states the part {}, but the number moved as {}".format(
+                    where, stated, " or ".join(sorted(parts))))
+
+
 def check_design_records(report):
     for record in DESIGN_RECORDS:
         nodes = formal_graphs(record)
@@ -277,6 +355,7 @@ def main():
     version, issued = check_ontology(report)
     check_components(report)
     check_changelog(report, version, issued)
+    check_version_parts(report)
     check_design_records(report)
     rules = check_rule_counts(report)
 

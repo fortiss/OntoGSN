@@ -1,5 +1,6 @@
 PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT DISTINCT ?newer ?older ?mechanism ?issueId
@@ -15,6 +16,14 @@ WHERE {
     {
       ?context gsn:refersTo ?older .
       ?issue gsn:inContextOf ?context .
+    }
+    UNION
+    {
+      ?copy gsn:refersTo ?older .
+      ?archived gsn:supportedBy ?copy .
+      ?revised prov:wasRevisionOf ?archived .
+      ?issue gsnaug:raisedAgainst ?target .
+      FILTER(?target IN (?archived, ?revised))
     }
     ?issue gsnaug:issueType ?type ;
            schema:identifier ?issueId .

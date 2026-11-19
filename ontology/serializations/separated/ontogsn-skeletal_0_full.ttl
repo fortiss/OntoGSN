@@ -32,7 +32,7 @@ xsd:date a rdfs:Datatype .
         <https://w3id.org/OntoGSN/ontology/dialectic>,
         <https://w3id.org/OntoGSN/ontology/modular>,
         <https://w3id.org/OntoGSN/ontology/pattern> ;
-    owl:versionInfo "1.3.1" .
+    owl:versionInfo "1.4.0" .
 
 gsn:applicability a owl:AnnotationProperty ;
     rdfs:domain gsn:Pattern .
@@ -96,7 +96,8 @@ gsn:inferredOnly a owl:AnnotationProperty .
 gsn:instantiationOf a owl:ObjectProperty ;
     rdfs:domain [ a owl:Class ;
             owl:unionOf ( gsn:Argument gsn:GSNElement ) ] ;
-    rdfs:range gsn:Pattern .
+    rdfs:range [ a owl:Class ;
+            owl:unionOf ( gsn:GSNElement gsn:Pattern ) ] .
 
 gsn:intent a owl:AnnotationProperty ;
     rdfs:domain gsn:Pattern .

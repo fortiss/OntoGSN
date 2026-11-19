@@ -1,0 +1,21 @@
+PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?revisedId ?earlierId ?revisedStatement ?earlierStatement ?issueId
+WHERE {
+  ?revised prov:wasRevisionOf ?earlier ;
+           a/rdfs:subClassOf* gsn:GSNElement ;
+           schema:identifier ?revisedId .
+  ?earlier schema:identifier ?earlierId .
+  OPTIONAL { ?revised gsn:statement ?revisedStatement }
+  OPTIONAL { ?earlier gsn:statement ?earlierStatement }
+  OPTIONAL {
+    ?issue gsnaug:raisedAgainst ?target ;
+           schema:identifier ?issueId .
+    FILTER(?target IN (?revised, ?earlier))
+  }
+}
+ORDER BY ?revisedId ?earlierId

@@ -31,7 +31,7 @@ Not read by development/dev_tools/prov_check.py, which validates an explicit lis
 Statement records here therefore carry no gsndesign:structuralKey: nothing recomputes it, and a key
 nothing checks is a key that silently rots."""@en ;
     vann:preferredNamespacePrefix "gsnaligndesign" ;
-    owl:versionInfo "0.1.0" ;
+    owl:versionInfo "0.1.1" ;
     rdfs:seeAlso <https://w3id.org/OntoGSN/alignment> , <https://w3id.org/OntoGSN/design> .
 
 
@@ -71,15 +71,15 @@ gsnaligndesign:locator rdf:type owl:DatatypeProperty ;
 #    Checksums are of the files as they stood when the record was taken.
 #################################################################
 
-gsnaligndesign:alignment-0.1.0
+gsnaligndesign:alignment-0.1.1
     a gsndesign:FormalGraph ;
     prov:specializationOf <https://w3id.org/OntoGSN/alignment> ;
-    rdfs:label "OntoGSN Alignments 0.1.0"@en ;
-    owl:versionInfo "0.1.0" ;
+    rdfs:label "OntoGSN Alignments 0.1.1"@en ;
+    owl:versionInfo "0.1.1" ;
     gsndesign:path "alignments/ontogsn-align.ttl" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/alignment#" ;
-    gsndesign:fileChecksum "59ea613ea3f101ae8014350009f248539ac935e234087e785b6cf37481c7453a" ;
-    prov:generatedAtTime "2026-08-16T09:57:13Z"^^xsd:dateTime .
+    gsndesign:fileChecksum "8edf94b8204c8eaceb72e3f62a7103f0b295cdb8b038931ba6dce5574ba7487e" ;
+    prov:generatedAtTime "2026-11-19T18:33:33Z"^^xsd:dateTime .
 
 gsnaligndesign:argo-59dd512f
     a gsndesign:FormalGraph , gsnaligndesign:CitedArtefact ;
@@ -309,8 +309,8 @@ gsnaligndesign:dd-0001
 gsnaligndesign:st-0001
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0001 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
-    gsndesign:statementText """gsnalign:alignedOntoGSNVersion "1.3.1" ; gsnalign:alignedARGOVersion "ArgO v.4 development release; git 59dd512f58cf, 2025-12-03" .""" ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
+    gsndesign:statementText """gsnalign:alignedOntoGSNVersion "1.4.0" ; gsnalign:alignedARGOVersion "ArgO v.4 development release; git 59dd512f58cf, 2025-12-03" .""" ;
     gsndesign:aboutTerm gsnalign:alignedOntoGSNVersion ;
     gsndesign:mentionsTerm gsnalign:alignedARGOVersion .
 
@@ -325,7 +325,7 @@ gsnaligndesign:dd-0002
 gsnaligndesign:st-0002
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0002 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText """@prefix argo: <http://www.github/argumentsontology/> . @prefix argoh: <http://www.github/argumentsontology#> .""" .
 
 gsnaligndesign:dd-0003
@@ -339,7 +339,7 @@ gsnaligndesign:dd-0003
 gsnaligndesign:st-0003
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0003 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsn:supportedBy rdfs:subPropertyOf argo:isSupportedBy ." ;
     gsndesign:aboutTerm gsn:supportedBy ;
     prov:wasDerivedFrom gsnaligndesign:src-0001 ;
@@ -356,7 +356,7 @@ gsnaligndesign:dd-0004
 gsnaligndesign:st-0004
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0004 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsn:challenges rdfs:subPropertyOf argo:opposes ." ;
     gsndesign:aboutTerm gsn:challenges ;
     prov:wasDerivedFrom gsnaligndesign:src-0002 ;
@@ -373,7 +373,7 @@ gsnaligndesign:dd-0005
 gsnaligndesign:st-0005
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0005 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsn:Argument skos:closeMatch argoh:complexargument ." ;
     gsndesign:aboutTerm gsn:Argument ;
     prov:wasDerivedFrom gsnaligndesign:src-0006 .
@@ -389,7 +389,7 @@ gsnaligndesign:dd-0006
 gsnaligndesign:st-0006
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0006 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsn:Goal skos:relatedMatch argo:statement ." ;
     gsndesign:aboutTerm gsn:Goal .
 
@@ -404,7 +404,7 @@ gsnaligndesign:dd-0007
 gsnaligndesign:st-0007
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0007 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsn:Assumption skos:closeMatch argo:supposition ." ;
     gsndesign:aboutTerm gsn:Assumption ;
     prov:wasDerivedFrom gsnaligndesign:src-0012 .
@@ -420,7 +420,7 @@ gsnaligndesign:dd-0008
 gsnaligndesign:st-0008
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0008 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsn:Strategy owl:disjointWith argo:actofinferring ." ;
     gsndesign:aboutTerm gsn:Strategy ;
     prov:wasDerivedFrom gsnaligndesign:src-0009 ;
@@ -437,7 +437,7 @@ gsnaligndesign:dd-0009
 gsnaligndesign:st-0009
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0009 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsnalign:InferenceStep rdfs:subClassOf argo:argument ." ;
     gsndesign:aboutTerm gsnalign:InferenceStep .
 
@@ -452,7 +452,7 @@ gsnaligndesign:dd-0010
 gsnaligndesign:st-0010
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0010 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsnalign:CaseArgument rdfs:subClassOf argoh:complexargument ." ;
     gsndesign:aboutTerm gsnalign:CaseArgument ;
     prov:wasDerivedFrom gsnaligndesign:src-0005 ;
@@ -469,7 +469,7 @@ gsnaligndesign:dd-0011
 gsnaligndesign:st-0011
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0011 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsnalign:ElementContent rdfs:subClassOf argo:sentencecontent ." ;
     gsndesign:aboutTerm gsnalign:ElementContent ;
     prov:wasDerivedFrom gsnaligndesign:src-0008 .
@@ -485,7 +485,7 @@ gsnaligndesign:dd-0012
 gsnaligndesign:st-0012
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0012 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsnalign:expressesContent rdfs:domain gsn:GSNElement ; rdfs:range gsnalign:ElementContent ." ;
     gsndesign:aboutTerm gsnalign:expressesContent ;
     gsndesign:mentionsTerm gsn:GSNElement .
@@ -501,7 +501,7 @@ gsnaligndesign:dd-0013
 gsnaligndesign:st-0013
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0013 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsnalign:concludes rdfs:subPropertyOf argo:hasConclusion ." ;
     gsndesign:aboutTerm gsnalign:concludes ;
     prov:wasDerivedFrom gsnaligndesign:src-0015 ;
@@ -518,7 +518,7 @@ gsnaligndesign:dd-0014
 gsnaligndesign:st-0014
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0014 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsnalign:stepPremise rdfs:subPropertyOf argo:hasPremise ." ;
     gsndesign:aboutTerm gsnalign:stepPremise .
 
@@ -533,7 +533,7 @@ gsnaligndesign:dd-0015
 gsnaligndesign:st-0015
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0015 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsnalign:stepOf rdfs:subPropertyOf argo:properContinuantPartOf ." ;
     gsndesign:aboutTerm gsnalign:stepOf .
 
@@ -548,7 +548,7 @@ gsnaligndesign:dd-0016
 gsnaligndesign:st-0016
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0016 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsnalign:describedByStrategy rdfs:domain gsnalign:InferenceStep ; rdfs:range gsn:Strategy ." ;
     gsndesign:aboutTerm gsnalign:describedByStrategy ;
     gsndesign:mentionsTerm gsn:Strategy ;
@@ -565,7 +565,7 @@ gsnaligndesign:dd-0017
 gsnaligndesign:st-0017
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0017 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsnalign:undercuts rdfs:subPropertyOf argo:opposes ; rdfs:range gsnalign:InferenceStep ." ;
     gsndesign:aboutTerm gsnalign:undercuts .
 
@@ -580,7 +580,7 @@ gsnaligndesign:dd-0018
 gsnaligndesign:st-0018
     a gsndesign:StatementRecord ;
     prov:wasGeneratedBy gsnaligndesign:dd-0018 ;
-    gsndesign:inGraph gsnaligndesign:alignment-0.1.0 ;
+    gsndesign:inGraph gsnaligndesign:alignment-0.1.1 ;
     gsndesign:statementText "gsnalign:forGoal a owl:FunctionalProperty ; rdfs:range gsn:Goal . gsnalign:forTopGoal a owl:FunctionalProperty ; rdfs:range gsn:Goal ." ;
     gsndesign:aboutTerm gsnalign:forGoal ;
     gsndesign:mentionsTerm gsnalign:forTopGoal , gsn:Goal .

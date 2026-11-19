@@ -9,7 +9,7 @@ at the time. PROV-O is the backbone; `gsndesign:` adds only the terms PROV-O has
 | File | Role |
 | :--- | :--- |
 | `ontogsn-design.ttl` | the vocabulary. Hand-written. |
-| `ontogsn-design-data.ttl` | the record — 966 decisions, 297 passages, 258 rationales, 917 statements. **Source of truth**, edited by hand. |
+| `ontogsn-design-data.ttl` | the record — 971 decisions, 297 passages, 264 rationales, 923 statements. **Source of truth**, edited by hand. |
 | `ontogsn-design-inventory.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `development/dev_tools/prov_inventory.py`. |
 | `Design Documentation.xlsx` | a human-readable view of the record. **Generated**, never read back. |
 | `requirements.csv` | the initial requirements R1 to R7. Hand-maintained; read by `development/dev_tools/prov_inventory.py`, with the registries of the queries, `ontology/queries/registry.csv` and `augmentation/registry.csv`. |
@@ -42,7 +42,7 @@ mismatch as a hint to look, never as evidence of drift.
 
 [count]: <> (recorded_queries)
 
-The 162 stored queries are `gsndesign:Query`, carry `gsndesign:formalism gsndesign:SPARQL`, and
+The 165 stored queries are `gsndesign:Query`, carry `gsndesign:formalism gsndesign:SPARQL`, and
 hold their own text verbatim in `gsndesign:queryText` — the counterpart of
 `gsndesign:statementText`, and evidence in the same way. Identity is the ID of the query,
 which is its file name and its `rdfs:label`. `gsndesign:path` says where the file is, a
@@ -54,8 +54,8 @@ Two links tie a query back to the ontology, and they are deliberately different 
 
 | Link | Strength | Coverage |
 | :--- | :--- | :--- |
-| `gsndesign:translatesStatement` | exact — this query *is* that axiom, re-expressed | the 60 rule queries, joined on the rule's name |
-| `gsndesign:restsOnStatement` | derived — the axiom declaring a term the query names | 143 of 162 queries, 61 distinct axioms |
+| `gsndesign:translatesStatement` | exact — this query *is* that axiom, re-expressed | the 61 rule queries, joined on the rule's name |
+| `gsndesign:restsOnStatement` | derived — the axiom declaring a term the query names | 145 of 165 queries, 61 distinct axioms |
 
 A rule query and its SWRL rule state the same rule, but the query can do two things that SWRL
 cannot. `gsndesign:differsBy` records them: `gsndesign:Retraction`, where the query deletes the
@@ -78,9 +78,9 @@ SELECT ?query ?rule ?clause WHERE {
 
 `restsOnStatement` is the *declaring* axiom only — `Goal a Class`, not every restriction
 ever written about goals. Linking a query to all of those would produce a few thousand
-edges that say nothing. 19 queries rest on nothing, and each for a real reason, not a
+edges that say nothing. 20 queries rest on nothing, and each for a real reason, not a
 gap in the record. `WQ-GSN-delete_element_and_its_links.rq` names no `gsn:` term at all,
-because it deletes by identifier. The other 18 are queries and derivations of the Augmentation
+because it deletes by identifier. The other 19 are queries and derivations of the Augmentation
 that name only `gsnaug:` and other non-`gsn:` terms, and this record holds no axiom about them.
 
 SPARQL sits in `gsndesign:Formalism` alongside OWL, SWRL, SHACL and RDF, but it is the odd
@@ -107,7 +107,7 @@ README of its folder, and the reason for a choice is a decision here.
 
 `gsndesign:DesignDecision ⊑ prov:Activity`, not `prov:Entity`. It `prov:used` the passages it
 rested on and `prov:generated` the statement it produced — so a decision to represent
-**nothing** is still well-formed: it simply generated nothing. 118 of the 966 decisions are
+**nothing** is still well-formed: it simply generated nothing. 120 of the 971 decisions are
 of that kind, and PROV-O has no notion of an entity that deliberately does not exist.
 
 That also makes the decision the natural home for the rationale, because the decision *is*
