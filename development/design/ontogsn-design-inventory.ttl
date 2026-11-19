@@ -4618,7 +4618,7 @@ gsndesign:query-RQ-AUG-evidence_location
         "fc07_evidence_location.rq" ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/RQ-AUG-evidence_location.rq" ;
-    gsndesign:fileChecksum "1deec5046e487fe03c4a88ec763498abb1df85679f5e11a11a0f7b40c61e4f37" ;
+    gsndesign:fileChecksum "a842c536dbdd8faeb249235ff94d00fd2802e518be27e7d469a66c276c884b89" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
@@ -4631,12 +4631,13 @@ gsndesign:query-RQ-AUG-evidence_location
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
 PREFIX schema:  <http://schema.org/>
 
-SELECT ?solutionId ?artefact ?storage ?retrieval ?automated
+SELECT ?solutionId ?artefact ?storage ?location ?retrieval ?automated
 WHERE {
   ?solution a gsn:Solution ;
             schema:identifier ?solutionId ;
             gsn:refersTo ?artefact .
   OPTIONAL { ?artefact gsnaug:storedIn ?storage }
+  OPTIONAL { ?artefact schema:url ?location }
   OPTIONAL {
     ?artefact gsnaug:retrievableWith ?retrieval .
     OPTIONAL { ?retrieval gsnaug:automated ?automated }

@@ -3287,6 +3287,12 @@ Two other writes of the hub, who interpreted a legal statement and who gave a re
 answered by RQ-AUG-who_answers_for_element, which reads gsnaug:generatedBy on the artefact of an
 element and gsnaug:ownedBy on any element with an identifier."""@en .
 
+gsnaugdesign:why-0077
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText """dd-0116 adopted schema:url for the place of the file of an artefact, but no read returned it.
+RQ-AUG-evidence_location answers where the evidence is kept, so it returns the place next to the
+system that keeps it. The RSC audit hub writes schema:url when it retrieves evidence."""@en .
+
 gsnaugdesign:dd-0111
     a gsndesign:DesignDecision ;
     gsndesign:formalism gsndesign:SPARQL ;
@@ -3428,3 +3434,18 @@ gsnaugdesign:st-0119
     gsndesign:inGraph gsnaugdesign:augmentation-queries-0.7.0 ;
     gsndesign:statementText "RQ-AUG-element_revisions: ?revised prov:wasRevisionOf ?earlier ; a/rdfs:subClassOf* gsn:GSNElement . OPTIONAL issue raisedAgainst either. RQ-AUG-tagged_elements: ?subject gsnaug:tag ?tag ." ;
     gsndesign:mentionsTerm prov:wasRevisionOf , gsn:GSNElement , gsnaug:raisedAgainst , gsnaug:tag .
+
+gsnaugdesign:dd-0120
+    a gsndesign:DesignDecision ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The query RQ-AUG-evidence_location returns the schema:url of an artefact, next to the system that keeps it."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsnaugdesign:why-0073 , gsnaugdesign:why-0077 ;
+    prov:generated gsnaugdesign:st-0120 .
+
+gsnaugdesign:st-0120
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsnaugdesign:dd-0120 ;
+    gsndesign:inGraph gsnaugdesign:augmentation-queries-0.7.0 ;
+    gsndesign:statementText "RQ-AUG-evidence_location: OPTIONAL { ?artefact schema:url ?location }" ;
+    gsndesign:mentionsTerm <http://schema.org/url> , gsnaug:storedIn , gsn:refersTo .
