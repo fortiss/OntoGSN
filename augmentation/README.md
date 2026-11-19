@@ -213,6 +213,13 @@ Asserted here and never in `ontology/serializations/ontogsn.ttl` — same call, 
 `gsn:Artefact` under superproperties whose domain is `prov:Entity`, and a PROV-aware consumer sees
 nothing.
 
+Two more terms are reused as they are, and not minted:
+
+| Term | Use |
+| :--- | :--- |
+| `prov:wasRevisionOf` | From a revised GSN element to its earlier version, for example a goal with new words. `gsnaug:replaces` is for artefacts only. |
+| `schema:url` | On an artefact, the place where its file is found, such as a path. `gsnaug:storedIn` names the system that keeps it. The term stays an annotation property, as OntoGSN declares it. |
+
 ## No top-level context subclasses
 
 An earlier version of this vocabulary carried `TopSubjectContext` and `TopObjectContext`, two
@@ -259,3 +266,8 @@ and `RL-AUG-conforming_part_report_confirms_solution` to every artefact a soluti
 Version 0.6.0 adds `gsnaug:currentReport`, which the SWRL forms of the groups `truth_from_report` and `validity_from_report` now read, and the
 derivation `RL-AUG-current_report` that sets it. The SPARQL twins of `RL-AUG-conforming_report_confirms_solution` and `RL-AUG-conforming_part_report_confirms_solution` have a faster text with the same
 results.
+
+Version 0.7.0 reuses `schema:url` for the location of an artefact and `prov:wasRevisionOf` for the
+revision of an element. `RQ-AUG-revision_diff` also finds an issue against an earlier version of a
+goal. Two reads are new: `RQ-AUG-element_revisions` and `RQ-AUG-tagged_elements`. No term is
+renamed or removed.

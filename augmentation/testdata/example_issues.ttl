@@ -560,3 +560,39 @@ ex:backup-config-check-report-1 a sh:ValidationReport ;
     prov:wasGeneratedBy ex:backup-config-check ;
     prov:used ex:backup-config ;
     prov:generatedAtTime "2026-03-08T18:05:00Z"^^xsd:dateTime .
+
+#  A control goal revised after a resolve issue. The archive keeps the goal as it was, with a
+#  copy of its solution that refers to the old firewall export. The issue is raised against the
+#  archived goal, and the live goal and solution are prov:wasRevisionOf their archived copies.
+#  RQ-AUG-revision_diff finds I20 through that link, and RQ-AUG-element_revisions lists both
+#  revisions. The live solution carries the tag of the test that it asks for, for
+#  RQ-AUG-tagged_elements.
+
+ex:G20 a gsn:Goal ; schema:identifier "G20" ;
+    gsn:statement "The firewall admits only the ports on the approved list." ;
+    gsn:supportedBy ex:Sn20 .
+ex:Sn20 a gsn:Solution ; schema:identifier "Sn20" ;
+    gsn:statement "The firewall export of March." ;
+    gsn:refersTo ex:firewall-export-v2 ;
+    gsnaug:tag "port-scan" .
+
+ex:G20-I20 a gsn:Goal ; schema:identifier "G20-I20" ;
+    gsn:statement "The firewall admits only the ports on the approved list." ;
+    gsn:supportedBy ex:Sn20-I20 .
+ex:Sn20-I20 a gsn:Solution ; schema:identifier "Sn20-I20" ;
+    gsn:statement "The firewall export of February." ;
+    gsn:refersTo ex:firewall-export .
+
+ex:G20  prov:wasRevisionOf ex:G20-I20 .
+ex:Sn20 prov:wasRevisionOf ex:Sn20-I20 .
+
+ex:firewall-export    a gsn:Artefact .
+ex:firewall-export-v2 a gsn:Artefact ; gsnaug:replaces ex:firewall-export .
+
+ex:I20 a gsnaug:Issue ; schema:identifier "I20" ;
+    gsnaug:issueType gsnaug:resolve ;
+    gsnaug:raisedAgainst ex:G20-I20 ;
+    gsnaug:raisedBy ex:auditor-bo ; gsnaug:heldBy ex:owner-dan ;
+    gsnaug:raisedIn ex:audit-2026 ;
+    dcterms:created "2026-03-10"^^xsd:date ;
+    schema:description "Port 8443 is open, and it is not on the approved list." .

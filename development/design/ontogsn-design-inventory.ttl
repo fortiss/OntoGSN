@@ -82,7 +82,7 @@ gsndesign:req-R7
 
 
 #################################################################
-#    Competency questions (82)
+#    Competency questions (84)
 #    What the ontology has to be able to answer, and for whom. A question has the ID of
 #    the query that answers it.
 #################################################################
@@ -140,6 +140,12 @@ gsndesign:cq-RQ-AUG-context_revised
     rdfs:label "RQ-AUG-context_revised" ;
     gsndesign:role "Process Owner"@en ;
     gsndesign:questionText "Which goals sit under a context whose artefact has a newer revision?"@en .
+
+gsndesign:cq-RQ-AUG-element_revisions
+    a gsndesign:CompetencyQuestion ;
+    rdfs:label "RQ-AUG-element_revisions" ;
+    gsndesign:role "Auditor"@en ;
+    gsndesign:questionText "Which claims or solutions were revised, what did they say before, and which issue asked for it?"@en .
 
 gsndesign:cq-RQ-AUG-escalation_count
     a gsndesign:CompetencyQuestion ;
@@ -242,6 +248,12 @@ gsndesign:cq-RQ-AUG-system_revised
     rdfs:label "RQ-AUG-system_revised" ;
     gsndesign:role "Developer"@en ;
     gsndesign:questionText "Which evidence was drawn from a system, or a part of one, that has a newer revision?"@en .
+
+gsndesign:cq-RQ-AUG-tagged_elements
+    a gsndesign:CompetencyQuestion ;
+    rdfs:label "RQ-AUG-tagged_elements" ;
+    gsndesign:role "Developer"@en ;
+    gsndesign:questionText "Which elements carry a tag, such as the test that a solution asks for?"@en .
 
 gsndesign:cq-RQ-AUG-term_impact
     a gsndesign:CompetencyQuestion ;
@@ -538,7 +550,7 @@ gsndesign:cq-WQ-GSN-update_solution_artefact
 
 
 #################################################################
-#    Stored queries (163)
+#    Stored queries (165)
 #    The IRI and the label of a query are its ID, which is also its file name.
 #    skos:hiddenLabel keeps each ID and file name that the ID replaced, so an old name
 #    still finds the query.
@@ -4494,6 +4506,45 @@ WHERE {
 ORDER BY ?goalId ?contextId
 """ .
 
+gsndesign:query-RQ-AUG-element_revisions
+    a gsndesign:Query ;
+    rdfs:label "RQ-AUG-element_revisions" ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "augmentation/queries/RQ-AUG-element_revisions.rq" ;
+    gsndesign:fileChecksum "74020f2dce46f1f494d90e632124b0f4c6aaba75f099b4bb33bab7287b0f0727" ;
+    gsndesign:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/2000/01/rdf-schema#" ,
+        "http://www.w3.org/ns/prov#" ,
+        "https://w3id.org/OntoGSN/augmentation#" ,
+        "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:GSNElement ,
+        gsn:statement ;
+    gsndesign:restsOnStatement gsndesign:st-0132 ,
+        gsndesign:st-0265 ;
+    gsndesign:answersQuestion gsndesign:cq-RQ-AUG-element_revisions ;
+    gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
+PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
+PREFIX rdfs:    <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?revisedId ?earlierId ?revisedStatement ?earlierStatement ?issueId
+WHERE {
+  ?revised prov:wasRevisionOf ?earlier ;
+           a/rdfs:subClassOf* gsn:GSNElement ;
+           schema:identifier ?revisedId .
+  ?earlier schema:identifier ?earlierId .
+  OPTIONAL { ?revised gsn:statement ?revisedStatement }
+  OPTIONAL { ?earlier gsn:statement ?earlierStatement }
+  OPTIONAL {
+    ?issue gsnaug:raisedAgainst ?target ;
+           schema:identifier ?issueId .
+    FILTER(?target IN (?revised, ?earlier))
+  }
+}
+ORDER BY ?revisedId ?earlierId
+""" .
+
 gsndesign:query-RQ-AUG-escalation_count
     a gsndesign:Query ;
     rdfs:label "RQ-AUG-escalation_count" ;
@@ -4937,17 +4988,21 @@ gsndesign:query-RQ-AUG-revision_diff
         "fc24_revision_diff.rq" ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "augmentation/queries/RQ-AUG-revision_diff.rq" ;
-    gsndesign:fileChecksum "077b65741c694234118715e5976e94242a67148d180bc3438e5e23a73fc63884" ;
+    gsndesign:fileChecksum "f81ce339290345de53ed93287df6fc85b8178ae19468697c0d80764c1919a3c5" ;
     gsndesign:declaresNamespace "http://schema.org/" ,
+        "http://www.w3.org/ns/prov#" ,
         "https://w3id.org/OntoGSN/augmentation#" ,
         "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:inContextOf ,
-        gsn:refersTo ;
-    gsndesign:restsOnStatement gsndesign:st-0218 ,
+        gsn:refersTo ,
+        gsn:supportedBy ;
+    gsndesign:restsOnStatement gsndesign:st-0207 ,
+        gsndesign:st-0218 ,
         gsndesign:st-0289 ;
     gsndesign:answersQuestion gsndesign:cq-RQ-AUG-revision_diff ;
     gsndesign:queryText """PREFIX gsn:     <https://w3id.org/OntoGSN/ontology#>
 PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX prov:    <http://www.w3.org/ns/prov#>
 PREFIX schema:  <http://schema.org/>
 
 SELECT DISTINCT ?newer ?older ?mechanism ?issueId
@@ -4963,6 +5018,14 @@ WHERE {
     {
       ?context gsn:refersTo ?older .
       ?issue gsn:inContextOf ?context .
+    }
+    UNION
+    {
+      ?copy gsn:refersTo ?older .
+      ?archived gsn:supportedBy ?copy .
+      ?revised prov:wasRevisionOf ?archived .
+      ?issue gsnaug:raisedAgainst ?target .
+      FILTER(?target IN (?archived, ?revised))
     }
     ?issue gsnaug:issueType ?type ;
            schema:identifier ?issueId .
@@ -5104,6 +5167,26 @@ WHERE {
   }
 }
 ORDER BY ?artefact ?solutionId ?goalId
+""" .
+
+gsndesign:query-RQ-AUG-tagged_elements
+    a gsndesign:Query ;
+    rdfs:label "RQ-AUG-tagged_elements" ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "augmentation/queries/RQ-AUG-tagged_elements.rq" ;
+    gsndesign:fileChecksum "ad42a577b0efa2b4ed34f13e27f202f0d72f1fe8a981c08b1c5371aac6d3a51a" ;
+    gsndesign:declaresNamespace "http://schema.org/" ,
+        "https://w3id.org/OntoGSN/augmentation#" ;
+    gsndesign:answersQuestion gsndesign:cq-RQ-AUG-tagged_elements ;
+    gsndesign:queryText """PREFIX gsnaug:  <https://w3id.org/OntoGSN/augmentation#>
+PREFIX schema:  <http://schema.org/>
+
+SELECT ?tag ?subjectId ?subject
+WHERE {
+  ?subject gsnaug:tag ?tag .
+  OPTIONAL { ?subject schema:identifier ?subjectId }
+}
+ORDER BY ?tag ?subjectId
 """ .
 
 gsndesign:query-RQ-AUG-term_impact

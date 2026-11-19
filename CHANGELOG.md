@@ -23,7 +23,7 @@ release. These are the current versions:
 | :--- | :--- | :--- |
 | Ontology | 1.3.1 | `ontology/serializations/ontogsn.ttl` |
 | SHACL shapes | 1.2.0 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
-| Augmentation, and its shapes | 0.6.0 | `augmentation/ontogsn-augmentation.ttl` |
+| Augmentation, and its shapes | 0.7.0 | `augmentation/ontogsn-augmentation.ttl` |
 | Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
 | Design record | 1.5.0 | `development/design/ontogsn-design.ttl` |
 
@@ -43,6 +43,28 @@ Versions 1.0 and 1.1 predate this repository; no artefact of either survives her
 The ontology as published is described in the paper (arXiv:2506.11023).
 
 ---
+
+## Augmentation 0.7.0 (2026-11-19)
+
+Version part: minor.
+
+**Not breaking.** The Augmentation reuses two terms for gaps that the RSC audit hub found, and
+it answers two more questions. No term is renamed or removed, and no rule changes.
+
+- `schema:url` on an artefact names the place where its file is found, such as a path.
+  `gsnaug:storedIn` names the system that keeps it. OntoGSN declares `schema:url` an annotation
+  property, so the Augmentation reuses it as one, with no domain or range.
+- A revised GSN element, for example a goal with new words, is `prov:wasRevisionOf` its earlier
+  version. `gsnaug:replaces` stays for artefacts. A note on `gsnaug:replaces` says so.
+- `RQ-AUG-revision_diff` finds the issue on a third path: an issue against an earlier version of
+  a goal, or against the goal that revises it, when the earlier version rests on the older
+  artefact. On the fixture it adds one row.
+- Two new reads: `RQ-AUG-element_revisions` (which claims or solutions were revised, and what
+  they said before) and `RQ-AUG-tagged_elements` (which elements carry a tag).
+- `augmentation/testdata/example_issues.ttl` has a revised control goal with an archived copy,
+  for the three queries.
+- The record of the Augmentation gives the reasons in `dd-0116` to `dd-0119`. `dd-0118`
+  supersedes `dd-0114`.
 
 ## Design record 1.5.0 (2026-11-19)
 
