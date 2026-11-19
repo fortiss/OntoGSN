@@ -9,7 +9,7 @@ at the time. PROV-O is the backbone; `gsndesign:` adds only the terms PROV-O has
 | File | Role |
 | :--- | :--- |
 | `ontogsn-design.ttl` | the vocabulary. Hand-written. |
-| `ontogsn-design-data.ttl` | the record — 966 decisions, 297 passages, 259 rationales, 920 statements. **Source of truth**, edited by hand. |
+| `ontogsn-design-data.ttl` | the record — 968 decisions, 297 passages, 261 rationales, 920 statements. **Source of truth**, edited by hand. |
 | `ontogsn-design-inventory.ttl` | requirements, competency questions, stored queries, build chains. **Generated**, rebuilt by `development/dev_tools/prov_inventory.py`. |
 | `Design Documentation.xlsx` | a human-readable view of the record. **Generated**, never read back. |
 | `requirements.csv` | the initial requirements R1 to R7. Hand-maintained; read by `development/dev_tools/prov_inventory.py`, with the registries of the queries, `ontology/queries/registry.csv` and `augmentation/registry.csv`. |
@@ -107,7 +107,7 @@ README of its folder, and the reason for a choice is a decision here.
 
 `gsndesign:DesignDecision ⊑ prov:Activity`, not `prov:Entity`. It `prov:used` the passages it
 rested on and `prov:generated` the statement it produced — so a decision to represent
-**nothing** is still well-formed: it simply generated nothing. 118 of the 966 decisions are
+**nothing** is still well-formed: it simply generated nothing. 119 of the 968 decisions are
 of that kind, and PROV-O has no notion of an entity that deliberately does not exist.
 
 That also makes the decision the natural home for the rationale, because the decision *is*

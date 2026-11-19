@@ -1835,7 +1835,8 @@ gsndesign:query-RL-GSN-challenge_chain_invalidation
         gsn:valid ;
     gsndesign:ruleName "Challenge Chain Invalidation" ;
     gsndesign:translatesStatement gsndesign:st-1070 ;
-    gsndesign:differsBy gsndesign:Retraction ;
+    gsndesign:differsBy gsndesign:Retraction ,
+        gsndesign:NodeContent ;
     gsndesign:restsOnStatement gsndesign:st-0114 ,
         gsndesign:st-0161 ,
         gsndesign:st-0167 ,
@@ -2075,6 +2076,8 @@ gsndesign:query-RL-GSN-challenge_relation_creation
         gsn:relationshipType ;
     gsndesign:ruleName "Challenge Relation Creation" ;
     gsndesign:translatesStatement gsndesign:st-1073 ;
+    gsndesign:differsBy gsndesign:Guard ,
+        gsndesign:NodeContent ;
     gsndesign:restsOnStatement gsndesign:st-0120 ,
         gsndesign:st-0291 ,
         gsndesign:st-0696 ,
@@ -2127,6 +2130,7 @@ gsndesign:query-RL-GSN-confidence_relation_creation
         gsn:assuranceClaimPoint ;
     gsndesign:ruleName "Confidence Relation Creation" ;
     gsndesign:translatesStatement gsndesign:st-1067 ;
+    gsndesign:differsBy gsndesign:NodeContent ;
     gsndesign:restsOnStatement gsndesign:st-0287 ,
         gsndesign:st-0635 ,
         gsndesign:st-0648 ;
@@ -2177,6 +2181,7 @@ gsndesign:query-RL-GSN-context_consistency
         gsn:supportedBy ;
     gsndesign:ruleName "Context Consistency" ;
     gsndesign:translatesStatement gsndesign:st-0572 ;
+    gsndesign:differsBy gsndesign:Guard ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0181 ,
         gsndesign:st-0207 ,
@@ -2336,6 +2341,8 @@ gsndesign:query-RL-GSN-context_relation_creation
         gsn:inContextOf ;
     gsndesign:ruleName "Context Relation Creation" ;
     gsndesign:translatesStatement gsndesign:st-1074 ;
+    gsndesign:differsBy gsndesign:Guard ,
+        gsndesign:NodeContent ;
     gsndesign:restsOnStatement gsndesign:st-0218 ,
         gsndesign:st-0291 ;
     gsndesign:queryText """# name:      Context Relation Creation
@@ -2945,6 +2952,7 @@ gsndesign:query-RL-GSN-goal_confidence_relation
         gsn:supportedBy ;
     gsndesign:ruleName "Goal Confidence Relation" ;
     gsndesign:translatesStatement gsndesign:st-1106 ;
+    gsndesign:differsBy gsndesign:NodeContent ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0207 ,
         gsndesign:st-0635 ,
@@ -3009,6 +3017,7 @@ gsndesign:query-RL-GSN-goal_strategy_confidence
         gsn:supportedBy ;
     gsndesign:ruleName "Goal-Strategy Confidence" ;
     gsndesign:translatesStatement gsndesign:st-1108 ;
+    gsndesign:differsBy gsndesign:NodeContent ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0167 ,
         gsndesign:st-0207 ,
@@ -3576,6 +3585,7 @@ gsndesign:query-RL-GSN-solution_confidence_relation
         gsn:supportedBy ;
     gsndesign:ruleName "Solution Confidence Relation" ;
     gsndesign:translatesStatement gsndesign:st-1107 ;
+    gsndesign:differsBy gsndesign:NodeContent ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0175 ,
         gsndesign:st-0207 ,
@@ -3734,6 +3744,7 @@ gsndesign:query-RL-GSN-strategy_confidence_relation
         gsn:supportedBy ;
     gsndesign:ruleName "Strategy Confidence Relation" ;
     gsndesign:translatesStatement gsndesign:st-1109 ;
+    gsndesign:differsBy gsndesign:NodeContent ;
     gsndesign:restsOnStatement gsndesign:st-0161 ,
         gsndesign:st-0167 ,
         gsndesign:st-0207 ,
@@ -3972,6 +3983,8 @@ gsndesign:query-RL-GSN-support_relation_creation
         gsn:supportedBy ;
     gsndesign:ruleName "Support Relation Creation" ;
     gsndesign:translatesStatement gsndesign:st-1075 ;
+    gsndesign:differsBy gsndesign:Guard ,
+        gsndesign:NodeContent ;
     gsndesign:restsOnStatement gsndesign:st-0207 ,
         gsndesign:st-0291 ;
     gsndesign:queryText """# name:      Support Relation Creation

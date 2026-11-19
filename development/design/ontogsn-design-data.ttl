@@ -24,7 +24,7 @@
 <https://w3id.org/OntoGSN/design/data> a owl:Ontology ;
     owl:imports <https://w3id.org/OntoGSN/design> ;
     dc:title "OntoGSN Design Record - the decisions"@en ;
-    dc:description "Why each of the 966 axioms, rules and constraints of OntoGSN exists."@en ;
+    dc:description "Why each of the 968 axioms, rules and constraints of OntoGSN exists."@en ;
     owl:versionInfo "1.0.0" .
 
 
@@ -28089,6 +28089,14 @@ gsndesign:why-0264
     a gsndesign:Rationale ;
     gsndesign:rationaleText "The standard asks that each element of a pattern is removed or instantiated in the final argument, and it speaks of the obligation to instantiate all pattern elements. So the instantiation of a pattern is a relation between elements too. The domain of gsn:instantiationOf already admits an element, but the range admitted only a pattern. A case that linked an element to the element of the pattern that it copies therefore made a reasoner type that template element as a pattern. Final Pattern Invalidation then read it as a pattern inside the final argument. The range is now the union of gsn:Pattern and gsn:GSNElement, and the range shape takes the same union. The rule names gsn:Pattern in its own body, so it keeps its meaning. A reasoner derives fewer types than before, and a case that was valid stays valid. The RSC audit hub links each element of an audit to the element of the audit pattern, and proposed the change."@en .
 
+gsndesign:why-0265
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "Before 1.4.0, no rule mapped a kind of change to a part of the number. 1.2.2 and 1.3.1 were patch numbers, but each changed what a reasoner derives, and 1.3.1 added two rules. The public interface of a component is its terms, what a reasoner derives with its axioms and rules, and what its shapes report. A removed, renamed or changed term, or a valid case that becomes invalid, is major. An addition, a wider domain or range, or a rule that derives other triples is minor. A change of text or metadata alone is a patch. The label Breaking for reasoners stays in the CHANGELOG, because it names the effect and not the number. Under strict SemVer, nearly every rule fix would be major. The earlier numbers stay, because tags and copies of them exist. release_check.py makes sure that each new entry states its part, and that the part agrees with the step between the numbers."@en .
+
+gsndesign:why-0266
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The RSC audit hub found twins that the record called exact and that are not. Three kinds of difference did not show in the text of the update alone. A FILTER that compares two variables is a guard if the SWRL rule has no differentFrom atom for it, as in Context Consistency. A test for an existing node with a new variable is a guard if it does not name the class of the node, because it also matches the node of another rule. The relation-creation rules then skip a link that a confidence node already reifies. And the updates write schema:identifier and rdf:predicate on the nodes that they make, which the SWRL heads do not. The guard of the confidence rules reads that identifier, so under SWRL a confidence moves one step and the twins move it further. The SWRL heads stay as they are. rdf:predicate is reserved vocabulary, which OWL 2 DL does not allow as an object property, and an identifier in a head brings back the loop that 1.3.1 closed."@en .
+
 gsndesign:dd-1101
     a gsndesign:DesignDecision ;
     gsndesign:positionKey "S01.R57" ;
@@ -28158,6 +28166,26 @@ gsndesign:dd-1132
     gsndesign:naturalLanguage "A runner applies the SPARQL rules in the order of the registry, not in the order of their file names."@en ;
     gsndesign:noSourceRecorded "true"^^xsd:boolean ;
     gsndesign:hasRationale gsndesign:why-0263 .
+
+gsndesign:dd-1136
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R78" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:NoFormalism ;
+    gsndesign:naturalLanguage "The kind of change decides which part of a version number moves, after Semantic Versioning 2.0.0, and each CHANGELOG entry states that part."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0265 .
+
+gsndesign:dd-1137
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S01.R79" ;
+    gsndesign:part gsndesign:part-0 ;
+    gsndesign:section gsndesign:sec-ontology-specific ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:naturalLanguage "The differences between a SPARQL rule and its SWRL rule are derived from both texts, and node content is a third kind of difference."@en ;
+    gsndesign:noSourceRecorded "true"^^xsd:boolean ;
+    gsndesign:hasRationale gsndesign:why-0266 .
 
 
 #################################################################

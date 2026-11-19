@@ -282,6 +282,8 @@ def twin_counts():
         "rule_twins_exact": len([t for t in twins if not t["differences"]]),
         "rule_twins_retracting": len([t for t in twins if "retraction" in t["differences"]]),
         "rule_twins_guarding": len([t for t in twins if "guard" in t["differences"]]),
+        "rule_twins_node_content": len([t for t in twins
+                                        if "node content" in t["differences"]]),
     }
 
 

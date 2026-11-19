@@ -25,7 +25,7 @@ release. These are the current versions:
 | SHACL shapes | 1.2.0 | `ontology/shapes/ontogsn-shapes_0_full.ttl` |
 | Augmentation, and its shapes | 0.6.0 | `augmentation/ontogsn-augmentation.ttl` |
 | Alignment | 0.1.0 | `alignments/ontogsn-align.ttl` |
-| Design record | 1.4.0 | `development/design/ontogsn-design.ttl` |
+| Design record | 1.5.0 | `development/design/ontogsn-design.ttl` |
 
 The SHACL shapes (`ontology/shapes/`) version independently, but a shapes release is only meaningful
 against an ontology version, so both are listed together.
@@ -43,6 +43,27 @@ Versions 1.0 and 1.1 predate this repository; no artefact of either survives her
 The ontology as published is described in the paper (arXiv:2506.11023).
 
 ---
+
+## Design record 1.5.0 (2026-11-19)
+
+Version part: minor.
+
+**Not breaking.** The record finds more differences between a SPARQL rule and its SWRL rule. The
+RSC audit hub found twins that the record called exact and that are not.
+
+- `gsndesign:NodeContent` is a new member of `gsndesign:TranslationDifference`. The update writes
+  a triple on the node that it makes, such as `schema:identifier` or `rdf:predicate`, and the
+  head of the rule does not. A rule that reads that triple matches the node of the update only.
+- `development/dev_tools/prov_inventory.py` reads the text of the SWRL rule too. A
+  `FILTER(?a != ?b)` without a `differentFrom` atom in the rule is a guard. A test for an
+  existing node that does not name the class of the node is a guard.
+- Ten twins change their level. `RL-GSN-context_consistency` has a guard.
+  `RL-GSN-support_relation_creation`, `RL-GSN-context_relation_creation` and
+  `RL-GSN-challenge_relation_creation` have a guard and node content. The five rules of
+  confidence relations and `RL-GSN-challenge_chain_invalidation` have node content. Of the 60
+  twins, 10 are now exact.
+- The SWRL rules do not change. Decisions `dd-1136` (the version protocol) and `dd-1137` (the
+  differences) give the reasons.
 
 ## Query and rule IDs (2026-11-18)
 

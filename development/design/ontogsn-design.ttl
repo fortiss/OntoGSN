@@ -26,7 +26,7 @@ deliberately NOT imported by either of them: doing so would drag roughly two tho
 individuals into the ABox of every reasoner run over an assurance case."""@en ;
     dc:source "The Assurance Case Working Group (ACWG). (2021 May). Goal Structuring Notation Community Standard Version 3. URL: http://scsc.uk/SCSC-141C"@en ;
     vann:preferredNamespacePrefix "gsndesign" ;
-    owl:versionInfo "1.4.0" ;
+    owl:versionInfo "1.5.0" ;
     rdfs:seeAlso <https://w3id.org/OntoGSN/ontology> , <https://w3id.org/OntoGSN/shapes> .
 
 
@@ -244,7 +244,7 @@ gsndesign:differsBy rdf:type owl:ObjectProperty ;
     rdfs:range gsndesign:TranslationDifference ;
     rdfs:label "differs by"@en ;
     skos:definition "A way in which this query does more than the statement that it translates."@en ;
-    skos:scopeNote "Derived from the text of the query by development/dev_tools/prov_inventory.py. A rule query without this property draws the same conclusions as its SWRL rule."@en .
+    skos:scopeNote "Derived by development/dev_tools/prov_inventory.py from the text of the query and the text of its SWRL rule. A rule query without this property draws the same conclusions as its SWRL rule."@en .
 
 ###  https://w3id.org/OntoGSN/design#restsOnStatement
 gsndesign:restsOnStatement rdf:type owl:ObjectProperty ;
@@ -562,6 +562,8 @@ gsndesign:Retraction rdf:type gsndesign:TranslationDifference ; skos:prefLabel "
 gsndesign:Guard rdf:type gsndesign:TranslationDifference ; skos:prefLabel "guard" ;
     skos:definition "The update draws its conclusion only if a stated fact is absent. A SWRL rule cannot test that a fact is absent, so it draws the conclusion in those cases too."@en ;
     skos:note "A NOT EXISTS that tests only for what the update is about to insert is not a guard. It keeps the update from writing a second copy."@en .
+gsndesign:NodeContent rdf:type gsndesign:TranslationDifference ; skos:prefLabel "node content" ;
+    skos:definition "The update writes a triple on the node that it makes, and the head of the SWRL rule does not write it, for example schema:identifier or rdf:predicate. A rule or a query that reads that triple matches the node of the update and not the node of the rule."@en .
 
 gsndesign:part-0 rdf:type gsndesign:StandardPart ; skos:prefLabel "Part 0 etc." .
 gsndesign:part-1 rdf:type gsndesign:StandardPart ; skos:prefLabel "Part 1" .
