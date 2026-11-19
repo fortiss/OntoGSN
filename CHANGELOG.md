@@ -10,6 +10,11 @@ the header metadata. Entries up to 1.3.0 are reconstructed by hand from the
 commit log and `development/design/`; from the next release on, an entry is written when the version
 number moves.
 
+From ontology 1.4.0, shapes 1.3.0, Augmentation 0.7.0 and design record 1.5.0 on, the kind of
+change decides which part of a number moves. The section "Which number moves" of
+`development/README.md` gives the protocol. The first line under the heading of each such entry
+states the part, for example `Version part: minor.`
+
 Each component of the repository has its own version number. Two components can have the same
 number, for example ontology 1.3.0 and design record 1.3.0, and that does not make them one
 release. These are the current versions:

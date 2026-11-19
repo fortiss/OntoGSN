@@ -111,6 +111,7 @@ before committing.
 check_all.py       every check, one command
 query_check.py     the stored queries vs an actual SPARQL engine
 release_check.py   every place that states a version or a rule count vs the ontology header
+                   and the version part of each CHANGELOG entry vs its version step
 doc_counts.py      every count that a README or a website page states vs its source: the
                    design record, the query folder, the augmentation, the alignment and
                    the last reports; without --check, it corrects the stale numbers.
