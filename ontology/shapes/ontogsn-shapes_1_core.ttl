@@ -179,14 +179,28 @@ gsnsh:GoalShape rdf:type sh:NodeShape ;
         sh:name "in context of" ;
         sh:message "A goal may only be placed in the context of an assumption, a context, a justification or a module."@en ;
         sh:severity sh:Violation ;
-    ] ;
-    sh:property [
-        sh:path gsn:inContextOf ;
-        sh:qualifiedValueShape [ sh:class gsn:Context ] ;
-        sh:qualifiedMinCount 1 ;
-        sh:name "in context of a context" ;
-        sh:message "A goal should be placed in at least one context."@en ;
-        sh:severity sh:Warning ;
+    ] .
+
+gsnsh:GoalInScopeOfContextShape rdf:type sh:NodeShape ;
+    rdfs:label "Goal in the scope of a context"@en ;
+    rdfs:comment "A context constrains the scope of the goal that it is linked to, and of the argument that supports that goal. So a goal is in the scope of a context if it, or a goal or strategy above it, is in the context of one."@en ;
+    sh:targetClass gsn:Goal ;
+    gsn:coreOrExtension "Core GSN"@en ;
+    sh:severity sh:Warning ;
+    sh:sparql [
+        rdf:type sh:SPARQLConstraint ;
+        sh:message "{$this} is in the scope of no context: neither it nor an element above it is in the context of one."@en ;
+        sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ;
+        sh:select """
+            SELECT $this
+            WHERE {
+                FILTER NOT EXISTS {
+                    ?above gsn:supportedBy* $this ;
+                           gsn:inContextOf ?context .
+                    ?context a gsn:Context .
+                }
+            }
+        """ ;
     ] .
 
 

@@ -24,7 +24,7 @@
 <https://w3id.org/OntoGSN/design/data> a owl:Ontology ;
     owl:imports <https://w3id.org/OntoGSN/design> ;
     dc:title "OntoGSN Design Record - the decisions"@en ;
-    dc:description "Why each of the 969 axioms, rules and constraints of OntoGSN exists."@en ;
+    dc:description "Why each of the 970 axioms, rules and constraints of OntoGSN exists."@en ;
     owl:versionInfo "1.0.0" .
 
 
@@ -19754,7 +19754,9 @@ gsndesign:st-0785
         gsnsh:GoalShape .
 
 gsndesign:dd-0786
-    a gsndesign:DesignDecision ;
+    a gsndesign:RetiredDecision ;
+    gsndesign:retirementReason "The warning moved to gsnsh:GoalInScopeOfContextShape, which accepts a context above the goal (shapes 1.3.0)."@en ;
+    gsndesign:supersededBy gsndesign:dd-1139 ;
     gsndesign:positionKey "S04.SH018" ;
     gsndesign:part gsndesign:part-1 ;
     gsndesign:section gsndesign:sec-core ;
@@ -28101,6 +28103,10 @@ gsndesign:why-0267
     a gsndesign:Rationale ;
     gsndesign:rationaleText "A top goal presents the overall claim of the argument. A goal that challenges another element is the source of a challenge, so it argues against a part of the structure and is not the overall claim. The SPARQL form of Goal Top Flag already took the flag from such a goal in a second branch, and the SWRL form did not. The SWRL rule has one body per rule, so the challenge is a rule of its own, in the Dialectic Extension, with a SPARQL form of its own. Proposed by the rule study of the RSC audit hub. On 2026-11-19, the SWRLAPI, Openllet, HermiT and GraphDB derived its head over one witness of its body, as its SPARQL form did."@en .
 
+gsndesign:why-0268
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "The earlier warning asked each goal for a context of its own, with no source and no rationale recorded. The standard says that a context constrains the scope of the claim, and that nothing in the supporting argument may undermine it, so a context reaches the argument below its goal. It also says that the context in scope of a goal can be more than the context linked to it. Context Inheritance carries only an assumption, and only one step. So the warning fired on each goal under a strategy, although a context above it was in scope. The RSC audit hub listed it as a limitation of the shapes. The new shape looks up the support chain, and it stays a warning, because a context is good practice and not a rule of the standard."@en .
+
 gsndesign:dd-1101
     a gsndesign:DesignDecision ;
     gsndesign:positionKey "S01.R57" ;
@@ -28830,4 +28836,66 @@ challenges(?A, ?B) ^ Goal(?A) -> top(?A, false)""" ;
     gsndesign:mentionsTerm gsn:Goal ,
         gsn:challenges ,
         gsn:top .
+
+
+#################################################################
+#    Added by prov_add.py (2 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1139
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S04.SH082" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-core ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "A goal should be in the scope of a context: it, or a goal or strategy above it, is in the context of one."@en ;
+    gsndesign:nlWrittenFor "694065e5" ;
+    prov:used gsndesign:src-0066 ,
+        gsndesign:src-0218 ;
+    gsndesign:hasRationale gsndesign:why-0268 ;
+    prov:generated gsndesign:st-1139 .
+
+gsndesign:st-1139
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1139 ;
+    gsndesign:inGraph gsndesign:shapes-1.2.0 ;
+    gsndesign:statementText """gsnsh:GoalInScopeOfContextShape gsn:coreOrExtension "Core GSN"@en ;
+    rdf:type sh:NodeShape ;
+    rdfs:comment "A context constrains the scope of the goal that it is linked to, and of the argument that supports that goal. So a goal is in the scope of a context if it, or a goal or strategy above it, is in the context of one."@en ;
+    rdfs:label "Goal in the scope of a context"@en ;
+    sh:severity sh:Warning ;
+    sh:targetClass gsn:Goal .""" ;
+    gsndesign:statementChecksum "694065e5" ;
+    gsndesign:structuralKey "gsnsh:GoalInScopeOfContextShape|node|" ;
+    gsndesign:aboutTerm gsnsh:GoalInScopeOfContextShape ;
+    gsndesign:mentionsTerm gsn:Goal ,
+        gsn:coreOrExtension ,
+        gsnsh:GoalInScopeOfContextShape .
+
+gsndesign:dd-1140
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S04.SH083" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-core ;
+    gsndesign:formalism gsndesign:SHACL ;
+    gsndesign:naturalLanguage "{$this} is in the scope of no context: neither it nor an element above it is in the context of one."@en ;
+    gsndesign:nlWrittenFor "44195c70" ;
+    prov:used gsndesign:src-0066 ,
+        gsndesign:src-0218 ;
+    gsndesign:hasRationale gsndesign:why-0268 ;
+    prov:generated gsndesign:st-1140 .
+
+gsndesign:st-1140
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1140 ;
+    gsndesign:inGraph gsndesign:shapes-1.2.0 ;
+    gsndesign:statementText "gsnsh:GoalInScopeOfContextShape sh:sparql [ rdf:type sh:SPARQLConstraint ; sh:message \"{$this} is in the scope of no context: neither it nor an element above it is in the context of one.\"@en ; sh:prefixes <https://w3id.org/OntoGSN/shapes/core> ; sh:select \"SELECT $this WHERE { FILTER NOT EXISTS { ?above gsn:supportedBy* $this ; gsn:inContextOf ?context . ?context a gsn:Context . } }\" ] ." ;
+    gsndesign:statementChecksum "44195c70" ;
+    gsndesign:structuralKey "gsnsh:GoalInScopeOfContextShape|sparql|{$this} is in the scope of no context: n" ;
+    gsndesign:aboutTerm gsnsh:GoalInScopeOfContextShape ;
+    gsndesign:mentionsTerm gsn:Context ,
+        gsn:inContextOf ,
+        gsn:supportedBy ,
+        gsnsh:GoalInScopeOfContextShape .
 
