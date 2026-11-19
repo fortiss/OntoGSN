@@ -1701,6 +1701,34 @@ gsnswrl:Arg rdf:type swrl:Variable .
  ] .
 
 [ swrla:isRuleEnabled "true"^^xsd:boolean ;
+   rdfs:label "Goal Top Flag (Challenge)" ;
+   gsn:coreOrExtension "Dialectic Extension" ;
+   rdf:type swrl:Imp ;
+   swrl:body [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:IndividualPropertyAtom ;
+                           swrl:propertyPredicate gsn:challenges ;
+                           swrl:argument1 gsnswrl:A ;
+                           swrl:argument2 gsnswrl:B
+                         ] ;
+               rdf:rest [ rdf:type swrl:AtomList ;
+                          rdf:first [ rdf:type swrl:ClassAtom ;
+                                      swrl:classPredicate gsn:Goal ;
+                                      swrl:argument1 gsnswrl:A
+                                    ] ;
+                          rdf:rest rdf:nil
+                        ]
+             ] ;
+   swrl:head [ rdf:type swrl:AtomList ;
+               rdf:first [ rdf:type swrl:DatavaluedPropertyAtom ;
+                           swrl:propertyPredicate gsn:top ;
+                           swrl:argument1 gsnswrl:A ;
+                           swrl:argument2 "false"^^xsd:boolean
+                         ] ;
+               rdf:rest rdf:nil
+             ]
+ ] .
+
+[ swrla:isRuleEnabled "true"^^xsd:boolean ;
    rdfs:label "Contradictory Goal Truth" ;
    gsn:coreOrExtension "Core GSN" ;
    rdf:type swrl:Imp ;

@@ -538,7 +538,7 @@ gsndesign:cq-WQ-GSN-update_solution_artefact
 
 
 #################################################################
-#    Stored queries (162)
+#    Stored queries (163)
 #    The IRI and the label of a query are its ID, which is also its file name.
 #    skos:hiddenLabel keeps each ID and file name that the ID replaced, so an old name
 #    still finds the query.
@@ -3071,11 +3071,10 @@ gsndesign:query-RL-GSN-goal_top_flag
         "s06_goal_top_flag.rq" ;
     gsndesign:formalism gsndesign:SPARQL ;
     gsndesign:path "ontology/queries/rules/RL-GSN-goal_top_flag.rq" ;
-    gsndesign:fileChecksum "dd24ce430f241e917ed6bb3684c155033811914db4b6725523561ee814c7cf58" ;
+    gsndesign:fileChecksum "f2d6c63fc897a0e357120d69f7f717a4bebb8cc49fa9bc48dd9b6c96ef734cce" ;
     gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
     gsndesign:mentionsTerm gsn:Goal ,
         gsn:Module ,
-        gsn:challenges ,
         gsn:contains ,
         gsn:supportedBy ,
         gsn:top ;
@@ -3087,9 +3086,7 @@ gsndesign:query-RL-GSN-goal_top_flag
         gsndesign:st-0161 ,
         gsndesign:st-0207 ,
         gsndesign:st-0469 ,
-        gsndesign:st-0474 ,
-        gsndesign:st-0696 ,
-        gsndesign:st-0740 ;
+        gsndesign:st-0474 ;
     gsndesign:queryText """# name:      Goal Top Flag
 # expect:    change
 
@@ -3099,16 +3096,44 @@ DELETE { ?A gsn:top ?old }
 INSERT { ?A gsn:top false }
 WHERE {
   ?A a gsn:Goal .
-  {
-    ?X gsn:supportedBy ?A .
-    FILTER NOT EXISTS {
-      ?M a gsn:Module .
-      ?M gsn:contains+ ?X .
-      FILTER NOT EXISTS { ?M gsn:contains+ ?A }
-    }
+  ?X gsn:supportedBy ?A .
+  FILTER NOT EXISTS {
+    ?M a gsn:Module .
+    ?M gsn:contains+ ?X .
+    FILTER NOT EXISTS { ?M gsn:contains+ ?A }
   }
-  UNION
-  { ?A gsn:challenges ?target }
+  OPTIONAL { ?A gsn:top ?old }
+  FILTER(!BOUND(?old) || STR(?old) != "false")
+}
+""" .
+
+gsndesign:query-RL-GSN-goal_top_flag_challenge
+    a gsndesign:Query ;
+    rdfs:label "RL-GSN-goal_top_flag_challenge" ;
+    gsndesign:formalism gsndesign:SPARQL ;
+    gsndesign:path "ontology/queries/rules/RL-GSN-goal_top_flag_challenge.rq" ;
+    gsndesign:fileChecksum "cd301892f6e546dd253ec3c43296bed3f9a4db0b0c5a486de9c7923692d6730b" ;
+    gsndesign:declaresNamespace "https://w3id.org/OntoGSN/ontology#" ;
+    gsndesign:mentionsTerm gsn:Goal ,
+        gsn:challenges ,
+        gsn:top ;
+    gsndesign:ruleName "Goal Top Flag (Challenge)" ;
+    gsndesign:translatesStatement gsndesign:st-1138 ;
+    gsndesign:differsBy gsndesign:Retraction ;
+    gsndesign:restsOnStatement gsndesign:st-0144 ,
+        gsndesign:st-0161 ,
+        gsndesign:st-0696 ,
+        gsndesign:st-0740 ;
+    gsndesign:queryText """# name:      Goal Top Flag (Challenge)
+# expect:    change
+
+PREFIX gsn: <https://w3id.org/OntoGSN/ontology#>
+
+DELETE { ?A gsn:top ?old }
+INSERT { ?A gsn:top false }
+WHERE {
+  ?A a gsn:Goal ;
+     gsn:challenges ?B .
   OPTIONAL { ?A gsn:top ?old }
   FILTER(!BOUND(?old) || STR(?old) != "false")
 }
@@ -7473,14 +7498,14 @@ WHERE {
 gsndesign:file-ontogsn-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/ontogsn.ttl" ;
-    gsndesign:fileChecksum "b03818e63f397101246fe254f43432156f59d47f1af6c1f036cce7b6e5c95742" ;
+    gsndesign:fileChecksum "63ab7943ebefef076805f23f971eabb5bb100284e3f97248603aa557eb933af1" ;
     gsndesign:declaredVersion "1.3.1" ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> .
 
 gsndesign:file-ontogsn-rdf
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/ontogsn.rdf" ;
-    gsndesign:fileChecksum "4f16af2e2c007e43d248c0278c32154b5da216b4c0cc2dd2568230acbf0526b9" ;
+    gsndesign:fileChecksum "91170dd9d7f6368e3f9bf4edbbf9329b3b000d221bf29bd02d661a2e941065cf" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-serializations .
@@ -7488,7 +7513,7 @@ gsndesign:file-ontogsn-rdf
 gsndesign:file-ontogsn-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/ontogsn.jsonld" ;
-    gsndesign:fileChecksum "6e8ca9a64211fa4a95adec7f4f186371c269c38084a5dc9159d033f3b43eab77" ;
+    gsndesign:fileChecksum "4b43777588b19a8b3ce73e41f9a108af258bac3ed52129ba0d4f75c71c0c538e" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-serializations .
@@ -7574,7 +7599,7 @@ gsndesign:agent-build-full-py
 gsndesign:file-ontogsn-complete-0-full-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_0_full.jsonld" ;
-    gsndesign:fileChecksum "18a21a689e46478a26527008ab375429307b51fc80a39d7f8623cb0f3df99d41" ;
+    gsndesign:fileChecksum "e091cb1f57913d5aedb0f0b4cdf94abbc4c597a73858609d9215efdcc0cbfe87" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -7582,7 +7607,7 @@ gsndesign:file-ontogsn-complete-0-full-jsonld
 gsndesign:file-ontogsn-complete-0-full-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_0_full.ttl" ;
-    gsndesign:fileChecksum "d1f267afa7d6db26c942344a19c4852d30557d54604358b1f15fc3adec0aee93" ;
+    gsndesign:fileChecksum "88ec837dad3cd8feae824a0f4f3aab65c20dcd9f004af1b7500b4450edb3b97c" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;
@@ -7659,7 +7684,7 @@ gsndesign:file-ontogsn-complete-4-confidence-ttl
 gsndesign:file-ontogsn-complete-5-dialectic-jsonld
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_5_dialectic.jsonld" ;
-    gsndesign:fileChecksum "fd3519700670dd17b2e16278274304b71cd4cbab8e3bd249b68ee334c7541671" ;
+    gsndesign:fileChecksum "c180fa7bcb9060eb01ab4f441663a94d4cec72d5098abaeacd598e1ce7b0796d" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated .
@@ -7667,7 +7692,7 @@ gsndesign:file-ontogsn-complete-5-dialectic-jsonld
 gsndesign:file-ontogsn-complete-5-dialectic-ttl
     a gsndesign:File ;
     gsndesign:path "ontology/serializations/separated/ontogsn-complete_5_dialectic.ttl" ;
-    gsndesign:fileChecksum "b6b3a4c2de5e851a14274f8b5e6a0bc3c449f62a377b7d4567944174c419072d" ;
+    gsndesign:fileChecksum "b17dfc63fc6739e71a6aabefe8ce7e66b1136fcebe9dbe0779b850ada36b6b03" ;
     prov:wasDerivedFrom gsndesign:file-ontogsn-ttl ;
     prov:specializationOf <https://w3id.org/OntoGSN/ontology> ;
     prov:wasGeneratedBy gsndesign:build-separated ;

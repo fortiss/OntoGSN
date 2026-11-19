@@ -2,7 +2,7 @@
 
 [count]: <> (rule_twins)
 
-Each of the 60 SWRL rules of [`ontogsn.ttl`](../../serializations/ontogsn.ttl) has a twin in this
+Each of the 61 SWRL rules of [`ontogsn.ttl`](../../serializations/ontogsn.ttl) has a twin in this
 folder: one SPARQL update with the same name. The twins are for a store with no reasoner.
 [`run_rules.py`](../../example/run_rules.py) applies them until no update changes the case. See
 [`../README.md`](../README.md#rules) for the commands.
@@ -26,7 +26,7 @@ cannot write a second copy.
 
 [count]: <> (rule_twins_exact rule_twins_retracting rule_twins_guarding rule_twins_node_content)
 
-Of the twins, 10 draw exactly the conclusions of their rule, 41 have a retraction, 6 have a
+Of the twins, 10 draw exactly the conclusions of their rule, 42 have a retraction, 6 have a
 guard and 9 have node content.
 
 The table below gives each twin a level:
@@ -87,6 +87,7 @@ The design record states the differences of each twin with `gsndesign:differsBy`
 | [`RL-GSN-challenge_relation_creation`](RL-GSN-challenge_relation_creation.rq) | Challenge Relation Creation | Dialectic Extension | narrower | guard, node content |
 | [`RL-GSN-context_doubt_propagation`](RL-GSN-context_doubt_propagation.rq) | Context Doubt Propagation | Dialectic Extension | close | retraction |
 | [`RL-GSN-defeated_invalidation`](RL-GSN-defeated_invalidation.rq) | Defeated Invalidation | Dialectic Extension | close | retraction |
+| [`RL-GSN-goal_top_flag_challenge`](RL-GSN-goal_top_flag_challenge.rq) | Goal Top Flag (Challenge) | Dialectic Extension | close | retraction |
 | [`RL-GSN-support_doubt_propagation`](RL-GSN-support_doubt_propagation.rq) | Support Doubt Propagation | Dialectic Extension | close | retraction |
 | [`RL-GSN-undeveloped_defeat`](RL-GSN-undeveloped_defeat.rq) | Undeveloped Defeat | Dialectic Extension | close | retraction |
 | [`RL-GSN-away_goal_invalidation`](RL-GSN-away_goal_invalidation.rq) | Away Goal Invalidation | Modular Extension | close | retraction |

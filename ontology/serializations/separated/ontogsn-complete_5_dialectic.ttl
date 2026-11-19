@@ -120,6 +120,8 @@ gsn:inContextOf a owl:ObjectProperty .
 
 gsn:relationshipType a owl:DatatypeProperty .
 
+gsn:top a owl:DatatypeProperty .
+
 gsn:true a owl:DatatypeProperty .
 
 gsn:undeveloped a owl:DatatypeProperty .
@@ -174,9 +176,9 @@ gsnswrl:G a swrl:Variable .
 
 gsnswrl:G3 a swrl:Variable .
 
-gsn:Goal a owl:Class .
-
 gsn:valid a owl:DatatypeProperty .
+
+gsn:Goal a owl:Class .
 
 gsn:Relationship a owl:Class .
 
@@ -306,6 +308,27 @@ gsnswrl:R a swrl:Variable .
                     swrl:argument1 gsnswrl:A ;
                     swrl:argument2 true ;
                     swrl:propertyPredicate gsn:inDoubt ] ;
+            rdf:rest () ] ;
+    gsn:coreOrExtension "Dialectic Extension" .
+
+[] a swrl:Imp ;
+    rdfs:label "Goal Top Flag (Challenge)" ;
+    swrla:isRuleEnabled true ;
+    swrl:body [ a swrl:AtomList ;
+            rdf:first [ a swrl:IndividualPropertyAtom ;
+                    swrl:argument1 gsnswrl:A ;
+                    swrl:argument2 gsnswrl:B ;
+                    swrl:propertyPredicate gsn:challenges ] ;
+            rdf:rest [ a swrl:AtomList ;
+                    rdf:first [ a swrl:ClassAtom ;
+                            swrl:argument1 gsnswrl:A ;
+                            swrl:classPredicate gsn:Goal ] ;
+                    rdf:rest () ] ] ;
+    swrl:head [ a swrl:AtomList ;
+            rdf:first [ a swrl:DatavaluedPropertyAtom ;
+                    swrl:argument1 gsnswrl:A ;
+                    swrl:argument2 false ;
+                    swrl:propertyPredicate gsn:top ] ;
             rdf:rest () ] ;
     gsn:coreOrExtension "Dialectic Extension" .
 

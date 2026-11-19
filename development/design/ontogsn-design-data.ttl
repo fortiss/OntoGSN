@@ -24,7 +24,7 @@
 <https://w3id.org/OntoGSN/design/data> a owl:Ontology ;
     owl:imports <https://w3id.org/OntoGSN/design> ;
     dc:title "OntoGSN Design Record - the decisions"@en ;
-    dc:description "Why each of the 968 axioms, rules and constraints of OntoGSN exists."@en ;
+    dc:description "Why each of the 969 axioms, rules and constraints of OntoGSN exists."@en ;
     owl:versionInfo "1.0.0" .
 
 
@@ -28097,6 +28097,10 @@ gsndesign:why-0266
     a gsndesign:Rationale ;
     gsndesign:rationaleText "The RSC audit hub found twins that the record called exact and that are not. Three kinds of difference did not show in the text of the update alone. A FILTER that compares two variables is a guard if the SWRL rule has no differentFrom atom for it, as in Context Consistency. A test for an existing node with a new variable is a guard if it does not name the class of the node, because it also matches the node of another rule. The relation-creation rules then skip a link that a confidence node already reifies. And the updates write schema:identifier and rdf:predicate on the nodes that they make, which the SWRL heads do not. The guard of the confidence rules reads that identifier, so under SWRL a confidence moves one step and the twins move it further. The SWRL heads stay as they are. rdf:predicate is reserved vocabulary, which OWL 2 DL does not allow as an object property, and an identifier in a head brings back the loop that 1.3.1 closed."@en .
 
+gsndesign:why-0267
+    a gsndesign:Rationale ;
+    gsndesign:rationaleText "A top goal presents the overall claim of the argument. A goal that challenges another element is the source of a challenge, so it argues against a part of the structure and is not the overall claim. The SPARQL form of Goal Top Flag already took the flag from such a goal in a second branch, and the SWRL form did not. The SWRL rule has one body per rule, so the challenge is a rule of its own, in the Dialectic Extension, with a SPARQL form of its own. Proposed by the rule study of the RSC audit hub. On 2026-11-19, the SWRLAPI, Openllet, HermiT and GraphDB derived its head over one witness of its body, as its SPARQL form did."@en .
+
 gsndesign:dd-1101
     a gsndesign:DesignDecision ;
     gsndesign:positionKey "S01.R57" ;
@@ -28794,4 +28798,36 @@ gsndesign:st-1135
         gsn:coreOrExtension ,
         gsn:instantiationOf ,
         gsnsh:InstantiationOfRangePropertyShape .
+
+
+#################################################################
+#    Added by prov_add.py (1 decisions)
+#    Drafts. Each still needs a source passage and a rationale written by hand.
+#################################################################
+
+gsndesign:dd-1138
+    a gsndesign:DesignDecision ;
+    gsndesign:positionKey "S08.R080" ;
+    gsndesign:part gsndesign:part-1 ;
+    gsndesign:section gsndesign:sec-dialectic ;
+    gsndesign:formalism gsndesign:SWRL ;
+    gsndesign:naturalLanguage "IF A challenges B AND A is a goal THEN A is NOT top (goal)"@en ;
+    gsndesign:nlWrittenFor "e9a064aa" ;
+    prov:used gsndesign:src-0041 ,
+        gsndesign:src-0269 ;
+    gsndesign:hasRationale gsndesign:why-0267 ;
+    prov:generated gsndesign:st-1138 .
+
+gsndesign:st-1138
+    a gsndesign:StatementRecord ;
+    prov:wasGeneratedBy gsndesign:dd-1138 ;
+    gsndesign:inGraph gsndesign:ontology-1.3.1 ;
+    gsndesign:statementText """# Goal Top Flag (Challenge)
+challenges(?A, ?B) ^ Goal(?A) -> top(?A, false)""" ;
+    gsndesign:statementChecksum "e9a064aa" ;
+    gsndesign:structuralKey "rule|Goal Top Flag (Challenge)" ;
+    gsndesign:ruleName "Goal Top Flag (Challenge)" ;
+    gsndesign:mentionsTerm gsn:Goal ,
+        gsn:challenges ,
+        gsn:top .
 
