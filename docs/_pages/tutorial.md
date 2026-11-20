@@ -8,7 +8,7 @@ toc_label: "Steps"
 toc_sticky: true
 ---
 
-This tutorial builds a small assurance case for a kettle. You apply the rules of the GSN Community Standard to the case, validate the case, and ask questions about it. The output on this page comes from OntoGSN 1.3.1.
+This tutorial builds a small assurance case for a kettle. You apply the rules of the GSN Community Standard to the case, validate the case, and ask questions about it. The output on this page comes from OntoGSN 1.4.0.
 
 You need Python 3 and a copy of the [OntoGSN repository](https://github.com/fortiss/OntoGSN). Run the commands from the root folder of the repository.
 
@@ -113,7 +113,7 @@ The script reports which rules fired:
 ```text
 reached a fixpoint after 3 pass(es)
 
-9 of 61 rules fired; 4,134 -> 4,184 triples
+9 of 61 rules fired; 4,166 -> 4,216 triples
   ...
   RL-GSN-goal_top_flag                                   fired in 1 pass(es)
   RL-GSN-solution_propagation_false                      fired in 1 pass(es)
@@ -135,13 +135,14 @@ pyshacl -s ontology/shapes/ontogsn-shapes_0_full.ttl \
         my-case-materialised.ttl
 ```
 
-The `-e` option adds the ontology to the data, so that the shapes see the class hierarchy. The `-a` option turns on the SPARQL-based constraints. The result has four warnings:
+The `-e` option adds the ontology to the data, so that the shapes see the class hierarchy. The `-a` option turns on the SPARQL-based constraints. The result has two warnings:
 
 | Element | Problem | Fix |
 | :--- | :--- | :--- |
 | `Sn2` | The solution points at no artefact | Add `gsn:refersTo` to the insulation test report |
 | `G1` | The goal has no parent, but it is not marked as the top goal | Add `gsn:top true` to `G1` |
-| `G2`, `G3` | The goals have no context | Add `gsn:inContextOf`, or accept the warning |
+
+The goals `G2` and `G3` have no context of their own, and the shapes do not warn about them. The context `C1` of `G1` also applies to the goals below `G1`.
 
 A warning is not a violation. To accept the warnings, add `--allow-warnings`. A violation always makes the result fail.
 
