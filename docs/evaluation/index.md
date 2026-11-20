@@ -10,7 +10,7 @@ Two tools evaluate OntoGSN. The reports are regenerated for each new version of 
 | Report | What it checks | Ontology | Tool | Result |
 | :--- | :--- | :--- | :--- | :--- |
 | [OOPS! pitfall scan](oops/) | Frequent modelling mistakes, for example a property without a domain, or a class that is used in its own definition | 1.4.0 | OOPS! 0.3.0-SNAPSHOT | 4 important and 3 minor pitfalls, 0 critical |
-| [FOOPS! FAIR assessment](foops/) | How findable, accessible, interoperable and reusable the published ontology is | 1.4.0 | FOOPS! 0.4.0 | 23 of 24 checks pass, score 96 % |
+| [FOOPS! FAIR assessment](foops/) | How findable, accessible, interoperable and reusable the published ontology is | 1.4.0 | FOOPS! 0.4.0 | 24 of 24 checks pass, score 100 % |
 
 WIDOCO generates the [documentation](../documentation/) in the same way.
 
